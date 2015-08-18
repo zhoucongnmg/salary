@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>sion-salary</artifactId>
 	<packaging>war</packaging>
-	<name>salary</name>
+	<name>salary</name> 
 	<parent>
 		<groupId>net.sion</groupId>
 		<artifactId>sion-pom</artifactId>
