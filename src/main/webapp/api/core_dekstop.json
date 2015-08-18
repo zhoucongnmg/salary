@@ -1,0 +1,4 @@
+{
+	"boot.user.update":"boot.module.update",
+	"boot.user.create": ["boot.module.create","boot.user.create"]
+}
