@@ -1,0 +1,40 @@
+{
+    "name": "accounts",
+    "settings": {
+        "cmd": {
+            "license": "commercial"
+        },
+        "canvasControls": {
+            "viewportSize": {
+                "name": "Auto Expand",
+                "builtIn": true,
+                "height": null,
+                "width": null
+            }
+        },
+        "urlPrefix": "",
+        "exportPath": "E:/dev/sts-bundle/vfabric-tc-server-developer-2.9.5.SR1/tcv29/wtpwebapps/salary/sion/salary/accounts"
+    },
+    "xdsVersion": "3.2.0",
+    "xdsBuild": 75,
+    "schemaVersion": 1,
+    "upgradeVersion": 310000000001,
+    "framework": "ext51",
+    "viewOrderMap": {
+        "view": [
+            "bbf47f9d-905d-4189-bdd9-78dbd2cf18f4",
+            "daeda771-1a4e-4d88-9d5e-bb1f42796890",
+            "444ca4ea-a40a-4daf-86a9-57aedd1b5c2e"
+        ],
+        "store": [],
+        "controller": [],
+        "model": [],
+        "resource": [
+            "4d8b21ef-6c51-452f-82cf-a7330bb44f9c",
+            "b12a8c94-a6b1-442b-9b59-968d064850c3"
+        ],
+        "app": [
+            "application"
+        ]
+    }
+}

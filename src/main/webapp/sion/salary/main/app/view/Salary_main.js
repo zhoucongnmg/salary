@@ -13,7 +13,7 @@
  * Do NOT hand edit this file.
  */
 
-Ext.define('Sion.Salary.Main.view.Salary_main', {
+Ext.define('sion.salary.main.view.Salary_main', {
     extend: 'Ext.window.Window',
 
     requires: [
@@ -137,7 +137,8 @@ Ext.define('Sion.Salary.Main.view.Salary_main', {
                         click: {
                             fn: function (){
                                     var tabs = me.down('#MainTabPanel');
-                                    var className = me.getNamespace()+'.view.'+viewName;
+                                var namespace=element.namespace?element.namespace:me.getNamespace();
+                                    var className = namespace+'.view.'+viewName;
                                     var P1 = Ext.ComponentQuery.query('#'+viewName)[0];
                                     if(!P1){
                                         P1 = Ext.create(className);
@@ -213,7 +214,7 @@ Ext.define('Sion.Salary.Main.view.Salary_main', {
 
                 itemTplStrArray.push('<div class="x-rcb-dh">');
                 itemTplStrArray.push('<div class="x-rcb-dh-left"><img class="'+element.iconCls+'" style="width:16px;height:16px;" /></div>');
-                itemTplStrArray.push('<div class="x-rcb-dh-right"><a style="text-decoration:none;color:#000000;" href ="javascript:openPanelTab(\''+element.viewName+'\',\''+element.iconCls+'\',\''+element.text+'\')" >'+element.text+'</a></div>');
+                itemTplStrArray.push('<div class="x-rcb-dh-right"><a style="text-decoration:none;color:#000000;" href ="javascript:openPanelTab(\''+element.viewName+'\',\''+element.iconCls+'\',\''+element.text+'\',\''+element.namespace+'\')" >'+element.text+'</a></div>');
                 itemTplStrArray.push('</div>');
                 itemTplStrArray.push('<div class="rcb-nr">'+element.desc+'</div>');
 
@@ -244,11 +245,11 @@ Ext.define('Sion.Salary.Main.view.Salary_main', {
 
     onEntranceBeforeRender: function(component, eOpts) {
         var me = this;
-        window.openPanelTab = function(viewName, iconClass, text) {
+        window.openPanelTab = function(viewName, iconClass, text,namespace) {
             var tabs = component.down('#MainTabPanel');
             var P1 = Ext.ComponentQuery.query('#'+viewName)[0];
             if(!P1){
-                P1 = Ext.create(me.getNamespace()+'.view.'+viewName);
+                P1 = Ext.create((namespace===null?me.getNamespace():namespace)+'.view.'+viewName);
                 P1.iconCls = iconClass;
                 P1.title= text;
                 P1.closable = true;

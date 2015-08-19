@@ -21,7 +21,7 @@ Ext.Loader.setConfig({
 
 Ext.application({
     paths: {
-        'Sion.Salary.Main': 'sion/salary/main/app'
+        'sion.salary.main': 'sion/salary/main/app'
     },
     stores: [
         'AutoMenuStore'
@@ -29,11 +29,16 @@ Ext.application({
     views: [
         'Salary_main'
     ],
-    name: 'Sion.Salary.Main',
+    name: 'sion.salary.main',
 
     launch: function() {
         Ext.util.CSS.swapStyleSheet('SalaryCSS', 'sion/salary/main/style.css');
-
+        salaryManager =new (function(){
+        })();
+        if(!salaryManager.salaryMain||salaryManager.salaryMain.isDestroyed ===true){
+            salaryManager.salaryMain = Ext.create('sion.salary.main.view.Salary_main');
+        }
+        salaryManager.salaryMain.show();
     }
 
 });

@@ -1,0 +1,63 @@
+{
+    "expandedState": {
+        "view": true,
+        "bbf47f9d-905d-4189-bdd9-78dbd2cf18f4": {
+            "id": "bbf47f9d-905d-4189-bdd9-78dbd2cf18f4",
+            "cn": [
+                {
+                    "id": "e0ebed6d-7107-4901-8ca1-87bbe1359fd0",
+                    "cn": [
+                        {
+                            "id": "49d26718-fa98-4516-b57d-f0dd288811f4"
+                        },
+                        {
+                            "id": "91e393fc-669d-44cb-8c34-f041f3824a41"
+                        },
+                        {
+                            "id": "054ad69e-84d1-47f9-a62c-24663d2c9724"
+                        },
+                        {
+                            "id": "e158cbe0-a7da-46b5-bef2-553cc3151401"
+                        },
+                        {
+                            "id": "5b88bc41-2c99-496b-b02e-b0ba669c3172"
+                        }
+                    ]
+                }
+            ]
+        },
+        "daeda771-1a4e-4d88-9d5e-bb1f42796890": {
+            "id": "daeda771-1a4e-4d88-9d5e-bb1f42796890"
+        },
+        "444ca4ea-a40a-4daf-86a9-57aedd1b5c2e": {
+            "id": "444ca4ea-a40a-4daf-86a9-57aedd1b5c2e"
+        },
+        "store": true,
+        "model": true,
+        "controller": true,
+        "resource": true,
+        "4d8b21ef-6c51-452f-82cf-a7330bb44f9c": {
+            "id": "4d8b21ef-6c51-452f-82cf-a7330bb44f9c"
+        },
+        "b12a8c94-a6b1-442b-9b59-968d064850c3": {
+            "id": "b12a8c94-a6b1-442b-9b59-968d064850c3"
+        }
+    },
+    "tabState": {
+        "openTabs": [
+            "application",
+            "bbf47f9d-905d-4189-bdd9-78dbd2cf18f4"
+        ]
+    },
+    "canvasState": {
+        "topInstance": "bbf47f9d-905d-4189-bdd9-78dbd2cf18f4"
+    },
+    "inspectorState": {
+        "topInstance": "application",
+        "selectedInstance": "application"
+    },
+    "editMode": "code",
+    "userSettings": {
+        "no-cmd": false
+    }
+}

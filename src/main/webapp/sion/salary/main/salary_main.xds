@@ -1,5 +1,5 @@
 {
-    "name": "HumanResorcesRro",
+    "name": "salary_main",
     "settings": {
         "cmd": {
             "license": "commercial"
@@ -9,7 +9,7 @@
         "genTimestamps": false,
         "cacheBust": false,
         "urlPrefix": "",
-        "exportPath": "",
+        "exportPath": "E:/dev/sts-bundle/vfabric-tc-server-developer-2.9.5.SR1/tcv29/wtpwebapps/salary/sion/salary/main",
         "buildShouldOverwriteIndex": true,
         "canvasControls": {
             "viewportSize": {

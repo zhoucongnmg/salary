@@ -1,0 +1,31 @@
+{
+    "type": "Ext.app.Application",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "name": "sion.salary.accounts",
+        "paths": [
+            "{",
+            "    'sion.salary.accounts':'sion/salary/accounts/app'",
+            "}"
+        ],
+        "views": [
+            "AccountGrid"
+        ]
+    },
+    "name": "Application",
+    "configAlternates": {
+        "paths": "object"
+    },
+    "designerId": "application",
+    "customConfigs": [
+        {
+            "group": "(Custom Properties)",
+            "name": "paths",
+            "type": "string"
+        }
+    ]
+}
