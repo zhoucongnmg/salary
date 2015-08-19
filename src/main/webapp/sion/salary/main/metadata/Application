@@ -1,0 +1,59 @@
+{
+    "type": "Ext.app.Application",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "name": "Sion.Salary.Main",
+        "paths": [
+            "{",
+            "'Sion.Salary.Main':'sion/salary/main/app'",
+            "}"
+        ],
+        "stores": [
+            "AutoMenuStore"
+        ],
+        "views": [
+            "Salary_main"
+        ]
+    },
+    "name": "Application",
+    "configAlternates": {
+        "path": "object",
+        "paths": "object"
+    },
+    "designerId": "application",
+    "customConfigs": [
+        {
+            "group": "(Custom Properties)",
+            "name": "paths",
+            "type": "string"
+        },
+        {
+            "group": "(Custom Properties)",
+            "name": "view",
+            "type": "string"
+        }
+    ],
+    "cn": [
+        {
+            "type": "fixedfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "launch",
+                "implHandler": [
+                    "Ext.util.CSS.swapStyleSheet('SalaryCSS', 'sion/salary/main/style.css');",
+                    ""
+                ]
+            },
+            "name": "launch",
+            "designerId": "0557ae5b-4440-45cf-bac6-6c6edbd8b789"
+        }
+    ]
+}

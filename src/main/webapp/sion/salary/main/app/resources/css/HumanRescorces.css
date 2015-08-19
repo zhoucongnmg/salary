@@ -1,0 +1,31 @@
+.HumanResources_buttonItem_Setting{
+       background-image: url(../images/process.png) !important
+}
+.HumanResources_buttonItem_next{
+       background-image: url(../images/next.png) !important
+}
+.HumanResources_buttonItem_back{
+       background-image: url(../images/back.png) !important
+}
+.HumanResources_buttonItem_download{
+       background-image: url(../images/download.png)!important;
+}
+.HumanResources_buttonItem_add{
+       background-image: url(../images/add.png)!important;
+}
+
+.HumanResources_buttonItem_attachment{
+    background-image: url(../images/attachment.png) !important;
+}
+.HumanResources_buttonItem_delete{
+    background-image: url(../images/delete.png) !important;
+}
+.HumanResources_buttonItem_tag_blue{
+    background-image: url(../images/tag_blue.png) !important;
+}
+.HumanResources_buttonItem_tag_green{
+    background-image: url(../images/tag_green.png) !important;
+}
+.HumanResources_tree_dept{
+    background-image: url(../images/application_side_list.png) !important;
+}

@@ -1,0 +1,214 @@
+{
+    "type": "jsonstore",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "data": [
+            "[",
+            "{",
+            "title: '薪资管理',",
+            "iconCls: 's_iconbig_group',",
+            "imgSrc: 'images/iconbig/group.png',",
+            "menuItems: [",
+            "{",
+            "text: '薪资套帐',",
+            "iconCls: 's_icon_action_copy',",
+            "imgSrc: 'images/action_copy.png',",
+            "viewName: 'AllPersonGrid',",
+            "desc:'建立薪资项目，设置薪资套帐，管理套帐成员'",
+            "},",
+            "{",
+            "text: '薪资发放',",
+            "iconCls: 's_icon_action_copy',",
+            "imgSrc: 'images/action_copy.png',",
+            "viewName: 'AllPersonGrid',",
+            "desc:'生成薪金记录，审批发放'",
+            "},",
+            "{",
+            "text: '个税设置',",
+            "iconCls: 's_icon_action_copy',",
+            "imgSrc: 'images/action_copy.png',",
+            "viewName: 'AllPersonGrid',",
+            "desc:'设置个税征缴参数'",
+            "}",
+            "]",
+            "},",
+            "",
+            "",
+            "{",
+            "title: '薪资体系',",
+            "iconCls: 's_iconbig_group_go',",
+            "imgSrc: 'images/iconbig/group_go.png',",
+            "menuItems: [",
+            "{",
+            "text: '薪资层次',",
+            "iconCls: 's_icon_computer_go',",
+            "imgSrc: 'images/computer_go.png',",
+            "viewName: 'SendPersonGrid',",
+            "desc:'1、'",
+            "},",
+            "{",
+            "text: '薪资定级',",
+            "iconCls: 's_icon_computer',",
+            "imgSrc: 'images/computer.png',",
+            "viewName: 'ReceivePersonGrid',",
+            "desc:'1、'",
+            "}",
+            "]",
+            "},",
+            "",
+            "",
+            "{",
+            "title: '社保公积金',",
+            "iconCls: 's_iconbig_chart_bar',",
+            "imgSrc:'images/iconbig/chart_bar.png',",
+            "menuItems: [",
+            "{",
+            "text: '社保投保',",
+            "iconCls: 's_icon_chart_pie',",
+            "imgSrc:'images/chart_pie.png',",
+            "viewName: 'ReportWindow',",
+            "desc:'1、'",
+            "},",
+            "{",
+            "text: '社保查询',",
+            "iconCls: 's_icon_chart_pie',",
+            "imgSrc:'images/chart_pie.png',",
+            "viewName: 'ReportWindow',",
+            "desc:'1、'",
+            "},",
+            "{",
+            "text: '社保项目',",
+            "iconCls: 's_icon_chart_pie',",
+            "imgSrc:'images/chart_pie.png',",
+            "viewName: 'ReportWindow',",
+            "desc:'1、'",
+            "},",
+            "{",
+            "text: '社保套帐',",
+            "iconCls: 's_icon_chart_pie',",
+            "imgSrc:'images/chart_pie.png',",
+            "viewName: 'ReportWindow',",
+            "desc:'1、'",
+            "}",
+            "]",
+            "}",
+            "]"
+        ],
+        "designer|userClassName": "AutoMenuStore",
+        "storeId": "AutoMenuStore"
+    },
+    "name": "MyJsonStore",
+    "designerId": "fd11da48-51b9-4370-a364-9f85980f7850",
+    "cn": [
+        {
+            "type": "Ext.data.proxy.Ajax",
+            "reference": {
+                "name": "proxy",
+                "type": "object"
+            },
+            "codeClass": null,
+            "name": "MyAjaxProxy2",
+            "designerId": "fa3da4d2-b4cf-4a23-8c37-7b40d8588239",
+            "cn": [
+                {
+                    "type": "Ext.data.reader.Json",
+                    "reference": {
+                        "name": "reader",
+                        "type": "object"
+                    },
+                    "codeClass": null,
+                    "name": "MyJsonReader3",
+                    "designerId": "186095e4-e7f0-4471-b052-e173a97bbaac"
+                }
+            ]
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "title"
+            },
+            "name": "MyField50",
+            "designerId": "28a2b0ea-0855-4709-9e9f-41ca982b214f"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "iconCls"
+            },
+            "name": "MyField54",
+            "designerId": "5806bebd-954f-4822-aba4-7bfafc60420e"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "menuItems"
+            },
+            "name": "MyField55",
+            "designerId": "c8088be6-3458-4e84-9061-23a9344fedf6"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "imgSrc"
+            },
+            "name": "MyField118",
+            "designerId": "652f4d1d-de8b-433c-92e1-c41b99bc2242"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "defaultValue": [
+                    "tab"
+                ],
+                "name": "type"
+            },
+            "name": "MyField293",
+            "designerId": "5764a8e1-32b5-4a51-92ed-f19a9afc4d40"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "defaultValue": [
+                    "undefined"
+                ],
+                "name": "callback"
+            },
+            "name": "MyField294",
+            "designerId": "7b6254f5-1b70-41c8-b808-0f22575facfd"
+        }
+    ]
+}

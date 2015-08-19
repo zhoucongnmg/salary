@@ -1,0 +1,388 @@
+{
+    "type": "Ext.window.Window",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userAlias": null,
+        "designer|userClassName": "Salary_main",
+        "height": 730,
+        "iconCls": "s_icon_org_gear",
+        "itemId": "SocialEntrance",
+        "layout": "fit",
+        "maximizable": true,
+        "minimizable": true,
+        "title": "薪资管理",
+        "width": 1280
+    },
+    "name": "MyWindow",
+    "designerId": "d27a1a60-dfb5-48b5-8baa-53b08904f380",
+    "cn": [
+        {
+            "type": "Ext.panel.Panel",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "height": null,
+                "itemId": "PanelInEntrance",
+                "layout": "border",
+                "title": null,
+                "width": null
+            },
+            "name": "MyPanel5",
+            "designerId": "9099a327-5021-4c4c-94ea-38feaba9f12b",
+            "cn": [
+                {
+                    "type": "Ext.panel.Panel",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "bodyBorder": false,
+                        "border": 1,
+                        "collapsible": null,
+                        "container|multi": null,
+                        "container|titleCollapse": null,
+                        "data": null,
+                        "itemId": "AutoNav",
+                        "layout": "accordion",
+                        "layout|region": "west",
+                        "renderData": null,
+                        "renderTo": null,
+                        "title": "",
+                        "titleCollapse": null,
+                        "width": 200
+                    },
+                    "name": "MyPanel22",
+                    "designerId": "67fc8eab-9b2c-4c59-9121-40fcdd7bc432",
+                    "cn": [
+                        {
+                            "type": "processcfgfunction",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "designer|params": [
+                                    "config"
+                                ],
+                                "fn": "processAutoNav",
+                                "implHandler": [
+                                    "var me = this,",
+                                    "    menus = [],",
+                                    "    myStore = Ext.create(me.getNamespace()+'.store.AutoMenuStore');",
+                                    "myStore.each(function(obj) {",
+                                    "    var menu = {",
+                                    "        xtype:'menu',",
+                                    "        title:obj.get('title'),",
+                                    "        floating: false,",
+                                    "        iconCls:obj.get('iconCls')",
+                                    "    };",
+                                    "    var menuItems = [];",
+                                    "    obj.get('menuItems').forEach(function(element, index, array){",
+                                    "        var viewName = element.viewName;",
+                                    "        var type=element.type;",
+                                    "        var path = me.getNamespace();",
+                                    "        var menuItem = Ext.create('Ext.menu.Item', {",
+                                    "            text: element.text,",
+                                    "            iconCls: element.iconCls,",
+                                    "            listeners:{",
+                                    "                click: {",
+                                    "                    fn: function (){",
+                                    "                            var tabs = me.down('#MainTabPanel');",
+                                    "                            var className = me.getNamespace()+'.view.'+viewName;",
+                                    "                            var P1 = Ext.ComponentQuery.query('#'+viewName)[0];",
+                                    "                            if(!P1){",
+                                    "                                P1 = Ext.create(className);",
+                                    "                                P1.iconCls = element.iconCls;",
+                                    "                                P1.title= element.text;",
+                                    "                                P1.closable = true;",
+                                    "                                P1.itemId = viewName;",
+                                    "",
+                                    "                                P1.on('beforeclose',function(panel,eOpts){",
+                                    "                                    var tabpanel = panel.up('tabpanel'),",
+                                    "                                        items = tabs.items,",
+                                    "                                        len = items.length,",
+                                    "                                        activeTab = tabpanel.getActiveTab();",
+                                    "                                    for (i = 0; i < len; i++){",
+                                    "                                        //遍历所有打开的tab",
+                                    "                                        var item = items.getAt(i);",
+                                    "                                        if (this == item) {",
+                                    "                                            //如果找到了当前要关闭的tab",
+                                    "                                            if (this === activeTab) {",
+                                    "                                                //如果当前要关闭的tab状态为激活状态 关闭之后activeTab为前一个",
+                                    "                                                tabpanel.setActiveTab(--i);",
+                                    "                                                break;",
+                                    "                                            }",
+                                    "                                            //其他状态不需要考虑",
+                                    "                                        }",
+                                    "                                    }",
+                                    "                                });",
+                                    "",
+                                    "                                tabs.add(P1);",
+                                    "                            }",
+                                    "",
+                                    "                            tabs.setActiveTab(P1);",
+                                    "",
+                                    "                    },",
+                                    "                    scope: me",
+                                    "                }",
+                                    "            }",
+                                    "        });",
+                                    "        menuItems.push(menuItem);",
+                                    "    });",
+                                    "    menu.items = menuItems;",
+                                    "    menus.push(menu);",
+                                    "});",
+                                    "config.items = menus;",
+                                    "",
+                                    "return config;"
+                                ]
+                            },
+                            "name": "processAutoNav",
+                            "designerId": "27aec21e-c6e4-4e71-b9f5-baffd6238353"
+                        }
+                    ]
+                },
+                {
+                    "type": "Ext.tab.Panel",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "activeTab": 0,
+                        "bodyBorder": false,
+                        "border": 1,
+                        "itemId": "MainTabPanel",
+                        "layout|region": "center"
+                    },
+                    "name": "MyTabPanel",
+                    "designerId": "aebbc7ec-fe8e-4e00-8897-854767da8f5e",
+                    "cn": [
+                        {
+                            "type": "Ext.panel.Panel",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "container|align": "stretch",
+                                "html": null,
+                                "iconCls": "s_icon_item_flag",
+                                "layout": "vbox",
+                                "title": "首页"
+                            },
+                            "name": "MyPanel1",
+                            "configAlternates": {
+                                "html": "string"
+                            },
+                            "designerId": "dfd5b7c8-d423-4add-9816-6f36130e0720",
+                            "cn": [
+                                {
+                                    "type": "Ext.tab.Tab",
+                                    "reference": {
+                                        "name": "tabConfig",
+                                        "type": "object"
+                                    },
+                                    "codeClass": null,
+                                    "name": "TabConfig",
+                                    "designerId": "264f2164-1d61-40c8-8b30-1d8171ec8481"
+                                },
+                                {
+                                    "type": "Ext.panel.Panel",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "baseCls": null,
+                                        "bodyStyle": null,
+                                        "border": null,
+                                        "cls": null,
+                                        "componentCls": null,
+                                        "height": 300,
+                                        "layout": "fit",
+                                        "title": null
+                                    },
+                                    "name": "MyPanel2",
+                                    "designerId": "d6e62f60-8b28-4a5e-8dc8-f97c8c4cd221",
+                                    "cn": [
+                                        {
+                                            "type": "Ext.Img",
+                                            "reference": {
+                                                "name": "items",
+                                                "type": "array"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "src": "sion/salary/main/resources/images/rlzy.jpg"
+                                            },
+                                            "name": "MyImg4",
+                                            "designerId": "05b9c2a2-feee-4aef-bcda-20ae96aaf5c8"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "Ext.panel.Panel",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "autoScroll": true,
+                                        "header": false,
+                                        "layout|flex": 1,
+                                        "title": null
+                                    },
+                                    "name": "MyPanel8",
+                                    "designerId": "583673d1-37e7-4d58-95ef-24c595ff1f6f",
+                                    "cn": [
+                                        {
+                                            "type": "Ext.panel.Panel",
+                                            "reference": {
+                                                "name": "items",
+                                                "type": "array"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "baseCls": null,
+                                                "bodyStyle": null,
+                                                "componentCls": null,
+                                                "container|columns": 100,
+                                                "height": 400,
+                                                "layout": "table",
+                                                "manageHeight": false,
+                                                "title": null,
+                                                "width": null
+                                            },
+                                            "name": "MyPanel16",
+                                            "designerId": "0189e8bc-bd60-40b1-80dd-bd1f7f929dae",
+                                            "cn": [
+                                                {
+                                                    "type": "processcfgfunction",
+                                                    "reference": {
+                                                        "name": "items",
+                                                        "type": "array"
+                                                    },
+                                                    "codeClass": null,
+                                                    "userConfig": {
+                                                        "designer|params": [
+                                                            "config"
+                                                        ],
+                                                        "fn": "processMyPanel16",
+                                                        "implHandler": [
+                                                            "",
+                                                            "",
+                                                            "var me = this,",
+                                                            "    panels = [],",
+                                                            "    myStore = Ext.create(me.getNamespace()+'.store.AutoMenuStore');",
+                                                            "",
+                                                            "",
+                                                            "myStore.each(function(obj) {",
+                                                            "",
+                                                            "    var title =obj.get('title') ,",
+                                                            "        imgSrc = obj.get('imgSrc'),",
+                                                            "        menuItems = obj.get('menuItems'),",
+                                                            "        iconCls=obj.get('iconCls');",
+                                                            "",
+                                                            "    var itemTplStrArray = [];",
+                                                            "",
+                                                            "    itemTplStrArray.push('<div class=\"rcb-zt1\" style = \"height:1000px\"> ');",
+                                                            "    itemTplStrArray.push('<div class=\"rcb-dh\">');",
+                                                            "    itemTplStrArray.push('<div class=\"rcb-dh-left\"><img class=\"'+iconCls+'\" style=\"width:32px;height:32px;\" /></div>');",
+                                                            "    itemTplStrArray.push('<div class=\"rcb-dh-right\">'+title+'</div>');",
+                                                            "    itemTplStrArray.push('</div>');",
+                                                            "",
+                                                            "    menuItems.forEach(function(element, index, array){",
+                                                            "",
+                                                            "        itemTplStrArray.push('<div class=\"x-rcb-dh\">');",
+                                                            "        itemTplStrArray.push('<div class=\"x-rcb-dh-left\"><img class=\"'+element.iconCls+'\" style=\"width:16px;height:16px;\" /></div>');",
+                                                            "        itemTplStrArray.push('<div class=\"x-rcb-dh-right\"><a style=\"text-decoration:none;color:#000000;\" href =\"javascript:openPanelTab(\\''+element.viewName+'\\',\\''+element.iconCls+'\\',\\''+element.text+'\\')\" >'+element.text+'</a></div>');",
+                                                            "        itemTplStrArray.push('</div>');",
+                                                            "        itemTplStrArray.push('<div class=\"rcb-nr\">'+element.desc+'</div>');",
+                                                            "",
+                                                            "    });",
+                                                            "",
+                                                            "    itemTplStrArray.push('</div>');",
+                                                            "",
+                                                            "    var smlPanel = Ext.create('Ext.panel.Panel',{",
+                                                            "        title:null,",
+                                                            "        width: '330px',",
+                                                            "        items:[",
+                                                            "            {",
+                                                            "                xtype: 'dataview',",
+                                                            "                itemTpl : itemTplStrArray,",
+                                                            "                height: '100%',",
+                                                            "                store: 'AutoMenuStore'",
+                                                            "            }",
+                                                            "        ]",
+                                                            "    });",
+                                                            "    panels.push(smlPanel);",
+                                                            "",
+                                                            "});",
+                                                            "",
+                                                            "config.items = panels;",
+                                                            "",
+                                                            "return config;"
+                                                        ]
+                                                    },
+                                                    "name": "processMyPanel16",
+                                                    "designerId": "723c06cc-ee97-4da8-9bb0-57f71e362ab3"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "type": "basiceventbinding",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "onEntranceBeforeRender",
+                "implHandler": [
+                    "var me = this;",
+                    "window.openPanelTab = function(viewName, iconClass, text) {",
+                    "    var tabs = component.down('#MainTabPanel');",
+                    "    var P1 = Ext.ComponentQuery.query('#'+viewName)[0];",
+                    "    if(!P1){",
+                    "        P1 = Ext.create(me.getNamespace()+'.view.'+viewName);",
+                    "        P1.iconCls = iconClass;",
+                    "        P1.title= text;",
+                    "        P1.closable = true;",
+                    "        P1.itemId = viewName;",
+                    "        tabs.add(P1);",
+                    "    }",
+                    "    tabs.setActiveTab(P1);",
+                    "};",
+                    ""
+                ],
+                "name": "beforerender",
+                "scope": "me"
+            },
+            "name": "onEntranceBeforeRender",
+            "designerId": "bdc6ed8d-2815-4ff7-8725-09f219d9724e"
+        }
+    ]
+}

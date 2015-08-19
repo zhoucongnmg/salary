@@ -1,0 +1,56 @@
+{
+    "name": "HumanResorcesRro",
+    "settings": {
+        "cmd": {
+            "license": "commercial"
+        },
+        "spacesToIndent": 4,
+        "lineEnding": "CRLF",
+        "genTimestamps": false,
+        "cacheBust": false,
+        "urlPrefix": "",
+        "exportPath": "",
+        "buildShouldOverwriteIndex": true,
+        "canvasControls": {
+            "viewportSize": {
+                "name": "Auto Expand",
+                "builtIn": true,
+                "height": null,
+                "width": null
+            }
+        },
+        "sdkPath": "",
+        "generateArchitectVersion": true,
+        "projectHasEnabledWebServer": false,
+        "lockUrlPrefix": false,
+        "installStatus": "Not Installed",
+        "displayfield-ExtBox1-1122-inputEl": "a new version of the framework is available",
+        "displayfield-ExtBox1-1180-inputEl": "a new version of the framework is available",
+        "displayfield-ExtBox1-1123-inputEl": "a new version of the framework is available",
+        "displayfield-ExtBox1-1117-inputEl": "a new version of the framework is available",
+        "displayfield-ExtBox1-1131-inputEl": "a new version of the framework is available",
+        "displayfield-ExtBox1-1127-inputEl": "a new version of the framework is available",
+        "displayfield-ExtBox1-1126-inputEl": "a new version of the framework is available"
+    },
+    "xdsVersion": "3.2.0",
+    "xdsBuild": 75,
+    "schemaVersion": 1,
+    "upgradeVersion": 310000000001,
+    "framework": "ext42",
+    "viewOrderMap": {
+        "view": [
+            "d27a1a60-dfb5-48b5-8baa-53b08904f380"
+        ],
+        "store": [
+            "fd11da48-51b9-4370-a364-9f85980f7850"
+        ],
+        "controller": [],
+        "model": [],
+        "resource": [
+            "d6f97579-b6db-4ad8-9e82-5d361e28bc33"
+        ],
+        "app": [
+            "application"
+        ]
+    }
+}
