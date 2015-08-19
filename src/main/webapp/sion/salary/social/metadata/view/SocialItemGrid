@@ -1,0 +1,155 @@
+{
+    "type": "Ext.grid.Panel",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userClassName": "SocialItemGrid",
+        "height": 515,
+        "title": null,
+        "width": 1006
+    },
+    "name": "UninsuredGrid1",
+    "designerId": "46cfaa88-d0c1-4a49-99f4-47d684a59b29",
+    "cn": [
+        {
+            "type": "Ext.grid.column.Column",
+            "reference": {
+                "name": "columns",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "dataIndex": "string",
+                "flex": 0.42,
+                "text": "项目名称"
+            },
+            "name": "MyColumn",
+            "designerId": "146d62ee-a171-45ce-b627-e98e9aa0d724"
+        },
+        {
+            "type": "Ext.grid.column.Column",
+            "reference": {
+                "name": "columns",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "flex": 0.2,
+                "text": "项目类型"
+            },
+            "name": "MyColumn1",
+            "designerId": "401298f1-ef18-4453-8040-c39a7d3a0a58"
+        },
+        {
+            "type": "Ext.grid.View",
+            "reference": {
+                "name": "viewConfig",
+                "type": "object"
+            },
+            "codeClass": null,
+            "name": "MyGridView",
+            "designerId": "629d7107-5f3a-499b-b6b3-bd852885bcb5"
+        },
+        {
+            "type": "Ext.grid.column.Column",
+            "reference": {
+                "name": "columns",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "flex": 0.2,
+                "text": "小数位数"
+            },
+            "name": "MyColumn2",
+            "designerId": "e5430dd4-93a7-4f20-8e24-e95cece6d30d"
+        },
+        {
+            "type": "Ext.grid.column.Action",
+            "reference": {
+                "name": "columns",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "flex": 0.06
+            },
+            "name": "MyActionColumn2",
+            "designerId": "7b4378a4-7a7a-4e63-86ac-7ceab019b863",
+            "cn": [
+                {
+                    "type": "actioncolumnitem",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "iconCls": "s_icon_table_edit"
+                    },
+                    "name": "MyActionColumnItem2",
+                    "designerId": "3071a295-5729-4350-8fa1-006f99b96d1f"
+                }
+            ]
+        },
+        {
+            "type": "Ext.grid.column.Action",
+            "reference": {
+                "name": "columns",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "flex": 0.06
+            },
+            "name": "MyActionColumn3",
+            "designerId": "5566425b-f6b1-4705-9d96-6ee64436b048",
+            "cn": [
+                {
+                    "type": "actioncolumnitem",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "iconCls": "s_icon_action_search"
+                    },
+                    "name": "MyActionColumnItem3",
+                    "designerId": "3d031363-8a75-47c6-b244-2f8d158b4321"
+                }
+            ]
+        },
+        {
+            "type": "Ext.grid.column.Action",
+            "reference": {
+                "name": "columns",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "flex": 0.06
+            },
+            "name": "MyActionColumn4",
+            "designerId": "48a317ea-c605-4227-8273-32a04163ff4b",
+            "cn": [
+                {
+                    "type": "actioncolumnitem",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "iconCls": "s_icon_action_action_delete"
+                    },
+                    "name": "MyActionColumnItem4",
+                    "designerId": "3e2fb78f-7570-443a-8ac6-01dbeeda3c16"
+                }
+            ]
+        }
+    ]
+}

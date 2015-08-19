@@ -1,0 +1,210 @@
+{
+    "type": "Ext.form.Panel",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "bodyPadding": 10,
+        "designer|userClassName": "SocialLevelForm",
+        "height": 621,
+        "layout": "column",
+        "title": null,
+        "width": 861
+    },
+    "name": "InsuredForm1",
+    "designerId": "5c52b1aa-7793-4cdc-a82f-b42d835ba37b",
+    "cn": [
+        {
+            "type": "Ext.toolbar.Toolbar",
+            "reference": {
+                "name": "dockedItems",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "dock": "top"
+            },
+            "name": "MyToolbar1",
+            "designerId": "16e91beb-67cf-4fbb-bf82-b6cc118af316",
+            "cn": [
+                {
+                    "type": "Ext.button.Button",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "iconCls": "s_icon_page_add",
+                        "layout|flex": null,
+                        "text": "保存投保信息"
+                    },
+                    "name": "MyButton1",
+                    "designerId": "e3708ecb-b451-4c26-ab53-5097029dd11a"
+                }
+            ]
+        },
+        {
+            "type": "Ext.form.FieldSet",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "layout": "column",
+                "layout|columnWidth": 1,
+                "title": "基本信息"
+            },
+            "name": "MyFieldSet",
+            "designerId": "24122a79-6608-47fd-b9fd-117eb048715a",
+            "cn": [
+                {
+                    "type": "Ext.form.field.Text",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fieldLabel": "姓名",
+                        "labelWidth": 80,
+                        "layout|columnWidth": 0.45
+                    },
+                    "name": "MyTextField1",
+                    "designerId": "0e0bc290-c75d-48d6-8632-636ab7a2d5e7"
+                },
+                {
+                    "type": "Ext.toolbar.Spacer",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "height": 20,
+                        "layout|columnWidth": 0.1
+                    },
+                    "name": "MySpacer4",
+                    "designerId": "929b29cb-8f49-48af-87c2-8de341b88d44"
+                },
+                {
+                    "type": "Ext.toolbar.Spacer",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "height": 20,
+                        "layout|columnWidth": 1
+                    },
+                    "name": "MySpacer6",
+                    "designerId": "080760f4-56f1-4e3a-8b9a-a4ea3d09b6d3"
+                },
+                {
+                    "type": "Ext.grid.Panel",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|columnWidth": 1,
+                        "title": null
+                    },
+                    "name": "MyGridPanel",
+                    "designerId": "693d3a05-ccf7-4767-ad0c-280611120a3c",
+                    "cn": [
+                        {
+                            "type": "Ext.grid.column.Column",
+                            "reference": {
+                                "name": "columns",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "dataIndex": "string",
+                                "flex": 4,
+                                "text": "项目名称"
+                            },
+                            "name": "MyColumn11",
+                            "designerId": "5abcd484-eec7-4404-afc0-d98b31ad18da"
+                        },
+                        {
+                            "type": "Ext.grid.column.Column",
+                            "reference": {
+                                "name": "columns",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "dataIndex": "string",
+                                "flex": 2,
+                                "text": "缴费基数"
+                            },
+                            "name": "MyColumn13",
+                            "designerId": "07f996d3-47a4-41e6-b312-3b7f4bd0d598"
+                        },
+                        {
+                            "type": "Ext.grid.column.Column",
+                            "reference": {
+                                "name": "columns",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "dataIndex": "string",
+                                "flex": 2,
+                                "text": "单位缴费"
+                            },
+                            "name": "MyColumn14",
+                            "designerId": "0904095f-3687-4cf8-a878-822ad4ea11c5"
+                        },
+                        {
+                            "type": "Ext.grid.column.Column",
+                            "reference": {
+                                "name": "columns",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "dataIndex": "string",
+                                "flex": 2,
+                                "text": "个人缴费"
+                            },
+                            "name": "MyColumn16",
+                            "designerId": "5012490f-f347-4c4e-b727-e4777bc4a664"
+                        },
+                        {
+                            "type": "Ext.grid.View",
+                            "reference": {
+                                "name": "viewConfig",
+                                "type": "object"
+                            },
+                            "codeClass": null,
+                            "name": "MyGridView1",
+                            "designerId": "8a97a013-d882-402c-9031-79d970782c1f"
+                        }
+                    ]
+                },
+                {
+                    "type": "Ext.toolbar.Spacer",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "height": 20,
+                        "layout|columnWidth": 1
+                    },
+                    "name": "MySpacer13",
+                    "designerId": "ee682b25-6356-456b-b52a-1089ddb38eb5"
+                }
+            ]
+        }
+    ]
+}

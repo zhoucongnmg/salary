@@ -1,0 +1,134 @@
+{
+    "type": "Ext.form.Panel",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "bodyPadding": 10,
+        "designer|userClassName": "SocialItemForm",
+        "height": 274,
+        "title": null,
+        "width": 481
+    },
+    "name": "MyForm1",
+    "designerId": "a37fffad-cd50-40e6-b3f2-a6d95dbe2f06",
+    "cn": [
+        {
+            "type": "Ext.form.field.Text",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fieldLabel": "项目名称",
+                "layout|anchor": "100%"
+            },
+            "name": "MyTextField11",
+            "designerId": "8a81cc55-11e3-431d-a144-387403de25d8"
+        },
+        {
+            "type": "Ext.form.field.ComboBox",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fieldLabel": "类型",
+                "layout|anchor": "100%"
+            },
+            "name": "MyComboBox5",
+            "designerId": "7c59c274-14f2-4912-aae5-4303e7d9c16f"
+        },
+        {
+            "type": "Ext.form.field.ComboBox",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fieldLabel": "小数位数",
+                "layout|anchor": "100%"
+            },
+            "name": "MyComboBox6",
+            "designerId": "7a935431-a8e0-49dd-9d7f-a138e5c24549"
+        },
+        {
+            "type": "Ext.form.RadioGroup",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fieldLabel": "小数保留方式"
+            },
+            "name": "MyRadioGroup",
+            "designerId": "44978249-13d7-4ad8-987e-d1d7c8b7b3de",
+            "cn": [
+                {
+                    "type": "Ext.form.field.Radio",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "boxLabel": "四舍五入",
+                        "fieldLabel": null
+                    },
+                    "name": "MyRadio",
+                    "designerId": "ee1f8f17-fdf7-4bb7-821e-8e560d8d9404"
+                },
+                {
+                    "type": "Ext.form.field.Radio",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "boxLabel": "直接进位",
+                        "fieldLabel": null
+                    },
+                    "name": "MyRadio1",
+                    "designerId": "606f0367-51b4-437a-aba3-460ed6ec0478"
+                },
+                {
+                    "type": "Ext.form.field.Radio",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "boxLabel": "直接舍去",
+                        "fieldLabel": null
+                    },
+                    "name": "MyRadio2",
+                    "designerId": "7e5280ef-ff72-446a-b7f1-f6b00c13bb2e"
+                }
+            ]
+        },
+        {
+            "type": "Ext.form.field.Display",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fieldLabel": "温馨提示",
+                "labelStyle": "color:red;",
+                "layout|anchor": "100%",
+                "value": "小数保留方式默认为四舍五入方式；如需见分进角，则小数位数选1，保留方式选择直接进位即可。 "
+            },
+            "name": "MyDisplayField",
+            "designerId": "a86417aa-7d2c-4529-9a94-1f4adcb05525"
+        }
+    ]
+}
