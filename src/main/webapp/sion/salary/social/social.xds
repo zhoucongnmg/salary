@@ -1,0 +1,46 @@
+{
+    "name": "social",
+    "settings": {
+        "cmd": {
+            "license": "commercial"
+        },
+        "canvasControls": {
+            "viewportSize": {
+                "name": "Auto Expand",
+                "builtIn": true,
+                "height": null,
+                "width": null
+            }
+        },
+        "urlPrefix": "",
+        "exportPath": ""
+    },
+    "xdsVersion": "3.2.0",
+    "xdsBuild": 75,
+    "schemaVersion": 1,
+    "upgradeVersion": 310000000001,
+    "framework": "ext42",
+    "viewOrderMap": {
+        "view": [
+            "9f3362b8-8e84-421a-bb82-bf7de4bac62b",
+            "1f0f66ec-a11e-448a-8d3e-c921c6d2c1eb",
+            "ab157ef0-6e07-4e04-81fd-6e571fd1efe4",
+            "46cfaa88-d0c1-4a49-99f4-47d684a59b29",
+            "7c1e6702-8d61-4884-809b-d0c45ff3a89b",
+            "ab191b14-fffd-4c4d-be41-8dbf0d999859",
+            "5c52b1aa-7793-4cdc-a82f-b42d835ba37b",
+            "a37fffad-cd50-40e6-b3f2-a6d95dbe2f06",
+            "26120aba-dcec-4196-8883-8a38765b9248"
+        ],
+        "store": [],
+        "controller": [],
+        "model": [],
+        "resource": [
+            "0aa67b68-ffad-4a3c-9005-648029f8bf8a",
+            "f7cbe67a-90eb-49c2-a6d7-a58bfdae281b"
+        ],
+        "app": [
+            "application"
+        ]
+    }
+}

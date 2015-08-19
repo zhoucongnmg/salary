@@ -1,0 +1,37 @@
+{
+    "type": "Ext.app.Application",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "name": "sion.salary.social",
+        "paths": [
+            "{'sion.salary.social' : 'sion/salary/social/app'}"
+        ],
+        "views": [
+            "InsuredGrid",
+            "UninsuredGrid",
+            "InsuredForm",
+            "SocialInsuredGrid",
+            "SocialItemGrid",
+            "SocialItemForm",
+            "SocialLevelGrid",
+            "MyForm1",
+            "SocialLevelForm"
+        ]
+    },
+    "name": "Application",
+    "configAlternates": {
+        "paths": "object"
+    },
+    "designerId": "application",
+    "customConfigs": [
+        {
+            "group": "(Custom Properties)",
+            "name": "paths",
+            "type": "string"
+        }
+    ]
+}
