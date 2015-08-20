@@ -1,0 +1,135 @@
+{
+    "type": "Ext.grid.Panel",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userAlias": "salaryitemgrid",
+        "designer|userClassName": "SalaryItemGrid",
+        "header": false,
+        "height": 250,
+        "title": "My Grid Panel",
+        "width": 400
+    },
+    "name": "MyGridPanel1",
+    "designerId": "0792004f-1834-444c-8300-a50243e0defc",
+    "cn": [
+        {
+            "type": "Ext.grid.column.Column",
+            "reference": {
+                "name": "columns",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "dataIndex": "string",
+                "text": "项目名称"
+            },
+            "name": "MyColumn3",
+            "designerId": "ebcd234e-e5b0-4b3a-83bb-8c127e32c518"
+        },
+        {
+            "type": "Ext.grid.column.Column",
+            "reference": {
+                "name": "columns",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "text": "字段"
+            },
+            "name": "MyColumn4",
+            "designerId": "9c21b907-fb8a-405a-84da-9587618cf553"
+        },
+        {
+            "type": "Ext.grid.column.Column",
+            "reference": {
+                "name": "columns",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "text": "类型"
+            },
+            "name": "MyColumn5",
+            "designerId": "dc81e637-d941-4cee-b78e-e1eb57692aad"
+        },
+        {
+            "type": "Ext.grid.column.Column",
+            "reference": {
+                "name": "columns",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "text": "说明"
+            },
+            "name": "MyColumn6",
+            "designerId": "1ae6d019-d684-44c8-ab2b-a9620fbc8f21"
+        },
+        {
+            "type": "Ext.grid.column.Boolean",
+            "reference": {
+                "name": "columns",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "dataIndex": "bool",
+                "text": "系统项"
+            },
+            "name": "MyBooleanColumn1",
+            "designerId": "0741c148-89bf-4df4-950c-a1d8ad3fe7ca"
+        },
+        {
+            "type": "Ext.grid.column.Action",
+            "reference": {
+                "name": "columns",
+                "type": "array"
+            },
+            "codeClass": null,
+            "name": "MyActionColumn1",
+            "designerId": "15428942-7336-45e6-a7a8-909993be0dbc",
+            "cn": [
+                {
+                    "type": "actioncolumnitem",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "designer|displayName": "modify"
+                    },
+                    "name": "MyActionColumnItem4",
+                    "designerId": "9013d9eb-9940-4b72-868b-eb737ce1880c"
+                },
+                {
+                    "type": "actioncolumnitem",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "designer|displayName": "delete"
+                    },
+                    "name": "MyActionColumnItem5",
+                    "designerId": "724b871c-31af-4326-a023-6d169d5b867f"
+                }
+            ]
+        },
+        {
+            "type": "Ext.grid.View",
+            "reference": {
+                "name": "viewConfig",
+                "type": "object"
+            },
+            "codeClass": null,
+            "name": "MyGridView1",
+            "designerId": "83268c21-a289-40e3-bdff-0cd2c4a49c49"
+        }
+    ]
+}

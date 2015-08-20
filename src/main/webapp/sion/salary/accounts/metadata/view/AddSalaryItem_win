@@ -1,0 +1,128 @@
+{
+    "type": "Ext.window.Window",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userClassName": "AddSalaryItem_win",
+        "height": 320,
+        "title": "新增套帐项目",
+        "width": 480
+    },
+    "name": "MyWindow",
+    "designerId": "4045e419-721d-4d6b-b4cf-ad5ebc6e7c66",
+    "cn": [
+        {
+            "type": "Ext.toolbar.Toolbar",
+            "reference": {
+                "name": "dockedItems",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "dock": "top"
+            },
+            "name": "MyToolbar6",
+            "designerId": "8e4ee63d-ab67-478a-9e98-3fffdb355ec6",
+            "cn": [
+                {
+                    "type": "Ext.button.Button",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|flex": null,
+                        "text": "确定"
+                    },
+                    "name": "MyButton7",
+                    "designerId": "0443f03a-0e9c-4f45-9e68-29c401d38a1c"
+                }
+            ]
+        },
+        {
+            "type": "Ext.form.Panel",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "bodyPadding": 10,
+                "header": false,
+                "title": "My Form"
+            },
+            "name": "MyForm2",
+            "designerId": "a88045d5-1998-4a02-a9aa-dccf992fa493",
+            "cn": [
+                {
+                    "type": "Ext.form.field.ComboBox",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fieldLabel": "类型",
+                        "layout|anchor": "100%",
+                        "store": [
+                            "['输入项','计算项','系统提取项']"
+                        ]
+                    },
+                    "name": "MyComboBox1",
+                    "configAlternates": {
+                        "store": "array"
+                    },
+                    "designerId": "a55d8885-5989-4391-89d2-7c6076cb3f34"
+                },
+                {
+                    "type": "Ext.form.field.Trigger",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fieldLabel": "套帐项目",
+                        "layout|anchor": "100%"
+                    },
+                    "name": "MyTriggerField",
+                    "designerId": "820bf05f-0317-4035-bec0-f3f15ee199fa"
+                },
+                {
+                    "type": "Ext.form.field.Checkbox",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "boxLabel": "在薪资报表中显示",
+                        "fieldLabel": null,
+                        "hideEmptyLabel": false,
+                        "layout|anchor": "100%"
+                    },
+                    "name": "MyCheckbox2",
+                    "designerId": "fc142102-069d-461e-b34f-c066c988f4cf"
+                },
+                {
+                    "type": "Ext.form.field.TextArea",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fieldLabel": "值",
+                        "layout|anchor": "100%"
+                    },
+                    "name": "MyTextArea2",
+                    "designerId": "506f8a73-a3b9-460f-befc-d3500e7f47b6"
+                }
+            ]
+        }
+    ]
+}
