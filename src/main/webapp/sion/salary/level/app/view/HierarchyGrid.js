@@ -54,6 +54,7 @@ Ext.define('sion.salary.level.view.HierarchyGrid', {
             items: [
                 {
                     xtype: 'gridpanel',
+                    header: false,
                     title: 'My Grid Panel',
                     columns: [
                         {

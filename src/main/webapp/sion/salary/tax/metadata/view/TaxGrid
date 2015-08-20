@@ -7,14 +7,14 @@
     "codeClass": null,
     "userConfig": {
         "designer|initialView": true,
-        "designer|userClassName": "HierarchyGrid",
-        "height": 250,
+        "designer|userClassName": "TaxGrid",
+        "height": "",
         "layout": "fit",
-        "title": "薪资层次",
-        "width": 400
+        "title": "个税设置",
+        "width": null
     },
     "name": "MyPanel",
-    "designerId": "ea3d9fb4-a7e4-4151-8062-a37eedd959fb",
+    "designerId": "aab59238-4109-4303-9f35-b644562571c4",
     "cn": [
         {
             "type": "Ext.toolbar.Toolbar",
@@ -27,7 +27,7 @@
                 "dock": "top"
             },
             "name": "MyToolbar",
-            "designerId": "06223257-da05-4daa-b013-4a00521c7cb8",
+            "designerId": "8676f022-f670-4d45-a050-b35eb9c4aac4",
             "cn": [
                 {
                     "type": "Ext.button.Button",
@@ -41,7 +41,7 @@
                         "text": "新建"
                     },
                     "name": "MyButton",
-                    "designerId": "08a3d1ac-393d-4e91-9672-d7c986193acf",
+                    "designerId": "0521b18f-8bd4-4de1-a15f-477b6708bbc3",
                     "cn": [
                         {
                             "type": "basiceventbinding",
@@ -51,17 +51,17 @@
                             },
                             "codeClass": null,
                             "userConfig": {
-                                "fn": "onButtonClick",
+                                "fn": "onAddTaxClick",
                                 "implHandler": [
                                     "var me=this,",
                                     "    namespace=me.getNamespace();",
-                                    "Ext.create(namespace+\".view.Hierarchy_win\").show();"
+                                    "Ext.create(namespace+\".view.Tax_win\").show();"
                                 ],
                                 "name": "click",
                                 "scope": "me"
                             },
-                            "name": "onButtonClick",
-                            "designerId": "97ef6d44-376e-4652-ac76-37b88001e4cf"
+                            "name": "onAddTaxClick",
+                            "designerId": "6065d8f8-21cf-4088-9629-d9378d494641"
                         }
                     ]
                 }
@@ -76,10 +76,10 @@
             "codeClass": null,
             "userConfig": {
                 "header": false,
-                "title": "My Grid Panel"
+                "title": "Tax "
             },
             "name": "MyGridPanel",
-            "designerId": "79fe7030-7752-41a0-a0e3-910a188629cc",
+            "designerId": "3d2bf1a2-8d29-40a1-8b33-e30fafafde09",
             "cn": [
                 {
                     "type": "Ext.grid.column.Column",
@@ -93,20 +93,21 @@
                         "text": "名称"
                     },
                     "name": "MyColumn",
-                    "designerId": "d8cb3244-6813-4de6-8a52-abbf06e61c66"
+                    "designerId": "a00f4a53-b58e-41b4-9160-e191d98a4851"
                 },
                 {
-                    "type": "Ext.grid.column.Column",
+                    "type": "Ext.grid.column.Number",
                     "reference": {
                         "name": "columns",
                         "type": "array"
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "text": "薪资项目"
+                        "dataIndex": "number",
+                        "text": "个税起征点"
                     },
-                    "name": "MyColumn1",
-                    "designerId": "43b1747b-ffdd-4375-b2f6-d973e66f5424"
+                    "name": "MyNumberColumn",
+                    "designerId": "5d566d1c-9909-4217-b7e8-9594e3060f5a"
                 },
                 {
                     "type": "Ext.grid.column.Action",
@@ -115,11 +116,8 @@
                         "type": "array"
                     },
                     "codeClass": null,
-                    "userConfig": {
-                        "text": "操作"
-                    },
                     "name": "MyActionColumn",
-                    "designerId": "fa02ab61-5869-490e-8714-899bd7828d11",
+                    "designerId": "043e16df-355d-4e17-8db5-2f166b687a3e",
                     "cn": [
                         {
                             "type": "actioncolumnitem",
@@ -129,11 +127,10 @@
                             },
                             "codeClass": null,
                             "userConfig": {
-                                "designer|displayName": "relative",
-                                "tooltip": "关联职位"
+                                "designer|displayName": "modify"
                             },
                             "name": "MyActionColumnItem",
-                            "designerId": "0b567038-4a21-409b-8840-9fbca741c5ef"
+                            "designerId": "d7754dd9-4c29-4261-b406-6513cd711c80"
                         },
                         {
                             "type": "actioncolumnitem",
@@ -143,39 +140,10 @@
                             },
                             "codeClass": null,
                             "userConfig": {
-                                "designer|displayName": "config",
-                                "tooltip": "等级设定"
+                                "designer|displayName": "delete"
                             },
                             "name": "MyActionColumnItem1",
-                            "designerId": "ad6e7ed6-8e61-40d1-b558-94d0ceb4450f"
-                        },
-                        {
-                            "type": "actioncolumnitem",
-                            "reference": {
-                                "name": "items",
-                                "type": "array"
-                            },
-                            "codeClass": null,
-                            "userConfig": {
-                                "designer|displayName": "modify",
-                                "tooltip": "编辑"
-                            },
-                            "name": "MyActionColumnItem2",
-                            "designerId": "1fc224ad-7f9c-4c48-b1d9-6b671566b839"
-                        },
-                        {
-                            "type": "actioncolumnitem",
-                            "reference": {
-                                "name": "items",
-                                "type": "array"
-                            },
-                            "codeClass": null,
-                            "userConfig": {
-                                "designer|displayName": "delete",
-                                "tooltip": "删除"
-                            },
-                            "name": "MyActionColumnItem3",
-                            "designerId": "9f111edb-77dd-466e-a299-e9ce1a6c58e5"
+                            "designerId": "48c3bd7b-45e2-41af-a443-c29e9f0f35b6"
                         }
                     ]
                 },
@@ -187,7 +155,7 @@
                     },
                     "codeClass": null,
                     "name": "MyGridView",
-                    "designerId": "a4b89800-f314-437f-89c1-a5c20b6bc97a"
+                    "designerId": "e4bef157-2f86-485e-9156-4b08178b9492"
                 }
             ]
         }

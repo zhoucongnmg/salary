@@ -1,0 +1,32 @@
+{
+    "type": "Ext.app.Application",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "name": "sion.salary.tax",
+        "paths": [
+            "{",
+            "'sion.salary.tax': 'sion/salary/tax/app'",
+            "}"
+        ],
+        "views": [
+            "TaxGrid",
+            "Tax_win"
+        ]
+    },
+    "name": "Application",
+    "configAlternates": {
+        "paths": "object"
+    },
+    "designerId": "application",
+    "customConfigs": [
+        {
+            "group": "(Custom Properties)",
+            "name": "paths",
+            "type": "string"
+        }
+    ]
+}

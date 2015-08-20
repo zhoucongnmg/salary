@@ -184,6 +184,20 @@
                             },
                             "name": "MyActionColumnItem4",
                             "designerId": "9fd0e842-eee1-4157-bab7-b0dec0d84080"
+                        },
+                        {
+                            "type": "actioncolumnitem",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "designer|displayName": "modify",
+                                "tooltip": "修改定级"
+                            },
+                            "name": "MyActionColumnItem",
+                            "designerId": "ed05b54e-06f6-4492-b18b-bdec19ea8064"
                         }
                     ]
                 },

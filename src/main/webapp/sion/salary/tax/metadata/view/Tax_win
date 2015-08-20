@@ -1,0 +1,213 @@
+{
+    "type": "Ext.window.Window",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userClassName": "Tax_win",
+        "height": 480,
+        "title": "税率设置",
+        "width": 600
+    },
+    "name": "MyWindow",
+    "designerId": "7b9262ee-3e83-4f56-9c25-9344d9509b14",
+    "cn": [
+        {
+            "type": "Ext.toolbar.Toolbar",
+            "reference": {
+                "name": "dockedItems",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "dock": "top"
+            },
+            "name": "MyToolbar1",
+            "designerId": "e8c73bc5-208b-46e5-98b6-8d8b7fd8c4fa",
+            "cn": [
+                {
+                    "type": "Ext.button.Button",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|flex": null,
+                        "text": "保存"
+                    },
+                    "name": "MyButton1",
+                    "designerId": "d49444f3-1b34-463f-90e2-96770ae8276c"
+                }
+            ]
+        },
+        {
+            "type": "Ext.form.Panel",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "bodyPadding": 10,
+                "header": false,
+                "title": "My Form"
+            },
+            "name": "MyForm",
+            "designerId": "a07f3228-4584-47bc-9f19-5f7ebdeb41e0",
+            "cn": [
+                {
+                    "type": "Ext.form.field.Text",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fieldLabel": "名称",
+                        "layout|anchor": "100%"
+                    },
+                    "name": "MyTextField",
+                    "designerId": "8b830d1b-9520-4d64-a5cd-6c9b35d168f6"
+                },
+                {
+                    "type": "Ext.form.field.Text",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fieldLabel": "起征点",
+                        "layout|anchor": "100%"
+                    },
+                    "name": "MyTextField1",
+                    "designerId": "f2e1ac08-3637-4118-9b33-3f44b5a56633"
+                },
+                {
+                    "type": "Ext.button.Button",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "text": "增加"
+                    },
+                    "name": "MyButton2",
+                    "designerId": "e47de815-06ef-4bd8-8a0e-2020230419bd"
+                },
+                {
+                    "type": "Ext.grid.Panel",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "header": false,
+                        "title": "My Grid Panel"
+                    },
+                    "name": "MyGridPanel1",
+                    "designerId": "0e3eff45-256c-4490-a1bd-05d1fe14803a",
+                    "cn": [
+                        {
+                            "type": "Ext.grid.column.Number",
+                            "reference": {
+                                "name": "columns",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "dataIndex": "number",
+                                "text": "区段开始值"
+                            },
+                            "name": "MyNumberColumn1",
+                            "designerId": "b0a19be8-a027-483e-8939-b0b7fed09f55"
+                        },
+                        {
+                            "type": "Ext.grid.column.Number",
+                            "reference": {
+                                "name": "columns",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "text": "区段结束值"
+                            },
+                            "name": "MyNumberColumn2",
+                            "designerId": "13dc4b27-2bd4-4abb-aee2-6b91b5fd2f4f"
+                        },
+                        {
+                            "type": "Ext.grid.column.Number",
+                            "reference": {
+                                "name": "columns",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "text": "税率"
+                            },
+                            "name": "MyNumberColumn3",
+                            "designerId": "96b0c0cb-432a-421d-9514-538efa6646d9"
+                        },
+                        {
+                            "type": "Ext.grid.column.Number",
+                            "reference": {
+                                "name": "columns",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "text": "速算扣除数"
+                            },
+                            "name": "MyNumberColumn4",
+                            "designerId": "17aea868-c508-4c55-a1be-8b2710346859"
+                        },
+                        {
+                            "type": "Ext.grid.column.Action",
+                            "reference": {
+                                "name": "columns",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "text": "操作"
+                            },
+                            "name": "MyActionColumn1",
+                            "designerId": "7fee346b-7d13-410c-ac74-ce512a857df4",
+                            "cn": [
+                                {
+                                    "type": "actioncolumnitem",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "designer|displayName": "delete",
+                                        "tooltip": "delete"
+                                    },
+                                    "name": "MyActionColumnItem2",
+                                    "designerId": "fab7e6d1-bb68-4846-bf3e-e536b2f8a847"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "Ext.grid.View",
+                            "reference": {
+                                "name": "viewConfig",
+                                "type": "object"
+                            },
+                            "codeClass": null,
+                            "name": "MyGridView1",
+                            "designerId": "c1411b72-6712-4f62-9e12-5d596091a710"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
