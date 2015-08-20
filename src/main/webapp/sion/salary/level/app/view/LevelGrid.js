@@ -25,8 +25,7 @@ Ext.define('sion.salary.level.view.LevelGrid', {
         'Ext.grid.View'
     ],
 
-    height: 250,
-    width: 400,
+    layout: 'fit',
     title: '薪资定级',
 
     initComponent: function() {
@@ -54,6 +53,7 @@ Ext.define('sion.salary.level.view.LevelGrid', {
             items: [
                 {
                     xtype: 'gridpanel',
+                    width: '10%',
                     header: false,
                     title: 'My Grid Panel',
                     columns: [
@@ -64,26 +64,32 @@ Ext.define('sion.salary.level.view.LevelGrid', {
                         },
                         {
                             xtype: 'gridcolumn',
+                            width: '10%',
                             text: '姓名'
                         },
                         {
                             xtype: 'gridcolumn',
+                            width: '30%',
                             text: '机构/部门/职位'
                         },
                         {
                             xtype: 'gridcolumn',
+                            width: '10%',
                             text: '薪资层次'
                         },
                         {
                             xtype: 'gridcolumn',
+                            width: '10%',
                             text: '薪资等级'
                         },
                         {
                             xtype: 'datecolumn',
+                            width: '15%',
                             text: '创建日期'
                         },
                         {
                             xtype: 'actioncolumn',
+                            width: '10%',
                             text: '操作',
                             items: [
                                 {

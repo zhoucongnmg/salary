@@ -165,6 +165,7 @@
                     },
                     "codeClass": null,
                     "userConfig": {
+                        "hidden": true,
                         "title": "授权范围"
                     },
                     "name": "MyPanel3",

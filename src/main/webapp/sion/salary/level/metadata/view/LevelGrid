@@ -7,9 +7,10 @@
     "codeClass": null,
     "userConfig": {
         "designer|userClassName": "LevelGrid",
-        "height": 250,
+        "height": null,
+        "layout": "fit",
         "title": "薪资定级",
-        "width": 400
+        "width": null
     },
     "name": "MyPanel",
     "designerId": "cdbf9aa9-c09a-42b3-bd05-7ac29432b68e",
@@ -74,7 +75,8 @@
             "codeClass": null,
             "userConfig": {
                 "header": false,
-                "title": "My Grid Panel"
+                "title": "My Grid Panel",
+                "width": "10%"
             },
             "name": "MyGridPanel1",
             "designerId": "c9361c9f-b875-4aa0-90eb-5dc5d2de468b",
@@ -101,7 +103,8 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "text": "姓名"
+                        "text": "姓名",
+                        "width": "10%"
                     },
                     "name": "MyColumn3",
                     "designerId": "bc92d679-8311-4e74-a713-a283f497fa87"
@@ -114,7 +117,8 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "text": "机构/部门/职位"
+                        "text": "机构/部门/职位",
+                        "width": "30%"
                     },
                     "name": "MyColumn4",
                     "designerId": "71d05b7e-815b-4646-b176-d2280aba0b95"
@@ -127,7 +131,8 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "text": "薪资层次"
+                        "text": "薪资层次",
+                        "width": "10%"
                     },
                     "name": "MyColumn5",
                     "designerId": "8c678ce9-698a-4347-8060-e5e6c0611e42"
@@ -140,7 +145,8 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "text": "薪资等级"
+                        "text": "薪资等级",
+                        "width": "10%"
                     },
                     "name": "MyColumn6",
                     "designerId": "bed2fb51-47b8-43e3-befa-ee3e1a525a90"
@@ -153,7 +159,8 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "text": "创建日期"
+                        "text": "创建日期",
+                        "width": "15%"
                     },
                     "name": "MyDateColumn",
                     "designerId": "63c9780f-9240-4d6d-a4b2-4c445b9a0d35"
@@ -166,7 +173,8 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "text": "操作"
+                        "text": "操作",
+                        "width": "10%"
                     },
                     "name": "MyActionColumn1",
                     "designerId": "e04d4fdf-9a5f-4ab0-af06-b6ac587a0433",

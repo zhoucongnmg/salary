@@ -94,6 +94,7 @@ Ext.define('sion.salary.accounts.view.Account_win', {
                         },
                         {
                             xtype: 'panel',
+                            hidden: true,
                             title: '授权范围',
                             items: [
                                 {
