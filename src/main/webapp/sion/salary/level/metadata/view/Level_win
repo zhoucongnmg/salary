@@ -1,0 +1,106 @@
+{
+    "type": "Ext.window.Window",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userClassName": "Level_win",
+        "height": 250,
+        "title": "配置薪资等级",
+        "width": 400
+    },
+    "name": "MyWindow",
+    "designerId": "a3c482e9-fb13-4304-bdb0-9a9defad3b53",
+    "cn": [
+        {
+            "type": "Ext.toolbar.Toolbar",
+            "reference": {
+                "name": "dockedItems",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "dock": "top"
+            },
+            "name": "MyToolbar3",
+            "designerId": "667d8bbb-67c5-47a2-a37e-6700b62bf5ae",
+            "cn": [
+                {
+                    "type": "Ext.button.Button",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|flex": null,
+                        "text": "保存"
+                    },
+                    "name": "MyButton3",
+                    "designerId": "e1a756aa-7d8c-49fd-a874-4c69c6dc27d5"
+                }
+            ]
+        },
+        {
+            "type": "Ext.form.Panel",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "bodyPadding": 10,
+                "header": false,
+                "title": "My Form"
+            },
+            "name": "MyForm1",
+            "designerId": "ad989c9a-5866-4260-9d8b-d7d3b80348e6",
+            "cn": [
+                {
+                    "type": "Ext.form.field.Text",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fieldLabel": "姓名",
+                        "layout|anchor": "100%"
+                    },
+                    "name": "MyTextField1",
+                    "designerId": "bba20598-4934-49ed-b337-f3b817ffee89"
+                },
+                {
+                    "type": "Ext.form.field.ComboBox",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fieldLabel": "薪资层次",
+                        "layout|anchor": "100%"
+                    },
+                    "name": "MyComboBox",
+                    "designerId": "b4d300d6-22d7-4419-9825-b70259fd1afc"
+                },
+                {
+                    "type": "Ext.form.field.Trigger",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fieldLabel": "薪资等级",
+                        "layout|anchor": "100%"
+                    },
+                    "name": "MyTriggerField",
+                    "designerId": "387ca107-7558-4ff2-9539-86a47c24c3a3"
+                }
+            ]
+        }
+    ]
+}

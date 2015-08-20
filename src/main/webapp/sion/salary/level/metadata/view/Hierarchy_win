@@ -1,0 +1,106 @@
+{
+    "type": "Ext.window.Window",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userClassName": "Hierarchy_win",
+        "height": 320,
+        "title": "薪资层次",
+        "width": 480
+    },
+    "name": "MyWindow",
+    "designerId": "edfd2dfd-871c-48f5-82b3-d51a9ac89754",
+    "cn": [
+        {
+            "type": "Ext.toolbar.Toolbar",
+            "reference": {
+                "name": "dockedItems",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "dock": "top"
+            },
+            "name": "MyToolbar1",
+            "designerId": "691c32df-8841-4882-b486-0c34ec6aeed8",
+            "cn": [
+                {
+                    "type": "Ext.button.Button",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|flex": null,
+                        "text": "保存"
+                    },
+                    "name": "MyButton1",
+                    "designerId": "7a18fa52-b86c-4fad-a022-b0cc64baadf7"
+                }
+            ]
+        },
+        {
+            "type": "Ext.form.Panel",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "bodyPadding": 10,
+                "header": false,
+                "title": "My Form"
+            },
+            "name": "MyForm",
+            "designerId": "ccc3685c-d050-41a9-a46e-da383b3bb69e",
+            "cn": [
+                {
+                    "type": "Ext.form.field.Text",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fieldLabel": "名称",
+                        "layout|anchor": "100%"
+                    },
+                    "name": "MyTextField",
+                    "designerId": "2947bff6-f30d-450d-afe8-ea93d5702b39"
+                },
+                {
+                    "type": "Ext.form.field.TextArea",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fieldLabel": "薪资项目",
+                        "layout|anchor": "100%"
+                    },
+                    "name": "MyTextArea",
+                    "designerId": "a39b8f5c-3411-4e5c-81c3-c5280ae798ce"
+                },
+                {
+                    "type": "Ext.form.field.TextArea",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fieldLabel": "关联职位",
+                        "width": 450
+                    },
+                    "name": "MyTextArea1",
+                    "designerId": "021226f6-2e46-4fa5-ac51-169218fb7ec2"
+                }
+            ]
+        }
+    ]
+}

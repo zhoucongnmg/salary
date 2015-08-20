@@ -1,0 +1,34 @@
+{
+    "type": "Ext.app.Application",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "name": "sion.salary.level",
+        "paths": [
+            "{",
+            "'sion.salary.level': 'sion/salary/level/app'",
+            "}"
+        ],
+        "views": [
+            "HierarchyGrid",
+            "Hierarchy_win",
+            "LevelGrid",
+            "Level_win"
+        ]
+    },
+    "name": "Application",
+    "configAlternates": {
+        "paths": "object"
+    },
+    "designerId": "application",
+    "customConfigs": [
+        {
+            "group": "(Custom Properties)",
+            "name": "paths",
+            "type": "string"
+        }
+    ]
+}

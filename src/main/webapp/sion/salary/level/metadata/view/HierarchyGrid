@@ -1,0 +1,194 @@
+{
+    "type": "Ext.panel.Panel",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|initialView": true,
+        "designer|userClassName": "HierarchyGrid",
+        "height": 250,
+        "layout": "fit",
+        "title": "薪资层次",
+        "width": 400
+    },
+    "name": "MyPanel",
+    "designerId": "ea3d9fb4-a7e4-4151-8062-a37eedd959fb",
+    "cn": [
+        {
+            "type": "Ext.toolbar.Toolbar",
+            "reference": {
+                "name": "dockedItems",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "dock": "top"
+            },
+            "name": "MyToolbar",
+            "designerId": "06223257-da05-4daa-b013-4a00521c7cb8",
+            "cn": [
+                {
+                    "type": "Ext.button.Button",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|flex": null,
+                        "text": "新建"
+                    },
+                    "name": "MyButton",
+                    "designerId": "08a3d1ac-393d-4e91-9672-d7c986193acf",
+                    "cn": [
+                        {
+                            "type": "basiceventbinding",
+                            "reference": {
+                                "name": "listeners",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fn": "onButtonClick",
+                                "implHandler": [
+                                    "var me=this,",
+                                    "    namespace=me.getNamespace();",
+                                    "Ext.create(namespace+\".view.Hierarchy_win\").show();"
+                                ],
+                                "name": "click",
+                                "scope": "me"
+                            },
+                            "name": "onButtonClick",
+                            "designerId": "97ef6d44-376e-4652-ac76-37b88001e4cf"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "type": "Ext.grid.Panel",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "title": "My Grid Panel"
+            },
+            "name": "MyGridPanel",
+            "designerId": "79fe7030-7752-41a0-a0e3-910a188629cc",
+            "cn": [
+                {
+                    "type": "Ext.grid.column.Column",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dataIndex": "string",
+                        "text": "名称"
+                    },
+                    "name": "MyColumn",
+                    "designerId": "d8cb3244-6813-4de6-8a52-abbf06e61c66"
+                },
+                {
+                    "type": "Ext.grid.column.Column",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "text": "薪资项目"
+                    },
+                    "name": "MyColumn1",
+                    "designerId": "43b1747b-ffdd-4375-b2f6-d973e66f5424"
+                },
+                {
+                    "type": "Ext.grid.column.Action",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "text": "操作"
+                    },
+                    "name": "MyActionColumn",
+                    "designerId": "fa02ab61-5869-490e-8714-899bd7828d11",
+                    "cn": [
+                        {
+                            "type": "actioncolumnitem",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "designer|displayName": "relative",
+                                "tooltip": "关联职位"
+                            },
+                            "name": "MyActionColumnItem",
+                            "designerId": "0b567038-4a21-409b-8840-9fbca741c5ef"
+                        },
+                        {
+                            "type": "actioncolumnitem",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "designer|displayName": "config",
+                                "tooltip": "等级设定"
+                            },
+                            "name": "MyActionColumnItem1",
+                            "designerId": "ad6e7ed6-8e61-40d1-b558-94d0ceb4450f"
+                        },
+                        {
+                            "type": "actioncolumnitem",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "designer|displayName": "modify",
+                                "tooltip": "编辑"
+                            },
+                            "name": "MyActionColumnItem2",
+                            "designerId": "1fc224ad-7f9c-4c48-b1d9-6b671566b839"
+                        },
+                        {
+                            "type": "actioncolumnitem",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "designer|displayName": "delete",
+                                "tooltip": "删除"
+                            },
+                            "name": "MyActionColumnItem3",
+                            "designerId": "9f111edb-77dd-466e-a299-e9ce1a6c58e5"
+                        }
+                    ]
+                },
+                {
+                    "type": "Ext.grid.View",
+                    "reference": {
+                        "name": "viewConfig",
+                        "type": "object"
+                    },
+                    "codeClass": null,
+                    "name": "MyGridView",
+                    "designerId": "a4b89800-f314-437f-89c1-a5c20b6bc97a"
+                }
+            ]
+        }
+    ]
+}
