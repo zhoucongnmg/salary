@@ -20,6 +20,8 @@ public class Account {
 	
 	boolean enableLevel;//是否启用薪资体系
 	
+	String danyGridBusinessId;//动态表单ID
+	
 	List<AccountItem> accountItems;//套帐项目
 	List<Map<String,String>> persons;//套帐关联人员Id和姓名
 }

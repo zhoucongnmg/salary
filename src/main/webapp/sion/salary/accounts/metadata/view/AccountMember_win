@@ -1,0 +1,16 @@
+{
+    "type": "Ext.window.Window",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userClassName": "AccountMember_win",
+        "height": 250,
+        "title": "套帐成员",
+        "width": 400
+    },
+    "name": "MyWindow",
+    "designerId": "46727d05-2ed5-4fca-8d2c-5b0044c13afb"
+}

@@ -30,7 +30,8 @@ Ext.application({
         'Account_win',
         'SalaryItem_win',
         'Auth_win',
-        'AddSalaryItem_win'
+        'AddSalaryItem_win',
+        'AccountMember_win'
     ],
     name: 'sion.salary.accounts',
 
