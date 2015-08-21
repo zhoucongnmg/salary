@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
  *	薪资管理：薪资项管理
  */
 @RestController
+@RequestMapping("/salary/salaryitem/") 
 public class SalaryItemController {
 	@RequestMapping(value="create")
 	public Response create(@RequestBody SalaryItem salaryItem) {

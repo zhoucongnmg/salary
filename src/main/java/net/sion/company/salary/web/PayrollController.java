@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author niex 
  */
 @RestController
+@RequestMapping("/salary/payroll/") 
 public class PayrollController {
 	/**
 	 * 创建工资表

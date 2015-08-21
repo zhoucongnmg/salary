@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author niex 
  */
 @RestController
+@RequestMapping("/salary/socialitem/") 
 public class SocialItemController {
 	/**
 	 * 创建社保项目

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author niex 
  */
 @RestController
+@RequestMapping("/salary/socialaccount/") 
 public class SocialAccountController {
 	/**
 	 * 创建社保套账

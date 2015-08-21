@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
  *	个税设置
  */
 @RestController
+@RequestMapping("/salary/tax/") 
 public class TaxController {
 
 	@RequestMapping(value="create")

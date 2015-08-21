@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author zhangligang 薪资管理：套帐设置
  */
 @RestController
+@RequestMapping("/salary/account/") 
 public class AccountController {
 	/**
 	 * 创建套帐

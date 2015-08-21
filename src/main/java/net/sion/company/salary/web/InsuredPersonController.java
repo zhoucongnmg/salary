@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author niex 
  */
 @RestController
+@RequestMapping("/salary/insured/") 
 public class InsuredPersonController {
 	/**
 	 * 创建投保人
