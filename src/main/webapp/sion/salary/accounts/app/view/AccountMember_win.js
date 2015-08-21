@@ -16,12 +16,32 @@
 Ext.define('sion.salary.accounts.view.AccountMember_win', {
     extend: 'Ext.window.Window',
 
-    height: 250,
-    width: 400,
+    requires: [
+        'Ext.toolbar.Toolbar',
+        'Ext.button.Button'
+    ],
+
+    height: 480,
+    width: 600,
     title: '套帐成员',
 
     initComponent: function() {
         var me = this;
+
+        Ext.applyIf(me, {
+            dockedItems: [
+                {
+                    xtype: 'toolbar',
+                    dock: 'top',
+                    items: [
+                        {
+                            xtype: 'button',
+                            text: '保存'
+                        }
+                    ]
+                }
+            ]
+        });
 
         me.callParent(arguments);
     }

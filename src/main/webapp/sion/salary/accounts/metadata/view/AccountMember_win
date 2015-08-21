@@ -7,10 +7,41 @@
     "codeClass": null,
     "userConfig": {
         "designer|userClassName": "AccountMember_win",
-        "height": 250,
+        "height": 480,
         "title": "套帐成员",
-        "width": 400
+        "width": 600
     },
     "name": "MyWindow",
-    "designerId": "46727d05-2ed5-4fca-8d2c-5b0044c13afb"
+    "designerId": "46727d05-2ed5-4fca-8d2c-5b0044c13afb",
+    "cn": [
+        {
+            "type": "Ext.toolbar.Toolbar",
+            "reference": {
+                "name": "dockedItems",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "dock": "top"
+            },
+            "name": "MyToolbar7",
+            "designerId": "ec214aa6-d4cf-482b-a5e9-2551ec7874e7",
+            "cn": [
+                {
+                    "type": "Ext.button.Button",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|flex": null,
+                        "text": "保存"
+                    },
+                    "name": "MyButton8",
+                    "designerId": "19c56a09-8fb0-4cc8-9de4-f1daa2d367de"
+                }
+            ]
+        }
+    ]
 }

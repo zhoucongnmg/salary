@@ -45,8 +45,8 @@ Ext.define('sion.salary.main.store.AutoMenuStore', {
                             text: '薪资发放',
                             iconCls: 's_icon_action_copy',
                             imgSrc: 'images/action_copy.png',
-                            namespace: 'sion.salary.issue',
-                            viewName: '',
+                            namespace: 'sion.salary.payroll',
+                            viewName: 'PayrollGrid',
                             desc: '生成薪金记录，审批发放'
                         },
                         {
@@ -69,7 +69,7 @@ Ext.define('sion.salary.main.store.AutoMenuStore', {
                             iconCls: 's_icon_computer_go',
                             imgSrc: 'images/computer_go.png',
                             namespace: 'sion.salary.level',
-                            viewName: 'HierarchyGrid',
+                            viewName: 'LevelGrid',
                             desc: '定义薪资层次，适应不同岗位'
                         },
                         {
@@ -77,7 +77,7 @@ Ext.define('sion.salary.main.store.AutoMenuStore', {
                             iconCls: 's_icon_computer',
                             imgSrc: 'images/computer.png',
                             namespace: 'sion.salary.level',
-                            viewName: 'LevelGrid',
+                            viewName: 'PersonLevelGrid',
                             desc: '人员与薪资层次挂钩，定人定岗定薪'
                         }
                     ]
@@ -92,7 +92,7 @@ Ext.define('sion.salary.main.store.AutoMenuStore', {
                             iconCls: 's_icon_chart_pie',
                             imgSrc: 'images/chart_pie.png',
                             namespace: 'sion.salary.social',
-                            viewName: 'ReportWindow',
+                            viewName: 'InsuredGrid',
                             desc: '管理社保和公积金投保、缴费比率等'
                         },
                         {
@@ -100,7 +100,7 @@ Ext.define('sion.salary.main.store.AutoMenuStore', {
                             iconCls: 's_icon_chart_pie',
                             imgSrc: 'images/chart_pie.png',
                             namespace: 'sion.salary.social',
-                            viewName: 'ReportWindow',
+                            viewName: 'InsuredSearchGrid',
                             desc: '多条件查询缴保情况'
                         },
                         {
@@ -108,7 +108,7 @@ Ext.define('sion.salary.main.store.AutoMenuStore', {
                             iconCls: 's_icon_chart_pie',
                             imgSrc: 'images/chart_pie.png',
                             namespace: 'sion.salary.social',
-                            viewName: 'ReportWindow',
+                            viewName: 'SocialItemGrid',
                             desc: '定义社保公积金基础项目'
                         },
                         {
@@ -116,7 +116,7 @@ Ext.define('sion.salary.main.store.AutoMenuStore', {
                             iconCls: 's_icon_chart_pie',
                             imgSrc: 'images/chart_pie.png',
                             namespace: 'sion.salary.social',
-                            viewName: 'ReportWindow',
+                            viewName: 'SocialAccountGrid',
                             desc: '设置社保公积金套帐，多维管理人员缴保'
                         }
                     ]
