@@ -43,7 +43,11 @@ public class Payroll {
 	List<AccountItem> accountItems;	//薪资项目(用于前台列显示)
 	
 	
-	
+	public enum PayrollStatus{
+		Unpublish,
+		Pass,
+		Paid
+	}
 	
 	
 	
