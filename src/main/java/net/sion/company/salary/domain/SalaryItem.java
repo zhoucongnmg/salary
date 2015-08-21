@@ -18,5 +18,6 @@ public class SalaryItem {
 	boolean taxItem;//是否所得税项目
 	int decimalScale;//小数位数
 	boolean show;//是否显示
+	boolean system;//是否系统项
 	String note;//备注
 }

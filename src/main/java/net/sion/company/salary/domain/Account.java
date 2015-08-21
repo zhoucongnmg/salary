@@ -4,6 +4,7 @@
 package net.sion.company.salary.domain;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.data.annotation.Id;
 
@@ -20,4 +21,5 @@ public class Account {
 	boolean enableLevel;//是否启用薪资体系
 	
 	List<AccountItem> accountItems;//套帐项目
+	List<Map<String,String>> persons;//套帐关联人员Id和姓名
 }
