@@ -21,7 +21,7 @@ public class InsuredPerson {
 	
 	String outDate;	//退保日期
 	
-					//套账Id
+	String accountId;	//套账Id
 	
 	String socialWorkplace;	//社保代办地
 	
