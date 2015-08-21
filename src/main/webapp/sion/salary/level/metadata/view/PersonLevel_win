@@ -6,13 +6,13 @@
     },
     "codeClass": null,
     "userConfig": {
-        "designer|userClassName": "Hierarchy_win",
-        "height": 320,
-        "title": "薪资层次",
-        "width": 480
+        "designer|userClassName": "PersonLevel_win",
+        "height": 250,
+        "title": "配置薪资等级",
+        "width": 400
     },
     "name": "MyWindow",
-    "designerId": "edfd2dfd-871c-48f5-82b3-d51a9ac89754",
+    "designerId": "a3c482e9-fb13-4304-bdb0-9a9defad3b53",
     "cn": [
         {
             "type": "Ext.toolbar.Toolbar",
@@ -24,8 +24,8 @@
             "userConfig": {
                 "dock": "top"
             },
-            "name": "MyToolbar1",
-            "designerId": "691c32df-8841-4882-b486-0c34ec6aeed8",
+            "name": "MyToolbar3",
+            "designerId": "667d8bbb-67c5-47a2-a37e-6700b62bf5ae",
             "cn": [
                 {
                     "type": "Ext.button.Button",
@@ -38,8 +38,8 @@
                         "layout|flex": null,
                         "text": "保存"
                     },
-                    "name": "MyButton1",
-                    "designerId": "7a18fa52-b86c-4fad-a022-b0cc64baadf7"
+                    "name": "MyButton3",
+                    "designerId": "e1a756aa-7d8c-49fd-a874-4c69c6dc27d5"
                 }
             ]
         },
@@ -55,8 +55,8 @@
                 "header": false,
                 "title": "My Form"
             },
-            "name": "MyForm",
-            "designerId": "ccc3685c-d050-41a9-a46e-da383b3bb69e",
+            "name": "MyForm1",
+            "designerId": "ad989c9a-5866-4260-9d8b-d7d3b80348e6",
             "cn": [
                 {
                     "type": "Ext.form.field.Text",
@@ -66,39 +66,39 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "fieldLabel": "名称",
+                        "fieldLabel": "姓名",
                         "layout|anchor": "100%"
                     },
-                    "name": "MyTextField",
-                    "designerId": "2947bff6-f30d-450d-afe8-ea93d5702b39"
+                    "name": "MyTextField1",
+                    "designerId": "bba20598-4934-49ed-b337-f3b817ffee89"
                 },
                 {
-                    "type": "Ext.form.field.TextArea",
+                    "type": "Ext.form.field.ComboBox",
                     "reference": {
                         "name": "items",
                         "type": "array"
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "fieldLabel": "薪资项目",
+                        "fieldLabel": "薪资层次",
                         "layout|anchor": "100%"
                     },
-                    "name": "MyTextArea",
-                    "designerId": "a39b8f5c-3411-4e5c-81c3-c5280ae798ce"
+                    "name": "MyComboBox",
+                    "designerId": "b4d300d6-22d7-4419-9825-b70259fd1afc"
                 },
                 {
-                    "type": "Ext.form.field.TextArea",
+                    "type": "Ext.form.field.Trigger",
                     "reference": {
                         "name": "items",
                         "type": "array"
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "fieldLabel": "关联职位",
-                        "width": 450
+                        "fieldLabel": "薪资等级",
+                        "layout|anchor": "100%"
                     },
-                    "name": "MyTextArea1",
-                    "designerId": "021226f6-2e46-4fa5-ac51-169218fb7ec2"
+                    "name": "MyTriggerField",
+                    "designerId": "387ca107-7558-4ff2-9539-86a47c24c3a3"
                 }
             ]
         }

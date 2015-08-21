@@ -13,10 +13,10 @@
             "}"
         ],
         "views": [
-            "HierarchyGrid",
-            "Hierarchy_win",
             "LevelGrid",
-            "Level_win"
+            "Level_win",
+            "PersonLevelGrid",
+            "PersonLevel_win"
         ]
     },
     "name": "Application",

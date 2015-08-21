@@ -20,15 +20,14 @@ Ext.define('sion.salary.accounts.view.Account_win', {
         'Ext.tab.Panel',
         'Ext.tab.Tab',
         'Ext.form.Panel',
-        'Ext.form.field.Date',
         'Ext.form.field.Checkbox',
         'Ext.form.field.TextArea',
         'Ext.grid.Panel',
+        'Ext.grid.column.Number',
         'Ext.grid.column.Boolean',
         'Ext.grid.column.Action',
         'Ext.grid.View',
-        'Ext.toolbar.Toolbar',
-        'Ext.grid.column.Number'
+        'Ext.toolbar.Toolbar'
     ],
 
     height: 600,
@@ -58,21 +57,6 @@ Ext.define('sion.salary.accounts.view.Account_win', {
                                         {
                                             xtype: 'textfield',
                                             anchor: '100%',
-                                            fieldLabel: '创建人'
-                                        },
-                                        {
-                                            xtype: 'textfield',
-                                            anchor: '100%',
-                                            fieldLabel: '拥有者'
-                                        },
-                                        {
-                                            xtype: 'datefield',
-                                            anchor: '100%',
-                                            fieldLabel: '创建日期'
-                                        },
-                                        {
-                                            xtype: 'textfield',
-                                            anchor: '100%',
                                             fieldLabel: '套帐名称'
                                         },
                                         {
@@ -87,6 +71,81 @@ Ext.define('sion.salary.accounts.view.Account_win', {
                                             anchor: '100%',
                                             height: 168,
                                             fieldLabel: '备注'
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            xtype: 'panel',
+                            title: '套帐项目',
+                            items: [
+                                {
+                                    xtype: 'gridpanel',
+                                    height: 450,
+                                    header: false,
+                                    title: '套帐项目 ',
+                                    columns: [
+                                        {
+                                            xtype: 'numbercolumn',
+                                            dataIndex: 'number',
+                                            text: '序号'
+                                        },
+                                        {
+                                            xtype: 'gridcolumn',
+                                            dataIndex: 'string',
+                                            text: '项目名称'
+                                        },
+                                        {
+                                            xtype: 'gridcolumn',
+                                            text: '项目类型'
+                                        },
+                                        {
+                                            xtype: 'gridcolumn',
+                                            text: '字段'
+                                        },
+                                        {
+                                            xtype: 'gridcolumn',
+                                            text: '值或公式'
+                                        },
+                                        {
+                                            xtype: 'booleancolumn',
+                                            dataIndex: 'bool',
+                                            text: '是否显示'
+                                        },
+                                        {
+                                            xtype: 'actioncolumn',
+                                            dataIndex: 'date',
+                                            text: '操作',
+                                            items: [
+                                                {
+                                                    tooltip: '测试公式'
+                                                },
+                                                {
+
+                                                },
+                                                {
+
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ],
+                            dockedItems: [
+                                {
+                                    xtype: 'toolbar',
+                                    dock: 'top',
+                                    items: [
+                                        {
+                                            xtype: 'button',
+                                            text: '新增',
+                                            listeners: {
+                                                click: {
+                                                    fn: me.onAddSalaryItemClick,
+                                                    scope: me
+                                                }
+                                            }
                                         }
                                     ]
                                 }
@@ -150,81 +209,6 @@ Ext.define('sion.salary.accounts.view.Account_win', {
                                     ]
                                 }
                             ]
-                        },
-                        {
-                            xtype: 'panel',
-                            title: '套帐项目',
-                            dockedItems: [
-                                {
-                                    xtype: 'toolbar',
-                                    dock: 'top',
-                                    items: [
-                                        {
-                                            xtype: 'button',
-                                            text: '新增',
-                                            listeners: {
-                                                click: {
-                                                    fn: me.onAddSalaryItemClick,
-                                                    scope: me
-                                                }
-                                            }
-                                        }
-                                    ]
-                                }
-                            ],
-                            items: [
-                                {
-                                    xtype: 'gridpanel',
-                                    height: 450,
-                                    header: false,
-                                    title: '套帐项目 ',
-                                    columns: [
-                                        {
-                                            xtype: 'numbercolumn',
-                                            dataIndex: 'number',
-                                            text: '序号'
-                                        },
-                                        {
-                                            xtype: 'gridcolumn',
-                                            dataIndex: 'string',
-                                            text: '项目名称'
-                                        },
-                                        {
-                                            xtype: 'gridcolumn',
-                                            text: '项目类型'
-                                        },
-                                        {
-                                            xtype: 'gridcolumn',
-                                            text: '字段'
-                                        },
-                                        {
-                                            xtype: 'gridcolumn',
-                                            text: '值或公式'
-                                        },
-                                        {
-                                            xtype: 'booleancolumn',
-                                            dataIndex: 'bool',
-                                            text: '是否显示'
-                                        },
-                                        {
-                                            xtype: 'actioncolumn',
-                                            dataIndex: 'date',
-                                            text: '操作',
-                                            items: [
-                                                {
-                                                    tooltip: '测试公式'
-                                                },
-                                                {
-
-                                                },
-                                                {
-
-                                                }
-                                            ]
-                                        }
-                                    ]
-                                }
-                            ]
                         }
                     ]
                 }
@@ -246,16 +230,16 @@ Ext.define('sion.salary.accounts.view.Account_win', {
         me.callParent(arguments);
     },
 
-    onAuthClick: function(button, e, eOpts) {
-        var me =this,
-            namespace=me.getNamespace();
-        Ext.create(namespace+".view.Auth_win").show();
-    },
-
     onAddSalaryItemClick: function(button, e, eOpts) {
         var me =this,
             namespace=me.getNamespace();
         Ext.create(namespace+".view.AddSalaryItem_win").show();
+    },
+
+    onAuthClick: function(button, e, eOpts) {
+        var me =this,
+            namespace=me.getNamespace();
+        Ext.create(namespace+".view.Auth_win").show();
     }
 
 });

@@ -9,9 +9,9 @@
         "designer|userAlias": "salaryitemgrid",
         "designer|userClassName": "SalaryItemGrid",
         "header": false,
-        "height": 250,
+        "height": null,
         "title": "My Grid Panel",
-        "width": 400
+        "width": null
     },
     "name": "MyGridPanel1",
     "designerId": "0792004f-1834-444c-8300-a50243e0defc",

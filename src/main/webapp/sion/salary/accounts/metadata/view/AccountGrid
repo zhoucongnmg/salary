@@ -145,46 +145,6 @@
                     "designerId": "5bc18616-71ca-4d15-84d8-cedcdafb6dbc"
                 },
                 {
-                    "type": "Ext.grid.column.Column",
-                    "reference": {
-                        "name": "columns",
-                        "type": "array"
-                    },
-                    "codeClass": null,
-                    "userConfig": {
-                        "text": "套帐拥有者"
-                    },
-                    "name": "MyColumn1",
-                    "designerId": "63e896ba-b7e0-41af-bed3-ba5a7a0153a4"
-                },
-                {
-                    "type": "Ext.grid.column.Column",
-                    "reference": {
-                        "name": "columns",
-                        "type": "array"
-                    },
-                    "codeClass": null,
-                    "userConfig": {
-                        "text": "创建人"
-                    },
-                    "name": "MyColumn2",
-                    "designerId": "14675f91-6921-414a-99ac-9dc13dc2ab4f"
-                },
-                {
-                    "type": "Ext.grid.column.Date",
-                    "reference": {
-                        "name": "columns",
-                        "type": "array"
-                    },
-                    "codeClass": null,
-                    "userConfig": {
-                        "dataIndex": "date",
-                        "text": "创建时间"
-                    },
-                    "name": "MyDateColumn",
-                    "designerId": "fdaed1cf-784f-484c-a75a-1c268aabcdfd"
-                },
-                {
                     "type": "Ext.grid.column.Action",
                     "reference": {
                         "name": "columns",

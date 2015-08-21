@@ -20,12 +20,16 @@ Ext.define('sion.salary.level.view.Level_win', {
         'Ext.toolbar.Toolbar',
         'Ext.button.Button',
         'Ext.form.Panel',
-        'Ext.form.field.ComboBox'
+        'Ext.form.field.TextArea',
+        'Ext.grid.Panel',
+        'Ext.grid.column.Number',
+        'Ext.grid.column.Action',
+        'Ext.grid.View'
     ],
 
-    height: 250,
-    width: 400,
-    title: '配置薪资等级',
+    height: 480,
+    width: 600,
+    title: '薪资层次',
 
     initComponent: function() {
         var me = this;
@@ -53,17 +57,45 @@ Ext.define('sion.salary.level.view.Level_win', {
                         {
                             xtype: 'textfield',
                             anchor: '100%',
-                            fieldLabel: '姓名'
+                            fieldLabel: '名称'
                         },
                         {
-                            xtype: 'combobox',
+                            xtype: 'textareafield',
                             anchor: '100%',
-                            fieldLabel: '薪资层次'
+                            fieldLabel: '薪资项目'
                         },
                         {
-                            xtype: 'triggerfield',
-                            anchor: '100%',
-                            fieldLabel: '薪资等级'
+                            xtype: 'button',
+                            text: '添加'
+                        },
+                        {
+                            xtype: 'gridpanel',
+                            header: false,
+                            title: 'My Grid Panel',
+                            columns: [
+                                {
+                                    xtype: 'numbercolumn',
+                                    dataIndex: 'number',
+                                    text: '等级'
+                                },
+                                {
+                                    xtype: 'gridcolumn',
+                                    text: '人员'
+                                },
+                                {
+                                    xtype: 'gridcolumn',
+                                    dataIndex: 'string',
+                                    text: '基本工资'
+                                },
+                                {
+                                    xtype: 'actioncolumn',
+                                    items: [
+                                        {
+
+                                        }
+                                    ]
+                                }
+                            ]
                         }
                     ]
                 }

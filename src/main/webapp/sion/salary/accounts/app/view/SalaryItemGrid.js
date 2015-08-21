@@ -23,8 +23,6 @@ Ext.define('sion.salary.accounts.view.SalaryItemGrid', {
         'Ext.grid.View'
     ],
 
-    height: 250,
-    width: 400,
     header: false,
     title: 'My Grid Panel',
 

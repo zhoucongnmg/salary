@@ -20,7 +20,6 @@ Ext.define('sion.salary.accounts.view.AccountGrid', {
         'Ext.button.Button',
         'Ext.grid.Panel',
         'Ext.grid.column.Boolean',
-        'Ext.grid.column.Date',
         'Ext.grid.column.Action',
         'Ext.grid.View',
         'Ext.toolbar.Paging'
@@ -83,19 +82,6 @@ Ext.define('sion.salary.accounts.view.AccountGrid', {
                             xtype: 'booleancolumn',
                             dataIndex: 'bool',
                             text: '启用薪资体系'
-                        },
-                        {
-                            xtype: 'gridcolumn',
-                            text: '套帐拥有者'
-                        },
-                        {
-                            xtype: 'gridcolumn',
-                            text: '创建人'
-                        },
-                        {
-                            xtype: 'datecolumn',
-                            dataIndex: 'date',
-                            text: '创建时间'
                         },
                         {
                             xtype: 'actioncolumn',

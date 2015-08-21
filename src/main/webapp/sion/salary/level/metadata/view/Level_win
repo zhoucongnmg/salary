@@ -7,12 +7,12 @@
     "codeClass": null,
     "userConfig": {
         "designer|userClassName": "Level_win",
-        "height": 250,
-        "title": "配置薪资等级",
-        "width": 400
+        "height": 480,
+        "title": "薪资层次",
+        "width": 600
     },
     "name": "MyWindow",
-    "designerId": "a3c482e9-fb13-4304-bdb0-9a9defad3b53",
+    "designerId": "edfd2dfd-871c-48f5-82b3-d51a9ac89754",
     "cn": [
         {
             "type": "Ext.toolbar.Toolbar",
@@ -24,8 +24,8 @@
             "userConfig": {
                 "dock": "top"
             },
-            "name": "MyToolbar3",
-            "designerId": "667d8bbb-67c5-47a2-a37e-6700b62bf5ae",
+            "name": "MyToolbar1",
+            "designerId": "691c32df-8841-4882-b486-0c34ec6aeed8",
             "cn": [
                 {
                     "type": "Ext.button.Button",
@@ -38,8 +38,8 @@
                         "layout|flex": null,
                         "text": "保存"
                     },
-                    "name": "MyButton3",
-                    "designerId": "e1a756aa-7d8c-49fd-a874-4c69c6dc27d5"
+                    "name": "MyButton1",
+                    "designerId": "7a18fa52-b86c-4fad-a022-b0cc64baadf7"
                 }
             ]
         },
@@ -55,8 +55,8 @@
                 "header": false,
                 "title": "My Form"
             },
-            "name": "MyForm1",
-            "designerId": "ad989c9a-5866-4260-9d8b-d7d3b80348e6",
+            "name": "MyForm",
+            "designerId": "ccc3685c-d050-41a9-a46e-da383b3bb69e",
             "cn": [
                 {
                     "type": "Ext.form.field.Text",
@@ -66,39 +66,130 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "fieldLabel": "姓名",
+                        "fieldLabel": "名称",
                         "layout|anchor": "100%"
                     },
-                    "name": "MyTextField1",
-                    "designerId": "bba20598-4934-49ed-b337-f3b817ffee89"
+                    "name": "MyTextField",
+                    "designerId": "2947bff6-f30d-450d-afe8-ea93d5702b39"
                 },
                 {
-                    "type": "Ext.form.field.ComboBox",
+                    "type": "Ext.form.field.TextArea",
                     "reference": {
                         "name": "items",
                         "type": "array"
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "fieldLabel": "薪资层次",
+                        "fieldLabel": "薪资项目",
                         "layout|anchor": "100%"
                     },
-                    "name": "MyComboBox",
-                    "designerId": "b4d300d6-22d7-4419-9825-b70259fd1afc"
+                    "name": "MyTextArea",
+                    "designerId": "ca49109f-b8e4-472e-b0c6-948d3b48ade9"
                 },
                 {
-                    "type": "Ext.form.field.Trigger",
+                    "type": "Ext.button.Button",
                     "reference": {
                         "name": "items",
                         "type": "array"
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "fieldLabel": "薪资等级",
-                        "layout|anchor": "100%"
+                        "text": "添加"
                     },
-                    "name": "MyTriggerField",
-                    "designerId": "387ca107-7558-4ff2-9539-86a47c24c3a3"
+                    "name": "MyButton4",
+                    "designerId": "0be4cee0-2a93-4a51-80c9-44b2314b4034"
+                },
+                {
+                    "type": "Ext.grid.Panel",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "header": false,
+                        "title": "My Grid Panel"
+                    },
+                    "name": "MyGridPanel2",
+                    "designerId": "97d1c4fb-bfcd-47ff-a0d3-31b2e2d4d8e3",
+                    "cn": [
+                        {
+                            "type": "Ext.grid.column.Number",
+                            "reference": {
+                                "name": "columns",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "dataIndex": "number",
+                                "text": "等级"
+                            },
+                            "name": "MyNumberColumn",
+                            "designerId": "9fb702d4-dac6-4183-aa64-11e0c61d5749"
+                        },
+                        {
+                            "type": "Ext.grid.column.Column",
+                            "reference": {
+                                "name": "columns",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "text": "人员"
+                            },
+                            "name": "MyColumn8",
+                            "designerId": "8c768d28-68f7-428a-b270-4859da4c7853"
+                        },
+                        {
+                            "type": "Ext.grid.column.Column",
+                            "reference": {
+                                "name": "columns",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "dataIndex": "string",
+                                "text": "基本工资"
+                            },
+                            "name": "MyColumn7",
+                            "designerId": "3a6dd4e2-ef4e-4bc1-88ff-6afd2b1433a5"
+                        },
+                        {
+                            "type": "Ext.grid.column.Action",
+                            "reference": {
+                                "name": "columns",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "name": "MyActionColumn2",
+                            "designerId": "bbb13a9c-ba0b-4418-b2e1-185d7c55baae",
+                            "cn": [
+                                {
+                                    "type": "actioncolumnitem",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "designer|displayName": "delete"
+                                    },
+                                    "name": "MyActionColumnItem5",
+                                    "designerId": "2e8b22d8-0eba-47c9-8a54-05b4f10a8e7b"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "Ext.grid.View",
+                            "reference": {
+                                "name": "viewConfig",
+                                "type": "object"
+                            },
+                            "codeClass": null,
+                            "name": "MyGridView2",
+                            "designerId": "7ebe6658-da42-4614-89df-0cb15278f1cb"
+                        }
+                    ]
                 }
             ]
         }

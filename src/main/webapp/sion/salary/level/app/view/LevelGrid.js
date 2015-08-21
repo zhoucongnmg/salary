@@ -20,13 +20,14 @@ Ext.define('sion.salary.level.view.LevelGrid', {
         'Ext.toolbar.Toolbar',
         'Ext.button.Button',
         'Ext.grid.Panel',
-        'Ext.grid.column.Date',
         'Ext.grid.column.Action',
         'Ext.grid.View'
     ],
 
+    height: 250,
+    width: 400,
     layout: 'fit',
-    title: '薪资定级',
+    title: '薪资层次',
 
     initComponent: function() {
         var me = this;
@@ -39,10 +40,10 @@ Ext.define('sion.salary.level.view.LevelGrid', {
                     items: [
                         {
                             xtype: 'button',
-                            text: '新增',
+                            text: '新建',
                             listeners: {
                                 click: {
-                                    fn: me.onAddClick,
+                                    fn: me.onButtonClick,
                                     scope: me
                                 }
                             }
@@ -53,50 +54,33 @@ Ext.define('sion.salary.level.view.LevelGrid', {
             items: [
                 {
                     xtype: 'gridpanel',
-                    width: '10%',
                     header: false,
                     title: 'My Grid Panel',
                     columns: [
                         {
                             xtype: 'gridcolumn',
                             dataIndex: 'string',
-                            text: '员工编号'
+                            text: '名称'
                         },
                         {
                             xtype: 'gridcolumn',
-                            width: '10%',
-                            text: '姓名'
-                        },
-                        {
-                            xtype: 'gridcolumn',
-                            width: '30%',
-                            text: '机构/部门/职位'
-                        },
-                        {
-                            xtype: 'gridcolumn',
-                            width: '10%',
-                            text: '薪资层次'
-                        },
-                        {
-                            xtype: 'gridcolumn',
-                            width: '10%',
-                            text: '薪资等级'
-                        },
-                        {
-                            xtype: 'datecolumn',
-                            width: '15%',
-                            text: '创建日期'
+                            text: '薪资项目'
                         },
                         {
                             xtype: 'actioncolumn',
-                            width: '10%',
                             text: '操作',
                             items: [
                                 {
-                                    tooltip: '删除'
+                                    tooltip: '关联职位'
                                 },
                                 {
-                                    tooltip: '修改定级'
+                                    tooltip: '等级设定'
+                                },
+                                {
+                                    tooltip: '编辑'
+                                },
+                                {
+                                    tooltip: '删除'
                                 }
                             ]
                         }
@@ -108,10 +92,10 @@ Ext.define('sion.salary.level.view.LevelGrid', {
         me.callParent(arguments);
     },
 
-    onAddClick: function(button, e, eOpts) {
+    onButtonClick: function(button, e, eOpts) {
         var me=this,
-                    namespace=me.getNamespace();
-                Ext.create(namespace+".view.Level_win").show();
+            namespace=me.getNamespace();
+        Ext.create(namespace+".view.Hierarchy_win").show();
     }
 
 });

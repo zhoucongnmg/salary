@@ -24,15 +24,15 @@ Ext.application({
         'sion.salary.level': 'sion/salary/level/app'
     },
     views: [
-        'HierarchyGrid',
-        'Hierarchy_win',
         'LevelGrid',
-        'Level_win'
+        'Level_win',
+        'PersonLevelGrid',
+        'PersonLevel_win'
     ],
     name: 'sion.salary.level',
 
     launch: function() {
-        Ext.create('sion.salary.level.view.HierarchyGrid', {renderTo: Ext.getBody()});
+        Ext.create('sion.salary.level.view.LevelGrid', {renderTo: Ext.getBody()});
     }
 
 });
