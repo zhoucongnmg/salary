@@ -17,8 +17,8 @@ import org.springframework.roo.addon.layers.repository.mongo.RooMongoEntity;
 
 @RooJavaBean
 @RooMongoEntity
-@Document(collection="Company_Salary_SalaryPay")
-public class SalaryPay {
+@Document(collection="Company_Salary_Payroll")
+public class Payroll {
 	
 	@Id
 	String id;

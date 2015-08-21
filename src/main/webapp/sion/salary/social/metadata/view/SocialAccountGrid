@@ -11,126 +11,9 @@
         "title": null,
         "width": 1006
     },
-    "name": "InsuredGrid1",
-    "designerId": "1f0f66ec-a11e-448a-8d3e-c921c6d2c1eb",
+    "name": "SocialItemGrid1",
+    "designerId": "7c1e6702-8d61-4884-809b-d0c45ff3a89b",
     "cn": [
-        {
-            "type": "Ext.toolbar.Toolbar",
-            "reference": {
-                "name": "dockedItems",
-                "type": "array"
-            },
-            "codeClass": null,
-            "userConfig": {
-                "dock": "top",
-                "height": null,
-                "width": null
-            },
-            "name": "MyToolbar",
-            "designerId": "1fafb32f-cfec-4766-817d-e8a8c7c05349",
-            "cn": [
-                {
-                    "type": "Ext.form.Panel",
-                    "reference": {
-                        "name": "items",
-                        "type": "array"
-                    },
-                    "codeClass": null,
-                    "userConfig": {
-                        "bodyPadding": 10,
-                        "height": 39,
-                        "layout": "column",
-                        "layout|flex": null,
-                        "title": null,
-                        "width": 909
-                    },
-                    "name": "MyForm",
-                    "designerId": "bef17fa0-86f2-4be5-9931-3e453b9b5fe1",
-                    "cn": [
-                        {
-                            "type": "Ext.form.field.ComboBox",
-                            "reference": {
-                                "name": "items",
-                                "type": "array"
-                            },
-                            "codeClass": null,
-                            "userConfig": {
-                                "fieldLabel": "关键字",
-                                "labelWidth": 60,
-                                "layout|columnWidth": 0.2
-                            },
-                            "name": "MyComboBox1",
-                            "designerId": "9033bc0f-fd0e-40e2-a916-cd7016a39b5c"
-                        },
-                        {
-                            "type": "Ext.form.field.Text",
-                            "reference": {
-                                "name": "items",
-                                "type": "array"
-                            },
-                            "codeClass": null,
-                            "userConfig": {
-                                "fieldLabel": null,
-                                "layout|columnWidth": 0.2,
-                                "margin": "",
-                                "padding": "0 0 0 10"
-                            },
-                            "name": "MyTextField",
-                            "designerId": "47d4e3d2-15b6-4576-ac05-a6e3ae3a8040"
-                        },
-                        {
-                            "type": "Ext.form.field.ComboBox",
-                            "reference": {
-                                "name": "items",
-                                "type": "array"
-                            },
-                            "codeClass": null,
-                            "userConfig": {
-                                "fieldLabel": "社保套账",
-                                "labelWidth": 60,
-                                "layout|columnWidth": 0.3,
-                                "padding": "0 0 0 10"
-                            },
-                            "name": "MyComboBox2",
-                            "designerId": "9a007e35-b6d0-4d6b-a233-09bdee1ea668"
-                        },
-                        {
-                            "type": "Ext.form.field.ComboBox",
-                            "reference": {
-                                "name": "items",
-                                "type": "array"
-                            },
-                            "codeClass": null,
-                            "userConfig": {
-                                "fieldLabel": "社保状态",
-                                "labelWidth": 60,
-                                "layout|columnWidth": 0.2,
-                                "padding": "0 0 0 10"
-                            },
-                            "name": "MyComboBox",
-                            "designerId": "2c03ade9-eda1-4153-b177-4eb24b89c7a7"
-                        },
-                        {
-                            "type": "Ext.button.Button",
-                            "reference": {
-                                "name": "items",
-                                "type": "array"
-                            },
-                            "codeClass": null,
-                            "userConfig": {
-                                "height": 25,
-                                "layout|columnWidth": 0.05,
-                                "padding": null,
-                                "style": null,
-                                "text": "查询"
-                            },
-                            "name": "MyButton",
-                            "designerId": "3df4c63c-220b-47cd-856f-cd138417aec5"
-                        }
-                    ]
-                }
-            ]
-        },
         {
             "type": "Ext.grid.column.Column",
             "reference": {
@@ -140,23 +23,11 @@
             "codeClass": null,
             "userConfig": {
                 "dataIndex": "string",
-                "text": "参保人"
+                "flex": 0.4,
+                "text": "套账名称"
             },
             "name": "MyColumn",
-            "designerId": "77ee59a3-c273-4c0d-8fb3-54b286cd9885"
-        },
-        {
-            "type": "Ext.grid.column.Column",
-            "reference": {
-                "name": "columns",
-                "type": "array"
-            },
-            "codeClass": null,
-            "userConfig": {
-                "text": "身份证号"
-            },
-            "name": "MyColumn1",
-            "designerId": "b296fb00-0f39-43ce-8df8-2b6b7deb5438"
+            "designerId": "8e12e793-c1f5-4370-8e90-abf2b64cd968"
         },
         {
             "type": "Ext.grid.View",
@@ -166,7 +37,7 @@
             },
             "codeClass": null,
             "name": "MyGridView",
-            "designerId": "5353d5f4-977e-41df-a1f9-16659b6e91f1"
+            "designerId": "95e5e746-b58e-40d5-a42b-508e470cd287"
         },
         {
             "type": "Ext.grid.column.Column",
@@ -176,10 +47,11 @@
             },
             "codeClass": null,
             "userConfig": {
-                "text": "部门"
+                "flex": 0.2,
+                "text": "创建人"
             },
             "name": "MyColumn2",
-            "designerId": "ff92db07-28d5-47cd-bb8e-e708a62714d9"
+            "designerId": "6638bdee-ffbd-4f4f-95b3-f22271df1985"
         },
         {
             "type": "Ext.grid.column.Column",
@@ -189,127 +61,93 @@
             },
             "codeClass": null,
             "userConfig": {
-                "text": "职务"
+                "flex": 0.2,
+                "text": "创建日期"
             },
-            "name": "MyColumn21",
-            "designerId": "aaa7bd07-a708-492f-b2d1-63a347e0c0e1"
+            "name": "MyColumn23",
+            "designerId": "f7b8b3fd-6d87-4a6d-b945-bcee694c5cb1"
         },
         {
-            "type": "Ext.grid.column.Column",
+            "type": "Ext.grid.column.Action",
             "reference": {
                 "name": "columns",
                 "type": "array"
             },
             "codeClass": null,
             "userConfig": {
-                "text": "性别"
+                "flex": 0.06
             },
-            "name": "MyColumn3",
-            "designerId": "68796ab7-d494-4b88-9a32-a51fdcc81713"
-        },
-        {
-            "type": "Ext.grid.column.Column",
-            "reference": {
-                "name": "columns",
-                "type": "array"
-            },
-            "codeClass": null,
-            "userConfig": {
-                "text": "员工状态"
-            },
-            "name": "MyColumn4",
-            "designerId": "56a154d8-f8a8-401a-aafd-8caa184c9463"
-        },
-        {
-            "type": "Ext.grid.column.Column",
-            "reference": {
-                "name": "columns",
-                "type": "array"
-            },
-            "codeClass": null,
-            "userConfig": {
-                "text": "社保状态"
-            },
-            "name": "MyColumn5",
-            "designerId": "864f4254-df60-4c2e-b305-d55c7f853134"
-        },
-        {
-            "type": "Ext.grid.column.Column",
-            "reference": {
-                "name": "columns",
-                "type": "array"
-            },
-            "codeClass": null,
-            "userConfig": {
-                "text": "社保代付地"
-            },
-            "name": "MyColumn6",
-            "designerId": "c3dcaa0e-c8e3-4df2-8885-6e8e5139c81a"
-        },
-        {
-            "type": "Ext.grid.column.Column",
-            "reference": {
-                "name": "columns",
-                "type": "array"
-            },
-            "codeClass": null,
-            "userConfig": {
-                "text": "公积金代付地"
-            },
-            "name": "MyColumn8",
-            "designerId": "b0299141-0b48-4210-864b-c407cceaced3"
-        },
-        {
-            "type": "Ext.grid.column.Column",
-            "reference": {
-                "name": "columns",
-                "type": "array"
-            },
-            "codeClass": null,
-            "userConfig": {
-                "text": "社保套账"
-            },
-            "name": "MyColumn7",
-            "designerId": "66fda440-4a1e-41ab-bd8a-c4d29223e6c5"
-        },
-        {
-            "type": "Ext.grid.column.Column",
-            "reference": {
-                "name": "columns",
-                "type": "array"
-            },
-            "codeClass": null,
-            "userConfig": {
-                "text": "合计"
-            },
-            "name": "MyColumn19",
-            "designerId": "41fe52ae-0416-41c7-a032-0b29feb3398b",
+            "name": "MyActionColumn2",
+            "designerId": "11424fc0-7002-4f7b-bda5-418f115d3959",
             "cn": [
                 {
-                    "type": "Ext.grid.column.Column",
+                    "type": "actioncolumnitem",
                     "reference": {
-                        "name": "columns",
+                        "name": "items",
                         "type": "array"
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "text": "单位"
+                        "iconCls": "s_icon_table_edit"
                     },
-                    "name": "MyColumn10",
-                    "designerId": "4c22ab94-f063-41db-b254-7e1a03dd52d1"
-                },
+                    "name": "MyActionColumnItem2",
+                    "designerId": "e43d541c-7246-4c8a-a388-515f4dada619"
+                }
+            ]
+        },
+        {
+            "type": "Ext.grid.column.Action",
+            "reference": {
+                "name": "columns",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "flex": 0.06
+            },
+            "name": "MyActionColumn3",
+            "designerId": "af490a3d-66f1-480e-9a97-3198a129226f",
+            "cn": [
                 {
-                    "type": "Ext.grid.column.Column",
+                    "type": "actioncolumnitem",
                     "reference": {
-                        "name": "columns",
+                        "name": "items",
                         "type": "array"
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "text": "个人"
+                        "iconCls": "s_icon_action_search"
                     },
-                    "name": "MyColumn9",
-                    "designerId": "de97f245-d8df-4964-81ce-4400382c3383"
+                    "name": "MyActionColumnItem3",
+                    "designerId": "c74dc45e-affa-4d19-878e-b1cc432b03d1"
+                }
+            ]
+        },
+        {
+            "type": "Ext.grid.column.Action",
+            "reference": {
+                "name": "columns",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "flex": 0.06
+            },
+            "name": "MyActionColumn4",
+            "designerId": "96bc43c6-0139-4c24-844d-3064587d10b9",
+            "cn": [
+                {
+                    "type": "actioncolumnitem",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "iconCls": "s_icon_action_action_delete"
+                    },
+                    "name": "MyActionColumnItem4",
+                    "designerId": "ff607949-9acb-420a-8a20-d56c8aa5316a"
                 }
             ]
         }

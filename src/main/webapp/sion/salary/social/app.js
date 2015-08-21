@@ -27,10 +27,10 @@ Ext.application({
         'InsuredGrid',
         'UninsuredGrid',
         'InsuredForm',
-        'SocialAccountGrid',
+        'InsuredSearchGrid',
         'SocialItemGrid',
         'SocialItemForm',
-        'SocialLevelGrid',
+        'SocialAccountGrid',
         'MyForm1',
         'SocialAccountForm'
     ],

@@ -17,12 +17,8 @@ Ext.define('sion.salary.social.view.SocialAccountGrid', {
     extend: 'Ext.grid.Panel',
 
     requires: [
-        'Ext.toolbar.Toolbar',
-        'Ext.form.Panel',
-        'Ext.form.field.ComboBox',
-        'Ext.button.Button',
-        'Ext.grid.column.Column',
-        'Ext.grid.View'
+        'Ext.grid.View',
+        'Ext.grid.column.Action'
     ],
 
     height: 515,
@@ -32,108 +28,47 @@ Ext.define('sion.salary.social.view.SocialAccountGrid', {
         var me = this;
 
         Ext.applyIf(me, {
-            dockedItems: [
-                {
-                    xtype: 'toolbar',
-                    dock: 'top',
-                    items: [
-                        {
-                            xtype: 'form',
-                            height: 39,
-                            width: 909,
-                            layout: 'column',
-                            bodyPadding: 10,
-                            items: [
-                                {
-                                    xtype: 'combobox',
-                                    columnWidth: 0.2,
-                                    fieldLabel: '关键字',
-                                    labelWidth: 60
-                                },
-                                {
-                                    xtype: 'textfield',
-                                    columnWidth: 0.2,
-                                    margin: '',
-                                    padding: '0 0 0 10'
-                                },
-                                {
-                                    xtype: 'combobox',
-                                    columnWidth: 0.3,
-                                    padding: '0 0 0 10',
-                                    fieldLabel: '社保套账',
-                                    labelWidth: 60
-                                },
-                                {
-                                    xtype: 'combobox',
-                                    columnWidth: 0.2,
-                                    padding: '0 0 0 10',
-                                    fieldLabel: '社保状态',
-                                    labelWidth: 60
-                                },
-                                {
-                                    xtype: 'button',
-                                    columnWidth: 0.05,
-                                    height: 25,
-                                    text: '查询'
-                                }
-                            ]
-                        }
-                    ]
-                }
-            ],
             columns: [
                 {
                     xtype: 'gridcolumn',
                     dataIndex: 'string',
-                    text: '参保人'
+                    text: '套账名称',
+                    flex: 0.4
                 },
                 {
                     xtype: 'gridcolumn',
-                    text: '身份证号'
+                    text: '创建人',
+                    flex: 0.2
                 },
                 {
                     xtype: 'gridcolumn',
-                    text: '部门'
+                    text: '创建日期',
+                    flex: 0.2
                 },
                 {
-                    xtype: 'gridcolumn',
-                    text: '职务'
-                },
-                {
-                    xtype: 'gridcolumn',
-                    text: '性别'
-                },
-                {
-                    xtype: 'gridcolumn',
-                    text: '员工状态'
-                },
-                {
-                    xtype: 'gridcolumn',
-                    text: '社保状态'
-                },
-                {
-                    xtype: 'gridcolumn',
-                    text: '社保代付地'
-                },
-                {
-                    xtype: 'gridcolumn',
-                    text: '公积金代付地'
-                },
-                {
-                    xtype: 'gridcolumn',
-                    text: '社保套账'
-                },
-                {
-                    xtype: 'gridcolumn',
-                    text: '合计',
-                    columns: [
+                    xtype: 'actioncolumn',
+                    flex: 0.06,
+                    items: [
                         {
-                            xtype: 'gridcolumn',
-                            text: '单位'
-                        },
+                            iconCls: 's_icon_table_edit'
+                        }
+                    ]
+                },
+                {
+                    xtype: 'actioncolumn',
+                    flex: 0.06,
+                    items: [
                         {
-                            xtype: 'gridcolumn',
-                            text: '个人'
+                            iconCls: 's_icon_action_search'
+                        }
+                    ]
+                },
+                {
+                    xtype: 'actioncolumn',
+                    flex: 0.06,
+                    items: [
+                        {
+                            iconCls: 's_icon_action_action_delete'
                         }
                     ]
                 }

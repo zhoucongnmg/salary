@@ -15,7 +15,7 @@ import org.springframework.roo.addon.layers.repository.mongo.RooMongoEntity;
 
 @RooJavaBean
 @RooMongoEntity
-public class SalaryPayItem {
+public class PayrollItem {
 	
 	
 	String personId;	//人事档案id
@@ -26,7 +26,7 @@ public class SalaryPayItem {
 	
 	String dept;	//部门
 	
-	List<SalaryPayCell> salaryPayCells;	//薪资明细项
+	List<PayrollCell> salaryPayCells;	//薪资明细项
 	
 	
 }

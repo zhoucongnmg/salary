@@ -1,6 +1,6 @@
 package net.sion.company.salary.web;
 
-import net.sion.company.salary.domain.SalaryPay;
+import net.sion.company.salary.domain.Payroll;
 import net.sion.util.mvc.Response;
 
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author niex 
  */
 @RestController
-public class SocialPayController {
+public class PayrollController {
 	/**
 	 * 创建工资表
 	 * 
@@ -21,7 +21,7 @@ public class SocialPayController {
 	 * @return
 	 */
 	@RequestMapping(value = "create")
-	public Response create(@RequestBody SalaryPay pay) {
+	public Response create(@RequestBody Payroll pay) {
 		// TODO 保存工资表信息
 		return new Response(true);
 	}
@@ -45,7 +45,7 @@ public class SocialPayController {
 	 * @return
 	 */
 	@RequestMapping(value = "update")
-	public Response update(@RequestBody SalaryPay pay) {
+	public Response update(@RequestBody Payroll pay) {
 		// TODO 保存工资表信息
 		return new Response(true);
 	}
@@ -78,8 +78,8 @@ public class SocialPayController {
 	 * @param 工资表id
 	 * @return 工资表条目明细
 	 */
-	@RequestMapping(value = "loadSocialAccountItemById")
-	public Response loadSocialAccountItemById(@RequestParam String id) {
+	@RequestMapping(value = "loadPayrollItemById")
+	public Response loadPayrollItemById(@RequestParam String id) {
 		// TODO 通过工资表id查找工资表单元格
 		return new Response(true);
 	}
