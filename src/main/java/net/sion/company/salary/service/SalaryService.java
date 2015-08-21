@@ -5,6 +5,8 @@ package net.sion.company.salary.service;
 
 import java.util.Map;
 
+import net.sion.company.salary.domain.SalaryPayItem;
+
 import org.springframework.stereotype.Service;
 
 /**
@@ -14,17 +16,29 @@ import org.springframework.stereotype.Service;
 @Service
 public class SalaryService {
 
-/**
- * 生成工资记录
- * @param personMap  待发工资人员列表信息
- * @return 发放记录列表
- */
-	public Map<String,Object> computeSalary(Map<String,Object> personMap){
+	/**
+	 * 生成工资记录
+	 * @param personMap  待发工资人员列表信息
+	 * @return 发放记录列表
+	 */
+	public Map<String,Object> computeSalary(Map<String,Object> personMap,String accountId){
 		processAccount(personMap);
 		processPersonAccountItem(personMap);
 		processInsure(personMap);
 		processLevel(personMap);
 		processTax(personMap);
+		
+		return null;
+	}
+	
+	/**
+	 * 计算关联薪资项
+	 * @param 工资明细
+	 * @param 账套id
+	 * @param 当前薪资项
+	 * @return 发放记录列表
+	 */
+	public Map<String,Object> computeSalary(SalaryPayItem payItem,String accountId,String activeItemId){
 		
 		return null;
 	}

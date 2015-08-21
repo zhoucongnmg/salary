@@ -6,7 +6,7 @@
     },
     "codeClass": null,
     "userConfig": {
-        "designer|userClassName": "SocialInsuredGrid",
+        "designer|userClassName": "SocialAccountGrid",
         "height": 515,
         "title": null,
         "width": 1006

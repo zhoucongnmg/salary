@@ -27,12 +27,12 @@ Ext.application({
         'InsuredGrid',
         'UninsuredGrid',
         'InsuredForm',
-        'SocialInsuredGrid',
+        'SocialAccountGrid',
         'SocialItemGrid',
         'SocialItemForm',
         'SocialLevelGrid',
         'MyForm1',
-        'SocialLevelForm'
+        'SocialAccountForm'
     ],
     name: 'sion.salary.social',
 
