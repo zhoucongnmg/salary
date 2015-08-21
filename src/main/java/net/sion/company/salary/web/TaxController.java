@@ -1,0 +1,45 @@
+/**
+ * TaxController.java
+ */
+package net.sion.company.salary.web;
+
+import net.sion.company.salary.domain.Tax;
+import net.sion.util.mvc.Response;
+
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+/**
+ * @author zhangligang
+ *	个税设置
+ */
+@RestController
+public class TaxController {
+
+	@RequestMapping(value="create")
+	public Response create(@RequestBody Tax tax) {
+		return new Response(true);
+	}
+	
+	@RequestMapping(value="read")
+	public Response read(@RequestParam String id) {
+		return new Response(true);
+	}
+	
+	@RequestMapping(value = "update")
+	public Response update(@RequestBody Tax tax) {
+		return new Response(true);
+	}
+	
+	@RequestMapping(value="remove")
+	public Response remove(@RequestParam String id) {
+		return new Response(true);
+	}
+	
+	@RequestMapping(value="load")
+	public Response load() {
+		return new Response(true);
+	}
+}
