@@ -28,7 +28,7 @@ Ext.define('sion.salary.accounts.view.AccountMember_win', {
 
     height: 480,
     width: 600,
-    title: '套帐成员',
+    title: '方案成员',
 
     initComponent: function() {
         var me = this;

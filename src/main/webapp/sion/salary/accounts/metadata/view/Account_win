@@ -74,7 +74,7 @@
                                     },
                                     "codeClass": null,
                                     "userConfig": {
-                                        "fieldLabel": "套帐名称",
+                                        "fieldLabel": "方案名称",
                                         "layout|anchor": "100%"
                                     },
                                     "name": "MyTextField2",
@@ -123,7 +123,7 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "title": "套帐项目"
+                        "title": "项目"
                     },
                     "name": "MyPanel4",
                     "designerId": "99412c6b-dd14-4bc5-95a6-f04ca48b3dcb",
@@ -148,7 +148,7 @@
                             "userConfig": {
                                 "header": false,
                                 "height": 450,
-                                "title": "套帐项目 "
+                                "title": "方案项目 "
                             },
                             "name": "MyGridPanel2",
                             "designerId": "d92f684f-f79a-4616-8eb2-1af6b9c15e5b",

@@ -57,7 +57,7 @@ Ext.define('sion.salary.accounts.view.Account_win', {
                                         {
                                             xtype: 'textfield',
                                             anchor: '100%',
-                                            fieldLabel: '套帐名称'
+                                            fieldLabel: '方案名称'
                                         },
                                         {
                                             xtype: 'checkboxfield',
@@ -78,13 +78,13 @@ Ext.define('sion.salary.accounts.view.Account_win', {
                         },
                         {
                             xtype: 'panel',
-                            title: '套帐项目',
+                            title: '项目',
                             items: [
                                 {
                                     xtype: 'gridpanel',
                                     height: 450,
                                     header: false,
-                                    title: '套帐项目 ',
+                                    title: '方案项目 ',
                                     columns: [
                                         {
                                             xtype: 'numbercolumn',

@@ -37,7 +37,7 @@
                     "codeClass": null,
                     "userConfig": {
                         "layout|flex": null,
-                        "text": "新建套帐"
+                        "text": "新建方案"
                     },
                     "name": "MyButton",
                     "designerId": "c8d5a0c2-a9f5-44f1-b5e9-c82564da58e2",
@@ -61,42 +61,6 @@
                             },
                             "name": "onNewAccountClick",
                             "designerId": "04edc1ae-74ca-471b-8f36-3e497dce0601"
-                        }
-                    ]
-                },
-                {
-                    "type": "Ext.button.Button",
-                    "reference": {
-                        "name": "items",
-                        "type": "array"
-                    },
-                    "codeClass": null,
-                    "userConfig": {
-                        "layout|flex": null,
-                        "text": "薪资项目"
-                    },
-                    "name": "MyButton1",
-                    "designerId": "d4fb0705-b5ac-48dd-941e-bc776a07b4ad",
-                    "cn": [
-                        {
-                            "type": "basiceventbinding",
-                            "reference": {
-                                "name": "listeners",
-                                "type": "array"
-                            },
-                            "codeClass": null,
-                            "userConfig": {
-                                "fn": "onSalaryItemClick",
-                                "implHandler": [
-                                    "var me =this,",
-                                    "    namespace=me.getNamespace();",
-                                    "Ext.create(namespace+\".view.SalaryItems\").show();"
-                                ],
-                                "name": "click",
-                                "scope": "me"
-                            },
-                            "name": "onSalaryItemClick",
-                            "designerId": "716f537d-69e9-4f53-8922-721560715e53"
                         }
                     ]
                 }
@@ -125,7 +89,7 @@
                     "codeClass": null,
                     "userConfig": {
                         "dataIndex": "string",
-                        "text": "套帐名称"
+                        "text": "方案名称"
                     },
                     "name": "MyColumn",
                     "designerId": "ef0747f8-7e6c-49a9-a2ca-3431d154b877"
@@ -166,7 +130,7 @@
                             "codeClass": null,
                             "userConfig": {
                                 "designer|displayName": "member",
-                                "tooltip": "套帐成员"
+                                "tooltip": "方案成员"
                             },
                             "name": "MyActionColumnItem",
                             "designerId": "71669953-5578-4a3b-bf8c-8d582afd121b"
@@ -194,7 +158,7 @@
                             "codeClass": null,
                             "userConfig": {
                                 "designer|displayName": "modify",
-                                "tooltip": "套帐修改"
+                                "tooltip": "修改"
                             },
                             "name": "MyActionColumnItem2",
                             "designerId": "1a373199-324f-4bfb-91c4-90dfe5cc381c"
@@ -208,7 +172,7 @@
                             "codeClass": null,
                             "userConfig": {
                                 "designer|displayName": "delete",
-                                "tooltip": "套帐删除"
+                                "tooltip": "删除"
                             },
                             "name": "MyActionColumnItem3",
                             "designerId": "f96d9724-b08c-454a-92fa-a87acbef01b7"

@@ -40,20 +40,10 @@ Ext.define('sion.salary.accounts.view.AccountGrid', {
                     items: [
                         {
                             xtype: 'button',
-                            text: '新建套帐',
+                            text: '新建方案',
                             listeners: {
                                 click: {
                                     fn: me.onNewAccountClick,
-                                    scope: me
-                                }
-                            }
-                        },
-                        {
-                            xtype: 'button',
-                            text: '薪资项目',
-                            listeners: {
-                                click: {
-                                    fn: me.onSalaryItemClick,
                                     scope: me
                                 }
                             }
@@ -76,7 +66,7 @@ Ext.define('sion.salary.accounts.view.AccountGrid', {
                         {
                             xtype: 'gridcolumn',
                             dataIndex: 'string',
-                            text: '套帐名称'
+                            text: '方案名称'
                         },
                         {
                             xtype: 'booleancolumn',
@@ -88,16 +78,16 @@ Ext.define('sion.salary.accounts.view.AccountGrid', {
                             text: '操作',
                             items: [
                                 {
-                                    tooltip: '套帐成员'
+                                    tooltip: '方案成员'
                                 },
                                 {
                                     tooltip: '薪资设定'
                                 },
                                 {
-                                    tooltip: '套帐修改'
+                                    tooltip: '修改'
                                 },
                                 {
-                                    tooltip: '套帐删除'
+                                    tooltip: '删除'
                                 }
                             ]
                         }
@@ -113,12 +103,6 @@ Ext.define('sion.salary.accounts.view.AccountGrid', {
         var me =this,
             namespace=me.getNamespace();
         Ext.create(namespace+".view.Account_win").show();
-    },
-
-    onSalaryItemClick: function(button, e, eOpts) {
-        var me =this,
-            namespace=me.getNamespace();
-        Ext.create(namespace+".view.SalaryItems").show();
     }
 
 });

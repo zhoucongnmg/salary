@@ -8,7 +8,7 @@
     "userConfig": {
         "designer|userClassName": "AccountMember_win",
         "height": 480,
-        "title": "套帐成员",
+        "title": "方案成员",
         "width": 600
     },
     "name": "MyWindow",
