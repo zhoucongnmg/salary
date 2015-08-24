@@ -14,7 +14,7 @@
  */
 
 Ext.define('sion.salary.accounts.view.SalaryItems', {
-    extend: 'Ext.window.Window',
+    extend: 'Ext.panel.Panel',
 
     requires: [
         'sion.salary.accounts.view.SalaryItemGrid',

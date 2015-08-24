@@ -18,7 +18,12 @@ Ext.define('sion.salary.accounts.view.AccountMember_win', {
 
     requires: [
         'Ext.toolbar.Toolbar',
-        'Ext.button.Button'
+        'Ext.button.Button',
+        'Ext.form.FieldContainer',
+        'Ext.form.field.ComboBox',
+        'Ext.grid.Panel',
+        'Ext.grid.column.Column',
+        'Ext.grid.View'
     ],
 
     height: 480,
@@ -37,6 +42,112 @@ Ext.define('sion.salary.accounts.view.AccountMember_win', {
                         {
                             xtype: 'button',
                             text: '保存'
+                        }
+                    ]
+                }
+            ],
+            items: [
+                {
+                    xtype: 'fieldcontainer',
+                    height: 82,
+                    padding: 15,
+                    width: 600,
+                    layout: 'absolute',
+                    items: [
+                        {
+                            xtype: 'combobox',
+                            fieldLabel: '部门'
+                        },
+                        {
+                            xtype: 'combobox',
+                            x: 300,
+                            fieldLabel: '员工类型'
+                        },
+                        {
+                            xtype: 'combobox',
+                            y: 40,
+                            fieldLabel: '岗位状态'
+                        },
+                        {
+                            xtype: 'button',
+                            x: 470,
+                            y: 40,
+                            width: 100,
+                            text: '查询'
+                        }
+                    ]
+                },
+                {
+                    xtype: 'fieldcontainer',
+                    border: 2,
+                    height: 283,
+                    width: 600,
+                    layout: 'border',
+                    items: [
+                        {
+                            xtype: 'gridpanel',
+                            region: 'west',
+                            width: 210,
+                            header: false,
+                            title: 'My Grid Panel',
+                            columns: [
+                                {
+                                    xtype: 'gridcolumn',
+                                    width: '100%',
+                                    dataIndex: 'string',
+                                    text: '待选择'
+                                }
+                            ]
+                        },
+                        {
+                            xtype: 'fieldcontainer',
+                            region: 'center',
+                            layout: 'absolute',
+                            items: [
+                                {
+                                    xtype: 'button',
+                                    x: 55,
+                                    y: 80,
+                                    width: 75,
+                                    text: '删除'
+                                },
+                                {
+                                    xtype: 'button',
+                                    x: 55,
+                                    y: 40,
+                                    width: 75,
+                                    text: '添加'
+                                },
+                                {
+                                    xtype: 'button',
+                                    x: 55,
+                                    y: 120,
+                                    width: 75,
+                                    text: '全部添加'
+                                },
+                                {
+                                    xtype: 'button',
+                                    x: 55,
+                                    y: 160,
+                                    width: 75,
+                                    text: '全部删除'
+                                }
+                            ]
+                        },
+                        {
+                            xtype: 'gridpanel',
+                            region: 'east',
+                            width: 210,
+                            header: false,
+                            title: 'My Grid Panel',
+                            columns: [
+                                {
+                                    xtype: 'gridcolumn',
+                                    width: '100%',
+                                    dataIndex: 'string',
+                                    text: '已选择'
+                                }
+                            ]
                         }
                     ]
                 }

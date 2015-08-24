@@ -42,6 +42,274 @@
                     "designerId": "19c56a09-8fb0-4cc8-9de4-f1daa2d367de"
                 }
             ]
+        },
+        {
+            "type": "Ext.form.FieldContainer",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|snapToGrid": 10,
+                "fieldLabel": null,
+                "height": 82,
+                "layout": "absolute",
+                "padding": 15,
+                "width": 600
+            },
+            "name": "MyFieldContainer",
+            "designerId": "54693189-a099-4f77-9e63-e840c57c11b9",
+            "cn": [
+                {
+                    "type": "Ext.form.field.ComboBox",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fieldLabel": "部门"
+                    },
+                    "name": "MyComboBox1",
+                    "designerId": "fd122a98-275d-42f2-8256-614fdec39c53"
+                },
+                {
+                    "type": "Ext.form.field.ComboBox",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fieldLabel": "员工类型",
+                        "layout|x": 300
+                    },
+                    "name": "MyComboBox2",
+                    "designerId": "2f6074e1-c771-49c8-83e0-fa03671c728b"
+                },
+                {
+                    "type": "Ext.form.field.ComboBox",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fieldLabel": "岗位状态",
+                        "layout|y": 40
+                    },
+                    "name": "MyComboBox3",
+                    "designerId": "f2687119-84f8-477e-af87-eebb598a2972"
+                },
+                {
+                    "type": "Ext.button.Button",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|x": 470,
+                        "layout|y": 40,
+                        "text": "查询",
+                        "width": 100
+                    },
+                    "name": "MyButton12",
+                    "designerId": "6a24abad-2515-4d3f-b70d-a4c793d5df6a"
+                }
+            ]
+        },
+        {
+            "type": "Ext.form.FieldContainer",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "border": 2,
+                "container|padding": null,
+                "fieldLabel": null,
+                "height": 283,
+                "layout": "border",
+                "width": 600
+            },
+            "name": "MyFieldContainer1",
+            "configAlternates": {
+                "container|padding": "number"
+            },
+            "designerId": "728c7688-8a96-4feb-aaaf-a4ade4dd7c29",
+            "cn": [
+                {
+                    "type": "Ext.grid.Panel",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "header": false,
+                        "layout|region": "west",
+                        "title": "My Grid Panel",
+                        "width": 210
+                    },
+                    "name": "MyGridPanel3",
+                    "designerId": "827d8f95-a584-46c5-94ef-bb3755c86183",
+                    "cn": [
+                        {
+                            "type": "Ext.grid.column.Column",
+                            "reference": {
+                                "name": "columns",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "dataIndex": "string",
+                                "text": "待选择",
+                                "width": "100%"
+                            },
+                            "name": "MyColumn1",
+                            "designerId": "9bf7bb26-3f69-40e1-b2d8-41e85989c147"
+                        },
+                        {
+                            "type": "Ext.grid.View",
+                            "reference": {
+                                "name": "viewConfig",
+                                "type": "object"
+                            },
+                            "codeClass": null,
+                            "name": "MyGridView4",
+                            "designerId": "62393942-36f0-4bf2-b020-5c4c939342d1"
+                        }
+                    ]
+                },
+                {
+                    "type": "Ext.form.FieldContainer",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "designer|snapToGrid": 10,
+                        "fieldLabel": null,
+                        "layout": "absolute",
+                        "layout|region": "center"
+                    },
+                    "name": "MyFieldContainer2",
+                    "designerId": "f7c584ab-5bb0-4f29-9e59-e84081756e53",
+                    "cn": [
+                        {
+                            "type": "Ext.button.Button",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "layout|x": 55,
+                                "layout|y": 80,
+                                "text": "删除",
+                                "width": 75
+                            },
+                            "name": "MyButton7",
+                            "designerId": "f5a03514-27b4-4d5e-98ad-5a06c2e372d7"
+                        },
+                        {
+                            "type": "Ext.button.Button",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "layout|x": 55,
+                                "layout|y": 40,
+                                "text": "添加",
+                                "width": 75
+                            },
+                            "name": "MyButton9",
+                            "designerId": "1418fb4b-1252-4af1-a72d-93901e59edf4"
+                        },
+                        {
+                            "type": "Ext.button.Button",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "layout|x": 55,
+                                "layout|y": 120,
+                                "text": "全部添加",
+                                "width": 75
+                            },
+                            "name": "MyButton10",
+                            "designerId": "501313c2-50d7-4b3f-814c-3fff0cf058d5"
+                        },
+                        {
+                            "type": "Ext.button.Button",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "layout|x": 55,
+                                "layout|y": 160,
+                                "text": "全部删除",
+                                "width": 75
+                            },
+                            "name": "MyButton11",
+                            "designerId": "7f0b0299-fb5e-46db-b3a2-809d24038d92"
+                        }
+                    ]
+                },
+                {
+                    "type": "Ext.grid.Panel",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "header": false,
+                        "layout|region": "east",
+                        "title": "My Grid Panel",
+                        "width": 210
+                    },
+                    "name": "MyGridPanel4",
+                    "designerId": "c9eac76d-f1a5-4dc5-aaf4-759e1b39b041",
+                    "cn": [
+                        {
+                            "type": "Ext.grid.column.Column",
+                            "reference": {
+                                "name": "columns",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "dataIndex": "string",
+                                "text": "已选择",
+                                "width": "100%"
+                            },
+                            "name": "MyColumn2",
+                            "designerId": "e070f1a4-0d4f-47d5-867f-3db1fc022e93"
+                        },
+                        {
+                            "type": "Ext.grid.View",
+                            "reference": {
+                                "name": "viewConfig",
+                                "type": "object"
+                            },
+                            "codeClass": null,
+                            "name": "MyGridView5",
+                            "designerId": "2c433e3b-1e8f-4199-b11e-3d5234eefc86"
+                        }
+                    ]
+                }
+            ]
         }
     ]
 }
