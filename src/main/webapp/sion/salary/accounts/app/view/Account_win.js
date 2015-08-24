@@ -17,11 +17,10 @@ Ext.define('sion.salary.accounts.view.Account_win', {
     extend: 'Ext.window.Window',
 
     requires: [
-        'Ext.tab.Panel',
-        'Ext.tab.Tab',
         'Ext.form.Panel',
+        'Ext.form.field.Text',
         'Ext.form.field.Checkbox',
-        'Ext.form.field.TextArea',
+        'Ext.button.Button',
         'Ext.grid.Panel',
         'Ext.grid.column.Number',
         'Ext.grid.column.Boolean',
@@ -40,171 +39,79 @@ Ext.define('sion.salary.accounts.view.Account_win', {
         Ext.applyIf(me, {
             items: [
                 {
-                    xtype: 'tabpanel',
+                    xtype: 'form',
+                    bodyPadding: 10,
                     header: false,
-                    activeTab: 0,
+                    title: 'My Form',
                     items: [
                         {
-                            xtype: 'panel',
-                            title: '基本信息',
-                            items: [
-                                {
-                                    xtype: 'form',
-                                    bodyPadding: 10,
-                                    header: false,
-                                    title: 'My Form',
-                                    items: [
-                                        {
-                                            xtype: 'textfield',
-                                            anchor: '100%',
-                                            fieldLabel: '方案名称'
-                                        },
-                                        {
-                                            xtype: 'checkboxfield',
-                                            anchor: '100%',
-                                            fieldLabel: '',
-                                            hideEmptyLabel: false,
-                                            boxLabel: '启用薪资体系'
-                                        },
-                                        {
-                                            xtype: 'textareafield',
-                                            anchor: '100%',
-                                            height: 168,
-                                            fieldLabel: '备注'
-                                        }
-                                    ]
-                                }
-                            ]
+                            xtype: 'textfield',
+                            anchor: '100%',
+                            fieldLabel: '方案名称'
                         },
                         {
-                            xtype: 'panel',
-                            title: '项目',
-                            items: [
-                                {
-                                    xtype: 'gridpanel',
-                                    height: 450,
-                                    header: false,
-                                    title: '方案项目 ',
-                                    columns: [
-                                        {
-                                            xtype: 'numbercolumn',
-                                            dataIndex: 'number',
-                                            text: '序号'
-                                        },
-                                        {
-                                            xtype: 'gridcolumn',
-                                            dataIndex: 'string',
-                                            text: '项目名称'
-                                        },
-                                        {
-                                            xtype: 'gridcolumn',
-                                            text: '项目类型'
-                                        },
-                                        {
-                                            xtype: 'gridcolumn',
-                                            text: '字段'
-                                        },
-                                        {
-                                            xtype: 'gridcolumn',
-                                            text: '值或公式'
-                                        },
-                                        {
-                                            xtype: 'booleancolumn',
-                                            dataIndex: 'bool',
-                                            text: '是否显示'
-                                        },
-                                        {
-                                            xtype: 'actioncolumn',
-                                            dataIndex: 'date',
-                                            text: '操作',
-                                            items: [
-                                                {
-                                                    tooltip: '测试公式'
-                                                },
-                                                {
-
-                                                },
-                                                {
-
-                                                }
-                                            ]
-                                        }
-                                    ]
-                                }
-                            ],
-                            dockedItems: [
-                                {
-                                    xtype: 'toolbar',
-                                    dock: 'top',
-                                    items: [
-                                        {
-                                            xtype: 'button',
-                                            text: '新增',
-                                            listeners: {
-                                                click: {
-                                                    fn: me.onAddSalaryItemClick,
-                                                    scope: me
-                                                }
-                                            }
-                                        }
-                                    ]
-                                }
-                            ]
+                            xtype: 'checkboxfield',
+                            anchor: '100%',
+                            fieldLabel: '',
+                            hideEmptyLabel: false,
+                            boxLabel: '启用薪资体系'
                         },
                         {
-                            xtype: 'panel',
-                            hidden: true,
-                            title: '授权范围',
-                            items: [
-                                {
-                                    xtype: 'gridpanel',
-                                    header: false,
-                                    title: 'My Grid Panel',
-                                    columns: [
-                                        {
-                                            xtype: 'gridcolumn',
-                                            dataIndex: 'string',
-                                            text: '授权类型'
-                                        },
-                                        {
-                                            xtype: 'gridcolumn',
-                                            width: 236,
-                                            text: '名称'
-                                        },
-                                        {
-                                            xtype: 'booleancolumn',
-                                            dataIndex: 'bool',
-                                            text: '是否只读'
-                                        },
-                                        {
-                                            xtype: 'actioncolumn',
-                                            text: '操作',
-                                            items: [
-                                                {
-                                                    tooltip: '修改'
-                                                },
-                                                {
-                                                    tooltip: '删除'
-                                                }
-                                            ]
-                                        }
-                                    ]
+                            xtype: 'button',
+                            text: '新增',
+                            listeners: {
+                                click: {
+                                    fn: me.onAddSalaryItemClick,
+                                    scope: me
                                 }
-                            ],
-                            dockedItems: [
+                            }
+                        },
+                        {
+                            xtype: 'gridpanel',
+                            height: 450,
+                            header: false,
+                            title: '方案项目 ',
+                            columns: [
                                 {
-                                    xtype: 'toolbar',
-                                    dock: 'top',
+                                    xtype: 'numbercolumn',
+                                    dataIndex: 'number',
+                                    text: '序号'
+                                },
+                                {
+                                    xtype: 'gridcolumn',
+                                    dataIndex: 'string',
+                                    text: '项目名称'
+                                },
+                                {
+                                    xtype: 'gridcolumn',
+                                    text: '项目类型'
+                                },
+                                {
+                                    xtype: 'gridcolumn',
+                                    text: '字段'
+                                },
+                                {
+                                    xtype: 'gridcolumn',
+                                    text: '值或公式'
+                                },
+                                {
+                                    xtype: 'booleancolumn',
+                                    dataIndex: 'bool',
+                                    text: '是否显示'
+                                },
+                                {
+                                    xtype: 'actioncolumn',
+                                    dataIndex: 'date',
+                                    text: '操作',
                                     items: [
                                         {
-                                            xtype: 'button',
-                                            text: '新增',
-                                            listeners: {
-                                                click: {
-                                                    fn: me.onAuthClick,
-                                                    scope: me
-                                                }
-                                            }
+                                            tooltip: '测试公式'
+                                        },
+                                        {
+
+                                        },
+                                        {
+
                                         }
                                     ]
                                 }
@@ -234,12 +141,6 @@ Ext.define('sion.salary.accounts.view.Account_win', {
         var me =this,
             namespace=me.getNamespace();
         Ext.create(namespace+".view.AddSalaryItem_win").show();
-    },
-
-    onAuthClick: function(button, e, eOpts) {
-        var me =this,
-            namespace=me.getNamespace();
-        Ext.create(namespace+".view.Auth_win").show();
     }
 
 });
