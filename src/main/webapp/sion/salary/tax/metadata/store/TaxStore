@@ -1,0 +1,93 @@
+{
+    "type": "jsonstore",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "data": [
+            "[",
+            "    {",
+            "        \"name\": \"facere\",",
+            "        \"threshold\": 515,",
+            "        \"taxItems\": \"neque\"",
+            "    },",
+            "    {",
+            "        \"name\": \"iure\",",
+            "        \"threshold\": 514,",
+            "        \"taxItems\": \"ipsum\"",
+            "    },",
+            "    {",
+            "        \"name\": \"illo\",",
+            "        \"threshold\": 171,",
+            "        \"taxItems\": \"sit\"",
+            "    },",
+            "    {",
+            "        \"name\": \"eveniet\",",
+            "        \"threshold\": 275,",
+            "        \"taxItems\": \"blanditiis\"",
+            "    },",
+            "    {",
+            "        \"name\": \"et\",",
+            "        \"threshold\": 469,",
+            "        \"taxItems\": \"officiis\"",
+            "    },",
+            "    {",
+            "        \"name\": \"et\",",
+            "        \"threshold\": 355,",
+            "        \"taxItems\": \"eum\"",
+            "    },",
+            "    {",
+            "        \"name\": \"voluptatem\",",
+            "        \"threshold\": 585,",
+            "        \"taxItems\": \"velit\"",
+            "    },",
+            "    {",
+            "        \"name\": \"aperiam\",",
+            "        \"threshold\": 992,",
+            "        \"taxItems\": \"sapiente\"",
+            "    },",
+            "    {",
+            "        \"name\": \"facere\",",
+            "        \"threshold\": 776,",
+            "        \"taxItems\": \"voluptatem\"",
+            "    },",
+            "    {",
+            "        \"name\": \"inventore\",",
+            "        \"threshold\": 97,",
+            "        \"taxItems\": \"corrupti\"",
+            "    }",
+            "]"
+        ],
+        "designer|userClassName": "TaxStore",
+        "model": "Tax",
+        "storeId": "TaxStore"
+    },
+    "name": "MyJsonStore",
+    "designerId": "5bb3c013-8e97-4d54-b987-3cc13364219f",
+    "cn": [
+        {
+            "type": "Ext.data.proxy.Ajax",
+            "reference": {
+                "name": "proxy",
+                "type": "object"
+            },
+            "codeClass": null,
+            "name": "MyAjaxProxy",
+            "designerId": "97c52049-e382-4387-8b60-854d2c7bfb8b",
+            "cn": [
+                {
+                    "type": "Ext.data.reader.Json",
+                    "reference": {
+                        "name": "reader",
+                        "type": "object"
+                    },
+                    "codeClass": null,
+                    "name": "MyJsonReader",
+                    "designerId": "830d6072-f3ab-431a-ab79-bf6bae4c5cda"
+                }
+            ]
+        }
+    ]
+}

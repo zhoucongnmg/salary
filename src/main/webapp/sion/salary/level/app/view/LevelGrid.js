@@ -24,8 +24,6 @@ Ext.define('sion.salary.level.view.LevelGrid', {
         'Ext.grid.View'
     ],
 
-    height: 250,
-    width: 400,
     layout: 'fit',
     title: '薪资层次',
 
@@ -56,30 +54,39 @@ Ext.define('sion.salary.level.view.LevelGrid', {
                     xtype: 'gridpanel',
                     header: false,
                     title: 'My Grid Panel',
+                    store: 'LevelStore',
                     columns: [
                         {
                             xtype: 'gridcolumn',
-                            dataIndex: 'string',
+                            width: '20%',
+                            dataIndex: 'name',
                             text: '名称'
                         },
                         {
                             xtype: 'gridcolumn',
+                            width: '60%',
+                            dataIndex: 'levelItems',
                             text: '薪资项目'
                         },
                         {
                             xtype: 'actioncolumn',
-                            text: '操作',
+                            width: 35,
                             items: [
                                 {
-                                    tooltip: '关联职位'
-                                },
-                                {
-                                    tooltip: '等级设定'
-                                },
-                                {
+                                    handler: function(view, rowIndex, colIndex, item, e, record, row) {
+                                        Ext.create("sion.salary.level.view.Level_win").show();
+                                    },
+                                    iconCls: 's_icon_page_edit',
                                     tooltip: '编辑'
-                                },
+                                }
+                            ]
+                        },
+                        {
+                            xtype: 'actioncolumn',
+                            width: 35,
+                            items: [
                                 {
+                                    iconCls: 's_icon_cross',
                                     tooltip: '删除'
                                 }
                             ]
@@ -95,7 +102,7 @@ Ext.define('sion.salary.level.view.LevelGrid', {
     onButtonClick: function(button, e, eOpts) {
         var me=this,
             namespace=me.getNamespace();
-        Ext.create(namespace+".view.Hierarchy_win").show();
+        Ext.create(namespace+".view.Level_win").show();
     }
 
 });

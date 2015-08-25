@@ -6,11 +6,21 @@
     },
     "codeClass": null,
     "userConfig": {
+        "models": [
+            "Account",
+            "AccountMember",
+            "SalaryItem"
+        ],
         "name": "sion.salary.accounts",
         "paths": [
             " {",
             "        'sion.salary.accounts': 'sion/salary/accounts/app'",
             "    }"
+        ],
+        "stores": [
+            "AccountStore",
+            "AccountMemberStore",
+            "SalaryItemStore"
         ],
         "views": [
             "AccountGrid",
@@ -18,9 +28,9 @@
             "SalaryItemGrid",
             "Account_win",
             "SalaryItem_win",
-            "Auth_win",
             "AddSalaryItem_win",
-            "AccountMember_win"
+            "AccountMember_win",
+            "AccountMemberConfig_win"
         ]
     },
     "name": "Application",

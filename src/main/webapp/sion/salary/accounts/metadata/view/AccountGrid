@@ -8,9 +8,9 @@
     "userConfig": {
         "designer|initialView": true,
         "designer|userClassName": "AccountGrid",
-        "height": 250,
-        "title": "My Panel",
-        "width": 400
+        "height": null,
+        "title": "薪资方案",
+        "width": null
     },
     "name": "MyPanel",
     "designerId": "b1b3e30e-dd86-429e-810d-470b9d8934f9",
@@ -75,6 +75,7 @@
             "codeClass": null,
             "userConfig": {
                 "header": false,
+                "store": "AccountStore",
                 "title": "salary accounts"
             },
             "name": "MyGridPanel",
@@ -88,8 +89,9 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "dataIndex": "string",
-                        "text": "方案名称"
+                        "dataIndex": "name",
+                        "text": "方案名称",
+                        "width": "70%"
                     },
                     "name": "MyColumn",
                     "designerId": "ef0747f8-7e6c-49a9-a2ca-3431d154b877"
@@ -102,8 +104,9 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "dataIndex": "bool",
-                        "text": "启用薪资体系"
+                        "dataIndex": "enableLevel",
+                        "text": "启用薪资体系",
+                        "width": "10%"
                     },
                     "name": "MyBooleanColumn",
                     "designerId": "5bc18616-71ca-4d15-84d8-cedcdafb6dbc"
@@ -116,7 +119,8 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "text": "操作"
+                        "text": null,
+                        "width": 35
                     },
                     "name": "MyActionColumn",
                     "designerId": "fc13bcac-ab75-47a5-a051-91ce8288b8b2",
@@ -130,25 +134,54 @@
                             "codeClass": null,
                             "userConfig": {
                                 "designer|displayName": "member",
+                                "iconCls": "s_icon_org_gear",
                                 "tooltip": "方案成员"
                             },
                             "name": "MyActionColumnItem",
-                            "designerId": "71669953-5578-4a3b-bf8c-8d582afd121b"
-                        },
-                        {
-                            "type": "actioncolumnitem",
-                            "reference": {
-                                "name": "items",
-                                "type": "array"
-                            },
-                            "codeClass": null,
-                            "userConfig": {
-                                "designer|displayName": "config",
-                                "tooltip": "薪资设定"
-                            },
-                            "name": "MyActionColumnItem1",
-                            "designerId": "dd963704-bf3d-46b6-8c38-a768afaca99d"
-                        },
+                            "designerId": "71669953-5578-4a3b-bf8c-8d582afd121b",
+                            "cn": [
+                                {
+                                    "type": "fixedfunction",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "designer|params": [
+                                            "view",
+                                            "rowIndex",
+                                            "colIndex",
+                                            "item",
+                                            "e",
+                                            "record",
+                                            "row"
+                                        ],
+                                        "fn": "handler",
+                                        "implHandler": [
+                                            "Ext.create(\"sion.salary.accounts.view.AccountMember_win\").show();"
+                                        ]
+                                    },
+                                    "name": "handler",
+                                    "designerId": "af8c5d80-acff-41e5-bfda-c3a583c1506c"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "type": "Ext.grid.column.Action",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "width": 35
+                    },
+                    "name": "MyActionColumn4",
+                    "designerId": "452a3e18-bb96-417e-a758-00f3794f7ce0",
+                    "cn": [
                         {
                             "type": "actioncolumnitem",
                             "reference": {
@@ -158,11 +191,54 @@
                             "codeClass": null,
                             "userConfig": {
                                 "designer|displayName": "modify",
+                                "iconCls": "s_icon_page_edit",
                                 "tooltip": "修改"
                             },
                             "name": "MyActionColumnItem2",
-                            "designerId": "1a373199-324f-4bfb-91c4-90dfe5cc381c"
-                        },
+                            "designerId": "1a373199-324f-4bfb-91c4-90dfe5cc381c",
+                            "cn": [
+                                {
+                                    "type": "fixedfunction",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "designer|params": [
+                                            "view",
+                                            "rowIndex",
+                                            "colIndex",
+                                            "item",
+                                            "e",
+                                            "record",
+                                            "row"
+                                        ],
+                                        "fn": "handler",
+                                        "implHandler": [
+                                            "Ext.create(\"sion.salary.accounts.view.Account_win\").show();"
+                                        ]
+                                    },
+                                    "name": "handler",
+                                    "designerId": "4c4d9d32-bcfa-4212-ba13-2b2e4b878762"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "type": "Ext.grid.column.Action",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "width": 35
+                    },
+                    "name": "MyActionColumn5",
+                    "designerId": "f27e0717-af02-4e25-96f4-00f728c7d78e",
+                    "cn": [
                         {
                             "type": "actioncolumnitem",
                             "reference": {
@@ -172,10 +248,36 @@
                             "codeClass": null,
                             "userConfig": {
                                 "designer|displayName": "delete",
+                                "iconCls": "s_icon_cross",
                                 "tooltip": "删除"
                             },
                             "name": "MyActionColumnItem3",
-                            "designerId": "f96d9724-b08c-454a-92fa-a87acbef01b7"
+                            "designerId": "f96d9724-b08c-454a-92fa-a87acbef01b7",
+                            "cn": [
+                                {
+                                    "type": "fixedfunction",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "designer|params": [
+                                            "view",
+                                            "rowIndex",
+                                            "colIndex",
+                                            "item",
+                                            "e",
+                                            "record",
+                                            "row"
+                                        ],
+                                        "fn": "handler",
+                                        "implHandler": null
+                                    },
+                                    "name": "handler",
+                                    "designerId": "2193ce88-d083-447e-89b3-49f695b7e6bf"
+                                }
+                            ]
                         }
                     ]
                 },

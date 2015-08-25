@@ -25,9 +25,7 @@ Ext.define('sion.salary.accounts.view.AccountGrid', {
         'Ext.toolbar.Paging'
     ],
 
-    height: 250,
-    width: 400,
-    title: 'My Panel',
+    title: '薪资方案',
 
     initComponent: function() {
         var me = this;
@@ -62,31 +60,55 @@ Ext.define('sion.salary.accounts.view.AccountGrid', {
                     xtype: 'gridpanel',
                     header: false,
                     title: 'salary accounts',
+                    store: 'AccountStore',
                     columns: [
                         {
                             xtype: 'gridcolumn',
-                            dataIndex: 'string',
+                            width: '70%',
+                            dataIndex: 'name',
                             text: '方案名称'
                         },
                         {
                             xtype: 'booleancolumn',
-                            dataIndex: 'bool',
+                            width: '10%',
+                            dataIndex: 'enableLevel',
                             text: '启用薪资体系'
                         },
                         {
                             xtype: 'actioncolumn',
-                            text: '操作',
+                            width: 35,
                             items: [
                                 {
+                                    handler: function(view, rowIndex, colIndex, item, e, record, row) {
+                                        Ext.create("sion.salary.accounts.view.AccountMember_win").show();
+                                    },
+                                    iconCls: 's_icon_org_gear',
                                     tooltip: '方案成员'
-                                },
+                                }
+                            ]
+                        },
+                        {
+                            xtype: 'actioncolumn',
+                            width: 35,
+                            items: [
                                 {
-                                    tooltip: '薪资设定'
-                                },
-                                {
+                                    handler: function(view, rowIndex, colIndex, item, e, record, row) {
+                                        Ext.create("sion.salary.accounts.view.Account_win").show();
+                                    },
+                                    iconCls: 's_icon_page_edit',
                                     tooltip: '修改'
-                                },
+                                }
+                            ]
+                        },
+                        {
+                            xtype: 'actioncolumn',
+                            width: 35,
+                            items: [
                                 {
+                                    handler: function(view, rowIndex, colIndex, item, e, record, row) {
+
+                                    },
+                                    iconCls: 's_icon_cross',
                                     tooltip: '删除'
                                 }
                             ]

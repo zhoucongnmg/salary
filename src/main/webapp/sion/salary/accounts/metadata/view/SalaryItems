@@ -58,7 +58,7 @@
                                 "type": "array"
                             },
                             "codeClass": null,
-                            "name": "salaryitemgrid2",
+                            "name": "salaryitemgrid4",
                             "designerId": "9b1a3eb1-961d-448c-b01f-dec80b0fd62a",
                             "masterInstanceId": "0792004f-1834-444c-8300-a50243e0defc"
                         },
@@ -146,7 +146,7 @@
                                 "type": "array"
                             },
                             "codeClass": null,
-                            "name": "salaryitemgrid3",
+                            "name": "salaryitemgrid5",
                             "designerId": "27c38700-3f1d-473c-935d-89b8688b6798",
                             "masterInstanceId": "0792004f-1834-444c-8300-a50243e0defc"
                         }

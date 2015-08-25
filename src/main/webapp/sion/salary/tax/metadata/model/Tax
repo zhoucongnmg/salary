@@ -1,0 +1,54 @@
+{
+    "type": "Ext.data.Model",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userClassName": "Tax"
+    },
+    "name": "MyModel",
+    "designerId": "f379cf7f-fee4-427c-9340-516577f98d59",
+    "cn": [
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "name"
+            },
+            "name": "MyField",
+            "designerId": "389a5de9-3f04-40df-a10e-efb6f2c6b74d"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "threshold"
+            },
+            "name": "MyField1",
+            "designerId": "544fb299-2020-4ea0-87f6-9a67f12d307d"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "taxItems"
+            },
+            "name": "MyField2",
+            "designerId": "a5649231-900c-4357-b49f-dcbb2d30e601"
+        }
+    ]
+}

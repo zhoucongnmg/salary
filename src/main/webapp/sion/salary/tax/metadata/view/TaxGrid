@@ -76,6 +76,7 @@
             "codeClass": null,
             "userConfig": {
                 "header": false,
+                "store": "TaxStore",
                 "title": "Tax "
             },
             "name": "MyGridPanel",
@@ -89,8 +90,9 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "dataIndex": "string",
-                        "text": "名称"
+                        "dataIndex": "name",
+                        "text": "名称",
+                        "width": "40%"
                     },
                     "name": "MyColumn",
                     "designerId": "a00f4a53-b58e-41b4-9160-e191d98a4851"
@@ -103,8 +105,9 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "dataIndex": "number",
-                        "text": "个税起征点"
+                        "dataIndex": "threshold",
+                        "text": "个税起征点",
+                        "width": "40%"
                     },
                     "name": "MyNumberColumn",
                     "designerId": "5d566d1c-9909-4217-b7e8-9594e3060f5a"
@@ -116,6 +119,9 @@
                         "type": "array"
                     },
                     "codeClass": null,
+                    "userConfig": {
+                        "width": 35
+                    },
                     "name": "MyActionColumn",
                     "designerId": "043e16df-355d-4e17-8db5-2f166b687a3e",
                     "cn": [
@@ -127,11 +133,28 @@
                             },
                             "codeClass": null,
                             "userConfig": {
-                                "designer|displayName": "modify"
+                                "designer|displayName": "modify",
+                                "iconCls": "s_icon_page_edit",
+                                "tooltip": "编辑"
                             },
                             "name": "MyActionColumnItem",
                             "designerId": "d7754dd9-4c29-4261-b406-6513cd711c80"
-                        },
+                        }
+                    ]
+                },
+                {
+                    "type": "Ext.grid.column.Action",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "width": 35
+                    },
+                    "name": "MyActionColumn2",
+                    "designerId": "9aab6b12-ec67-4411-824f-1b66d608013c",
+                    "cn": [
                         {
                             "type": "actioncolumnitem",
                             "reference": {
@@ -140,7 +163,9 @@
                             },
                             "codeClass": null,
                             "userConfig": {
-                                "designer|displayName": "delete"
+                                "designer|displayName": "delete",
+                                "iconCls": "s_icon_cross",
+                                "tooltip": "删除"
                             },
                             "name": "MyActionColumnItem1",
                             "designerId": "48c3bd7b-45e2-41af-a443-c29e9f0f35b6"

@@ -1,0 +1,67 @@
+{
+    "type": "Ext.data.Model",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userClassName": "TaxItem"
+    },
+    "name": "MyModel",
+    "designerId": "2d00fc5d-9020-4eb5-9077-bb2b476fe3bf",
+    "cn": [
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "start"
+            },
+            "name": "MyField3",
+            "designerId": "6e92649b-dcc7-4efc-ae5f-329e2eb10fce"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "end"
+            },
+            "name": "MyField4",
+            "designerId": "d04a7584-311f-477c-8129-981675ddc19d"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "rate"
+            },
+            "name": "MyField5",
+            "designerId": "ee44ef79-e078-42aa-8595-f31a34307abb"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "fastNumber"
+            },
+            "name": "MyField6",
+            "designerId": "af0606cd-3bf1-462f-afeb-7e4fd1332140"
+        }
+    ]
+}

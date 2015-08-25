@@ -23,15 +23,25 @@ Ext.application({
     paths: {
         'sion.salary.accounts': 'sion/salary/accounts/app'
     },
+    models: [
+        'Account',
+        'AccountMember',
+        'SalaryItem'
+    ],
+    stores: [
+        'AccountStore',
+        'AccountMemberStore',
+        'SalaryItemStore'
+    ],
     views: [
         'AccountGrid',
         'SalaryItems',
         'SalaryItemGrid',
         'Account_win',
         'SalaryItem_win',
-        'Auth_win',
         'AddSalaryItem_win',
-        'AccountMember_win'
+        'AccountMember_win',
+        'AccountMemberConfig_win'
     ],
     name: 'sion.salary.accounts',
 

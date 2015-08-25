@@ -1,0 +1,80 @@
+{
+    "type": "Ext.data.Model",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userClassName": "SalaryItem"
+    },
+    "name": "MyModel",
+    "designerId": "f31d89bb-e5b7-464a-81f6-d6aa4ed1a451",
+    "cn": [
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "name"
+            },
+            "name": "MyField9",
+            "designerId": "2940a7d9-6ea4-44be-a43a-4a2b487eb650"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "field"
+            },
+            "name": "MyField10",
+            "designerId": "4b8dad03-3d91-44c8-93b8-cd6940b98a14"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "type"
+            },
+            "name": "MyField11",
+            "designerId": "46d89f32-3771-45ff-b9c5-1cf2b4234d23"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "desc"
+            },
+            "name": "MyField12",
+            "designerId": "07636a5d-e743-4d35-87dd-85b6f6939b39"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "system"
+            },
+            "name": "MyField13",
+            "designerId": "08a27324-8218-4834-91e1-d501350354be"
+        }
+    ]
+}

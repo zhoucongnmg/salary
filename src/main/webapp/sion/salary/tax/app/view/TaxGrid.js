@@ -56,25 +56,37 @@ Ext.define('sion.salary.tax.view.TaxGrid', {
                     xtype: 'gridpanel',
                     header: false,
                     title: 'Tax ',
+                    store: 'TaxStore',
                     columns: [
                         {
                             xtype: 'gridcolumn',
-                            dataIndex: 'string',
+                            width: '40%',
+                            dataIndex: 'name',
                             text: '名称'
                         },
                         {
                             xtype: 'numbercolumn',
-                            dataIndex: 'number',
+                            width: '40%',
+                            dataIndex: 'threshold',
                             text: '个税起征点'
                         },
                         {
                             xtype: 'actioncolumn',
+                            width: 35,
                             items: [
                                 {
-
-                                },
+                                    iconCls: 's_icon_page_edit',
+                                    tooltip: '编辑'
+                                }
+                            ]
+                        },
+                        {
+                            xtype: 'actioncolumn',
+                            width: 35,
+                            items: [
                                 {
-
+                                    iconCls: 's_icon_cross',
+                                    tooltip: '删除'
                                 }
                             ]
                         }

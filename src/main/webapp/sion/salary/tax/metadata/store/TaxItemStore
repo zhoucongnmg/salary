@@ -1,0 +1,73 @@
+{
+    "type": "jsonstore",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "data": [
+            "[",
+            "    {",
+            "        \"start\": 310,",
+            "        \"end\": 532,",
+            "        \"rate\": 748,",
+            "        \"fastNumber\": 390",
+            "    },",
+            "    {",
+            "        \"start\": 286,",
+            "        \"end\": 718,",
+            "        \"rate\": 811,",
+            "        \"fastNumber\": 673",
+            "    },",
+            "    {",
+            "        \"start\": 847,",
+            "        \"end\": 580,",
+            "        \"rate\": 72,",
+            "        \"fastNumber\": 468",
+            "    },",
+            "    {",
+            "        \"start\": 445,",
+            "        \"end\": 454,",
+            "        \"rate\": 332,",
+            "        \"fastNumber\": 910",
+            "    },",
+            "    {",
+            "        \"start\": 832,",
+            "        \"end\": 878,",
+            "        \"rate\": 940,",
+            "        \"fastNumber\": 918",
+            "    }",
+            "]"
+        ],
+        "designer|userClassName": "TaxItemStore",
+        "model": "TaxItem",
+        "storeId": "TaxItemStore"
+    },
+    "name": "MyJsonStore",
+    "designerId": "cb25ca30-572e-4423-ad1b-0b11a3c42864",
+    "cn": [
+        {
+            "type": "Ext.data.proxy.Ajax",
+            "reference": {
+                "name": "proxy",
+                "type": "object"
+            },
+            "codeClass": null,
+            "name": "MyAjaxProxy1",
+            "designerId": "ab840420-ca3f-4be7-8c1b-995a840b5c74",
+            "cn": [
+                {
+                    "type": "Ext.data.reader.Json",
+                    "reference": {
+                        "name": "reader",
+                        "type": "object"
+                    },
+                    "codeClass": null,
+                    "name": "MyJsonReader1",
+                    "designerId": "94f1332e-4fc2-483a-aa51-17b8d6482172"
+                }
+            ]
+        }
+    ]
+}

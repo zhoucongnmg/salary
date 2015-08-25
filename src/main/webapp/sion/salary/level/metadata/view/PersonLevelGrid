@@ -54,7 +54,7 @@
                                 "implHandler": [
                                     "var me=this,",
                                     "            namespace=me.getNamespace();",
-                                    "        Ext.create(namespace+\".view.Level_win\").show();"
+                                    "        Ext.create(namespace+\".view.PersonLevel_win\").show();"
                                 ],
                                 "name": "click",
                                 "scope": "me"
@@ -75,6 +75,7 @@
             "codeClass": null,
             "userConfig": {
                 "header": false,
+                "store": "PersonLevelStore",
                 "title": "My Grid Panel",
                 "width": "10%"
             },
@@ -89,7 +90,7 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "dataIndex": "string",
+                        "dataIndex": "code",
                         "text": "员工编号"
                     },
                     "name": "MyColumn2",
@@ -103,6 +104,7 @@
                     },
                     "codeClass": null,
                     "userConfig": {
+                        "dataIndex": "name",
                         "text": "姓名",
                         "width": "10%"
                     },
@@ -117,6 +119,7 @@
                     },
                     "codeClass": null,
                     "userConfig": {
+                        "dataIndex": "dept",
                         "text": "机构/部门/职位",
                         "width": "30%"
                     },
@@ -131,6 +134,7 @@
                     },
                     "codeClass": null,
                     "userConfig": {
+                        "dataIndex": "level",
                         "text": "薪资层次",
                         "width": "10%"
                     },
@@ -145,25 +149,12 @@
                     },
                     "codeClass": null,
                     "userConfig": {
+                        "dataIndex": "rank",
                         "text": "薪资等级",
                         "width": "10%"
                     },
                     "name": "MyColumn6",
                     "designerId": "bed2fb51-47b8-43e3-befa-ee3e1a525a90"
-                },
-                {
-                    "type": "Ext.grid.column.Date",
-                    "reference": {
-                        "name": "columns",
-                        "type": "array"
-                    },
-                    "codeClass": null,
-                    "userConfig": {
-                        "text": "创建日期",
-                        "width": "15%"
-                    },
-                    "name": "MyDateColumn",
-                    "designerId": "63c9780f-9240-4d6d-a4b2-4c445b9a0d35"
                 },
                 {
                     "type": "Ext.grid.column.Action",
@@ -173,8 +164,8 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "text": "操作",
-                        "width": "10%"
+                        "text": null,
+                        "width": 35
                     },
                     "name": "MyActionColumn1",
                     "designerId": "e04d4fdf-9a5f-4ab0-af06-b6ac587a0433",
@@ -187,12 +178,55 @@
                             },
                             "codeClass": null,
                             "userConfig": {
-                                "designer|displayName": "delete",
-                                "tooltip": "删除"
+                                "designer|displayName": "modify",
+                                "iconCls": "s_icon_page_edit",
+                                "tooltip": "编辑"
                             },
-                            "name": "MyActionColumnItem4",
-                            "designerId": "9fd0e842-eee1-4157-bab7-b0dec0d84080"
-                        },
+                            "name": "MyActionColumnItem",
+                            "designerId": "ed05b54e-06f6-4492-b18b-bdec19ea8064",
+                            "cn": [
+                                {
+                                    "type": "fixedfunction",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "designer|params": [
+                                            "view",
+                                            "rowIndex",
+                                            "colIndex",
+                                            "item",
+                                            "e",
+                                            "record",
+                                            "row"
+                                        ],
+                                        "fn": "handler",
+                                        "implHandler": [
+                                            "Ext.create(\"sion.salary.level.view.PersonLevel_win\").show();"
+                                        ]
+                                    },
+                                    "name": "handler",
+                                    "designerId": "2893590f-01dc-4f3a-8ea9-42d31a266d8c"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "type": "Ext.grid.column.Action",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "width": 35
+                    },
+                    "name": "MyActionColumn",
+                    "designerId": "befc75b9-1646-40ce-87d3-d94850d79fe5",
+                    "cn": [
                         {
                             "type": "actioncolumnitem",
                             "reference": {
@@ -201,11 +235,12 @@
                             },
                             "codeClass": null,
                             "userConfig": {
-                                "designer|displayName": "modify",
-                                "tooltip": "修改定级"
+                                "designer|displayName": "delete",
+                                "iconCls": "s_icon_cross",
+                                "tooltip": "删除"
                             },
-                            "name": "MyActionColumnItem",
-                            "designerId": "ed05b54e-06f6-4492-b18b-bdec19ea8064"
+                            "name": "MyActionColumnItem4",
+                            "designerId": "9fd0e842-eee1-4157-bab7-b0dec0d84080"
                         }
                     ]
                 },

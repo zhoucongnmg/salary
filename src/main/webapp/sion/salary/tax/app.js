@@ -23,6 +23,14 @@ Ext.application({
     paths: {
         'sion.salary.tax': 'sion/salary/tax/app'
     },
+    models: [
+        'Tax',
+        'TaxItem'
+    ],
+    stores: [
+        'TaxStore',
+        'TaxItemStore'
+    ],
     views: [
         'TaxGrid',
         'Tax_win'

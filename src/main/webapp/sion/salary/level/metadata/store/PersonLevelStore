@@ -1,0 +1,113 @@
+{
+    "type": "jsonstore",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "data": [
+            "[",
+            "    {",
+            "        \"code\": \"minima\",",
+            "        \"name\": \"mollitia\",",
+            "        \"dept\": \"nulla\",",
+            "        \"level\": \"quia\",",
+            "        \"rank\": \"cumque\"",
+            "    },",
+            "    {",
+            "        \"code\": \"beatae\",",
+            "        \"name\": \"et\",",
+            "        \"dept\": \"molestiae\",",
+            "        \"level\": \"quis\",",
+            "        \"rank\": \"molestiae\"",
+            "    },",
+            "    {",
+            "        \"code\": \"molestiae\",",
+            "        \"name\": \"fugiat\",",
+            "        \"dept\": \"aut\",",
+            "        \"level\": \"nihil\",",
+            "        \"rank\": \"nemo\"",
+            "    },",
+            "    {",
+            "        \"code\": \"officiis\",",
+            "        \"name\": \"nam\",",
+            "        \"dept\": \"nobis\",",
+            "        \"level\": \"hic\",",
+            "        \"rank\": \"fugiat\"",
+            "    },",
+            "    {",
+            "        \"code\": \"ab\",",
+            "        \"name\": \"placeat\",",
+            "        \"dept\": \"sit\",",
+            "        \"level\": \"ratione\",",
+            "        \"rank\": \"omnis\"",
+            "    },",
+            "    {",
+            "        \"code\": \"sint\",",
+            "        \"name\": \"ad\",",
+            "        \"dept\": \"et\",",
+            "        \"level\": \"sint\",",
+            "        \"rank\": \"ea\"",
+            "    },",
+            "    {",
+            "        \"code\": \"voluptate\",",
+            "        \"name\": \"ducimus\",",
+            "        \"dept\": \"temporibus\",",
+            "        \"level\": \"aliquid\",",
+            "        \"rank\": \"qui\"",
+            "    },",
+            "    {",
+            "        \"code\": \"delectus\",",
+            "        \"name\": \"excepturi\",",
+            "        \"dept\": \"possimus\",",
+            "        \"level\": \"est\",",
+            "        \"rank\": \"ad\"",
+            "    },",
+            "    {",
+            "        \"code\": \"consequatur\",",
+            "        \"name\": \"est\",",
+            "        \"dept\": \"ullam\",",
+            "        \"level\": \"reiciendis\",",
+            "        \"rank\": \"sint\"",
+            "    },",
+            "    {",
+            "        \"code\": \"blanditiis\",",
+            "        \"name\": \"nisi\",",
+            "        \"dept\": \"quos\",",
+            "        \"level\": \"est\",",
+            "        \"rank\": \"saepe\"",
+            "    }",
+            "]"
+        ],
+        "designer|userClassName": "PersonLevelStore",
+        "model": "PersonLevel",
+        "storeId": "PersonLevelStore"
+    },
+    "name": "MyJsonStore",
+    "designerId": "fd6efcfd-200d-4523-9da6-dac2823d1a89",
+    "cn": [
+        {
+            "type": "Ext.data.proxy.Ajax",
+            "reference": {
+                "name": "proxy",
+                "type": "object"
+            },
+            "codeClass": null,
+            "name": "MyAjaxProxy1",
+            "designerId": "e586ac98-8ddc-4eec-9c47-34341c857d18",
+            "cn": [
+                {
+                    "type": "Ext.data.reader.Json",
+                    "reference": {
+                        "name": "reader",
+                        "type": "object"
+                    },
+                    "codeClass": null,
+                    "name": "MyJsonReader1",
+                    "designerId": "6de5aeeb-d0a4-49ec-9c50-ad39879583db"
+                }
+            ]
+        }
+    ]
+}

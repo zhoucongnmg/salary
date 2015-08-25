@@ -1,0 +1,154 @@
+{
+    "type": "Ext.window.Window",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userClassName": "AccountMemberConfig_win",
+        "height": 480,
+        "title": "员工薪资设置",
+        "width": 600
+    },
+    "name": "MyWindow",
+    "designerId": "43830b0a-bc74-455c-9ec0-ce0ddac9fd8d",
+    "cn": [
+        {
+            "type": "Ext.toolbar.Toolbar",
+            "reference": {
+                "name": "dockedItems",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "dock": "top"
+            },
+            "name": "MyToolbar2",
+            "designerId": "b6c4781b-3f3a-49b7-987e-a58425dcb3a7",
+            "cn": [
+                {
+                    "type": "Ext.button.Button",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|flex": null,
+                        "text": "保存"
+                    },
+                    "name": "MyButton3",
+                    "designerId": "88db2ccf-0e4c-437e-b32f-c4a7b391e25f"
+                }
+            ]
+        },
+        {
+            "type": "Ext.form.Panel",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "bodyPadding": 10,
+                "header": false,
+                "title": "My Form"
+            },
+            "name": "MyForm3",
+            "designerId": "29a6baa8-bad5-431d-832a-1977588080af",
+            "cn": [
+                {
+                    "type": "Ext.form.field.Text",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fieldLabel": "薪资方案",
+                        "layout|anchor": "100%",
+                        "value": [
+                            "研发部工资方案"
+                        ]
+                    },
+                    "name": "MyTextField6",
+                    "designerId": "395a1f01-c4e0-497e-ab63-f3705f0bc728"
+                },
+                {
+                    "type": "Ext.form.field.Text",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fieldLabel": "姓名",
+                        "value": [
+                            "王宝强"
+                        ]
+                    },
+                    "name": "MyTextField",
+                    "designerId": "9d1e5fbc-84c7-4b7f-bff9-8da3d6c9f5ed"
+                },
+                {
+                    "type": "Ext.form.FieldSet",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "title": "薪资设置"
+                    },
+                    "name": "MyFieldSet",
+                    "designerId": "2d9c4af1-14d9-4a21-9ace-f7aa8e13d97d",
+                    "cn": [
+                        {
+                            "type": "Ext.form.field.Text",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fieldLabel": "基本工资",
+                                "layout|anchor": "100%"
+                            },
+                            "name": "MyTextField1",
+                            "designerId": "5b609ed9-c684-41ef-a50f-4ae6ff090ce0"
+                        },
+                        {
+                            "type": "Ext.form.field.Text",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fieldLabel": "技能工资",
+                                "layout|anchor": "100%"
+                            },
+                            "name": "MyTextField4",
+                            "designerId": "579dfbe0-2457-4af4-aed9-bc26560c592f"
+                        },
+                        {
+                            "type": "Ext.form.field.Text",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fieldLabel": "交通补助",
+                                "layout|anchor": "100%"
+                            },
+                            "name": "MyTextField5",
+                            "designerId": "d9bdc2c5-93b8-447d-8322-1162dbdb0d4a"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

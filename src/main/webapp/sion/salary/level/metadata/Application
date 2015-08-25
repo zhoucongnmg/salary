@@ -6,11 +6,19 @@
     },
     "codeClass": null,
     "userConfig": {
+        "models": [
+            "Level",
+            "PersonLevel"
+        ],
         "name": "sion.salary.level",
         "paths": [
             "{",
             "'sion.salary.level': 'sion/salary/level/app'",
             "}"
+        ],
+        "stores": [
+            "LevelStore",
+            "PersonLevelStore"
         ],
         "views": [
             "LevelGrid",

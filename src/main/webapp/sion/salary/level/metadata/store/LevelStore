@@ -1,0 +1,103 @@
+{
+    "type": "jsonstore",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "data": [
+            "[",
+            "    {",
+            "        \"name\": \"sit\",",
+            "        \"levelItems\": \"optio\"",
+            "    },",
+            "    {",
+            "        \"name\": \"totam\",",
+            "        \"levelItems\": \"sed\"",
+            "    },",
+            "    {",
+            "        \"name\": \"numquam\",",
+            "        \"levelItems\": \"aut\"",
+            "    },",
+            "    {",
+            "        \"name\": \"illo\",",
+            "        \"levelItems\": \"non\"",
+            "    },",
+            "    {",
+            "        \"name\": \"est\",",
+            "        \"levelItems\": \"occaecati\"",
+            "    },",
+            "    {",
+            "        \"name\": \"placeat\",",
+            "        \"levelItems\": \"magni\"",
+            "    },",
+            "    {",
+            "        \"name\": \"maiores\",",
+            "        \"levelItems\": \"voluptatum\"",
+            "    },",
+            "    {",
+            "        \"name\": \"saepe\",",
+            "        \"levelItems\": \"saepe\"",
+            "    },",
+            "    {",
+            "        \"name\": \"dolorum\",",
+            "        \"levelItems\": \"et\"",
+            "    },",
+            "    {",
+            "        \"name\": \"eaque\",",
+            "        \"levelItems\": \"commodi\"",
+            "    },",
+            "    {",
+            "        \"name\": \"sunt\",",
+            "        \"levelItems\": \"eius\"",
+            "    },",
+            "    {",
+            "        \"name\": \"distinctio\",",
+            "        \"levelItems\": \"aut\"",
+            "    },",
+            "    {",
+            "        \"name\": \"assumenda\",",
+            "        \"levelItems\": \"quia\"",
+            "    },",
+            "    {",
+            "        \"name\": \"natus\",",
+            "        \"levelItems\": \"nam\"",
+            "    },",
+            "    {",
+            "        \"name\": \"amet\",",
+            "        \"levelItems\": \"aspernatur\"",
+            "    }",
+            "]"
+        ],
+        "designer|userClassName": "LevelStore",
+        "model": "Level",
+        "storeId": "LevelStore"
+    },
+    "name": "MyJsonStore",
+    "designerId": "9490e167-8bc9-43e4-8bb0-f9112c520686",
+    "cn": [
+        {
+            "type": "Ext.data.proxy.Ajax",
+            "reference": {
+                "name": "proxy",
+                "type": "object"
+            },
+            "codeClass": null,
+            "name": "MyAjaxProxy",
+            "designerId": "4bff797b-8a30-40ad-8243-8f85363ab591",
+            "cn": [
+                {
+                    "type": "Ext.data.reader.Json",
+                    "reference": {
+                        "name": "reader",
+                        "type": "object"
+                    },
+                    "codeClass": null,
+                    "name": "MyJsonReader",
+                    "designerId": "a7f7eb9f-144e-4059-a00d-51e816feaebb"
+                }
+            ]
+        }
+    ]
+}

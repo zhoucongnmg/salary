@@ -20,7 +20,6 @@ Ext.define('sion.salary.level.view.PersonLevelGrid', {
         'Ext.toolbar.Toolbar',
         'Ext.button.Button',
         'Ext.grid.Panel',
-        'Ext.grid.column.Date',
         'Ext.grid.column.Action',
         'Ext.grid.View'
     ],
@@ -56,47 +55,57 @@ Ext.define('sion.salary.level.view.PersonLevelGrid', {
                     width: '10%',
                     header: false,
                     title: 'My Grid Panel',
+                    store: 'PersonLevelStore',
                     columns: [
                         {
                             xtype: 'gridcolumn',
-                            dataIndex: 'string',
+                            dataIndex: 'code',
                             text: '员工编号'
                         },
                         {
                             xtype: 'gridcolumn',
                             width: '10%',
+                            dataIndex: 'name',
                             text: '姓名'
                         },
                         {
                             xtype: 'gridcolumn',
                             width: '30%',
+                            dataIndex: 'dept',
                             text: '机构/部门/职位'
                         },
                         {
                             xtype: 'gridcolumn',
                             width: '10%',
+                            dataIndex: 'level',
                             text: '薪资层次'
                         },
                         {
                             xtype: 'gridcolumn',
                             width: '10%',
+                            dataIndex: 'rank',
                             text: '薪资等级'
                         },
                         {
-                            xtype: 'datecolumn',
-                            width: '15%',
-                            text: '创建日期'
+                            xtype: 'actioncolumn',
+                            width: 35,
+                            items: [
+                                {
+                                    handler: function(view, rowIndex, colIndex, item, e, record, row) {
+                                        Ext.create("sion.salary.level.view.PersonLevel_win").show();
+                                    },
+                                    iconCls: 's_icon_page_edit',
+                                    tooltip: '编辑'
+                                }
+                            ]
                         },
                         {
                             xtype: 'actioncolumn',
-                            width: '10%',
-                            text: '操作',
+                            width: 35,
                             items: [
                                 {
+                                    iconCls: 's_icon_cross',
                                     tooltip: '删除'
-                                },
-                                {
-                                    tooltip: '修改定级'
                                 }
                             ]
                         }
@@ -111,7 +120,7 @@ Ext.define('sion.salary.level.view.PersonLevelGrid', {
     onAddClick: function(button, e, eOpts) {
         var me=this,
                     namespace=me.getNamespace();
-                Ext.create(namespace+".view.Level_win").show();
+                Ext.create(namespace+".view.PersonLevel_win").show();
     }
 
 });

@@ -17,17 +17,16 @@ Ext.define('sion.salary.accounts.view.AccountMember_win', {
     extend: 'Ext.window.Window',
 
     requires: [
-        'Ext.toolbar.Toolbar',
         'Ext.button.Button',
-        'Ext.form.FieldContainer',
-        'Ext.form.field.ComboBox',
         'Ext.grid.Panel',
-        'Ext.grid.column.Column',
-        'Ext.grid.View'
+        'Ext.grid.column.Action',
+        'Ext.grid.View',
+        'Ext.toolbar.Paging'
     ],
 
-    height: 480,
-    width: 600,
+    height: 540,
+    width: 760,
+    layout: 'fit',
     title: '方案成员',
 
     initComponent: function() {
@@ -41,111 +40,63 @@ Ext.define('sion.salary.accounts.view.AccountMember_win', {
                     items: [
                         {
                             xtype: 'button',
-                            text: '保存'
-                        }
-                    ]
-                }
-            ],
-            items: [
-                {
-                    xtype: 'fieldcontainer',
-                    height: 82,
-                    padding: 15,
-                    width: 600,
-                    layout: 'absolute',
-                    items: [
-                        {
-                            xtype: 'combobox',
-                            fieldLabel: '部门'
-                        },
-                        {
-                            xtype: 'combobox',
-                            x: 300,
-                            fieldLabel: '员工类型'
-                        },
-                        {
-                            xtype: 'combobox',
-                            y: 40,
-                            fieldLabel: '岗位状态'
-                        },
-                        {
-                            xtype: 'button',
-                            x: 470,
-                            y: 40,
-                            width: 100,
-                            text: '查询'
+                            text: '添加',
+                            listeners: {
+                                click: {
+                                    fn: me.onAddClick,
+                                    scope: me
+                                }
+                            }
                         }
                     ]
                 },
                 {
-                    xtype: 'fieldcontainer',
-                    border: 2,
-                    height: 283,
-                    width: 600,
-                    layout: 'border',
-                    items: [
+                    xtype: 'pagingtoolbar',
+                    dock: 'bottom',
+                    width: 360,
+                    displayInfo: true
+                }
+            ],
+            items: [
+                {
+                    xtype: 'gridpanel',
+                    header: false,
+                    title: 'My Grid Panel',
+                    store: 'AccountMemberStore',
+                    columns: [
                         {
-                            xtype: 'gridpanel',
-                            region: 'west',
-                            width: 210,
-                            header: false,
-                            title: 'My Grid Panel',
-                            columns: [
-                                {
-                                    xtype: 'gridcolumn',
-                                    width: '100%',
-                                    dataIndex: 'string',
-                                    text: '待选择'
-                                }
-                            ]
+                            xtype: 'gridcolumn',
+                            width: '20%',
+                            dataIndex: 'employeeCode',
+                            text: '员工编号'
                         },
                         {
-                            xtype: 'fieldcontainer',
-                            region: 'center',
-                            layout: 'absolute',
+                            xtype: 'gridcolumn',
+                            width: '25%',
+                            dataIndex: 'employeeName',
+                            text: '员工姓名'
+                        },
+                        {
+                            xtype: 'gridcolumn',
+                            width: '25%',
+                            dataIndex: 'roleStatus',
+                            text: '岗位状态'
+                        },
+                        {
+                            xtype: 'gridcolumn',
+                            dataIndex: 'type',
+                            text: '员工类型'
+                        },
+                        {
+                            xtype: 'actioncolumn',
+                            width: '10%',
                             items: [
                                 {
-                                    xtype: 'button',
-                                    x: 55,
-                                    y: 80,
-                                    width: 75,
-                                    text: '删除'
-                                },
-                                {
-                                    xtype: 'button',
-                                    x: 55,
-                                    y: 40,
-                                    width: 75,
-                                    text: '添加'
-                                },
-                                {
-                                    xtype: 'button',
-                                    x: 55,
-                                    y: 120,
-                                    width: 75,
-                                    text: '全部添加'
-                                },
-                                {
-                                    xtype: 'button',
-                                    x: 55,
-                                    y: 160,
-                                    width: 75,
-                                    text: '全部删除'
-                                }
-                            ]
-                        },
-                        {
-                            xtype: 'gridpanel',
-                            region: 'east',
-                            width: 210,
-                            header: false,
-                            title: 'My Grid Panel',
-                            columns: [
-                                {
-                                    xtype: 'gridcolumn',
-                                    width: '100%',
-                                    dataIndex: 'string',
-                                    text: '已选择'
+                                    handler: function(view, rowIndex, colIndex, item, e, record, row) {
+                                        Ext.create("sion.salary.accounts.view.AccountMemberConfig_win").show();
+                                    },
+                                    iconCls: 's_icon_coins',
+                                    tooltip: '薪资设定'
                                 }
                             ]
                         }
@@ -155,6 +106,10 @@ Ext.define('sion.salary.accounts.view.AccountMember_win', {
         });
 
         me.callParent(arguments);
+    },
+
+    onAddClick: function(button, e, eOpts) {
+        Ext.create("sion.salary.accounts.view.AccountMemberConfig_win").show();
     }
 
 });

@@ -25,6 +25,7 @@ Ext.define('sion.salary.accounts.view.SalaryItemGrid', {
 
     header: false,
     title: 'My Grid Panel',
+    store: 'SalaryItemStore',
 
     initComponent: function() {
         var me = this;
@@ -33,34 +34,50 @@ Ext.define('sion.salary.accounts.view.SalaryItemGrid', {
             columns: [
                 {
                     xtype: 'gridcolumn',
-                    dataIndex: 'string',
+                    width: '20%',
+                    dataIndex: 'name',
                     text: '项目名称'
                 },
                 {
                     xtype: 'gridcolumn',
+                    width: '10%',
+                    dataIndex: 'field',
                     text: '字段'
                 },
                 {
                     xtype: 'gridcolumn',
+                    width: '10%',
+                    dataIndex: 'type',
                     text: '类型'
                 },
                 {
                     xtype: 'gridcolumn',
+                    width: '30%',
+                    dataIndex: 'desc',
                     text: '说明'
                 },
                 {
                     xtype: 'booleancolumn',
-                    dataIndex: 'bool',
+                    dataIndex: 'system',
                     text: '系统项'
                 },
                 {
                     xtype: 'actioncolumn',
+                    width: 35,
                     items: [
                         {
-
-                        },
+                            iconCls: 's_icon_page_edit',
+                            tooltip: '编辑'
+                        }
+                    ]
+                },
+                {
+                    xtype: 'actioncolumn',
+                    width: 35,
+                    items: [
                         {
-
+                            iconCls: 's_icon_cross',
+                            tooltip: '删除'
                         }
                     ]
                 }

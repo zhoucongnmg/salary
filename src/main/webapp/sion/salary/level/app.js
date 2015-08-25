@@ -23,6 +23,14 @@ Ext.application({
     paths: {
         'sion.salary.level': 'sion/salary/level/app'
     },
+    models: [
+        'Level',
+        'PersonLevel'
+    ],
+    stores: [
+        'LevelStore',
+        'PersonLevelStore'
+    ],
     views: [
         'LevelGrid',
         'Level_win',

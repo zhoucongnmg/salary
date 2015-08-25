@@ -6,11 +6,19 @@
     },
     "codeClass": null,
     "userConfig": {
+        "models": [
+            "Tax",
+            "TaxItem"
+        ],
         "name": "sion.salary.tax",
         "paths": [
             "{",
             "'sion.salary.tax': 'sion/salary/tax/app'",
             "}"
+        ],
+        "stores": [
+            "TaxStore",
+            "TaxItemStore"
         ],
         "views": [
             "TaxGrid",
