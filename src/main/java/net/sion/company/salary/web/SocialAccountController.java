@@ -10,14 +10,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * 社保套账
+ * 社保方案
  * @author niex 
  */
 @RestController
 @RequestMapping("/salary/socialaccount/") 
 public class SocialAccountController {
 	/**
-	 * 创建社保套账
+	 * 创建社保方案
 	 * 
 	 * @param person
 	 * @return
@@ -29,7 +29,7 @@ public class SocialAccountController {
 	}
 
 	/**
-	 * 读取社保套账
+	 * 读取社保方案
 	 * 
 	 * @param id
 	 * @return
@@ -41,7 +41,7 @@ public class SocialAccountController {
 	
 
 	/**
-	 * 更新社保套账
+	 * 更新社保方案
 	 * 
 	 * @param person
 	 * @return
@@ -54,7 +54,7 @@ public class SocialAccountController {
 
 
 	/**
-	 * 查询社保套账
+	 * 查询社保方案
 	 * @param 
 	 * @return
 	 */
@@ -65,8 +65,8 @@ public class SocialAccountController {
 	}
 	
 	/**
-	 * 删除社保套账
-	 * @param 社保套账id
+	 * 删除社保方案
+	 * @param 社保方案id
 	 * @return
 	 */
 	@RequestMapping(value = "remove")
@@ -76,13 +76,13 @@ public class SocialAccountController {
 	
 	
 	/**
-	 * 查询社保套账明细
-	 * @param 套账id
-	 * @return 套账明细
+	 * 查询社保方案明细
+	 * @param 方案id
+	 * @return 方案明细
 	 */
 	@RequestMapping(value = "loadSocialAccountItemById")
 	public Response loadSocialAccountItemById(@RequestParam String id) {
-		// TODO 通过套账id查询套账明细
+		// TODO 通过方案id查询方案明细
 		return new Response(true);
 	}
 	

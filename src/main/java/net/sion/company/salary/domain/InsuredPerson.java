@@ -11,6 +11,8 @@ public class InsuredPerson {
 	@Id
 	String id;
 	
+	String personId;
+	
 	String insuredNo;	//社保号
 	
 	String insuredDate;	//参保日期

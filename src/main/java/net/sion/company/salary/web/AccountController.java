@@ -89,6 +89,24 @@ public class AccountController {
 		// TODO 保存套帐关联的人员ID
 		return new Response(true);
 	}
+	
+	/**
+	 * 查找套帐成员
+	 * 
+	 * @param personIds
+	 * @return
+	 */
+	@RequestMapping(value = "findAccountPerson")
+	public Response findAccountPerson(@RequestParam String id) {
+		// TODO 保存套帐关联的人员ID
+		return new Response(true);
+	}
+	
+	@RequestMapping(value = "findAccountItem")
+	public Response findAccountItem(@RequestParam String id) {
+		// TODO 保存套帐关联的人员ID
+		return new Response(true);
+	}
 
 	/**
 	 * 加载套帐成员的项目设置

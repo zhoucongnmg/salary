@@ -38,7 +38,7 @@ public class SalaryService {
 	 * @param 当前薪资项
 	 * @return 发放记录列表
 	 */
-	public Map<String,Object> computeSalary(PayrollItem payItem,String accountId,String activeItemId){
+	public Map<String,Object> calculateAssociatedSalary(PayrollItem payItem,String accountId,String activeItemId){
 		
 		return null;
 	}
