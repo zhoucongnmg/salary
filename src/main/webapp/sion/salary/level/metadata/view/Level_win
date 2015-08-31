@@ -73,18 +73,17 @@
                     "designerId": "2947bff6-f30d-450d-afe8-ea93d5702b39"
                 },
                 {
-                    "type": "Ext.form.field.TextArea",
+                    "type": "Ext.button.Button",
                     "reference": {
                         "name": "items",
                         "type": "array"
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "fieldLabel": "薪资项目",
-                        "layout|anchor": "100%"
+                        "text": "添加等级"
                     },
-                    "name": "MyTextArea",
-                    "designerId": "ca49109f-b8e4-472e-b0c6-948d3b48ade9"
+                    "name": "MyButton4",
+                    "designerId": "0be4cee0-2a93-4a51-80c9-44b2314b4034"
                 },
                 {
                     "type": "Ext.button.Button",
@@ -94,10 +93,11 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "text": "添加"
+                        "margin": 10,
+                        "text": "添加项目"
                     },
-                    "name": "MyButton4",
-                    "designerId": "0be4cee0-2a93-4a51-80c9-44b2314b4034"
+                    "name": "MyButton3",
+                    "designerId": "72ef81ba-47b0-44f7-9345-b1f757df39c7"
                 },
                 {
                     "type": "Ext.grid.Panel",
@@ -135,10 +135,11 @@
                             },
                             "codeClass": null,
                             "userConfig": {
-                                "text": "人员"
+                                "dataIndex": "string",
+                                "text": "基本工资"
                             },
-                            "name": "MyColumn8",
-                            "designerId": "8c768d28-68f7-428a-b270-4859da4c7853"
+                            "name": "MyColumn7",
+                            "designerId": "3a6dd4e2-ef4e-4bc1-88ff-6afd2b1433a5"
                         },
                         {
                             "type": "Ext.grid.column.Column",
@@ -148,11 +149,10 @@
                             },
                             "codeClass": null,
                             "userConfig": {
-                                "dataIndex": "string",
-                                "text": "基本工资"
+                                "text": "动态列"
                             },
-                            "name": "MyColumn7",
-                            "designerId": "3a6dd4e2-ef4e-4bc1-88ff-6afd2b1433a5"
+                            "name": "MyColumn8",
+                            "designerId": "0b2809aa-55e3-42fe-aec8-4061925278a8"
                         },
                         {
                             "type": "Ext.grid.column.Action",

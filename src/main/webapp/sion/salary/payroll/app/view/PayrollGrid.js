@@ -55,6 +55,7 @@ Ext.define('sion.salary.payroll.view.PayrollGrid', {
                                 {
                                     xtype: 'combobox',
                                     columnWidth: 0.25,
+                                    hidden: true,
                                     padding: '0 0 0 25',
                                     fieldLabel: '薪资套账',
                                     labelWidth: 60
@@ -81,6 +82,21 @@ Ext.define('sion.salary.payroll.view.PayrollGrid', {
                                 {
                                     xtype: 'button',
                                     text: '查询'
+                                },
+                                {
+                                    xtype: 'tbspacer',
+                                    columnWidth: 1.1,
+                                    height: 20
+                                },
+                                {
+                                    xtype: 'button',
+                                    text: '发放',
+                                    listeners: {
+                                        click: {
+                                            fn: me.onButtonClick,
+                                            scope: me
+                                        }
+                                    }
                                 }
                             ]
                         }
@@ -95,6 +111,7 @@ Ext.define('sion.salary.payroll.view.PayrollGrid', {
                 },
                 {
                     xtype: 'gridcolumn',
+                    hidden: true,
                     text: '套账名称'
                 },
                 {
@@ -141,6 +158,10 @@ Ext.define('sion.salary.payroll.view.PayrollGrid', {
         });
 
         me.callParent(arguments);
+    },
+
+    onButtonClick: function(button, e, eOpts) {
+        Ext.create("sion.salary.payroll.view.SelectPerson_win").show();
     }
 
 });

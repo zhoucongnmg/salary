@@ -6,9 +6,9 @@
     },
     "codeClass": null,
     "userConfig": {
-        "designer|userClassName": "Account_win",
+        "designer|userClassName": "SalaryPlan_win",
         "height": 600,
-        "title": "套帐信息",
+        "title": "方案信息",
         "width": 800
     },
     "name": "MyWindow",
@@ -42,22 +42,6 @@
                     },
                     "name": "MyTextField2",
                     "designerId": "1454af2d-e58e-472d-bf1c-a139880d5584"
-                },
-                {
-                    "type": "Ext.form.field.Checkbox",
-                    "reference": {
-                        "name": "items",
-                        "type": "array"
-                    },
-                    "codeClass": null,
-                    "userConfig": {
-                        "boxLabel": "启用薪资体系",
-                        "fieldLabel": "",
-                        "hideEmptyLabel": false,
-                        "layout|anchor": "100%"
-                    },
-                    "name": "MyCheckbox",
-                    "designerId": "8a946abf-1f6e-4f57-9303-d6ab0802cf24"
                 },
                 {
                     "type": "Ext.button.Button",
@@ -171,7 +155,7 @@
                             },
                             "codeClass": null,
                             "userConfig": {
-                                "text": "值或公式"
+                                "text": "公式"
                             },
                             "name": "MyColumn12",
                             "designerId": "86645e7b-4389-46d4-afcd-b646c42903c8"

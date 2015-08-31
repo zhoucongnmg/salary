@@ -7,7 +7,7 @@
     "codeClass": null,
     "userConfig": {
         "designer|initialView": true,
-        "designer|userClassName": "AccountGrid",
+        "designer|userClassName": "SalaryPlanGrid",
         "height": null,
         "title": "薪资方案",
         "width": null
@@ -54,7 +54,7 @@
                                 "implHandler": [
                                     "var me =this,",
                                     "    namespace=me.getNamespace();",
-                                    "Ext.create(namespace+\".view.Account_win\").show();"
+                                    "Ext.create(namespace+\".view.SalaryPlan_win\").show();"
                                 ],
                                 "name": "click",
                                 "scope": "me"
@@ -119,6 +119,7 @@
                     },
                     "codeClass": null,
                     "userConfig": {
+                        "hidden": true,
                         "text": null,
                         "width": 35
                     },
@@ -216,7 +217,7 @@
                                         ],
                                         "fn": "handler",
                                         "implHandler": [
-                                            "Ext.create(\"sion.salary.accounts.view.Account_win\").show();"
+                                            "Ext.create(\"sion.salary.accounts.view.SalaryPlan_win\").show();"
                                         ]
                                     },
                                     "name": "handler",

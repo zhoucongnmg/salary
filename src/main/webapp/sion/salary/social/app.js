@@ -26,13 +26,15 @@ Ext.application({
     views: [
         'InsuredGrid',
         'UninsuredGrid',
-        'InsuredForm',
+        'DocumentForm',
         'InsuredSearchGrid',
         'SocialItemGrid',
         'SocialItemForm',
         'SocialAccountGrid',
         'MyForm1',
-        'SocialAccountForm'
+        'SocialAccountForm',
+        'SocialPlanGrid',
+        'SocialItemGridPanel'
     ],
     name: 'sion.salary.social',
 

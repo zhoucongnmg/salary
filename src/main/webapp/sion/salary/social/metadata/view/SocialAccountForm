@@ -1,5 +1,5 @@
 {
-    "type": "Ext.form.Panel",
+    "type": "Ext.window.Window",
     "reference": {
         "name": "items",
         "type": "array"
@@ -13,7 +13,6 @@
         "title": null,
         "width": 861
     },
-    "name": "InsuredForm1",
     "designerId": "5c52b1aa-7793-4cdc-a82f-b42d835ba37b",
     "cn": [
         {
@@ -39,7 +38,7 @@
                     "userConfig": {
                         "iconCls": "s_icon_page_add",
                         "layout|flex": null,
-                        "text": "保存投保信息"
+                        "text": "保存信息"
                     },
                     "name": "MyButton1",
                     "designerId": "e3708ecb-b451-4c26-ab53-5097029dd11a"
@@ -69,7 +68,7 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "fieldLabel": "姓名",
+                        "fieldLabel": "名称",
                         "labelWidth": 80,
                         "layout|columnWidth": 0.45
                     },

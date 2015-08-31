@@ -1,0 +1,261 @@
+{
+    "type": "Ext.window.Window",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userClassName": "SelectPerson_win",
+        "height": 480,
+        "layout": null,
+        "title": "选择人员",
+        "width": 640
+    },
+    "name": "MyWindow",
+    "designerId": "fa44aed0-accb-42c4-bff9-897d94b66223",
+    "cn": [
+        {
+            "type": "Ext.form.FieldSet",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "height": 50,
+                "layout": "column",
+                "padding": 10,
+                "title": null
+            },
+            "name": "MyFieldSet1",
+            "designerId": "a1d021f7-668f-44ad-b4a0-0936ee3eb138",
+            "cn": [
+                {
+                    "type": "Ext.form.field.ComboBox",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fieldLabel": "部门",
+                        "layout|columnWidth": 0.45,
+                        "store": [
+                            "['销售部','研发部','综合部']"
+                        ]
+                    },
+                    "name": "MyComboBox",
+                    "configAlternates": {
+                        "store": "array"
+                    },
+                    "designerId": "7f93743b-ffa4-4ea6-b82f-e330ad8dfbbe"
+                },
+                {
+                    "type": "Ext.toolbar.Spacer",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "height": 20,
+                        "layout|columnWidth": 0.5
+                    },
+                    "name": "MySpacer2",
+                    "designerId": "d205115e-0136-47d4-b4e6-bcae3998852d"
+                },
+                {
+                    "type": "Ext.button.Button",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "text": "查询",
+                        "width": 100
+                    },
+                    "name": "MyButton3",
+                    "designerId": "36bf8993-25b3-40f5-854f-c098aed06ead"
+                }
+            ]
+        },
+        {
+            "type": "Ext.grid.Panel",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "header": false,
+                "height": 329,
+                "margin": 10,
+                "store": "PersonStore",
+                "title": "My Grid Panel"
+            },
+            "name": "MyGridPanel1",
+            "designerId": "07b80f95-9ca3-4fde-a53d-1f50dbeb0e01",
+            "cn": [
+                {
+                    "type": "Ext.grid.column.CheckColumn",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "text": null,
+                        "width": 35
+                    },
+                    "name": "MyCheckColumn",
+                    "designerId": "3fd3c9ad-0e94-4540-ab14-a5dcc12ec4a7"
+                },
+                {
+                    "type": "Ext.grid.column.Column",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dataIndex": "idNum",
+                        "text": "员工编号",
+                        "width": "15%"
+                    },
+                    "name": "MyColumn9",
+                    "designerId": "4edb14a2-68ca-4aff-85b9-40dd21bf5c35"
+                },
+                {
+                    "type": "Ext.grid.column.Column",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dataIndex": "name",
+                        "text": "姓名",
+                        "width": "20%"
+                    },
+                    "name": "MyColumn7",
+                    "designerId": "ac9388ef-00a6-4122-a1ea-9af30761b14f"
+                },
+                {
+                    "type": "Ext.grid.column.Column",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dataIndex": "dept",
+                        "text": "部门",
+                        "width": "30%"
+                    },
+                    "name": "MyColumn8",
+                    "designerId": "3a8bb0c2-9089-46cd-adca-c93555fbce76"
+                },
+                {
+                    "type": "Ext.grid.column.Column",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "text": "薪资方案"
+                    },
+                    "name": "MyColumn10",
+                    "designerId": "dbbe2976-49e4-4428-bff2-049ca32bb32d"
+                },
+                {
+                    "type": "Ext.grid.column.Column",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "text": "薪资层次"
+                    },
+                    "name": "MyColumn14",
+                    "designerId": "aa17a907-d73f-494d-8aaa-68605b855d15"
+                },
+                {
+                    "type": "Ext.grid.column.Column",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "text": "薪资等级"
+                    },
+                    "name": "MyColumn15",
+                    "designerId": "d8511c70-318d-4ad5-a3d7-681d6cf0681d"
+                },
+                {
+                    "type": "Ext.grid.column.Boolean",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "text": "参保状态"
+                    },
+                    "name": "MyBooleanColumn",
+                    "designerId": "940fb152-1d21-426b-9595-3586a572d631"
+                },
+                {
+                    "type": "Ext.grid.View",
+                    "reference": {
+                        "name": "viewConfig",
+                        "type": "object"
+                    },
+                    "codeClass": null,
+                    "name": "MyGridView2",
+                    "designerId": "62393486-d9f7-42b4-8c80-6f404bd3706a"
+                }
+            ]
+        },
+        {
+            "type": "Ext.button.Button",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "margin": 10,
+                "text": "确定",
+                "width": 100
+            },
+            "name": "MyButton4",
+            "designerId": "3c2ab62d-6ae8-4efc-a015-391de51ea549",
+            "cn": [
+                {
+                    "type": "basiceventbinding",
+                    "reference": {
+                        "name": "listeners",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fn": "onButtonClick",
+                        "implHandler": [
+                            "this.hide();",
+                            "Ext.create(\"sion.salary.payroll.view.PayrollForm\").show();"
+                        ],
+                        "name": "click",
+                        "scope": "me"
+                    },
+                    "name": "onButtonClick",
+                    "designerId": "e3798dea-c6f4-4128-bbf7-93b230385e53"
+                }
+            ]
+        }
+    ]
+}

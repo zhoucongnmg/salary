@@ -34,10 +34,10 @@ Ext.application({
         'SalaryItemStore'
     ],
     views: [
-        'AccountGrid',
+        'SalaryPlanGrid',
         'SalaryItems',
         'SalaryItemGrid',
-        'Account_win',
+        'SalaryPlan_win',
         'SalaryItem_win',
         'AddSalaryItem_win',
         'AccountMember_win',
@@ -46,7 +46,7 @@ Ext.application({
     name: 'sion.salary.accounts',
 
     launch: function() {
-        Ext.create('sion.salary.accounts.view.AccountGrid', {renderTo: Ext.getBody()});
+        Ext.create('sion.salary.accounts.view.SalaryPlanGrid', {renderTo: Ext.getBody()});
     }
 
 });

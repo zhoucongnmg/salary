@@ -19,6 +19,7 @@ Ext.define('sion.salary.accounts.view.SalaryItems', {
     requires: [
         'sion.salary.accounts.view.SalaryItemGrid',
         'Ext.tab.Panel',
+        'Ext.form.Label',
         'Ext.tab.Tab',
         'Ext.grid.Panel',
         'Ext.toolbar.Toolbar'
@@ -43,6 +44,10 @@ Ext.define('sion.salary.accounts.view.SalaryItems', {
                             layout: 'fit',
                             title: '自定义项目',
                             items: [
+                                {
+                                    xtype: 'label',
+                                    text: 'My Label'
+                                },
                                 {
                                     xtype: 'salaryitemgrid'
                                 }

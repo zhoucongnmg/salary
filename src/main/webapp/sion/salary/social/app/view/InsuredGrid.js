@@ -38,11 +38,11 @@ Ext.define('sion.salary.social.view.InsuredGrid', {
                 {
                     xtype: 'toolbar',
                     dock: 'top',
-                    height: 107,
+                    height: 137,
                     items: [
                         {
                             xtype: 'form',
-                            height: 92,
+                            height: 122,
                             width: 908,
                             layout: 'column',
                             bodyPadding: 10,
@@ -99,6 +99,21 @@ Ext.define('sion.salary.social.view.InsuredGrid', {
                                 {
                                     xtype: 'button',
                                     text: '查询'
+                                },
+                                {
+                                    xtype: 'tbspacer',
+                                    columnWidth: 1.07,
+                                    height: 20
+                                },
+                                {
+                                    xtype: 'button',
+                                    text: '新建',
+                                    listeners: {
+                                        click: {
+                                            fn: me.onButtonClick,
+                                            scope: me
+                                        }
+                                    }
                                 }
                             ]
                         }
@@ -175,6 +190,10 @@ Ext.define('sion.salary.social.view.InsuredGrid', {
         });
 
         me.callParent(arguments);
+    },
+
+    onButtonClick: function(button, e, eOpts) {
+        Ext.create('sion.salary.social.view.DocumentForm').show();
     }
 
 });

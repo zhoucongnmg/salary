@@ -1,5 +1,5 @@
 {
-    "type": "Ext.form.Panel",
+    "type": "Ext.window.Window",
     "reference": {
         "name": "items",
         "type": "array"
@@ -8,12 +8,11 @@
     "userConfig": {
         "bodyPadding": 10,
         "designer|userClassName": "PayrollForm",
-        "height": 284,
+        "height": 505,
         "layout": "column",
         "title": null,
-        "width": 861
+        "width": 1055
     },
-    "name": "MyForm1",
     "designerId": "ab191b14-fffd-4c4d-be41-8dbf0d999859",
     "cn": [
         {
@@ -54,6 +53,7 @@
             },
             "codeClass": null,
             "userConfig": {
+                "height": 408,
                 "layout": "column",
                 "layout|columnWidth": 1,
                 "title": "薪资信息"
@@ -157,6 +157,7 @@
                     "codeClass": null,
                     "userConfig": {
                         "fieldLabel": "薪资套账",
+                        "hidden": true,
                         "labelWidth": 80,
                         "layout|columnWidth": 0.45
                     },
@@ -185,6 +186,7 @@
                     },
                     "codeClass": null,
                     "userConfig": {
+                        "height": 295,
                         "layout|columnWidth": 1,
                         "title": null
                     },

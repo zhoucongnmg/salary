@@ -24,7 +24,7 @@
             "codeClass": null,
             "userConfig": {
                 "dock": "top",
-                "height": 107
+                "height": 137
             },
             "name": "MyToolbar",
             "designerId": "24a8aa8f-5079-4a2e-85d4-9f27d6d9903b",
@@ -38,7 +38,7 @@
                     "codeClass": null,
                     "userConfig": {
                         "bodyPadding": 10,
-                        "height": 92,
+                        "height": 122,
                         "layout": "column",
                         "layout|flex": null,
                         "title": null,
@@ -183,6 +183,53 @@
                             },
                             "name": "MyButton",
                             "designerId": "292b1a83-79a7-4386-9f52-fb474c2c32c1"
+                        },
+                        {
+                            "type": "Ext.toolbar.Spacer",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "height": 20,
+                                "layout|columnWidth": 1.07
+                            },
+                            "name": "MySpacer18",
+                            "designerId": "9c93d7a0-c6df-4a80-acf2-5404b3922dfd"
+                        },
+                        {
+                            "type": "Ext.button.Button",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "text": "新建"
+                            },
+                            "name": "MyButton2",
+                            "designerId": "3f1b58be-4339-4544-8411-a61bd1fb8c23",
+                            "cn": [
+                                {
+                                    "type": "basiceventbinding",
+                                    "reference": {
+                                        "name": "listeners",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fn": "onButtonClick",
+                                        "implHandler": [
+                                            "Ext.create('sion.salary.social.view.DocumentForm').show();"
+                                        ],
+                                        "name": "click",
+                                        "scope": "me"
+                                    },
+                                    "name": "onButtonClick",
+                                    "designerId": "a2630f73-ff22-466f-995f-2dfa35b42ce3"
+                                }
+                            ]
                         }
                     ]
                 }

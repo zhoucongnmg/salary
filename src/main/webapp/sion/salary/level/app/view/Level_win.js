@@ -20,7 +20,7 @@ Ext.define('sion.salary.level.view.Level_win', {
         'Ext.toolbar.Toolbar',
         'Ext.button.Button',
         'Ext.form.Panel',
-        'Ext.form.field.TextArea',
+        'Ext.form.field.Text',
         'Ext.grid.Panel',
         'Ext.grid.column.Number',
         'Ext.grid.column.Action',
@@ -60,13 +60,13 @@ Ext.define('sion.salary.level.view.Level_win', {
                             fieldLabel: '名称'
                         },
                         {
-                            xtype: 'textareafield',
-                            anchor: '100%',
-                            fieldLabel: '薪资项目'
+                            xtype: 'button',
+                            text: '添加等级'
                         },
                         {
                             xtype: 'button',
-                            text: '添加'
+                            margin: 10,
+                            text: '添加项目'
                         },
                         {
                             xtype: 'gridpanel',
@@ -80,12 +80,12 @@ Ext.define('sion.salary.level.view.Level_win', {
                                 },
                                 {
                                     xtype: 'gridcolumn',
-                                    text: '人员'
+                                    dataIndex: 'string',
+                                    text: '基本工资'
                                 },
                                 {
                                     xtype: 'gridcolumn',
-                                    dataIndex: 'string',
-                                    text: '基本工资'
+                                    text: '动态列'
                                 },
                                 {
                                     xtype: 'actioncolumn',

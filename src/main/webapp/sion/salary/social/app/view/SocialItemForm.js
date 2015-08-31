@@ -14,13 +14,14 @@
  */
 
 Ext.define('sion.salary.social.view.SocialItemForm', {
-    extend: 'Ext.form.Panel',
+    extend: 'Ext.window.Window',
 
     requires: [
         'Ext.form.field.ComboBox',
         'Ext.form.RadioGroup',
         'Ext.form.field.Radio',
-        'Ext.form.field.Display'
+        'Ext.form.field.Display',
+        'Ext.button.Button'
     ],
 
     height: 274,
@@ -34,17 +35,14 @@ Ext.define('sion.salary.social.view.SocialItemForm', {
             items: [
                 {
                     xtype: 'textfield',
-                    anchor: '100%',
                     fieldLabel: '项目名称'
                 },
                 {
                     xtype: 'combobox',
-                    anchor: '100%',
                     fieldLabel: '类型'
                 },
                 {
                     xtype: 'combobox',
-                    anchor: '100%',
                     fieldLabel: '小数位数'
                 },
                 {
@@ -67,10 +65,14 @@ Ext.define('sion.salary.social.view.SocialItemForm', {
                 },
                 {
                     xtype: 'displayfield',
-                    anchor: '100%',
                     fieldLabel: '温馨提示',
                     labelStyle: 'color:red;',
                     value: '小数保留方式默认为四舍五入方式；如需见分进角，则小数位数选1，保留方式选择直接进位即可。 '
+                },
+                {
+                    xtype: 'button',
+                    width: 100,
+                    text: '保存'
                 }
             ]
         });

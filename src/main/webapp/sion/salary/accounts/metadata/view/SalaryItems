@@ -42,6 +42,19 @@
                     "designerId": "536f8734-6768-4a0c-b9ae-c851505db076",
                     "cn": [
                         {
+                            "type": "Ext.form.Label",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "text": "My Label"
+                            },
+                            "name": "MyLabel1",
+                            "designerId": "f52f9969-3ffe-463d-948e-07cba943bb68"
+                        },
+                        {
                             "type": "Ext.tab.Tab",
                             "reference": {
                                 "name": "tabConfig",
@@ -58,7 +71,7 @@
                                 "type": "array"
                             },
                             "codeClass": null,
-                            "name": "salaryitemgrid4",
+                            "name": "salaryitemgrid",
                             "designerId": "9b1a3eb1-961d-448c-b01f-dec80b0fd62a",
                             "masterInstanceId": "0792004f-1834-444c-8300-a50243e0defc"
                         },
@@ -146,7 +159,7 @@
                                 "type": "array"
                             },
                             "codeClass": null,
-                            "name": "salaryitemgrid5",
+                            "name": "salaryitemgrid1",
                             "designerId": "27c38700-3f1d-473c-935d-89b8688b6798",
                             "masterInstanceId": "0792004f-1834-444c-8300-a50243e0defc"
                         }

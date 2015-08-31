@@ -20,14 +20,18 @@ Ext.define('sion.salary.accounts.view.AddSalaryItem_win', {
         'Ext.toolbar.Toolbar',
         'Ext.button.Button',
         'Ext.form.Panel',
-        'Ext.form.field.ComboBox',
+        'Ext.form.FieldSet',
         'Ext.form.field.Checkbox',
+        'Ext.form.field.ComboBox',
+        'Ext.grid.Panel',
+        'Ext.grid.column.Column',
+        'Ext.grid.View',
         'Ext.form.field.TextArea'
     ],
 
-    height: 320,
-    width: 480,
-    title: '新增套帐项目',
+    height: 480,
+    width: 860,
+    title: '新增方案项目',
 
     initComponent: function() {
         var me = this;
@@ -48,35 +52,82 @@ Ext.define('sion.salary.accounts.view.AddSalaryItem_win', {
             items: [
                 {
                     xtype: 'form',
+                    width: '100%',
                     bodyPadding: 10,
                     header: false,
                     title: 'My Form',
+                    layout: {
+                        type: 'hbox',
+                        align: 'stretch'
+                    },
                     items: [
                         {
-                            xtype: 'combobox',
-                            anchor: '100%',
-                            fieldLabel: '类型',
-                            store: [
-                                '输入项',
-                                '计算项',
-                                '系统提取项'
+                            xtype: 'fieldset',
+                            height: 381,
+                            width: 300,
+                            title: '项目',
+                            items: [
+                                {
+                                    xtype: 'checkboxfield',
+                                    anchor: '100%',
+                                    hideEmptyLabel: false,
+                                    boxLabel: '在薪资报表中显示'
+                                },
+                                {
+                                    xtype: 'combobox',
+                                    anchor: '100%',
+                                    fieldLabel: '类型',
+                                    store: [
+                                        '输入项',
+                                        '计算项',
+                                        '系统提取项'
+                                    ],
+                                    listeners: {
+                                        change: {
+                                            fn: me.onComboboxChange,
+                                            scope: me
+                                        }
+                                    }
+                                },
+                                {
+                                    xtype: 'gridpanel',
+                                    header: false,
+                                    title: 'My Grid Panel',
+                                    columns: [
+                                        {
+                                            xtype: 'gridcolumn',
+                                            width: '100%',
+                                            dataIndex: 'string',
+                                            text: '待选项目'
+                                        }
+                                    ]
+                                }
                             ]
                         },
                         {
-                            xtype: 'triggerfield',
-                            anchor: '100%',
-                            fieldLabel: '套帐项目'
-                        },
-                        {
-                            xtype: 'checkboxfield',
-                            anchor: '100%',
-                            hideEmptyLabel: false,
-                            boxLabel: '在薪资报表中显示'
-                        },
-                        {
-                            xtype: 'textareafield',
-                            anchor: '100%',
-                            fieldLabel: '值'
+                            xtype: 'fieldset',
+                            flex: 1,
+                            margins: '0 10 0 20',
+                            width: 100,
+                            title: '公式',
+                            items: [
+                                {
+                                    xtype: 'textareafield',
+                                    anchor: '100%',
+                                    height: 126,
+                                    width: 478
+                                },
+                                {
+                                    xtype: 'button',
+                                    width: 50,
+                                    text: '+ '
+                                },
+                                {
+                                    xtype: 'button',
+                                    width: 50,
+                                    text: '- '
+                                }
+                            ]
                         }
                     ]
                 }
@@ -84,6 +135,16 @@ Ext.define('sion.salary.accounts.view.AddSalaryItem_win', {
         });
 
         me.callParent(arguments);
+    },
+
+    onComboboxChange: function(field, newValue, oldValue, eOpts) {
+        var window=field.up("window");
+        if(newValue==="计算项"){
+            window.width=860;
+        }
+        else{
+            window.width=320;
+        }
     }
 
 });

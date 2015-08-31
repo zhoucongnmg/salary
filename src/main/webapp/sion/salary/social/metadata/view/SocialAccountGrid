@@ -6,6 +6,7 @@
     },
     "codeClass": null,
     "userConfig": {
+        "designer|userAlias": "socialaccountgrid",
         "designer|userClassName": "SocialAccountGrid",
         "height": 515,
         "title": null,

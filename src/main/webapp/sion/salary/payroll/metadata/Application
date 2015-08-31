@@ -6,13 +6,20 @@
     },
     "codeClass": null,
     "userConfig": {
+        "models": [
+            "Person"
+        ],
         "name": "sion.salary.payroll",
         "paths": [
             "{'sion.salary.payroll' : 'sion/salary/payroll/app'}"
         ],
+        "stores": [
+            "PersonStore"
+        ],
         "views": [
             "PayrollGrid",
-            "PayrollForm"
+            "PayrollForm",
+            "SelectPerson_win"
         ]
     },
     "name": "Application",

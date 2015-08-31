@@ -1,5 +1,5 @@
 {
-    "type": "Ext.form.Panel",
+    "type": "Ext.window.Window",
     "reference": {
         "name": "items",
         "type": "array"
@@ -12,7 +12,6 @@
         "title": null,
         "width": 481
     },
-    "name": "MyForm1",
     "designerId": "a37fffad-cd50-40e6-b3f2-a6d95dbe2f06",
     "cn": [
         {
@@ -23,8 +22,7 @@
             },
             "codeClass": null,
             "userConfig": {
-                "fieldLabel": "项目名称",
-                "layout|anchor": "100%"
+                "fieldLabel": "项目名称"
             },
             "name": "MyTextField11",
             "designerId": "8a81cc55-11e3-431d-a144-387403de25d8"
@@ -37,8 +35,7 @@
             },
             "codeClass": null,
             "userConfig": {
-                "fieldLabel": "类型",
-                "layout|anchor": "100%"
+                "fieldLabel": "类型"
             },
             "name": "MyComboBox5",
             "designerId": "7c59c274-14f2-4912-aae5-4303e7d9c16f"
@@ -51,8 +48,7 @@
             },
             "codeClass": null,
             "userConfig": {
-                "fieldLabel": "小数位数",
-                "layout|anchor": "100%"
+                "fieldLabel": "小数位数"
             },
             "name": "MyComboBox6",
             "designerId": "7a935431-a8e0-49dd-9d7f-a138e5c24549"
@@ -124,11 +120,24 @@
             "userConfig": {
                 "fieldLabel": "温馨提示",
                 "labelStyle": "color:red;",
-                "layout|anchor": "100%",
                 "value": "小数保留方式默认为四舍五入方式；如需见分进角，则小数位数选1，保留方式选择直接进位即可。 "
             },
             "name": "MyDisplayField",
             "designerId": "a86417aa-7d2c-4529-9a94-1f4adcb05525"
+        },
+        {
+            "type": "Ext.button.Button",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "text": "保存",
+                "width": 100
+            },
+            "name": "MyButton4",
+            "designerId": "763cc199-100d-4b58-9a54-3ba729c4f41c"
         }
     ]
 }

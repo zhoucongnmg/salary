@@ -23,11 +23,16 @@
     "viewOrderMap": {
         "view": [
             "9f3362b8-8e84-421a-bb82-bf7de4bac62b",
-            "ab191b14-fffd-4c4d-be41-8dbf0d999859"
+            "ab191b14-fffd-4c4d-be41-8dbf0d999859",
+            "fa44aed0-accb-42c4-bff9-897d94b66223"
         ],
-        "store": [],
+        "store": [
+            "4090d199-fa8f-45f8-962c-f596178171f3"
+        ],
         "controller": [],
-        "model": [],
+        "model": [
+            "a9aacafa-3df0-4597-b5d7-d09963d317e6"
+        ],
         "resource": [
             "0aa67b68-ffad-4a3c-9005-648029f8bf8a",
             "f7cbe67a-90eb-49c2-a6d7-a58bfdae281b"

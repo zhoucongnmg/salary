@@ -6,6 +6,7 @@
     },
     "codeClass": null,
     "userConfig": {
+        "designer|userAlias": "socialitemgrid",
         "designer|userClassName": "SocialItemGrid",
         "height": 515,
         "title": null,

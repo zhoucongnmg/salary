@@ -15,6 +15,7 @@
 
 Ext.define('sion.salary.social.view.SocialItemGrid', {
     extend: 'Ext.grid.Panel',
+    alias: 'widget.socialitemgrid',
 
     requires: [
         'Ext.grid.View',

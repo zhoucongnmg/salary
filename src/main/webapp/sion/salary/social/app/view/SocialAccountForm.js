@@ -14,7 +14,7 @@
  */
 
 Ext.define('sion.salary.social.view.SocialAccountForm', {
-    extend: 'Ext.form.Panel',
+    extend: 'Ext.window.Window',
 
     requires: [
         'Ext.toolbar.Toolbar',
@@ -44,7 +44,7 @@ Ext.define('sion.salary.social.view.SocialAccountForm', {
                         {
                             xtype: 'button',
                             iconCls: 's_icon_page_add',
-                            text: '保存投保信息'
+                            text: '保存信息'
                         }
                     ]
                 }
@@ -59,7 +59,7 @@ Ext.define('sion.salary.social.view.SocialAccountForm', {
                         {
                             xtype: 'textfield',
                             columnWidth: 0.45,
-                            fieldLabel: '姓名',
+                            fieldLabel: '名称',
                             labelWidth: 80
                         },
                         {

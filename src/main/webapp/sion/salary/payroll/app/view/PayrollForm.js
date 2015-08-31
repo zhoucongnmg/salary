@@ -14,7 +14,7 @@
  */
 
 Ext.define('sion.salary.payroll.view.PayrollForm', {
-    extend: 'Ext.form.Panel',
+    extend: 'Ext.window.Window',
 
     requires: [
         'Ext.toolbar.Toolbar',
@@ -28,8 +28,8 @@ Ext.define('sion.salary.payroll.view.PayrollForm', {
         'Ext.selection.CheckboxModel'
     ],
 
-    height: 284,
-    width: 861,
+    height: 505,
+    width: 1055,
     layout: 'column',
     bodyPadding: 10,
 
@@ -54,6 +54,7 @@ Ext.define('sion.salary.payroll.view.PayrollForm', {
                 {
                     xtype: 'fieldset',
                     columnWidth: 1,
+                    height: 408,
                     layout: 'column',
                     title: '薪资信息',
                     items: [
@@ -93,6 +94,7 @@ Ext.define('sion.salary.payroll.view.PayrollForm', {
                         {
                             xtype: 'combobox',
                             columnWidth: 0.45,
+                            hidden: true,
                             fieldLabel: '薪资套账',
                             labelWidth: 80
                         },
@@ -104,6 +106,7 @@ Ext.define('sion.salary.payroll.view.PayrollForm', {
                         {
                             xtype: 'gridpanel',
                             columnWidth: 1,
+                            height: 295,
                             columns: [
                                 {
                                     xtype: 'gridcolumn',

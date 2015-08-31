@@ -73,6 +73,7 @@
                             "codeClass": null,
                             "userConfig": {
                                 "fieldLabel": "薪资套账",
+                                "hidden": true,
                                 "labelWidth": 60,
                                 "layout|columnWidth": 0.25,
                                 "padding": "0 0 0 25"
@@ -140,6 +141,53 @@
                             },
                             "name": "MyButton",
                             "designerId": "292b1a83-79a7-4386-9f52-fb474c2c32c1"
+                        },
+                        {
+                            "type": "Ext.toolbar.Spacer",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "height": 20,
+                                "layout|columnWidth": 1.1
+                            },
+                            "name": "MySpacer",
+                            "designerId": "ff1736ad-b04c-4c1c-92b0-6fde9b947669"
+                        },
+                        {
+                            "type": "Ext.button.Button",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "text": "发放"
+                            },
+                            "name": "MyButton2",
+                            "designerId": "62a3bd6b-c738-4e4c-946f-c4ffc68acf57",
+                            "cn": [
+                                {
+                                    "type": "basiceventbinding",
+                                    "reference": {
+                                        "name": "listeners",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fn": "onButtonClick",
+                                        "implHandler": [
+                                            "Ext.create(\"sion.salary.payroll.view.SelectPerson_win\").show();"
+                                        ],
+                                        "name": "click",
+                                        "scope": "me"
+                                    },
+                                    "name": "onButtonClick",
+                                    "designerId": "59c7e746-062c-4d23-8a5b-ab2d4c1cebad"
+                                }
+                            ]
                         }
                     ]
                 }
@@ -167,6 +215,7 @@
             },
             "codeClass": null,
             "userConfig": {
+                "hidden": true,
                 "text": "套账名称"
             },
             "name": "MyColumn1",

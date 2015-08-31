@@ -23,9 +23,16 @@ Ext.application({
     paths: {
         'sion.salary.payroll': 'sion/salary/payroll/app'
     },
+    models: [
+        'Person'
+    ],
+    stores: [
+        'PersonStore'
+    ],
     views: [
         'PayrollGrid',
-        'PayrollForm'
+        'PayrollForm',
+        'SelectPerson_win'
     ],
     name: 'sion.salary.payroll',
 
