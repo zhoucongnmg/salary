@@ -15,129 +15,250 @@
     "designerId": "a37fffad-cd50-40e6-b3f2-a6d95dbe2f06",
     "cn": [
         {
-            "type": "Ext.form.field.Text",
+            "type": "Ext.form.Panel",
             "reference": {
                 "name": "items",
                 "type": "array"
             },
             "codeClass": null,
             "userConfig": {
-                "fieldLabel": "项目名称"
+                "bodyPadding": 10,
+                "title": null
             },
-            "name": "MyTextField11",
-            "designerId": "8a81cc55-11e3-431d-a144-387403de25d8"
-        },
-        {
-            "type": "Ext.form.field.ComboBox",
-            "reference": {
-                "name": "items",
-                "type": "array"
-            },
-            "codeClass": null,
-            "userConfig": {
-                "fieldLabel": "类型"
-            },
-            "name": "MyComboBox5",
-            "designerId": "7c59c274-14f2-4912-aae5-4303e7d9c16f"
-        },
-        {
-            "type": "Ext.form.field.ComboBox",
-            "reference": {
-                "name": "items",
-                "type": "array"
-            },
-            "codeClass": null,
-            "userConfig": {
-                "fieldLabel": "小数位数"
-            },
-            "name": "MyComboBox6",
-            "designerId": "7a935431-a8e0-49dd-9d7f-a138e5c24549"
-        },
-        {
-            "type": "Ext.form.RadioGroup",
-            "reference": {
-                "name": "items",
-                "type": "array"
-            },
-            "codeClass": null,
-            "userConfig": {
-                "fieldLabel": "小数保留方式"
-            },
-            "name": "MyRadioGroup",
-            "designerId": "44978249-13d7-4ad8-987e-d1d7c8b7b3de",
+            "name": "MyForm2",
+            "designerId": "bb1545fc-d7ff-4591-90e5-8ffb8e870daa",
             "cn": [
                 {
-                    "type": "Ext.form.field.Radio",
+                    "type": "Ext.form.field.Text",
                     "reference": {
                         "name": "items",
                         "type": "array"
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "boxLabel": "四舍五入",
-                        "fieldLabel": null
+                        "allowBlank": false,
+                        "fieldLabel": "项目名称",
+                        "itemId": "name",
+                        "name": "name",
+                        "validateBlank": null
                     },
-                    "name": "MyRadio",
-                    "designerId": "ee1f8f17-fdf7-4bb7-821e-8e560d8d9404"
+                    "name": "MyTextField11",
+                    "designerId": "8a81cc55-11e3-431d-a144-387403de25d8"
                 },
                 {
-                    "type": "Ext.form.field.Radio",
+                    "type": "Ext.form.field.ComboBox",
                     "reference": {
                         "name": "items",
                         "type": "array"
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "boxLabel": "直接进位",
-                        "fieldLabel": null
+                        "allowBlank": false,
+                        "displayField": "name",
+                        "editable": false,
+                        "fieldLabel": "类型",
+                        "itemId": "itemType",
+                        "name": "itemType",
+                        "store": "SocialItemType",
+                        "validateBlank": null,
+                        "valueField": "id"
                     },
-                    "name": "MyRadio1",
-                    "designerId": "606f0367-51b4-437a-aba3-460ed6ec0478"
+                    "name": "MyComboBox5",
+                    "designerId": "7c59c274-14f2-4912-aae5-4303e7d9c16f"
                 },
                 {
-                    "type": "Ext.form.field.Radio",
+                    "type": "Ext.form.field.Number",
                     "reference": {
                         "name": "items",
                         "type": "array"
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "boxLabel": "直接舍去",
-                        "fieldLabel": null
+                        "allowBlank": false,
+                        "allowDecimals": false,
+                        "fieldLabel": "小数位数",
+                        "itemId": "precision",
+                        "minValue": 0,
+                        "name": "precision",
+                        "validateBlank": null
                     },
-                    "name": "MyRadio2",
-                    "designerId": "7e5280ef-ff72-446a-b7f1-f6b00c13bb2e"
+                    "name": "MyNumberField",
+                    "designerId": "7a935431-a8e0-49dd-9d7f-a138e5c24549"
+                },
+                {
+                    "type": "Ext.form.RadioGroup",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "allowBlank": false,
+                        "designer|displayName": null,
+                        "fieldLabel": "小数保留方式",
+                        "itemId": "carryType"
+                    },
+                    "name": "MyRadioGroup",
+                    "designerId": "44978249-13d7-4ad8-987e-d1d7c8b7b3de",
+                    "cn": [
+                        {
+                            "type": "Ext.form.field.Radio",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "boxLabel": "四舍五入",
+                                "fieldLabel": null,
+                                "inputValue": "Round",
+                                "name": "carryType",
+                                "value": null
+                            },
+                            "name": "MyRadio",
+                            "designerId": "ee1f8f17-fdf7-4bb7-821e-8e560d8d9404"
+                        },
+                        {
+                            "type": "Ext.form.field.Radio",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "boxLabel": "直接进位",
+                                "fieldLabel": null,
+                                "inputValue": "Isopsephy",
+                                "name": "carryType",
+                                "value": null
+                            },
+                            "name": "MyRadio1",
+                            "designerId": "606f0367-51b4-437a-aba3-460ed6ec0478"
+                        },
+                        {
+                            "type": "Ext.form.field.Radio",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "boxLabel": "直接舍去",
+                                "fieldLabel": null,
+                                "inputValue": "Truncation",
+                                "name": "carryType",
+                                "value": null
+                            },
+                            "name": "MyRadio2",
+                            "designerId": "7e5280ef-ff72-446a-b7f1-f6b00c13bb2e"
+                        }
+                    ]
+                },
+                {
+                    "type": "Ext.form.field.Display",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fieldLabel": "温馨提示",
+                        "labelStyle": "color:red;",
+                        "value": "小数保留方式默认为四舍五入方式；如需见分进角，则小数位数选1，保留方式选择直接进位即可。 "
+                    },
+                    "name": "MyDisplayField",
+                    "designerId": "a86417aa-7d2c-4529-9a94-1f4adcb05525"
+                },
+                {
+                    "type": "Ext.button.Button",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "text": "保存",
+                        "width": 70
+                    },
+                    "name": "MyButton4",
+                    "designerId": "763cc199-100d-4b58-9a54-3ba729c4f41c",
+                    "cn": [
+                        {
+                            "type": "basiceventbinding",
+                            "reference": {
+                                "name": "listeners",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fn": "onButtonClick",
+                                "implHandler": [
+                                    "var me = this,",
+                                    "    namespace = me.getNamespace(),",
+                                    "    form = me.down(\"form\"),",
+                                    "    store = Ext.StoreManager.lookup(\"SocialItem\");",
+                                    "",
+                                    "record = form.getRecord();",
+                                    "form.updateRecord(record);",
+                                    "if(!me.down('#name').isValid() || !me.down('#itemType').isValid() || !me.down('#carryType').isValid()|| !me.down('#precision').isValid()){",
+                                    "    Ext.Msg.alert(\"提示\", \"信息不完整，请继续填写！\");",
+                                    "    return false;",
+                                    "}",
+                                    "record.save({",
+                                    "    url: 'salary/socialitem/create',",
+                                    "    success: function(response, opts){",
+                                    "        Ext.Msg.alert(\"提示\", \"保存成功\");",
+                                    "        //         var leaveStore = Ext.StoreManager.lookup(\"OverTimeApply\");//更新数据从前台取",
+                                    "        store.load();",
+                                    "        me.close();",
+                                    "    },",
+                                    "    failure: function(){",
+                                    "        Ext.Msg.alert(\"提示\", \"保存失败\");",
+                                    "        me.close();",
+                                    "    }",
+                                    "});"
+                                ],
+                                "name": "click",
+                                "scope": "me"
+                            },
+                            "name": "onButtonClick",
+                            "designerId": "c2b542a2-50a8-4d0a-83db-b66bc0f0f6b5"
+                        }
+                    ]
                 }
             ]
         },
         {
-            "type": "Ext.form.field.Display",
+            "type": "basiceventbinding",
             "reference": {
-                "name": "items",
+                "name": "listeners",
                 "type": "array"
             },
             "codeClass": null,
             "userConfig": {
-                "fieldLabel": "温馨提示",
-                "labelStyle": "color:red;",
-                "value": "小数保留方式默认为四舍五入方式；如需见分进角，则小数位数选1，保留方式选择直接进位即可。 "
+                "fn": "onWindowBeforeRender",
+                "implHandler": [
+                    "var me = this,",
+                    "    namespace = me.getNamespace(),",
+                    "    form = me.down(\"form\"),",
+                    "    socialItem = me._socialItem;",
+                    "",
+                    "if(socialItem){",
+                    "    form.loadRecord(socialItem);",
+                    "}else{",
+                    "    form.loadRecord(Ext.create(namespace + '.model.SocialItem', {",
+                    "        name: '',",
+                    "        itemType: '',",
+                    "        carryType: '',",
+                    "        precision: ''",
+                    "    }));",
+                    "}"
+                ],
+                "name": "beforerender",
+                "scope": "me"
             },
-            "name": "MyDisplayField",
-            "designerId": "a86417aa-7d2c-4529-9a94-1f4adcb05525"
-        },
-        {
-            "type": "Ext.button.Button",
-            "reference": {
-                "name": "items",
-                "type": "array"
-            },
-            "codeClass": null,
-            "userConfig": {
-                "text": "保存",
-                "width": 100
-            },
-            "name": "MyButton4",
-            "designerId": "763cc199-100d-4b58-9a54-3ba729c4f41c"
+            "name": "onWindowBeforeRender",
+            "designerId": "a438413e-e235-45b2-9a82-91ded531a4c6"
         }
     ]
 }

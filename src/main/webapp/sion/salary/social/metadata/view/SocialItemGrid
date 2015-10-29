@@ -9,6 +9,7 @@
         "designer|userAlias": "socialitemgrid",
         "designer|userClassName": "SocialItemGrid",
         "height": 515,
+        "store": "SocialItem",
         "title": null,
         "width": 1006
     },
@@ -23,7 +24,7 @@
             },
             "codeClass": null,
             "userConfig": {
-                "dataIndex": "string",
+                "dataIndex": "name",
                 "flex": 0.42,
                 "text": "项目名称"
             },
@@ -38,6 +39,7 @@
             },
             "codeClass": null,
             "userConfig": {
+                "dataIndex": "itemTypeName",
                 "flex": 0.2,
                 "text": "项目类型"
             },
@@ -62,6 +64,7 @@
             },
             "codeClass": null,
             "userConfig": {
+                "dataIndex": "precision",
                 "flex": 0.2,
                 "text": "小数位数"
             },
@@ -76,6 +79,7 @@
             },
             "codeClass": null,
             "userConfig": {
+                "altText": "查看看啊",
                 "flex": 0.06
             },
             "name": "MyActionColumn2",
@@ -89,38 +93,45 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "iconCls": "s_icon_table_edit"
+                        "altText": "查看",
+                        "iconCls": "s_icon_table_edit",
+                        "tooltip": "编辑"
                     },
                     "name": "MyActionColumnItem2",
-                    "designerId": "3071a295-5729-4350-8fa1-006f99b96d1f"
-                }
-            ]
-        },
-        {
-            "type": "Ext.grid.column.Action",
-            "reference": {
-                "name": "columns",
-                "type": "array"
-            },
-            "codeClass": null,
-            "userConfig": {
-                "flex": 0.06
-            },
-            "name": "MyActionColumn3",
-            "designerId": "5566425b-f6b1-4705-9d96-6ee64436b048",
-            "cn": [
-                {
-                    "type": "actioncolumnitem",
-                    "reference": {
-                        "name": "items",
-                        "type": "array"
-                    },
-                    "codeClass": null,
-                    "userConfig": {
-                        "iconCls": "s_icon_action_search"
-                    },
-                    "name": "MyActionColumnItem3",
-                    "designerId": "3d031363-8a75-47c6-b244-2f8d158b4321"
+                    "designerId": "3071a295-5729-4350-8fa1-006f99b96d1f",
+                    "cn": [
+                        {
+                            "type": "fixedfunction",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "designer|params": [
+                                    "view",
+                                    "rowIndex",
+                                    "colIndex",
+                                    "item",
+                                    "e",
+                                    "record",
+                                    "row"
+                                ],
+                                "fn": "handler",
+                                "implHandler": [
+                                    "",
+                                    "// var  namespace = this.up('gridpanel').getNamespace(),",
+                                    "//     socialItem =  Ext.create(namespace + '.view.SocialItemForm');",
+                                    "",
+                                    "// socialItem._socialItem = record;",
+                                    "// socialItem.show();",
+                                    "this.up('gridpanel').detail(record);"
+                                ]
+                            },
+                            "name": "handler",
+                            "designerId": "c93f8702-d991-460a-b24f-3f18b59fe643"
+                        }
+                    ]
                 }
             ]
         },
@@ -145,12 +156,128 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "iconCls": "s_icon_action_action_delete"
+                        "iconCls": "s_icon_cross",
+                        "tooltip": "删除"
                     },
                     "name": "MyActionColumnItem4",
-                    "designerId": "3e2fb78f-7570-443a-8ac6-01dbeeda3c16"
+                    "designerId": "3e2fb78f-7570-443a-8ac6-01dbeeda3c16",
+                    "cn": [
+                        {
+                            "type": "fixedfunction",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "designer|params": [
+                                    "view",
+                                    "rowIndex",
+                                    "colIndex",
+                                    "item",
+                                    "e",
+                                    "record",
+                                    "row"
+                                ],
+                                "fn": "handler",
+                                "implHandler": [
+                                    "var store = Ext.StoreManager.lookup(\"SocialItem\");",
+                                    "",
+                                    "Ext.Msg.confirm('提示', '确定要删除吗？', function(text){",
+                                    "    if (text == 'yes'){",
+                                    "        Ext.Ajax.request({",
+                                    "            url :'salary/socialitem/remove',//请求的服务器地址",
+                                    "            params : {",
+                                    "                id : record.get('id')",
+                                    "            },//发送json对象",
+                                    "            success:function(response,action){",
+                                    "                store.load();",
+                                    "//                 me.resetGridSelect(record);",
+                                    "                Ext.Msg.alert(\"提示\", \"删除成功\");",
+                                    "            },failure: function(){",
+                                    "                store.load();",
+                                    "//                 me.resetGridSelect(record);",
+                                    "                Ext.Msg.alert(\"提示\", \"删除失败\");",
+                                    "            }",
+                                    "        });",
+                                    "    }",
+                                    "});"
+                                ]
+                            },
+                            "name": "handler",
+                            "designerId": "5c7e9c80-d3e4-41f1-996c-6e77ef8e8ce4"
+                        }
+                    ]
                 }
             ]
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|params": [
+                    "record"
+                ],
+                "fn": "detail",
+                "implHandler": [
+                    "var me = this,",
+                    "    namespace = me.getNamespace();",
+                    "",
+                    "var socialItem =  Ext.create(namespace + '.view.SocialItemForm',{",
+                    "    _socialItem : record",
+                    "});",
+                    "socialItem.show();",
+                    "// me.resetGridSelect(record);"
+                ]
+            },
+            "name": "detail",
+            "designerId": "728bf4c0-1357-4adc-8f3b-51f39fe5d656"
+        },
+        {
+            "type": "basiceventbinding",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "onGridpanelRender",
+                "implHandler": [
+                    "component.getStore().load();"
+                ],
+                "name": "render",
+                "scope": "me"
+            },
+            "name": "onGridpanelRender",
+            "designerId": "90ab0c22-8bff-4497-9f3b-ef27dfcdf304"
+        },
+        {
+            "type": "basiceventbinding",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "onGridpanelItemDblClick",
+                "implHandler": [
+                    "",
+                    "// var  namespace = this.getNamespace(),",
+                    "//     socialItem =  Ext.create(namespace + '.view.SocialItemForm');",
+                    "",
+                    "// socialItem._socialItem = record;",
+                    "// socialItem.show();",
+                    "this.detail(record);"
+                ],
+                "name": "itemdblclick",
+                "scope": "me"
+            },
+            "name": "onGridpanelItemDblClick",
+            "designerId": "e2d5ffe9-7f6c-4fcc-8f5e-f22a29c7dad5"
         }
     ]
 }

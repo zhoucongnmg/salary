@@ -10,7 +10,7 @@
         "designer|userClassName": "SalaryItemGrid",
         "header": false,
         "height": null,
-        "store": "SalaryItemStore",
+        "store": "SalaryItem",
         "title": "My Grid Panel",
         "width": null
     },
@@ -26,8 +26,9 @@
             "codeClass": null,
             "userConfig": {
                 "dataIndex": "name",
+                "flex": 2,
                 "text": "项目名称",
-                "width": "20%"
+                "width": null
             },
             "name": "MyColumn3",
             "designerId": "ebcd234e-e5b0-4b3a-83bb-8c127e32c518"
@@ -41,8 +42,9 @@
             "codeClass": null,
             "userConfig": {
                 "dataIndex": "field",
+                "flex": 1,
                 "text": "字段",
-                "width": "10%"
+                "width": null
             },
             "name": "MyColumn4",
             "designerId": "9c21b907-fb8a-405a-84da-9587618cf553"
@@ -56,8 +58,9 @@
             "codeClass": null,
             "userConfig": {
                 "dataIndex": "type",
+                "flex": 1,
                 "text": "类型",
-                "width": "10%"
+                "width": null
             },
             "name": "MyColumn5",
             "designerId": "dc81e637-d941-4cee-b78e-e1eb57692aad"
@@ -70,9 +73,10 @@
             },
             "codeClass": null,
             "userConfig": {
-                "dataIndex": "desc",
+                "dataIndex": "note",
+                "flex": 3,
                 "text": "说明",
-                "width": "30%"
+                "width": null
             },
             "name": "MyColumn6",
             "designerId": "1ae6d019-d684-44c8-ab2b-a9620fbc8f21"
@@ -86,7 +90,10 @@
             "codeClass": null,
             "userConfig": {
                 "dataIndex": "system",
-                "text": "系统项"
+                "falseText": "否",
+                "flex": 1,
+                "text": "系统项",
+                "trueText": "是"
             },
             "name": "MyBooleanColumn1",
             "designerId": "0741c148-89bf-4df4-950c-a1d8ad3fe7ca"
@@ -99,7 +106,9 @@
             },
             "codeClass": null,
             "userConfig": {
-                "width": 35
+                "dataIndex": "id",
+                "flex": 0.5,
+                "width": null
             },
             "name": "MyActionColumn1",
             "designerId": "15428942-7336-45e6-a7a8-909993be0dbc",
@@ -117,7 +126,34 @@
                         "tooltip": "编辑"
                     },
                     "name": "MyActionColumnItem4",
-                    "designerId": "9013d9eb-9940-4b72-868b-eb737ce1880c"
+                    "designerId": "9013d9eb-9940-4b72-868b-eb737ce1880c",
+                    "cn": [
+                        {
+                            "type": "fixedfunction",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "designer|params": [
+                                    "view",
+                                    "rowIndex",
+                                    "colIndex",
+                                    "item",
+                                    "e",
+                                    "record",
+                                    "row"
+                                ],
+                                "fn": "handler",
+                                "implHandler": [
+                                    "this.up('gridpanel').detail(record);"
+                                ]
+                            },
+                            "name": "handler",
+                            "designerId": "4febeaf0-adac-4f5c-8b8c-6234e391716c"
+                        }
+                    ]
                 }
             ]
         },
@@ -129,7 +165,9 @@
             },
             "codeClass": null,
             "userConfig": {
-                "width": 35
+                "dataIndex": "id",
+                "flex": 0.5,
+                "width": null
             },
             "name": "MyActionColumn2",
             "designerId": "46efea87-7d1c-4163-b23e-1b439baf2d8e",
@@ -147,7 +185,58 @@
                         "tooltip": "删除"
                     },
                     "name": "MyActionColumnItem5",
-                    "designerId": "724b871c-31af-4326-a023-6d169d5b867f"
+                    "designerId": "724b871c-31af-4326-a023-6d169d5b867f",
+                    "cn": [
+                        {
+                            "type": "fixedfunction",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "designer|params": [
+                                    "view",
+                                    "rowIndex",
+                                    "colIndex",
+                                    "item",
+                                    "e",
+                                    "record",
+                                    "row"
+                                ],
+                                "fn": "handler",
+                                "implHandler": [
+                                    "var store = Ext.StoreManager.lookup(\"SalaryItem\");",
+                                    "if(record.get('system')){",
+                                    "    Ext.Msg.alert('提示','系统提取项不可删除！');",
+                                    "    return false;",
+                                    "}",
+                                    "",
+                                    "Ext.Msg.confirm('提示', '确定要删除吗？', function(text){",
+                                    "    if (text == 'yes'){",
+                                    "        Ext.Ajax.request({",
+                                    "            url :'salary/salaryitem/remove',//请求的服务器地址",
+                                    "            params : {",
+                                    "                id : record.get('id')",
+                                    "            },//发送json对象",
+                                    "            success:function(response,action){",
+                                    "                store.load();",
+                                    "//                 me.resetGridSelect(record);",
+                                    "                Ext.Msg.alert(\"提示\", \"删除成功\");",
+                                    "            },failure: function(){",
+                                    "                store.load();",
+                                    "//                 me.resetGridSelect(record);",
+                                    "                Ext.Msg.alert(\"提示\", \"删除失败\");",
+                                    "            }",
+                                    "        });",
+                                    "    }",
+                                    "});"
+                                ]
+                            },
+                            "name": "handler",
+                            "designerId": "f0bb3725-beaf-4d13-86a7-b5673da9b953"
+                        }
+                    ]
                 }
             ]
         },
@@ -160,6 +249,72 @@
             "codeClass": null,
             "name": "MyGridView1",
             "designerId": "83268c21-a289-40e3-bdff-0cd2c4a49c49"
+        },
+        {
+            "type": "basiceventbinding",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "onGridpanelRender",
+                "implHandler": [
+                    "component.getStore().load();"
+                ],
+                "name": "render",
+                "scope": "me"
+            },
+            "name": "onGridpanelRender",
+            "designerId": "eb896479-b84c-464f-a559-3fef24d5fccd"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|params": [
+                    "record"
+                ],
+                "fn": "detail",
+                "implHandler": [
+                    "var me = this,",
+                    "    namespace = me.getNamespace(),",
+                    "    str = '.view.SalaryItemEdit';",
+                    "",
+                    "if(record.get('system')){",
+                    "    str = '.view.SalaryItemRead';",
+                    "}",
+                    "var panel =  Ext.create(namespace + str,{",
+                    "    _salaryItem : record",
+                    "});",
+                    "panel.show();",
+                    "// me.resetGridSelect(record);"
+                ]
+            },
+            "name": "detail",
+            "designerId": "be3ee020-2292-4e74-ad9b-8dd37c868d92"
+        },
+        {
+            "type": "basiceventbinding",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "onGridpanelItemDblClick",
+                "implHandler": [
+                    "this.detail(record);"
+                ],
+                "name": "itemdblclick",
+                "scope": "me"
+            },
+            "name": "onGridpanelItemDblClick",
+            "designerId": "76d6e36e-7b96-4e8e-8386-466cb3c574d6"
         }
     ]
 }

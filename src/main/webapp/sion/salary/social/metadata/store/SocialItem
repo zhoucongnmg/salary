@@ -1,0 +1,62 @@
+{
+    "type": "Ext.data.Store",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "autoLoad": false,
+        "autoSync": null,
+        "designer|userClassName": "SocialItem",
+        "model": "SocialItem",
+        "storeId": "SocialItem"
+    },
+    "name": "MyStore",
+    "designerId": "4ea358d7-475c-47ae-8f1f-33298049d596",
+    "cn": [
+        {
+            "type": "Ext.data.proxy.Ajax",
+            "reference": {
+                "name": "proxy",
+                "type": "object"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "api": [
+                    "{create: 'salary/socialitem/create',",
+                    "read: 'salary/socialitem/load',",
+                    "update: 'salary/socialitem/update',",
+                    "destroy: 'salary/socialitem/remove'}"
+                ]
+            },
+            "name": "MyAjaxProxy",
+            "designerId": "3bbe745c-0a9f-4712-bdfb-4b7eaa749828",
+            "cn": [
+                {
+                    "type": "Ext.data.reader.Json",
+                    "reference": {
+                        "name": "reader",
+                        "type": "object"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "root": "data"
+                    },
+                    "name": "MyJsonReader",
+                    "designerId": "f88a355c-6c0f-430f-9f45-c1e10c0d526c"
+                },
+                {
+                    "type": "Ext.data.writer.Json",
+                    "reference": {
+                        "name": "writer",
+                        "type": "object"
+                    },
+                    "codeClass": null,
+                    "name": "MyJsonWriter",
+                    "designerId": "821ab29a-4445-4ae0-8189-9f27242072be"
+                }
+            ]
+        }
+    ]
+}

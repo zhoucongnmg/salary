@@ -1,0 +1,122 @@
+{
+    "type": "Ext.data.Model",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userClassName": "SocialItem"
+    },
+    "name": "MyModel",
+    "designerId": "b86907cd-9895-4e0e-9ba5-91b9788ef01a",
+    "cn": [
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "id"
+            },
+            "name": "MyField",
+            "designerId": "97e75ae3-8215-40de-88a5-d3c548b00f8d"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "name"
+            },
+            "name": "MyField1",
+            "designerId": "5ef01e81-f658-4e31-95f1-2121306a188b"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "itemType"
+            },
+            "name": "MyField2",
+            "designerId": "613d1065-c8f8-4614-9cf2-5d72d6d71af6"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "carryType"
+            },
+            "name": "MyField3",
+            "designerId": "1d075282-df14-4bd9-a141-68469bdbfc65"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "precision",
+                "type": "int"
+            },
+            "name": "MyField4",
+            "designerId": "1a4f37f5-8f37-4d74-b32e-d89c76a46923"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "itemTypeName"
+            },
+            "name": "MyField9",
+            "designerId": "9c138c38-76af-4216-a3b4-893ac8380fa2",
+            "cn": [
+                {
+                    "type": "fixedfunction",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "designer|params": [
+                            "v",
+                            "rec"
+                        ],
+                        "fn": "convert",
+                        "implHandler": [
+                            "var store = Ext.StoreManager.lookup('SocialItemType'),",
+                            "    node = store.findRecord('id' , rec.get('itemType'));",
+                            "",
+                            "if(node){",
+                            "    v = node.get(\"name\");",
+                            "}",
+                            "return v;"
+                        ]
+                    },
+                    "name": "convert",
+                    "designerId": "da3e1abc-69a6-488b-b798-8c7193d6b65c"
+                }
+            ]
+        }
+    ]
+}

@@ -73,7 +73,7 @@
             "codeClass": null,
             "userConfig": {
                 "header": false,
-                "store": "AccountMemberStore",
+                "store": "AccountMember",
                 "title": "My Grid Panel"
             },
             "name": "MyGridPanel1",

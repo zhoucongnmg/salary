@@ -115,9 +115,9 @@
             "    }",
             "]"
         ],
-        "designer|userClassName": "AccountMemberStore",
+        "designer|userClassName": "AccountMember",
         "model": "AccountMember",
-        "storeId": "AccountMemberStore"
+        "storeId": "AccountMember"
     },
     "name": "MyJsonStore",
     "designerId": "2b0fe189-5097-4f93-ac64-9a292decfa33",

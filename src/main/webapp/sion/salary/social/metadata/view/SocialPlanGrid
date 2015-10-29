@@ -70,7 +70,7 @@
                 "type": "array"
             },
             "codeClass": null,
-            "name": "socialaccountgrid1",
+            "name": "socialaccountgrid",
             "designerId": "668c34a5-54b3-4abb-9fcf-cb8ff5bdc365",
             "masterInstanceId": "7c1e6702-8d61-4884-809b-d0c45ff3a89b"
         }

@@ -25,7 +25,7 @@ Ext.define('sion.salary.accounts.view.SalaryItemGrid', {
 
     header: false,
     title: 'My Grid Panel',
-    store: 'SalaryItemStore',
+    store: 'SalaryItem',
 
     initComponent: function() {
         var me = this;
@@ -34,38 +34,45 @@ Ext.define('sion.salary.accounts.view.SalaryItemGrid', {
             columns: [
                 {
                     xtype: 'gridcolumn',
-                    width: '20%',
                     dataIndex: 'name',
-                    text: '项目名称'
+                    text: '项目名称',
+                    flex: 2
                 },
                 {
                     xtype: 'gridcolumn',
-                    width: '10%',
                     dataIndex: 'field',
-                    text: '字段'
+                    text: '字段',
+                    flex: 1
                 },
                 {
                     xtype: 'gridcolumn',
-                    width: '10%',
                     dataIndex: 'type',
-                    text: '类型'
+                    text: '类型',
+                    flex: 1
                 },
                 {
                     xtype: 'gridcolumn',
-                    width: '30%',
-                    dataIndex: 'desc',
-                    text: '说明'
+                    dataIndex: 'note',
+                    text: '说明',
+                    flex: 3
                 },
                 {
                     xtype: 'booleancolumn',
                     dataIndex: 'system',
-                    text: '系统项'
+                    text: '系统项',
+                    flex: 1,
+                    falseText: '否',
+                    trueText: '是'
                 },
                 {
                     xtype: 'actioncolumn',
-                    width: 35,
+                    dataIndex: 'id',
+                    flex: 0.5,
                     items: [
                         {
+                            handler: function(view, rowIndex, colIndex, item, e, record, row) {
+                                this.up('gridpanel').detail(record);
+                            },
                             iconCls: 's_icon_page_edit',
                             tooltip: '编辑'
                         }
@@ -73,18 +80,79 @@ Ext.define('sion.salary.accounts.view.SalaryItemGrid', {
                 },
                 {
                     xtype: 'actioncolumn',
-                    width: 35,
+                    dataIndex: 'id',
+                    flex: 0.5,
                     items: [
                         {
+                            handler: function(view, rowIndex, colIndex, item, e, record, row) {
+                                var store = Ext.StoreManager.lookup("SalaryItem");
+                                if(record.get('system')){
+                                    Ext.Msg.alert('提示','系统提取项不可删除！');
+                                    return false;
+                                }
+
+                                Ext.Msg.confirm('提示', '确定要删除吗？', function(text){
+                                    if (text == 'yes'){
+                                        Ext.Ajax.request({
+                                            url :'salary/salaryitem/remove',//请求的服务器地址
+                                            params : {
+                                                id : record.get('id')
+                                            },//发送json对象
+                                            success:function(response,action){
+                                                store.load();
+                                                //                 me.resetGridSelect(record);
+                                                Ext.Msg.alert("提示", "删除成功");
+                                            },failure: function(){
+                                                store.load();
+                                                //                 me.resetGridSelect(record);
+                                                Ext.Msg.alert("提示", "删除失败");
+                                            }
+                                        });
+                                    }
+                                });
+                            },
                             iconCls: 's_icon_cross',
                             tooltip: '删除'
                         }
                     ]
                 }
-            ]
+            ],
+            listeners: {
+                render: {
+                    fn: me.onGridpanelRender,
+                    scope: me
+                },
+                itemdblclick: {
+                    fn: me.onGridpanelItemDblClick,
+                    scope: me
+                }
+            }
         });
 
         me.callParent(arguments);
+    },
+
+    onGridpanelRender: function(component, eOpts) {
+        component.getStore().load();
+    },
+
+    onGridpanelItemDblClick: function(dataview, record, item, index, e, eOpts) {
+        this.detail(record);
+    },
+
+    detail: function(record) {
+        var me = this,
+            namespace = me.getNamespace(),
+            str = '.view.SalaryItemEdit';
+
+        if(record.get('system')){
+            str = '.view.SalaryItemRead';
+        }
+        var panel =  Ext.create(namespace + str,{
+            _salaryItem : record
+        });
+        panel.show();
+        // me.resetGridSelect(record);
     }
 
 });

@@ -1,0 +1,106 @@
+{
+    "type": "Ext.data.Model",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userClassName": "SocialAccountItem"
+    },
+    "name": "MyModel1",
+    "designerId": "23faa36e-c4f3-4202-82b5-72e3687913bf",
+    "cn": [
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "socialItemId"
+            },
+            "name": "MyField14",
+            "designerId": "466d830c-6fb4-4931-b435-f4b3816c179c"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "socialItemName"
+            },
+            "name": "MyField15",
+            "designerId": "ae30892b-35d4-4724-ba58-f0693fc2818a"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "cardinality"
+            },
+            "name": "MyField16",
+            "designerId": "3462e7bf-833e-4c56-bfd9-072195cdb6b1"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "companyPaymentValue"
+            },
+            "name": "MyField17",
+            "designerId": "0409a5ff-3635-437d-ad36-09de921109bc"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "personalPaymentValue"
+            },
+            "name": "MyField18",
+            "designerId": "ca5b4c7e-014f-4520-9d60-a27821daecde"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "companyPaymentType"
+            },
+            "name": "MyField19",
+            "designerId": "07812613-18a4-43b4-b4fe-664beba2513b"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "personalPaymentType"
+            },
+            "name": "MyField20",
+            "designerId": "dc684f54-30ee-41c0-8379-2ace8c698d0c"
+        }
+    ]
+}

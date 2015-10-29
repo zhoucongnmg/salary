@@ -1,0 +1,63 @@
+{
+    "type": "Ext.data.Store",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "autoLoad": false,
+        "designer|userClassName": "SocialAccount",
+        "model": "SocialAccount",
+        "storeId": "SocialAccount"
+    },
+    "name": "MyStore",
+    "designerId": "2ca816a4-09fc-4949-a991-789bc8a185f1",
+    "cn": [
+        {
+            "type": "Ext.data.proxy.Ajax",
+            "reference": {
+                "name": "proxy",
+                "type": "object"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "api": [
+                    "{",
+                    "    create: 'salary/socialaccount/create',",
+                    "    read: 'salary/socialaccount/load',",
+                    "    update: 'salary/socialaccount/update',",
+                    "    destroy: 'salary/socialaccount/remove'",
+                    "}"
+                ]
+            },
+            "name": "MyAjaxProxy1",
+            "designerId": "0daaa0d8-f06a-4c20-91f3-4521e5710645",
+            "cn": [
+                {
+                    "type": "Ext.data.reader.Json",
+                    "reference": {
+                        "name": "reader",
+                        "type": "object"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "root": "data"
+                    },
+                    "name": "MyJsonReader1",
+                    "designerId": "a48a256b-6cdb-47ae-a7d7-66d887c0aa3f"
+                },
+                {
+                    "type": "Ext.data.writer.Json",
+                    "reference": {
+                        "name": "writer",
+                        "type": "object"
+                    },
+                    "codeClass": null,
+                    "name": "MyJsonWriter1",
+                    "designerId": "64af3321-b01c-46ba-ba57-e2908580b031"
+                }
+            ]
+        }
+    ]
+}

@@ -75,7 +75,7 @@
             "codeClass": null,
             "userConfig": {
                 "header": false,
-                "store": "AccountStore",
+                "store": "Account",
                 "title": "salary accounts"
             },
             "name": "MyGridPanel",

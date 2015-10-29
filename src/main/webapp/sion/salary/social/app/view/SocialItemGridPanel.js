@@ -39,7 +39,9 @@ Ext.define('sion.salary.social.view.SocialItemGridPanel', {
                     items: [
                         {
                             xtype: 'button',
-                            text: '新建',
+                            style: 'background:#3ca9fc;',
+                            width: 70,
+                            text: '<font color=\'#fff\'>新建</font>',
                             listeners: {
                                 click: {
                                     fn: me.onButtonClick,
@@ -61,7 +63,10 @@ Ext.define('sion.salary.social.view.SocialItemGridPanel', {
     },
 
     onButtonClick: function(button, e, eOpts) {
-        Ext.create("sion.salary.social.view.SocialItemForm").show();
+        var  namespace = this.getNamespace(),
+            socialItem =  Ext.create(namespace + '.view.SocialItemForm');
+
+        socialItem.show();
     }
 
 });

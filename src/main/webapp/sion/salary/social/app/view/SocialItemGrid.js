@@ -24,6 +24,7 @@ Ext.define('sion.salary.social.view.SocialItemGrid', {
 
     height: 515,
     width: 1006,
+    store: 'SocialItem',
 
     initComponent: function() {
         var me = this;
@@ -32,26 +33,40 @@ Ext.define('sion.salary.social.view.SocialItemGrid', {
             columns: [
                 {
                     xtype: 'gridcolumn',
-                    dataIndex: 'string',
+                    dataIndex: 'name',
                     text: '项目名称',
                     flex: 0.42
                 },
                 {
                     xtype: 'gridcolumn',
+                    dataIndex: 'itemTypeName',
                     text: '项目类型',
                     flex: 0.2
                 },
                 {
                     xtype: 'gridcolumn',
+                    dataIndex: 'precision',
                     text: '小数位数',
                     flex: 0.2
                 },
                 {
                     xtype: 'actioncolumn',
                     flex: 0.06,
+                    altText: '查看看啊',
                     items: [
                         {
-                            iconCls: 's_icon_table_edit'
+                            handler: function(view, rowIndex, colIndex, item, e, record, row) {
+
+                                // var  namespace = this.up('gridpanel').getNamespace(),
+                                //     socialItem =  Ext.create(namespace + '.view.SocialItemForm');
+
+                                // socialItem._socialItem = record;
+                                // socialItem.show();
+                                this.up('gridpanel').detail(record);
+                            },
+                            altText: '查看',
+                            iconCls: 's_icon_table_edit',
+                            tooltip: '编辑'
                         }
                     ]
                 },
@@ -60,23 +75,73 @@ Ext.define('sion.salary.social.view.SocialItemGrid', {
                     flex: 0.06,
                     items: [
                         {
-                            iconCls: 's_icon_action_search'
-                        }
-                    ]
-                },
-                {
-                    xtype: 'actioncolumn',
-                    flex: 0.06,
-                    items: [
-                        {
-                            iconCls: 's_icon_action_action_delete'
+                            handler: function(view, rowIndex, colIndex, item, e, record, row) {
+                                var store = Ext.StoreManager.lookup("SocialItem");
+
+                                Ext.Msg.confirm('提示', '确定要删除吗？', function(text){
+                                    if (text == 'yes'){
+                                        Ext.Ajax.request({
+                                            url :'salary/socialitem/remove',//请求的服务器地址
+                                            params : {
+                                                id : record.get('id')
+                                            },//发送json对象
+                                            success:function(response,action){
+                                                store.load();
+                                                //                 me.resetGridSelect(record);
+                                                Ext.Msg.alert("提示", "删除成功");
+                                            },failure: function(){
+                                                store.load();
+                                                //                 me.resetGridSelect(record);
+                                                Ext.Msg.alert("提示", "删除失败");
+                                            }
+                                        });
+                                    }
+                                });
+                            },
+                            iconCls: 's_icon_cross',
+                            tooltip: '删除'
                         }
                     ]
                 }
-            ]
+            ],
+            listeners: {
+                render: {
+                    fn: me.onGridpanelRender,
+                    scope: me
+                },
+                itemdblclick: {
+                    fn: me.onGridpanelItemDblClick,
+                    scope: me
+                }
+            }
         });
 
         me.callParent(arguments);
+    },
+
+    onGridpanelRender: function(component, eOpts) {
+        component.getStore().load();
+    },
+
+    onGridpanelItemDblClick: function(dataview, record, item, index, e, eOpts) {
+
+        // var  namespace = this.getNamespace(),
+        //     socialItem =  Ext.create(namespace + '.view.SocialItemForm');
+
+        // socialItem._socialItem = record;
+        // socialItem.show();
+        this.detail(record);
+    },
+
+    detail: function(record) {
+        var me = this,
+            namespace = me.getNamespace();
+
+        var socialItem =  Ext.create(namespace + '.view.SocialItemForm',{
+            _socialItem : record
+        });
+        socialItem.show();
+        // me.resetGridSelect(record);
     }
 
 });

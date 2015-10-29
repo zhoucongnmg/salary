@@ -13,10 +13,20 @@
             }
         },
         "urlPrefix": "",
-        "exportPath": "E:/dev/sts-bundle/vfabric-tc-server-developer-2.9.5.SR1/tcv29/wtpwebapps/salary/sion/salary/accounts"
+        "exportPath": "D:/SpringToolSuite/vfabric-tc-server-developer-2.9.5.SR1/test/wtpwebapps/salary/sion/salary/accounts",
+        "projectHasEnabledWebServer": false,
+        "lockUrlPrefix": false,
+        "buildShouldOverwriteIndex": true,
+        "generateArchitectVersion": true,
+        "spacesToIndent": 4,
+        "lineEnding": "CRLF",
+        "genTimestamps": false,
+        "cacheBust": false,
+        "installStatus": "Not Installed",
+        "displayfield-ExtBox1-1136-inputEl": "a new version of the framework is available"
     },
     "xdsVersion": "3.2.0",
-    "xdsBuild": 75,
+    "xdsBuild": 239,
     "schemaVersion": 1,
     "upgradeVersion": 310000000001,
     "framework": "ext42",
@@ -27,6 +37,7 @@
             "0792004f-1834-444c-8300-a50243e0defc",
             "fdfc7c61-6d60-4c22-aeab-ad8e1f75d827",
             "5c5591a4-8651-4ede-bc10-11af8947afaa",
+            "c4171d4d-9245-4d5f-80ea-db6c3ddbcec6",
             "4045e419-721d-4d6b-b4cf-ad5ebc6e7c66",
             "46727d05-2ed5-4fca-8d2c-5b0044c13afb",
             "43830b0a-bc74-455c-9ec0-ce0ddac9fd8d"
@@ -34,7 +45,7 @@
         "store": [
             "7ac5c969-d51a-4143-842b-98c7c1b62388",
             "2b0fe189-5097-4f93-ac64-9a292decfa33",
-            "d87574e2-8c02-4770-a1cf-d398ec2fa45d"
+            "09a313fa-5cd3-4392-b13e-b079a0ed2e08"
         ],
         "controller": [],
         "model": [

@@ -1,0 +1,16 @@
+{
+    "type": "Ext.data.Store",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "autoLoad": false,
+        "designer|userClassName": "SocialAccountItem",
+        "model": "SocialAccountItem",
+        "storeId": "SocialAccountItem"
+    },
+    "name": "MyStore1",
+    "designerId": "2f47e16b-8910-4382-98cd-47fe7f450590"
+}

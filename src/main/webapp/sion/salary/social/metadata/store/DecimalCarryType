@@ -1,0 +1,27 @@
+{
+    "type": "Ext.data.Store",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userClassName": "DecimalCarryType",
+        "model": "DecimalCarryType",
+        "storeId": "DecimalCarryType"
+    },
+    "name": "MyStore",
+    "designerId": "5ad56e99-a1e5-4f83-b91a-e3712c427ad2",
+    "cn": [
+        {
+            "type": "Ext.data.proxy.Memory",
+            "reference": {
+                "name": "proxy",
+                "type": "object"
+            },
+            "codeClass": null,
+            "name": "MyMemoryProxy1",
+            "designerId": "3eec1306-c25d-4cd4-83f7-3892104ab2cb"
+        }
+    ]
+}

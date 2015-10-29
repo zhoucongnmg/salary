@@ -18,19 +18,20 @@
             "    }"
         ],
         "stores": [
-            "AccountStore",
-            "AccountMemberStore",
-            "SalaryItemStore"
+            "Account",
+            "AccountMember",
+            "SalaryItem"
         ],
         "views": [
             "SalaryPlanGrid",
             "SalaryItems",
             "SalaryItemGrid",
             "SalaryPlan_win",
-            "SalaryItem_win",
+            "SalaryItemEdit",
             "AddSalaryItem_win",
             "AccountMember_win",
-            "AccountMemberConfig_win"
+            "AccountMemberConfig_win",
+            "SalaryItemRead"
         ]
     },
     "name": "Application",

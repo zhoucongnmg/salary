@@ -37,7 +37,11 @@
                     "codeClass": null,
                     "userConfig": {
                         "layout|flex": null,
-                        "text": "新建"
+                        "style": [
+                            "background:#3ca9fc;"
+                        ],
+                        "text": "<font color='#fff'>新建</font>",
+                        "width": 70
                     },
                     "name": "MyButton2",
                     "designerId": "97724eda-bac5-4a43-bdfc-c7679d94e946",
@@ -52,7 +56,10 @@
                             "userConfig": {
                                 "fn": "onButtonClick",
                                 "implHandler": [
-                                    "Ext.create(\"sion.salary.social.view.SocialItemForm\").show();"
+                                    "var  namespace = this.getNamespace(),",
+                                    "    socialItem =  Ext.create(namespace + '.view.SocialItemForm');",
+                                    "",
+                                    "socialItem.show();"
                                 ],
                                 "name": "click",
                                 "scope": "me"
@@ -71,7 +78,7 @@
                 "type": "array"
             },
             "codeClass": null,
-            "name": "socialitemgrid1",
+            "name": "socialitemgrid",
             "designerId": "c7592655-4e52-4189-aa99-1c1433ebb4c1",
             "masterInstanceId": "46cfaa88-d0c1-4a49-99f4-47d684a59b29"
         }

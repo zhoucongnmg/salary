@@ -1,0 +1,39 @@
+{
+    "type": "Ext.data.Store",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "data": [
+            "[",
+            "    {",
+            "        \"id\": \"SocialSecurity\",",
+            "        \"name\": \"社保\"",
+            "    },",
+            "    {",
+            "        \"id\": \"AccumulationFunds\",",
+            "        \"name\": \"公积金\"",
+            "    }",
+            "]"
+        ],
+        "designer|userClassName": "SocialItemType",
+        "model": "SocialItemType",
+        "storeId": "SocialItemType"
+    },
+    "name": "MyStore",
+    "designerId": "f64b92fc-e2d7-4448-8a31-217f25ae0b7f",
+    "cn": [
+        {
+            "type": "Ext.data.proxy.Memory",
+            "reference": {
+                "name": "proxy",
+                "type": "object"
+            },
+            "codeClass": null,
+            "name": "MyMemoryProxy",
+            "designerId": "f8addf7e-0e03-4799-bd8c-e6e6fba685f2"
+        }
+    ]
+}

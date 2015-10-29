@@ -62,7 +62,7 @@ Ext.define('sion.salary.accounts.view.AccountMember_win', {
                     xtype: 'gridpanel',
                     header: false,
                     title: 'My Grid Panel',
-                    store: 'AccountMemberStore',
+                    store: 'AccountMember',
                     columns: [
                         {
                             xtype: 'gridcolumn',

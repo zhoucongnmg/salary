@@ -21,10 +21,47 @@ public class SocialAccount {
 	@Id
 	String id;
 	
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getDate() {
+		return date;
+	}
+	public void setDate(String date) {
+		this.date = date;
+	}
+	public String getCreateUserId() {
+		return createUserId;
+	}
+	public void setCreateUserId(String createUserId) {
+		this.createUserId = createUserId;
+	}
+	public String getCreateUserName() {
+		return createUserName;
+	}
+	public void setCreateUserName(String createUserName) {
+		this.createUserName = createUserName;
+	}
+	public List<SocialAccountItem> getSocialAccountItems() {
+		return socialAccountItems;
+	}
+	public void setSocialAccountItems(List<SocialAccountItem> socialAccountItems) {
+		this.socialAccountItems = socialAccountItems;
+	}
 	String name;	//套账名称
 	
 	String date;	//套账创建日期
-	
+	String createUserId;//
+	String createUserName;
 	List<SocialAccountItem> socialAccountItems;	//社保套账明细项目
 	
 	

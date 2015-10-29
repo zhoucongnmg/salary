@@ -19,7 +19,6 @@ Ext.define('sion.salary.accounts.view.SalaryItems', {
     requires: [
         'sion.salary.accounts.view.SalaryItemGrid',
         'Ext.tab.Panel',
-        'Ext.form.Label',
         'Ext.tab.Tab',
         'Ext.grid.Panel',
         'Ext.toolbar.Toolbar'
@@ -36,48 +35,46 @@ Ext.define('sion.salary.accounts.view.SalaryItems', {
             items: [
                 {
                     xtype: 'tabpanel',
-                    activeTab: 0,
+                    hidden: true,
                     items: [
                         {
                             xtype: 'panel',
-                            itemId: 'mypanel',
-                            layout: 'fit',
-                            title: '自定义项目',
-                            items: [
-                                {
-                                    xtype: 'label',
-                                    text: 'My Label'
-                                },
-                                {
-                                    xtype: 'salaryitemgrid'
-                                }
-                            ],
-                            dockedItems: [
-                                {
-                                    xtype: 'toolbar',
-                                    dock: 'top',
-                                    items: [
-                                        {
-                                            xtype: 'button',
-                                            text: '新建',
-                                            listeners: {
-                                                click: {
-                                                    fn: me.onNewSalaryItemClick,
-                                                    scope: me
-                                                }
-                                            }
-                                        }
-                                    ]
-                                }
-                            ]
-                        },
-                        {
-                            xtype: 'panel',
+                            hidden: true,
                             layout: 'fit',
                             title: '系统提取项',
                             items: [
                                 {
                                     xtype: 'salaryitemgrid'
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    xtype: 'panel',
+                    itemId: 'mypanel',
+                    layout: 'fit',
+                    items: [
+                        {
+                            xtype: 'salaryitemgrid'
+                        }
+                    ],
+                    dockedItems: [
+                        {
+                            xtype: 'toolbar',
+                            dock: 'top',
+                            items: [
+                                {
+                                    xtype: 'button',
+                                    style: 'background:#3ca9fc;',
+                                    width: 70,
+                                    text: '<font color=\'#fff\'>新建</font>',
+                                    listeners: {
+                                        click: {
+                                            fn: me.onNewSalaryItemClick,
+                                            scope: me
+                                        }
+                                    }
                                 }
                             ]
                         }
@@ -92,7 +89,8 @@ Ext.define('sion.salary.accounts.view.SalaryItems', {
     onNewSalaryItemClick: function(button, e, eOpts) {
         var me =this,
             namespace=me.getNamespace();
-        Ext.create(namespace+".view.SalaryItem_win").show();
+
+        Ext.create(namespace+".view.SalaryItemEdit").show();
     }
 
 });

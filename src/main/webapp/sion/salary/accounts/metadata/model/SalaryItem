@@ -58,7 +58,7 @@
             },
             "codeClass": null,
             "userConfig": {
-                "name": "desc"
+                "name": "note"
             },
             "name": "MyField12",
             "designerId": "07636a5d-e743-4d35-87dd-85b6f6939b39"
@@ -71,10 +71,66 @@
             },
             "codeClass": null,
             "userConfig": {
-                "name": "system"
+                "name": "system",
+                "type": "boolean"
             },
             "name": "MyField13",
             "designerId": "08a27324-8218-4834-91e1-d501350354be"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "id"
+            },
+            "name": "MyField4",
+            "designerId": "d94e2bee-31cb-4efb-94bc-68325b39aff7"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "taxItem",
+                "type": "boolean"
+            },
+            "name": "MyField14",
+            "designerId": "fef186b6-316c-4ec3-9182-cf03c7600905"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "decimalScale",
+                "type": "int"
+            },
+            "name": "MyField15",
+            "designerId": "1ffc2e8b-908d-4664-a39c-f9fcfb2c6c7a"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "show",
+                "type": "boolean"
+            },
+            "name": "MyField16",
+            "designerId": "397c7c8f-df5c-4dfd-9a31-8c61b961b861"
         }
     ]
 }

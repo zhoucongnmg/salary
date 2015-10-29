@@ -6,9 +6,23 @@
     },
     "codeClass": null,
     "userConfig": {
+        "models": [
+            "SocialItem",
+            "SocialItemType",
+            "DecimalCarryType",
+            "SocialAccount",
+            "SocialAccountItem"
+        ],
         "name": "sion.salary.social",
         "paths": [
             "{'sion.salary.social' : 'sion/salary/social/app'}"
+        ],
+        "stores": [
+            "SocialItem",
+            "SocialItemType",
+            "DecimalCarryType",
+            "SocialAccount",
+            "SocialAccountItem"
         ],
         "views": [
             "InsuredGrid",

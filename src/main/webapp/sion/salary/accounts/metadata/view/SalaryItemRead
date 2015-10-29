@@ -1,0 +1,185 @@
+{
+    "type": "Ext.window.Window",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userClassName": "SalaryItemRead",
+        "height": null,
+        "layout": "fit",
+        "title": "薪资项目",
+        "width": 480
+    },
+    "name": "SalaryItem1",
+    "designerId": "c4171d4d-9245-4d5f-80ea-db6c3ddbcec6",
+    "cn": [
+        {
+            "type": "Ext.form.Panel",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "bodyBorder": null,
+                "bodyPadding": 10,
+                "border": null,
+                "header": false,
+                "title": "My Form"
+            },
+            "name": "MyForm1",
+            "designerId": "245c8b66-500b-4b82-97d4-8fc20f464ffa",
+            "cn": [
+                {
+                    "type": "Ext.form.field.Display",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "border": null,
+                        "fieldLabel": "名称",
+                        "itemId": "name",
+                        "layout|anchor": "100%",
+                        "name": "name",
+                        "style": [
+                            "border-bottom:1px #f2f2f2 solid;"
+                        ]
+                    },
+                    "name": "MyDisplayField",
+                    "designerId": "62965297-574f-4552-9774-5467b077d9b5"
+                },
+                {
+                    "type": "Ext.form.field.Display",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fieldLabel": "字段",
+                        "itemId": "field",
+                        "layout|anchor": "100%",
+                        "name": "field",
+                        "style": [
+                            "border-bottom:1px #f2f2f2 solid;"
+                        ]
+                    },
+                    "name": "MyDisplayField1",
+                    "designerId": "5cad2d15-5876-4f62-86d5-78da0798373e"
+                },
+                {
+                    "type": "Ext.form.field.Display",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fieldLabel": "类型",
+                        "itemId": "type",
+                        "layout|anchor": "100%",
+                        "name": "type",
+                        "style": [
+                            "border-bottom:1px #f2f2f2 solid;"
+                        ]
+                    },
+                    "name": "MyDisplayField2",
+                    "configAlternates": {
+                        "store": "array"
+                    },
+                    "designerId": "cb977ec3-8a0e-44cb-8c26-eb2c530e3fbd"
+                },
+                {
+                    "type": "Ext.form.field.Display",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fieldLabel": "个人所得税项目",
+                        "itemId": "taxItem",
+                        "layout|anchor": "100%",
+                        "style": [
+                            "border-bottom:1px #f2f2f2 solid;"
+                        ],
+                        "value": null
+                    },
+                    "name": "MyDisplayField5",
+                    "designerId": "3b616fe4-0ef3-4068-8698-878837dd8120"
+                },
+                {
+                    "type": "Ext.form.field.Display",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fieldLabel": "小数位数",
+                        "itemId": "decimalScale",
+                        "layout|anchor": "100%",
+                        "name": "decimalScale",
+                        "style": [
+                            "border-bottom:1px #f2f2f2 solid;"
+                        ]
+                    },
+                    "name": "MyDisplayField3",
+                    "designerId": "e77b571d-1a7c-4853-b436-29d4e9c82ba0"
+                },
+                {
+                    "type": "Ext.form.field.Display",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fieldLabel": "备注",
+                        "itemId": "note",
+                        "layout|anchor": "100%",
+                        "name": "note",
+                        "style": [
+                            "border-bottom:1px #f2f2f2 solid;"
+                        ]
+                    },
+                    "name": "MyDisplayField4",
+                    "designerId": "0d6f15dd-3ee7-459c-b3ee-3b5c3c53597a"
+                }
+            ]
+        },
+        {
+            "type": "basiceventbinding",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "onWindowBeforeRender",
+                "implHandler": [
+                    "var me = this,",
+                    "    namespace = me.getNamespace(),",
+                    "    form = me.down(\"form\"),",
+                    "    salaryItem = me._salaryItem;",
+                    "",
+                    "    form.loadRecord(salaryItem);",
+                    "if(salaryItem.get('taxItem')){",
+                    "    me.down('#taxItem').setValue('是');",
+                    "}else{",
+                    "    me.down('#taxItem').setValue('否');",
+                    "}",
+                    ""
+                ],
+                "name": "beforerender",
+                "scope": "me"
+            },
+            "name": "onWindowBeforeRender",
+            "designerId": "ff858f6d-a3a4-48c1-8e21-41a3a05c4133"
+        }
+    ]
+}

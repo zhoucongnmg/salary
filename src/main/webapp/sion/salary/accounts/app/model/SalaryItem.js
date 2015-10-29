@@ -31,10 +31,26 @@ Ext.define('sion.salary.accounts.model.SalaryItem', {
             name: 'type'
         },
         {
-            name: 'desc'
+            name: 'note'
         },
         {
-            name: 'system'
+            name: 'system',
+            type: 'boolean'
+        },
+        {
+            name: 'id'
+        },
+        {
+            name: 'taxItem',
+            type: 'boolean'
+        },
+        {
+            name: 'decimalScale',
+            type: 'int'
+        },
+        {
+            name: 'show',
+            type: 'boolean'
         }
     ]
 });

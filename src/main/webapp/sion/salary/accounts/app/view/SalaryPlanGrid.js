@@ -60,7 +60,7 @@ Ext.define('sion.salary.accounts.view.SalaryPlanGrid', {
                     xtype: 'gridpanel',
                     header: false,
                     title: 'salary accounts',
-                    store: 'AccountStore',
+                    store: 'Account',
                     columns: [
                         {
                             xtype: 'gridcolumn',

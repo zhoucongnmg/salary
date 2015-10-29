@@ -23,6 +23,20 @@ Ext.application({
     paths: {
         'sion.salary.social': 'sion/salary/social/app'
     },
+    models: [
+        'SocialItem',
+        'SocialItemType',
+        'DecimalCarryType',
+        'SocialAccount',
+        'SocialAccountItem'
+    ],
+    stores: [
+        'SocialItem',
+        'SocialItemType',
+        'DecimalCarryType',
+        'SocialAccount',
+        'SocialAccountItem'
+    ],
     views: [
         'InsuredGrid',
         'UninsuredGrid',
