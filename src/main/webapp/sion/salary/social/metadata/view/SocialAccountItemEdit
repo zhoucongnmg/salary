@@ -1,0 +1,328 @@
+{
+    "type": "Ext.window.Window",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userClassName": "SocialAccountItemEdit",
+        "height": null,
+        "layout": "fit",
+        "title": "项目",
+        "width": null
+    },
+    "name": "MyWindow",
+    "designerId": "67f56a2a-24ab-4092-8e30-7f91a7e3560a",
+    "cn": [
+        {
+            "type": "Ext.toolbar.Toolbar",
+            "reference": {
+                "name": "dockedItems",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "dock": "top"
+            },
+            "name": "MyToolbar6",
+            "designerId": "c46bcc9b-baf5-4050-878e-04949041b44e",
+            "cn": [
+                {
+                    "type": "Ext.button.Button",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|flex": null,
+                        "style": [
+                            "background:#3ca9fc;"
+                        ],
+                        "text": "<font color='#fff'>保存</font>",
+                        "width": 70
+                    },
+                    "name": "MyButton9",
+                    "designerId": "0eca6e3e-15dd-47dc-bf16-b5a35a93e43b",
+                    "cn": [
+                        {
+                            "type": "basiceventbinding",
+                            "reference": {
+                                "name": "listeners",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fn": "onButtonClick",
+                                "implHandler": [
+                                    "var me = this,",
+                                    "    namespace = me.getNamespace(),",
+                                    "    uuid = Ext.create('Ext.data.UuidGenerator'),",
+                                    "    id = uuid.generate(),",
+                                    "    form = me.down(\"form\"),",
+                                    "    store = me._itemStore;",
+                                    "",
+                                    "record = form.getRecord();",
+                                    "form.updateRecord(record);",
+                                    "if(!me.down('#socialItemName').isValid() || !me.down('#cardinality').isValid() ||",
+                                    "   !me.down('#companyPaymentType').isValid() || !me.down('#personalPaymentType').isValid() ||",
+                                    "   !me.down('#companyPaymentValue').isValid()|| !me.down('#personalPaymentValue').isValid()){",
+                                    "    Ext.Msg.alert(\"提示\", \"信息不完整，请继续填写！\");",
+                                    "    return false;",
+                                    "}",
+                                    "record.set('socialItemName', me.down('#socialItemName').getRawValue());",
+                                    "if(record.get('id') === ''){",
+                                    "    record.set('id', id);",
+                                    "    store.add(record);",
+                                    "}",
+                                    "me.close();",
+                                    "// record.save({",
+                                    "//     url: 'salary/socialitem/create',",
+                                    "//     success: function(response, opts){",
+                                    "//         Ext.Msg.alert(\"提示\", \"保存成功\");",
+                                    "//         //         var leaveStore = Ext.StoreManager.lookup(\"OverTimeApply\");//更新数据从前台取",
+                                    "//         store.load();",
+                                    "//         me.close();",
+                                    "//     },",
+                                    "//     failure: kfunction(){",
+                                    "//         Ext.Msg.alert(\"提示\", \"保存失败\");",
+                                    "//         me.close();",
+                                    "//     }",
+                                    "// });"
+                                ],
+                                "name": "click",
+                                "scope": "me"
+                            },
+                            "name": "onButtonClick",
+                            "designerId": "4db510df-8e16-4a3c-8bae-659e963f4551"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "type": "Ext.form.Panel",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "bodyPadding": 10,
+                "container|align": "stretch",
+                "layout": "vbox",
+                "style": [
+                    "margin-bottom:20px;"
+                ],
+                "title": null
+            },
+            "name": "MyForm3",
+            "designerId": "4eef8994-46de-4165-a563-351dd0b382d7",
+            "cn": [
+                {
+                    "type": "Ext.panel.Panel",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "container|align": "stretch",
+                        "layout": "hbox",
+                        "title": null
+                    },
+                    "name": "MyPanel",
+                    "designerId": "6d7e2bd5-25d9-4413-99a9-57ac79289739",
+                    "cn": [
+                        {
+                            "type": "Ext.form.field.ComboBox",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "allowBlank": false,
+                                "displayField": "name",
+                                "editable": false,
+                                "fieldLabel": "名称",
+                                "itemId": "socialItemName",
+                                "labelWidth": 60,
+                                "layout|flex": 1,
+                                "name": "socialItemName",
+                                "store": "SocialItem",
+                                "valueField": "id",
+                                "width": null
+                            },
+                            "name": "MyComboBox6",
+                            "designerId": "b1b7da2c-f0a9-4e48-aea5-1191ee45175d"
+                        },
+                        {
+                            "type": "Ext.form.field.Number",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "allowBlank": false,
+                                "fieldLabel": "基数",
+                                "itemId": "cardinality",
+                                "labelWidth": 60,
+                                "layout|flex": 1,
+                                "minValue": 0,
+                                "name": "cardinality",
+                                "style": [
+                                    "margin-left:10px;"
+                                ]
+                            },
+                            "name": "MyNumberField4",
+                            "designerId": "56689b8f-c112-420a-afba-3a862ab3b31a"
+                        }
+                    ]
+                },
+                {
+                    "type": "Ext.panel.Panel",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "container|align": "stretch",
+                        "layout": "hbox",
+                        "style": [
+                            "margin-top:20px;"
+                        ],
+                        "title": null
+                    },
+                    "name": "MyPanel1",
+                    "designerId": "325b0505-a6c0-4aa2-a701-b2d63e087c5c",
+                    "cn": [
+                        {
+                            "type": "Ext.form.field.Number",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "allowBlank": false,
+                                "fieldLabel": "单位缴费",
+                                "itemId": "companyPaymentValue",
+                                "labelWidth": 60,
+                                "layout|flex": 1,
+                                "minValue": 0,
+                                "name": "companyPaymentValue",
+                                "width": null
+                            },
+                            "name": "MyNumberField1",
+                            "designerId": "7c821c05-b637-4533-ad90-d192f89a9509"
+                        },
+                        {
+                            "type": "Ext.form.field.ComboBox",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "allowBlank": false,
+                                "displayField": "name",
+                                "editable": false,
+                                "fieldLabel": null,
+                                "itemId": "companyPaymentType",
+                                "layout|flex": 0.5,
+                                "name": "companyPaymentType",
+                                "store": "PaymentType",
+                                "valueField": "id"
+                            },
+                            "name": "MyComboBox7",
+                            "designerId": "4cc15cf2-b84b-46de-9d25-47aa24b6d374"
+                        },
+                        {
+                            "type": "Ext.form.field.Number",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "allowBlank": false,
+                                "fieldLabel": "个人缴费",
+                                "itemId": "personalPaymentValue",
+                                "labelWidth": 60,
+                                "layout|flex": 1,
+                                "minValue": 0,
+                                "name": "personalPaymentValue",
+                                "style": [
+                                    "margin-left:10px;"
+                                ]
+                            },
+                            "name": "MyNumberField2",
+                            "designerId": "9b890364-fe6f-45b3-8ce5-ccda79413332"
+                        },
+                        {
+                            "type": "Ext.form.field.ComboBox",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "allowBlank": false,
+                                "displayField": "name",
+                                "editable": false,
+                                "fieldLabel": null,
+                                "itemId": "personalPaymentType",
+                                "layout|flex": 0.5,
+                                "name": "personalPaymentType",
+                                "store": "PaymentType",
+                                "valueField": "id"
+                            },
+                            "name": "MyComboBox8",
+                            "designerId": "ec03aeee-1992-4928-b23b-2345a0048506"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "type": "basiceventbinding",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "onWindowBeforeRender",
+                "implHandler": [
+                    "var me = this,",
+                    "    namespace = me.getNamespace(),",
+                    "    form = me.down(\"form\"),",
+                    "    item = me._socialAccountItem;",
+                    "",
+                    "if(item){",
+                    "    form.loadRecord(item);",
+                    "}else{",
+                    "    form.loadRecord(Ext.create(namespace + '.model.SocialAccountItem', {",
+                    "        id: '',",
+                    "        socialItemId: '',",
+                    "        socialItemName: '',",
+                    "        companyPaymentValue: 0,",
+                    "        personalPaymentValue: 0,",
+                    "        cardinality: 0,",
+                    "        companyPaymentType: '',",
+                    "        personalPaymentType: ''",
+                    "    }));",
+                    "}"
+                ],
+                "name": "beforerender",
+                "scope": "me"
+            },
+            "name": "onWindowBeforeRender",
+            "designerId": "7f4fa6b5-5165-4776-aabf-6c5134dd7ea5"
+        }
+    ]
+}

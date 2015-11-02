@@ -1,0 +1,594 @@
+{
+    "type": "Ext.window.Window",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "bodyPadding": 10,
+        "designer|userClassName": "SocialAccountEdit",
+        "height": null,
+        "layout": "column",
+        "style": [
+            "padding-bottom:40px;"
+        ],
+        "title": null,
+        "width": 861
+    },
+    "designerId": "5c52b1aa-7793-4cdc-a82f-b42d835ba37b",
+    "cn": [
+        {
+            "type": "Ext.toolbar.Toolbar",
+            "reference": {
+                "name": "dockedItems",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "dock": "top"
+            },
+            "name": "MyToolbar1",
+            "designerId": "16e91beb-67cf-4fbb-bf82-b6cc118af316",
+            "cn": [
+                {
+                    "type": "Ext.button.Button",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "iconCls": "s_icon_page_add",
+                        "layout|flex": null,
+                        "text": "保存信息"
+                    },
+                    "name": "MyButton1",
+                    "designerId": "e3708ecb-b451-4c26-ab53-5097029dd11a",
+                    "cn": [
+                        {
+                            "type": "basiceventbinding",
+                            "reference": {
+                                "name": "listeners",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fn": "onButtonClick",
+                                "implHandler": [
+                                    "var me = this,",
+                                    "    namespace = me.getNamespace(),",
+                                    "    form = me.down(\"form\"),",
+                                    "    store = Ext.getStore(\"SocialAccount\"),",
+                                    "    itemGrid = me.down('#itemGrid'),",
+                                    "    itemList = [],",
+                                    "    itemStore = itemGrid.getStore();",
+                                    "",
+                                    "record = form.getRecord();",
+                                    "form.updateRecord(record);",
+                                    "if(!me.down('#name').isValid()){",
+                                    "    Ext.Msg.alert(\"提示\", \"信息不完整，请继续填写！\");",
+                                    "    return false;",
+                                    "}",
+                                    "itemStore.each(function(item){",
+                                    "    itemList.push(item.data);",
+                                    "});",
+                                    "record.set('socialAccountItems', itemList);",
+                                    "if(record.get('id') === ''){",
+                                    "    store.add(record);",
+                                    "}",
+                                    "store.sync();",
+                                    "store.load();",
+                                    "me.close();"
+                                ],
+                                "name": "click",
+                                "scope": "me"
+                            },
+                            "name": "onButtonClick",
+                            "designerId": "ee96bb91-509c-4916-94b3-b8316c6c8db6"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|params": [
+                    "record"
+                ],
+                "fn": "detailItem",
+                "implHandler": [
+                    "var me = this,",
+                    "    namespace = me.getNamespace();",
+                    "",
+                    "var panel =  Ext.create(namespace + '.view.SocialAccountItemEdit',{",
+                    "    _socialAccountItem : record",
+                    "});",
+                    "panel.show();",
+                    "// me.resetGridSelect(record);"
+                ]
+            },
+            "name": "detailItem",
+            "designerId": "78dd0e92-5fc5-4c00-8c4d-7510d5ab8ebe"
+        },
+        {
+            "type": "Ext.form.FieldSet",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "container|align": "stretch",
+                "layout": "vbox",
+                "layout|columnWidth": 1,
+                "title": "基本信息"
+            },
+            "name": "MyFieldSet",
+            "designerId": "24122a79-6608-47fd-b9fd-117eb048715a",
+            "cn": [
+                {
+                    "type": "Ext.form.Panel",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "bodyPadding": 10,
+                        "title": null
+                    },
+                    "name": "MyForm4",
+                    "designerId": "df8a19b3-47a3-483c-920a-a6fe0c8b4c1f",
+                    "cn": [
+                        {
+                            "type": "Ext.form.field.Text",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "allowBlank": false,
+                                "fieldLabel": "名称",
+                                "itemId": "name",
+                                "labelWidth": 80,
+                                "name": "name"
+                            },
+                            "name": "MyTextField1",
+                            "designerId": "0e0bc290-c75d-48d6-8632-636ab7a2d5e7"
+                        }
+                    ]
+                },
+                {
+                    "type": "Ext.toolbar.Spacer",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "height": 20
+                    },
+                    "name": "MySpacer13",
+                    "designerId": "ee682b25-6356-456b-b52a-1089ddb38eb5"
+                }
+            ]
+        },
+        {
+            "type": "Ext.grid.Panel",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "itemId": "itemGrid",
+                "layout|columnWidth": 1,
+                "store": "SocialAccountItem",
+                "title": null
+            },
+            "name": "MyGridPanel",
+            "designerId": "693d3a05-ccf7-4767-ad0c-280611120a3c",
+            "cn": [
+                {
+                    "type": "Ext.toolbar.Toolbar",
+                    "reference": {
+                        "name": "dockedItems",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dock": "top"
+                    },
+                    "name": "MyToolbar5",
+                    "designerId": "68043303-f50d-4488-aa44-0db105ba0b3b",
+                    "cn": [
+                        {
+                            "type": "Ext.form.Label",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "html": "<span style='font-weight:bold'>套帐项目</span>",
+                                "layout|flex": null,
+                                "text": null
+                            },
+                            "name": "MyLabel",
+                            "designerId": "3a950d2a-6b7b-410d-8685-dd31b2cf9ad8"
+                        },
+                        {
+                            "type": "Ext.toolbar.Fill",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "layout|flex": null
+                            },
+                            "name": "MyFill",
+                            "designerId": "54e4d80d-901b-4faf-ba31-e7d3689701dd"
+                        },
+                        {
+                            "type": "Ext.button.Button",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "layout|flex": null,
+                                "text": "新增",
+                                "width": 70
+                            },
+                            "name": "MyButton",
+                            "designerId": "584e8192-1fde-435d-85dc-809cd65b4ff6",
+                            "cn": [
+                                {
+                                    "type": "basiceventbinding",
+                                    "reference": {
+                                        "name": "listeners",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fn": "onButtonClick1",
+                                        "implHandler": [
+                                            "var me = this,",
+                                            "    namespace = me.getNamespace(),",
+                                            "    itemGrid = me.down('#itemGrid'),",
+                                            "    store = itemGrid.getStore();",
+                                            "",
+                                            "panel =  Ext.create(namespace + '.view.SocialAccountItemEdit',{",
+                                            "    _itemStore : store",
+                                            "});",
+                                            "panel.show();"
+                                        ],
+                                        "name": "click",
+                                        "scope": "me"
+                                    },
+                                    "name": "onButtonClick1",
+                                    "designerId": "0a13109a-ae8b-4b94-abf7-078074adb194"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "type": "Ext.grid.column.Column",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dataIndex": "socialItemName",
+                        "flex": 4,
+                        "text": "项目名称"
+                    },
+                    "name": "MyColumn11",
+                    "designerId": "5abcd484-eec7-4404-afc0-d98b31ad18da"
+                },
+                {
+                    "type": "Ext.grid.column.Column",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dataIndex": "cardinality",
+                        "flex": 2,
+                        "text": "缴费基数"
+                    },
+                    "name": "MyColumn13",
+                    "designerId": "07f996d3-47a4-41e6-b312-3b7f4bd0d598"
+                },
+                {
+                    "type": "Ext.grid.column.Column",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dataIndex": "companyPaymentValue",
+                        "flex": 2,
+                        "text": "单位缴费"
+                    },
+                    "name": "MyColumn14",
+                    "designerId": "0904095f-3687-4cf8-a878-822ad4ea11c5",
+                    "cn": [
+                        {
+                            "type": "fixedfunction",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "designer|params": [
+                                    "value",
+                                    "metaData",
+                                    "record",
+                                    "rowIndex",
+                                    "colIndex",
+                                    "store",
+                                    "view"
+                                ],
+                                "fn": "renderer",
+                                "implHandler": [
+                                    "if(record.get('companyPaymentType') == 'Percent'){",
+                                    "    return value + '%';",
+                                    "}",
+                                    "return value;"
+                                ]
+                            },
+                            "name": "renderer",
+                            "designerId": "4ea482d9-0b16-4673-a2a2-23b933f213fe"
+                        }
+                    ]
+                },
+                {
+                    "type": "Ext.grid.column.Column",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dataIndex": "personalPaymentValue",
+                        "flex": 2,
+                        "text": "个人缴费"
+                    },
+                    "name": "MyColumn16",
+                    "designerId": "5012490f-f347-4c4e-b727-e4777bc4a664",
+                    "cn": [
+                        {
+                            "type": "fixedfunction",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "designer|params": [
+                                    "value",
+                                    "metaData",
+                                    "record",
+                                    "rowIndex",
+                                    "colIndex",
+                                    "store",
+                                    "view"
+                                ],
+                                "fn": "renderer",
+                                "implHandler": [
+                                    "if(record.get('personalPaymentType') == 'Percent'){",
+                                    "    return value + '%';",
+                                    "}",
+                                    "return value;"
+                                ]
+                            },
+                            "name": "renderer",
+                            "designerId": "88acb208-5b82-467c-b1a9-e5668c2ba14e"
+                        }
+                    ]
+                },
+                {
+                    "type": "Ext.grid.column.Action",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "flex": 0.5,
+                        "hideable": false,
+                        "text": "修改",
+                        "tooltip": null
+                    },
+                    "name": "MyActionColumn5",
+                    "designerId": "a1a171ef-8cb5-464b-8c1d-bb24afad6c34",
+                    "cn": [
+                        {
+                            "type": "actioncolumnitem",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "iconCls": "s_icon_table_edit",
+                                "tooltip": "修改"
+                            },
+                            "name": "MyActionColumnItem5",
+                            "designerId": "4fda117c-ccd8-473d-8b50-0d2908eb6bf6",
+                            "cn": [
+                                {
+                                    "type": "fixedfunction",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "designer|params": [
+                                            "view",
+                                            "rowIndex",
+                                            "colIndex",
+                                            "item",
+                                            "e",
+                                            "record",
+                                            "row"
+                                        ],
+                                        "fn": "handler",
+                                        "implHandler": [
+                                            "this.up('window').detailItem(record);"
+                                        ]
+                                    },
+                                    "name": "handler",
+                                    "designerId": "ed773637-a06d-482b-b4f5-79159a485ac0"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "type": "Ext.grid.column.Action",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "flex": 0.5,
+                        "hideable": false,
+                        "text": "删除",
+                        "tooltip": null
+                    },
+                    "name": "MyActionColumn6",
+                    "designerId": "6c987560-96fe-425c-9d8b-f7f4dbba42f7",
+                    "cn": [
+                        {
+                            "type": "actioncolumnitem",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "iconCls": "s_icon_action_action_delete",
+                                "tooltip": "删除"
+                            },
+                            "name": "MyActionColumnItem6",
+                            "designerId": "1046908b-89bb-4309-814c-34f322e3d593",
+                            "cn": [
+                                {
+                                    "type": "fixedfunction",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "designer|params": [
+                                            "view",
+                                            "rowIndex",
+                                            "colIndex",
+                                            "item",
+                                            "e",
+                                            "record",
+                                            "row"
+                                        ],
+                                        "fn": "handler",
+                                        "implHandler": [
+                                            "var store = Ext.getStore('SocialAccountItem');",
+                                            "",
+                                            "Ext.Msg.confirm('提示', '确定要删除吗？', function(text){",
+                                            "    if (text == 'yes'){",
+                                            "        store.remove(record);",
+                                            "    }",
+                                            "});"
+                                        ]
+                                    },
+                                    "name": "handler",
+                                    "designerId": "7230ef63-2650-47ad-aead-09cc74d0543b"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "type": "Ext.grid.View",
+                    "reference": {
+                        "name": "viewConfig",
+                        "type": "object"
+                    },
+                    "codeClass": null,
+                    "name": "MyGridView1",
+                    "designerId": "8a97a013-d882-402c-9031-79d970782c1f"
+                },
+                {
+                    "type": "basiceventbinding",
+                    "reference": {
+                        "name": "listeners",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fn": "onGridpanelRender",
+                        "implHandler": [
+                            "var me = this,",
+                            "    namespace = me.getNamespace(),",
+                            "    itemStore = Ext.getStore('SocialAccountItem'),",
+                            "    form = me.down(\"form\"),",
+                            "    socialAccount = me._socialAccount;",
+                            "",
+                            "itemStore.removeAll();",
+                            "if(socialAccount){",
+                            "    itemStore.add(socialAccount.get('socialAccountItems'));",
+                            "    form.loadRecord(socialAccount);",
+                            "}else{",
+                            "    form.loadRecord(Ext.create(namespace + '.model.SocialAccount', {",
+                            "        id: '',",
+                            "        name: ''",
+                            "    }));",
+                            "}"
+                        ],
+                        "name": "render",
+                        "scope": "me"
+                    },
+                    "name": "onGridpanelRender",
+                    "designerId": "81192aab-2079-42f3-823e-7f04100531c4"
+                },
+                {
+                    "type": "basiceventbinding",
+                    "reference": {
+                        "name": "listeners",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fn": "onItemGridItemDblClick",
+                        "implHandler": [
+                            "this.detailItem(record);"
+                        ],
+                        "name": "itemdblclick",
+                        "scope": "me"
+                    },
+                    "name": "onItemGridItemDblClick",
+                    "designerId": "0f0cebcd-b6ee-4e14-bf07-65262aa20047"
+                }
+            ]
+        }
+    ]
+}

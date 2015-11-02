@@ -1,0 +1,28 @@
+{
+    "type": "Ext.data.Store",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "autoLoad": true,
+        "data": [
+            "[",
+            "    {",
+            "        \"id\": \"Percent\",",
+            "        \"name\": \"百分比\"",
+            "    },",
+            "    {",
+            "        \"id\": \"Quota\",",
+            "        \"name\": \"定额\"",
+            "    }",
+            "]"
+        ],
+        "designer|userClassName": "PaymentType",
+        "model": "PaymentType",
+        "storeId": "PaymentType"
+    },
+    "name": "MyStore",
+    "designerId": "bfe3f422-787d-41c3-b62f-7e223739bf87"
+}

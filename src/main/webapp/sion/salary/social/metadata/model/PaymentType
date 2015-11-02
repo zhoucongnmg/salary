@@ -1,0 +1,51 @@
+{
+    "type": "Ext.data.Model",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userClassName": "PaymentType"
+    },
+    "name": "MyModel",
+    "designerId": "d100af65-d2e2-4afc-896f-eecf2b44bb26",
+    "cn": [
+        {
+            "type": "Ext.data.proxy.Memory",
+            "reference": {
+                "name": "proxy",
+                "type": "object"
+            },
+            "codeClass": null,
+            "name": "MyMemoryProxy2",
+            "designerId": "568e8848-17f3-43b9-b5d8-84aa121bdf94"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "id"
+            },
+            "name": "MyField24",
+            "designerId": "8e0e95a7-1c33-4715-b7c4-8b744781dea0"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "name"
+            },
+            "name": "MyField25",
+            "designerId": "4bddbffe-bfa1-4062-98b5-8bb34bdafa4d"
+        }
+    ]
+}
