@@ -13,7 +13,18 @@
             }
         },
         "urlPrefix": "",
-        "exportPath": "D:/SpringToolSuite/vfabric-tc-server-developer-2.9.5.SR1/test/wtpwebapps/salary/sion/salary/social"
+        "exportPath": "D:/SpringToolSuite/vfabric-tc-server-developer-2.9.5.SR1/test/wtpwebapps/salary/sion/salary/social",
+        "projectHasEnabledWebServer": false,
+        "lockUrlPrefix": false,
+        "buildShouldOverwriteIndex": true,
+        "generateArchitectVersion": true,
+        "spacesToIndent": 4,
+        "lineEnding": "CRLF",
+        "genTimestamps": false,
+        "cacheBust": false,
+        "installStatus": "Not Installed",
+        "displayfield-ExtBox1-1186-inputEl": "a new version of the framework is available",
+        "displayfield-ExtBox1-1241-inputEl": "a new version of the framework is available"
     },
     "xdsVersion": "3.2.0",
     "xdsBuild": 239,
@@ -32,14 +43,16 @@
             "a37fffad-cd50-40e6-b3f2-a6d95dbe2f06",
             "26120aba-dcec-4196-8883-8a38765b9248",
             "964f1f77-aa8e-4b3c-af50-7e28cff3bea7",
-            "110a2028-fc4e-4c95-b230-c5c4b14c4ff7"
+            "110a2028-fc4e-4c95-b230-c5c4b14c4ff7",
+            "67f56a2a-24ab-4092-8e30-7f91a7e3560a"
         ],
         "store": [
             "4ea358d7-475c-47ae-8f1f-33298049d596",
             "f64b92fc-e2d7-4448-8a31-217f25ae0b7f",
             "5ad56e99-a1e5-4f83-b91a-e3712c427ad2",
             "2ca816a4-09fc-4949-a991-789bc8a185f1",
-            "2f47e16b-8910-4382-98cd-47fe7f450590"
+            "2f47e16b-8910-4382-98cd-47fe7f450590",
+            "bfe3f422-787d-41c3-b62f-7e223739bf87"
         ],
         "controller": [],
         "model": [
@@ -47,7 +60,8 @@
             "f73b2e86-5f3d-452a-841a-eeb1646e4f64",
             "0f431e14-054a-4cb3-bb11-a7b0990cc9ef",
             "d261189c-ea2e-44b1-805d-618c5e08de42",
-            "23faa36e-c4f3-4202-82b5-72e3687913bf"
+            "23faa36e-c4f3-4202-82b5-72e3687913bf",
+            "d100af65-d2e2-4afc-896f-eecf2b44bb26"
         ],
         "resource": [
             "0aa67b68-ffad-4a3c-9005-648029f8bf8a",

@@ -108,6 +108,9 @@
             "userConfig": {
                 "dataIndex": "id",
                 "flex": 0.5,
+                "hideable": false,
+                "text": "修改",
+                "tooltip": "修改",
                 "width": null
             },
             "name": "MyActionColumn1",
@@ -123,7 +126,7 @@
                     "userConfig": {
                         "designer|displayName": "modify",
                         "iconCls": "s_icon_page_edit",
-                        "tooltip": "编辑"
+                        "tooltip": "修改"
                     },
                     "name": "MyActionColumnItem4",
                     "designerId": "9013d9eb-9940-4b72-868b-eb737ce1880c",
@@ -167,6 +170,8 @@
             "userConfig": {
                 "dataIndex": "id",
                 "flex": 0.5,
+                "hideable": false,
+                "text": "删除",
                 "width": null
             },
             "name": "MyActionColumn2",

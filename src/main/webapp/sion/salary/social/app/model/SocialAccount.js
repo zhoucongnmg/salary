@@ -32,6 +32,12 @@ Ext.define('sion.salary.social.model.SocialAccount', {
         },
         {
             name: 'socialAccountItems'
+        },
+        {
+            name: 'createUserId'
+        },
+        {
+            name: 'createUserName'
         }
     ]
 });

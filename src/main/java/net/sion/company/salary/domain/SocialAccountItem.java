@@ -13,7 +13,15 @@ import org.springframework.roo.addon.layers.repository.mongo.RooMongoEntity;
 @RooJavaBean
 @RooMongoEntity
 public class SocialAccountItem {
-	
+	String id;
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
 	String socialItemId;	//社保项目
 	
 	public String getSocialItemId() {

@@ -28,14 +28,16 @@ Ext.application({
         'SocialItemType',
         'DecimalCarryType',
         'SocialAccount',
-        'SocialAccountItem'
+        'SocialAccountItem',
+        'PaymentType'
     ],
     stores: [
         'SocialItem',
         'SocialItemType',
         'DecimalCarryType',
         'SocialAccount',
-        'SocialAccountItem'
+        'SocialAccountItem',
+        'PaymentType'
     ],
     views: [
         'InsuredGrid',
@@ -46,9 +48,10 @@ Ext.application({
         'SocialItemForm',
         'SocialAccountGrid',
         'MyForm1',
-        'SocialAccountForm',
+        'SocialAccountEdit',
         'SocialPlanGrid',
-        'SocialItemGridPanel'
+        'SocialItemGridPanel',
+        'SocialAccountItemEdit'
     ],
     name: 'sion.salary.social',
 

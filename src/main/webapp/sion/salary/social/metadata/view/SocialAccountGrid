@@ -9,12 +9,317 @@
         "designer|userAlias": "socialaccountgrid",
         "designer|userClassName": "SocialAccountGrid",
         "height": 515,
+        "store": "SocialAccount",
         "title": null,
         "width": 1006
     },
     "name": "SocialItemGrid1",
     "designerId": "7c1e6702-8d61-4884-809b-d0c45ff3a89b",
     "cn": [
+        {
+            "type": "Ext.toolbar.Toolbar",
+            "reference": {
+                "name": "dockedItems",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "dock": "top"
+            },
+            "name": "MyToolbar4",
+            "designerId": "562eed3f-30c1-41c0-a778-5c743459b39d",
+            "cn": [
+                {
+                    "type": "Ext.button.Button",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|flex": null,
+                        "text": "查询",
+                        "width": 70
+                    },
+                    "name": "MyButton7",
+                    "designerId": "8dc223af-e111-4a76-9a5b-4ea9cc443645",
+                    "cn": [
+                        {
+                            "type": "basiceventbinding",
+                            "reference": {
+                                "name": "listeners",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fn": "onButtonClick2",
+                                "implHandler": [
+                                    "var me = this,",
+                                    "    grid = button.up('grid'),",
+                                    "    store = grid.getStore(),",
+                                    "    name = grid.down('#name').getValue(),",
+                                    "    creater = grid.down('#creater').getValue(),",
+                                    "    startDate = grid.down('#startDate').getValue(),",
+                                    "    endDate = grid.down('#endDate').getValue(),",
+                                    "    startStr = '',",
+                                    "    endStr = '',",
+                                    "    filters = new Array();",
+                                    "",
+                                    "if(name && name !== ''){",
+                                    "    filters.push({",
+                                    "        property: \"name\",",
+                                    "        value: name",
+                                    "    });",
+                                    "}",
+                                    "if(creater && creater !== ''){",
+                                    "    filters.push({",
+                                    "        property: \"creater\",",
+                                    "        value: creater",
+                                    "    });",
+                                    "}",
+                                    "if(startDate && startDate !== ''){",
+                                    "    startStr =",
+                                    "        startDate.getFullYear()+\"-\"+",
+                                    "        (me.getFullDate(startDate.getMonth()+1))+\"-\"+",
+                                    "        me.getFullDate(startDate.getDate());",
+                                    "    filters.push({",
+                                    "        filterFn: function(item) {",
+                                    "            return item.get(\"date\") >= startStr;",
+                                    "        }",
+                                    "    });",
+                                    "}",
+                                    "if(endDate && endDate !== ''){",
+                                    "    startStr =",
+                                    "        endDate.getFullYear()+\"-\"+",
+                                    "        (me.getFullDate(endDate.getMonth()+1))+\"-\"+",
+                                    "        me.getFullDate(endDate.getDate());",
+                                    "    filters.push({",
+                                    "        filterFn: function(item) {",
+                                    "            return item.get(\"date\") >= startStr;",
+                                    "        }",
+                                    "    });",
+                                    "}",
+                                    "",
+                                    "Ext.apply(store.proxy.extraParams, {",
+                                    "    name : name,",
+                                    "    creater : creater,",
+                                    "    startDate : startDate,",
+                                    "    endDate : endDate",
+                                    "});",
+                                    "if(filters.length ===0 ){",
+                                    "    store.load();",
+                                    "}else{",
+                                    "    store.loadPage(1);",
+                                    "}"
+                                ],
+                                "name": "click",
+                                "scope": "me"
+                            },
+                            "name": "onButtonClick2",
+                            "designerId": "840bef89-b349-42db-8414-203b9e30b754"
+                        }
+                    ]
+                },
+                {
+                    "type": "Ext.button.Button",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|flex": null,
+                        "style": [
+                            "background:#3ca9fc;"
+                        ],
+                        "text": "<font color='#fff'>新增</font>",
+                        "width": 70
+                    },
+                    "name": "MyButton5",
+                    "designerId": "c18d36ed-f47b-436c-82c1-40ec6d13e3a8",
+                    "cn": [
+                        {
+                            "type": "basiceventbinding",
+                            "reference": {
+                                "name": "listeners",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fn": "onButtonClick",
+                                "implHandler": [
+                                    "var  namespace = this.getNamespace(),",
+                                    "    panel =  Ext.create(namespace + '.view.SocialAccountEdit');",
+                                    "",
+                                    "panel.show();"
+                                ],
+                                "name": "click",
+                                "scope": "me"
+                            },
+                            "name": "onButtonClick",
+                            "designerId": "c32a8d15-e77d-4503-ae34-74c8b09305d4"
+                        }
+                    ]
+                },
+                {
+                    "type": "Ext.button.Button",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|flex": null,
+                        "text": "重置",
+                        "width": 70
+                    },
+                    "name": "MyButton8",
+                    "designerId": "dd911618-269b-4713-8ff2-38cc91f294fe",
+                    "cn": [
+                        {
+                            "type": "basiceventbinding",
+                            "reference": {
+                                "name": "listeners",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fn": "onButtonClick3",
+                                "implHandler": [
+                                    "var me = this,",
+                                    "    grid = button.up('grid'),",
+                                    "    name = grid.down('#name'),",
+                                    "    creater = grid.down('#creater'),",
+                                    "    startDate = grid.down('#startDate'),",
+                                    "    endDate = grid.down('#endDate');",
+                                    "",
+                                    "name.setValue('');",
+                                    "creater.setValue('');",
+                                    "startDate.setValue('');",
+                                    "endDate.setValue('');"
+                                ],
+                                "name": "click",
+                                "scope": "me"
+                            },
+                            "name": "onButtonClick3",
+                            "designerId": "13bddad8-ebb1-403d-bc5a-b2c523719d0e"
+                        }
+                    ]
+                },
+                {
+                    "type": "Ext.form.field.Text",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fieldLabel": "名称",
+                        "itemId": "name",
+                        "labelWidth": 30,
+                        "layout|flex": null
+                    },
+                    "name": "MyTextField19",
+                    "designerId": "7eb7e010-7ad9-48f5-85c9-b8e8a0d1aefb"
+                },
+                {
+                    "type": "Ext.form.field.Text",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fieldLabel": "创建人",
+                        "itemId": "creater",
+                        "labelWidth": 50,
+                        "layout|flex": null,
+                        "width": null
+                    },
+                    "name": "MyTextField20",
+                    "designerId": "ce39e1d8-5cfc-45fc-b30f-5bb91f7d5812"
+                },
+                {
+                    "type": "Ext.form.field.Date",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fieldLabel": "创建日期",
+                        "format": "Y-m-d",
+                        "itemId": "startDate",
+                        "labelWidth": 60,
+                        "layout|flex": null,
+                        "submitFormat": "Y-m-d",
+                        "width": 170
+                    },
+                    "name": "MyDateField2",
+                    "designerId": "dee0a3b8-4bd9-485f-a248-eff4d15ae6e0",
+                    "cn": [
+                        {
+                            "type": "basiceventbinding",
+                            "reference": {
+                                "name": "listeners",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fn": "onStartDateChange",
+                                "implHandler": [
+                                    "this.down('#endDate').setMinValue(newValue);"
+                                ],
+                                "name": "change",
+                                "scope": "me"
+                            },
+                            "name": "onStartDateChange",
+                            "designerId": "62ad3eba-ece3-40b3-845f-99718cad8902"
+                        }
+                    ]
+                },
+                {
+                    "type": "Ext.form.field.Date",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fieldLabel": "-",
+                        "format": "Y-m-d",
+                        "itemId": "endDate",
+                        "labelSeparator": " ",
+                        "labelWidth": 10,
+                        "layout|flex": null,
+                        "submitFormat": "Y-m-d",
+                        "width": 120
+                    },
+                    "name": "MyDateField3",
+                    "designerId": "04d6a7d7-7ffc-4205-98a9-4e21434b768f",
+                    "cn": [
+                        {
+                            "type": "basiceventbinding",
+                            "reference": {
+                                "name": "listeners",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fn": "onEndDateChange",
+                                "implHandler": [
+                                    "this.down('#startDate').setMaxValue(newValue);"
+                                ],
+                                "name": "change",
+                                "scope": "me"
+                            },
+                            "name": "onEndDateChange",
+                            "designerId": "112e47f5-fa07-4fb5-a656-0b8baf24fd34"
+                        }
+                    ]
+                }
+            ]
+        },
         {
             "type": "Ext.grid.column.Column",
             "reference": {
@@ -23,7 +328,7 @@
             },
             "codeClass": null,
             "userConfig": {
-                "dataIndex": "string",
+                "dataIndex": "name",
                 "flex": 0.4,
                 "text": "套账名称"
             },
@@ -48,6 +353,7 @@
             },
             "codeClass": null,
             "userConfig": {
+                "dataIndex": "createUserName",
                 "flex": 0.2,
                 "text": "创建人"
             },
@@ -62,6 +368,7 @@
             },
             "codeClass": null,
             "userConfig": {
+                "dataIndex": "date",
                 "flex": 0.2,
                 "text": "创建日期"
             },
@@ -76,7 +383,10 @@
             },
             "codeClass": null,
             "userConfig": {
-                "flex": 0.06
+                "flex": 0.06,
+                "hideable": false,
+                "text": "修改",
+                "tooltip": "修改"
             },
             "name": "MyActionColumn2",
             "designerId": "11424fc0-7002-4f7b-bda5-418f115d3959",
@@ -89,10 +399,38 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "iconCls": "s_icon_table_edit"
+                        "iconCls": "s_icon_table_edit",
+                        "tooltip": "修改"
                     },
                     "name": "MyActionColumnItem2",
-                    "designerId": "e43d541c-7246-4c8a-a388-515f4dada619"
+                    "designerId": "e43d541c-7246-4c8a-a388-515f4dada619",
+                    "cn": [
+                        {
+                            "type": "fixedfunction",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "designer|params": [
+                                    "view",
+                                    "rowIndex",
+                                    "colIndex",
+                                    "item",
+                                    "e",
+                                    "record",
+                                    "row"
+                                ],
+                                "fn": "handler",
+                                "implHandler": [
+                                    "this.up('gridpanel').detail(record);"
+                                ]
+                            },
+                            "name": "handler",
+                            "designerId": "e88b88c3-3332-45f1-ad5c-5499833e9ab0"
+                        }
+                    ]
                 }
             ]
         },
@@ -104,35 +442,10 @@
             },
             "codeClass": null,
             "userConfig": {
-                "flex": 0.06
-            },
-            "name": "MyActionColumn3",
-            "designerId": "af490a3d-66f1-480e-9a97-3198a129226f",
-            "cn": [
-                {
-                    "type": "actioncolumnitem",
-                    "reference": {
-                        "name": "items",
-                        "type": "array"
-                    },
-                    "codeClass": null,
-                    "userConfig": {
-                        "iconCls": "s_icon_action_search"
-                    },
-                    "name": "MyActionColumnItem3",
-                    "designerId": "c74dc45e-affa-4d19-878e-b1cc432b03d1"
-                }
-            ]
-        },
-        {
-            "type": "Ext.grid.column.Action",
-            "reference": {
-                "name": "columns",
-                "type": "array"
-            },
-            "codeClass": null,
-            "userConfig": {
-                "flex": 0.06
+                "flex": 0.06,
+                "hideable": false,
+                "text": "删除",
+                "tooltip": "删除"
             },
             "name": "MyActionColumn4",
             "designerId": "96bc43c6-0139-4c24-844d-3064587d10b9",
@@ -145,12 +458,168 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "iconCls": "s_icon_action_action_delete"
+                        "iconCls": "s_icon_action_action_delete",
+                        "tooltip": "删除"
                     },
                     "name": "MyActionColumnItem4",
-                    "designerId": "ff607949-9acb-420a-8a20-d56c8aa5316a"
+                    "designerId": "ff607949-9acb-420a-8a20-d56c8aa5316a",
+                    "cn": [
+                        {
+                            "type": "fixedfunction",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "designer|params": [
+                                    "view",
+                                    "rowIndex",
+                                    "colIndex",
+                                    "item",
+                                    "e",
+                                    "record",
+                                    "row"
+                                ],
+                                "fn": "handler",
+                                "implHandler": [
+                                    "var store = Ext.getStore(\"SocialAccount\");",
+                                    "",
+                                    "Ext.Msg.confirm('提示', '确定要删除吗？', function(text){",
+                                    "    if (text == 'yes'){",
+                                    "        Ext.Ajax.request({",
+                                    "            url :'salary/socialaccount/remove',//请求的服务器地址",
+                                    "            params : {",
+                                    "                id : record.get('id')",
+                                    "            },//发送json对象",
+                                    "            success:function(response,action){",
+                                    "                store.load();",
+                                    "//                 me.resetGridSelect(record);",
+                                    "                Ext.Msg.alert(\"提示\", \"删除成功\");",
+                                    "            },failure: function(){",
+                                    "                store.load();",
+                                    "//                 me.resetGridSelect(record);",
+                                    "                Ext.Msg.alert(\"提示\", \"删除失败\");",
+                                    "            }",
+                                    "        });",
+                                    "    }",
+                                    "});"
+                                ]
+                            },
+                            "name": "handler",
+                            "designerId": "7be8a469-1f92-4460-a7c1-5a1f9a5d9347"
+                        }
+                    ]
                 }
             ]
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|params": [
+                    "record"
+                ],
+                "fn": "detail",
+                "implHandler": [
+                    "var me = this,",
+                    "    namespace = me.getNamespace();",
+                    "",
+                    "var panel =  Ext.create(namespace + '.view.SocialAccountEdit',{",
+                    "    _socialAccount : record",
+                    "});",
+                    "panel.show();",
+                    "// me.resetGridSelect(record);"
+                ]
+            },
+            "name": "detail",
+            "designerId": "de56c811-66f1-4eb4-9669-f12c3960fab6"
+        },
+        {
+            "type": "basiceventbinding",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "onGridpanelItemDblClick",
+                "implHandler": [
+                    "this.detail(record);"
+                ],
+                "name": "itemdblclick",
+                "scope": "me"
+            },
+            "name": "onGridpanelItemDblClick",
+            "designerId": "8ab4b9b2-2d95-453a-9858-38e73a2f1f8d"
+        },
+        {
+            "type": "basiceventbinding",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "onGridpanelRender",
+                "implHandler": [
+                    "var me = this,",
+                    "    store = component.getStore();",
+                    "",
+                    "store.clearFilter(true);",
+                    "Ext.apply(store.proxy.extraParams, {",
+                    "    name : '',",
+                    "    creater : '',",
+                    "    startDate : '',",
+                    "    endDate : ''",
+                    "});",
+                    "store.load();"
+                ],
+                "name": "render",
+                "scope": "me"
+            },
+            "name": "onGridpanelRender",
+            "designerId": "a4a62d51-d197-49fc-97ae-fba41e0fc863"
+        },
+        {
+            "type": "Ext.toolbar.Paging",
+            "reference": {
+                "name": "dockedItems",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "displayInfo": true,
+                "dock": "bottom",
+                "store": "SocialAccount",
+                "width": 360
+            },
+            "name": "MyPagingToolbar",
+            "designerId": "5760c906-0124-43a7-8552-c6f32442bb24"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|params": [
+                    "day"
+                ],
+                "fn": "getFullDate",
+                "implHandler": [
+                    "day = day > 9 ? day : '0' + day;",
+                    "return day;"
+                ]
+            },
+            "name": "getFullDate",
+            "designerId": "9aeddfae-0d27-4da7-8846-71111bc684b5"
         }
     ]
 }

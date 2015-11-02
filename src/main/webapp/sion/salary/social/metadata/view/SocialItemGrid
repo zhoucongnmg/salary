@@ -79,8 +79,10 @@
             },
             "codeClass": null,
             "userConfig": {
-                "altText": "查看看啊",
-                "flex": 0.06
+                "altText": null,
+                "flex": 0.06,
+                "hideable": false,
+                "text": "修改"
             },
             "name": "MyActionColumn2",
             "designerId": "7b4378a4-7a7a-4e63-86ac-7ceab019b863",
@@ -93,9 +95,9 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "altText": "查看",
+                        "altText": null,
                         "iconCls": "s_icon_table_edit",
-                        "tooltip": "编辑"
+                        "tooltip": "修改"
                     },
                     "name": "MyActionColumnItem2",
                     "designerId": "3071a295-5729-4350-8fa1-006f99b96d1f",
@@ -143,7 +145,9 @@
             },
             "codeClass": null,
             "userConfig": {
-                "flex": 0.06
+                "flex": 0.06,
+                "hideable": false,
+                "text": "删除"
             },
             "name": "MyActionColumn4",
             "designerId": "48a317ea-c605-4227-8273-32a04163ff4b",

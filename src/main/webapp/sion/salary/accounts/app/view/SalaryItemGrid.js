@@ -67,6 +67,9 @@ Ext.define('sion.salary.accounts.view.SalaryItemGrid', {
                 {
                     xtype: 'actioncolumn',
                     dataIndex: 'id',
+                    hideable: false,
+                    text: '修改',
+                    tooltip: '修改',
                     flex: 0.5,
                     items: [
                         {
@@ -74,13 +77,15 @@ Ext.define('sion.salary.accounts.view.SalaryItemGrid', {
                                 this.up('gridpanel').detail(record);
                             },
                             iconCls: 's_icon_page_edit',
-                            tooltip: '编辑'
+                            tooltip: '修改'
                         }
                     ]
                 },
                 {
                     xtype: 'actioncolumn',
                     dataIndex: 'id',
+                    hideable: false,
+                    text: '删除',
                     flex: 0.5,
                     items: [
                         {

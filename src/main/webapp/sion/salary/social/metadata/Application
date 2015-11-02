@@ -11,7 +11,8 @@
             "SocialItemType",
             "DecimalCarryType",
             "SocialAccount",
-            "SocialAccountItem"
+            "SocialAccountItem",
+            "PaymentType"
         ],
         "name": "sion.salary.social",
         "paths": [
@@ -22,7 +23,8 @@
             "SocialItemType",
             "DecimalCarryType",
             "SocialAccount",
-            "SocialAccountItem"
+            "SocialAccountItem",
+            "PaymentType"
         ],
         "views": [
             "InsuredGrid",
@@ -33,9 +35,10 @@
             "SocialItemForm",
             "SocialAccountGrid",
             "MyForm1",
-            "SocialAccountForm",
+            "SocialAccountEdit",
             "SocialPlanGrid",
-            "SocialItemGridPanel"
+            "SocialItemGridPanel",
+            "SocialAccountItemEdit"
         ]
     },
     "name": "Application",

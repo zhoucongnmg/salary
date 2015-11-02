@@ -9,6 +9,9 @@
         "autoLoad": false,
         "designer|userClassName": "SocialAccount",
         "model": "SocialAccount",
+        "pageSize": 10,
+        "remoteFilter": true,
+        "remoteSort": true,
         "storeId": "SocialAccount"
     },
     "name": "MyStore",
@@ -24,10 +27,10 @@
             "userConfig": {
                 "api": [
                     "{",
-                    "    create: 'salary/socialaccount/create',",
-                    "    read: 'salary/socialaccount/load',",
-                    "    update: 'salary/socialaccount/update',",
-                    "    destroy: 'salary/socialaccount/remove'",
+                    "create: 'salary/socialaccount/create',",
+                    "read: 'salary/socialaccount/load',",
+                    "update: 'salary/socialaccount/create',",
+                    "destroy: 'salary/socialaccount/remove'",
                     "}"
                 ]
             },

@@ -29,13 +29,16 @@ Ext.define('sion.salary.social.store.SocialAccount', {
         me.callParent([Ext.apply({
             autoLoad: false,
             model: 'sion.salary.social.model.SocialAccount',
+            remoteFilter: true,
+            remoteSort: true,
             storeId: 'SocialAccount',
+            pageSize: 10,
             proxy: {
                 type: 'ajax',
                 api: {
                     create: 'salary/socialaccount/create',
                     read: 'salary/socialaccount/load',
-                    update: 'salary/socialaccount/update',
+                    update: 'salary/socialaccount/create',
                     destroy: 'salary/socialaccount/remove'
                 },
                 reader: {

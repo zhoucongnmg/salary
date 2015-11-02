@@ -51,8 +51,9 @@ Ext.define('sion.salary.social.view.SocialItemGrid', {
                 },
                 {
                     xtype: 'actioncolumn',
+                    hideable: false,
+                    text: '修改',
                     flex: 0.06,
-                    altText: '查看看啊',
                     items: [
                         {
                             handler: function(view, rowIndex, colIndex, item, e, record, row) {
@@ -64,14 +65,15 @@ Ext.define('sion.salary.social.view.SocialItemGrid', {
                                 // socialItem.show();
                                 this.up('gridpanel').detail(record);
                             },
-                            altText: '查看',
                             iconCls: 's_icon_table_edit',
-                            tooltip: '编辑'
+                            tooltip: '修改'
                         }
                     ]
                 },
                 {
                     xtype: 'actioncolumn',
+                    hideable: false,
+                    text: '删除',
                     flex: 0.06,
                     items: [
                         {
