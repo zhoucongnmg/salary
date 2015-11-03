@@ -3,10 +3,15 @@
  */
 package net.sion.company.salary.service;
 
+import java.util.List;
 import java.util.Map;
 
 import net.sion.company.salary.domain.PayrollItem;
+import net.sion.company.salary.domain.SocialAccount;
+import net.sion.company.salary.domain.SocialAccountItem;
+import net.sion.company.salary.sessionrepository.SocialAccountRepository;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -15,7 +20,15 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class SalaryService {
-
+	@Autowired SocialAccountRepository socialAccountRepository;
+	/***
+	 * 根据社保套帐id查询套帐项目
+	 * add by lil
+	 */
+	public List<SocialAccountItem> getSocialAccountItem(String id){
+		SocialAccount socialAccount = socialAccountRepository.findOne(id);
+		return socialAccount.getSocialAccountItems();
+	}
 	/**
 	 * 生成工资记录
 	 * @param personMap  待发工资人员列表信息

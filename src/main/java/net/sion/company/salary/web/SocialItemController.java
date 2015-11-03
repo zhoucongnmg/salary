@@ -1,22 +1,31 @@
 package net.sion.company.salary.web;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+import net.sion.boot.mongo.template.SessionMongoTemplate;
 import net.sion.company.salary.domain.InsuredPerson;
+import net.sion.company.salary.domain.SocialAccount;
 import net.sion.company.salary.domain.SocialItem;
 import net.sion.company.salary.sessionrepository.SocialItemRepository;
 import net.sion.util.mvc.Response;
 
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.query.BasicQuery;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.mongodb.BasicDBObject;
+import com.mongodb.DBObject;
 
 /**
  * 社保项目
@@ -26,6 +35,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/salary/socialitem/") 
 public class SocialItemController {
 	@Autowired SocialItemRepository socialItemRepository;
+	@Autowired SessionMongoTemplate mongoTemplate; 
 	/**
 	 * 创建社保项目
 	 * 
@@ -87,8 +97,23 @@ public class SocialItemController {
 	@RequestMapping(value = "remove")
 	public @ResponseBody Response remove(@RequestParam String id) {
 		// TODO 读取已投保人员
-		socialItemRepository.delete(id);
-		return new Response(true);
+		if(getFromSocialAccount(id) > 0){
+			return new Response(false);
+		}else{
+			socialItemRepository.delete(id);
+			return new Response(true);
+		}
+	}
+	private Long getFromSocialAccount(String socialItemId){
+		DBObject dbobject = new  BasicDBObject();
+		Map<String, Object> filterMap = new HashMap();
+		Map map = new HashMap();
+		map.put("$regex", socialItemId);
+		filterMap.put("socialAccountItems.socialItemId", map);
+		dbobject.putAll(filterMap);
+		Query q = new BasicQuery(dbobject);
+		Long total = mongoTemplate.count(q, SocialAccount.class);
+		return total;
 	}
 
 }

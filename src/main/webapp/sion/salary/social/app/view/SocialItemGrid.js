@@ -57,12 +57,6 @@ Ext.define('sion.salary.social.view.SocialItemGrid', {
                     items: [
                         {
                             handler: function(view, rowIndex, colIndex, item, e, record, row) {
-
-                                // var  namespace = this.up('gridpanel').getNamespace(),
-                                //     socialItem =  Ext.create(namespace + '.view.SocialItemForm');
-
-                                // socialItem._socialItem = record;
-                                // socialItem.show();
                                 this.up('gridpanel').detail(record);
                             },
                             iconCls: 's_icon_table_edit',
@@ -88,9 +82,14 @@ Ext.define('sion.salary.social.view.SocialItemGrid', {
                                                 id : record.get('id')
                                             },//发送json对象
                                             success:function(response,action){
-                                                store.load();
-                                                //                 me.resetGridSelect(record);
-                                                Ext.Msg.alert("提示", "删除成功");
+                                                var result = Ext.JSON.decode(response.responseText);
+                                                if (result.success) {
+                                                    store.load();
+                                                    //                 me.resetGridSelect(record);
+                                                    Ext.Msg.alert("提示", "删除成功");
+                                                }else{
+                                                    Ext.Msg.alert("提示", "社保套帐中使用了该项目，不能删除！");
+                                                }
                                             },failure: function(){
                                                 store.load();
                                                 //                 me.resetGridSelect(record);
@@ -126,12 +125,6 @@ Ext.define('sion.salary.social.view.SocialItemGrid', {
     },
 
     onGridpanelItemDblClick: function(dataview, record, item, index, e, eOpts) {
-
-        // var  namespace = this.getNamespace(),
-        //     socialItem =  Ext.create(namespace + '.view.SocialItemForm');
-
-        // socialItem._socialItem = record;
-        // socialItem.show();
         this.detail(record);
     },
 

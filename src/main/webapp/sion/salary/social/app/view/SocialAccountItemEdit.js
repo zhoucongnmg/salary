@@ -25,7 +25,7 @@ Ext.define('sion.salary.social.view.SocialAccountItemEdit', {
     ],
 
     layout: 'fit',
-    title: '项目',
+    title: '套帐项目',
 
     initComponent: function() {
         var me = this;

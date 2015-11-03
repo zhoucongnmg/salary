@@ -121,12 +121,6 @@
                                 ],
                                 "fn": "handler",
                                 "implHandler": [
-                                    "",
-                                    "// var  namespace = this.up('gridpanel').getNamespace(),",
-                                    "//     socialItem =  Ext.create(namespace + '.view.SocialItemForm');",
-                                    "",
-                                    "// socialItem._socialItem = record;",
-                                    "// socialItem.show();",
                                     "this.up('gridpanel').detail(record);"
                                 ]
                             },
@@ -195,9 +189,14 @@
                                     "                id : record.get('id')",
                                     "            },//发送json对象",
                                     "            success:function(response,action){",
-                                    "                store.load();",
+                                    "                var result = Ext.JSON.decode(response.responseText);",
+                                    "                if (result.success) {",
+                                    "                    store.load();",
                                     "//                 me.resetGridSelect(record);",
-                                    "                Ext.Msg.alert(\"提示\", \"删除成功\");",
+                                    "                    Ext.Msg.alert(\"提示\", \"删除成功\");",
+                                    "                }else{",
+                                    "                    Ext.Msg.alert(\"提示\", \"社保套帐中使用了该项目，不能删除！\");",
+                                    "                }",
                                     "            },failure: function(){",
                                     "                store.load();",
                                     "//                 me.resetGridSelect(record);",
@@ -269,12 +268,6 @@
             "userConfig": {
                 "fn": "onGridpanelItemDblClick",
                 "implHandler": [
-                    "",
-                    "// var  namespace = this.getNamespace(),",
-                    "//     socialItem =  Ext.create(namespace + '.view.SocialItemForm');",
-                    "",
-                    "// socialItem._socialItem = record;",
-                    "// socialItem.show();",
                     "this.detail(record);"
                 ],
                 "name": "itemdblclick",
