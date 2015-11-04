@@ -60,13 +60,18 @@ Ext.define('sion.salary.level.view.LevelGrid', {
                             xtype: 'gridcolumn',
                             width: '20%',
                             dataIndex: 'name',
-                            text: '名称'
+                            text: '层次名称'
                         },
                         {
                             xtype: 'gridcolumn',
+                            renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
+                                var rank=[];
+                                Ext.Array.each(value,function(v){rank.push(v.rank);});
+                                return rank;
+                            },
                             width: '60%',
                             dataIndex: 'levelItems',
-                            text: '薪资项目'
+                            text: '级别'
                         },
                         {
                             xtype: 'actioncolumn',
@@ -74,7 +79,9 @@ Ext.define('sion.salary.level.view.LevelGrid', {
                             items: [
                                 {
                                     handler: function(view, rowIndex, colIndex, item, e, record, row) {
-                                        Ext.create("sion.salary.level.view.Level_win").show();
+                                        var me=this,
+                                            grid=me.down('gridpanel');
+                                        Ext.create("sion.salary.level.view.Level_win",{_levelGrid:grid,_record:record}).show();
                                     },
                                     iconCls: 's_icon_page_edit',
                                     tooltip: '编辑'
@@ -86,6 +93,36 @@ Ext.define('sion.salary.level.view.LevelGrid', {
                             width: 35,
                             items: [
                                 {
+                                    handler: function(view, rowIndex, colIndex, item, e, record, row) {
+                                        var me=this,
+                                            grid=view;
+                                        Ext.Msg.confirm({
+                                            title:"提示",
+                                            msg:'确认删除吗？',
+                                            buttons:Ext.MessageBox.OKCANCEL,
+                                            width:200,
+                                            fn:function(buttonId){
+                                                if(buttonId=="ok"){
+                                                    Ext.Ajax.request({
+                                                        url:'salary/level/remove?id='+record.data.id,
+                                                        method:'GET',
+                                                        success:function(res){
+                                                            var responseData=Ext.JSON.decode(res.responseText);
+                                                            if(responseData.success===true){
+                                                                grid.getStore().reload();
+                                                            }
+                                                            Ext.Msg.alert("提示",responseData.message);
+                                                        },
+                                                        failure:function(form,action){
+                                                            me.getStore().reload();
+                                                            Ext.Msg.alert('删除失败，请检查网络连接状况');
+                                                        }
+                                                    });
+
+                                                }
+                                            }
+                                        });
+                                    },
                                     iconCls: 's_icon_cross',
                                     tooltip: '删除'
                                 }
@@ -93,7 +130,13 @@ Ext.define('sion.salary.level.view.LevelGrid', {
                         }
                     ]
                 }
-            ]
+            ],
+            listeners: {
+                afterrender: {
+                    fn: me.onPanelAfterRender,
+                    scope: me
+                }
+            }
         });
 
         me.callParent(arguments);
@@ -101,8 +144,15 @@ Ext.define('sion.salary.level.view.LevelGrid', {
 
     onButtonClick: function(button, e, eOpts) {
         var me=this,
-            namespace=me.getNamespace();
-        Ext.create(namespace+".view.Level_win").show();
+            namespace=me.getNamespace(),
+            grid=me.down('gridpanel');
+        Ext.create(namespace+".view.Level_win",{_levelGrid:grid}).show();
+    },
+
+    onPanelAfterRender: function(component, eOpts) {
+        var me =this,
+            grid=me.down('gridpanel');
+        grid.getStore().load();
     }
 
 });

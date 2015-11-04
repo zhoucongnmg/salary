@@ -1,0 +1,26 @@
+{
+    "type": "Ext.data.Store",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userClassName": "LevelItemStore",
+        "storeId": "LevelItemStore"
+    },
+    "name": "MyStore",
+    "designerId": "0b058297-a2d9-45f3-ba9d-4e54a605f65c",
+    "cn": [
+        {
+            "type": "Ext.data.proxy.Ajax",
+            "reference": {
+                "name": "proxy",
+                "type": "object"
+            },
+            "codeClass": null,
+            "name": "MyAjaxProxy2",
+            "designerId": "ddc7f11f-8ccb-4289-9563-35decedb7dce"
+        }
+    ]
+}

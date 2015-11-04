@@ -25,11 +25,13 @@ Ext.application({
     },
     models: [
         'Level',
-        'PersonLevel'
+        'PersonLevel',
+        'LevelItem'
     ],
     stores: [
         'LevelStore',
-        'PersonLevelStore'
+        'PersonLevelStore',
+        'LevelItemStore'
     ],
     views: [
         'LevelGrid',

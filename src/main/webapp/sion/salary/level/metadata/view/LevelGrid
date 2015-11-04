@@ -54,8 +54,9 @@
                                 "fn": "onButtonClick",
                                 "implHandler": [
                                     "var me=this,",
-                                    "    namespace=me.getNamespace();",
-                                    "Ext.create(namespace+\".view.Level_win\").show();"
+                                    "    namespace=me.getNamespace(),",
+                                    "    grid=me.down('gridpanel');",
+                                    "Ext.create(namespace+\".view.Level_win\",{_levelGrid:grid}).show();"
                                 ],
                                 "name": "click",
                                 "scope": "me"
@@ -91,7 +92,7 @@
                     "codeClass": null,
                     "userConfig": {
                         "dataIndex": "name",
-                        "text": "名称",
+                        "text": "层次名称",
                         "width": "20%"
                     },
                     "name": "MyColumn",
@@ -106,11 +107,40 @@
                     "codeClass": null,
                     "userConfig": {
                         "dataIndex": "levelItems",
-                        "text": "薪资项目",
+                        "text": "级别",
                         "width": "60%"
                     },
                     "name": "MyColumn1",
-                    "designerId": "43b1747b-ffdd-4375-b2f6-d973e66f5424"
+                    "designerId": "43b1747b-ffdd-4375-b2f6-d973e66f5424",
+                    "cn": [
+                        {
+                            "type": "fixedfunction",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "designer|params": [
+                                    "value",
+                                    "metaData",
+                                    "record",
+                                    "rowIndex",
+                                    "colIndex",
+                                    "store",
+                                    "view"
+                                ],
+                                "fn": "renderer",
+                                "implHandler": [
+                                    "var rank=[];",
+                                    "Ext.Array.each(value,function(v){rank.push(v.rank);});",
+                                    "return rank;"
+                                ]
+                            },
+                            "name": "renderer",
+                            "designerId": "9260bcb1-f52c-43f3-9602-d8e5f9df129d"
+                        }
+                    ]
                 },
                 {
                     "type": "Ext.grid.column.Action",
@@ -159,7 +189,9 @@
                                         ],
                                         "fn": "handler",
                                         "implHandler": [
-                                            "Ext.create(\"sion.salary.level.view.Level_win\").show();"
+                                            "var me=this,",
+                                            "    grid=me.down('gridpanel');",
+                                            "Ext.create(\"sion.salary.level.view.Level_win\",{_levelGrid:grid,_record:record}).show();"
                                         ]
                                     },
                                     "name": "handler",
@@ -195,7 +227,61 @@
                                 "tooltip": "删除"
                             },
                             "name": "MyActionColumnItem3",
-                            "designerId": "9f111edb-77dd-466e-a299-e9ce1a6c58e5"
+                            "designerId": "9f111edb-77dd-466e-a299-e9ce1a6c58e5",
+                            "cn": [
+                                {
+                                    "type": "fixedfunction",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "designer|params": [
+                                            "view",
+                                            "rowIndex",
+                                            "colIndex",
+                                            "item",
+                                            "e",
+                                            "record",
+                                            "row"
+                                        ],
+                                        "fn": "handler",
+                                        "implHandler": [
+                                            "var me=this,",
+                                            "    grid=view;",
+                                            "Ext.Msg.confirm({",
+                                            "    title:\"提示\",",
+                                            "    msg:'确认删除吗？',",
+                                            "    buttons:Ext.MessageBox.OKCANCEL,",
+                                            "    width:200,",
+                                            "    fn:function(buttonId){",
+                                            "        if(buttonId==\"ok\"){",
+                                            "            Ext.Ajax.request({",
+                                            "                url:'salary/level/remove?id='+record.data.id,",
+                                            "                method:'GET',",
+                                            "                success:function(res){",
+                                            "                    var responseData=Ext.JSON.decode(res.responseText);",
+                                            "                    if(responseData.success===true){",
+                                            "                        grid.getStore().reload();",
+                                            "                    }",
+                                            "                    Ext.Msg.alert(\"提示\",responseData.message);",
+                                            "                },",
+                                            "                failure:function(form,action){",
+                                            "                    me.getStore().reload();",
+                                            "                    Ext.Msg.alert('删除失败，请检查网络连接状况');",
+                                            "                }",
+                                            "            });",
+                                            "",
+                                            "        }",
+                                            "    }",
+                                            "});"
+                                        ]
+                                    },
+                                    "name": "handler",
+                                    "designerId": "d01f2092-38b4-4a60-be06-d790ebdaa3f2"
+                                }
+                            ]
                         }
                     ]
                 },
@@ -210,6 +296,26 @@
                     "designerId": "a4b89800-f314-437f-89c1-a5c20b6bc97a"
                 }
             ]
+        },
+        {
+            "type": "basiceventbinding",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "onPanelAfterRender",
+                "implHandler": [
+                    "var me =this,",
+                    "    grid=me.down('gridpanel');",
+                    "grid.getStore().load();"
+                ],
+                "name": "afterrender",
+                "scope": "me"
+            },
+            "name": "onPanelAfterRender",
+            "designerId": "055d3cf1-de9c-4e78-a2ae-5a22e3b44c73"
         }
     ]
 }

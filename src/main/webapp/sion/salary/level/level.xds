@@ -13,7 +13,7 @@
             }
         },
         "urlPrefix": "",
-        "exportPath": "E:/dev/sts-bundle/vfabric-tc-server-developer-2.9.5.SR1/tcv29/wtpwebapps/salary/sion/salary/accounts"
+        "exportPath": "E:/dev/sts-bundle/vfabric-tc-server-developer-2.9.5.SR1/tcv29/wtpwebapps/salary/sion/salary/level"
     },
     "xdsVersion": "3.2.0",
     "xdsBuild": 75,
@@ -29,12 +29,14 @@
         ],
         "store": [
             "9490e167-8bc9-43e4-8bb0-f9112c520686",
-            "fd6efcfd-200d-4523-9da6-dac2823d1a89"
+            "fd6efcfd-200d-4523-9da6-dac2823d1a89",
+            "0b058297-a2d9-45f3-ba9d-4e54a605f65c"
         ],
         "controller": [],
         "model": [
             "6c255f86-af7c-4ac3-aa34-fbf4bb92245d",
-            "dbfe3b45-2361-49c8-878a-0028a26ba961"
+            "dbfe3b45-2361-49c8-878a-0028a26ba961",
+            "9f71477e-732b-453a-a876-1e72df21ff48"
         ],
         "resource": [
             "7a1e465a-130b-4067-83e0-9c71d8a4c6cd",

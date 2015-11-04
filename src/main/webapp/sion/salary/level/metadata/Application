@@ -8,7 +8,8 @@
     "userConfig": {
         "models": [
             "Level",
-            "PersonLevel"
+            "PersonLevel",
+            "LevelItem"
         ],
         "name": "sion.salary.level",
         "paths": [
@@ -18,7 +19,8 @@
         ],
         "stores": [
             "LevelStore",
-            "PersonLevelStore"
+            "PersonLevelStore",
+            "LevelItemStore"
         ],
         "views": [
             "LevelGrid",
