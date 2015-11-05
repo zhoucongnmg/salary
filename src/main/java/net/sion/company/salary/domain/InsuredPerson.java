@@ -1,12 +1,14 @@
 package net.sion.company.salary.domain;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
  * 投保人
  * @author niex
  *
  */
+@Document(collection="Company_Salary_InsuredPerson")
 public class InsuredPerson {
 	@Id
 	String id;
