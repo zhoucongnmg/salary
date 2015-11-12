@@ -3,6 +3,7 @@ package net.sion.company.salary.web;
 import java.util.Map;
 
 import net.sion.company.salary.domain.InsuredPerson;
+import net.sion.company.salary.domain.PersonAccountFile;
 import net.sion.company.salary.domain.PersonAccountItem;
 import net.sion.util.mvc.Response;
 
@@ -16,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author niex 
  */
 @RestController
-@RequestMapping("/salary/insured/") 
+@RequestMapping("/salary/person/") 
 public class InsuredPersonController {
 	/**
 	 * 创建投保人
@@ -25,7 +26,7 @@ public class InsuredPersonController {
 	 * @return
 	 */
 	@RequestMapping(value = "create")
-	public Response create(@RequestBody InsuredPerson person) {
+	public Response create(@RequestBody PersonAccountFile person) {
 		// TODO 保存投保人信息
 		return new Response(true);
 	}
@@ -59,7 +60,7 @@ public class InsuredPersonController {
 	 * @return
 	 */
 	@RequestMapping(value = "update")
-	public Response update(@RequestBody InsuredPerson person) {
+	public Response update(@RequestBody PersonAccountFile person) {
 		// TODO 保存投保人信息
 		return new Response(true);
 	}
