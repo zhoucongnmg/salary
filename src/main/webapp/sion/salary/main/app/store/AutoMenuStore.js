@@ -46,7 +46,7 @@ Ext.define('sion.salary.main.store.AutoMenuStore', {
                             iconCls: 's_icon_chart_pie',
                             imgSrc: 'images/chart_pie.png',
                             namespace: 'sion.salary.social',
-                            viewName: 'InsuredGrid',
+                            viewName: 'PersonAccountGrid',
                             desc: '管理人员薪资信息，包括薪资方案社保和公积金投保、缴费比率等'
                         }
                     ]

@@ -27,9 +27,9 @@
             "PaymentType"
         ],
         "views": [
-            "InsuredGrid",
+            "PersonAccountGrid",
             "UninsuredGrid",
-            "DocumentForm",
+            "PersonAccountForm",
             "InsuredSearchGrid",
             "SocialItemGrid",
             "SocialItemForm",

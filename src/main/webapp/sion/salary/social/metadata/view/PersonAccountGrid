@@ -7,7 +7,7 @@
     "codeClass": null,
     "userConfig": {
         "designer|initialView": true,
-        "designer|userClassName": "InsuredGrid",
+        "designer|userClassName": "PersonAccountGrid",
         "height": 515,
         "title": null,
         "width": 1006

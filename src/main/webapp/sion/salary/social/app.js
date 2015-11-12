@@ -40,9 +40,9 @@ Ext.application({
         'PaymentType'
     ],
     views: [
-        'InsuredGrid',
+        'PersonAccountGrid',
         'UninsuredGrid',
-        'DocumentForm',
+        'PersonAccountForm',
         'InsuredSearchGrid',
         'SocialItemGrid',
         'SocialItemForm',
@@ -56,7 +56,7 @@ Ext.application({
     name: 'sion.salary.social',
 
     launch: function() {
-        Ext.create('sion.salary.social.view.InsuredGrid', {renderTo: Ext.getBody()});
+        Ext.create('sion.salary.social.view.PersonAccountGrid', {renderTo: Ext.getBody()});
     }
 
 });
