@@ -12,7 +12,9 @@
             "DecimalCarryType",
             "SocialAccount",
             "SocialAccountItem",
-            "PaymentType"
+            "PaymentType",
+            "PersonAccount",
+            "InsuredPerson"
         ],
         "name": "sion.salary.social",
         "paths": [
@@ -24,7 +26,8 @@
             "DecimalCarryType",
             "SocialAccount",
             "SocialAccountItem",
-            "PaymentType"
+            "PaymentType",
+            "PersonAccountStore"
         ],
         "views": [
             "PersonAccountGrid",

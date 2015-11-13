@@ -41,7 +41,68 @@
                         "text": "保存信息"
                     },
                     "name": "MyButton1",
-                    "designerId": "88fd9e3a-9523-4f7f-a55f-ac3c65402696"
+                    "designerId": "88fd9e3a-9523-4f7f-a55f-ac3c65402696",
+                    "cn": [
+                        {
+                            "type": "basiceventbinding",
+                            "reference": {
+                                "name": "listeners",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fn": "onSaveClick",
+                                "implHandler": [
+                                    "var me =this,",
+                                    "    namespace=me.getNamespace(),",
+                                    "    salaryForm=me.down('#salaryForm'),",
+                                    "    socialForm=me.down('#socialForm'),",
+                                    "    accountItems=[],",
+                                    "    insuredPerson,",
+                                    "    model;",
+                                    "",
+                                    "if(me._record){",
+                                    "    model=Ext.create(namespace+\".model.PersonAccount\",salaryForm.getValues());",
+                                    "    model.set('id',me._record.data.id);",
+                                    "}",
+                                    "else{",
+                                    "    model=Ext.create(namespace+\".model.PersonAccount\",salaryForm.getValues());",
+                                    "}",
+                                    "",
+                                    "model.set(\"accountItems\",accountItems);",
+                                    "insuredPerson=Ext.create(namespace+\".model.InsuredPerson\",socialForm.getValues());",
+                                    "model.set('insuredPerson',insuredPerson.data);",
+                                    "button.disabled=true;",
+                                    "Ext.Ajax.request({",
+                                    "    url: 'salary/person/create',",
+                                    "    method:'POST',",
+                                    "    jsonData: model.data,",
+                                    "    success:function(response){",
+                                    "        var res=Ext.JSON.decode(response.responseText);",
+                                    "        Ext.Msg.alert(\"提示\",res.message);",
+                                    "        if(res.success==false)",
+                                    "        {",
+                                    "            return;",
+                                    "        }",
+                                    "        if(me._grid){",
+                                    "            me._grid.getStore().reload();",
+                                    "        }",
+                                    "        button.disabled=false;",
+                                    "        me.close();",
+                                    "    },",
+                                    "    failure:function(form,action){",
+                                    "        Ext.Msg.alert(\"提示\",\"保存信息失败!\");",
+                                    "        button.disabled=false;",
+                                    "    }",
+                                    "});"
+                                ],
+                                "name": "click",
+                                "scope": "me"
+                            },
+                            "name": "onSaveClick",
+                            "designerId": "66920d0d-c4e6-4c17-a960-b996fbfba915"
+                        }
+                    ]
                 }
             ]
         },
@@ -61,7 +122,7 @@
             "designerId": "ee586d0c-075f-4020-87a8-206c243d40e1",
             "cn": [
                 {
-                    "type": "Ext.panel.Panel",
+                    "type": "Ext.form.Panel",
                     "reference": {
                         "name": "items",
                         "type": "array"
@@ -69,10 +130,11 @@
                     "codeClass": null,
                     "userConfig": {
                         "bodyPadding": 10,
+                        "itemId": "salaryForm",
                         "layout": "column",
                         "title": "基本信息"
                     },
-                    "name": "MyPanel3",
+                    "name": "MyForm5",
                     "designerId": "af86204a-a55c-47d5-a958-d5ead09ca2a4",
                     "cn": [
                         {
@@ -95,7 +157,8 @@
                             "userConfig": {
                                 "fieldLabel": "员工编号",
                                 "labelWidth": 80,
-                                "layout|columnWidth": 0.45
+                                "layout|columnWidth": 0.45,
+                                "name": "personCode"
                             },
                             "name": "MyTextField17",
                             "designerId": "1f4d0eac-6bc4-4d5e-a5d9-48304be83158"
@@ -124,7 +187,8 @@
                             "userConfig": {
                                 "fieldLabel": "姓名",
                                 "labelWidth": 80,
-                                "layout|columnWidth": 0.45
+                                "layout|columnWidth": 0.45,
+                                "name": "name"
                             },
                             "name": "MyTextField1",
                             "designerId": "7afd32c6-8d28-4d61-8940-befab2fb7867"
@@ -153,7 +217,8 @@
                             "userConfig": {
                                 "fieldLabel": "部门",
                                 "labelWidth": 80,
-                                "layout|columnWidth": 0.45
+                                "layout|columnWidth": 0.45,
+                                "name": "dept"
                             },
                             "name": "MyTextField16",
                             "designerId": "94a110a4-872e-45d2-bc77-6d55e2352cdd"
@@ -182,7 +247,8 @@
                             "userConfig": {
                                 "fieldLabel": "职务",
                                 "labelWidth": 80,
-                                "layout|columnWidth": 0.45
+                                "layout|columnWidth": 0.45,
+                                "name": "duty"
                             },
                             "name": "MyTextField18",
                             "designerId": "baec6714-ef42-40c6-ad77-7a0914823bf8"
@@ -211,7 +277,8 @@
                             "userConfig": {
                                 "fieldLabel": "身份证号",
                                 "labelWidth": 80,
-                                "layout|columnWidth": 0.45
+                                "layout|columnWidth": 0.45,
+                                "name": "idCard"
                             },
                             "name": "MyTextField3",
                             "designerId": "65867d2f-ecba-4dc6-adaa-0fd54a0c6bd6"
@@ -240,7 +307,8 @@
                             "userConfig": {
                                 "fieldLabel": "工资卡号",
                                 "labelWidth": 80,
-                                "layout|columnWidth": 0.45
+                                "layout|columnWidth": 0.45,
+                                "name": "bankAccount"
                             },
                             "name": "MyTextField10",
                             "designerId": "73241f09-8c25-4a98-ae13-0cf4532cdbeb"
@@ -269,7 +337,8 @@
                             "userConfig": {
                                 "fieldLabel": "银行",
                                 "labelWidth": 80,
-                                "layout|columnWidth": 0.45
+                                "layout|columnWidth": 0.45,
+                                "name": "bank"
                             },
                             "name": "MyTextField12",
                             "designerId": "bd115935-9087-4e4b-b5cd-e8d2104834f9"
@@ -298,7 +367,8 @@
                             "userConfig": {
                                 "fieldLabel": "开户网点",
                                 "labelWidth": 80,
-                                "layout|columnWidth": 0.45
+                                "layout|columnWidth": 0.45,
+                                "name": "bankOfDeposit"
                             },
                             "name": "MyTextField13",
                             "designerId": "3f78566d-a77f-45ba-96dd-ee2b6714142d"
@@ -327,7 +397,8 @@
                             "userConfig": {
                                 "fieldLabel": "薪资方案",
                                 "labelWidth": 80,
-                                "layout|columnWidth": 0.45
+                                "layout|columnWidth": 0.45,
+                                "name": "accountId"
                             },
                             "name": "MyTextField15",
                             "designerId": "54cb155c-122c-41ed-95b1-9bcf5fc437c9"
@@ -356,7 +427,8 @@
                             "userConfig": {
                                 "fieldLabel": "薪资层次",
                                 "labelWidth": 80,
-                                "layout|columnWidth": 0.45
+                                "layout|columnWidth": 0.45,
+                                "name": "level"
                             },
                             "name": "MyTextField9",
                             "designerId": "e8c1463a-6812-43b5-8999-52982bc73f39"
@@ -385,7 +457,8 @@
                             "userConfig": {
                                 "fieldLabel": "薪资级别",
                                 "labelWidth": 80,
-                                "layout|columnWidth": 0.45
+                                "layout|columnWidth": 0.45,
+                                "name": "rank"
                             },
                             "name": "MyTextField14",
                             "designerId": "39d4cd03-f68a-4815-b0fd-fcf987f5ab39"
@@ -405,6 +478,39 @@
                             "designerId": "cfd02f29-0e38-42c9-8880-f7d4c1ba2e80"
                         },
                         {
+                            "type": "Ext.form.field.Text",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fieldLabel": "备注",
+                                "labelWidth": 80,
+                                "layout|columnWidth": 1,
+                                "margin": "10 0 0 0",
+                                "name": "note"
+                            },
+                            "name": "MyTextField21",
+                            "designerId": "83211f71-59ab-4fd8-8e6e-6ccfbeff26e6"
+                        },
+                        {
+                            "type": "Ext.toolbar.Spacer",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "dock": null,
+                                "height": 20,
+                                "layout|columnWidth": 1,
+                                "width": 100
+                            },
+                            "name": "MySpacer22",
+                            "designerId": "d9ef4cf1-9664-488e-9311-781e1bb2a2bd"
+                        },
+                        {
                             "type": "Ext.grid.Panel",
                             "reference": {
                                 "name": "items",
@@ -413,6 +519,7 @@
                             "codeClass": null,
                             "userConfig": {
                                 "header": false,
+                                "itemId": "SalaryItemGrid",
                                 "layout|columnWidth": 1,
                                 "title": "My Grid Panel"
                             },
@@ -428,7 +535,8 @@
                                     "codeClass": null,
                                     "userConfig": {
                                         "dataIndex": "string",
-                                        "text": "基本工资"
+                                        "text": "工资项目",
+                                        "width": "40%"
                                     },
                                     "name": "MyColumn24",
                                     "designerId": "a4498920-30fc-4f97-94ef-5c3af1b4b4c0"
@@ -441,36 +549,11 @@
                                     },
                                     "codeClass": null,
                                     "userConfig": {
-                                        "text": "绩效工资"
+                                        "text": "值",
+                                        "width": "58%"
                                     },
                                     "name": "MyColumn25",
                                     "designerId": "8a923989-d5d8-49d2-8924-15190043b967"
-                                },
-                                {
-                                    "type": "Ext.grid.column.Column",
-                                    "reference": {
-                                        "name": "columns",
-                                        "type": "array"
-                                    },
-                                    "codeClass": null,
-                                    "userConfig": {
-                                        "text": "动态列"
-                                    },
-                                    "name": "MyColumn26",
-                                    "designerId": "cabe7d17-5b86-4050-9e04-8abb6ab2f802"
-                                },
-                                {
-                                    "type": "Ext.grid.column.Column",
-                                    "reference": {
-                                        "name": "columns",
-                                        "type": "array"
-                                    },
-                                    "codeClass": null,
-                                    "userConfig": {
-                                        "text": "动态列"
-                                    },
-                                    "name": "MyColumn27",
-                                    "designerId": "841385cc-d2d1-43bf-acf7-0195adeff793"
                                 },
                                 {
                                     "type": "Ext.grid.View",
@@ -492,38 +575,6 @@
                             },
                             "codeClass": null,
                             "userConfig": {
-                                "dock": null,
-                                "height": 20,
-                                "layout|columnWidth": 1,
-                                "width": 100
-                            },
-                            "name": "MySpacer22",
-                            "designerId": "d9ef4cf1-9664-488e-9311-781e1bb2a2bd"
-                        },
-                        {
-                            "type": "Ext.form.field.TextArea",
-                            "reference": {
-                                "name": "items",
-                                "type": "array"
-                            },
-                            "codeClass": null,
-                            "userConfig": {
-                                "fieldLabel": "备注",
-                                "labelWidth": 80,
-                                "layout|columnWidth": 1,
-                                "margin": "10 0 0 0"
-                            },
-                            "name": "MyTextArea",
-                            "designerId": "83211f71-59ab-4fd8-8e6e-6ccfbeff26e6"
-                        },
-                        {
-                            "type": "Ext.toolbar.Spacer",
-                            "reference": {
-                                "name": "items",
-                                "type": "array"
-                            },
-                            "codeClass": null,
-                            "userConfig": {
                                 "height": 20,
                                 "layout|columnWidth": 1
                             },
@@ -533,7 +584,7 @@
                     ]
                 },
                 {
-                    "type": "Ext.panel.Panel",
+                    "type": "Ext.form.Panel",
                     "reference": {
                         "name": "items",
                         "type": "array"
@@ -541,10 +592,11 @@
                     "codeClass": null,
                     "userConfig": {
                         "bodyPadding": 10,
+                        "itemId": "socialForm",
                         "layout": "column",
                         "title": "社保信息"
                     },
-                    "name": "MyPanel4",
+                    "name": "MyForm6",
                     "designerId": "5fa41cc2-434a-4402-80ec-60bd34c359a6",
                     "cn": [
                         {
@@ -567,7 +619,8 @@
                             "userConfig": {
                                 "fieldLabel": "社保号",
                                 "labelWidth": 80,
-                                "layout|columnWidth": 0.45
+                                "layout|columnWidth": 0.45,
+                                "name": "insuredNo"
                             },
                             "name": "MyTextField2",
                             "designerId": "eea2874b-0c04-4414-a423-c87846bc2878"
@@ -587,18 +640,21 @@
                             "designerId": "6976db0f-31a4-42a1-832a-e84326d8270f"
                         },
                         {
-                            "type": "Ext.form.field.Text",
+                            "type": "Ext.form.field.Date",
                             "reference": {
                                 "name": "items",
                                 "type": "array"
                             },
                             "codeClass": null,
                             "userConfig": {
+                                "editable": false,
                                 "fieldLabel": "参保日期",
+                                "format": "Y-m-d",
                                 "labelWidth": 80,
-                                "layout|columnWidth": 0.45
+                                "layout|columnWidth": 0.45,
+                                "name": "insuredDate"
                             },
-                            "name": "MyTextField4",
+                            "name": "MyDateField4",
                             "designerId": "769b26a8-5199-47e0-ad54-be90968a4349"
                         },
                         {
@@ -625,7 +681,8 @@
                             "userConfig": {
                                 "fieldLabel": "工作地",
                                 "labelWidth": 80,
-                                "layout|columnWidth": 0.45
+                                "layout|columnWidth": 0.45,
+                                "name": "workplace"
                             },
                             "name": "MyTextField5",
                             "designerId": "b601aaa8-cc06-4f79-bf39-60c035016a1a"
@@ -652,11 +709,19 @@
                             },
                             "codeClass": null,
                             "userConfig": {
+                                "editable": false,
                                 "fieldLabel": "参保状态",
                                 "labelWidth": 80,
-                                "layout|columnWidth": 0.45
+                                "layout|columnWidth": 0.45,
+                                "name": "status",
+                                "store": [
+                                    "[['In','在保'],['Out','退保']]"
+                                ]
                             },
                             "name": "MyComboBox3",
+                            "configAlternates": {
+                                "store": "array"
+                            },
                             "designerId": "2dd6cc3e-24ed-4889-8c8e-3c4c1760a31c"
                         },
                         {
@@ -674,18 +739,21 @@
                             "designerId": "54ab1256-7472-43af-84d5-1e2d96f3ef86"
                         },
                         {
-                            "type": "Ext.form.field.Text",
+                            "type": "Ext.form.field.Date",
                             "reference": {
                                 "name": "items",
                                 "type": "array"
                             },
                             "codeClass": null,
                             "userConfig": {
+                                "editable": false,
                                 "fieldLabel": "退保日期",
+                                "format": "Y-m-d",
                                 "labelWidth": 80,
-                                "layout|columnWidth": 0.45
+                                "layout|columnWidth": 0.45,
+                                "name": "outDate"
                             },
-                            "name": "MyTextField6",
+                            "name": "MyDateField5",
                             "designerId": "28bbccff-e2d1-416d-9f93-f29264205986"
                         },
                         {
@@ -712,7 +780,8 @@
                             "userConfig": {
                                 "fieldLabel": "社保方案",
                                 "labelWidth": 80,
-                                "layout|columnWidth": 0.45
+                                "layout|columnWidth": 0.45,
+                                "name": "accountId"
                             },
                             "name": "MyComboBox4",
                             "designerId": "1cd36a89-b523-4b79-9fa9-ba4578352b1b"
@@ -932,6 +1001,7 @@
                             "userConfig": {
                                 "fieldLabel": null,
                                 "layout|columnWidth": 0.295,
+                                "name": "socialWorkplace",
                                 "padding": "0 0 0 10"
                             },
                             "name": "MyTextField7",
@@ -977,6 +1047,7 @@
                             "userConfig": {
                                 "fieldLabel": null,
                                 "layout|columnWidth": 0.295,
+                                "name": "accumulationFundsWorkplace",
                                 "padding": "0 0 0 10"
                             },
                             "name": "MyTextField8",
@@ -999,6 +1070,32 @@
                     ]
                 }
             ]
+        },
+        {
+            "type": "basiceventbinding",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "onWindowAfterRender",
+                "implHandler": [
+                    "var me=this,",
+                    "    salaryForm=me.down('#salaryForm'),",
+                    "    socialForm=me.down('#socialForm');",
+                    "",
+                    "if(me._record){",
+                    "    salaryForm.getForm().setValues(me._record.data);",
+                    "    socialForm.getForm().setValues(me._record.data.insuredPerson);",
+                    "}",
+                    ""
+                ],
+                "name": "afterrender",
+                "scope": "me"
+            },
+            "name": "onWindowAfterRender",
+            "designerId": "32248814-28a2-421f-91f3-0944a8bb356a"
         }
     ]
 }

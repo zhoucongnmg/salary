@@ -1,0 +1,45 @@
+{
+    "type": "jsonstore",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userClassName": "PersonAccountStore",
+        "model": "PersonAccount",
+        "storeId": "PersonAccountStore"
+    },
+    "name": "MyJsonStore",
+    "designerId": "0a1e0fbc-0eaf-43e4-8f41-88715f560986",
+    "cn": [
+        {
+            "type": "Ext.data.proxy.Ajax",
+            "reference": {
+                "name": "proxy",
+                "type": "object"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "url": "salary/person/load"
+            },
+            "name": "MyAjaxProxy2",
+            "designerId": "24ae46ce-3291-470d-ae63-0e4fb36c73f2",
+            "cn": [
+                {
+                    "type": "Ext.data.reader.Json",
+                    "reference": {
+                        "name": "reader",
+                        "type": "object"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "root": "data"
+                    },
+                    "name": "MyJsonReader2",
+                    "designerId": "9e52f9cc-9617-4068-807c-7faaa8509d78"
+                }
+            ]
+        }
+    ]
+}

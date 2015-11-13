@@ -37,4 +37,94 @@ public class InsuredPerson {
 		In, //在保
 		Out //退保
 	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public String getPersonId() {
+		return personId;
+	}
+
+	public void setPersonId(String personId) {
+		this.personId = personId;
+	}
+
+	public String getInsuredNo() {
+		return insuredNo;
+	}
+
+	public void setInsuredNo(String insuredNo) {
+		this.insuredNo = insuredNo;
+	}
+
+	public String getInsuredDate() {
+		return insuredDate;
+	}
+
+	public void setInsuredDate(String insuredDate) {
+		this.insuredDate = insuredDate;
+	}
+
+	public String getWorkplace() {
+		return workplace;
+	}
+
+	public void setWorkplace(String workplace) {
+		this.workplace = workplace;
+	}
+
+	public InsuredStaus getStatus() {
+		return status;
+	}
+
+	public void setStatus(InsuredStaus status) {
+		this.status = status;
+	}
+
+	public String getOutDate() {
+		return outDate;
+	}
+
+	public void setOutDate(String outDate) {
+		this.outDate = outDate;
+	}
+
+	public String getAccountId() {
+		return accountId;
+	}
+
+	public void setAccountId(String accountId) {
+		this.accountId = accountId;
+	}
+
+	public String getSocialWorkplace() {
+		return socialWorkplace;
+	}
+
+	public void setSocialWorkplace(String socialWorkplace) {
+		this.socialWorkplace = socialWorkplace;
+	}
+
+	public String getAccumulationFundsWorkplace() {
+		return accumulationFundsWorkplace;
+	}
+
+	public void setAccumulationFundsWorkplace(String accumulationFundsWorkplace) {
+		this.accumulationFundsWorkplace = accumulationFundsWorkplace;
+	}
+
+	public String getRemark() {
+		return remark;
+	}
+
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
+	
+	
 }

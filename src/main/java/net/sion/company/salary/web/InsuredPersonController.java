@@ -1,12 +1,16 @@
 package net.sion.company.salary.web;
 
+import java.util.List;
 import java.util.Map;
 
 import net.sion.company.salary.domain.InsuredPerson;
+import net.sion.company.salary.domain.Level;
 import net.sion.company.salary.domain.PersonAccountFile;
 import net.sion.company.salary.domain.PersonAccountItem;
+import net.sion.company.salary.sessionrepository.PersonAccountRepository;
 import net.sion.util.mvc.Response;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,6 +23,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/salary/person/") 
 public class InsuredPersonController {
+	@Autowired
+	private PersonAccountRepository personAccountRepo;
+	
 	/**
 	 * 创建投保人
 	 * 
@@ -27,8 +34,8 @@ public class InsuredPersonController {
 	 */
 	@RequestMapping(value = "create")
 	public Response create(@RequestBody PersonAccountFile person) {
-		// TODO 保存投保人信息
-		return new Response(true);
+		personAccountRepo.save(person);
+		return new Response("操作成功",	true);
 	}
 
 	/**
@@ -38,8 +45,8 @@ public class InsuredPersonController {
 	 * @return
 	 */
 	@RequestMapping(value = "read")
-	public Response read(@RequestParam String id) {
-		return new Response(true);
+	public PersonAccountFile read(@RequestParam String id) {
+		return personAccountRepo.findOne(id);
 	}
 	
 	/**
@@ -61,7 +68,6 @@ public class InsuredPersonController {
 	 */
 	@RequestMapping(value = "update")
 	public Response update(@RequestBody PersonAccountFile person) {
-		// TODO 保存投保人信息
 		return new Response(true);
 	}
 
@@ -73,7 +79,6 @@ public class InsuredPersonController {
 	 */
 	@RequestMapping(value = "loadUninsuredPerson")
 	public Response loadUninsuredPerson(@RequestBody Map<String,String> paramMap) {
-		// TODO 读取未投保人员
 		return new Response(true);
 	}
 	
@@ -84,8 +89,19 @@ public class InsuredPersonController {
 	 */
 	@RequestMapping(value = "loadInsuredPerson")
 	public Response loadInsuredPerson(@RequestBody Map<String,String> paramMap) {
-		// TODO 读取已投保人员
 		return new Response(true);
 	}
 
+	@RequestMapping(value="load")
+	public Response load() {
+		List<PersonAccountFile> personAccountFiles=personAccountRepo.findAll();
+		
+		return new Response("操作成功", personAccountFiles, true);
+	}
+	
+	@RequestMapping(value="remove")
+	public Response remove(@RequestParam String id) {
+		personAccountRepo.delete(id);
+		return new Response("操作成功",	true);
+	}
 }

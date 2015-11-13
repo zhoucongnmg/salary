@@ -29,7 +29,9 @@ Ext.application({
         'DecimalCarryType',
         'SocialAccount',
         'SocialAccountItem',
-        'PaymentType'
+        'PaymentType',
+        'PersonAccount',
+        'InsuredPerson'
     ],
     stores: [
         'SocialItem',
@@ -37,7 +39,8 @@ Ext.application({
         'DecimalCarryType',
         'SocialAccount',
         'SocialAccountItem',
-        'PaymentType'
+        'PaymentType',
+        'PersonAccountStore'
     ],
     views: [
         'PersonAccountGrid',

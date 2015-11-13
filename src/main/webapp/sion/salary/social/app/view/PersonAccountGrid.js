@@ -20,15 +20,16 @@ Ext.define('sion.salary.social.view.PersonAccountGrid', {
         'Ext.toolbar.Toolbar',
         'Ext.form.Panel',
         'Ext.form.field.ComboBox',
-        'Ext.toolbar.Spacer',
         'Ext.form.field.Date',
         'Ext.button.Button',
-        'Ext.grid.View',
-        'Ext.grid.column.Action'
+        'Ext.toolbar.Spacer',
+        'Ext.grid.column.Column',
+        'Ext.grid.View'
     ],
 
     height: 515,
     width: 1006,
+    store: 'PersonAccountStore',
 
     initComponent: function() {
         var me = this;
@@ -38,7 +39,7 @@ Ext.define('sion.salary.social.view.PersonAccountGrid', {
                 {
                     xtype: 'toolbar',
                     dock: 'top',
-                    height: 137,
+                    height: 90,
                     items: [
                         {
                             xtype: 'form',
@@ -49,60 +50,57 @@ Ext.define('sion.salary.social.view.PersonAccountGrid', {
                             items: [
                                 {
                                     xtype: 'combobox',
-                                    columnWidth: 0.15,
-                                    fieldLabel: '关键字',
-                                    labelWidth: 60
-                                },
-                                {
-                                    xtype: 'textfield',
-                                    columnWidth: 0.3,
-                                    margin: '',
-                                    padding: '0 0 0 10'
-                                },
-                                {
-                                    xtype: 'combobox',
-                                    columnWidth: 0.5,
-                                    padding: '0 0 0 100',
+                                    columnWidth: 0.25,
                                     fieldLabel: '社保套账',
                                     labelWidth: 60
                                 },
                                 {
-                                    xtype: 'tbspacer',
-                                    columnWidth: 1,
-                                    height: 20
-                                },
-                                {
-                                    xtype: 'datefield',
+                                    xtype: 'combobox',
                                     columnWidth: 0.2,
-                                    fieldLabel: '参保日期',
-                                    labelWidth: 60
+                                    margin: '0 0 0 10',
+                                    fieldLabel: '社保状态',
+                                    labelWidth: 60,
+                                    store: [
+                                        [
+                                            'In',
+                                            '在保'
+                                        ],
+                                        [
+                                            'Out',
+                                            '退保'
+                                        ]
+                                    ]
                                 },
                                 {
                                     xtype: 'datefield',
-                                    columnWidth: 0.14,
+                                    columnWidth: 0.248,
+                                    margin: '0 0 0 10',
+                                    fieldLabel: '参保日期',
+                                    labelWidth: 60,
+                                    format: 'Y-m-d'
+                                },
+                                {
+                                    xtype: 'datefield',
+                                    columnWidth: 0.18,
+                                    margin: '0 0 0 10',
                                     fieldLabel: ' 至 ',
                                     labelSeparator: ' ',
-                                    labelWidth: 10
-                                },
-                                {
-                                    xtype: 'combobox',
-                                    columnWidth: 0.5,
-                                    padding: '0 0 0 203',
-                                    fieldLabel: '社保状态',
-                                    labelWidth: 60
-                                },
-                                {
-                                    xtype: 'tbspacer',
-                                    columnWidth: 0.07,
-                                    height: 15
+                                    labelWidth: 10,
+                                    format: 'Y-m-d'
                                 },
                                 {
                                     xtype: 'button',
+                                    margin: '0 0 0 10',
                                     text: '查询'
                                 },
                                 {
+                                    xtype: 'button',
+                                    margin: '0 0 0 10',
+                                    text: '重置'
+                                },
+                                {
                                     xtype: 'tbspacer',
-                                    columnWidth: 1.07,
+                                    columnWidth: 1.2,
                                     height: 20
                                 },
                                 {
@@ -123,77 +121,109 @@ Ext.define('sion.salary.social.view.PersonAccountGrid', {
             columns: [
                 {
                     xtype: 'gridcolumn',
-                    dataIndex: 'string',
-                    text: '参保人'
+                    dataIndex: 'personCode',
+                    text: '员工编号'
                 },
                 {
                     xtype: 'gridcolumn',
-                    text: '身份证号'
+                    dataIndex: 'name',
+                    text: '员工姓名'
                 },
                 {
                     xtype: 'gridcolumn',
+                    dataIndex: 'dept',
                     text: '部门'
                 },
                 {
                     xtype: 'gridcolumn',
+                    dataIndex: 'duty',
                     text: '职务'
                 },
                 {
                     xtype: 'gridcolumn',
-                    text: '投保号'
+                    dataIndex: 'idCard',
+                    text: '身份证号'
                 },
                 {
                     xtype: 'gridcolumn',
-                    text: '参保日期'
+                    dataIndex: 'accountId',
+                    text: '薪资方案'
                 },
                 {
                     xtype: 'gridcolumn',
-                    text: '户口性质'
+                    dataIndex: 'level',
+                    text: '薪资层次'
                 },
                 {
                     xtype: 'gridcolumn',
-                    text: '工作地'
+                    dataIndex: 'rank',
+                    text: '薪资级别'
                 },
                 {
                     xtype: 'gridcolumn',
-                    text: '购买状态'
+                    renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
+                        return value.accountId;
+                    },
+                    dataIndex: 'insuredPerson',
+                    text: '社保方案'
                 },
                 {
                     xtype: 'gridcolumn',
-                    text: '社保套账'
+                    renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
+                        if(value.status==="In")
+                        return '在保';
+                        else if(value.status==="Out")
+                        return '退保';
+                    },
+                    dataIndex: 'insuredPerson',
+                    text: '社保状态'
                 },
                 {
                     xtype: 'gridcolumn',
-                    text: '创建人'
+                    renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
+                        return value.socialWorkplace;
+                    },
+                    dataIndex: 'insuredPerson',
+                    text: '社保代付地'
                 },
                 {
                     xtype: 'gridcolumn',
-                    text: '创建日期'
-                },
-                {
-                    xtype: 'actioncolumn',
-                    items: [
-                        {
-                            iconCls: 's_icon_table_edit'
-                        }
-                    ]
-                },
-                {
-                    xtype: 'actioncolumn',
-                    items: [
-                        {
-                            iconCls: 's_icon_action_search'
-                        }
-                    ]
+                    renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
+                        return value.accumulationFundsWorkplace;
+                    },
+                    dataIndex: 'insuredPerson',
+                    text: '公积金代付地'
                 }
-            ]
+            ],
+            listeners: {
+                afterrender: {
+                    fn: me.onGridpanelAfterRender,
+                    scope: me
+                },
+                itemdblclick: {
+                    fn: me.onGridpanelItemDblClick,
+                    scope: me
+                }
+            }
         });
 
         me.callParent(arguments);
     },
 
     onButtonClick: function(button, e, eOpts) {
-        Ext.create('sion.salary.social.view.DocumentForm').show();
+        var me=this,
+            namespace=me.getNamespace();
+        Ext.create(namespace+'.view.PersonAccountForm',{_grid:me}).show();
+    },
+
+    onGridpanelAfterRender: function(component, eOpts) {
+        component.getStore().load();
+    },
+
+    onGridpanelItemDblClick: function(dataview, record, item, index, e, eOpts) {
+        var me=this,
+                    namespace=me.getNamespace();
+                Ext.create(namespace+'.view.PersonAccountForm',{_grid:me,_record:record}).show();
     }
 
 });

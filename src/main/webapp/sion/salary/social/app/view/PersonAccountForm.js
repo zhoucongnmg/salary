@@ -19,12 +19,13 @@ Ext.define('sion.salary.social.view.PersonAccountForm', {
     requires: [
         'Ext.toolbar.Toolbar',
         'Ext.tab.Panel',
+        'Ext.form.Panel',
         'Ext.tab.Tab',
         'Ext.toolbar.Spacer',
         'Ext.grid.Panel',
         'Ext.grid.column.Column',
         'Ext.grid.View',
-        'Ext.form.field.TextArea',
+        'Ext.form.field.Date',
         'Ext.form.field.ComboBox',
         'Ext.form.field.Checkbox'
     ],
@@ -46,7 +47,13 @@ Ext.define('sion.salary.social.view.PersonAccountForm', {
                         {
                             xtype: 'button',
                             iconCls: 's_icon_page_add',
-                            text: '保存信息'
+                            text: '保存信息',
+                            listeners: {
+                                click: {
+                                    fn: me.onSaveClick,
+                                    scope: me
+                                }
+                            }
                         }
                     ]
                 }
@@ -58,7 +65,8 @@ Ext.define('sion.salary.social.view.PersonAccountForm', {
                     activeTab: 0,
                     items: [
                         {
-                            xtype: 'panel',
+                            xtype: 'form',
+                            itemId: 'salaryForm',
                             layout: 'column',
                             bodyPadding: 10,
                             title: '基本信息',
@@ -67,7 +75,8 @@ Ext.define('sion.salary.social.view.PersonAccountForm', {
                                     xtype: 'textfield',
                                     columnWidth: 0.45,
                                     fieldLabel: '员工编号',
-                                    labelWidth: 80
+                                    labelWidth: 80,
+                                    name: 'personCode'
                                 },
                                 {
                                     xtype: 'tbspacer',
@@ -78,7 +87,8 @@ Ext.define('sion.salary.social.view.PersonAccountForm', {
                                     xtype: 'textfield',
                                     columnWidth: 0.45,
                                     fieldLabel: '姓名',
-                                    labelWidth: 80
+                                    labelWidth: 80,
+                                    name: 'name'
                                 },
                                 {
                                     xtype: 'tbspacer',
@@ -89,7 +99,8 @@ Ext.define('sion.salary.social.view.PersonAccountForm', {
                                     xtype: 'textfield',
                                     columnWidth: 0.45,
                                     fieldLabel: '部门',
-                                    labelWidth: 80
+                                    labelWidth: 80,
+                                    name: 'dept'
                                 },
                                 {
                                     xtype: 'tbspacer',
@@ -100,7 +111,8 @@ Ext.define('sion.salary.social.view.PersonAccountForm', {
                                     xtype: 'textfield',
                                     columnWidth: 0.45,
                                     fieldLabel: '职务',
-                                    labelWidth: 80
+                                    labelWidth: 80,
+                                    name: 'duty'
                                 },
                                 {
                                     xtype: 'tbspacer',
@@ -111,7 +123,8 @@ Ext.define('sion.salary.social.view.PersonAccountForm', {
                                     xtype: 'textfield',
                                     columnWidth: 0.45,
                                     fieldLabel: '身份证号',
-                                    labelWidth: 80
+                                    labelWidth: 80,
+                                    name: 'idCard'
                                 },
                                 {
                                     xtype: 'tbspacer',
@@ -122,7 +135,8 @@ Ext.define('sion.salary.social.view.PersonAccountForm', {
                                     xtype: 'textfield',
                                     columnWidth: 0.45,
                                     fieldLabel: '工资卡号',
-                                    labelWidth: 80
+                                    labelWidth: 80,
+                                    name: 'bankAccount'
                                 },
                                 {
                                     xtype: 'tbspacer',
@@ -133,7 +147,8 @@ Ext.define('sion.salary.social.view.PersonAccountForm', {
                                     xtype: 'textfield',
                                     columnWidth: 0.45,
                                     fieldLabel: '银行',
-                                    labelWidth: 80
+                                    labelWidth: 80,
+                                    name: 'bank'
                                 },
                                 {
                                     xtype: 'tbspacer',
@@ -144,7 +159,8 @@ Ext.define('sion.salary.social.view.PersonAccountForm', {
                                     xtype: 'textfield',
                                     columnWidth: 0.45,
                                     fieldLabel: '开户网点',
-                                    labelWidth: 80
+                                    labelWidth: 80,
+                                    name: 'bankOfDeposit'
                                 },
                                 {
                                     xtype: 'tbspacer',
@@ -155,7 +171,8 @@ Ext.define('sion.salary.social.view.PersonAccountForm', {
                                     xtype: 'textfield',
                                     columnWidth: 0.45,
                                     fieldLabel: '薪资方案',
-                                    labelWidth: 80
+                                    labelWidth: 80,
+                                    name: 'accountId'
                                 },
                                 {
                                     xtype: 'tbspacer',
@@ -166,7 +183,8 @@ Ext.define('sion.salary.social.view.PersonAccountForm', {
                                     xtype: 'textfield',
                                     columnWidth: 0.45,
                                     fieldLabel: '薪资层次',
-                                    labelWidth: 80
+                                    labelWidth: 80,
+                                    name: 'level'
                                 },
                                 {
                                     xtype: 'tbspacer',
@@ -177,7 +195,8 @@ Ext.define('sion.salary.social.view.PersonAccountForm', {
                                     xtype: 'textfield',
                                     columnWidth: 0.45,
                                     fieldLabel: '薪资级别',
-                                    labelWidth: 80
+                                    labelWidth: 80,
+                                    name: 'rank'
                                 },
                                 {
                                     xtype: 'tbspacer',
@@ -185,29 +204,12 @@ Ext.define('sion.salary.social.view.PersonAccountForm', {
                                     height: 20
                                 },
                                 {
-                                    xtype: 'gridpanel',
+                                    xtype: 'textfield',
                                     columnWidth: 1,
-                                    header: false,
-                                    title: 'My Grid Panel',
-                                    columns: [
-                                        {
-                                            xtype: 'gridcolumn',
-                                            dataIndex: 'string',
-                                            text: '基本工资'
-                                        },
-                                        {
-                                            xtype: 'gridcolumn',
-                                            text: '绩效工资'
-                                        },
-                                        {
-                                            xtype: 'gridcolumn',
-                                            text: '动态列'
-                                        },
-                                        {
-                                            xtype: 'gridcolumn',
-                                            text: '动态列'
-                                        }
-                                    ]
+                                    margin: '10 0 0 0',
+                                    fieldLabel: '备注',
+                                    labelWidth: 80,
+                                    name: 'note'
                                 },
                                 {
                                     xtype: 'tbspacer',
@@ -216,11 +218,24 @@ Ext.define('sion.salary.social.view.PersonAccountForm', {
                                     width: 100
                                 },
                                 {
-                                    xtype: 'textareafield',
+                                    xtype: 'gridpanel',
                                     columnWidth: 1,
-                                    margin: '10 0 0 0',
-                                    fieldLabel: '备注',
-                                    labelWidth: 80
+                                    itemId: 'SalaryItemGrid',
+                                    header: false,
+                                    title: 'My Grid Panel',
+                                    columns: [
+                                        {
+                                            xtype: 'gridcolumn',
+                                            width: '40%',
+                                            dataIndex: 'string',
+                                            text: '工资项目'
+                                        },
+                                        {
+                                            xtype: 'gridcolumn',
+                                            width: '58%',
+                                            text: '值'
+                                        }
+                                    ]
                                 },
                                 {
                                     xtype: 'tbspacer',
@@ -230,7 +245,8 @@ Ext.define('sion.salary.social.view.PersonAccountForm', {
                             ]
                         },
                         {
-                            xtype: 'panel',
+                            xtype: 'form',
+                            itemId: 'socialForm',
                             layout: 'column',
                             bodyPadding: 10,
                             title: '社保信息',
@@ -239,7 +255,8 @@ Ext.define('sion.salary.social.view.PersonAccountForm', {
                                     xtype: 'textfield',
                                     columnWidth: 0.45,
                                     fieldLabel: '社保号',
-                                    labelWidth: 80
+                                    labelWidth: 80,
+                                    name: 'insuredNo'
                                 },
                                 {
                                     xtype: 'tbspacer',
@@ -247,10 +264,13 @@ Ext.define('sion.salary.social.view.PersonAccountForm', {
                                     height: 20
                                 },
                                 {
-                                    xtype: 'textfield',
+                                    xtype: 'datefield',
                                     columnWidth: 0.45,
                                     fieldLabel: '参保日期',
-                                    labelWidth: 80
+                                    labelWidth: 80,
+                                    name: 'insuredDate',
+                                    editable: false,
+                                    format: 'Y-m-d'
                                 },
                                 {
                                     xtype: 'tbspacer',
@@ -261,7 +281,8 @@ Ext.define('sion.salary.social.view.PersonAccountForm', {
                                     xtype: 'textfield',
                                     columnWidth: 0.45,
                                     fieldLabel: '工作地',
-                                    labelWidth: 80
+                                    labelWidth: 80,
+                                    name: 'workplace'
                                 },
                                 {
                                     xtype: 'tbspacer',
@@ -272,7 +293,19 @@ Ext.define('sion.salary.social.view.PersonAccountForm', {
                                     xtype: 'combobox',
                                     columnWidth: 0.45,
                                     fieldLabel: '参保状态',
-                                    labelWidth: 80
+                                    labelWidth: 80,
+                                    name: 'status',
+                                    editable: false,
+                                    store: [
+                                        [
+                                            'In',
+                                            '在保'
+                                        ],
+                                        [
+                                            'Out',
+                                            '退保'
+                                        ]
+                                    ]
                                 },
                                 {
                                     xtype: 'tbspacer',
@@ -280,10 +313,13 @@ Ext.define('sion.salary.social.view.PersonAccountForm', {
                                     height: 20
                                 },
                                 {
-                                    xtype: 'textfield',
+                                    xtype: 'datefield',
                                     columnWidth: 0.45,
                                     fieldLabel: '退保日期',
-                                    labelWidth: 80
+                                    labelWidth: 80,
+                                    name: 'outDate',
+                                    editable: false,
+                                    format: 'Y-m-d'
                                 },
                                 {
                                     xtype: 'tbspacer',
@@ -294,7 +330,8 @@ Ext.define('sion.salary.social.view.PersonAccountForm', {
                                     xtype: 'combobox',
                                     columnWidth: 0.45,
                                     fieldLabel: '社保方案',
-                                    labelWidth: 80
+                                    labelWidth: 80,
+                                    name: 'accountId'
                                 },
                                 {
                                     xtype: 'tbspacer',
@@ -376,7 +413,8 @@ Ext.define('sion.salary.social.view.PersonAccountForm', {
                                 {
                                     xtype: 'textfield',
                                     columnWidth: 0.295,
-                                    padding: '0 0 0 10'
+                                    padding: '0 0 0 10',
+                                    name: 'socialWorkplace'
                                 },
                                 {
                                     xtype: 'tbspacer',
@@ -392,7 +430,8 @@ Ext.define('sion.salary.social.view.PersonAccountForm', {
                                 {
                                     xtype: 'textfield',
                                     columnWidth: 0.295,
-                                    padding: '0 0 0 10'
+                                    padding: '0 0 0 10',
+                                    name: 'accumulationFundsWorkplace'
                                 },
                                 {
                                     xtype: 'tbspacer',
@@ -403,10 +442,73 @@ Ext.define('sion.salary.social.view.PersonAccountForm', {
                         }
                     ]
                 }
-            ]
+            ],
+            listeners: {
+                afterrender: {
+                    fn: me.onWindowAfterRender,
+                    scope: me
+                }
+            }
         });
 
         me.callParent(arguments);
+    },
+
+    onSaveClick: function(button, e, eOpts) {
+        var me =this,
+            namespace=me.getNamespace(),
+            salaryForm=me.down('#salaryForm'),
+            socialForm=me.down('#socialForm'),
+            accountItems=[],
+            insuredPerson,
+            model;
+
+        if(me._record){
+            model=Ext.create(namespace+".model.PersonAccount",salaryForm.getValues());
+            model.set('id',me._record.data.id);
+        }
+        else{
+            model=Ext.create(namespace+".model.PersonAccount",salaryForm.getValues());
+        }
+
+        model.set("accountItems",accountItems);
+        insuredPerson=Ext.create(namespace+".model.InsuredPerson",socialForm.getValues());
+        model.set('insuredPerson',insuredPerson.data);
+        button.disabled=true;
+        Ext.Ajax.request({
+            url: 'salary/person/create',
+            method:'POST',
+            jsonData: model.data,
+            success:function(response){
+                var res=Ext.JSON.decode(response.responseText);
+                Ext.Msg.alert("提示",res.message);
+                if(res.success==false)
+                {
+                    return;
+                }
+                if(me._grid){
+                    me._grid.getStore().reload();
+                }
+                button.disabled=false;
+                me.close();
+            },
+            failure:function(form,action){
+                Ext.Msg.alert("提示","保存信息失败!");
+                button.disabled=false;
+            }
+        });
+    },
+
+    onWindowAfterRender: function(component, eOpts) {
+        var me=this,
+            salaryForm=me.down('#salaryForm'),
+            socialForm=me.down('#socialForm');
+
+        if(me._record){
+            salaryForm.getForm().setValues(me._record.data);
+            socialForm.getForm().setValues(me._record.data.insuredPerson);
+        }
+
     }
 
 });
