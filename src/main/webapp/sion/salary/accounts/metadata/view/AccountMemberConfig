@@ -1,0 +1,268 @@
+{
+    "type": "Ext.window.Window",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "container|align": "stretch",
+        "designer|userClassName": "AccountMemberConfig",
+        "height": null,
+        "layout": "vbox",
+        "title": "员工薪资设置",
+        "width": 600
+    },
+    "name": "MyWindow",
+    "designerId": "43830b0a-bc74-455c-9ec0-ce0ddac9fd8d",
+    "cn": [
+        {
+            "type": "Ext.toolbar.Toolbar",
+            "reference": {
+                "name": "dockedItems",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "dock": "top"
+            },
+            "name": "MyToolbar2",
+            "designerId": "b6c4781b-3f3a-49b7-987e-a58425dcb3a7",
+            "cn": [
+                {
+                    "type": "Ext.button.Button",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|flex": null,
+                        "text": "保存",
+                        "width": 70
+                    },
+                    "name": "MyButton3",
+                    "designerId": "88db2ccf-0e4c-437e-b32f-c4a7b391e25f"
+                }
+            ]
+        },
+        {
+            "type": "Ext.form.Panel",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "bodyPadding": 10,
+                "container|align": "stretch",
+                "header": false,
+                "layout": "vbox",
+                "layout|flex": 1,
+                "title": null
+            },
+            "name": "MyForm3",
+            "designerId": "29a6baa8-bad5-431d-832a-1977588080af",
+            "cn": [
+                {
+                    "type": "Ext.form.field.Text",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fieldLabel": "薪资方案",
+                        "itemId": "accountName",
+                        "name": "accountName",
+                        "readOnly": true,
+                        "value": null
+                    },
+                    "name": "MyTextField6",
+                    "designerId": "395a1f01-c4e0-497e-ab63-f3705f0bc728"
+                },
+                {
+                    "type": "Ext.form.field.Text",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fieldLabel": "姓名",
+                        "itemId": "userName",
+                        "name": "userName",
+                        "readOnly": true,
+                        "value": null
+                    },
+                    "name": "MyTextField",
+                    "designerId": "9d1e5fbc-84c7-4b7f-bff9-8da3d6c9f5ed"
+                },
+                {
+                    "type": "Ext.form.FieldSet",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|flex": 1,
+                        "title": "薪资设置"
+                    },
+                    "name": "MyFieldSet",
+                    "designerId": "2d9c4af1-14d9-4a21-9ace-f7aa8e13d97d",
+                    "cn": [
+                        {
+                            "type": "Ext.grid.Panel",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "store": "SalaryItem",
+                                "title": null
+                            },
+                            "name": "MyGridPanel4",
+                            "designerId": "d263f46b-c5f3-443c-bd25-951f1ec79fff",
+                            "cn": [
+                                {
+                                    "type": "Ext.grid.column.Column",
+                                    "reference": {
+                                        "name": "columns",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "dataIndex": "name",
+                                        "flex": 1,
+                                        "text": "方案"
+                                    },
+                                    "name": "MyColumn15",
+                                    "designerId": "ea347be0-54cc-4797-94fd-84fa63826746"
+                                },
+                                {
+                                    "type": "Ext.grid.column.Number",
+                                    "reference": {
+                                        "name": "columns",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "dataIndex": "money",
+                                        "flex": 1,
+                                        "text": "金额"
+                                    },
+                                    "name": "MyNumberColumn",
+                                    "designerId": "e14cd41d-29f4-43e5-8b55-dcadf13467f1",
+                                    "cn": [
+                                        {
+                                            "type": "Ext.form.field.Number",
+                                            "reference": {
+                                                "name": "editor",
+                                                "type": "object"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "minValue": 0
+                                            },
+                                            "name": "MyNumberField1",
+                                            "designerId": "257a8458-322b-403c-83d5-e439d49e15cc"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "Ext.grid.View",
+                                    "reference": {
+                                        "name": "viewConfig",
+                                        "type": "object"
+                                    },
+                                    "codeClass": null,
+                                    "name": "MyGridView5",
+                                    "designerId": "640eeb32-5847-4d34-a890-e16603df6fd5"
+                                },
+                                {
+                                    "type": "basiceventbinding",
+                                    "reference": {
+                                        "name": "listeners",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fn": "onGridpanelBeforeRender",
+                                        "implHandler": [
+                                            "var me = this,",
+                                            "    store = component.getStore();",
+                                            "",
+                                            "store.clearFilter(true);",
+                                            "Ext.apply(store.proxy.extraParams, {",
+                                            "    system : 'false'",
+                                            "});",
+                                            "store.load();"
+                                        ],
+                                        "name": "beforerender",
+                                        "scope": "me"
+                                    },
+                                    "name": "onGridpanelBeforeRender",
+                                    "designerId": "1331676b-f8b0-46d7-9eb5-49bebfc7f3e9"
+                                },
+                                {
+                                    "type": "Ext.grid.plugin.RowEditing",
+                                    "reference": {
+                                        "name": "plugins",
+                                        "type": "array"
+                                    },
+                                    "codeClass": "Ext.grid.plugin.RowEditing",
+                                    "userConfig": {
+                                        "cancelBtnText": "取消",
+                                        "clicksToMoveEditor": 1,
+                                        "saveBtnText": "保存"
+                                    },
+                                    "name": "MyRowEditingPlugin",
+                                    "designerId": "df9d41ab-1ef8-4c3b-950c-a84256b5edd2",
+                                    "customConfigs": [
+                                        {
+                                            "group": "(Custom Properties)",
+                                            "name": "saveBtnText",
+                                            "type": "string"
+                                        },
+                                        {
+                                            "group": "(Custom Properties)",
+                                            "name": "cancelBtnText",
+                                            "type": "string"
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "type": "basiceventbinding",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "onWindowBeforeRender",
+                "implHandler": [
+                    "var me = this,",
+                    "    account = me._account,",
+                    "    member = me._member;",
+                    "",
+                    "me.down('#userName').setValue(member.get('name'));",
+                    "me.down('#accountName').setValue(account.get('name'));",
+                    "",
+                    ""
+                ],
+                "name": "beforerender",
+                "scope": "me"
+            },
+            "name": "onWindowBeforeRender",
+            "designerId": "3491f476-0c6b-4f39-8c5a-24f21d8be977"
+        }
+    ]
+}
