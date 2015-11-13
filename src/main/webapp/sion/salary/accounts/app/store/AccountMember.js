@@ -26,119 +26,23 @@ Ext.define('sion.salary.accounts.store.AccountMember', {
         var me = this;
         cfg = cfg || {};
         me.callParent([Ext.apply({
+            autoLoad: false,
             model: 'sion.salary.accounts.model.AccountMember',
+            remoteFilter: true,
+            remoteSort: true,
             storeId: 'AccountMember',
-            data: [
-                {
-                    employeeCode: 'placeat',
-                    employeeName: 'corporis',
-                    roleStatus: 'consequatur',
-                    type: 'ut',
-                    config: 'dolorem'
-                },
-                {
-                    employeeCode: 'aliquid',
-                    employeeName: 'qui',
-                    roleStatus: 'id',
-                    type: 'aut',
-                    config: 'exercitationem'
-                },
-                {
-                    employeeCode: 'sed',
-                    employeeName: 'quasi',
-                    roleStatus: 'qui',
-                    type: 'qui',
-                    config: 'vitae'
-                },
-                {
-                    employeeCode: 'et',
-                    employeeName: 'doloremque',
-                    roleStatus: 'atque',
-                    type: 'aspernatur',
-                    config: 'nisi'
-                },
-                {
-                    employeeCode: 'provident',
-                    employeeName: 'mollitia',
-                    roleStatus: 'rerum',
-                    type: 'magnam',
-                    config: 'est'
-                },
-                {
-                    employeeCode: 'aliquam',
-                    employeeName: 'et',
-                    roleStatus: 'autem',
-                    type: 'laudantium',
-                    config: 'suscipit'
-                },
-                {
-                    employeeCode: 'repellendus',
-                    employeeName: 'quae',
-                    roleStatus: 'sequi',
-                    type: 'distinctio',
-                    config: 'minus'
-                },
-                {
-                    employeeCode: 'aut',
-                    employeeName: 'sit',
-                    roleStatus: 'ut',
-                    type: 'nam',
-                    config: 'aut'
-                },
-                {
-                    employeeCode: 'eum',
-                    employeeName: 'maiores',
-                    roleStatus: 'quo',
-                    type: 'qui',
-                    config: 'dolor'
-                },
-                {
-                    employeeCode: 'quod',
-                    employeeName: 'omnis',
-                    roleStatus: 'voluptatem',
-                    type: 'culpa',
-                    config: 'est'
-                },
-                {
-                    employeeCode: 'non',
-                    employeeName: 'distinctio',
-                    roleStatus: 'totam',
-                    type: 'quo',
-                    config: 'ullam'
-                },
-                {
-                    employeeCode: 'tempore',
-                    employeeName: 'soluta',
-                    roleStatus: 'sit',
-                    type: 'quia',
-                    config: 'omnis'
-                },
-                {
-                    employeeCode: 'velit',
-                    employeeName: 'qui',
-                    roleStatus: 'optio',
-                    type: 'et',
-                    config: 'est'
-                },
-                {
-                    employeeCode: 'praesentium',
-                    employeeName: 'ea',
-                    roleStatus: 'aut',
-                    type: 'reiciendis',
-                    config: 'et'
-                },
-                {
-                    employeeCode: 'vero',
-                    employeeName: 'quod',
-                    roleStatus: 'magni',
-                    type: 'quasi',
-                    config: 'quo'
-                }
-            ],
+            pageSize: 10,
             proxy: {
                 type: 'ajax',
+                api: {
+                    create: 'salary/account/findAccountPerson',
+                    read: 'salary/account/findAccountPerson',
+                    update: 'salary/account/findAccountPerson',
+                    destroy: 'salary/account/findAccountPerson'
+                },
                 reader: {
-                    type: 'json'
+                    type: 'json',
+                    root: 'data'
                 }
             }
         }, cfg)]);

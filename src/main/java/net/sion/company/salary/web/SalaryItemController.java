@@ -12,6 +12,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+import net.sion.boot.mongo.template.SessionMongoTemplate;
 import net.sion.company.salary.domain.SalaryItem;
 import net.sion.company.salary.domain.SalaryItemSystem;
 import net.sion.company.salary.sessionrepository.SalaryItemRepository;
@@ -19,6 +20,8 @@ import net.sion.util.mvc.Response;
 
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,6 +36,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("/salary/salaryitem/") 
 public class SalaryItemController {
 	@Autowired SalaryItemRepository salaryItemRepository;
+	@Autowired SessionMongoTemplate mongoTemplate; 
 	
 	private List<SalaryItem> getSalaryItemSystem(){
 		List<SalaryItem> list = new ArrayList();
@@ -51,11 +55,6 @@ public class SalaryItemController {
 		return new Response(true);
 	}
 	
-	@RequestMapping(value="read")
-	public Response read(@RequestParam String id) {
-		return new Response(true);
-	}
-	
 	@RequestMapping(value = "update")
 	public @ResponseBody  Response update(@RequestBody SalaryItem salaryItem) {
 		salaryItemRepository.save(salaryItem);
@@ -69,9 +68,16 @@ public class SalaryItemController {
 	}
 	
 	@RequestMapping(value="load")
-	public @ResponseBody Response load() {
-		List<SalaryItem> list = salaryItemRepository.findAll();
-		list.addAll(getSalaryItemSystem());
+	public @ResponseBody Response load(@RequestParam String system) {
+		List<SalaryItem> list = new ArrayList();
+		Query query = new Query();
+		if("false".equals(system)){
+			query.addCriteria(Criteria.where("system").is(false));
+			list = mongoTemplate.find(query, SalaryItem.class);
+		}else{
+			list = salaryItemRepository.findAll();
+			list.addAll(getSalaryItemSystem());
+		}
 		return new Response(list);
 	}
 }

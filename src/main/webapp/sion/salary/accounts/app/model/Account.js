@@ -25,13 +25,26 @@ Ext.define('sion.salary.accounts.model.Account', {
             name: 'name'
         },
         {
-            name: 'enableLevel'
+            name: 'enableLevel',
+            type: 'boolean'
         },
         {
             name: 'accountItems'
         },
         {
             name: 'persons'
+        },
+        {
+            name: 'id'
+        },
+        {
+            name: 'date'
+        },
+        {
+            name: 'createUserName'
+        },
+        {
+            name: 'remark'
         }
     ]
 });

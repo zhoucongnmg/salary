@@ -51,6 +51,10 @@ Ext.define('sion.salary.accounts.model.SalaryItem', {
         {
             name: 'show',
             type: 'boolean'
+        },
+        {
+            name: 'money',
+            type: 'float'
         }
     ]
 });

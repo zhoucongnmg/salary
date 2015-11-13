@@ -28,12 +28,13 @@ Ext.application({
         'TaxItem'
     ],
     stores: [
-        'TaxStore',
-        'TaxItemStore'
+        'Tax',
+        'TaxItem'
     ],
     views: [
         'TaxGrid',
-        'Tax_win'
+        'Tax',
+        'TaxItem'
     ],
     name: 'sion.salary.tax',
 

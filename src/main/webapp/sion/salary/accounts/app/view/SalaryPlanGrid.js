@@ -38,7 +38,9 @@ Ext.define('sion.salary.accounts.view.SalaryPlanGrid', {
                     items: [
                         {
                             xtype: 'button',
-                            text: '新建方案',
+                            style: 'background:#3ca9fc;',
+                            width: 70,
+                            text: '<font color=\'#fff\'>新建方案</font>',
                             listeners: {
                                 click: {
                                     fn: me.onNewAccountClick,
@@ -52,7 +54,8 @@ Ext.define('sion.salary.accounts.view.SalaryPlanGrid', {
                     xtype: 'pagingtoolbar',
                     dock: 'bottom',
                     width: 360,
-                    displayInfo: true
+                    displayInfo: true,
+                    store: 'Account'
                 }
             ],
             items: [
@@ -64,24 +67,44 @@ Ext.define('sion.salary.accounts.view.SalaryPlanGrid', {
                     columns: [
                         {
                             xtype: 'gridcolumn',
-                            width: '70%',
                             dataIndex: 'name',
-                            text: '方案名称'
+                            text: '方案名称',
+                            flex: 5
                         },
                         {
                             xtype: 'booleancolumn',
-                            width: '10%',
                             dataIndex: 'enableLevel',
-                            text: '启用薪资体系'
+                            text: '启用薪资体系',
+                            flex: 2,
+                            falseText: '×',
+                            trueText: '√'
+                        },
+                        {
+                            xtype: 'gridcolumn',
+                            dataIndex: 'createUserName',
+                            text: '创建人',
+                            flex: 2
+                        },
+                        {
+                            xtype: 'gridcolumn',
+                            dataIndex: 'date',
+                            text: '创建时间'
                         },
                         {
                             xtype: 'actioncolumn',
-                            hidden: true,
-                            width: 35,
+                            hideable: false,
+                            text: '方案成员',
+                            flex: 1,
                             items: [
                                 {
                                     handler: function(view, rowIndex, colIndex, item, e, record, row) {
-                                        Ext.create("sion.salary.accounts.view.AccountMember_win").show();
+                                        var me = this.up('gridpanel').up(),
+                                            namespace = me.getNamespace();
+
+                                        var salaryPlan =  Ext.create(namespace + '.view.AccountMember',{
+                                            _account : record
+                                        });
+                                        salaryPlan.show();
                                     },
                                     iconCls: 's_icon_org_gear',
                                     tooltip: '方案成员'
@@ -90,11 +113,13 @@ Ext.define('sion.salary.accounts.view.SalaryPlanGrid', {
                         },
                         {
                             xtype: 'actioncolumn',
-                            width: 35,
+                            hideable: false,
+                            text: '修改',
+                            flex: 1,
                             items: [
                                 {
                                     handler: function(view, rowIndex, colIndex, item, e, record, row) {
-                                        Ext.create("sion.salary.accounts.view.SalaryPlan_win").show();
+                                        this.up('gridpanel').up().detail(record);
                                     },
                                     iconCls: 's_icon_page_edit',
                                     tooltip: '修改'
@@ -103,18 +128,56 @@ Ext.define('sion.salary.accounts.view.SalaryPlanGrid', {
                         },
                         {
                             xtype: 'actioncolumn',
-                            width: 35,
+                            hideable: false,
+                            text: '删除',
+                            flex: 1,
                             items: [
                                 {
                                     handler: function(view, rowIndex, colIndex, item, e, record, row) {
+                                        var store = Ext.StoreManager.lookup("Account");
 
+                                        Ext.Msg.confirm('提示', '确定要删除吗？', function(text){
+                                            if (text == 'yes'){
+                                                Ext.Ajax.request({
+                                                    url :'salary/account/remove',//请求的服务器地址
+                                                    params : {
+                                                        id : record.get('id')
+                                                    },//发送json对象
+                                                    success:function(response,action){
+                                                        store.load();
+                                                        Ext.Msg.alert("提示", "删除成功");
+                                                        //                 var result = Ext.JSON.decode(response.responseText);
+                                                        //                 if (result.success) {
+                                                        //                     store.load();
+                                                        //                     //                 me.resetGridSelect(record);
+                                                        //                     Ext.Msg.alert("提示", "删除成功");
+                                                        //                 }else{
+                                                        //                     Ext.Msg.alert("提示", "社保套帐中使用了该项目，不能删除！");
+                                                        //                 }
+                                                    },failure: function(){
+                                                        store.load();
+                                                        Ext.Msg.alert("提示", "删除失败");
+                                                    }
+                                                });
+                                            }
+                                        });
                                     },
                                     iconCls: 's_icon_cross',
                                     tooltip: '删除'
                                 }
                             ]
                         }
-                    ]
+                    ],
+                    listeners: {
+                        itemdblclick: {
+                            fn: me.onGridpanelItemDblClick,
+                            scope: me
+                        },
+                        render: {
+                            fn: me.onGridpanelRender,
+                            scope: me
+                        }
+                    }
                 }
             ]
         });
@@ -123,9 +186,32 @@ Ext.define('sion.salary.accounts.view.SalaryPlanGrid', {
     },
 
     onNewAccountClick: function(button, e, eOpts) {
-        var me =this,
-            namespace=me.getNamespace();
-        Ext.create(namespace+".view.SalaryPlan_win").show();
+        var me = this,
+            namespace = me.getNamespace();
+
+        Ext.create(namespace+".view.SalaryPlan").show();
+    },
+
+    onGridpanelItemDblClick: function(dataview, record, item, index, e, eOpts) {
+        this.detail(record);
+    },
+
+    onGridpanelRender: function(component, eOpts) {
+        var store = component.getStore();
+
+        store.clearFilter(true);
+        store.load();
+    },
+
+    detail: function(record) {
+        var me = this,
+            namespace = me.getNamespace();
+
+        var salaryPlan =  Ext.create(namespace + '.view.SalaryPlan',{
+            _account : record
+        });
+        salaryPlan.show();
+        // me.resetGridSelect(record);
     }
 
 });

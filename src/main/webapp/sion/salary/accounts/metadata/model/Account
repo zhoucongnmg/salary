@@ -32,7 +32,8 @@
             },
             "codeClass": null,
             "userConfig": {
-                "name": "enableLevel"
+                "name": "enableLevel",
+                "type": "boolean"
             },
             "name": "MyField1",
             "designerId": "250f5bbc-1ca7-4df0-b6bc-3009ea765f91"
@@ -62,6 +63,58 @@
             },
             "name": "MyField3",
             "designerId": "5b3cd6f2-9546-4585-ab44-81177e58a960"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "id"
+            },
+            "name": "MyField17",
+            "designerId": "ff90a1f5-9e56-44cf-8550-3283ec19e4f3"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "date"
+            },
+            "name": "MyField19",
+            "designerId": "e70d7ae4-ebde-4d41-ba5e-b9c7beef7169"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "createUserName"
+            },
+            "name": "MyField18",
+            "designerId": "5cc9f728-8dc1-435d-8870-f8b1deb80976"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "remark"
+            },
+            "name": "MyField28",
+            "designerId": "d7682dcb-f6ab-4025-b61d-d415df17dc72"
         }
     ]
 }

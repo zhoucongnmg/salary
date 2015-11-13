@@ -22,16 +22,23 @@ Ext.define('sion.salary.tax.model.TaxItem', {
 
     fields: [
         {
-            name: 'start'
+            name: 'start',
+            type: 'float'
         },
         {
-            name: 'end'
+            name: 'end',
+            type: 'float'
         },
         {
-            name: 'rate'
+            name: 'rate',
+            type: 'float'
         },
         {
-            name: 'fastNumber'
+            name: 'fastNumber',
+            type: 'float'
+        },
+        {
+            name: 'id'
         }
     ]
 });

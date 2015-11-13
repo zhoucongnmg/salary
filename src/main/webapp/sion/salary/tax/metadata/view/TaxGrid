@@ -38,7 +38,11 @@
                     "codeClass": null,
                     "userConfig": {
                         "layout|flex": null,
-                        "text": "新建"
+                        "style": [
+                            "background:#3ca9fc;"
+                        ],
+                        "text": "<font color='#fff'>新建</font>",
+                        "width": 70
                     },
                     "name": "MyButton",
                     "designerId": "0521b18f-8bd4-4de1-a15f-477b6708bbc3",
@@ -55,7 +59,7 @@
                                 "implHandler": [
                                     "var me=this,",
                                     "    namespace=me.getNamespace();",
-                                    "Ext.create(namespace+\".view.Tax_win\").show();"
+                                    "Ext.create(namespace+\".view.Tax\").show();"
                                 ],
                                 "name": "click",
                                 "scope": "me"
@@ -76,8 +80,8 @@
             "codeClass": null,
             "userConfig": {
                 "header": false,
-                "store": "TaxStore",
-                "title": "Tax "
+                "store": "Tax",
+                "title": null
             },
             "name": "MyGridPanel",
             "designerId": "3d2bf1a2-8d29-40a1-8b33-e30fafafde09",
@@ -91,14 +95,15 @@
                     "codeClass": null,
                     "userConfig": {
                         "dataIndex": "name",
+                        "flex": 2,
                         "text": "名称",
-                        "width": "40%"
+                        "width": null
                     },
                     "name": "MyColumn",
                     "designerId": "a00f4a53-b58e-41b4-9160-e191d98a4851"
                 },
                 {
-                    "type": "Ext.grid.column.Number",
+                    "type": "Ext.grid.column.Column",
                     "reference": {
                         "name": "columns",
                         "type": "array"
@@ -106,10 +111,11 @@
                     "codeClass": null,
                     "userConfig": {
                         "dataIndex": "threshold",
+                        "flex": 2,
                         "text": "个税起征点",
-                        "width": "40%"
+                        "width": null
                     },
-                    "name": "MyNumberColumn",
+                    "name": "MyColumn1",
                     "designerId": "5d566d1c-9909-4217-b7e8-9594e3060f5a"
                 },
                 {
@@ -120,7 +126,11 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "width": 35
+                        "flex": 0.5,
+                        "hideable": false,
+                        "text": "修改",
+                        "tooltip": "修改",
+                        "width": null
                     },
                     "name": "MyActionColumn",
                     "designerId": "043e16df-355d-4e17-8db5-2f166b687a3e",
@@ -134,11 +144,38 @@
                             "codeClass": null,
                             "userConfig": {
                                 "designer|displayName": "modify",
-                                "iconCls": "s_icon_page_edit",
-                                "tooltip": "编辑"
+                                "iconCls": "s_icon_table_edit",
+                                "tooltip": "修改"
                             },
                             "name": "MyActionColumnItem",
-                            "designerId": "d7754dd9-4c29-4261-b406-6513cd711c80"
+                            "designerId": "d7754dd9-4c29-4261-b406-6513cd711c80",
+                            "cn": [
+                                {
+                                    "type": "fixedfunction",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "designer|params": [
+                                            "view",
+                                            "rowIndex",
+                                            "colIndex",
+                                            "item",
+                                            "e",
+                                            "record",
+                                            "row"
+                                        ],
+                                        "fn": "handler",
+                                        "implHandler": [
+                                            "this.up('gridpanel').up().detail(record);"
+                                        ]
+                                    },
+                                    "name": "handler",
+                                    "designerId": "a8a05122-fed2-4723-9e26-c74372467a3a"
+                                }
+                            ]
                         }
                     ]
                 },
@@ -150,7 +187,12 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "width": 35
+                        "flex": 0.5,
+                        "hideable": false,
+                        "iconCls": null,
+                        "text": "删除",
+                        "tooltip": "删除",
+                        "width": null
                     },
                     "name": "MyActionColumn2",
                     "designerId": "9aab6b12-ec67-4411-824f-1b66d608013c",
@@ -168,7 +210,54 @@
                                 "tooltip": "删除"
                             },
                             "name": "MyActionColumnItem1",
-                            "designerId": "48c3bd7b-45e2-41af-a443-c29e9f0f35b6"
+                            "designerId": "48c3bd7b-45e2-41af-a443-c29e9f0f35b6",
+                            "cn": [
+                                {
+                                    "type": "fixedfunction",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "designer|params": [
+                                            "view",
+                                            "rowIndex",
+                                            "colIndex",
+                                            "item",
+                                            "e",
+                                            "record",
+                                            "row"
+                                        ],
+                                        "fn": "handler",
+                                        "implHandler": [
+                                            "var store = Ext.getStore(\"Tax\");",
+                                            "",
+                                            "Ext.Msg.confirm('提示', '确定要删除吗？', function(text){",
+                                            "    if (text == 'yes'){",
+                                            "        Ext.Ajax.request({",
+                                            "            url :'salary/tax/remove',//请求的服务器地址",
+                                            "            params : {",
+                                            "                id : record.get('id')",
+                                            "            },//发送json对象",
+                                            "            success:function(response,action){",
+                                            "                store.load();",
+                                            "                //                 me.resetGridSelect(record);",
+                                            "                Ext.Msg.alert(\"提示\", \"删除成功\");",
+                                            "            },failure: function(){",
+                                            "                store.load();",
+                                            "                //                 me.resetGridSelect(record);",
+                                            "                Ext.Msg.alert(\"提示\", \"删除失败\");",
+                                            "            }",
+                                            "        });",
+                                            "    }",
+                                            "});"
+                                        ]
+                                    },
+                                    "name": "handler",
+                                    "designerId": "f68ad533-4f4f-4513-aac5-ecd46e059420"
+                                }
+                            ]
                         }
                     ]
                 },
@@ -181,8 +270,72 @@
                     "codeClass": null,
                     "name": "MyGridView",
                     "designerId": "e4bef157-2f86-485e-9156-4b08178b9492"
+                },
+                {
+                    "type": "basiceventbinding",
+                    "reference": {
+                        "name": "listeners",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fn": "onGridpanelItemDblClick",
+                        "implHandler": [
+                            "this.detail(record);"
+                        ],
+                        "name": "itemdblclick",
+                        "scope": "me"
+                    },
+                    "name": "onGridpanelItemDblClick",
+                    "designerId": "d800c15a-0015-4e3a-831d-6b763d5adc2e"
+                },
+                {
+                    "type": "basiceventbinding",
+                    "reference": {
+                        "name": "listeners",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fn": "onGridpanelRender",
+                        "implHandler": [
+                            "var me = this,",
+                            "    store = component.getStore();",
+                            "",
+                            "store.load();"
+                        ],
+                        "name": "render",
+                        "scope": "me"
+                    },
+                    "name": "onGridpanelRender",
+                    "designerId": "5c2c376c-3748-4c94-b947-1c7e2ca1e4a6"
                 }
             ]
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|params": [
+                    "record"
+                ],
+                "fn": "detail",
+                "implHandler": [
+                    "var me = this,",
+                    "    namespace = me.getNamespace();",
+                    "",
+                    "var panel =  Ext.create(namespace + '.view.Tax',{",
+                    "    _tax : record",
+                    "});",
+                    "panel.show();"
+                ]
+            },
+            "name": "detail",
+            "designerId": "998a9c95-eab0-493c-8bc7-ec7f40fcd7d3"
         }
     ]
 }
