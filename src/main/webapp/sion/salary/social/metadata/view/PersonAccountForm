@@ -156,12 +156,48 @@
                             "codeClass": null,
                             "userConfig": {
                                 "fieldLabel": "员工编号",
+                                "itemId": "personCode",
                                 "labelWidth": 80,
                                 "layout|columnWidth": 0.45,
                                 "name": "personCode"
                             },
                             "name": "MyTextField17",
                             "designerId": "1f4d0eac-6bc4-4d5e-a5d9-48304be83158"
+                        },
+                        {
+                            "type": "Ext.button.Button",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "text": "搜"
+                            },
+                            "name": "MyButton3",
+                            "designerId": "407e11e8-3f35-4ead-9d3d-ffaa18af4745",
+                            "cn": [
+                                {
+                                    "type": "basiceventbinding",
+                                    "reference": {
+                                        "name": "listeners",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fn": "onSearchClick",
+                                        "implHandler": [
+                                            "var personSelection =Ext.create(\"Sion.Hr.Base.view.PersonSelection\",",
+                                            "                                {_scope:this,_callback:this.selectedCallback});",
+                                            "personSelection.show();"
+                                        ],
+                                        "name": "click",
+                                        "scope": "me"
+                                    },
+                                    "name": "onSearchClick",
+                                    "designerId": "5e7ba32e-c5d1-460a-b911-ff4ec996b0fb"
+                                }
+                            ]
                         },
                         {
                             "type": "Ext.toolbar.Spacer",
@@ -186,6 +222,7 @@
                             "codeClass": null,
                             "userConfig": {
                                 "fieldLabel": "姓名",
+                                "itemId": "name",
                                 "labelWidth": 80,
                                 "layout|columnWidth": 0.45,
                                 "name": "name"
@@ -216,6 +253,7 @@
                             "codeClass": null,
                             "userConfig": {
                                 "fieldLabel": "部门",
+                                "itemId": "dept",
                                 "labelWidth": 80,
                                 "layout|columnWidth": 0.45,
                                 "name": "dept"
@@ -246,6 +284,7 @@
                             "codeClass": null,
                             "userConfig": {
                                 "fieldLabel": "职务",
+                                "itemId": "duty",
                                 "labelWidth": 80,
                                 "layout|columnWidth": 0.45,
                                 "name": "duty"
@@ -276,6 +315,7 @@
                             "codeClass": null,
                             "userConfig": {
                                 "fieldLabel": "身份证号",
+                                "itemId": "idCard",
                                 "labelWidth": 80,
                                 "layout|columnWidth": 0.45,
                                 "name": "idCard"
@@ -388,7 +428,7 @@
                             "designerId": "b5cce2a9-00ba-4a42-8f38-f3afac93712a"
                         },
                         {
-                            "type": "Ext.form.field.Text",
+                            "type": "Ext.form.field.ComboBox",
                             "reference": {
                                 "name": "items",
                                 "type": "array"
@@ -398,9 +438,10 @@
                                 "fieldLabel": "薪资方案",
                                 "labelWidth": 80,
                                 "layout|columnWidth": 0.45,
-                                "name": "accountId"
+                                "name": "accountId",
+                                "store": "SalaryAccount"
                             },
-                            "name": "MyTextField15",
+                            "name": "MyComboBox1",
                             "designerId": "54cb155c-122c-41ed-95b1-9bcf5fc437c9"
                         },
                         {
@@ -418,19 +459,23 @@
                             "designerId": "b23fd900-c118-4eb4-8b49-b2ac26c46706"
                         },
                         {
-                            "type": "Ext.form.field.Text",
+                            "type": "Ext.form.field.ComboBox",
                             "reference": {
                                 "name": "items",
                                 "type": "array"
                             },
                             "codeClass": null,
                             "userConfig": {
+                                "displayField": "name",
                                 "fieldLabel": "薪资层次",
+                                "itemId": "level",
                                 "labelWidth": 80,
                                 "layout|columnWidth": 0.45,
-                                "name": "level"
+                                "name": "level",
+                                "store": "LevelStore",
+                                "valueField": "id"
                             },
-                            "name": "MyTextField9",
+                            "name": "MyComboBox9",
                             "designerId": "e8c1463a-6812-43b5-8999-52982bc73f39"
                         },
                         {
@@ -448,7 +493,7 @@
                             "designerId": "9341efdd-efcf-4d85-8f44-053f5b45844f"
                         },
                         {
-                            "type": "Ext.form.field.Text",
+                            "type": "Ext.form.field.ComboBox",
                             "reference": {
                                 "name": "items",
                                 "type": "array"
@@ -460,7 +505,7 @@
                                 "layout|columnWidth": 0.45,
                                 "name": "rank"
                             },
-                            "name": "MyTextField14",
+                            "name": "MyComboBox10",
                             "designerId": "39d4cd03-f68a-4815-b0fd-fcf987f5ab39"
                         },
                         {
@@ -778,10 +823,14 @@
                             },
                             "codeClass": null,
                             "userConfig": {
+                                "displayField": "name",
                                 "fieldLabel": "社保方案",
+                                "itemId": "socialAccount",
                                 "labelWidth": 80,
                                 "layout|columnWidth": 0.45,
-                                "name": "accountId"
+                                "name": "accountId",
+                                "store": "SocialAccount",
+                                "valueField": "id"
                             },
                             "name": "MyComboBox4",
                             "designerId": "1cd36a89-b523-4b79-9fa9-ba4578352b1b"
@@ -1089,13 +1138,48 @@
                     "    salaryForm.getForm().setValues(me._record.data);",
                     "    socialForm.getForm().setValues(me._record.data.insuredPerson);",
                     "}",
-                    ""
+                    "",
+                    "//load combobox",
+                    "var level=me.down('#level'),",
+                    "    socialAccount=me.down('#socialAccount');",
+                    "",
+                    "level.getStore().load();",
+                    "socialAccount.getStore().load();"
                 ],
                 "name": "afterrender",
                 "scope": "me"
             },
             "name": "onWindowAfterRender",
             "designerId": "32248814-28a2-421f-91f3-0944a8bb356a"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|params": [
+                    "person",
+                    "scope"
+                ],
+                "fn": "selectedCallback",
+                "implHandler": [
+                    "var me=scope,",
+                    "    salaryForm=me.down('#salaryForm'),",
+                    "    socialForm=me.down('#socialForm');",
+                    "",
+                    "salaryForm.down('#personCode').setValue(person.data.serialNum);",
+                    "salaryForm.down('#name').setValue(person.data.name);",
+                    "salaryForm.down('#dept').setValue(person.data.deptName);",
+                    "salaryForm.down('#duty').setValue(person.data.position);",
+                    "salaryForm.down('#idCard').setValue(person.data.idCard);",
+                    ""
+                ]
+            },
+            "name": "selectedCallback",
+            "designerId": "e3b89da3-44a7-4014-8c55-c75adc112765"
         }
     ]
 }

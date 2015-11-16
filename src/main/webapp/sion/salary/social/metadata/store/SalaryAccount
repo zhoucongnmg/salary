@@ -1,0 +1,45 @@
+{
+    "type": "jsonstore",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userClassName": "SalaryAccount",
+        "model": "SalaryAccount",
+        "storeId": "SalaryAccount"
+    },
+    "name": "MyJsonStore",
+    "designerId": "7b02cf78-548e-427d-86f2-6cf5dc525d4e",
+    "cn": [
+        {
+            "type": "Ext.data.proxy.Ajax",
+            "reference": {
+                "name": "proxy",
+                "type": "object"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "url": "salary/account/load"
+            },
+            "name": "MyAjaxProxy4",
+            "designerId": "42013236-5a76-4ac3-ae8e-ddf25e208af9",
+            "cn": [
+                {
+                    "type": "Ext.data.reader.Json",
+                    "reference": {
+                        "name": "reader",
+                        "type": "object"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "root": "data"
+                    },
+                    "name": "MyJsonReader4",
+                    "designerId": "1b47f8b0-8fe0-4d4a-99d8-7e72c97b95b1"
+                }
+            ]
+        }
+    ]
+}

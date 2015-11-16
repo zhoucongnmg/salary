@@ -31,7 +31,9 @@ Ext.application({
         'SocialAccountItem',
         'PaymentType',
         'PersonAccount',
-        'InsuredPerson'
+        'InsuredPerson',
+        'Level',
+        'SalaryAccount'
     ],
     stores: [
         'SocialItem',
@@ -40,7 +42,9 @@ Ext.application({
         'SocialAccount',
         'SocialAccountItem',
         'PaymentType',
-        'PersonAccountStore'
+        'PersonAccountStore',
+        'LevelStore',
+        'SalaryAccount'
     ],
     views: [
         'PersonAccountGrid',

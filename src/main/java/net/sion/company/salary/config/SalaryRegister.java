@@ -27,7 +27,7 @@ public class SalaryRegister extends AbstractAppRegisterListener {
 		m0.addDepends(salaryList.get(3));
 		m0.addDepends(salaryList.get(4));
 		m0.addDepends(salaryList.get(5));
-		
+		m0.addDepends(AppEnum.HR.getModules().get(0));
 		empty.add(m0);
 		return empty;
 	}

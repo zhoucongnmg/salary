@@ -104,4 +104,6 @@ public class InsuredPersonController {
 		personAccountRepo.delete(id);
 		return new Response("操作成功",	true);
 	}
+	
+	
 }

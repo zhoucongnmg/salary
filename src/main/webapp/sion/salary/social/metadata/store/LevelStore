@@ -1,0 +1,46 @@
+{
+    "type": "jsonstore",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "autoLoad": false,
+        "designer|userClassName": "LevelStore",
+        "model": "Level",
+        "storeId": "LevelStore"
+    },
+    "name": "MyJsonStore",
+    "designerId": "e127d12e-91fd-4b98-a450-0bed7057346d",
+    "cn": [
+        {
+            "type": "Ext.data.proxy.Ajax",
+            "reference": {
+                "name": "proxy",
+                "type": "object"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "url": "salary/level/load"
+            },
+            "name": "MyAjaxProxy3",
+            "designerId": "70f783f6-7f2e-4406-aef8-123c7afbf922",
+            "cn": [
+                {
+                    "type": "Ext.data.reader.Json",
+                    "reference": {
+                        "name": "reader",
+                        "type": "object"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "root": "data"
+                    },
+                    "name": "MyJsonReader3",
+                    "designerId": "3ddda56e-cfe0-42d2-a77c-64e8bf57d9d5"
+                }
+            ]
+        }
+    ]
+}

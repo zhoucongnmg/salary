@@ -1,0 +1,67 @@
+{
+    "type": "Ext.data.Model",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userClassName": "SalaryAccount"
+    },
+    "name": "MyModel",
+    "designerId": "e0200e4f-84d8-4141-ac89-34d01ebc0ee7",
+    "cn": [
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "id"
+            },
+            "name": "MyField55",
+            "designerId": "c6df20ea-6909-415c-8162-aa234356be53"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "name"
+            },
+            "name": "MyField56",
+            "designerId": "10135b76-8146-4cec-b125-b35aaf5930e3"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "enableLevel"
+            },
+            "name": "MyField57",
+            "designerId": "b23db4ff-4cee-4165-848e-84b589ae87b4"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "accountItems"
+            },
+            "name": "MyField58",
+            "designerId": "09f7f001-4fbb-48e5-8ca4-0758fd2b82d6"
+        }
+    ]
+}

@@ -14,7 +14,9 @@
             "SocialAccountItem",
             "PaymentType",
             "PersonAccount",
-            "InsuredPerson"
+            "InsuredPerson",
+            "Level",
+            "SalaryAccount"
         ],
         "name": "sion.salary.social",
         "paths": [
@@ -27,7 +29,9 @@
             "SocialAccount",
             "SocialAccountItem",
             "PaymentType",
-            "PersonAccountStore"
+            "PersonAccountStore",
+            "LevelStore",
+            "SalaryAccount"
         ],
         "views": [
             "PersonAccountGrid",
