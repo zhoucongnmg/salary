@@ -37,7 +37,11 @@
                     "codeClass": null,
                     "userConfig": {
                         "layout|flex": null,
-                        "text": "新建方案"
+                        "style": [
+                            "background:#3ca9fc;"
+                        ],
+                        "text": "<font color='#fff'>新建方案</font>",
+                        "width": 70
                     },
                     "name": "MyButton",
                     "designerId": "c8d5a0c2-a9f5-44f1-b5e9-c82564da58e2",
@@ -52,9 +56,10 @@
                             "userConfig": {
                                 "fn": "onNewAccountClick",
                                 "implHandler": [
-                                    "var me =this,",
-                                    "    namespace=me.getNamespace();",
-                                    "Ext.create(namespace+\".view.SalaryPlan_win\").show();"
+                                    "var me = this,",
+                                    "    namespace = me.getNamespace();",
+                                    "",
+                                    "Ext.create(namespace+\".view.SalaryPlan\").show();"
                                 ],
                                 "name": "click",
                                 "scope": "me"
@@ -90,8 +95,9 @@
                     "codeClass": null,
                     "userConfig": {
                         "dataIndex": "name",
+                        "flex": 5,
                         "text": "方案名称",
-                        "width": "70%"
+                        "width": null
                     },
                     "name": "MyColumn",
                     "designerId": "ef0747f8-7e6c-49a9-a2ca-3431d154b877"
@@ -105,11 +111,43 @@
                     "codeClass": null,
                     "userConfig": {
                         "dataIndex": "enableLevel",
+                        "falseText": "×",
+                        "flex": 2,
                         "text": "启用薪资体系",
-                        "width": "10%"
+                        "trueText": "√",
+                        "width": null
                     },
                     "name": "MyBooleanColumn",
                     "designerId": "5bc18616-71ca-4d15-84d8-cedcdafb6dbc"
+                },
+                {
+                    "type": "Ext.grid.column.Column",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dataIndex": "createUserName",
+                        "flex": 2,
+                        "text": "创建人"
+                    },
+                    "name": "MyColumn13",
+                    "designerId": "3fd2d648-b111-42fe-bbec-248c5cd6b101"
+                },
+                {
+                    "type": "Ext.grid.column.Column",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dataIndex": "date",
+                        "text": "创建时间"
+                    },
+                    "name": "MyColumn14",
+                    "designerId": "3f240eb4-91a4-499f-af56-b5c13884dcff"
                 },
                 {
                     "type": "Ext.grid.column.Action",
@@ -119,9 +157,11 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "hidden": true,
-                        "text": null,
-                        "width": 35
+                        "flex": 1,
+                        "hidden": null,
+                        "hideable": false,
+                        "text": "方案成员",
+                        "width": null
                     },
                     "name": "MyActionColumn",
                     "designerId": "fc13bcac-ab75-47a5-a051-91ce8288b8b2",
@@ -160,7 +200,13 @@
                                         ],
                                         "fn": "handler",
                                         "implHandler": [
-                                            "Ext.create(\"sion.salary.accounts.view.AccountMember_win\").show();"
+                                            "var me = this.up('gridpanel').up(),",
+                                            "    namespace = me.getNamespace();",
+                                            "",
+                                            "var salaryPlan =  Ext.create(namespace + '.view.AccountMember',{",
+                                            "    _account : record",
+                                            "});",
+                                            "salaryPlan.show();"
                                         ]
                                     },
                                     "name": "handler",
@@ -178,7 +224,10 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "width": 35
+                        "flex": 1,
+                        "hideable": false,
+                        "text": "修改",
+                        "width": null
                     },
                     "name": "MyActionColumn4",
                     "designerId": "452a3e18-bb96-417e-a758-00f3794f7ce0",
@@ -217,7 +266,7 @@
                                         ],
                                         "fn": "handler",
                                         "implHandler": [
-                                            "Ext.create(\"sion.salary.accounts.view.SalaryPlan_win\").show();"
+                                            "this.up('gridpanel').up().detail(record);"
                                         ]
                                     },
                                     "name": "handler",
@@ -235,7 +284,10 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "width": 35
+                        "flex": 1,
+                        "hideable": false,
+                        "text": "删除",
+                        "width": null
                     },
                     "name": "MyActionColumn5",
                     "designerId": "f27e0717-af02-4e25-96f4-00f728c7d78e",
@@ -273,7 +325,35 @@
                                             "row"
                                         ],
                                         "fn": "handler",
-                                        "implHandler": null
+                                        "implHandler": [
+                                            "var store = Ext.StoreManager.lookup(\"Account\");",
+                                            "",
+                                            "Ext.Msg.confirm('提示', '确定要删除吗？', function(text){",
+                                            "    if (text == 'yes'){",
+                                            "        Ext.Ajax.request({",
+                                            "            url :'salary/account/remove',//请求的服务器地址",
+                                            "            params : {",
+                                            "                id : record.get('id')",
+                                            "            },//发送json对象",
+                                            "            success:function(response,action){",
+                                            "                store.load();",
+                                            "                Ext.Msg.alert(\"提示\", \"删除成功\");",
+                                            "//                 var result = Ext.JSON.decode(response.responseText);",
+                                            "//                 if (result.success) {",
+                                            "//                     store.load();",
+                                            "//                     //                 me.resetGridSelect(record);",
+                                            "//                     Ext.Msg.alert(\"提示\", \"删除成功\");",
+                                            "//                 }else{",
+                                            "//                     Ext.Msg.alert(\"提示\", \"社保套帐中使用了该项目，不能删除！\");",
+                                            "//                 }",
+                                            "            },failure: function(){",
+                                            "                store.load();",
+                                            "                Ext.Msg.alert(\"提示\", \"删除失败\");",
+                                            "            }",
+                                            "        });",
+                                            "    }",
+                                            "});"
+                                        ]
                                     },
                                     "name": "handler",
                                     "designerId": "2193ce88-d083-447e-89b3-49f695b7e6bf"
@@ -291,8 +371,73 @@
                     "codeClass": null,
                     "name": "MyGridView",
                     "designerId": "3eb98bc6-1909-4cab-9463-0e1065011a6e"
+                },
+                {
+                    "type": "basiceventbinding",
+                    "reference": {
+                        "name": "listeners",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fn": "onGridpanelItemDblClick",
+                        "implHandler": [
+                            "this.detail(record);"
+                        ],
+                        "name": "itemdblclick",
+                        "scope": "me"
+                    },
+                    "name": "onGridpanelItemDblClick",
+                    "designerId": "e99e5ae2-7dfa-449d-b150-54c1823df35a"
+                },
+                {
+                    "type": "basiceventbinding",
+                    "reference": {
+                        "name": "listeners",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fn": "onGridpanelRender",
+                        "implHandler": [
+                            "var store = component.getStore();",
+                            "",
+                            "store.clearFilter(true);",
+                            "store.load();"
+                        ],
+                        "name": "render",
+                        "scope": "me"
+                    },
+                    "name": "onGridpanelRender",
+                    "designerId": "876cf8b7-b00b-4d00-bb90-2438eeef9b1d"
                 }
             ]
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|params": [
+                    "record"
+                ],
+                "fn": "detail",
+                "implHandler": [
+                    "var me = this,",
+                    "    namespace = me.getNamespace();",
+                    "",
+                    "var salaryPlan =  Ext.create(namespace + '.view.SalaryPlan',{",
+                    "    _account : record",
+                    "});",
+                    "salaryPlan.show();",
+                    "// me.resetGridSelect(record);"
+                ]
+            },
+            "name": "detail",
+            "designerId": "2718a5b1-a927-4f3e-9530-c7920c91bd45"
         },
         {
             "type": "Ext.toolbar.Paging",
@@ -304,6 +449,7 @@
             "userConfig": {
                 "displayInfo": true,
                 "dock": "bottom",
+                "store": "Account",
                 "width": 360
             },
             "name": "MyPagingToolbar",

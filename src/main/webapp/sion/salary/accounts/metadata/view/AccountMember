@@ -6,7 +6,7 @@
     },
     "codeClass": null,
     "userConfig": {
-        "designer|userClassName": "AccountMember_win",
+        "designer|userClassName": "AccountMember",
         "height": 540,
         "layout": "fit",
         "title": "方案成员",
@@ -15,55 +15,6 @@
     "name": "MyWindow",
     "designerId": "46727d05-2ed5-4fca-8d2c-5b0044c13afb",
     "cn": [
-        {
-            "type": "Ext.toolbar.Toolbar",
-            "reference": {
-                "name": "dockedItems",
-                "type": "array"
-            },
-            "codeClass": null,
-            "userConfig": {
-                "dock": "top"
-            },
-            "name": "MyToolbar7",
-            "designerId": "ec214aa6-d4cf-482b-a5e9-2551ec7874e7",
-            "cn": [
-                {
-                    "type": "Ext.button.Button",
-                    "reference": {
-                        "name": "items",
-                        "type": "array"
-                    },
-                    "codeClass": null,
-                    "userConfig": {
-                        "layout|flex": null,
-                        "text": "添加"
-                    },
-                    "name": "MyButton1",
-                    "designerId": "099375a8-5868-42e4-8af2-016d774433cf",
-                    "cn": [
-                        {
-                            "type": "basiceventbinding",
-                            "reference": {
-                                "name": "listeners",
-                                "type": "array"
-                            },
-                            "codeClass": null,
-                            "userConfig": {
-                                "fn": "onAddClick",
-                                "implHandler": [
-                                    "Ext.create(\"sion.salary.accounts.view.AccountMemberConfig_win\").show();"
-                                ],
-                                "name": "click",
-                                "scope": "me"
-                            },
-                            "name": "onAddClick",
-                            "designerId": "20667cb8-0eb7-4adf-98d1-1eba00ede820"
-                        }
-                    ]
-                }
-            ]
-        },
         {
             "type": "Ext.grid.Panel",
             "reference": {
@@ -74,7 +25,7 @@
             "userConfig": {
                 "header": false,
                 "store": "AccountMember",
-                "title": "My Grid Panel"
+                "title": null
             },
             "name": "MyGridPanel1",
             "designerId": "6ab8a716-aa69-4e11-b878-5a45ab24fb7e",
@@ -87,9 +38,10 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "dataIndex": "employeeCode",
+                        "dataIndex": "personCode",
+                        "flex": 1,
                         "text": "员工编号",
-                        "width": "20%"
+                        "width": null
                     },
                     "name": "MyColumn7",
                     "designerId": "ba1c6074-cb9e-4b04-95e3-37fda0c034d2"
@@ -102,9 +54,10 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "dataIndex": "employeeName",
+                        "dataIndex": "name",
+                        "flex": 1,
                         "text": "员工姓名",
-                        "width": "25%"
+                        "width": null
                     },
                     "name": "MyColumn8",
                     "designerId": "1b68fbae-c726-4e27-990a-0c979f920c08"
@@ -117,9 +70,10 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "dataIndex": "roleStatus",
+                        "dataIndex": "duty",
+                        "flex": 1,
                         "text": "岗位状态",
-                        "width": "25%"
+                        "width": null
                     },
                     "name": "MyColumn9",
                     "designerId": "cb78ae0f-5471-46f1-8621-b6082373f457"
@@ -132,7 +86,8 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "dataIndex": "type",
+                        "dataIndex": "dept",
+                        "flex": 1,
                         "text": "员工类型"
                     },
                     "name": "MyColumn1",
@@ -146,7 +101,10 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "width": "10%"
+                        "flex": 0.5,
+                        "hideable": false,
+                        "text": "薪资设定",
+                        "width": null
                     },
                     "name": "MyActionColumn3",
                     "designerId": "82a8c400-0123-449d-928c-5caca9035e62",
@@ -185,7 +143,15 @@
                                         ],
                                         "fn": "handler",
                                         "implHandler": [
-                                            "Ext.create(\"sion.salary.accounts.view.AccountMemberConfig_win\").show();"
+                                            "var me = this.up('gridpanel').up(),",
+                                            "    account = me._account,",
+                                            "    namespace = me.getNamespace();",
+                                            "",
+                                            "var salaryPlan =  Ext.create(namespace + '.view.AccountMemberConfig',{",
+                                            "    _account : account,",
+                                            "    _member : record",
+                                            "});",
+                                            "salaryPlan.show();"
                                         ]
                                     },
                                     "name": "handler",
@@ -204,6 +170,82 @@
                     "codeClass": null,
                     "name": "MyGridView2",
                     "designerId": "59c9d739-e42b-4ac9-8761-d38cf2540141"
+                },
+                {
+                    "type": "basiceventbinding",
+                    "reference": {
+                        "name": "listeners",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fn": "onGridpanelRender",
+                        "implHandler": [
+                            "var me = this,",
+                            "    account = me._account,",
+                            "    store = component.getStore();",
+                            "",
+                            "store.clearFilter(true);",
+                            "Ext.apply(store.proxy.extraParams, {",
+                            "    id : account.get('id')",
+                            "});",
+                            "store.load();"
+                        ],
+                        "name": "render",
+                        "scope": "me"
+                    },
+                    "name": "onGridpanelRender",
+                    "designerId": "45c05448-7f8f-47b0-8aeb-ade028f7506e"
+                },
+                {
+                    "type": "Ext.toolbar.Toolbar",
+                    "reference": {
+                        "name": "dockedItems",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dock": "top"
+                    },
+                    "name": "MyToolbar3",
+                    "designerId": "9964471d-0ff2-4dc1-82c7-1848a7a95fbe",
+                    "cn": [
+                        {
+                            "type": "Ext.button.Button",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "layout|flex": null,
+                                "style": [
+                                    "background:#3ca9fc;"
+                                ],
+                                "text": "<font color='#fff'>新增</font>",
+                                "width": 70
+                            },
+                            "name": "MyButton1",
+                            "designerId": "c4608742-d2de-4c41-a8bf-e9f0263916dd",
+                            "cn": [
+                                {
+                                    "type": "basiceventbinding",
+                                    "reference": {
+                                        "name": "listeners",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fn": "onButtonClick",
+                                        "name": "click",
+                                        "scope": "me"
+                                    },
+                                    "name": "onButtonClick",
+                                    "designerId": "abd46c02-b8b2-4852-8288-6d86563793be"
+                                }
+                            ]
+                        }
+                    ]
                 }
             ]
         },
@@ -217,6 +259,7 @@
             "userConfig": {
                 "displayInfo": true,
                 "dock": "bottom",
+                "store": "AccountMember",
                 "width": 360
             },
             "name": "MyPagingToolbar1",

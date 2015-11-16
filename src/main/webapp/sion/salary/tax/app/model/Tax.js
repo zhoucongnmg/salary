@@ -25,10 +25,14 @@ Ext.define('sion.salary.tax.model.Tax', {
             name: 'name'
         },
         {
-            name: 'threshold'
+            name: 'threshold',
+            type: 'float'
         },
         {
             name: 'taxItems'
+        },
+        {
+            name: 'id'
         }
     ]
 });

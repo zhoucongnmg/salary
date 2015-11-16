@@ -265,7 +265,16 @@
             "userConfig": {
                 "fn": "onGridpanelRender",
                 "implHandler": [
-                    "component.getStore().load();"
+                    "",
+                    "",
+                    "var me = this,",
+                    "    store = component.getStore();",
+                    "",
+                    "store.clearFilter(true);",
+                    "Ext.apply(store.proxy.extraParams, {",
+                    "    system : ''",
+                    "});",
+                    "store.load();"
                 ],
                 "name": "render",
                 "scope": "me"

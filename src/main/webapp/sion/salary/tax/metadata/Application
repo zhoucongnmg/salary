@@ -17,12 +17,13 @@
             "}"
         ],
         "stores": [
-            "TaxStore",
-            "TaxItemStore"
+            "Tax",
+            "TaxItem"
         ],
         "views": [
             "TaxGrid",
-            "Tax_win"
+            "Tax",
+            "TaxItem"
         ]
     },
     "name": "Application",

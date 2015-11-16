@@ -53,18 +53,6 @@ public class SocialItemController {
 	}
 
 	/**
-	 * 读取社保项目
-	 * 
-	 * @param id
-	 * @return
-	 */
-	@RequestMapping(value = "read")
-	public Response read(@RequestParam String id) {
-		return new Response(true);
-	}
-	
-
-	/**
 	 * 更新社保项目
 	 * 
 	 * @param person

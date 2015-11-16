@@ -1,0 +1,15 @@
+{
+    "type": "Ext.data.Store",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userClassName": "TaxItem",
+        "model": "TaxItem",
+        "storeId": "TaxItem"
+    },
+    "name": "MyStore1",
+    "designerId": "36421041-8cae-4a2c-8d25-da49a2275731"
+}

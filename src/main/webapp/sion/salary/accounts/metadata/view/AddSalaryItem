@@ -6,7 +6,7 @@
     },
     "codeClass": null,
     "userConfig": {
-        "designer|userClassName": "AddSalaryItem_win",
+        "designer|userClassName": "AddSalaryItem",
         "height": 480,
         "title": "新增方案项目",
         "width": 860
@@ -36,10 +36,28 @@
                     "codeClass": null,
                     "userConfig": {
                         "layout|flex": null,
-                        "text": "确定"
+                        "text": "确定",
+                        "width": 70
                     },
                     "name": "MyButton7",
-                    "designerId": "0443f03a-0e9c-4f45-9e68-29c401d38a1c"
+                    "designerId": "0443f03a-0e9c-4f45-9e68-29c401d38a1c",
+                    "cn": [
+                        {
+                            "type": "basiceventbinding",
+                            "reference": {
+                                "name": "listeners",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fn": "onButtonClick",
+                                "name": "click",
+                                "scope": "me"
+                            },
+                            "name": "onButtonClick",
+                            "designerId": "97a17018-c9a6-4e1e-861c-2340918063e7"
+                        }
+                    ]
                 }
             ]
         },
@@ -55,7 +73,7 @@
                 "container|align": "stretch",
                 "header": false,
                 "layout": "hbox",
-                "title": "My Form",
+                "title": null,
                 "width": "100%"
             },
             "name": "MyForm2",
@@ -147,7 +165,8 @@
                             "codeClass": null,
                             "userConfig": {
                                 "header": false,
-                                "title": "My Grid Panel"
+                                "store": "SalaryItem",
+                                "title": null
                             },
                             "name": "MyGridPanel3",
                             "designerId": "d625067c-d2a5-45fa-b69f-c138fd3cf894",
@@ -160,7 +179,7 @@
                                     },
                                     "codeClass": null,
                                     "userConfig": {
-                                        "dataIndex": "string",
+                                        "dataIndex": "name",
                                         "text": "待选项目",
                                         "width": "100%"
                                     },
@@ -176,6 +195,28 @@
                                     "codeClass": null,
                                     "name": "MyGridView4",
                                     "designerId": "f034aa33-7ec4-4393-9128-e8e52b90a224"
+                                },
+                                {
+                                    "type": "basiceventbinding",
+                                    "reference": {
+                                        "name": "listeners",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fn": "onGridpanelBeforeRender",
+                                        "implHandler": [
+                                            "var store = component.getStore();",
+                                            "",
+                                            "if(store.getCount() === 0){",
+                                            "    store.load();",
+                                            "}"
+                                        ],
+                                        "name": "beforerender",
+                                        "scope": "me"
+                                    },
+                                    "name": "onGridpanelBeforeRender",
+                                    "designerId": "d3db7f3f-33ca-45ea-9068-35450b2db058"
                                 }
                             ]
                         }

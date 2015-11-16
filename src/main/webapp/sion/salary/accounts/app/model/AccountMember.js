@@ -22,19 +22,25 @@ Ext.define('sion.salary.accounts.model.AccountMember', {
 
     fields: [
         {
-            name: 'employeeCode'
+            name: 'personCode'
         },
         {
-            name: 'employeeName'
+            name: 'name'
         },
         {
-            name: 'roleStatus'
+            name: 'dept'
         },
         {
-            name: 'type'
+            name: 'id'
         },
         {
-            name: 'config'
+            name: 'duty'
+        },
+        {
+            name: 'accountItems'
+        },
+        {
+            name: 'accountId'
         }
     ]
 });

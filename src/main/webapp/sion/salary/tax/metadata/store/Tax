@@ -1,0 +1,52 @@
+{
+    "type": "Ext.data.Store",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userClassName": "Tax",
+        "model": "Tax",
+        "storeId": "Tax"
+    },
+    "name": "MyStore",
+    "designerId": "39f16cf3-6ca3-4f93-ace3-faf5ef648f0c",
+    "cn": [
+        {
+            "type": "Ext.data.proxy.Ajax",
+            "reference": {
+                "name": "proxy",
+                "type": "object"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "api": [
+                    "{",
+                    "create: 'salary/tax/create',",
+                    "read: 'salary/tax/load',",
+                    "update: 'salary/tax/create',",
+                    "destroy: 'salary/tax/remove'",
+                    "}"
+                ]
+            },
+            "name": "MyAjaxProxy",
+            "designerId": "30a1e1ba-7521-49c6-8957-b780d3c13ddd",
+            "cn": [
+                {
+                    "type": "Ext.data.reader.Json",
+                    "reference": {
+                        "name": "reader",
+                        "type": "object"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "root": "data"
+                    },
+                    "name": "MyJsonReader",
+                    "designerId": "830d6072-f3ab-431a-ab79-bf6bae4c5cda"
+                }
+            ]
+        }
+    ]
+}

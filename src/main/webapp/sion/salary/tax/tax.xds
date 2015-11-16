@@ -13,21 +13,33 @@
             }
         },
         "urlPrefix": "",
-        "exportPath": "E:/dev/sts-bundle/vfabric-tc-server-developer-2.9.5.SR1/tcv29/wtpwebapps/salary/sion/salary/accounts"
+        "exportPath": "D:/SpringToolSuite/vfabric-tc-server-developer-2.9.5.SR1/test/wtpwebapps/salary/sion/salary/tax",
+        "projectHasEnabledWebServer": false,
+        "lockUrlPrefix": false,
+        "buildShouldOverwriteIndex": true,
+        "generateArchitectVersion": true,
+        "spacesToIndent": 4,
+        "lineEnding": "CRLF",
+        "genTimestamps": false,
+        "cacheBust": false,
+        "installStatus": "Not Installed",
+        "displayfield-ExtBox1-1137-inputEl": "a new version of the framework is available",
+        "displayfield-ExtBox1-1132-inputEl": "a new version of the framework is available"
     },
     "xdsVersion": "3.2.0",
-    "xdsBuild": 75,
+    "xdsBuild": 239,
     "schemaVersion": 1,
     "upgradeVersion": 310000000001,
     "framework": "ext42",
     "viewOrderMap": {
         "view": [
             "aab59238-4109-4303-9f35-b644562571c4",
-            "7b9262ee-3e83-4f56-9c25-9344d9509b14"
+            "7b9262ee-3e83-4f56-9c25-9344d9509b14",
+            "c159c817-e7dd-45e3-bd31-15e2aa5365b1"
         ],
         "store": [
-            "5bb3c013-8e97-4d54-b987-3cc13364219f",
-            "cb25ca30-572e-4423-ad1b-0b11a3c42864"
+            "39f16cf3-6ca3-4f93-ace3-faf5ef648f0c",
+            "36421041-8cae-4a2c-8d25-da49a2275731"
         ],
         "controller": [],
         "model": [

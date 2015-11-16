@@ -232,8 +232,17 @@ Ext.define('sion.salary.social.view.SocialAccountEdit', {
         if(record.get('id') === ''){
             store.add(record);
         }
-        store.sync();
-        store.load();
+        store.sync({
+            success: function(response, opts){
+                Ext.Msg.alert("提示", "保存成功");
+                store.load();
+                me.close();
+            },
+            failure: function(){
+                Ext.Msg.alert("提示", "保存失败");
+                me.close();
+            }
+        });
         me.close();
     },
 
@@ -274,10 +283,13 @@ Ext.define('sion.salary.social.view.SocialAccountEdit', {
 
     detailItem: function(record) {
         var me = this,
-            namespace = me.getNamespace();
+            namespace = me.getNamespace(),
+            itemGrid = me.down('#itemGrid'),
+            store = itemGrid.getStore();
 
         var panel =  Ext.create(namespace + '.view.SocialAccountItemEdit',{
-            _socialAccountItem : record
+            _socialAccountItem : record,
+            _itemStore : store
         });
         panel.show();
         // me.resetGridSelect(record);

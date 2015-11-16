@@ -131,6 +131,20 @@
             },
             "name": "MyField16",
             "designerId": "397c7c8f-df5c-4dfd-9a31-8c61b961b861"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "money",
+                "type": "float"
+            },
+            "name": "MyField31",
+            "designerId": "febf808b-f5ea-4805-8471-676e17b76645"
         }
     ]
 }

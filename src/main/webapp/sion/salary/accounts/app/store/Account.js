@@ -26,104 +26,23 @@ Ext.define('sion.salary.accounts.store.Account', {
         var me = this;
         cfg = cfg || {};
         me.callParent([Ext.apply({
+            autoLoad: false,
             model: 'sion.salary.accounts.model.Account',
+            remoteFilter: true,
+            remoteSort: true,
             storeId: 'Account',
-            data: [
-                {
-                    name: 'et',
-                    enableLevel: true,
-                    accountItems: 'debitis',
-                    persons: 'porro'
-                },
-                {
-                    name: 'voluptatem',
-                    enableLevel: true,
-                    accountItems: 'ipsam',
-                    persons: 'voluptatem'
-                },
-                {
-                    name: 'aut',
-                    enableLevel: false,
-                    accountItems: 'amet',
-                    persons: 'velit'
-                },
-                {
-                    name: 'et',
-                    enableLevel: true,
-                    accountItems: 'sapiente',
-                    persons: 'sed'
-                },
-                {
-                    name: 'debitis',
-                    enableLevel: true,
-                    accountItems: 'incidunt',
-                    persons: 'voluptas'
-                },
-                {
-                    name: 'esse',
-                    enableLevel: true,
-                    accountItems: 'et',
-                    persons: 'asperiores'
-                },
-                {
-                    name: 'deserunt',
-                    enableLevel: true,
-                    accountItems: 'magni',
-                    persons: 'laudantium'
-                },
-                {
-                    name: 'veritatis',
-                    enableLevel: true,
-                    accountItems: 'et',
-                    persons: 'blanditiis'
-                },
-                {
-                    name: 'itaque',
-                    enableLevel: true,
-                    accountItems: 'laborum',
-                    persons: 'perferendis'
-                },
-                {
-                    name: 'consequuntur',
-                    enableLevel: true,
-                    accountItems: 'nostrum',
-                    persons: 'minus'
-                },
-                {
-                    name: 'consequatur',
-                    enableLevel: true,
-                    accountItems: 'voluptate',
-                    persons: 'quae'
-                },
-                {
-                    name: 'unde',
-                    enableLevel: false,
-                    accountItems: 'et',
-                    persons: 'in'
-                },
-                {
-                    name: 'mollitia',
-                    enableLevel: false,
-                    accountItems: 'enim',
-                    persons: 'architecto'
-                },
-                {
-                    name: 'et',
-                    enableLevel: true,
-                    accountItems: 'eum',
-                    persons: 'quaerat'
-                },
-                {
-                    name: 'deserunt',
-                    enableLevel: false,
-                    accountItems: 'repellendus',
-                    persons: 'dolor'
-                }
-            ],
+            pageSize: 10,
             proxy: {
                 type: 'ajax',
+                api: {
+                    create: 'salary/account/create',
+                    read: 'salary/account/load',
+                    update: 'salary/account/create',
+                    destroy: 'salary/account/remove'
+                },
                 reader: {
-                    type: 'json'
+                    type: 'json',
+                    root: 'data'
                 }
             }
         }, cfg)]);

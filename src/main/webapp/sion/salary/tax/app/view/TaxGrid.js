@@ -20,7 +20,6 @@ Ext.define('sion.salary.tax.view.TaxGrid', {
         'Ext.toolbar.Toolbar',
         'Ext.button.Button',
         'Ext.grid.Panel',
-        'Ext.grid.column.Number',
         'Ext.grid.column.Action',
         'Ext.grid.View'
     ],
@@ -40,7 +39,9 @@ Ext.define('sion.salary.tax.view.TaxGrid', {
                     items: [
                         {
                             xtype: 'button',
-                            text: '新建',
+                            style: 'background:#3ca9fc;',
+                            width: 70,
+                            text: '<font color=\'#fff\'>新建</font>',
                             listeners: {
                                 click: {
                                     fn: me.onAddTaxClick,
@@ -55,42 +56,83 @@ Ext.define('sion.salary.tax.view.TaxGrid', {
                 {
                     xtype: 'gridpanel',
                     header: false,
-                    title: 'Tax ',
-                    store: 'TaxStore',
+                    store: 'Tax',
                     columns: [
                         {
                             xtype: 'gridcolumn',
-                            width: '40%',
                             dataIndex: 'name',
-                            text: '名称'
+                            text: '名称',
+                            flex: 2
                         },
                         {
-                            xtype: 'numbercolumn',
-                            width: '40%',
+                            xtype: 'gridcolumn',
                             dataIndex: 'threshold',
-                            text: '个税起征点'
+                            text: '个税起征点',
+                            flex: 2
                         },
                         {
                             xtype: 'actioncolumn',
-                            width: 35,
+                            hideable: false,
+                            text: '修改',
+                            tooltip: '修改',
+                            flex: 0.5,
                             items: [
                                 {
-                                    iconCls: 's_icon_page_edit',
-                                    tooltip: '编辑'
+                                    handler: function(view, rowIndex, colIndex, item, e, record, row) {
+                                        this.up('gridpanel').up().detail(record);
+                                    },
+                                    iconCls: 's_icon_table_edit',
+                                    tooltip: '修改'
                                 }
                             ]
                         },
                         {
                             xtype: 'actioncolumn',
-                            width: 35,
+                            hideable: false,
+                            text: '删除',
+                            tooltip: '删除',
+                            flex: 0.5,
                             items: [
                                 {
+                                    handler: function(view, rowIndex, colIndex, item, e, record, row) {
+                                        var store = Ext.getStore("Tax");
+
+                                        Ext.Msg.confirm('提示', '确定要删除吗？', function(text){
+                                            if (text == 'yes'){
+                                                Ext.Ajax.request({
+                                                    url :'salary/tax/remove',//请求的服务器地址
+                                                    params : {
+                                                        id : record.get('id')
+                                                    },//发送json对象
+                                                    success:function(response,action){
+                                                        store.load();
+                                                        //                 me.resetGridSelect(record);
+                                                        Ext.Msg.alert("提示", "删除成功");
+                                                    },failure: function(){
+                                                        store.load();
+                                                        //                 me.resetGridSelect(record);
+                                                        Ext.Msg.alert("提示", "删除失败");
+                                                    }
+                                                });
+                                            }
+                                        });
+                                    },
                                     iconCls: 's_icon_cross',
                                     tooltip: '删除'
                                 }
                             ]
                         }
-                    ]
+                    ],
+                    listeners: {
+                        itemdblclick: {
+                            fn: me.onGridpanelItemDblClick,
+                            scope: me
+                        },
+                        render: {
+                            fn: me.onGridpanelRender,
+                            scope: me
+                        }
+                    }
                 }
             ]
         });
@@ -101,7 +143,28 @@ Ext.define('sion.salary.tax.view.TaxGrid', {
     onAddTaxClick: function(button, e, eOpts) {
         var me=this,
             namespace=me.getNamespace();
-        Ext.create(namespace+".view.Tax_win").show();
+        Ext.create(namespace+".view.Tax").show();
+    },
+
+    onGridpanelItemDblClick: function(dataview, record, item, index, e, eOpts) {
+        this.detail(record);
+    },
+
+    onGridpanelRender: function(component, eOpts) {
+        var me = this,
+            store = component.getStore();
+
+        store.load();
+    },
+
+    detail: function(record) {
+        var me = this,
+            namespace = me.getNamespace();
+
+        var panel =  Ext.create(namespace + '.view.Tax',{
+            _tax : record
+        });
+        panel.show();
     }
 
 });

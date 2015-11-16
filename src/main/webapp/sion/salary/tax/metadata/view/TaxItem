@@ -1,0 +1,500 @@
+{
+    "type": "Ext.window.Window",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userClassName": "TaxItem",
+        "height": 250,
+        "title": null,
+        "width": 400
+    },
+    "name": "MyWindow",
+    "designerId": "c159c817-e7dd-45e3-bd31-15e2aa5365b1",
+    "cn": [
+        {
+            "type": "Ext.form.Panel",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "bodyPadding": 10,
+                "title": null
+            },
+            "name": "MyForm1",
+            "designerId": "73a0a109-f41b-4935-95e4-cd1f74cec9dc",
+            "cn": [
+                {
+                    "type": "Ext.toolbar.Toolbar",
+                    "reference": {
+                        "name": "dockedItems",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dock": "top"
+                    },
+                    "name": "MyToolbar2",
+                    "designerId": "4a587c8f-135d-4a02-bb83-228d396c4288",
+                    "cn": [
+                        {
+                            "type": "Ext.button.Button",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "layout|flex": null,
+                                "text": "保存",
+                                "width": 70
+                            },
+                            "name": "MyButton3",
+                            "designerId": "a9b26e68-8735-4286-9008-825d5a30f815",
+                            "cn": [
+                                {
+                                    "type": "basiceventbinding",
+                                    "reference": {
+                                        "name": "listeners",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fn": "onButtonClick",
+                                        "implHandler": [
+                                            "var me = this,",
+                                            "    namespace = me.getNamespace(),",
+                                            "    uuid = Ext.create('Ext.data.UuidGenerator'),",
+                                            "    store = me._itemStore,",
+                                            "    id = uuid.generate(),",
+                                            "    form = me.down(\"form\"),",
+                                            "    lastRecord = null, //上一级对象",
+                                            "    item = me._taxItem,",
+                                            "    store = me._itemStore;",
+                                            "",
+                                            "record = form.getRecord();",
+                                            "form.updateRecord(record);",
+                                            "if(!me.down('#start').isValid() || !me.down('#end').isValid() ||",
+                                            "   !me.down('#rate').isValid() || !me.down('#fastNumber').isValid()){",
+                                            "    Ext.Msg.alert(\"提示\", \"信息不完整，请继续填写！\");",
+                                            "    return false;",
+                                            "}",
+                                            "if(item){",
+                                            "    //修改",
+                                            "    if(store.getCount() > 1){",
+                                            "        if(store.indexOf(record) > 0){",
+                                            "            lastRecord = store.getAt(store.indexOf(record) - 1);",
+                                            "        }",
+                                            "    }",
+                                            "}else{",
+                                            "    //新增",
+                                            "    if(store.getCount() > 0){",
+                                            "        lastRecord = store.last();",
+                                            "    }",
+                                            "}",
+                                            "if(lastRecord !== null){",
+                                            "    if(lastRecord.get('rate') >= record.get('rate')){",
+                                            "        Ext.Msg.alert(\"提示\", \"税率应大于上一级的税率\" + lastRecord.get('rate'));",
+                                            "        return false;",
+                                            "    }",
+                                            "}",
+                                            "",
+                                            "if(record.get('id') === ''){",
+                                            "    record.set('id', id);",
+                                            "    store.add(record);",
+                                            "}else{",
+                                            "    if(store.getCount() > 1){",
+                                            "        for(var i = 1; i < store.getCount(); i++){",
+                                            "            var prev = store.getAt(i - 1);",
+                                            "            var current = store.getAt(i);",
+                                            "            var fastNumber = me.countFastNumber(prev.get('end'), prev.get('rate'), prev.get('fastNumber'), current.get('rate'));",
+                                            "            current.set('fastNumber', fastNumber);",
+                                            "        }",
+                                            "    }",
+                                            "}",
+                                            "me.close();"
+                                        ],
+                                        "name": "click",
+                                        "scope": "me"
+                                    },
+                                    "name": "onButtonClick",
+                                    "designerId": "98869957-f8a0-4a0a-814d-04506a91ee84"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "type": "Ext.form.field.Number",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "allowBlank": false,
+                        "fieldLabel": "区段开始值",
+                        "itemId": "start",
+                        "layout|anchor": "100%",
+                        "minValue": 0,
+                        "name": "start",
+                        "readOnly": true
+                    },
+                    "name": "MyNumberField",
+                    "designerId": "55be8ecb-8b3f-4540-ad1d-413c64f3d4a4"
+                },
+                {
+                    "type": "Ext.form.field.Number",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "allowBlank": false,
+                        "fieldLabel": "区段结束值",
+                        "itemId": "end",
+                        "layout|anchor": "100%",
+                        "minValue": 0,
+                        "name": "end"
+                    },
+                    "name": "MyNumberField1",
+                    "designerId": "8b0aeebc-2042-43bc-b61c-811b9e96eb6f",
+                    "cn": [
+                        {
+                            "type": "Ext.XTemplate",
+                            "reference": {
+                                "name": "beforeLabelTextTpl",
+                                "type": "object"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "designer|displayName": "beforeLabelTextTpl",
+                                "implHandler": [
+                                    "<span style=\"color:red;font-weight:bold\" data-qtip=\"\">*</span>"
+                                ]
+                            },
+                            "name": "beforeLabelTextTpl",
+                            "designerId": "31a420e9-f343-46ad-a123-42d66a1f9f9c"
+                        }
+                    ]
+                },
+                {
+                    "type": "Ext.form.field.Number",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "allowBlank": false,
+                        "decimalPrecision": 0,
+                        "fieldLabel": "税率",
+                        "itemId": "rate",
+                        "layout|anchor": "100%",
+                        "minValue": 0,
+                        "name": "rate"
+                    },
+                    "name": "MyNumberField2",
+                    "designerId": "8496261f-781f-41bd-af0c-048ed65ad19a",
+                    "cn": [
+                        {
+                            "type": "basiceventbinding",
+                            "reference": {
+                                "name": "listeners",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fn": "onRateChange",
+                                "implHandler": [
+                                    "this.setFastNumber();"
+                                ],
+                                "name": "change",
+                                "scope": "me"
+                            },
+                            "name": "onRateChange",
+                            "designerId": "e09365d9-e918-4783-a62c-e269fadf3c19"
+                        },
+                        {
+                            "type": "Ext.XTemplate",
+                            "reference": {
+                                "name": "beforeLabelTextTpl",
+                                "type": "object"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "designer|displayName": "beforeLabelTextTpl",
+                                "implHandler": [
+                                    "<span style=\"color:red;font-weight:bold\" data-qtip=\"\">*</span>"
+                                ]
+                            },
+                            "name": "beforeLabelTextTpl",
+                            "designerId": "27570a9d-898e-43dc-99ba-99a21c863bcb"
+                        }
+                    ]
+                },
+                {
+                    "type": "Ext.form.field.Number",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "allowBlank": false,
+                        "fieldLabel": "速算扣除数",
+                        "itemId": "fastNumber",
+                        "layout|anchor": "100%",
+                        "minValue": 0,
+                        "name": "fastNumber",
+                        "readOnly": true
+                    },
+                    "name": "MyNumberField3",
+                    "designerId": "171cc807-fbaf-4d09-87e3-6eb3f25f488e"
+                }
+            ]
+        },
+        {
+            "type": "basiceventbinding",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "onWindowBeforeRender",
+                "implHandler": [
+                    "var me = this,",
+                    "    namespace = me.getNamespace(),",
+                    "    form = me.down(\"form\"),",
+                    "    store = me._itemStore,",
+                    "    item = me._taxItem,",
+                    "    start = 1;",
+                    "",
+                    "if(item){",
+                    "    form.loadRecord(item);",
+                    "}else{",
+                    "    if(store.getCount() > 0){",
+                    "        prev = store.last();",
+                    "        start = prev.get('end') + 1;",
+                    "    }",
+                    "    form.loadRecord(Ext.create(namespace + '.model.TaxItem', {",
+                    "        id: '',",
+                    "        start: start,",
+                    "        end: 0,",
+                    "        rate: 0,",
+                    "        fastNumber: 0",
+                    "    }));",
+                    "}",
+                    "me.down('#end').setMinValue(me.down('#start').getValue() + 1);",
+                    "var record = form.getRecord();",
+                    "if(store.getCount() > 0){",
+                    "    if(store.indexOf(record) - 1 >= 0){",
+                    "        me.down('#rate').setMinValue(store.getAt(store.indexOf(record) - 1).get('rate') + 1);",
+                    "    }else{",
+                    "        me.down('#rate').setMinValue(0);",
+                    "    }",
+                    "}"
+                ],
+                "name": "beforerender",
+                "scope": "me"
+            },
+            "name": "onWindowBeforeRender",
+            "designerId": "f60ffac0-3a04-401c-94f0-8c9a91f0d802"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "setFastNumber",
+                "implHandler": [
+                    "var me = this,",
+                    "    form = me.down(\"form\"),",
+                    "    record = form.getRecord(),",
+                    "    store = me._itemStore,",
+                    "    lastRecord = null,",
+                    "    value = 0;",
+                    "",
+                    "if(store.getCount() > 0){",
+                    "    if(store.indexOf(record) == -1){",
+                    "        lastRecord = store.last();",
+                    "    }else{",
+                    "        if(store.indexOf(record) > 0){",
+                    "            lastRecord = store.getAt(store.indexOf(record) - 1);",
+                    "        }",
+                    "    }",
+                    "    if(lastRecord !== null){",
+                    "        value = me.countFastNumber(lastRecord.get('end'), lastRecord.get('rate'), lastRecord.get('fastNumber'), me.down('#rate').getValue());",
+                    "        me.down('#fastNumber').setValue(value);",
+                    "    }",
+                    "}"
+                ]
+            },
+            "name": "setFastNumber",
+            "designerId": "8306479f-ee1c-4488-ba60-75bcbec5929e"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|params": [
+                    "prevEnd",
+                    "prevRate",
+                    "prevFastNumber",
+                    "rate"
+                ],
+                "fn": "countFastNumber",
+                "implHandler": [
+                    "// var me = this,",
+                    "//     form = me.down(\"form\"),",
+                    "//     record = form.getRecord(),",
+                    "//     store = me._itemStore,",
+                    "//     lastRecord = null,",
+                    "var    value = 0;",
+                    "",
+                    "// if(store.getCount() > 0){",
+                    "//     Number.prototype.mul = function (arg){",
+                    "//         return me.accMul(arg, this);",
+                    "//     };",
+                    "//     Number.prototype.add = function (arg){",
+                    "//         return me.accAdd(arg, this);",
+                    "//     };",
+                    "//     Number.prototype.sub = function (arg){",
+                    "//         return me.accSub(arg, this);",
+                    "//     };",
+                    "",
+                    "//     if(store.indexOf(record) == -1){",
+                    "//         lastRecord = store.last();",
+                    "//     }else{",
+                    "//         if(store.indexOf(record) > 0){",
+                    "//             lastRecord = store.getAt(store.indexOf(record) - 1);",
+                    "//         }",
+                    "//     }",
+                    "//     if(lastRecord !== null){",
+                    "//         value = (lastRecord.get('end')).mul((me.down('#rate').getValue()).sub(lastRecord.get('rate'))).add(lastRecord.get('fastNumber'));",
+                    "        value = prevEnd * (rate - prevRate) ;",
+                    "//         value = (lastRecord.get('end').mul(lastRecord.get('rate').sub(me.down('#rate').getValue()))).add(lastRecord.get('fastNumber'));",
+                    "        value = (value * 0.01).toFixed(2);",
+                    "//         value = (value).add(lastRecord.get('fastNumber'));",
+                    "        value = parseFloat(value) + parseFloat(prevFastNumber);",
+                    "        return value;",
+                    "//     }",
+                    "// }"
+                ]
+            },
+            "name": "countFastNumber",
+            "designerId": "56a03111-94ef-4f8a-8196-cb359e4bdd2a"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|params": [
+                    "arg1",
+                    "arg2"
+                ],
+                "fn": "accMul",
+                "implHandler": [
+                    "// var m = 0, s1 = arg1.toString(), s2 = arg2.toString();",
+                    "// try{",
+                    "//     m += s1.split(\".\")[1].length;",
+                    "// }catch(e){",
+                    "",
+                    "// }",
+                    "// try{",
+                    "//     m += s2.split(\".\")[1].length;",
+                    "// }catch(e){",
+                    "",
+                    "// }",
+                    "// return Number(s1.replace(\".\", \"\")) * Number(s2.replace(\".\", \"\")) / Math.pow(10, m);"
+                ]
+            },
+            "name": "accMul",
+            "designerId": "854330e1-7c39-4662-898e-fa53435edf60"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|params": [
+                    "arg1",
+                    "arg2"
+                ],
+                "fn": "accAdd",
+                "implHandler": [
+                    "// var r1, r2, m;",
+                    "// try{",
+                    "//     r1 = arg1.toString().split(\".\")[1].length;",
+                    "// }catch(e){",
+                    "//     r1 = 0;",
+                    "// }",
+                    "// try{",
+                    "//     r2 = arg2.toString().split(\".\")[1].length;",
+                    "// }catch(e){",
+                    "//     r2 = 0;",
+                    "// }",
+                    "// m = Math.pow(10, Math.max(r1, r2)) ;",
+                    "// return (arg1 * m + arg2 * m) / m ;"
+                ]
+            },
+            "name": "accAdd",
+            "designerId": "8213f705-b956-4f3a-90a5-cb489671a6fa"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|params": [
+                    "arg1",
+                    "arg2"
+                ],
+                "fn": "accSub",
+                "implHandler": [
+                    "//  var r1, r2, m, n;",
+                    "//      try{",
+                    "//          r1 = arg1.toString().split(\".\")[1].length;",
+                    "//      }catch(e){",
+                    "//          r1 = 0;",
+                    "//      }",
+                    "//      try{",
+                    "//          r2 = arg2.toString().split(\".\")[1].length;",
+                    "//      }catch(e){",
+                    "//          r2 = 0;",
+                    "//      }",
+                    "//      m = Math.pow(10, Math.max(r1, r2));",
+                    "//      //last modify by deeka",
+                    "//      //动态控制精度长度",
+                    "//      n = (r1 >= r2) ? r1 : r2;",
+                    "//      return ((arg1 * m - arg2 * m) / m).toFixed( n );"
+                ]
+            },
+            "name": "accSub",
+            "designerId": "8e4ff92f-53c9-4d6d-bbfa-360ea800a58f"
+        }
+    ]
+}

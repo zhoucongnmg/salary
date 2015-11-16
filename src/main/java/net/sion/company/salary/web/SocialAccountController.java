@@ -57,7 +57,7 @@ public class SocialAccountController {
 	 * @return
 	 */
 	@RequestMapping(value = "create")
-	public Response create(HttpSession session, @RequestBody SocialAccount account) {
+	public @ResponseBody Response create(HttpSession session, @RequestBody SocialAccount account) {
 		if(account.getId() == null || "".equals(account.getId())){
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 			Date date = new Date();
@@ -71,31 +71,6 @@ public class SocialAccountController {
 		socialAccountRepository.save(account);
 		return new Response(true);
 	}
-
-	/**
-	 * 读取社保方案
-	 * 
-	 * @param id
-	 * @return
-	 */
-	@RequestMapping(value = "read")
-	public Response read(@RequestParam String id) {
-		return new Response(true);
-	}
-	
-
-	/**
-	 * 更新社保方案
-	 * 
-	 * @param person
-	 * @return
-	 */
-	@RequestMapping(value = "update")
-	public Response update(@RequestBody SocialAccount account) {
-		// TODO 保存投保人信息
-		return new Response(true);
-	}
-
 
 	/**
 	 * 查询社保方案

@@ -26,22 +26,24 @@ Ext.application({
     models: [
         'Account',
         'AccountMember',
-        'SalaryItem'
+        'SalaryItem',
+        'AccountItem'
     ],
     stores: [
+        'SalaryItem',
+        'AccountItem',
         'Account',
-        'AccountMember',
-        'SalaryItem'
+        'AccountMember'
     ],
     views: [
         'SalaryPlanGrid',
         'SalaryItems',
         'SalaryItemGrid',
-        'SalaryPlan_win',
+        'SalaryPlan',
         'SalaryItemEdit',
-        'AddSalaryItem_win',
-        'AccountMember_win',
-        'AccountMemberConfig_win',
+        'AddSalaryItem',
+        'AccountMember',
+        'AccountMemberConfig',
         'SalaryItemRead'
     ],
     name: 'sion.salary.accounts',

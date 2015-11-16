@@ -19,7 +19,8 @@
             },
             "codeClass": null,
             "userConfig": {
-                "name": "start"
+                "name": "start",
+                "type": "float"
             },
             "name": "MyField3",
             "designerId": "6e92649b-dcc7-4efc-ae5f-329e2eb10fce"
@@ -32,7 +33,8 @@
             },
             "codeClass": null,
             "userConfig": {
-                "name": "end"
+                "name": "end",
+                "type": "float"
             },
             "name": "MyField4",
             "designerId": "d04a7584-311f-477c-8129-981675ddc19d"
@@ -45,7 +47,8 @@
             },
             "codeClass": null,
             "userConfig": {
-                "name": "rate"
+                "name": "rate",
+                "type": "float"
             },
             "name": "MyField5",
             "designerId": "ee44ef79-e078-42aa-8595-f31a34307abb"
@@ -58,10 +61,24 @@
             },
             "codeClass": null,
             "userConfig": {
-                "name": "fastNumber"
+                "name": "fastNumber",
+                "type": "float"
             },
             "name": "MyField6",
             "designerId": "af0606cd-3bf1-462f-afeb-7e4fd1332140"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "id"
+            },
+            "name": "MyField8",
+            "designerId": "e339730f-1d7a-4197-9fc3-e618bb76a11f"
         }
     ]
 }
