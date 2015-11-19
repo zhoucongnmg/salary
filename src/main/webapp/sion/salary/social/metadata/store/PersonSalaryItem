@@ -1,0 +1,15 @@
+{
+    "type": "Ext.data.Store",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userClassName": "PersonSalaryItem",
+        "model": "PersonSalaryItem",
+        "storeId": "PersonSalaryItem"
+    },
+    "name": "MyStore",
+    "designerId": "ec6c890a-1bbe-4749-ac39-e713bdb276f4"
+}

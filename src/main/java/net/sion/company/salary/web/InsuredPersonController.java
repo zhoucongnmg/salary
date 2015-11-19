@@ -3,10 +3,12 @@ package net.sion.company.salary.web;
 import java.util.List;
 import java.util.Map;
 
+import net.sion.company.salary.domain.Account;
 import net.sion.company.salary.domain.InsuredPerson;
 import net.sion.company.salary.domain.Level;
 import net.sion.company.salary.domain.PersonAccountFile;
 import net.sion.company.salary.domain.PersonAccountItem;
+import net.sion.company.salary.sessionrepository.AccountRepository;
 import net.sion.company.salary.sessionrepository.PersonAccountRepository;
 import net.sion.util.mvc.Response;
 
@@ -25,7 +27,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class InsuredPersonController {
 	@Autowired
 	private PersonAccountRepository personAccountRepo;
-	
+	@Autowired
+	private AccountRepository accountRepo;
 	/**
 	 * 创建投保人
 	 * 
@@ -105,5 +108,9 @@ public class InsuredPersonController {
 		return new Response("操作成功",	true);
 	}
 	
-	
+	@RequestMapping(value="loadSalaryAccount")
+	public Response loadSalaryAccount() {
+		List<Account> accounts=accountRepo.findAll();
+		return new Response("", accounts, true);
+	}
 }

@@ -33,7 +33,10 @@ Ext.application({
         'PersonAccount',
         'InsuredPerson',
         'Level',
-        'SalaryAccount'
+        'SalaryAccount',
+        'Rank',
+        'PersonSalaryItem',
+        'PersonSocialItem'
     ],
     stores: [
         'SocialItem',
@@ -44,7 +47,10 @@ Ext.application({
         'PaymentType',
         'PersonAccountStore',
         'LevelStore',
-        'SalaryAccount'
+        'SalaryAccount',
+        'RankStore',
+        'PersonSalaryItem',
+        'PersonSocialItem'
     ],
     views: [
         'PersonAccountGrid',
@@ -58,7 +64,8 @@ Ext.application({
         'SocialAccountEdit',
         'SocialPlanGrid',
         'SocialItemGridPanel',
-        'SocialAccountItemEdit'
+        'SocialAccountItemEdit',
+        'SearchPerson'
     ],
     name: 'sion.salary.social',
 

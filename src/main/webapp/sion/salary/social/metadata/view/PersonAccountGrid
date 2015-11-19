@@ -43,7 +43,7 @@
                         "layout": "column",
                         "layout|flex": null,
                         "title": null,
-                        "width": 908
+                        "width": 951
                     },
                     "name": "MyForm",
                     "designerId": "84fa6fcb-cc7a-43fe-bff3-710c08fa2442",
@@ -56,10 +56,31 @@
                             },
                             "codeClass": null,
                             "userConfig": {
-                                "fieldLabel": "社保套账",
+                                "displayField": "name",
+                                "fieldLabel": "薪资方案",
                                 "labelWidth": 60,
-                                "layout|columnWidth": 0.25,
-                                "padding": null
+                                "layout|columnWidth": 0.22,
+                                "store": "SalaryAccount",
+                                "valueField": "id"
+                            },
+                            "name": "MyComboBox11",
+                            "designerId": "de56efae-0001-4ebe-b7df-ca777dc58bbd"
+                        },
+                        {
+                            "type": "Ext.form.field.ComboBox",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "displayField": "name",
+                                "fieldLabel": "社保方案",
+                                "labelWidth": 60,
+                                "layout|columnWidth": 0.22,
+                                "padding": null,
+                                "store": "SocialAccount",
+                                "valueField": "id"
                             },
                             "name": "MyComboBox2",
                             "designerId": "75299fb4-166a-4ca1-bcf9-e01741c0257b"
@@ -98,7 +119,7 @@
                                 "fieldLabel": "参保日期",
                                 "format": "Y-m-d",
                                 "labelWidth": 60,
-                                "layout|columnWidth": 0.248,
+                                "layout|columnWidth": 0.22,
                                 "margin": "0 0 0 10",
                                 "width": null
                             },
@@ -192,7 +213,8 @@
                                         "implHandler": [
                                             "var me=this,",
                                             "    namespace=me.getNamespace();",
-                                            "Ext.create(namespace+'.view.PersonAccountForm',{_grid:me}).show();"
+                                            "Ext.create(namespace+'.view.PersonAccountForm',{_grid:me}).show();",
+                                            ""
                                         ],
                                         "name": "click",
                                         "scope": "me"

@@ -16,7 +16,10 @@
             "PersonAccount",
             "InsuredPerson",
             "Level",
-            "SalaryAccount"
+            "SalaryAccount",
+            "Rank",
+            "PersonSalaryItem",
+            "PersonSocialItem"
         ],
         "name": "sion.salary.social",
         "paths": [
@@ -31,7 +34,10 @@
             "PaymentType",
             "PersonAccountStore",
             "LevelStore",
-            "SalaryAccount"
+            "SalaryAccount",
+            "RankStore",
+            "PersonSalaryItem",
+            "PersonSocialItem"
         ],
         "views": [
             "PersonAccountGrid",
@@ -45,7 +51,8 @@
             "SocialAccountEdit",
             "SocialPlanGrid",
             "SocialItemGridPanel",
-            "SocialAccountItemEdit"
+            "SocialAccountItemEdit",
+            "SearchPerson"
         ]
     },
     "name": "Application",

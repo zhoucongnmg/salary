@@ -1,0 +1,16 @@
+{
+    "type": "Ext.data.Store",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "autoLoad": false,
+        "designer|userClassName": "RankStore",
+        "model": "Rank",
+        "storeId": "RankStore"
+    },
+    "name": "MyStore",
+    "designerId": "512a797e-2249-438d-ae85-65060eeeddc0"
+}

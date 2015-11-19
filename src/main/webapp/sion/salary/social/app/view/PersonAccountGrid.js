@@ -44,15 +44,27 @@ Ext.define('sion.salary.social.view.PersonAccountGrid', {
                         {
                             xtype: 'form',
                             height: 122,
-                            width: 908,
+                            width: 951,
                             layout: 'column',
                             bodyPadding: 10,
                             items: [
                                 {
                                     xtype: 'combobox',
-                                    columnWidth: 0.25,
-                                    fieldLabel: '社保套账',
-                                    labelWidth: 60
+                                    columnWidth: 0.22,
+                                    fieldLabel: '薪资方案',
+                                    labelWidth: 60,
+                                    displayField: 'name',
+                                    store: 'SalaryAccount',
+                                    valueField: 'id'
+                                },
+                                {
+                                    xtype: 'combobox',
+                                    columnWidth: 0.22,
+                                    fieldLabel: '社保方案',
+                                    labelWidth: 60,
+                                    displayField: 'name',
+                                    store: 'SocialAccount',
+                                    valueField: 'id'
                                 },
                                 {
                                     xtype: 'combobox',
@@ -73,7 +85,7 @@ Ext.define('sion.salary.social.view.PersonAccountGrid', {
                                 },
                                 {
                                     xtype: 'datefield',
-                                    columnWidth: 0.248,
+                                    columnWidth: 0.22,
                                     margin: '0 0 0 10',
                                     fieldLabel: '参保日期',
                                     labelWidth: 60,
@@ -214,6 +226,7 @@ Ext.define('sion.salary.social.view.PersonAccountGrid', {
         var me=this,
             namespace=me.getNamespace();
         Ext.create(namespace+'.view.PersonAccountForm',{_grid:me}).show();
+
     },
 
     onGridpanelAfterRender: function(component, eOpts) {

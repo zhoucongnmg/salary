@@ -10,7 +10,7 @@
         "designer|userClassName": "PersonAccountForm",
         "height": 766,
         "layout": "column",
-        "title": null,
+        "title": "员工薪资档案",
         "width": 861
     },
     "designerId": "ab191b14-fffd-4c4d-be41-8dbf0d999859",
@@ -57,6 +57,8 @@
                                     "    namespace=me.getNamespace(),",
                                     "    salaryForm=me.down('#salaryForm'),",
                                     "    socialForm=me.down('#socialForm'),",
+                                    "    salaryItemGrid=me.down('#SalaryItemGrid'),",
+                                    "    salaryItemStore=salaryItemGrid.getStore(),",
                                     "    accountItems=[],",
                                     "    insuredPerson,",
                                     "    model;",
@@ -68,6 +70,10 @@
                                     "else{",
                                     "    model=Ext.create(namespace+\".model.PersonAccount\",salaryForm.getValues());",
                                     "}",
+                                    "",
+                                    "salaryItemStore.each(function(item){",
+                                    "    accountItems.push({accountItemId:item.data.salaryItemId,accountItemName:item.data.name,value:item.data.value});",
+                                    "});",
                                     "",
                                     "model.set(\"accountItems\",accountItems);",
                                     "insuredPerson=Ext.create(namespace+\".model.InsuredPerson\",socialForm.getValues());",
@@ -115,6 +121,7 @@
             "codeClass": null,
             "userConfig": {
                 "activeTab": 0,
+                "height": 672,
                 "layout|columnWidth": 1,
                 "width": null
             },
@@ -130,6 +137,7 @@
                     "codeClass": null,
                     "userConfig": {
                         "bodyPadding": 10,
+                        "height": 543,
                         "itemId": "salaryForm",
                         "layout": "column",
                         "title": "基本信息"
@@ -188,7 +196,7 @@
                                         "fn": "onSearchClick",
                                         "implHandler": [
                                             "var personSelection =Ext.create(\"Sion.Hr.Base.view.PersonSelection\",",
-                                            "                                {_scope:this,_callback:this.selectedCallback});",
+                                            "                                {_selectionMode:\"SINGLE\",_scope:this,_callback:this.selectedCallback});",
                                             "personSelection.show();"
                                         ],
                                         "name": "click",
@@ -435,14 +443,53 @@
                             },
                             "codeClass": null,
                             "userConfig": {
+                                "allowBlank": false,
+                                "allowOnlyWhitespace": false,
+                                "displayField": "name",
+                                "editable": false,
                                 "fieldLabel": "薪资方案",
                                 "labelWidth": 80,
                                 "layout|columnWidth": 0.45,
                                 "name": "accountId",
-                                "store": "SalaryAccount"
+                                "store": "SalaryAccount",
+                                "valueField": "id"
                             },
                             "name": "MyComboBox1",
-                            "designerId": "54cb155c-122c-41ed-95b1-9bcf5fc437c9"
+                            "designerId": "54cb155c-122c-41ed-95b1-9bcf5fc437c9",
+                            "cn": [
+                                {
+                                    "type": "basiceventbinding",
+                                    "reference": {
+                                        "name": "listeners",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fn": "onAccountChange",
+                                        "implHandler": [
+                                            "var me=this,",
+                                            "    namespace=me.getNamespace(),",
+                                            "    store=field.getStore(),",
+                                            "    SalaryItemGrid=me.down('#SalaryItemGrid'),",
+                                            "    gridStore=SalaryItemGrid.getStore();",
+                                            "",
+                                            "gridStore.removeAll();",
+                                            "store.each(function(account){",
+                                            "    if(account.data.id===newValue){",
+                                            "        var items=account.data.accountItems;",
+                                            "        Ext.Array.each(items,function(item){",
+                                            "            gridStore.add(Ext.create(namespace+\".model.PersonSalaryItem\",item));",
+                                            "        });",
+                                            "    }",
+                                            "});"
+                                        ],
+                                        "name": "change",
+                                        "scope": "me"
+                                    },
+                                    "name": "onAccountChange",
+                                    "designerId": "e92987cf-719f-435e-bb5a-10c1fb7887cc"
+                                }
+                            ]
                         },
                         {
                             "type": "Ext.toolbar.Spacer",
@@ -476,7 +523,41 @@
                                 "valueField": "id"
                             },
                             "name": "MyComboBox9",
-                            "designerId": "e8c1463a-6812-43b5-8999-52982bc73f39"
+                            "designerId": "e8c1463a-6812-43b5-8999-52982bc73f39",
+                            "cn": [
+                                {
+                                    "type": "basiceventbinding",
+                                    "reference": {
+                                        "name": "listeners",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fn": "onLevelChange",
+                                        "implHandler": [
+                                            "var me=this,",
+                                            "    store=field.getStore(),",
+                                            "    rank=me.down('#rank'),",
+                                            "    namespace=me.getNamespace(),",
+                                            "    rankstore=rank.getStore();",
+                                            "rankstore.removeAll();",
+                                            "store.each(function(level){",
+                                            "    if(level.data.id===newValue){",
+                                            "        var levelItems=level.data.levelItems;",
+                                            "        Ext.Array.each(levelItems,function(item){",
+                                            "            rankstore.add(Ext.create(namespace+\".model.Rank\",item));",
+                                            "        });",
+                                            "    }",
+                                            "});",
+                                            ""
+                                        ],
+                                        "name": "change",
+                                        "scope": "me"
+                                    },
+                                    "name": "onLevelChange",
+                                    "designerId": "1869763e-ab4c-4768-aafd-6bb57aee6130"
+                                }
+                            ]
                         },
                         {
                             "type": "Ext.toolbar.Spacer",
@@ -500,10 +581,14 @@
                             },
                             "codeClass": null,
                             "userConfig": {
+                                "displayField": "rank",
                                 "fieldLabel": "薪资级别",
+                                "itemId": "rank",
                                 "labelWidth": 80,
                                 "layout|columnWidth": 0.45,
-                                "name": "rank"
+                                "name": "rank",
+                                "store": "RankStore",
+                                "valueField": "rank"
                             },
                             "name": "MyComboBox10",
                             "designerId": "39d4cd03-f68a-4815-b0fd-fcf987f5ab39"
@@ -564,8 +649,10 @@
                             "codeClass": null,
                             "userConfig": {
                                 "header": false,
+                                "height": 286,
                                 "itemId": "SalaryItemGrid",
                                 "layout|columnWidth": 1,
+                                "store": "PersonSalaryItem",
                                 "title": "My Grid Panel"
                             },
                             "name": "MyGridPanel1",
@@ -579,7 +666,7 @@
                                     },
                                     "codeClass": null,
                                     "userConfig": {
-                                        "dataIndex": "string",
+                                        "dataIndex": "name",
                                         "text": "工资项目",
                                         "width": "40%"
                                     },
@@ -594,11 +681,24 @@
                                     },
                                     "codeClass": null,
                                     "userConfig": {
+                                        "dataIndex": "value",
                                         "text": "值",
                                         "width": "58%"
                                     },
                                     "name": "MyColumn25",
-                                    "designerId": "8a923989-d5d8-49d2-8924-15190043b967"
+                                    "designerId": "8a923989-d5d8-49d2-8924-15190043b967",
+                                    "cn": [
+                                        {
+                                            "type": "Ext.form.field.Number",
+                                            "reference": {
+                                                "name": "editor",
+                                                "type": "object"
+                                            },
+                                            "codeClass": null,
+                                            "name": "MyNumberField3",
+                                            "designerId": "98b16eba-e8b6-4a63-abf8-47df5458d8d1"
+                                        }
+                                    ]
                                 },
                                 {
                                     "type": "Ext.grid.View",
@@ -609,22 +709,18 @@
                                     "codeClass": null,
                                     "name": "MyGridView2",
                                     "designerId": "5c14bfa8-9914-4ce0-b902-a4a639d61bee"
+                                },
+                                {
+                                    "type": "Ext.grid.plugin.RowEditing",
+                                    "reference": {
+                                        "name": "plugins",
+                                        "type": "array"
+                                    },
+                                    "codeClass": "Ext.grid.plugin.RowEditing",
+                                    "name": "MyRowEditingPlugin",
+                                    "designerId": "5acf885a-82e6-469d-83a3-c3d921a1b981"
                                 }
                             ]
-                        },
-                        {
-                            "type": "Ext.toolbar.Spacer",
-                            "reference": {
-                                "name": "items",
-                                "type": "array"
-                            },
-                            "codeClass": null,
-                            "userConfig": {
-                                "height": 20,
-                                "layout|columnWidth": 1
-                            },
-                            "name": "MySpacer14",
-                            "designerId": "5a60ee6a-7632-4d5c-8a0c-0758602f87bd"
                         }
                     ]
                 },
@@ -754,6 +850,8 @@
                             },
                             "codeClass": null,
                             "userConfig": {
+                                "allowBlank": false,
+                                "allowOnlyWhitespace": false,
                                 "editable": false,
                                 "fieldLabel": "参保状态",
                                 "labelWidth": 80,
@@ -824,6 +922,7 @@
                             "codeClass": null,
                             "userConfig": {
                                 "displayField": "name",
+                                "editable": false,
                                 "fieldLabel": "社保方案",
                                 "itemId": "socialAccount",
                                 "labelWidth": 80,
@@ -833,7 +932,41 @@
                                 "valueField": "id"
                             },
                             "name": "MyComboBox4",
-                            "designerId": "1cd36a89-b523-4b79-9fa9-ba4578352b1b"
+                            "designerId": "1cd36a89-b523-4b79-9fa9-ba4578352b1b",
+                            "cn": [
+                                {
+                                    "type": "basiceventbinding",
+                                    "reference": {
+                                        "name": "listeners",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fn": "onSocialAccountChange",
+                                        "implHandler": [
+                                            "var me=this,",
+                                            "    namespace=me.getNamespace(),",
+                                            "    store=field.getStore(),",
+                                            "    socialGrid=me.down('#socialGrid'),",
+                                            "    gridStore=socialGrid.getStore();",
+                                            "",
+                                            "gridStore.removeAll();",
+                                            "store.each(function(account){",
+                                            "    if(account.data.id===newValue){",
+                                            "        var items=account.data.socialAccountItems;",
+                                            "        Ext.Array.each(items,function(item){",
+                                            "            gridStore.add(Ext.create(namespace+\".model.PersonSocialItem\",item));",
+                                            "        });",
+                                            "    }",
+                                            "});"
+                                        ],
+                                        "name": "change",
+                                        "scope": "me"
+                                    },
+                                    "name": "onSocialAccountChange",
+                                    "designerId": "b21ef5c8-913c-4f0a-af3c-adf92a6d7d91"
+                                }
+                            ]
                         },
                         {
                             "type": "Ext.toolbar.Spacer",
@@ -850,197 +983,6 @@
                             "designerId": "1d55f568-e366-4038-8085-e78f110b33c7"
                         },
                         {
-                            "type": "Ext.grid.Panel",
-                            "reference": {
-                                "name": "items",
-                                "type": "array"
-                            },
-                            "codeClass": null,
-                            "userConfig": {
-                                "header": false,
-                                "layout|columnWidth": 1,
-                                "title": "My Tab"
-                            },
-                            "name": "MyGridPanel",
-                            "designerId": "7a91a46b-2694-46af-b0da-184a0554f89a",
-                            "cn": [
-                                {
-                                    "type": "Ext.grid.column.Column",
-                                    "reference": {
-                                        "name": "columns",
-                                        "type": "array"
-                                    },
-                                    "codeClass": null,
-                                    "userConfig": {
-                                        "dataIndex": "string",
-                                        "flex": 1,
-                                        "text": "项目名称"
-                                    },
-                                    "name": "MyColumn11",
-                                    "designerId": "47c7ed23-b867-4581-aed3-0d93568b4bc1"
-                                },
-                                {
-                                    "type": "Ext.grid.column.Column",
-                                    "reference": {
-                                        "name": "columns",
-                                        "type": "array"
-                                    },
-                                    "codeClass": null,
-                                    "userConfig": {
-                                        "dataIndex": "string",
-                                        "flex": 0.6,
-                                        "text": "基数"
-                                    },
-                                    "name": "MyColumn13",
-                                    "designerId": "5a5f74cc-092a-42c4-80e4-fbc71e4f6302"
-                                },
-                                {
-                                    "type": "Ext.grid.column.Column",
-                                    "reference": {
-                                        "name": "columns",
-                                        "type": "array"
-                                    },
-                                    "codeClass": null,
-                                    "userConfig": {
-                                        "dataIndex": "string",
-                                        "flex": 1.25,
-                                        "text": "单位购买类型"
-                                    },
-                                    "name": "MyColumn14",
-                                    "designerId": "6fd591f0-7fe5-4343-89b9-524f4754797c"
-                                },
-                                {
-                                    "type": "Ext.grid.column.Column",
-                                    "reference": {
-                                        "name": "columns",
-                                        "type": "array"
-                                    },
-                                    "codeClass": null,
-                                    "userConfig": {
-                                        "dataIndex": "string",
-                                        "flex": 1.7,
-                                        "text": "单位购买百分比"
-                                    },
-                                    "name": "MyColumn16",
-                                    "designerId": "3b1d9854-69c8-48bf-8e12-d8d855f562a0"
-                                },
-                                {
-                                    "type": "Ext.grid.column.Column",
-                                    "reference": {
-                                        "name": "columns",
-                                        "type": "array"
-                                    },
-                                    "codeClass": null,
-                                    "userConfig": {
-                                        "dataIndex": "string",
-                                        "flex": 1.25,
-                                        "text": "单位购买金额"
-                                    },
-                                    "name": "MyColumn15",
-                                    "designerId": "80fb5444-ccc6-487d-964e-393cc1b50b72"
-                                },
-                                {
-                                    "type": "Ext.grid.column.Column",
-                                    "reference": {
-                                        "name": "columns",
-                                        "type": "array"
-                                    },
-                                    "codeClass": null,
-                                    "userConfig": {
-                                        "dataIndex": "string",
-                                        "flex": 1.25,
-                                        "text": "个人购买类型"
-                                    },
-                                    "name": "MyColumn17",
-                                    "designerId": "453392c6-d959-47d6-8147-3a32369ef5ce"
-                                },
-                                {
-                                    "type": "Ext.grid.column.Column",
-                                    "reference": {
-                                        "name": "columns",
-                                        "type": "array"
-                                    },
-                                    "codeClass": null,
-                                    "userConfig": {
-                                        "dataIndex": "string",
-                                        "flex": 1.7,
-                                        "text": "个人购买百分比"
-                                    },
-                                    "name": "MyColumn18",
-                                    "designerId": "3a456ad7-a5d2-4bfc-8c3d-61a73b2fcb66"
-                                },
-                                {
-                                    "type": "Ext.grid.column.Column",
-                                    "reference": {
-                                        "name": "columns",
-                                        "type": "array"
-                                    },
-                                    "codeClass": null,
-                                    "userConfig": {
-                                        "dataIndex": "string",
-                                        "flex": 1.25,
-                                        "text": "个人购买金额"
-                                    },
-                                    "name": "MyColumn12",
-                                    "designerId": "e9fcb164-ae4b-4c6b-ab45-d64f9cb4dbb8"
-                                },
-                                {
-                                    "type": "Ext.grid.View",
-                                    "reference": {
-                                        "name": "viewConfig",
-                                        "type": "object"
-                                    },
-                                    "codeClass": null,
-                                    "name": "MyGridView1",
-                                    "designerId": "b3ed3b24-2715-4396-aae6-2d954cf5f0c1"
-                                }
-                            ]
-                        },
-                        {
-                            "type": "Ext.toolbar.Spacer",
-                            "reference": {
-                                "name": "items",
-                                "type": "array"
-                            },
-                            "codeClass": null,
-                            "userConfig": {
-                                "height": 20,
-                                "layout|columnWidth": 1
-                            },
-                            "name": "MySpacer16",
-                            "designerId": "cfc3acd7-b017-4e5b-9bbe-308e431e774d"
-                        },
-                        {
-                            "type": "Ext.toolbar.Spacer",
-                            "reference": {
-                                "name": "items",
-                                "type": "array"
-                            },
-                            "codeClass": null,
-                            "userConfig": {
-                                "height": 20,
-                                "layout|columnWidth": 1
-                            },
-                            "name": "MySpacer11",
-                            "designerId": "b4a43c4c-d000-4265-a2bd-9969187d6d31"
-                        },
-                        {
-                            "type": "Ext.form.field.Checkbox",
-                            "reference": {
-                                "name": "items",
-                                "type": "array"
-                            },
-                            "codeClass": null,
-                            "userConfig": {
-                                "boxLabel": null,
-                                "fieldLabel": "社保代付地",
-                                "labelWidth": 80,
-                                "layout|columnWidth": 0.15
-                            },
-                            "name": "MyCheckbox",
-                            "designerId": "4d313a68-2214-4577-8bac-314bcfc6cbf3"
-                        },
-                        {
                             "type": "Ext.form.field.Text",
                             "reference": {
                                 "name": "items",
@@ -1048,10 +990,12 @@
                             },
                             "codeClass": null,
                             "userConfig": {
-                                "fieldLabel": null,
-                                "layout|columnWidth": 0.295,
+                                "fieldLabel": "社保代付地",
+                                "hideEmptyLabel": false,
+                                "labelWidth": 80,
+                                "layout|columnWidth": 0.45,
                                 "name": "socialWorkplace",
-                                "padding": "0 0 0 10"
+                                "padding": null
                             },
                             "name": "MyTextField7",
                             "designerId": "0663a5a5-b6ba-4b8c-8156-1f77923f813c"
@@ -1071,22 +1015,6 @@
                             "designerId": "f73d3873-a991-4977-87ab-1ab39a2f8157"
                         },
                         {
-                            "type": "Ext.form.field.Checkbox",
-                            "reference": {
-                                "name": "items",
-                                "type": "array"
-                            },
-                            "codeClass": null,
-                            "userConfig": {
-                                "boxLabel": null,
-                                "fieldLabel": "公积金代付地",
-                                "labelWidth": 90,
-                                "layout|columnWidth": 0.15
-                            },
-                            "name": "MyCheckbox1",
-                            "designerId": "2b34cb37-b8fb-4306-9882-d1c01f42596e"
-                        },
-                        {
                             "type": "Ext.form.field.Text",
                             "reference": {
                                 "name": "items",
@@ -1094,10 +1022,12 @@
                             },
                             "codeClass": null,
                             "userConfig": {
-                                "fieldLabel": null,
-                                "layout|columnWidth": 0.295,
+                                "fieldLabel": "公积金代付地",
+                                "hideEmptyLabel": false,
+                                "labelWidth": 80,
+                                "layout|columnWidth": 0.45,
                                 "name": "accumulationFundsWorkplace",
-                                "padding": "0 0 0 10"
+                                "padding": null
                             },
                             "name": "MyTextField8",
                             "designerId": "8227c094-ff68-41af-b63a-029ef0937b19"
@@ -1113,8 +1043,98 @@
                                 "height": 20,
                                 "layout|columnWidth": 1
                             },
-                            "name": "MySpacer13",
-                            "designerId": "20f072c6-b41e-41ad-bf57-6aa458c98587"
+                            "name": "MySpacer16",
+                            "designerId": "cfc3acd7-b017-4e5b-9bbe-308e431e774d"
+                        },
+                        {
+                            "type": "Ext.grid.Panel",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "header": false,
+                                "height": 403,
+                                "itemId": "socialGrid",
+                                "layout|columnWidth": 1,
+                                "store": "PersonSocialItem",
+                                "title": "My Tab"
+                            },
+                            "name": "MyGridPanel",
+                            "designerId": "7a91a46b-2694-46af-b0da-184a0554f89a",
+                            "cn": [
+                                {
+                                    "type": "Ext.grid.column.Column",
+                                    "reference": {
+                                        "name": "columns",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "dataIndex": "socialItemName",
+                                        "flex": 1,
+                                        "text": "项目名称"
+                                    },
+                                    "name": "MyColumn11",
+                                    "designerId": "47c7ed23-b867-4581-aed3-0d93568b4bc1"
+                                },
+                                {
+                                    "type": "Ext.grid.column.Column",
+                                    "reference": {
+                                        "name": "columns",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "dataIndex": "cardinality",
+                                        "flex": 0.6,
+                                        "text": "基数"
+                                    },
+                                    "name": "MyColumn13",
+                                    "designerId": "5a5f74cc-092a-42c4-80e4-fbc71e4f6302"
+                                },
+                                {
+                                    "type": "Ext.grid.column.Column",
+                                    "reference": {
+                                        "name": "columns",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "dataIndex": "companyPaymentValue",
+                                        "flex": 1.25,
+                                        "text": "单位缴费"
+                                    },
+                                    "name": "MyColumn15",
+                                    "designerId": "80fb5444-ccc6-487d-964e-393cc1b50b72"
+                                },
+                                {
+                                    "type": "Ext.grid.column.Column",
+                                    "reference": {
+                                        "name": "columns",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "dataIndex": "personalPaymentValue",
+                                        "flex": 1.25,
+                                        "text": "个人缴费"
+                                    },
+                                    "name": "MyColumn12",
+                                    "designerId": "e9fcb164-ae4b-4c6b-ab45-d64f9cb4dbb8"
+                                },
+                                {
+                                    "type": "Ext.grid.View",
+                                    "reference": {
+                                        "name": "viewConfig",
+                                        "type": "object"
+                                    },
+                                    "codeClass": null,
+                                    "name": "MyGridView1",
+                                    "designerId": "b3ed3b24-2715-4396-aae6-2d954cf5f0c1"
+                                }
+                            ]
                         }
                     ]
                 }
@@ -1131,20 +1151,31 @@
                 "fn": "onWindowAfterRender",
                 "implHandler": [
                     "var me=this,",
+                    "    namespace=me.getNamespace(),",
                     "    salaryForm=me.down('#salaryForm'),",
-                    "    socialForm=me.down('#socialForm');",
-                    "",
-                    "if(me._record){",
-                    "    salaryForm.getForm().setValues(me._record.data);",
-                    "    socialForm.getForm().setValues(me._record.data.insuredPerson);",
-                    "}",
+                    "    socialForm=me.down('#socialForm'),",
+                    "    salaryItemGrid=me.down('#SalaryItemGrid'),",
+                    "    salaryItemStore=salaryItemGrid.getStore();",
                     "",
                     "//load combobox",
                     "var level=me.down('#level'),",
                     "    socialAccount=me.down('#socialAccount');",
                     "",
                     "level.getStore().load();",
-                    "socialAccount.getStore().load();"
+                    "socialAccount.getStore().load();",
+                    "",
+                    "if(me._record){",
+                    "    salaryForm.getForm().setValues(me._record.data);",
+                    "    socialForm.getForm().setValues(me._record.data.insuredPerson);",
+                    "",
+                    "    Ext.Array.each(me._record.data.accountItems,function(item){",
+                    "        salaryItemStore.add(Ext.create(namespace+\".model.PersonSalaryItem\",{salaryItemId:item.accountItemId,name:item.accountItemName,value:item.value}));",
+                    "    });",
+                    "}",
+                    "",
+                    "",
+                    "",
+                    ""
                 ],
                 "name": "afterrender",
                 "scope": "me"
@@ -1161,14 +1192,15 @@
             "codeClass": null,
             "userConfig": {
                 "designer|params": [
-                    "person",
+                    "persons",
                     "scope"
                 ],
                 "fn": "selectedCallback",
                 "implHandler": [
                     "var me=scope,",
                     "    salaryForm=me.down('#salaryForm'),",
-                    "    socialForm=me.down('#socialForm');",
+                    "    socialForm=me.down('#socialForm'),",
+                    "    person=persons[0];",
                     "",
                     "salaryForm.down('#personCode').setValue(person.data.serialNum);",
                     "salaryForm.down('#name').setValue(person.data.name);",
@@ -1180,6 +1212,29 @@
             },
             "name": "selectedCallback",
             "designerId": "e3b89da3-44a7-4014-8c55-c75adc112765"
+        },
+        {
+            "type": "basiceventbinding",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "onWindowBeforeClose",
+                "implHandler": [
+                    "var me=this,",
+                    "    socialItemGrid=me.down('#socialGrid'),",
+                    "    salaryItemGrid=me.down('#SalaryItemGrid');",
+                    "",
+                    "socialItemGrid.getStore().removeAll();",
+                    "salaryItemGrid.getStore().removeAll();"
+                ],
+                "name": "beforeclose",
+                "scope": "me"
+            },
+            "name": "onWindowBeforeClose",
+            "designerId": "977c0981-5888-43d2-82a0-51909336566e"
         }
     ]
 }

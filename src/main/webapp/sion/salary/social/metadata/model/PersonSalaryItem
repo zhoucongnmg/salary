@@ -1,0 +1,54 @@
+{
+    "type": "Ext.data.Model",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userClassName": "PersonSalaryItem"
+    },
+    "name": "MyModel",
+    "designerId": "89c3cf78-886e-46b1-aa59-39ce21162b7b",
+    "cn": [
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "salaryItemId"
+            },
+            "name": "MyField61",
+            "designerId": "01cba078-6684-4ad1-8b4e-771bfa7e2104"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "name"
+            },
+            "name": "MyField62",
+            "designerId": "5cf5434d-d4b6-4ef5-83df-19cdf0266e79"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "value"
+            },
+            "name": "MyField63",
+            "designerId": "8406c0d3-8909-4345-bdad-4813bf4658c6"
+        }
+    ]
+}

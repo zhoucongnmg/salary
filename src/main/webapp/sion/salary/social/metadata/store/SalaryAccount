@@ -21,7 +21,7 @@
             },
             "codeClass": null,
             "userConfig": {
-                "url": "salary/account/load"
+                "url": "salary/person/loadSalaryAccount"
             },
             "name": "MyAjaxProxy4",
             "designerId": "42013236-5a76-4ac3-ae8e-ddf25e208af9",
