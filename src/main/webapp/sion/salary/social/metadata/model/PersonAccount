@@ -205,6 +205,19 @@
             },
             "name": "MyField40",
             "designerId": "d0eda9c4-12d0-44f0-8bdc-3b5e2ba78b2a"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "insuredItems"
+            },
+            "name": "MyField70",
+            "designerId": "a9d24cf9-f6eb-40b0-81ff-a288b2c3d5f0"
         }
     ]
 }

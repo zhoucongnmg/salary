@@ -40,7 +40,19 @@ public class InsuredPersonController {
 		personAccountRepo.save(person);
 		return new Response("操作成功",	true);
 	}
-
+	/**
+	 * 批量创建投保人
+	 * 
+	 * @param person
+	 * @return
+	 */
+	@RequestMapping(value = "saveList")
+	public Response createList(@RequestBody List<PersonAccountFile> persons) {
+		for (PersonAccountFile person : persons) {
+			personAccountRepo.save(person);
+		}
+		return new Response("操作成功",	true);
+	}
 	/**
 	 * 读取投保人信息
 	 * 

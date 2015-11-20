@@ -59,7 +59,10 @@
                                     "    socialForm=me.down('#socialForm'),",
                                     "    salaryItemGrid=me.down('#SalaryItemGrid'),",
                                     "    salaryItemStore=salaryItemGrid.getStore(),",
+                                    "    insuredGrid=me.down('#socialGrid'),",
+                                    "    insuredItemStore=insuredGrid.getStore(),",
                                     "    accountItems=[],",
+                                    "    insuredItems=[],",
                                     "    insuredPerson,",
                                     "    model;",
                                     "",
@@ -75,7 +78,13 @@
                                     "    accountItems.push({accountItemId:item.data.salaryItemId,accountItemName:item.data.name,value:item.data.value});",
                                     "});",
                                     "",
+                                    "insuredItemStore.each(function(item){",
+                                    "    insuredItems.push(item.data);",
+                                    "});",
+                                    "",
+                                    "",
                                     "model.set(\"accountItems\",accountItems);",
+                                    "model.set('insuredItems',insuredItems);",
                                     "insuredPerson=Ext.create(namespace+\".model.InsuredPerson\",socialForm.getValues());",
                                     "model.set('insuredPerson',insuredPerson.data);",
                                     "button.disabled=true;",
@@ -448,6 +457,7 @@
                                 "displayField": "name",
                                 "editable": false,
                                 "fieldLabel": "薪资方案",
+                                "itemId": "accountId",
                                 "labelWidth": 80,
                                 "layout|columnWidth": 0.45,
                                 "name": "accountId",
@@ -949,16 +959,18 @@
                                             "    store=field.getStore(),",
                                             "    socialGrid=me.down('#socialGrid'),",
                                             "    gridStore=socialGrid.getStore();",
-                                            "",
-                                            "gridStore.removeAll();",
-                                            "store.each(function(account){",
-                                            "    if(account.data.id===newValue){",
-                                            "        var items=account.data.socialAccountItems;",
-                                            "        Ext.Array.each(items,function(item){",
-                                            "            gridStore.add(Ext.create(namespace+\".model.PersonSocialItem\",item));",
-                                            "        });",
-                                            "    }",
-                                            "});"
+                                            "if(newValue!==oldValue){",
+                                            "    gridStore.removeAll();",
+                                            "    store.each(function(account){",
+                                            "        if(account.data.id===newValue){",
+                                            "            var items=account.data.socialAccountItems;",
+                                            "            Ext.Array.each(items,function(item){",
+                                            "                gridStore.add(Ext.create(namespace+\".model.PersonSocialItem\",item));",
+                                            "            });",
+                                            "        }",
+                                            "    });",
+                                            "}",
+                                            ""
                                         ],
                                         "name": "change",
                                         "scope": "me"
@@ -1107,7 +1119,84 @@
                                         "text": "单位缴费"
                                     },
                                     "name": "MyColumn15",
-                                    "designerId": "80fb5444-ccc6-487d-964e-393cc1b50b72"
+                                    "designerId": "80fb5444-ccc6-487d-964e-393cc1b50b72",
+                                    "cn": [
+                                        {
+                                            "type": "Ext.form.field.Number",
+                                            "reference": {
+                                                "name": "editor",
+                                                "type": "object"
+                                            },
+                                            "codeClass": null,
+                                            "name": "MyNumberField5",
+                                            "designerId": "a66f07f0-2e90-48d0-8663-7921822bd4a0"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "Ext.grid.column.Column",
+                                    "reference": {
+                                        "name": "columns",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "dataIndex": "companyPaymentType",
+                                        "text": "单位缴费类型"
+                                    },
+                                    "name": "MyColumn19",
+                                    "designerId": "c5b0d8c3-bbd9-410a-93e5-300d60303613",
+                                    "cn": [
+                                        {
+                                            "type": "Ext.form.field.ComboBox",
+                                            "reference": {
+                                                "name": "editor",
+                                                "type": "object"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "store": [
+                                                    "[['Percent','百分比'],",
+                                                    "\t\t['Quota','定额']]"
+                                                ]
+                                            },
+                                            "name": "MyComboBox12",
+                                            "configAlternates": {
+                                                "store": "array"
+                                            },
+                                            "designerId": "cf4fb33d-88be-49e1-97ec-6a6878964f10"
+                                        },
+                                        {
+                                            "type": "fixedfunction",
+                                            "reference": {
+                                                "name": "items",
+                                                "type": "array"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "designer|params": [
+                                                    "value",
+                                                    "metaData",
+                                                    "record",
+                                                    "rowIndex",
+                                                    "colIndex",
+                                                    "store",
+                                                    "view"
+                                                ],
+                                                "fn": "renderer",
+                                                "implHandler": [
+                                                    "if(value===\"Percent\"){",
+                                                    "    return \"百分比\";",
+                                                    "}",
+                                                    "else{",
+                                                    "    return \"定额\";",
+                                                    "}"
+                                                ]
+                                            },
+                                            "name": "renderer",
+                                            "designerId": "06de2bd0-3a40-43da-8994-ba910ef47f09"
+                                        }
+                                    ]
                                 },
                                 {
                                     "type": "Ext.grid.column.Column",
@@ -1122,7 +1211,84 @@
                                         "text": "个人缴费"
                                     },
                                     "name": "MyColumn12",
-                                    "designerId": "e9fcb164-ae4b-4c6b-ab45-d64f9cb4dbb8"
+                                    "designerId": "e9fcb164-ae4b-4c6b-ab45-d64f9cb4dbb8",
+                                    "cn": [
+                                        {
+                                            "type": "Ext.form.field.Number",
+                                            "reference": {
+                                                "name": "editor",
+                                                "type": "object"
+                                            },
+                                            "codeClass": null,
+                                            "name": "MyNumberField6",
+                                            "designerId": "15ab58d3-9ba6-49de-bf65-44b1fc6adc65"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "Ext.grid.column.Column",
+                                    "reference": {
+                                        "name": "columns",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "dataIndex": "personalPaymentType",
+                                        "text": "个人缴费类型"
+                                    },
+                                    "name": "MyColumn21",
+                                    "designerId": "4c1462d6-62cc-4fcf-bc63-732e1e226241",
+                                    "cn": [
+                                        {
+                                            "type": "Ext.form.field.ComboBox",
+                                            "reference": {
+                                                "name": "editor",
+                                                "type": "object"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "store": [
+                                                    "[['Percent','百分比'],",
+                                                    "\t\t['Quota','定额']]"
+                                                ]
+                                            },
+                                            "name": "MyComboBox13",
+                                            "configAlternates": {
+                                                "store": "array"
+                                            },
+                                            "designerId": "ef1dd023-9309-41d7-bf30-37b60fb5ebfa"
+                                        },
+                                        {
+                                            "type": "fixedfunction",
+                                            "reference": {
+                                                "name": "items",
+                                                "type": "array"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "designer|params": [
+                                                    "value",
+                                                    "metaData",
+                                                    "record",
+                                                    "rowIndex",
+                                                    "colIndex",
+                                                    "store",
+                                                    "view"
+                                                ],
+                                                "fn": "renderer",
+                                                "implHandler": [
+                                                    "if(value===\"Percent\"){",
+                                                    "    return \"百分比\";",
+                                                    "}",
+                                                    "else{",
+                                                    "    return \"定额\";",
+                                                    "}"
+                                                ]
+                                            },
+                                            "name": "renderer",
+                                            "designerId": "d6525e23-cfcf-4f92-a814-9acac91e7440"
+                                        }
+                                    ]
                                 },
                                 {
                                     "type": "Ext.grid.View",
@@ -1133,6 +1299,16 @@
                                     "codeClass": null,
                                     "name": "MyGridView1",
                                     "designerId": "b3ed3b24-2715-4396-aae6-2d954cf5f0c1"
+                                },
+                                {
+                                    "type": "Ext.grid.plugin.RowEditing",
+                                    "reference": {
+                                        "name": "plugins",
+                                        "type": "array"
+                                    },
+                                    "codeClass": "Ext.grid.plugin.RowEditing",
+                                    "name": "MyRowEditingPlugin1",
+                                    "designerId": "6353fdec-068c-4825-a641-8d90ab5e37ca"
                                 }
                             ]
                         }
@@ -1155,21 +1331,29 @@
                     "    salaryForm=me.down('#salaryForm'),",
                     "    socialForm=me.down('#socialForm'),",
                     "    salaryItemGrid=me.down('#SalaryItemGrid'),",
-                    "    salaryItemStore=salaryItemGrid.getStore();",
+                    "    salaryItemStore=salaryItemGrid.getStore(),",
+                    "    insuredGrid=me.down('#socialGrid'),",
+                    "    insuredItemStore=insuredGrid.getStore();",
                     "",
                     "//load combobox",
                     "var level=me.down('#level'),",
+                    "    accountId=me.down('#accountId'),",
                     "    socialAccount=me.down('#socialAccount');",
                     "",
                     "level.getStore().load();",
+                    "accountId.getStore().load();",
                     "socialAccount.getStore().load();",
                     "",
                     "if(me._record){",
                     "    salaryForm.getForm().setValues(me._record.data);",
                     "    socialForm.getForm().setValues(me._record.data.insuredPerson);",
-                    "",
+                    "    salaryItemStore.removeAll();",
                     "    Ext.Array.each(me._record.data.accountItems,function(item){",
                     "        salaryItemStore.add(Ext.create(namespace+\".model.PersonSalaryItem\",{salaryItemId:item.accountItemId,name:item.accountItemName,value:item.value}));",
+                    "    });",
+                    "    insuredItemStore.removeAll();",
+                    "    Ext.Array.each(me._record.data.accountItems,function(item){",
+                    "        insuredItemStore.add(Ext.create(namespace+\".model.PersonSocialItem\",item.data));",
                     "    });",
                     "}",
                     "",

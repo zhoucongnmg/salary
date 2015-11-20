@@ -38,6 +38,9 @@ Ext.define('sion.salary.social.model.PersonSocialItem', {
         },
         {
             name: 'personalPaymentType'
+        },
+        {
+            name: 'socialItemId'
         }
     ]
 });

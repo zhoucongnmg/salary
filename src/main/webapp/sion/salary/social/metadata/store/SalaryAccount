@@ -6,6 +6,7 @@
     },
     "codeClass": null,
     "userConfig": {
+        "autoLoad": false,
         "designer|userClassName": "SalaryAccount",
         "model": "SalaryAccount",
         "storeId": "SalaryAccount"

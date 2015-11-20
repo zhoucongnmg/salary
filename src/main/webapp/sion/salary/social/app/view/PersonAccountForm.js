@@ -189,6 +189,7 @@ Ext.define('sion.salary.social.view.PersonAccountForm', {
                                 {
                                     xtype: 'combobox',
                                     columnWidth: 0.45,
+                                    itemId: 'accountId',
                                     fieldLabel: '薪资方案',
                                     labelWidth: 80,
                                     name: 'accountId',
@@ -453,14 +454,77 @@ Ext.define('sion.salary.social.view.PersonAccountForm', {
                                             xtype: 'gridcolumn',
                                             dataIndex: 'companyPaymentValue',
                                             text: '单位缴费',
-                                            flex: 1.25
+                                            flex: 1.25,
+                                            editor: {
+                                                xtype: 'numberfield'
+                                            }
+                                        },
+                                        {
+                                            xtype: 'gridcolumn',
+                                            renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
+                                                if(value==="Percent"){
+                                                    return "百分比";
+                                                }
+                                                else{
+                                                    return "定额";
+                                                }
+                                            },
+                                            dataIndex: 'companyPaymentType',
+                                            text: '单位缴费类型',
+                                            editor: {
+                                                xtype: 'combobox',
+                                                store: [
+                                                    [
+                                                        'Percent',
+                                                        '百分比'
+                                                    ],
+                                                    [
+                                                        'Quota',
+                                                        '定额'
+                                                    ]
+                                                ]
+                                            }
                                         },
                                         {
                                             xtype: 'gridcolumn',
                                             dataIndex: 'personalPaymentValue',
                                             text: '个人缴费',
-                                            flex: 1.25
+                                            flex: 1.25,
+                                            editor: {
+                                                xtype: 'numberfield'
+                                            }
+                                        },
+                                        {
+                                            xtype: 'gridcolumn',
+                                            renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
+                                                if(value==="Percent"){
+                                                    return "百分比";
+                                                }
+                                                else{
+                                                    return "定额";
+                                                }
+                                            },
+                                            dataIndex: 'personalPaymentType',
+                                            text: '个人缴费类型',
+                                            editor: {
+                                                xtype: 'combobox',
+                                                store: [
+                                                    [
+                                                        'Percent',
+                                                        '百分比'
+                                                    ],
+                                                    [
+                                                        'Quota',
+                                                        '定额'
+                                                    ]
+                                                ]
+                                            }
                                         }
+                                    ],
+                                    plugins: [
+                                        Ext.create('Ext.grid.plugin.RowEditing', {
+
+                                        })
                                     ]
                                 }
                             ]
@@ -490,7 +554,10 @@ Ext.define('sion.salary.social.view.PersonAccountForm', {
             socialForm=me.down('#socialForm'),
             salaryItemGrid=me.down('#SalaryItemGrid'),
             salaryItemStore=salaryItemGrid.getStore(),
+            insuredGrid=me.down('#socialGrid'),
+            insuredItemStore=insuredGrid.getStore(),
             accountItems=[],
+            insuredItems=[],
             insuredPerson,
             model;
 
@@ -506,7 +573,13 @@ Ext.define('sion.salary.social.view.PersonAccountForm', {
             accountItems.push({accountItemId:item.data.salaryItemId,accountItemName:item.data.name,value:item.data.value});
         });
 
+        insuredItemStore.each(function(item){
+            insuredItems.push(item.data);
+        });
+
+
         model.set("accountItems",accountItems);
+        model.set('insuredItems',insuredItems);
         insuredPerson=Ext.create(namespace+".model.InsuredPerson",socialForm.getValues());
         model.set('insuredPerson',insuredPerson.data);
         button.disabled=true;
@@ -582,16 +655,18 @@ Ext.define('sion.salary.social.view.PersonAccountForm', {
             store=field.getStore(),
             socialGrid=me.down('#socialGrid'),
             gridStore=socialGrid.getStore();
+        if(newValue!==oldValue){
+            gridStore.removeAll();
+            store.each(function(account){
+                if(account.data.id===newValue){
+                    var items=account.data.socialAccountItems;
+                    Ext.Array.each(items,function(item){
+                        gridStore.add(Ext.create(namespace+".model.PersonSocialItem",item));
+                    });
+                }
+            });
+        }
 
-        gridStore.removeAll();
-        store.each(function(account){
-            if(account.data.id===newValue){
-                var items=account.data.socialAccountItems;
-                Ext.Array.each(items,function(item){
-                    gridStore.add(Ext.create(namespace+".model.PersonSocialItem",item));
-                });
-            }
-        });
     },
 
     onWindowAfterRender: function(component, eOpts) {
@@ -600,21 +675,29 @@ Ext.define('sion.salary.social.view.PersonAccountForm', {
             salaryForm=me.down('#salaryForm'),
             socialForm=me.down('#socialForm'),
             salaryItemGrid=me.down('#SalaryItemGrid'),
-            salaryItemStore=salaryItemGrid.getStore();
+            salaryItemStore=salaryItemGrid.getStore(),
+            insuredGrid=me.down('#socialGrid'),
+            insuredItemStore=insuredGrid.getStore();
 
         //load combobox
         var level=me.down('#level'),
+            accountId=me.down('#accountId'),
             socialAccount=me.down('#socialAccount');
 
         level.getStore().load();
+        accountId.getStore().load();
         socialAccount.getStore().load();
 
         if(me._record){
             salaryForm.getForm().setValues(me._record.data);
             socialForm.getForm().setValues(me._record.data.insuredPerson);
-
+            salaryItemStore.removeAll();
             Ext.Array.each(me._record.data.accountItems,function(item){
                 salaryItemStore.add(Ext.create(namespace+".model.PersonSalaryItem",{salaryItemId:item.accountItemId,name:item.accountItemName,value:item.value}));
+            });
+            insuredItemStore.removeAll();
+            Ext.Array.each(me._record.data.accountItems,function(item){
+                insuredItemStore.add(Ext.create(namespace+".model.PersonSocialItem",item.data));
             });
         }
 

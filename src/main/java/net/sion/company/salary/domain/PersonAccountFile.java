@@ -16,6 +16,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class PersonAccountFile {
 	@Id
 	private String id;
+	private String personId;
 	private String personCode;//员工编号
 	private String name;//员工姓名
 	private String dept;//部门
@@ -30,6 +31,7 @@ public class PersonAccountFile {
 	private String note;//备注
 	private List<PersonAccountItem> accountItems;//工资项目设置
 	private InsuredPerson insuredPerson;//社保信息
+	private List<SocialAccountItem> insuredItems;
 	
 	public String getId() {
 		return id;
@@ -121,6 +123,18 @@ public class PersonAccountFile {
 	public void setInsuredPerson(InsuredPerson insuredPerson) {
 		this.insuredPerson = insuredPerson;
 	}
+	public String getPersonId() {
+		return personId;
+	}
+	public void setPersonId(String personId) {
+		this.personId = personId;
+	}
 	
-	
+		public List<SocialAccountItem> getInsuredItems() {
+		return insuredItems;
+	}
+	public void setInsuredItems(List<SocialAccountItem> insuredItems) {
+		this.insuredItems = insuredItems;
+	}
+
 }
