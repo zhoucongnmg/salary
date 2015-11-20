@@ -67,6 +67,9 @@ Ext.application({
         'SocialAccountItemEdit',
         'SearchPerson'
     ],
+    controllers: [
+        'DateUtil'
+    ],
     name: 'sion.salary.social',
 
     launch: function() {

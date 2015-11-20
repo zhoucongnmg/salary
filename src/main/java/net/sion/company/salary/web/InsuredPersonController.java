@@ -136,22 +136,26 @@ public class InsuredPersonController {
 		Pageable pageable = new PageRequest(page, limit ,sort);
 		
 		Query query = new Query();
-		Criteria criteria = Criteria.where("info").exists(true);
+		Criteria criteria = Criteria.where("name").exists(true);
 		List<Criteria> andCriteria = new ArrayList<Criteria>();
 		if (StringUtils.isNotEmpty(queryBy.get("salaryAccount"))) {
 			andCriteria.add(Criteria.where("accountId").is(queryBy.get("salaryAccount")));
 		}
 		if (StringUtils.isNotEmpty(queryBy.get("socialAccount"))) {
-			andCriteria.add(Criteria.where("accountId").is(queryBy.get("socialAccount")));
+			andCriteria.add(Criteria.where("insuredPerson.accountId").is(queryBy.get("socialAccount")));
 		}
 		if (StringUtils.isNotEmpty(queryBy.get("status"))) {
-			andCriteria.add(Criteria.where("status").is(queryBy.get("status")));
+			andCriteria.add(Criteria.where("insuredPerson.status").is(queryBy.get("status")));
 		}
 		if (StringUtils.isNotEmpty(queryBy.get("from"))) {
-			andCriteria.add(Criteria.where("insuredDate").gte(queryBy.get("from")));
+			andCriteria.add(Criteria.where("insuredPerson.insuredDate").gte(queryBy.get("from")));
 		}
 		if (StringUtils.isNotEmpty(queryBy.get("to"))) {
-			andCriteria.add(Criteria.where("insuredDate").lte(queryBy.get("to")));
+			andCriteria.add(Criteria.where("insuredPerson.insuredDate").lte(queryBy.get("to")));
+		}
+		if (andCriteria.size() > 0) {
+			Criteria[] cs = new Criteria[andCriteria.size()];
+			criteria.andOperator(andCriteria.toArray(cs));
 		}
 		query.addCriteria(criteria);
 		

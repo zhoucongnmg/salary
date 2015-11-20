@@ -61,7 +61,9 @@
             "ec6c890a-1bbe-4749-ac39-e713bdb276f4",
             "a45c35d7-b147-4801-9e05-7e24679736e1"
         ],
-        "controller": [],
+        "controller": [
+            "dc53b825-611e-4d43-9f96-31d5a9864e4d"
+        ],
         "model": [
             "b86907cd-9895-4e0e-9ba5-91b9788ef01a",
             "f73b2e86-5f3d-452a-841a-eeb1646e4f64",

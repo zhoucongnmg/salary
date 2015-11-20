@@ -6,6 +6,9 @@
     },
     "codeClass": null,
     "userConfig": {
+        "controllers": [
+            "DateUtil"
+        ],
         "models": [
             "SocialItem",
             "SocialItemType",

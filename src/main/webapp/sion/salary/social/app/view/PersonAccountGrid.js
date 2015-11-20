@@ -17,14 +17,14 @@ Ext.define('sion.salary.social.view.PersonAccountGrid', {
     extend: 'Ext.grid.Panel',
 
     requires: [
-        'Ext.toolbar.Toolbar',
         'Ext.form.Panel',
         'Ext.form.field.ComboBox',
         'Ext.form.field.Date',
         'Ext.button.Button',
         'Ext.toolbar.Spacer',
         'Ext.grid.column.Column',
-        'Ext.grid.View'
+        'Ext.grid.View',
+        'Ext.toolbar.Paging'
     ],
 
     height: 515,
@@ -61,6 +61,7 @@ Ext.define('sion.salary.social.view.PersonAccountGrid', {
                                 {
                                     xtype: 'combobox',
                                     columnWidth: 0.22,
+                                    itemId: 'socialAccount',
                                     fieldLabel: '社保方案',
                                     labelWidth: 60,
                                     displayField: 'name',
@@ -70,6 +71,7 @@ Ext.define('sion.salary.social.view.PersonAccountGrid', {
                                 {
                                     xtype: 'combobox',
                                     columnWidth: 0.2,
+                                    itemId: 'status',
                                     margin: '0 0 0 10',
                                     fieldLabel: '社保状态',
                                     labelWidth: 60,
@@ -87,6 +89,7 @@ Ext.define('sion.salary.social.view.PersonAccountGrid', {
                                 {
                                     xtype: 'datefield',
                                     columnWidth: 0.22,
+                                    itemId: 'from',
                                     margin: '0 0 0 10',
                                     fieldLabel: '参保日期',
                                     labelWidth: 60,
@@ -95,6 +98,7 @@ Ext.define('sion.salary.social.view.PersonAccountGrid', {
                                 {
                                     xtype: 'datefield',
                                     columnWidth: 0.18,
+                                    itemId: 'to',
                                     margin: '0 0 0 10',
                                     fieldLabel: ' 至 ',
                                     labelSeparator: ' ',
@@ -104,12 +108,24 @@ Ext.define('sion.salary.social.view.PersonAccountGrid', {
                                 {
                                     xtype: 'button',
                                     margin: '0 0 0 10',
-                                    text: '查询'
+                                    text: '查询',
+                                    listeners: {
+                                        click: {
+                                            fn: me.onSearchClick1,
+                                            scope: me
+                                        }
+                                    }
                                 },
                                 {
                                     xtype: 'button',
                                     margin: '0 0 0 10',
-                                    text: '重置'
+                                    text: '重置',
+                                    listeners: {
+                                        click: {
+                                            fn: me.onResetClick1,
+                                            scope: me
+                                        }
+                                    }
                                 },
                                 {
                                     xtype: 'tbspacer',
@@ -129,6 +145,13 @@ Ext.define('sion.salary.social.view.PersonAccountGrid', {
                             ]
                         }
                     ]
+                },
+                {
+                    xtype: 'pagingtoolbar',
+                    dock: 'bottom',
+                    width: 360,
+                    displayInfo: true,
+                    store: 'PersonAccountStore'
                 }
             ],
             columns: [
@@ -270,6 +293,38 @@ Ext.define('sion.salary.social.view.PersonAccountGrid', {
         config._socialAccountStore=Ext.create(ns+'.store.SocialAccount');
         config._levelStore=Ext.create(ns+'.store.LevelStore');
         return config;
+    },
+
+    onSearchClick1: function(button, e, eOpts) {
+        var me=this,
+            store=me.getStore(),
+            dateUtil = Ext.create(me.getNamespace() + '.controller.DateUtil'),
+            startDate=me.down('#from').getValue(),
+            endDate=me.down('#to').getValue();
+        store.getProxy().setExtraParam("from",startDate===null?"":dateUtil.format(new Date(startDate),'yyyy-MM-dd'));
+        store.getProxy().setExtraParam("to",endDate===null?"":dateUtil.format(new Date(endDate),'yyyy-MM-dd'));
+        store.getProxy().setExtraParam("status",me.down('#status').getValue());
+        store.getProxy().setExtraParam("salaryAccount",me.down('#salaryAccount').getValue());
+        store.getProxy().setExtraParam("socialAccount",me.down('#socialAccount').getValue());
+
+        store.reload();
+    },
+
+    onResetClick1: function(button, e, eOpts) {
+        var me=this,
+            store=me.getStore();
+
+        store.getProxy().setExtraParam("from","");
+        store.getProxy().setExtraParam("to","");
+        store.getProxy().setExtraParam("status","");
+        store.getProxy().setExtraParam("salaryAccount","");
+        store.getProxy().setExtraParam("socialAccount","");
+
+        me.down('#from').setValue("");
+        me.down('#to').setValue("");
+        me.down('#status').setValue("");
+        me.down('#salaryAccount').setValue("");
+        me.down('#socialAccount').setValue("");
     },
 
     onButtonClick: function(button, e, eOpts) {
