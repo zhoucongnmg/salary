@@ -66,6 +66,11 @@
                                     "    insuredPerson,",
                                     "    model;",
                                     "",
+                                    "if(!salaryForm.isValid()){",
+                                    "    Ext.Msg.alert(\"提示\",\"请填写必填项目\");",
+                                    "    return;",
+                                    "}",
+                                    "",
                                     "if(me._record){",
                                     "    model=Ext.create(namespace+\".model.PersonAccount\",salaryForm.getValues());",
                                     "    model.set('id',me._record.data.id);",
@@ -86,7 +91,11 @@
                                     "model.set(\"accountItems\",accountItems);",
                                     "model.set('insuredItems',insuredItems);",
                                     "insuredPerson=Ext.create(namespace+\".model.InsuredPerson\",socialForm.getValues());",
+                                    "if(!insuredPerson.data.status||insuredPerson.data.status.length===0){",
+                                    "    insuredPerson.data.status=\"Out\";",
+                                    "}",
                                     "model.set('insuredPerson',insuredPerson.data);",
+                                    "",
                                     "button.disabled=true;",
                                     "Ext.Ajax.request({",
                                     "    url: 'salary/person/create',",
@@ -189,6 +198,7 @@
                             },
                             "codeClass": null,
                             "userConfig": {
+                                "itemId": "search",
                                 "text": "搜"
                             },
                             "name": "MyButton3",
@@ -225,7 +235,7 @@
                             "codeClass": null,
                             "userConfig": {
                                 "height": 20,
-                                "layout|columnWidth": 0.1
+                                "layout|columnWidth": 0.06
                             },
                             "name": "MySpacer4",
                             "designerId": "60c8faf0-5bd8-45dd-ab74-faa8a564f4d7"
@@ -238,7 +248,10 @@
                             },
                             "codeClass": null,
                             "userConfig": {
+                                "allowBlank": false,
+                                "allowOnlyWhitespace": false,
                                 "fieldLabel": "姓名",
+                                "invalidText": "必须填写人员姓名",
                                 "itemId": "name",
                                 "labelWidth": 80,
                                 "layout|columnWidth": 0.45,
@@ -452,8 +465,6 @@
                             },
                             "codeClass": null,
                             "userConfig": {
-                                "allowBlank": false,
-                                "allowOnlyWhitespace": false,
                                 "displayField": "name",
                                 "editable": false,
                                 "fieldLabel": "薪资方案",
@@ -465,41 +476,7 @@
                                 "valueField": "id"
                             },
                             "name": "MyComboBox1",
-                            "designerId": "54cb155c-122c-41ed-95b1-9bcf5fc437c9",
-                            "cn": [
-                                {
-                                    "type": "basiceventbinding",
-                                    "reference": {
-                                        "name": "listeners",
-                                        "type": "array"
-                                    },
-                                    "codeClass": null,
-                                    "userConfig": {
-                                        "fn": "onAccountChange",
-                                        "implHandler": [
-                                            "var me=this,",
-                                            "    namespace=me.getNamespace(),",
-                                            "    store=field.getStore(),",
-                                            "    SalaryItemGrid=me.down('#SalaryItemGrid'),",
-                                            "    gridStore=SalaryItemGrid.getStore();",
-                                            "",
-                                            "gridStore.removeAll();",
-                                            "store.each(function(account){",
-                                            "    if(account.data.id===newValue){",
-                                            "        var items=account.data.accountItems;",
-                                            "        Ext.Array.each(items,function(item){",
-                                            "            gridStore.add(Ext.create(namespace+\".model.PersonSalaryItem\",item));",
-                                            "        });",
-                                            "    }",
-                                            "});"
-                                        ],
-                                        "name": "change",
-                                        "scope": "me"
-                                    },
-                                    "name": "onAccountChange",
-                                    "designerId": "e92987cf-719f-435e-bb5a-10c1fb7887cc"
-                                }
-                            ]
+                            "designerId": "54cb155c-122c-41ed-95b1-9bcf5fc437c9"
                         },
                         {
                             "type": "Ext.toolbar.Spacer",
@@ -597,6 +574,7 @@
                                 "labelWidth": 80,
                                 "layout|columnWidth": 0.45,
                                 "name": "rank",
+                                "queryMode": "local",
                                 "store": "RankStore",
                                 "valueField": "rank"
                             },
@@ -731,6 +709,21 @@
                                     "designerId": "5acf885a-82e6-469d-83a3-c3d921a1b981"
                                 }
                             ]
+                        },
+                        {
+                            "type": "Ext.form.field.Hidden",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fieldLabel": "Label",
+                                "itemId": "personId",
+                                "name": "personId"
+                            },
+                            "name": "MyHiddenField",
+                            "designerId": "d60ea4cf-e11c-4290-95d1-cec539954f05"
                         }
                     ]
                 },
@@ -942,43 +935,7 @@
                                 "valueField": "id"
                             },
                             "name": "MyComboBox4",
-                            "designerId": "1cd36a89-b523-4b79-9fa9-ba4578352b1b",
-                            "cn": [
-                                {
-                                    "type": "basiceventbinding",
-                                    "reference": {
-                                        "name": "listeners",
-                                        "type": "array"
-                                    },
-                                    "codeClass": null,
-                                    "userConfig": {
-                                        "fn": "onSocialAccountChange",
-                                        "implHandler": [
-                                            "var me=this,",
-                                            "    namespace=me.getNamespace(),",
-                                            "    store=field.getStore(),",
-                                            "    socialGrid=me.down('#socialGrid'),",
-                                            "    gridStore=socialGrid.getStore();",
-                                            "if(newValue!==oldValue){",
-                                            "    gridStore.removeAll();",
-                                            "    store.each(function(account){",
-                                            "        if(account.data.id===newValue){",
-                                            "            var items=account.data.socialAccountItems;",
-                                            "            Ext.Array.each(items,function(item){",
-                                            "                gridStore.add(Ext.create(namespace+\".model.PersonSocialItem\",item));",
-                                            "            });",
-                                            "        }",
-                                            "    });",
-                                            "}",
-                                            ""
-                                        ],
-                                        "name": "change",
-                                        "scope": "me"
-                                    },
-                                    "name": "onSocialAccountChange",
-                                    "designerId": "b21ef5c8-913c-4f0a-af3c-adf92a6d7d91"
-                                }
-                            ]
+                            "designerId": "1cd36a89-b523-4b79-9fa9-ba4578352b1b"
                         },
                         {
                             "type": "Ext.toolbar.Spacer",
@@ -1352,14 +1309,21 @@
                     "        salaryItemStore.add(Ext.create(namespace+\".model.PersonSalaryItem\",{salaryItemId:item.accountItemId,name:item.accountItemName,value:item.value}));",
                     "    });",
                     "    insuredItemStore.removeAll();",
-                    "    Ext.Array.each(me._record.data.accountItems,function(item){",
-                    "        insuredItemStore.add(Ext.create(namespace+\".model.PersonSocialItem\",item.data));",
+                    "    Ext.Array.each(me._record.data.insuredItems,function(item){",
+                    "        insuredItemStore.add(Ext.create(namespace+\".model.PersonSocialItem\",item));",
                     "    });",
+                    "",
+                    "    salaryForm.down('#personCode').setReadOnly(true);",
+                    "    salaryForm.down('#name').setReadOnly(true);",
+                    "    salaryForm.down('#search').disabled=true;",
                     "}",
                     "",
+                    "var task = new Ext.util.DelayedTask(function(){",
+                    "    accountId.on(\"change\", me.salaryAccountChange, me);",
+                    "    socialAccount.on(\"change\", me.socialAccountChange, me);",
+                    "});",
                     "",
-                    "",
-                    ""
+                    "task.delay(1000);"
                 ],
                 "name": "afterrender",
                 "scope": "me"
@@ -1386,11 +1350,31 @@
                     "    socialForm=me.down('#socialForm'),",
                     "    person=persons[0];",
                     "",
-                    "salaryForm.down('#personCode').setValue(person.data.serialNum);",
-                    "salaryForm.down('#name').setValue(person.data.name);",
-                    "salaryForm.down('#dept').setValue(person.data.deptName);",
-                    "salaryForm.down('#duty').setValue(person.data.position);",
-                    "salaryForm.down('#idCard').setValue(person.data.idCard);",
+                    "Ext.Ajax.request({",
+                    "    url:'salary/person/checkExistByPersonCode?personCode='+person.data.serialNum,",
+                    "    method:'GET',",
+                    "    success:function(res){",
+                    "        var responseData=Ext.JSON.decode(res.responseText);",
+                    "        if(responseData===true){",
+                    "            Ext.Msg.alert(\"提示\",\"此员工的薪资档案已经存在，不能重复建档\");",
+                    "            return;",
+                    "        }",
+                    "",
+                    "        salaryForm.down('#personCode').setValue(person.data.serialNum);",
+                    "        salaryForm.down('#name').setValue(person.data.name);",
+                    "        salaryForm.down('#dept').setValue(person.data.deptName);",
+                    "        salaryForm.down('#duty').setValue(person.data.position);",
+                    "        salaryForm.down('#idCard').setValue(person.data.idCard);",
+                    "        salaryForm.down('#personId').setValue(person.data.id);",
+                    "",
+                    "",
+                    "    },",
+                    "    failure:function(form,action){",
+                    "        Ext.Msg.alert(\"提示\",\"网络通信异常，请联系管理员\");",
+                    "        button.disabled=false;",
+                    "    }",
+                    "});",
+                    "",
                     ""
                 ]
             },
@@ -1419,6 +1403,78 @@
             },
             "name": "onWindowBeforeClose",
             "designerId": "977c0981-5888-43d2-82a0-51909336566e"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|params": [
+                    "field",
+                    "newValue",
+                    "oldValue",
+                    "eOpts"
+                ],
+                "fn": "socialAccountChange",
+                "implHandler": [
+                    "var me=this,",
+                    "    namespace=me.getNamespace(),",
+                    "    store=field.getStore(),",
+                    "    socialGrid=me.down('#socialGrid'),",
+                    "    gridStore=socialGrid.getStore();",
+                    "gridStore.removeAll();",
+                    "store.each(function(account){",
+                    "    if(account.data.id===newValue){",
+                    "        var items=account.data.socialAccountItems;",
+                    "        Ext.Array.each(items,function(item){",
+                    "            gridStore.add(Ext.create(namespace+\".model.PersonSocialItem\",item));",
+                    "        });",
+                    "    }",
+                    "});",
+                    ""
+                ]
+            },
+            "name": "socialAccountChange",
+            "designerId": "0b2b73a5-5de2-45cf-b418-02cbd6a0b476"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|params": [
+                    "field",
+                    "newValue",
+                    "oldValue",
+                    "eOpts"
+                ],
+                "fn": "salaryAccountChange",
+                "implHandler": [
+                    "var me=this,",
+                    "    namespace=me.getNamespace(),",
+                    "    store=field.getStore(),",
+                    "    SalaryItemGrid=me.down('#SalaryItemGrid'),",
+                    "    gridStore=SalaryItemGrid.getStore();",
+                    "",
+                    "gridStore.removeAll();",
+                    "store.each(function(account){",
+                    "    if(account.data.id===newValue){",
+                    "        var items=account.data.accountItems;",
+                    "        Ext.Array.each(items,function(item){",
+                    "            gridStore.add(Ext.create(namespace+\".model.PersonSalaryItem\",item));",
+                    "        });",
+                    "    }",
+                    "});"
+                ]
+            },
+            "name": "salaryAccountChange",
+            "designerId": "6d09f4a5-38e4-48ba-a9fe-7476ed247d31"
         }
     ]
 }

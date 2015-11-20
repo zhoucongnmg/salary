@@ -68,6 +68,9 @@ Ext.define('sion.salary.social.model.PersonAccount', {
         },
         {
             name: 'insuredItems'
+        },
+        {
+            name: 'personId'
         }
     ]
 });

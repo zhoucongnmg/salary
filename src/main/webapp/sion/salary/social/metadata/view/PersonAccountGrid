@@ -58,6 +58,7 @@
                             "userConfig": {
                                 "displayField": "name",
                                 "fieldLabel": "薪资方案",
+                                "itemId": "salaryAccount",
                                 "labelWidth": 60,
                                 "layout|columnWidth": 0.22,
                                 "store": "SalaryAccount",
@@ -310,7 +311,43 @@
                 "text": "薪资方案"
             },
             "name": "MyColumn3",
-            "designerId": "5bb75343-32ac-49e4-ba95-e72533fa3458"
+            "designerId": "5bb75343-32ac-49e4-ba95-e72533fa3458",
+            "cn": [
+                {
+                    "type": "fixedfunction",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "designer|params": [
+                            "value",
+                            "metaData",
+                            "record",
+                            "rowIndex",
+                            "colIndex",
+                            "store",
+                            "view"
+                        ],
+                        "fn": "renderer",
+                        "implHandler": [
+                            "var store = this._salaryAccountStore;",
+                            "if(store.getCount()===0){",
+                            "    store.load();",
+                            "}",
+                            "var index=store.find(\"id\",value);",
+                            "if(index>-1){",
+                            "    var model=store.getAt(index);",
+                            "    return model.data.name;",
+                            "}",
+                            "return value;"
+                        ]
+                    },
+                    "name": "renderer",
+                    "designerId": "8ed2751f-a65a-48b5-953c-4db9457b7722"
+                }
+            ]
         },
         {
             "type": "Ext.grid.column.Column",
@@ -324,7 +361,43 @@
                 "text": "薪资层次"
             },
             "name": "MyColumn4",
-            "designerId": "3e45dcab-2804-43b6-96cb-71d17bdca5f6"
+            "designerId": "3e45dcab-2804-43b6-96cb-71d17bdca5f6",
+            "cn": [
+                {
+                    "type": "fixedfunction",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "designer|params": [
+                            "value",
+                            "metaData",
+                            "record",
+                            "rowIndex",
+                            "colIndex",
+                            "store",
+                            "view"
+                        ],
+                        "fn": "renderer",
+                        "implHandler": [
+                            "var store = this._levelStore;",
+                            "if(store.getCount()===0){",
+                            "    store.load();",
+                            "}",
+                            "var index=store.find(\"id\",value);",
+                            "if(index>-1){",
+                            "    var model=store.getAt(index);",
+                            "    return model.data.name;",
+                            "}",
+                            "return value;"
+                        ]
+                    },
+                    "name": "renderer",
+                    "designerId": "b758359a-9241-4c8e-b97e-39150d40957a"
+                }
+            ]
         },
         {
             "type": "Ext.grid.column.Column",
@@ -373,7 +446,18 @@
                         ],
                         "fn": "renderer",
                         "implHandler": [
-                            "return value.accountId;"
+                            "",
+                            "var store = this._socialAccountStore;",
+                            "if(store.getCount()===0){",
+                            "    store.load();",
+                            "}",
+                            "var index=store.find(\"id\",value.accountId);",
+                            "if(index>-1){",
+                            "    var model=store.getAt(index);",
+                            "    return model.data.name;",
+                            "}",
+                            "return value.accountId;",
+                            ""
                         ]
                     },
                     "name": "renderer",
@@ -527,6 +611,8 @@
             "userConfig": {
                 "fn": "onGridpanelAfterRender",
                 "implHandler": [
+                    "",
+                    "",
                     "component.getStore().load();"
                 ],
                 "name": "afterrender",
@@ -554,6 +640,50 @@
             },
             "name": "onGridpanelItemDblClick",
             "designerId": "66f93209-4937-4359-833e-8959c0229cd3"
+        },
+        {
+            "type": "processcfgfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|params": [
+                    "config"
+                ],
+                "fn": "processPersonAccountGrid",
+                "implHandler": [
+                    "var me=this,",
+                    "    ns=me.getNamespace();",
+                    "config._salaryAccountStore=Ext.create(ns+'.store.SalaryAccount');",
+                    "config._socialAccountStore=Ext.create(ns+'.store.SocialAccount');",
+                    "config._levelStore=Ext.create(ns+'.store.LevelStore');",
+                    "return config;"
+                ]
+            },
+            "name": "processPersonAccountGrid",
+            "designerId": "3623f467-ab9e-43b5-b92b-9607f9e26fc1"
+        },
+        {
+            "type": "basiceventbinding",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "onGridpanelBeforeRender",
+                "implHandler": [
+                    "this._salaryAccountStore.load();",
+                    "this._socialAccountStore.load();",
+                    "this._levelStore.load();"
+                ],
+                "name": "beforerender",
+                "scope": "me"
+            },
+            "name": "onGridpanelBeforeRender",
+            "designerId": "8f41be44-11f9-4a14-a5c7-cb37450635cb"
         }
     ]
 }

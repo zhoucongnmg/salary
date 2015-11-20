@@ -51,6 +51,7 @@ Ext.define('sion.salary.social.view.PersonAccountGrid', {
                                 {
                                     xtype: 'combobox',
                                     columnWidth: 0.22,
+                                    itemId: 'salaryAccount',
                                     fieldLabel: '薪资方案',
                                     labelWidth: 60,
                                     displayField: 'name',
@@ -158,11 +159,35 @@ Ext.define('sion.salary.social.view.PersonAccountGrid', {
                 },
                 {
                     xtype: 'gridcolumn',
+                    renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
+                        var store = this._salaryAccountStore;
+                        if(store.getCount()===0){
+                            store.load();
+                        }
+                        var index=store.find("id",value);
+                        if(index>-1){
+                            var model=store.getAt(index);
+                            return model.data.name;
+                        }
+                        return value;
+                    },
                     dataIndex: 'accountId',
                     text: '薪资方案'
                 },
                 {
                     xtype: 'gridcolumn',
+                    renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
+                        var store = this._levelStore;
+                        if(store.getCount()===0){
+                            store.load();
+                        }
+                        var index=store.find("id",value);
+                        if(index>-1){
+                            var model=store.getAt(index);
+                            return model.data.name;
+                        }
+                        return value;
+                    },
                     dataIndex: 'level',
                     text: '薪资层次'
                 },
@@ -174,7 +199,18 @@ Ext.define('sion.salary.social.view.PersonAccountGrid', {
                 {
                     xtype: 'gridcolumn',
                     renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
+
+                        var store = this._socialAccountStore;
+                        if(store.getCount()===0){
+                            store.load();
+                        }
+                        var index=store.find("id",value.accountId);
+                        if(index>-1){
+                            var model=store.getAt(index);
+                            return model.data.name;
+                        }
                         return value.accountId;
+
                     },
                     dataIndex: 'insuredPerson',
                     text: '社保方案'
@@ -215,11 +251,25 @@ Ext.define('sion.salary.social.view.PersonAccountGrid', {
                 itemdblclick: {
                     fn: me.onGridpanelItemDblClick,
                     scope: me
+                },
+                beforerender: {
+                    fn: me.onGridpanelBeforeRender,
+                    scope: me
                 }
             }
         });
 
+        me.processPersonAccountGrid(me);
         me.callParent(arguments);
+    },
+
+    processPersonAccountGrid: function(config) {
+        var me=this,
+            ns=me.getNamespace();
+        config._salaryAccountStore=Ext.create(ns+'.store.SalaryAccount');
+        config._socialAccountStore=Ext.create(ns+'.store.SocialAccount');
+        config._levelStore=Ext.create(ns+'.store.LevelStore');
+        return config;
     },
 
     onButtonClick: function(button, e, eOpts) {
@@ -230,6 +280,8 @@ Ext.define('sion.salary.social.view.PersonAccountGrid', {
     },
 
     onGridpanelAfterRender: function(component, eOpts) {
+
+
         component.getStore().load();
     },
 
@@ -237,6 +289,12 @@ Ext.define('sion.salary.social.view.PersonAccountGrid', {
         var me=this,
                     namespace=me.getNamespace();
                 Ext.create(namespace+'.view.PersonAccountForm',{_grid:me,_record:record}).show();
+    },
+
+    onGridpanelBeforeRender: function(component, eOpts) {
+        this._salaryAccountStore.load();
+        this._socialAccountStore.load();
+        this._levelStore.load();
     }
 
 });

@@ -1,18 +1,27 @@
 package net.sion.company.salary.web;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
+import net.sion.boot.mongo.template.DynamicMongoTemplate;
 import net.sion.company.salary.domain.Account;
-import net.sion.company.salary.domain.InsuredPerson;
-import net.sion.company.salary.domain.Level;
 import net.sion.company.salary.domain.PersonAccountFile;
-import net.sion.company.salary.domain.PersonAccountItem;
 import net.sion.company.salary.sessionrepository.AccountRepository;
 import net.sion.company.salary.sessionrepository.PersonAccountRepository;
 import net.sion.util.mvc.Response;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -29,6 +38,8 @@ public class InsuredPersonController {
 	private PersonAccountRepository personAccountRepo;
 	@Autowired
 	private AccountRepository accountRepo;
+	@Autowired
+	DynamicMongoTemplate dmt;
 	/**
 	 * 创建投保人
 	 * 
@@ -108,10 +119,51 @@ public class InsuredPersonController {
 	}
 
 	@RequestMapping(value="load")
-	public Response load() {
-		List<PersonAccountFile> personAccountFiles=personAccountRepo.findAll();
+	public Map<String, Object> load(@RequestParam Map<String,String> queryBy,@RequestParam int  limit,@RequestParam int  start,@RequestParam int  page, HttpSession session) {
+//		List<PersonAccountFile> personAccountFiles=personAccountRepo.findAll();
+//		return new Response("操作成功", personAccountFiles, true);
 		
-		return new Response("操作成功", personAccountFiles, true);
+		Map<String, Object> mapResult = new HashMap<String, Object>();
+		long count=0;
+		page = page - 1;
+		if (page != -1) {
+			if (page == 0 && limit == 0) {
+				limit = 1;
+			}
+		}
+
+		Sort sort = new Sort(Direction.DESC, "appealTime");
+		Pageable pageable = new PageRequest(page, limit ,sort);
+		
+		Query query = new Query();
+		Criteria criteria = Criteria.where("info").exists(true);
+		List<Criteria> andCriteria = new ArrayList<Criteria>();
+		if (StringUtils.isNotEmpty(queryBy.get("salaryAccount"))) {
+			andCriteria.add(Criteria.where("accountId").is(queryBy.get("salaryAccount")));
+		}
+		if (StringUtils.isNotEmpty(queryBy.get("socialAccount"))) {
+			andCriteria.add(Criteria.where("accountId").is(queryBy.get("socialAccount")));
+		}
+		if (StringUtils.isNotEmpty(queryBy.get("status"))) {
+			andCriteria.add(Criteria.where("status").is(queryBy.get("status")));
+		}
+		if (StringUtils.isNotEmpty(queryBy.get("from"))) {
+			andCriteria.add(Criteria.where("insuredDate").gte(queryBy.get("from")));
+		}
+		if (StringUtils.isNotEmpty(queryBy.get("to"))) {
+			andCriteria.add(Criteria.where("insuredDate").lte(queryBy.get("to")));
+		}
+		query.addCriteria(criteria);
+		
+		count = dmt.count(query, PersonAccountFile.class);
+		query.skip(pageable.getOffset());// skip相当于从那条记录开始
+		query.limit(pageable.getPageSize());// 从skip开始,取多少条记录
+		query.with(sort);
+		
+		List<PersonAccountFile> list = dmt.find(query, PersonAccountFile.class, "Company_Salary_PersonAccountFile");
+		mapResult.put("total", count);
+		mapResult.put("data", list);
+		return mapResult;
 	}
 	
 	@RequestMapping(value="remove")
@@ -124,5 +176,14 @@ public class InsuredPersonController {
 	public Response loadSalaryAccount() {
 		List<Account> accounts=accountRepo.findAll();
 		return new Response("", accounts, true);
+	}
+	
+	@RequestMapping(value="checkExistByPersonCode")
+	public boolean checkExistByPersonCode(@RequestParam String personCode) {
+		List<PersonAccountFile> list=personAccountRepo.findByPersonCode(personCode);
+		if(list!=null && list.size()>0) {
+			return true;
+		}
+		return false;
 	}
 }
