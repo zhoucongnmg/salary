@@ -194,10 +194,13 @@ Ext.define('sion.salary.accounts.view.SalaryPlan', {
             itemList.push(item.data);
         });
         record.set('accountItems', itemList);
-        record.set('persons', []);
+        record.set('persons', null);
         if(record.get('id') === ''){
             store.add(record);
         }
+        alert('submit');
+        console.log(record);
+        console.log(store);
         store.sync({
             success: function(response, opts){
                 Ext.Msg.alert("提示", "保存成功");

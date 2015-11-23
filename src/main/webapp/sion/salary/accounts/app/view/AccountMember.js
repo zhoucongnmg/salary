@@ -100,6 +100,9 @@ Ext.define('sion.salary.accounts.view.AccountMember', {
                                         var store = Ext.getStore('PersonAccount');
 
                                         record.set('accountId', '');
+                                        if(record.get('insuredPerson') === ''){
+                                            record.set('insuredPerson', null);
+                                        }
                                         store.remove(record);
                                     },
                                     iconCls: 's_icon_cross',
@@ -182,14 +185,14 @@ Ext.define('sion.salary.accounts.view.AccountMember', {
 
     onButtonClick1: function(button, e, eOpts) {
         var me = this,
-            memberStore = Ext.getStore('PersonAccount'),
-            store = Ext.getStore('Account'),
-            account = me._account;
+            memberStore = Ext.getStore('PersonAccount');
+        //     store = Ext.getStore('Account'),
+        //     account = me._account;
         console.log(memberStore);
         memberStore.sync({
             success: function(response, opts){
                 Ext.Msg.alert("提示", "保存成功");
-                store.load();
+        //         store.load();
                 me.close();
             },
             failure: function(){
