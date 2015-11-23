@@ -52,12 +52,12 @@ public class Account {
 	public void setAccountItems(List<AccountItem> accountItems) {
 		this.accountItems = accountItems;
 	}
-	public List<Map<String, String>> getPersons() {
-		return persons;
-	}
-	public void setPersons(List<Map<String, String>> persons) {
-		this.persons = persons;
-	}
+//	public List<Map<String, String>> getPersons() {
+//		return persons;
+//	}
+//	public void setPersons(List<Map<String, String>> persons) {
+//		this.persons = persons;
+//	}
 	public String getCreateUserId() {
 		return createUserId;
 	}
@@ -83,13 +83,20 @@ public class Account {
 	String danyGridBusinessId;//动态表单ID
 	
 	List<AccountItem> accountItems;//套帐项目
-	List<Map<String,String>> persons;//套帐关联人员Id和姓名
+//	List<Map<String,String>> persons;//套帐关联人员Id和姓名
 	
 	String createUserId;//
 	String createUserName;
 	String date;	//套账创建日期
 	String remark; //备注
+	PersonAccountFile persons;
 
+	public PersonAccountFile getPersons() {
+		return persons;
+	}
+	public void setPersons(PersonAccountFile persons) {
+		this.persons = persons;
+	}
 	public String getRemark() {
 		return remark;
 	}

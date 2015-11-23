@@ -20,6 +20,8 @@ Ext.define('sion.salary.accounts.model.AccountMember', {
         'Ext.data.Field'
     ],
 
+    idProperty: 'personCode',
+
     fields: [
         {
             name: 'personCode'
@@ -29,9 +31,6 @@ Ext.define('sion.salary.accounts.model.AccountMember', {
         },
         {
             name: 'dept'
-        },
-        {
-            name: 'id'
         },
         {
             name: 'duty'

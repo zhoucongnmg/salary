@@ -27,13 +27,17 @@ Ext.application({
         'Account',
         'AccountMember',
         'SalaryItem',
-        'AccountItem'
+        'AccountItem',
+        'PersonAccount',
+        'PersonAccountItem'
     ],
     stores: [
         'SalaryItem',
         'AccountItem',
         'Account',
-        'AccountMember'
+        'AccountMember',
+        'PersonAccount',
+        'PersonAccountItem'
     ],
     views: [
         'SalaryPlanGrid',

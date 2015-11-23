@@ -18,32 +18,17 @@ Ext.define('sion.salary.accounts.store.AccountMember', {
 
     requires: [
         'sion.salary.accounts.model.AccountMember',
-        'Ext.data.proxy.Ajax',
-        'Ext.data.reader.Json'
+        'Ext.data.proxy.Memory'
     ],
 
     constructor: function(cfg) {
         var me = this;
         cfg = cfg || {};
         me.callParent([Ext.apply({
-            autoLoad: false,
             model: 'sion.salary.accounts.model.AccountMember',
-            remoteFilter: true,
-            remoteSort: true,
             storeId: 'AccountMember',
-            pageSize: 10,
             proxy: {
-                type: 'ajax',
-                api: {
-                    create: 'salary/account/findAccountPerson',
-                    read: 'salary/account/findAccountPerson',
-                    update: 'salary/account/findAccountPerson',
-                    destroy: 'salary/account/findAccountPerson'
-                },
-                reader: {
-                    type: 'json',
-                    root: 'data'
-                }
+                type: 'memory'
             }
         }, cfg)]);
     }

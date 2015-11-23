@@ -40,23 +40,23 @@ Ext.define('sion.salary.social.view.SocialAccountGrid', {
                     items: [
                         {
                             xtype: 'button',
-                            width: 70,
-                            text: '查询',
-                            listeners: {
-                                click: {
-                                    fn: me.onButtonClick2,
-                                    scope: me
-                                }
-                            }
-                        },
-                        {
-                            xtype: 'button',
                             style: 'background:#3ca9fc;',
                             width: 70,
                             text: '<font color=\'#fff\'>新增</font>',
                             listeners: {
                                 click: {
                                     fn: me.onButtonClick,
+                                    scope: me
+                                }
+                            }
+                        },
+                        {
+                            xtype: 'button',
+                            width: 70,
+                            text: '查询',
+                            listeners: {
+                                click: {
+                                    fn: me.onButtonClick2,
                                     scope: me
                                 }
                             }
@@ -147,6 +147,28 @@ Ext.define('sion.salary.social.view.SocialAccountGrid', {
                 {
                     xtype: 'actioncolumn',
                     hideable: false,
+                    text: '方案成员',
+                    tooltip: '修改',
+                    flex: 0.1,
+                    items: [
+                        {
+                            handler: function(view, rowIndex, colIndex, item, e, record, row) {
+                                var me = this.up('gridpanel'),
+                                    namespace = me.getNamespace();
+
+                                var accountMember =  Ext.create(namespace + '.view.AccountMember',{
+                                    _account : record
+                                });
+                                accountMember.show();
+                            },
+                            iconCls: 's_icon_org_gear',
+                            tooltip: '方案成员'
+                        }
+                    ]
+                },
+                {
+                    xtype: 'actioncolumn',
+                    hideable: false,
                     text: '修改',
                     tooltip: '修改',
                     flex: 0.06,
@@ -212,6 +234,13 @@ Ext.define('sion.salary.social.view.SocialAccountGrid', {
         me.callParent(arguments);
     },
 
+    onButtonClick: function(button, e, eOpts) {
+        var  namespace = this.getNamespace(),
+            panel =  Ext.create(namespace + '.view.SocialAccountEdit');
+
+        panel.show();
+    },
+
     onButtonClick2: function(button, e, eOpts) {
         var me = this,
             grid = button.up('grid'),
@@ -270,13 +299,6 @@ Ext.define('sion.salary.social.view.SocialAccountGrid', {
         }else{
             store.loadPage(1);
         }
-    },
-
-    onButtonClick: function(button, e, eOpts) {
-        var  namespace = this.getNamespace(),
-            panel =  Ext.create(namespace + '.view.SocialAccountEdit');
-
-        panel.show();
     },
 
     onButtonClick3: function(button, e, eOpts) {

@@ -101,10 +101,10 @@ Ext.define('sion.salary.accounts.view.SalaryPlanGrid', {
                                         var me = this.up('gridpanel').up(),
                                             namespace = me.getNamespace();
 
-                                        var salaryPlan =  Ext.create(namespace + '.view.AccountMember',{
+                                        var accountMember =  Ext.create(namespace + '.view.AccountMember',{
                                             _account : record
                                         });
-                                        salaryPlan.show();
+                                        accountMember.show();
                                     },
                                     iconCls: 's_icon_org_gear',
                                     tooltip: '方案成员'
@@ -134,7 +134,7 @@ Ext.define('sion.salary.accounts.view.SalaryPlanGrid', {
                             items: [
                                 {
                                     handler: function(view, rowIndex, colIndex, item, e, record, row) {
-                                        var store = Ext.StoreManager.lookup("Account");
+                                        var store = Ext.getStore("Account");
 
                                         Ext.Msg.confirm('提示', '确定要删除吗？', function(text){
                                             if (text == 'yes'){

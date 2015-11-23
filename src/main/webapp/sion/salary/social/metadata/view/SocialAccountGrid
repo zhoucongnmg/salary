@@ -38,6 +38,47 @@
                     "codeClass": null,
                     "userConfig": {
                         "layout|flex": null,
+                        "style": [
+                            "background:#3ca9fc;"
+                        ],
+                        "text": "<font color='#fff'>新增</font>",
+                        "width": 70
+                    },
+                    "name": "MyButton5",
+                    "designerId": "c18d36ed-f47b-436c-82c1-40ec6d13e3a8",
+                    "cn": [
+                        {
+                            "type": "basiceventbinding",
+                            "reference": {
+                                "name": "listeners",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fn": "onButtonClick",
+                                "implHandler": [
+                                    "var  namespace = this.getNamespace(),",
+                                    "    panel =  Ext.create(namespace + '.view.SocialAccountEdit');",
+                                    "",
+                                    "panel.show();"
+                                ],
+                                "name": "click",
+                                "scope": "me"
+                            },
+                            "name": "onButtonClick",
+                            "designerId": "c32a8d15-e77d-4503-ae34-74c8b09305d4"
+                        }
+                    ]
+                },
+                {
+                    "type": "Ext.button.Button",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|flex": null,
                         "text": "查询",
                         "width": 70
                     },
@@ -117,47 +158,6 @@
                             },
                             "name": "onButtonClick2",
                             "designerId": "840bef89-b349-42db-8414-203b9e30b754"
-                        }
-                    ]
-                },
-                {
-                    "type": "Ext.button.Button",
-                    "reference": {
-                        "name": "items",
-                        "type": "array"
-                    },
-                    "codeClass": null,
-                    "userConfig": {
-                        "layout|flex": null,
-                        "style": [
-                            "background:#3ca9fc;"
-                        ],
-                        "text": "<font color='#fff'>新增</font>",
-                        "width": 70
-                    },
-                    "name": "MyButton5",
-                    "designerId": "c18d36ed-f47b-436c-82c1-40ec6d13e3a8",
-                    "cn": [
-                        {
-                            "type": "basiceventbinding",
-                            "reference": {
-                                "name": "listeners",
-                                "type": "array"
-                            },
-                            "codeClass": null,
-                            "userConfig": {
-                                "fn": "onButtonClick",
-                                "implHandler": [
-                                    "var  namespace = this.getNamespace(),",
-                                    "    panel =  Ext.create(namespace + '.view.SocialAccountEdit');",
-                                    "",
-                                    "panel.show();"
-                                ],
-                                "name": "click",
-                                "scope": "me"
-                            },
-                            "name": "onButtonClick",
-                            "designerId": "c32a8d15-e77d-4503-ae34-74c8b09305d4"
                         }
                     ]
                 },
@@ -383,9 +383,9 @@
             },
             "codeClass": null,
             "userConfig": {
-                "flex": 0.06,
+                "flex": 0.1,
                 "hideable": false,
-                "text": "修改",
+                "text": "方案成员",
                 "tooltip": "修改"
             },
             "name": "MyActionColumn2",
@@ -399,11 +399,76 @@
                     },
                     "codeClass": null,
                     "userConfig": {
+                        "iconCls": "s_icon_org_gear",
+                        "tooltip": "方案成员"
+                    },
+                    "name": "MyActionColumnItem2",
+                    "designerId": "e43d541c-7246-4c8a-a388-515f4dada619",
+                    "cn": [
+                        {
+                            "type": "fixedfunction",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "designer|params": [
+                                    "view",
+                                    "rowIndex",
+                                    "colIndex",
+                                    "item",
+                                    "e",
+                                    "record",
+                                    "row"
+                                ],
+                                "fn": "handler",
+                                "implHandler": [
+                                    "var me = this.up('gridpanel'),",
+                                    "    namespace = me.getNamespace();",
+                                    "",
+                                    "var accountMember =  Ext.create(namespace + '.view.AccountMember',{",
+                                    "    _account : record",
+                                    "});",
+                                    "accountMember.show();"
+                                ]
+                            },
+                            "name": "handler",
+                            "designerId": "e88b88c3-3332-45f1-ad5c-5499833e9ab0"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "type": "Ext.grid.column.Action",
+            "reference": {
+                "name": "columns",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "flex": 0.06,
+                "hideable": false,
+                "text": "修改",
+                "tooltip": "修改"
+            },
+            "name": "MyActionColumn",
+            "designerId": "e8f42a1c-4782-4dee-b1de-9e18a35e2076",
+            "cn": [
+                {
+                    "type": "actioncolumnitem",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
                         "iconCls": "s_icon_table_edit",
                         "tooltip": "修改"
                     },
                     "name": "MyActionColumnItem2",
-                    "designerId": "e43d541c-7246-4c8a-a388-515f4dada619",
+                    "designerId": "fd90f024-a7bb-4933-9150-160f1e9deade",
                     "cn": [
                         {
                             "type": "fixedfunction",
@@ -428,7 +493,7 @@
                                 ]
                             },
                             "name": "handler",
-                            "designerId": "e88b88c3-3332-45f1-ad5c-5499833e9ab0"
+                            "designerId": "138f94d7-f380-4a4e-aac6-35d813ab8f4d"
                         }
                     ]
                 }

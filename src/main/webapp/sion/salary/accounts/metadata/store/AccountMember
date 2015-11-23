@@ -6,52 +6,27 @@
     },
     "codeClass": null,
     "userConfig": {
-        "autoLoad": false,
+        "autoLoad": null,
         "data": null,
         "designer|userClassName": "AccountMember",
         "model": "AccountMember",
-        "pageSize": 10,
-        "remoteFilter": true,
-        "remoteSort": true,
+        "pageSize": null,
+        "remoteFilter": null,
+        "remoteSort": null,
         "storeId": "AccountMember"
     },
     "name": "MyStore",
     "designerId": "c26a8a21-6db0-460f-ba16-2f69fefa4ebd",
     "cn": [
         {
-            "type": "Ext.data.proxy.Ajax",
+            "type": "Ext.data.proxy.Memory",
             "reference": {
                 "name": "proxy",
                 "type": "object"
             },
             "codeClass": null,
-            "userConfig": {
-                "api": [
-                    "{",
-                    "create: 'salary/account/findAccountPerson',",
-                    "read: 'salary/account/findAccountPerson',",
-                    "update: 'salary/account/findAccountPerson',",
-                    "destroy: 'salary/account/findAccountPerson'",
-                    "}"
-                ]
-            },
-            "name": "MyAjaxProxy1",
-            "designerId": "888e2f86-214a-4786-a140-37efb85f6780",
-            "cn": [
-                {
-                    "type": "Ext.data.reader.Json",
-                    "reference": {
-                        "name": "reader",
-                        "type": "object"
-                    },
-                    "codeClass": null,
-                    "userConfig": {
-                        "root": "data"
-                    },
-                    "name": "MyJsonReader1",
-                    "designerId": "4c13ffee-7c8e-400a-9f69-ce6a540636ec"
-                }
-            ]
+            "name": "MyMemoryProxy",
+            "designerId": "888e2f86-214a-4786-a140-37efb85f6780"
         }
     ]
 }

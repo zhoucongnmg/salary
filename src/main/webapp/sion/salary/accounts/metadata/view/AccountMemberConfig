@@ -42,7 +42,39 @@
                         "width": 70
                     },
                     "name": "MyButton3",
-                    "designerId": "88db2ccf-0e4c-437e-b32f-c4a7b391e25f"
+                    "designerId": "88db2ccf-0e4c-437e-b32f-c4a7b391e25f",
+                    "cn": [
+                        {
+                            "type": "basiceventbinding",
+                            "reference": {
+                                "name": "listeners",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fn": "onButtonClick",
+                                "implHandler": [
+                                    "var me = this,",
+                                    "    store = Ext.getStore('PersonAccountItem'),",
+                                    "    items = [],",
+                                    "    member = me._member,",
+                                    "    account = me._account;",
+                                    "",
+                                    "store.each(function(record){",
+                                    "//     record.set('accountItemId', account.get('id'));",
+                                    "//     record.set('accountItemName', account.get('name'));",
+                                    "    items.push(record.data);",
+                                    "});",
+                                    "member.set('accountItems', items);",
+                                    "me.close();"
+                                ],
+                                "name": "click",
+                                "scope": "me"
+                            },
+                            "name": "onButtonClick",
+                            "designerId": "025e4a9a-94f2-44e3-ad24-b06f46e4ec32"
+                        }
+                    ]
                 }
             ]
         },
@@ -106,6 +138,8 @@
                     },
                     "codeClass": null,
                     "userConfig": {
+                        "container|align": "stretch",
+                        "layout": "vbox",
                         "layout|flex": 1,
                         "title": "薪资设置"
                     },
@@ -120,7 +154,13 @@
                             },
                             "codeClass": null,
                             "userConfig": {
-                                "store": "SalaryItem",
+                                "itemId": null,
+                                "layout|flex": 1,
+                                "minHeight": null,
+                                "store": "PersonAccountItem",
+                                "style": [
+                                    "padding-bottom:30px;"
+                                ],
                                 "title": null
                             },
                             "name": "MyGridPanel4",
@@ -134,7 +174,7 @@
                                     },
                                     "codeClass": null,
                                     "userConfig": {
-                                        "dataIndex": "name",
+                                        "dataIndex": "accountItemName",
                                         "flex": 1,
                                         "text": "方案"
                                     },
@@ -149,7 +189,7 @@
                                     },
                                     "codeClass": null,
                                     "userConfig": {
-                                        "dataIndex": "money",
+                                        "dataIndex": "value",
                                         "flex": 1,
                                         "text": "金额"
                                     },
@@ -191,14 +231,14 @@
                                     "userConfig": {
                                         "fn": "onGridpanelBeforeRender",
                                         "implHandler": [
-                                            "var me = this,",
-                                            "    store = component.getStore();",
+                                            "// var me = this,",
+                                            "//     store = component.getStore();",
                                             "",
-                                            "store.clearFilter(true);",
-                                            "Ext.apply(store.proxy.extraParams, {",
-                                            "    system : 'false'",
-                                            "});",
-                                            "store.load();"
+                                            "// store.clearFilter(true);",
+                                            "// Ext.apply(store.proxy.extraParams, {",
+                                            "//     system : 'false'",
+                                            "// });",
+                                            "// store.load();"
                                         ],
                                         "name": "beforerender",
                                         "scope": "me"
@@ -254,9 +294,7 @@
                     "    member = me._member;",
                     "",
                     "me.down('#userName').setValue(member.get('name'));",
-                    "me.down('#accountName').setValue(account.get('name'));",
-                    "",
-                    ""
+                    "me.down('#accountName').setValue(account.get('name'));"
                 ],
                 "name": "beforerender",
                 "scope": "me"

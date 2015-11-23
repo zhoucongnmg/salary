@@ -133,7 +133,7 @@ Ext.define('sion.salary.accounts.view.SalaryItemEdit', {
             namespace = me.getNamespace(),
             form = me.down("form"),
             mainModel = Ext.create(namespace + '.model.SalaryItem'),
-            store = Ext.StoreManager.lookup("SalaryItem");
+            store = Ext.getStore("SalaryItem");
 
         record = form.getRecord();
         form.updateRecord(record);

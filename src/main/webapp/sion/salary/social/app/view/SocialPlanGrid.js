@@ -18,8 +18,6 @@ Ext.define('sion.salary.social.view.SocialPlanGrid', {
 
     requires: [
         'sion.salary.social.view.SocialAccountGrid',
-        'Ext.toolbar.Toolbar',
-        'Ext.button.Button',
         'Ext.grid.Panel'
     ],
 
@@ -31,24 +29,6 @@ Ext.define('sion.salary.social.view.SocialPlanGrid', {
         var me = this;
 
         Ext.applyIf(me, {
-            dockedItems: [
-                {
-                    xtype: 'toolbar',
-                    dock: 'top',
-                    items: [
-                        {
-                            xtype: 'button',
-                            text: '新建方案',
-                            listeners: {
-                                click: {
-                                    fn: me.onButtonClick,
-                                    scope: me
-                                }
-                            }
-                        }
-                    ]
-                }
-            ],
             items: [
                 {
                     xtype: 'socialaccountgrid'
@@ -57,10 +37,6 @@ Ext.define('sion.salary.social.view.SocialPlanGrid', {
         });
 
         me.callParent(arguments);
-    },
-
-    onButtonClick: function(button, e, eOpts) {
-        Ext.create("sion.salary.social.view.SocialAccountForm").show();
     }
 
 });

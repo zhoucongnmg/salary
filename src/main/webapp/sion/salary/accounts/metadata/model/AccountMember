@@ -6,7 +6,8 @@
     },
     "codeClass": null,
     "userConfig": {
-        "designer|userClassName": "AccountMember"
+        "designer|userClassName": "AccountMember",
+        "idProperty": "personCode"
     },
     "name": "MyModel",
     "designerId": "f0df3f43-e0f7-4a7c-9c35-d32caa70ce31",
@@ -49,19 +50,6 @@
             },
             "name": "MyField8",
             "designerId": "3ba96e13-9cfc-4a3b-88bf-ffadf5e98d7b"
-        },
-        {
-            "type": "Ext.data.Field",
-            "reference": {
-                "name": "fields",
-                "type": "array"
-            },
-            "codeClass": null,
-            "userConfig": {
-                "name": "id"
-            },
-            "name": "MyField20",
-            "designerId": "ee065cdb-487d-4285-bfd1-4c44a7744b8a"
         },
         {
             "type": "Ext.data.Field",

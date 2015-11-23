@@ -218,14 +218,14 @@ public class AccountController {
 		Pageable pageable = getPageable(filter, new ArrayList<Order>(), total);
 		List<PersonAccountFile> pagelist = personAccountFileRepository.getPageData(filterMap, pageable); 
 		Map<String, Object> map = new HashMap<String, Object>();
-		PersonAccountFile person = new PersonAccountFile();
-		person.setId("id001");
-		person.setPersonCode("p_001");
-		person.setName("张三");
-		person.setDuty("经理");
-		person.setAccountId(id);
-		pagelist.add(person);
-		total++;
+//		PersonAccountFile person = new PersonAccountFile();
+//		person.setId("id001");
+//		person.setPersonCode("p_001");
+//		person.setName("张三");
+//		person.setDuty("经理");
+//		person.setAccountId(id);
+//		pagelist.add(person);
+//		total++;
 		
 		map.put("total", total);
 		map.put("data", pagelist);

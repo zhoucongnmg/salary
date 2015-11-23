@@ -37,7 +37,7 @@ Ext.define('sion.salary.accounts.view.AccountMember', {
                 {
                     xtype: 'gridpanel',
                     header: false,
-                    store: 'AccountMember',
+                    store: 'PersonAccount',
                     columns: [
                         {
                             xtype: 'gridcolumn',
@@ -54,13 +54,13 @@ Ext.define('sion.salary.accounts.view.AccountMember', {
                         {
                             xtype: 'gridcolumn',
                             dataIndex: 'duty',
-                            text: '岗位状态',
+                            text: '职务',
                             flex: 1
                         },
                         {
                             xtype: 'gridcolumn',
                             dataIndex: 'dept',
-                            text: '员工类型',
+                            text: '部门',
                             flex: 1
                         },
                         {
@@ -73,16 +73,37 @@ Ext.define('sion.salary.accounts.view.AccountMember', {
                                     handler: function(view, rowIndex, colIndex, item, e, record, row) {
                                         var me = this.up('gridpanel').up(),
                                             account = me._account,
+                                            //     store = Ext.getStore('PersonAccountItem');
                                             namespace = me.getNamespace();
 
-                                        var salaryPlan =  Ext.create(namespace + '.view.AccountMemberConfig',{
+                                        var config =  Ext.create(namespace + '.view.AccountMemberConfig',{
                                             _account : account,
                                             _member : record
                                         });
-                                        salaryPlan.show();
+                                        var store = config.down('gridpanel').getStore();
+                                        store.removeAll();
+                                        store.add(record.get('accountItems'));
+                                        config.show();
                                     },
                                     iconCls: 's_icon_coins',
                                     tooltip: '薪资设定'
+                                }
+                            ]
+                        },
+                        {
+                            xtype: 'actioncolumn',
+                            text: '删除',
+                            flex: 0.5,
+                            items: [
+                                {
+                                    handler: function(view, rowIndex, colIndex, item, e, record, row) {
+                                        var store = Ext.getStore('PersonAccount');
+
+                                        record.set('accountId', '');
+                                        store.remove(record);
+                                    },
+                                    iconCls: 's_icon_cross',
+                                    tooltip: '删除'
                                 }
                             ]
                         }
@@ -100,12 +121,23 @@ Ext.define('sion.salary.accounts.view.AccountMember', {
                             items: [
                                 {
                                     xtype: 'button',
-                                    style: 'background:#3ca9fc;',
                                     width: 70,
-                                    text: '<font color=\'#fff\'>新增</font>',
+                                    text: '新增',
                                     listeners: {
                                         click: {
                                             fn: me.onButtonClick,
+                                            scope: me
+                                        }
+                                    }
+                                },
+                                {
+                                    xtype: 'button',
+                                    style: 'background:#3ca9fc;',
+                                    width: 70,
+                                    text: '<font color=\'#fff\'>保存</font>',
+                                    listeners: {
+                                        click: {
+                                            fn: me.onButtonClick1,
                                             scope: me
                                         }
                                     }
@@ -142,7 +174,48 @@ Ext.define('sion.salary.accounts.view.AccountMember', {
     },
 
     onButtonClick: function(button, e, eOpts) {
+        var personSelection = Ext.create("sion.salary.social.view.SearchPerson",
+                                         {_scope : this, _callback : this.selectedCallback});
 
+        personSelection.show();
+    },
+
+    onButtonClick1: function(button, e, eOpts) {
+        var me = this,
+            memberStore = Ext.getStore('PersonAccount'),
+            store = Ext.getStore('Account'),
+            account = me._account;
+        console.log(memberStore);
+        memberStore.sync({
+            success: function(response, opts){
+                Ext.Msg.alert("提示", "保存成功");
+                store.load();
+                me.close();
+            },
+            failure: function(){
+                Ext.Msg.alert("提示", "保存失败");
+                me.close();
+            }
+        });
+    },
+
+    selectedCallback: function(person, scope) {
+        var me = scope,
+            namespace = me.getNamespace(),
+            account = me._account,
+            store = Ext.getStore('PersonAccount');
+
+        for(var i = 0; i < person.length; i++){
+            if(store.find('id', person[i].data.id) === -1){
+                var model = Ext.create(namespace + '.model.PersonAccount');
+                model.data = person[i].data;
+                model.set('accountId', account.get('id'));
+                if(model.get('insuredPerson') === ''){
+                    model.set('insuredPerson', null);
+                }
+                store.add(model);
+            }
+        }
     }
 
 });

@@ -48,7 +48,13 @@ Ext.define('sion.salary.accounts.view.AccountMemberConfig', {
                         {
                             xtype: 'button',
                             width: 70,
-                            text: '保存'
+                            text: '保存',
+                            listeners: {
+                                click: {
+                                    fn: me.onButtonClick,
+                                    scope: me
+                                }
+                            }
                         }
                     ]
                 }
@@ -82,20 +88,26 @@ Ext.define('sion.salary.accounts.view.AccountMemberConfig', {
                             xtype: 'fieldset',
                             flex: 1,
                             title: '薪资设置',
+                            layout: {
+                                type: 'vbox',
+                                align: 'stretch'
+                            },
                             items: [
                                 {
                                     xtype: 'gridpanel',
-                                    store: 'SalaryItem',
+                                    flex: 1,
+                                    style: 'padding-bottom:30px;',
+                                    store: 'PersonAccountItem',
                                     columns: [
                                         {
                                             xtype: 'gridcolumn',
-                                            dataIndex: 'name',
+                                            dataIndex: 'accountItemName',
                                             text: '方案',
                                             flex: 1
                                         },
                                         {
                                             xtype: 'numbercolumn',
-                                            dataIndex: 'money',
+                                            dataIndex: 'value',
                                             text: '金额',
                                             flex: 1,
                                             editor: {
@@ -134,15 +146,31 @@ Ext.define('sion.salary.accounts.view.AccountMemberConfig', {
         me.callParent(arguments);
     },
 
-    onGridpanelBeforeRender: function(component, eOpts) {
+    onButtonClick: function(button, e, eOpts) {
         var me = this,
-            store = component.getStore();
+            store = Ext.getStore('PersonAccountItem'),
+            items = [],
+            member = me._member,
+            account = me._account;
 
-        store.clearFilter(true);
-        Ext.apply(store.proxy.extraParams, {
-            system : 'false'
+        store.each(function(record){
+        //     record.set('accountItemId', account.get('id'));
+        //     record.set('accountItemName', account.get('name'));
+            items.push(record.data);
         });
-        store.load();
+        member.set('accountItems', items);
+        me.close();
+    },
+
+    onGridpanelBeforeRender: function(component, eOpts) {
+        // var me = this,
+        //     store = component.getStore();
+
+        // store.clearFilter(true);
+        // Ext.apply(store.proxy.extraParams, {
+        //     system : 'false'
+        // });
+        // store.load();
     },
 
     onWindowBeforeRender: function(component, eOpts) {
@@ -152,8 +180,6 @@ Ext.define('sion.salary.accounts.view.AccountMemberConfig', {
 
         me.down('#userName').setValue(member.get('name'));
         me.down('#accountName').setValue(account.get('name'));
-
-
     }
 
 });

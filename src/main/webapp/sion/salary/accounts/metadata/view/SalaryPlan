@@ -86,8 +86,7 @@
                                     "        Ext.Msg.alert(\"提示\", \"保存失败\");",
                                     "        me.close();",
                                     "    }",
-                                    "});",
-                                    "me.close();"
+                                    "});"
                                 ],
                                 "name": "click",
                                 "scope": "me"
@@ -212,6 +211,7 @@
                 "height": 450,
                 "itemId": "itemGrid",
                 "layout|flex": 1,
+                "store": "AccountItem",
                 "title": "方案项目 "
             },
             "name": "MyGridPanel2",
@@ -239,7 +239,7 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "dataIndex": "string",
+                        "dataIndex": "name",
                         "text": "项目名称"
                     },
                     "name": "MyColumn8",
@@ -253,6 +253,7 @@
                     },
                     "codeClass": null,
                     "userConfig": {
+                        "dataIndex": "type",
                         "text": "项目类型"
                     },
                     "name": "MyColumn10",
@@ -266,6 +267,7 @@
                     },
                     "codeClass": null,
                     "userConfig": {
+                        "dataIndex": "fieldName",
                         "text": "字段"
                     },
                     "name": "MyColumn11",
@@ -279,6 +281,7 @@
                     },
                     "codeClass": null,
                     "userConfig": {
+                        "dataIndex": "value",
                         "text": "公式"
                     },
                     "name": "MyColumn12",
@@ -292,7 +295,7 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "dataIndex": "bool",
+                        "dataIndex": "show",
                         "text": "是否显示"
                     },
                     "name": "MyBooleanColumn3",

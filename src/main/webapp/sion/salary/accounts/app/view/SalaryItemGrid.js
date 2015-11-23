@@ -90,7 +90,7 @@ Ext.define('sion.salary.accounts.view.SalaryItemGrid', {
                     items: [
                         {
                             handler: function(view, rowIndex, colIndex, item, e, record, row) {
-                                var store = Ext.StoreManager.lookup("SalaryItem");
+                                var store = Ext.getStore("SalaryItem");
                                 if(record.get('system')){
                                     Ext.Msg.alert('提示','系统提取项不可删除！');
                                     return false;

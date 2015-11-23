@@ -36,7 +36,8 @@ Ext.application({
         'SalaryAccount',
         'Rank',
         'PersonSalaryItem',
-        'PersonSocialItem'
+        'PersonSocialItem',
+        'InsuredPersonAccount'
     ],
     stores: [
         'SocialItem',
@@ -50,7 +51,8 @@ Ext.application({
         'SalaryAccount',
         'RankStore',
         'PersonSalaryItem',
-        'PersonSocialItem'
+        'PersonSocialItem',
+        'InsuredPersonAccount'
     ],
     views: [
         'PersonAccountGrid',

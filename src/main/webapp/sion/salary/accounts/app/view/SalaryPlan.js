@@ -109,6 +109,7 @@ Ext.define('sion.salary.accounts.view.SalaryPlan', {
                     itemId: 'itemGrid',
                     header: false,
                     title: '方案项目 ',
+                    store: 'AccountItem',
                     columns: [
                         {
                             xtype: 'numbercolumn',
@@ -117,24 +118,27 @@ Ext.define('sion.salary.accounts.view.SalaryPlan', {
                         },
                         {
                             xtype: 'gridcolumn',
-                            dataIndex: 'string',
+                            dataIndex: 'name',
                             text: '项目名称'
                         },
                         {
                             xtype: 'gridcolumn',
+                            dataIndex: 'type',
                             text: '项目类型'
                         },
                         {
                             xtype: 'gridcolumn',
+                            dataIndex: 'fieldName',
                             text: '字段'
                         },
                         {
                             xtype: 'gridcolumn',
+                            dataIndex: 'value',
                             text: '公式'
                         },
                         {
                             xtype: 'booleancolumn',
-                            dataIndex: 'bool',
+                            dataIndex: 'show',
                             text: '是否显示'
                         },
                         {
@@ -205,7 +209,6 @@ Ext.define('sion.salary.accounts.view.SalaryPlan', {
                 me.close();
             }
         });
-        me.close();
     },
 
     onAddSalaryItemClick: function(button, e, eOpts) {

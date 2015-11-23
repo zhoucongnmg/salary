@@ -59,11 +59,25 @@ public class InsuredPersonController {
 	 */
 	@RequestMapping(value = "saveList")
 	public Response createList(@RequestBody List<PersonAccountFile> persons) {
+		System.out.println(persons.size());
 		for (PersonAccountFile person : persons) {
 			personAccountRepo.save(person);
 		}
 		return new Response("操作成功",	true);
 	}
+	@RequestMapping(value = "getPersonByAccountId")
+	public Response getPersonByAccountId(@RequestParam String id) {
+		List<PersonAccountFile> list = personAccountRepo.findByAccountId(id);
+		return new Response(list);
+	}
+	@RequestMapping(value = "getInsuredPersonByAccountId")
+	public Response getInsuredPersonByAccountId(@RequestParam String id) {
+		Query query = new Query();
+		query.addCriteria(Criteria.where("insuredPerson.accountId").is(id));
+		List<PersonAccountFile> list = dmt.find(query, PersonAccountFile.class);
+		return new Response(list);
+	}
+	
 	/**
 	 * 读取投保人信息
 	 * 

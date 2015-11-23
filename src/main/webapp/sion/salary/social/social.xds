@@ -27,12 +27,13 @@
         "displayfield-ExtBox1-1241-inputEl": "a new version of the framework is available"
     },
     "xdsVersion": "3.2.0",
-    "xdsBuild": 75,
+    "xdsBuild": 239,
     "schemaVersion": 1,
     "upgradeVersion": 310000000001,
     "framework": "ext42",
     "viewOrderMap": {
         "view": [
+            "0fd59354-a80d-40c5-9e2b-c8a63cdbd49e",
             "9f3362b8-8e84-421a-bb82-bf7de4bac62b",
             "1f0f66ec-a11e-448a-8d3e-c921c6d2c1eb",
             "ab157ef0-6e07-4e04-81fd-6e571fd1efe4",
@@ -48,6 +49,7 @@
             "9339bdfc-ed9f-4ffc-a55d-7bd4af7376f7"
         ],
         "store": [
+            "ca038700-71cc-41be-bd64-d1a9b16fdf18",
             "4ea358d7-475c-47ae-8f1f-33298049d596",
             "f64b92fc-e2d7-4448-8a31-217f25ae0b7f",
             "5ad56e99-a1e5-4f83-b91a-e3712c427ad2",
@@ -72,6 +74,7 @@
             "23faa36e-c4f3-4202-82b5-72e3687913bf",
             "d100af65-d2e2-4afc-896f-eecf2b44bb26",
             "d7866fd3-7f28-42d5-ac4a-a8905ae944b0",
+            "499bd3bd-c5ca-4c35-88aa-7a05e8828c63",
             "e99901df-46a2-4726-b844-c1f1d0809930",
             "3aacd0c2-1634-462e-b32f-2a72a1d2da88",
             "e0200e4f-84d8-4141-ac89-34d01ebc0ee7",
