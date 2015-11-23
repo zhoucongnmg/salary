@@ -1,0 +1,339 @@
+{
+    "type": "Ext.window.Window",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userClassName": "AccountMember",
+        "height": 540,
+        "title": null,
+        "width": 760
+    },
+    "name": "MyWindow",
+    "designerId": "0fd59354-a80d-40c5-9e2b-c8a63cdbd49e",
+    "cn": [
+        {
+            "type": "Ext.grid.Panel",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "header": false,
+                "store": "InsuredPersonAccount",
+                "title": null
+            },
+            "name": "MyGridPanel3",
+            "designerId": "981380fb-507f-4e4b-b7e1-052f1205b667",
+            "cn": [
+                {
+                    "type": "Ext.grid.column.Column",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dataIndex": "personCode",
+                        "flex": 1,
+                        "text": "员工编号"
+                    },
+                    "name": "MyColumn29",
+                    "designerId": "7e7ce9cd-d96e-4435-bd3f-f3470fe73be8"
+                },
+                {
+                    "type": "Ext.grid.column.Column",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dataIndex": "name",
+                        "flex": 1,
+                        "text": "员工姓名"
+                    },
+                    "name": "MyColumn30",
+                    "designerId": "339a2797-1ff5-4444-936b-964e6b63142d"
+                },
+                {
+                    "type": "Ext.grid.column.Column",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dataIndex": "duty",
+                        "flex": 1,
+                        "text": "职务"
+                    },
+                    "name": "MyColumn31",
+                    "designerId": "4f9abe61-44fc-43a0-88af-668de33c7580"
+                },
+                {
+                    "type": "Ext.grid.column.Column",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dataIndex": "dept",
+                        "flex": 1,
+                        "text": "部门"
+                    },
+                    "name": "MyColumn32",
+                    "designerId": "dcf91bff-0f35-4953-8bd4-ef29cde2e22a"
+                },
+                {
+                    "type": "Ext.grid.column.Action",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "flex": 0.5,
+                        "hideable": false,
+                        "text": "删除"
+                    },
+                    "name": "MyActionColumn3",
+                    "designerId": "9e0fd285-1ddf-4fed-bbc9-11239f794818",
+                    "cn": [
+                        {
+                            "type": "actioncolumnitem",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "iconCls": "s_icon_cross",
+                                "tooltip": "删除"
+                            },
+                            "name": "MyActionColumnItem3",
+                            "designerId": "c9219482-3d95-4937-a71a-995bc52182bc",
+                            "cn": [
+                                {
+                                    "type": "fixedfunction",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "designer|params": [
+                                            "view",
+                                            "rowIndex",
+                                            "colIndex",
+                                            "item",
+                                            "e",
+                                            "record",
+                                            "row"
+                                        ],
+                                        "fn": "handler",
+                                        "implHandler": [
+                                            "var store = Ext.getStore('InsuredPersonAccount');",
+                                            "",
+                                            "if(record.get('insuredPerson') === ''){",
+                                            "    record.set('insuredPerson', null);",
+                                            "}else{",
+                                            "    record.get('insuredPerson').accountId = '';",
+                                            "}",
+                                            "store.remove(record);"
+                                        ]
+                                    },
+                                    "name": "handler",
+                                    "designerId": "3c2dcf6d-7d16-4162-8501-eae15eb877dd"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "type": "Ext.grid.View",
+                    "reference": {
+                        "name": "viewConfig",
+                        "type": "object"
+                    },
+                    "codeClass": null,
+                    "name": "MyGridView4",
+                    "designerId": "7ca5dec5-342a-49e4-acff-9dc1db85a1d9"
+                },
+                {
+                    "type": "basiceventbinding",
+                    "reference": {
+                        "name": "listeners",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fn": "onGridpanelRender",
+                        "implHandler": [
+                            "var me = this,",
+                            "    account = me._account,",
+                            "    store = component.getStore();",
+                            "",
+                            "store.clearFilter(true);",
+                            "Ext.apply(store.proxy.extraParams, {",
+                            "    id : account.get('id')",
+                            "});",
+                            "store.load();"
+                        ],
+                        "name": "render",
+                        "scope": "me"
+                    },
+                    "name": "onGridpanelRender",
+                    "designerId": "c55dc231-90aa-42e0-bc16-ce6343be0385"
+                },
+                {
+                    "type": "Ext.toolbar.Toolbar",
+                    "reference": {
+                        "name": "dockedItems",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dock": "top"
+                    },
+                    "name": "MyToolbar7",
+                    "designerId": "5d826588-7892-4311-8ab6-f5be2cf4d95e",
+                    "cn": [
+                        {
+                            "type": "Ext.button.Button",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "layout|flex": null,
+                                "style": null,
+                                "text": "新增",
+                                "width": 70
+                            },
+                            "name": "MyButton11",
+                            "designerId": "6bd0926b-d6f5-49dc-906c-7c9bc4813694",
+                            "cn": [
+                                {
+                                    "type": "basiceventbinding",
+                                    "reference": {
+                                        "name": "listeners",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fn": "onButtonClick",
+                                        "implHandler": [
+                                            "var personSelection = Ext.create(\"sion.salary.social.view.SearchPerson\",",
+                                            "                                 {_scope : this, _callback : this.selectedCallback});",
+                                            "",
+                                            "personSelection.show();"
+                                        ],
+                                        "name": "click",
+                                        "scope": "me"
+                                    },
+                                    "name": "onButtonClick",
+                                    "designerId": "a4294739-bcd0-4141-a32e-590c88e399c5"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "Ext.button.Button",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "layout|flex": null,
+                                "style": [
+                                    "background:#3ca9fc;"
+                                ],
+                                "text": "<font color='#fff'>保存</font>",
+                                "width": 70
+                            },
+                            "name": "MyButton12",
+                            "designerId": "bbbc50ae-219c-4cd4-8e90-e8f0bb7e6b62",
+                            "cn": [
+                                {
+                                    "type": "basiceventbinding",
+                                    "reference": {
+                                        "name": "listeners",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fn": "onButtonClick1",
+                                        "implHandler": [
+                                            "var me = this,",
+                                            "    memberStore = Ext.getStore('InsuredPersonAccount'),",
+                                            "    account = me._account;",
+                                            "",
+                                            "memberStore.clearFilter();",
+                                            "memberStore.sync({",
+                                            "    success: function(response, opts){",
+                                            "        Ext.Msg.alert(\"提示\", \"保存成功\");",
+                                            "        me.close();",
+                                            "    },",
+                                            "    failure: function(){",
+                                            "        Ext.Msg.alert(\"提示\", \"保存失败\");",
+                                            "        me.close();",
+                                            "    }",
+                                            "});",
+                                            ""
+                                        ],
+                                        "name": "click",
+                                        "scope": "me"
+                                    },
+                                    "name": "onButtonClick1",
+                                    "designerId": "c55f4182-d83d-46df-8f3a-7ff6848022f9"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|params": [
+                    "person",
+                    "scope"
+                ],
+                "fn": "selectedCallback",
+                "implHandler": [
+                    "var me = scope,",
+                    "    namespace = me.getNamespace(),",
+                    "    account = me._account,",
+                    "    store = Ext.getStore('InsuredPersonAccount');",
+                    "",
+                    "for(var i = 0; i < person.length; i++){",
+                    "    if(store.find('id', person[i].data.id) === -1){",
+                    "        var model = Ext.create(namespace + '.model.InsuredPersonAccount');",
+                    "        model.data = person[i].data;",
+                    "        if(model.get('insuredPerson') === ''){",
+                    "            model.set('insuredPerson', null);",
+                    "        }else{",
+                    "            model.get('insuredPerson').accountId = account.get('id');",
+                    "        }",
+                    "        store.add(model);",
+                    "    }",
+                    "}"
+                ]
+            },
+            "name": "selectedCallback",
+            "designerId": "928f54a5-00fe-440b-9de1-c97ed65a9527"
+        }
+    ]
+}

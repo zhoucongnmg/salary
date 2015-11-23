@@ -1,0 +1,66 @@
+{
+    "type": "Ext.data.Store",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userClassName": "PersonAccount",
+        "model": "PersonAccount",
+        "storeId": "PersonAccount"
+    },
+    "name": "MyStore",
+    "designerId": "d5abcedd-2191-4891-8e23-63d0da4ad544",
+    "cn": [
+        {
+            "type": "Ext.data.proxy.Ajax",
+            "reference": {
+                "name": "proxy",
+                "type": "object"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "api": [
+                    "{",
+                    "create: 'salary/person/saveList',",
+                    "read: 'salary/person/getPersonByAccountId',",
+                    "update: 'salary/person/saveList',",
+                    "destroy: 'salary/person/saveList'",
+                    "}"
+                ],
+                "url": null
+            },
+            "name": "MyAjaxProxy1",
+            "designerId": "56cc5d74-9851-4c45-9131-1b770f6ecc2f",
+            "cn": [
+                {
+                    "type": "Ext.data.writer.Json",
+                    "reference": {
+                        "name": "writer",
+                        "type": "object"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "allowSingle": false
+                    },
+                    "name": "MyJsonWriter1",
+                    "designerId": "8cb887b2-6f7a-4b23-ab73-ee6c16441276"
+                },
+                {
+                    "type": "Ext.data.reader.Json",
+                    "reference": {
+                        "name": "reader",
+                        "type": "object"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "root": "data"
+                    },
+                    "name": "MyJsonReader1",
+                    "designerId": "1be95561-9b17-40a8-9384-22746dff44de"
+                }
+            ]
+        }
+    ]
+}

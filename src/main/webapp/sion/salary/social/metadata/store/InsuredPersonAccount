@@ -1,0 +1,66 @@
+{
+    "type": "Ext.data.Store",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "autoLoad": null,
+        "designer|userClassName": "InsuredPersonAccount",
+        "model": "InsuredPersonAccount",
+        "storeId": "InsuredPersonAccount"
+    },
+    "name": "MyStore",
+    "designerId": "ca038700-71cc-41be-bd64-d1a9b16fdf18",
+    "cn": [
+        {
+            "type": "Ext.data.proxy.Ajax",
+            "reference": {
+                "name": "proxy",
+                "type": "object"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "api": [
+                    "{",
+                    "create: 'salary/person/saveList',",
+                    "read: 'salary/person/getInsuredPersonByAccountId',",
+                    "update: 'salary/person/saveList',",
+                    "destroy: 'salary/person/saveList'",
+                    "}"
+                ]
+            },
+            "name": "MyAjaxProxy5",
+            "designerId": "205f5828-002e-40d4-ace7-f66c3ae1c0d8",
+            "cn": [
+                {
+                    "type": "Ext.data.writer.Json",
+                    "reference": {
+                        "name": "writer",
+                        "type": "object"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "allowSingle": false
+                    },
+                    "name": "MyJsonWriter2",
+                    "designerId": "aa324b49-2b6e-4dee-bd66-62c2cf03bf48"
+                },
+                {
+                    "type": "Ext.data.reader.Json",
+                    "reference": {
+                        "name": "reader",
+                        "type": "object"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "root": "data"
+                    },
+                    "name": "MyJsonReader5",
+                    "designerId": "cb8228c3-c96a-4257-94b4-13faf5b8ed92"
+                }
+            ]
+        }
+    ]
+}
