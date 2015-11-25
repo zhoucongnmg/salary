@@ -1,0 +1,96 @@
+{
+    "type": "Ext.button.Button",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "baseCls": "formula-btn",
+        "cls": null,
+        "designer|userAlias": "calcbutton",
+        "designer|userClassName": "CalcButton",
+        "margin": "5 5 5 5",
+        "style": null,
+        "text": "1",
+        "width": 75
+    },
+    "name": "MyButton1",
+    "designerId": "7956b8cb-c39f-4d4d-96b2-d372f1d0915c",
+    "cn": [
+        {
+            "type": "processcfgfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "_calc": true,
+                "designer|params": [
+                    "config"
+                ],
+                "fn": "processCalcButton",
+                "implHandler": [
+                    "if (config._type) {",
+                    "    config.baseCls = 'formula-'+ config._type +'btn';",
+                    "",
+                    "}",
+                    "",
+                    "return config;",
+                    ""
+                ]
+            },
+            "name": "processCalcButton",
+            "configAlternates": {
+                "_calc": "boolean"
+            },
+            "designerId": "ab1de540-376a-4e70-9768-1a62c131526f",
+            "customConfigs": [
+                {
+                    "group": "(Custom Properties)",
+                    "name": "_calc",
+                    "type": "string"
+                }
+            ]
+        },
+        {
+            "type": "basiceventbinding",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "onButtonClick",
+                "implHandler": [
+                    "var me = this,",
+                    "    ns = me.getNamespace(),",
+                    "    ctrl = Ext.create(ns + '.controller.FormulaController'),",
+                    "    text = button.getText(),",
+                    "    type = button._type;",
+                    "",
+                    "if (button._type == 'Operation') {",
+                    "    ctrl.addOutputScreen(text,type);",
+                    "}else if (button._type == 'Back'){",
+                    "    ctrl.back();",
+                    "}else if (button._type == 'Clear'){",
+                    "    ctrl.clear();",
+                    "}else if (button._type == 'ClearAll'){",
+                    "    ctrl.clearAll();",
+                    "}else if (button._type == 'Logical'){",
+                    "    ctrl.addOutputScreen(text,type);",
+                    "}else if (button._type == 'Symbols'){",
+                    "    ctrl.addOutputScreen(text,type);",
+                    "}else {",
+                    "    ctrl.addInputScreen(text);",
+                    "}"
+                ],
+                "name": "click",
+                "scope": "me"
+            },
+            "name": "onButtonClick",
+            "designerId": "d5aa8f12-8faf-48a7-80af-dcbd5ac473a8"
+        }
+    ]
+}

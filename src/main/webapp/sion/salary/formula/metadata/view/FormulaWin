@@ -1,0 +1,30 @@
+{
+    "type": "Ext.window.Window",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userClassName": "FormulaWin",
+        "height": 540,
+        "layout": "fit",
+        "title": "公式编辑器",
+        "width": 370
+    },
+    "name": "MyWindow",
+    "designerId": "8c285650-f105-425b-a158-bc5a86056d27",
+    "cn": [
+        {
+            "type": "linkedinstance",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "name": "main",
+            "designerId": "54c51416-4dfd-4d7a-8cf4-c0c2b1ebcde5",
+            "masterInstanceId": "f9c170c7-941d-461e-9ccd-9d5ad6de60d8"
+        }
+    ]
+}

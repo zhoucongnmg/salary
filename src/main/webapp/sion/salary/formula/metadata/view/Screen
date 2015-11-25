@@ -1,0 +1,118 @@
+{
+    "type": "Ext.panel.Panel",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "bodyCls": [
+            "formula-screen"
+        ],
+        "bodyPadding": null,
+        "container|align": "stretch",
+        "container|pack": "end",
+        "designer|userAlias": "mypanel110",
+        "designer|userClassName": "Screen",
+        "height": 100,
+        "itemId": "Calc_Screen",
+        "layout": "vbox",
+        "padding": "10 10 10 10",
+        "shadow": "frame",
+        "title": null
+    },
+    "name": "MyPanel1",
+    "designerId": "9ab5b571-6407-456b-80a2-8c7e2fb2f6a5",
+    "cn": [
+        {
+            "type": "Ext.form.Panel",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "baseCls": "formula-screenpanel",
+                "bodyPadding": null,
+                "cls": null,
+                "container|align": "stretch",
+                "container|pack": "end",
+                "dock": null,
+                "itemId": "outputPanel",
+                "layout": "hbox",
+                "layout|flex": 1,
+                "padding": "2 2 2 2",
+                "title": null
+            },
+            "name": "MyForm2",
+            "designerId": "95ad7ef4-70b8-4eb1-86c2-e019ee1b20e0"
+        },
+        {
+            "type": "Ext.form.Panel",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "_clear": true,
+                "baseCls": "formula-screenpanel",
+                "bodyPadding": null,
+                "cls": null,
+                "container|align": "stretch",
+                "container|pack": "end",
+                "dock": null,
+                "itemId": "inputPanel",
+                "layout": "hbox",
+                "layout|flex": 1,
+                "padding": "2 2 2 2",
+                "title": null
+            },
+            "name": "MyForm",
+            "configAlternates": {
+                "_clear": "boolean"
+            },
+            "designerId": "3e300ad1-0e9a-4198-91c9-d0351b07b227",
+            "customConfigs": [
+                {
+                    "group": "(Custom Properties)",
+                    "name": "_clear",
+                    "type": "string"
+                }
+            ],
+            "cn": [
+                {
+                    "type": "Ext.form.field.Display",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "_type": "Numberic",
+                        "baseCls": null,
+                        "dock": null,
+                        "fieldBodyCls": null,
+                        "fieldCls": null,
+                        "fieldLabel": null,
+                        "fieldStyle": "font-family:consolas;font-size:50px;line-height:30px;margin-bottom:0px;background:none;color:#FFFFFF;text-shadow: rgb(0, 0, 0) 1px 1px 0px;",
+                        "height": null,
+                        "layout|flex": null,
+                        "maxHeight": null,
+                        "minHeight": null,
+                        "value": "0"
+                    },
+                    "name": "MyDisplayField",
+                    "designerId": "c943b8a7-81bc-45bf-bbcf-cb1fca33e407",
+                    "customConfigs": [
+                        {
+                            "group": "(Custom Properties)",
+                            "name": "_type",
+                            "type": "string"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,1288 @@
+{
+    "type": "Ext.panel.Panel",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "container|align": "stretch",
+        "designer|userAlias": "mypanel11",
+        "designer|userClassName": "Main",
+        "height": null,
+        "layout": "vbox",
+        "style": null,
+        "title": null,
+        "width": null
+    },
+    "name": "MyPanel",
+    "designerId": "f9c170c7-941d-461e-9ccd-9d5ad6de60d8",
+    "cn": [
+        {
+            "type": "Ext.panel.Panel",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "html": [
+                    "<div id=\"term_demo\" class=\"terminal\"></div>"
+                ],
+                "layout|flex": 1,
+                "minHeight": 92,
+                "title": null
+            },
+            "name": "MyPanel",
+            "designerId": "c471c2c9-8220-4b52-8754-534835c728c9",
+            "cn": [
+                {
+                    "type": "basiceventbinding",
+                    "reference": {
+                        "name": "listeners",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fn": "onPanelAfterRender",
+                        "implHandler": [
+                            "",
+                            "$('#term_demo').terminal(function(command, term) {",
+                            "",
+                            " }, {",
+                            "     greetings: '输入公式，按回车键校验公式，按SHIFT+回车键换行',",
+                            "     name: 'js_demo',",
+                            "     height: 92,",
+                            "     prompt: '请输入公式>'});",
+                            ""
+                        ],
+                        "name": "afterrender",
+                        "scope": "me"
+                    },
+                    "name": "onPanelAfterRender",
+                    "designerId": "f26db9a4-31ac-477e-b044-3fe577ccc7f8"
+                }
+            ]
+        },
+        {
+            "type": "Ext.panel.Panel",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "bodyCls": [
+                    "formula-itempanel"
+                ],
+                "border": false,
+                "container|align": "middle",
+                "layout": "hbox",
+                "layout|flex": 1.2,
+                "margin": "0 10 0 10",
+                "style": [
+                    "border:1px solid #CCC;border-radius:4px;"
+                ],
+                "title": null
+            },
+            "name": "MyPanel2",
+            "designerId": "680fcaa2-d6d8-4c91-bcb6-1c07aec84ddf",
+            "cn": [
+                {
+                    "type": "Ext.toolbar.Spacer",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|flex": 0.2,
+                        "minWidth": null,
+                        "width": null
+                    },
+                    "name": "MySpacer2",
+                    "designerId": "3749bd38-8dd3-4ea3-8e2d-94d5fd1060e2"
+                },
+                {
+                    "type": "Ext.form.field.ComboBox",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "baseBodyCls": null,
+                        "baseCls": null,
+                        "border": null,
+                        "cls": null,
+                        "componentCls": null,
+                        "emptyCls": null,
+                        "emptyText": "请选择计算项",
+                        "fieldCls": null,
+                        "fieldLabel": "计算项",
+                        "fieldStyle": null,
+                        "height": null,
+                        "hideLabel": true,
+                        "itemId": "Calc_ItemSelection",
+                        "labelWidth": null,
+                        "layout|flex": 8,
+                        "margin": null,
+                        "maxHeight": null,
+                        "minHeight": null,
+                        "store": [
+                            "[['基本工资','基本工资'],['职级工资','职级工资'],['岗位工资','岗位工资'],['绩效工资','绩效工资']]"
+                        ],
+                        "style": null
+                    },
+                    "name": "MyComboBox",
+                    "configAlternates": {
+                        "store": "array"
+                    },
+                    "designerId": "2870fbf3-8169-4057-bfcf-e27cc90080c1"
+                },
+                {
+                    "type": "Ext.toolbar.Spacer",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|flex": 0.3
+                    },
+                    "name": "MySpacer",
+                    "designerId": "62ddfcae-07f7-4370-9625-b8bb995ea890"
+                },
+                {
+                    "type": "Ext.button.Button",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "itemId": null,
+                        "layout|flex": 1.3,
+                        "text": "选择"
+                    },
+                    "name": "MyButton",
+                    "designerId": "029250f7-4d5f-4733-a7da-1a25094fc302",
+                    "cn": [
+                        {
+                            "type": "basiceventbinding",
+                            "reference": {
+                                "name": "listeners",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fn": "onButtonClick",
+                                "implHandler": [
+                                    "",
+                                    "var me = this,",
+                                    "    namespace = me.getNamespace(),",
+                                    "    calc_ItemSelection = me.down('#Calc_ItemSelection'),",
+                                    "    ctrl = Ext.create(namespace + '.controller.FormulaController');",
+                                    "",
+                                    "",
+                                    "ctrl.addInputScreen('[' + calc_ItemSelection.getValue() + ']');",
+                                    "",
+                                    ""
+                                ],
+                                "name": "click",
+                                "scope": "me"
+                            },
+                            "name": "onButtonClick",
+                            "designerId": "3743b7c9-5896-4301-bb72-13b1415ed2f5"
+                        }
+                    ]
+                },
+                {
+                    "type": "Ext.toolbar.Spacer",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|flex": 0.2,
+                        "minWidth": null,
+                        "width": null
+                    },
+                    "name": "MySpacer1",
+                    "designerId": "7b644dd4-1dc0-4bc8-a720-2a392ae8fbe7"
+                }
+            ]
+        },
+        {
+            "type": "Ext.panel.Panel",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "layout|flex": 0.3,
+                "title": null
+            },
+            "name": "MyPanel4",
+            "designerId": "47d77c72-fcc9-4a69-9664-bc395f62a07c"
+        },
+        {
+            "type": "Ext.panel.Panel",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "bodyCls": [
+                    "formula-itempanel"
+                ],
+                "border": false,
+                "container|align": "middle",
+                "layout": "hbox",
+                "layout|flex": 1.2,
+                "margin": "0 10 0 10",
+                "style": [
+                    "border:1px solid #CCC;border-radius:4px;"
+                ],
+                "title": null
+            },
+            "name": "MyPanel1",
+            "designerId": "08bfc492-982c-4949-9fc9-e58f35fb2b05",
+            "cn": [
+                {
+                    "type": "Ext.toolbar.Spacer",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|flex": 0.2,
+                        "minWidth": null,
+                        "width": null
+                    },
+                    "name": "MySpacer2",
+                    "designerId": "8287756b-e613-421c-b7be-72ba8ad35a13"
+                },
+                {
+                    "type": "Ext.form.field.ComboBox",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "baseBodyCls": null,
+                        "baseCls": null,
+                        "border": null,
+                        "cls": null,
+                        "componentCls": null,
+                        "emptyCls": null,
+                        "emptyText": "请选择结果项",
+                        "fieldCls": null,
+                        "fieldLabel": "计算项",
+                        "fieldStyle": null,
+                        "height": null,
+                        "hideLabel": true,
+                        "itemId": "Result_ItemSelection",
+                        "labelWidth": null,
+                        "layout|flex": 8,
+                        "margin": null,
+                        "maxHeight": null,
+                        "minHeight": null,
+                        "store": [
+                            "[['基本工资','基本工资'],['职级工资','职级工资'],['岗位工资','岗位工资'],['绩效工资','绩效工资']]"
+                        ],
+                        "style": null
+                    },
+                    "name": "MyComboBox",
+                    "configAlternates": {
+                        "store": "array"
+                    },
+                    "designerId": "1571b203-6024-40b7-9cbc-111a57d88030"
+                },
+                {
+                    "type": "Ext.toolbar.Spacer",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|flex": 0.3
+                    },
+                    "name": "MySpacer",
+                    "designerId": "c0767d74-8597-45bc-8672-9a0ad03ed5ba"
+                },
+                {
+                    "type": "Ext.button.Button",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "itemId": null,
+                        "layout|flex": 1.3,
+                        "text": "选择"
+                    },
+                    "name": "MyButton",
+                    "designerId": "42db3b4b-1559-4985-9297-86b281b3287d",
+                    "cn": [
+                        {
+                            "type": "basiceventbinding",
+                            "reference": {
+                                "name": "listeners",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fn": "onButtonClick1",
+                                "implHandler": [
+                                    "var me = this,",
+                                    "    namespace = me.getNamespace(),",
+                                    "    result_ItemSelection = me.down('#Result_ItemSelection'),",
+                                    "    ctrl = Ext.create(namespace + '.controller.FormulaController');",
+                                    "",
+                                    "",
+                                    "ctrl.addInputScreen('[' + result_ItemSelection.getValue() + ']');",
+                                    ""
+                                ],
+                                "name": "click",
+                                "scope": "me"
+                            },
+                            "name": "onButtonClick1",
+                            "designerId": "1750f0ff-57d5-4676-ba24-d0f5e0dc70dc"
+                        }
+                    ]
+                },
+                {
+                    "type": "Ext.toolbar.Spacer",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|flex": 0.2,
+                        "minWidth": null,
+                        "width": null
+                    },
+                    "name": "MySpacer1",
+                    "designerId": "0552ac57-88b9-49ce-a76f-01e71c363daa"
+                }
+            ]
+        },
+        {
+            "type": "Ext.panel.Panel",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "bodyPadding": null,
+                "container|align": "stretch",
+                "layout": "vbox",
+                "layout|flex": 7,
+                "title": null
+            },
+            "name": "MyPanel3",
+            "designerId": "2af66350-530d-4616-a41e-d425523754d4",
+            "cn": [
+                {
+                    "type": "Ext.panel.Panel",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "container|align": "stretch",
+                        "layout": "hbox",
+                        "layout|flex": 1.2,
+                        "margin": "0 10 0 10",
+                        "title": null
+                    },
+                    "name": "MyPanel20",
+                    "designerId": "7d1d5a3e-607f-4ea3-af02-e50d75a73a67",
+                    "cn": [
+                        {
+                            "type": "linkedinstance",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "_type": "Numberic",
+                                "_value": "7",
+                                "layout|flex": 1,
+                                "text": "7"
+                            },
+                            "name": "calcbutton",
+                            "designerId": "cf2aaafc-1639-465e-a021-7a13b1b9b08c",
+                            "customConfigs": [
+                                {
+                                    "group": "(Custom Properties)",
+                                    "name": "_value",
+                                    "type": "string"
+                                },
+                                {
+                                    "group": "(Custom Properties)",
+                                    "name": "_type",
+                                    "type": "string"
+                                }
+                            ],
+                            "masterInstanceId": "7956b8cb-c39f-4d4d-96b2-d372f1d0915c"
+                        },
+                        {
+                            "type": "linkedinstance",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "_type": "Numberic",
+                                "_value": "8",
+                                "layout|flex": 1,
+                                "text": "8"
+                            },
+                            "name": "calcbutton1",
+                            "designerId": "098a7153-8540-4ef5-a742-9245f028046c",
+                            "customConfigs": [
+                                {
+                                    "group": "(Custom Properties)",
+                                    "name": "_value",
+                                    "type": "string"
+                                },
+                                {
+                                    "group": "(Custom Properties)",
+                                    "name": "_type",
+                                    "type": "string"
+                                }
+                            ],
+                            "masterInstanceId": "7956b8cb-c39f-4d4d-96b2-d372f1d0915c"
+                        },
+                        {
+                            "type": "linkedinstance",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "_type": "Numberic",
+                                "_value": "9",
+                                "layout|flex": 1,
+                                "text": "9"
+                            },
+                            "name": "calcbutton2",
+                            "designerId": "eacc7bff-8b1a-4acc-82f1-b6e9fc3c85ec",
+                            "customConfigs": [
+                                {
+                                    "group": "(Custom Properties)",
+                                    "name": "_value",
+                                    "type": "string"
+                                },
+                                {
+                                    "group": "(Custom Properties)",
+                                    "name": "_type",
+                                    "type": "string"
+                                }
+                            ],
+                            "masterInstanceId": "7956b8cb-c39f-4d4d-96b2-d372f1d0915c"
+                        },
+                        {
+                            "type": "linkedinstance",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "_type": "Operation",
+                                "_value": "÷",
+                                "layout|flex": 1,
+                                "text": "÷"
+                            },
+                            "name": "calcbutton3",
+                            "designerId": "eb12e871-e40c-4315-9803-e3a7c1ac01fc",
+                            "customConfigs": [
+                                {
+                                    "group": "(Custom Properties)",
+                                    "name": "_type",
+                                    "type": "string"
+                                },
+                                {
+                                    "group": "(Custom Properties)",
+                                    "name": "_value",
+                                    "type": "string"
+                                }
+                            ],
+                            "masterInstanceId": "7956b8cb-c39f-4d4d-96b2-d372f1d0915c"
+                        },
+                        {
+                            "type": "linkedinstance",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "_type": "Symbols",
+                                "_value": "(",
+                                "layout|flex": 1,
+                                "text": "("
+                            },
+                            "name": "calcbutton4",
+                            "designerId": "75dc88b9-568f-4da1-9fcb-4fc662509e9b",
+                            "customConfigs": [
+                                {
+                                    "group": "(Custom Properties)",
+                                    "name": "_value",
+                                    "type": "string"
+                                },
+                                {
+                                    "group": "(Custom Properties)",
+                                    "name": "_type",
+                                    "type": "string"
+                                }
+                            ],
+                            "masterInstanceId": "7956b8cb-c39f-4d4d-96b2-d372f1d0915c"
+                        }
+                    ]
+                },
+                {
+                    "type": "Ext.panel.Panel",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "container|align": "stretch",
+                        "layout": "hbox",
+                        "layout|flex": 1.2,
+                        "margin": "0 10 0 10",
+                        "title": null
+                    },
+                    "name": "MyPanel21",
+                    "designerId": "134937a0-73db-4f6b-b6e0-00f2d6a89942",
+                    "cn": [
+                        {
+                            "type": "linkedinstance",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "_type": "Numberic",
+                                "_value": "4",
+                                "layout|flex": 1,
+                                "text": "4"
+                            },
+                            "name": "calcbutton5",
+                            "designerId": "c3ab309c-a2b6-478d-be79-4d241b26bd70",
+                            "customConfigs": [
+                                {
+                                    "group": "(Custom Properties)",
+                                    "name": "_value",
+                                    "type": "string"
+                                },
+                                {
+                                    "group": "(Custom Properties)",
+                                    "name": "_type",
+                                    "type": "string"
+                                }
+                            ],
+                            "masterInstanceId": "7956b8cb-c39f-4d4d-96b2-d372f1d0915c"
+                        },
+                        {
+                            "type": "linkedinstance",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "_type": "Numberic",
+                                "_value": "5",
+                                "layout|flex": 1,
+                                "text": "5"
+                            },
+                            "name": "calcbutton6",
+                            "designerId": "47350eeb-4e49-4e97-a12a-cf0a7fbdb6c0",
+                            "customConfigs": [
+                                {
+                                    "group": "(Custom Properties)",
+                                    "name": "_value",
+                                    "type": "string"
+                                },
+                                {
+                                    "group": "(Custom Properties)",
+                                    "name": "_type",
+                                    "type": "string"
+                                }
+                            ],
+                            "masterInstanceId": "7956b8cb-c39f-4d4d-96b2-d372f1d0915c"
+                        },
+                        {
+                            "type": "linkedinstance",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "_type": "Numberic",
+                                "_value": "6",
+                                "layout|flex": 1,
+                                "text": "6"
+                            },
+                            "name": "calcbutton7",
+                            "designerId": "fd020379-945d-4afc-9140-c2ca18dbd761",
+                            "customConfigs": [
+                                {
+                                    "group": "(Custom Properties)",
+                                    "name": "_value",
+                                    "type": "string"
+                                },
+                                {
+                                    "group": "(Custom Properties)",
+                                    "name": "_type",
+                                    "type": "string"
+                                }
+                            ],
+                            "masterInstanceId": "7956b8cb-c39f-4d4d-96b2-d372f1d0915c"
+                        },
+                        {
+                            "type": "linkedinstance",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "_type": "Operation",
+                                "_value": "×",
+                                "layout|flex": 1,
+                                "text": "×"
+                            },
+                            "name": "calcbutton8",
+                            "designerId": "07769115-a4b5-4be0-a2a5-0ff5cc54a85c",
+                            "customConfigs": [
+                                {
+                                    "group": "(Custom Properties)",
+                                    "name": "_type",
+                                    "type": "string"
+                                },
+                                {
+                                    "group": "(Custom Properties)",
+                                    "name": "_value",
+                                    "type": "string"
+                                }
+                            ],
+                            "masterInstanceId": "7956b8cb-c39f-4d4d-96b2-d372f1d0915c"
+                        },
+                        {
+                            "type": "linkedinstance",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "_type": "Symbols",
+                                "_value": ")",
+                                "layout|flex": 1,
+                                "text": ")"
+                            },
+                            "name": "calcbutton9",
+                            "designerId": "d945881b-c7b9-4da1-bdcf-ebd00abcf429",
+                            "customConfigs": [
+                                {
+                                    "group": "(Custom Properties)",
+                                    "name": "_value",
+                                    "type": "string"
+                                },
+                                {
+                                    "group": "(Custom Properties)",
+                                    "name": "_type",
+                                    "type": "string"
+                                }
+                            ],
+                            "masterInstanceId": "7956b8cb-c39f-4d4d-96b2-d372f1d0915c"
+                        }
+                    ]
+                },
+                {
+                    "type": "Ext.panel.Panel",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "container|align": "stretch",
+                        "layout": "hbox",
+                        "layout|flex": 2.4,
+                        "margin": "0 10 0 10",
+                        "title": null
+                    },
+                    "name": "MyPanel13",
+                    "designerId": "03273afa-f29c-45b1-beab-c3b3d9cfe62c",
+                    "cn": [
+                        {
+                            "type": "Ext.panel.Panel",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "container|align": "stretch",
+                                "layout": "vbox",
+                                "layout|flex": 8,
+                                "title": null
+                            },
+                            "name": "MyPanel16",
+                            "designerId": "32ecd3eb-5ef0-4b40-af60-f410f8f6e961",
+                            "cn": [
+                                {
+                                    "type": "Ext.panel.Panel",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "container|align": "stretch",
+                                        "layout": "hbox",
+                                        "layout|flex": 5,
+                                        "title": null
+                                    },
+                                    "name": "MyPanel14",
+                                    "designerId": "9f4c3199-0924-4f63-84f6-1873283af21e",
+                                    "cn": [
+                                        {
+                                            "type": "linkedinstance",
+                                            "reference": {
+                                                "name": "items",
+                                                "type": "array"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "_type": "Numberic",
+                                                "_value": "1",
+                                                "layout|flex": 1
+                                            },
+                                            "name": "calcbutton10",
+                                            "designerId": "0886fc9b-0ace-4006-a43d-27179b24aea4",
+                                            "customConfigs": [
+                                                {
+                                                    "group": "(Custom Properties)",
+                                                    "name": "_value",
+                                                    "type": "string"
+                                                },
+                                                {
+                                                    "group": "(Custom Properties)",
+                                                    "name": "_type",
+                                                    "type": "string"
+                                                }
+                                            ],
+                                            "masterInstanceId": "7956b8cb-c39f-4d4d-96b2-d372f1d0915c"
+                                        },
+                                        {
+                                            "type": "linkedinstance",
+                                            "reference": {
+                                                "name": "items",
+                                                "type": "array"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "_type": "Numberic",
+                                                "_value": "2",
+                                                "layout|flex": 1,
+                                                "text": "2"
+                                            },
+                                            "name": "calcbutton11",
+                                            "designerId": "aea2317c-a4a1-48e6-ac0f-e37ac60ca2bd",
+                                            "customConfigs": [
+                                                {
+                                                    "group": "(Custom Properties)",
+                                                    "name": "_value",
+                                                    "type": "string"
+                                                },
+                                                {
+                                                    "group": "(Custom Properties)",
+                                                    "name": "_type",
+                                                    "type": "string"
+                                                }
+                                            ],
+                                            "masterInstanceId": "7956b8cb-c39f-4d4d-96b2-d372f1d0915c"
+                                        },
+                                        {
+                                            "type": "linkedinstance",
+                                            "reference": {
+                                                "name": "items",
+                                                "type": "array"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "_type": "Numberic",
+                                                "_value": "3",
+                                                "layout|flex": 1,
+                                                "text": "3"
+                                            },
+                                            "name": "calcbutton12",
+                                            "designerId": "7c8a7258-bbde-409c-b959-4ca719fb5001",
+                                            "customConfigs": [
+                                                {
+                                                    "group": "(Custom Properties)",
+                                                    "name": "_value",
+                                                    "type": "string"
+                                                },
+                                                {
+                                                    "group": "(Custom Properties)",
+                                                    "name": "_type",
+                                                    "type": "string"
+                                                }
+                                            ],
+                                            "masterInstanceId": "7956b8cb-c39f-4d4d-96b2-d372f1d0915c"
+                                        },
+                                        {
+                                            "type": "linkedinstance",
+                                            "reference": {
+                                                "name": "items",
+                                                "type": "array"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "_type": "Operation",
+                                                "_value": "-",
+                                                "layout|flex": 1,
+                                                "text": "-"
+                                            },
+                                            "name": "calcbutton13",
+                                            "designerId": "99a78819-d221-4b04-8af3-d04b8fff3a83",
+                                            "customConfigs": [
+                                                {
+                                                    "group": "(Custom Properties)",
+                                                    "name": "_type",
+                                                    "type": "string"
+                                                },
+                                                {
+                                                    "group": "(Custom Properties)",
+                                                    "name": "_value",
+                                                    "type": "string"
+                                                }
+                                            ],
+                                            "masterInstanceId": "7956b8cb-c39f-4d4d-96b2-d372f1d0915c"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "Ext.panel.Panel",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "container|align": "stretch",
+                                        "layout": "hbox",
+                                        "layout|flex": 5,
+                                        "title": null
+                                    },
+                                    "name": "MyPanel15",
+                                    "designerId": "7e11dbee-2518-4738-8795-063e4c06c798",
+                                    "cn": [
+                                        {
+                                            "type": "linkedinstance",
+                                            "reference": {
+                                                "name": "items",
+                                                "type": "array"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "_type": "Numberic",
+                                                "_value": "0",
+                                                "layout|flex": 2.2,
+                                                "text": "0"
+                                            },
+                                            "name": "calcbutton14",
+                                            "designerId": "98cff1a8-01ae-4878-a87c-518fe6763bc7",
+                                            "customConfigs": [
+                                                {
+                                                    "group": "(Custom Properties)",
+                                                    "name": "_value",
+                                                    "type": "string"
+                                                },
+                                                {
+                                                    "group": "(Custom Properties)",
+                                                    "name": "_type",
+                                                    "type": "string"
+                                                }
+                                            ],
+                                            "masterInstanceId": "7956b8cb-c39f-4d4d-96b2-d372f1d0915c"
+                                        },
+                                        {
+                                            "type": "linkedinstance",
+                                            "reference": {
+                                                "name": "items",
+                                                "type": "array"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "_value": ".",
+                                                "layout|flex": 1,
+                                                "text": "."
+                                            },
+                                            "name": "calcbutton15",
+                                            "designerId": "7313a303-ecee-44f7-b8a9-ebdae4eca2da",
+                                            "customConfigs": [
+                                                {
+                                                    "group": "(Custom Properties)",
+                                                    "name": "_value",
+                                                    "type": "string"
+                                                }
+                                            ],
+                                            "masterInstanceId": "7956b8cb-c39f-4d4d-96b2-d372f1d0915c"
+                                        },
+                                        {
+                                            "type": "linkedinstance",
+                                            "reference": {
+                                                "name": "items",
+                                                "type": "array"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "_type": "Operation",
+                                                "_value": "+",
+                                                "layout|flex": 1,
+                                                "text": "+"
+                                            },
+                                            "name": "calcbutton16",
+                                            "designerId": "9f011ce5-8f82-4c28-8d7d-20944a2e5786",
+                                            "customConfigs": [
+                                                {
+                                                    "group": "(Custom Properties)",
+                                                    "name": "_type",
+                                                    "type": "string"
+                                                },
+                                                {
+                                                    "group": "(Custom Properties)",
+                                                    "name": "_value",
+                                                    "type": "string"
+                                                }
+                                            ],
+                                            "masterInstanceId": "7956b8cb-c39f-4d4d-96b2-d372f1d0915c"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "type": "Ext.panel.Panel",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "container|align": "stretch",
+                                "layout": "hbox",
+                                "layout|flex": 2,
+                                "title": null
+                            },
+                            "name": "MyPanel17",
+                            "designerId": "8a7df2a6-8b87-4b7b-abf6-da2f8811d3b9",
+                            "cn": [
+                                {
+                                    "type": "linkedinstance",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "_type": "Equal",
+                                        "layout|flex": 1,
+                                        "text": "="
+                                    },
+                                    "name": "calcbutton17",
+                                    "designerId": "b6eb598f-78bd-4fc1-97e5-2ded97fd7344",
+                                    "customConfigs": [
+                                        {
+                                            "group": "(Custom Properties)",
+                                            "name": "_type",
+                                            "type": "string"
+                                        }
+                                    ],
+                                    "masterInstanceId": "7956b8cb-c39f-4d4d-96b2-d372f1d0915c"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "type": "Ext.panel.Panel",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "container|align": "stretch",
+                "layout": "hbox",
+                "layout|flex": 1,
+                "margin": "0 10 0 10",
+                "title": null
+            },
+            "name": "MyPanel5",
+            "designerId": "1111d87d-e8a9-40af-ba96-0a23be2b715b",
+            "cn": [
+                {
+                    "type": "linkedinstance",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "_type": "Logical",
+                        "_value": "<",
+                        "layout|flex": 1.25,
+                        "text": "<"
+                    },
+                    "name": "calcbutton18",
+                    "designerId": "dcf6fe3e-6723-4d17-9640-c7bebce1ddaa",
+                    "customConfigs": [
+                        {
+                            "group": "(Custom Properties)",
+                            "name": "_type",
+                            "type": "string"
+                        },
+                        {
+                            "group": "(Custom Properties)",
+                            "name": "_value",
+                            "type": "string"
+                        }
+                    ],
+                    "masterInstanceId": "7956b8cb-c39f-4d4d-96b2-d372f1d0915c"
+                },
+                {
+                    "type": "linkedinstance",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "_type": "Logical",
+                        "_value": ">",
+                        "layout|flex": 1.25,
+                        "text": ">"
+                    },
+                    "name": "calcbutton19",
+                    "designerId": "7ea58e0f-b892-4739-8764-799bd598e7c4",
+                    "customConfigs": [
+                        {
+                            "group": "(Custom Properties)",
+                            "name": "_type",
+                            "type": "string"
+                        },
+                        {
+                            "group": "(Custom Properties)",
+                            "name": "_value",
+                            "type": "string"
+                        }
+                    ],
+                    "masterInstanceId": "7956b8cb-c39f-4d4d-96b2-d372f1d0915c"
+                },
+                {
+                    "type": "linkedinstance",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "_type": "Logical",
+                        "_value": "<=",
+                        "layout|flex": 1.25,
+                        "text": "<="
+                    },
+                    "name": "calcbutton20",
+                    "designerId": "a5cafb0c-57fb-465b-9463-28a155e3b789",
+                    "customConfigs": [
+                        {
+                            "group": "(Custom Properties)",
+                            "name": "_type",
+                            "type": "string"
+                        },
+                        {
+                            "group": "(Custom Properties)",
+                            "name": "_value",
+                            "type": "string"
+                        }
+                    ],
+                    "masterInstanceId": "7956b8cb-c39f-4d4d-96b2-d372f1d0915c"
+                },
+                {
+                    "type": "linkedinstance",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "_type": "Logical",
+                        "_value": ">=",
+                        "layout|flex": 1.25,
+                        "text": ">="
+                    },
+                    "name": "calcbutton21",
+                    "designerId": "3baee248-5db4-4fa5-9717-959971a39c5a",
+                    "customConfigs": [
+                        {
+                            "group": "(Custom Properties)",
+                            "name": "_type",
+                            "type": "string"
+                        },
+                        {
+                            "group": "(Custom Properties)",
+                            "name": "_value",
+                            "type": "string"
+                        }
+                    ],
+                    "masterInstanceId": "7956b8cb-c39f-4d4d-96b2-d372f1d0915c"
+                },
+                {
+                    "type": "linkedinstance",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "_type": "Logical",
+                        "_value": "&&",
+                        "layout|flex": 1.25,
+                        "text": "&&"
+                    },
+                    "name": "calcbutton22",
+                    "designerId": "23d42bb7-0abe-42c2-a243-7fdb36d2d17e",
+                    "customConfigs": [
+                        {
+                            "group": "(Custom Properties)",
+                            "name": "_type",
+                            "type": "string"
+                        },
+                        {
+                            "group": "(Custom Properties)",
+                            "name": "_value",
+                            "type": "string"
+                        }
+                    ],
+                    "masterInstanceId": "7956b8cb-c39f-4d4d-96b2-d372f1d0915c"
+                },
+                {
+                    "type": "linkedinstance",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "_type": "Logical",
+                        "_value": "||",
+                        "layout|flex": 1.25,
+                        "text": "||"
+                    },
+                    "name": "calcbutton23",
+                    "designerId": "c5d231d7-113f-4c6b-b6d0-6047782056b3",
+                    "customConfigs": [
+                        {
+                            "group": "(Custom Properties)",
+                            "name": "_type",
+                            "type": "string"
+                        },
+                        {
+                            "group": "(Custom Properties)",
+                            "name": "_value",
+                            "type": "string"
+                        }
+                    ],
+                    "masterInstanceId": "7956b8cb-c39f-4d4d-96b2-d372f1d0915c"
+                },
+                {
+                    "type": "linkedinstance",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "_type": "Logical",
+                        "_value": "if",
+                        "layout|flex": 1.25,
+                        "text": "如果"
+                    },
+                    "name": "calcbutton24",
+                    "designerId": "6bb9ab93-3b34-4394-bace-bc310bac54e6",
+                    "customConfigs": [
+                        {
+                            "group": "(Custom Properties)",
+                            "name": "_type",
+                            "type": "string"
+                        },
+                        {
+                            "group": "(Custom Properties)",
+                            "name": "_value",
+                            "type": "string"
+                        }
+                    ],
+                    "masterInstanceId": "7956b8cb-c39f-4d4d-96b2-d372f1d0915c"
+                },
+                {
+                    "type": "linkedinstance",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "_type": "Logical",
+                        "_value": "then",
+                        "layout|flex": 1.25,
+                        "text": "则"
+                    },
+                    "name": "calcbutton25",
+                    "designerId": "8e6c368e-e230-4c33-8f73-a973987738ed",
+                    "customConfigs": [
+                        {
+                            "group": "(Custom Properties)",
+                            "name": "_type",
+                            "type": "string"
+                        },
+                        {
+                            "group": "(Custom Properties)",
+                            "name": "_value",
+                            "type": "string"
+                        }
+                    ],
+                    "masterInstanceId": "7956b8cb-c39f-4d4d-96b2-d372f1d0915c"
+                }
+            ]
+        }
+    ]
+}

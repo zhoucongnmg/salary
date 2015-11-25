@@ -1,0 +1,53 @@
+{
+    "name": "formula",
+    "settings": {
+        "cmd": {
+            "license": "commercial"
+        },
+        "canvasControls": {
+            "viewportSize": {
+                "name": "Auto Expand",
+                "builtIn": true,
+                "height": null,
+                "width": null
+            }
+        },
+        "urlPrefix": "",
+        "exportPath": "D:/SpringToolSuite/vfabric-tc-server-developer-2.9.5.SR1/desktop/wtpwebapps/sion-salary/sion/salary/formula",
+        "projectHasEnabledWebServer": false,
+        "lockUrlPrefix": false,
+        "buildShouldOverwriteIndex": true,
+        "generateArchitectVersion": true,
+        "spacesToIndent": 4,
+        "lineEnding": "CRLF",
+        "genTimestamps": false,
+        "cacheBust": false,
+        "installStatus": "Not Installed",
+        "displayfield-ExtBox1-1126-inputEl": "a new version of the framework is available"
+    },
+    "xdsVersion": "3.2.0",
+    "xdsBuild": 75,
+    "schemaVersion": 1,
+    "upgradeVersion": 310000000001,
+    "framework": "ext42",
+    "viewOrderMap": {
+        "view": [
+            "f9c170c7-941d-461e-9ccd-9d5ad6de60d8",
+            "8c285650-f105-425b-a158-bc5a86056d27",
+            "7956b8cb-c39f-4d4d-96b2-d372f1d0915c",
+            "9ab5b571-6407-456b-80a2-8c7e2fb2f6a5"
+        ],
+        "store": [],
+        "controller": [
+            "fd8c0104-b1bc-42bc-b449-7060f3f01c8a"
+        ],
+        "model": [],
+        "resource": [
+            "1df0b2d9-fab1-408e-9cdc-91d0f60e8bfd",
+            "f375323f-ad6c-43d5-bfd8-677fca0fa9b1"
+        ],
+        "app": [
+            "application"
+        ]
+    }
+}
