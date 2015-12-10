@@ -4,45 +4,58 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
  * @author niex
  *	公式
  */
+@Document(collection="Company_Common_Formula")
 public class Formula {
 	@Id
 	String id;
-	
+	//公式中变量（公式项）列表
 	List<FormulaItem> items;
+	//结果字段Id
+	String resultFieldId;
+	//计算公式文本 形式如： 1-（2X 请假天数）+补助
+	String formula;
 	
-	FormulaItem result;
+	public enum BusinessType{
+		Salary
+	}
 
-	public Formula() {
-		
+	public String getId() {
+		return id;
 	}
-	
-	public Formula(String id, List<FormulaItem> items, FormulaItem result) {
-		super();
+
+	public void setId(String id) {
 		this.id = id;
+	}
+
+	public List<FormulaItem> getItems() {
+		return items;
+	}
+
+	public void setItems(List<FormulaItem> items) {
 		this.items = items;
-		this.result = result;
 	}
-	
-	
-	public String toString() {
-		return items.toString();
-		
+
+	public String getResultFieldId() {
+		return resultFieldId;
 	}
-	
-	public List<FormulaItem> getCalculateItems() {
-		List<FormulaItem> calculateItems = new ArrayList<FormulaItem>();
-		for (FormulaItem item : items) {
-		}
-		
-		
-		return calculateItems;
+
+	public void setResultFieldId(String resultFieldId) {
+		this.resultFieldId = resultFieldId;
 	}
-	
+
+	public String getFormula() {
+		return formula;
+	}
+
+	public void setFormula(String formula) {
+		this.formula = formula;
+	}
 	
 	
 }

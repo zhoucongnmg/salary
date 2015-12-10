@@ -3,42 +3,66 @@
  */
 package net.sion.company.salary.domain;
 
+import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
  * @author niex
  *	公式项
+ *	做为内嵌文档来存储
  */
 public class FormulaItem {
-	
-	String value;//公式项数值
-	
-	String fieldId;//字段
-	
-	FormulaType type;//项目类型
-	
-	
-	
+	private String value;//公式项数值
+	private String fieldId;//字段
+	private String text;//字段的中文文本
+	private FormulaType type;//项目类型
 	
 	public enum FormulaType {
-		Operation, //运算符(加减乘除)
-		Symbols, //符号
-		Numberic,	//数字(0-9)
+//		Operation, //运算符(加减乘除)
+//		Symbols, //符号
+//		Numeric,	//数字(0-9)
 		CalculateItem,	//计算项,
-		ResultItem,	//结果项,
-		Logical //逻辑运算符（与、或、如果、则、>=、<=、>、<）
-		
+		ResultItem	//结果项,此项目是另一个计算公式的结果
+//		Logical //逻辑运算符（与、或、如果、则、>=、<=、>、<）
 		
 	}
-	
-	
-	public FormulaItem(){}
+
+	public String getValue() {
+		return value;
+	}
 
 
-	public FormulaItem(String value, String fieldId, FormulaType type) {
-		super();
+	public void setValue(String value) {
 		this.value = value;
+	}
+
+
+	public String getFieldId() {
+		return fieldId;
+	}
+
+
+	public void setFieldId(String fieldId) {
 		this.fieldId = fieldId;
+	}
+
+
+	public FormulaType getType() {
+		return type;
+	}
+
+
+	public void setType(FormulaType type) {
 		this.type = type;
+	}
+
+
+	public String getText() {
+		return text;
+	}
+
+
+	public void setText(String text) {
+		this.text = text;
 	}
 	
 	
