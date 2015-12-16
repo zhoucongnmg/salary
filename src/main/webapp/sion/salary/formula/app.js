@@ -35,7 +35,8 @@ Ext.application({
         'CalcButton'
     ],
     controllers: [
-        'FormulaController'
+        'Display',
+        'Validate'
     ],
     name: 'sion.salary.formula',
 

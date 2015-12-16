@@ -1,0 +1,90 @@
+{
+    "type": "Ext.app.Controller",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userClassName": "Display"
+    },
+    "name": "MyController",
+    "designerId": "fd8c0104-b1bc-42bc-b449-7060f3f01c8a",
+    "cn": [
+        {
+            "type": "controllerref",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "ref": "Screen",
+                "selector": "#Calc_Screen"
+            },
+            "name": "Screen",
+            "designerId": "37110972-77d1-4690-ac89-9e082eed8f01"
+        },
+        {
+            "type": "controllerref",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "ref": "ItemSelection",
+                "selector": "#Calc_ItemSelection"
+            },
+            "name": "ItemSelection",
+            "designerId": "b6fb78f6-9581-4a5e-99bc-c18b2849aa28"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|params": [
+                    "value",
+                    "type"
+                ],
+                "fn": "addInputScreen",
+                "implHandler": [
+                    "",
+                    "var me = this,",
+                    "    term = $('#term_demo').terminal();",
+                    "term.insert(value);",
+                    "term.focus(true);"
+                ]
+            },
+            "name": "addInputScreen",
+            "designerId": "429061d4-f335-4c3f-9097-8131aac7bfe9"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|params": [
+                    "commandStr",
+                    "pos"
+                ],
+                "fn": "isItemIn",
+                "implHandler": [
+                    "var prefix = commandStr.substring(0,pos),",
+                    "    suffix = commandStr.substring(pos,commandStr.length);",
+                    "",
+                    "return prefix.indexOf('[')!=-1&&suffix.indexOf(']')!=-1;"
+                ]
+            },
+            "name": "isItemIn",
+            "designerId": "6c50edd5-a5a5-4d47-be02-129e9bb0753e"
+        }
+    ]
+}

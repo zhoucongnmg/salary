@@ -1,0 +1,149 @@
+{
+    "type": "Ext.app.Controller",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userClassName": "Validate"
+    },
+    "name": "MyController",
+    "designerId": "f33e9a6a-ce3b-4a70-accd-bc7adf5bb4fa",
+    "cn": [
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "containsEqual"
+            },
+            "name": "containsEqual",
+            "designerId": "f3b9452f-6096-4392-a3b7-384f79dd7f6f"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|params": [
+                    "str,array"
+                ],
+                "fn": "validate",
+                "implHandler": [
+                    "var message;",
+                    "for (var i=0;i<array.length;i++) {",
+                    "    str = str.replace('[' + array[i] + ']','(' + Math.random()*100 + ')');",
+                    "}",
+                    "try {",
+                    "    eval(str);",
+                    "}catch (e) {",
+                    "    message = e.message.replace(\"Unexpected token \",\"错误字符 '\") + \"'\";",
+                    "}",
+                    "",
+                    "return message;"
+                ]
+            },
+            "name": "validate",
+            "designerId": "c49d9170-867b-4e89-843a-eed02db20fb4"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "getTerm",
+                "implHandler": [
+                    "var me = this,",
+                    "    term = $('#term_demo').terminal();",
+                    "",
+                    "return term;"
+                ]
+            },
+            "name": "getTerm",
+            "designerId": "b2174a24-2f09-45c2-8e4a-26b3f22f4782"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "getCommand",
+                "implHandler": [
+                    "var me = this,",
+                    "    term = me.getTerm();",
+                    "",
+                    "return term.get_command();"
+                ]
+            },
+            "name": "getCommand",
+            "designerId": "6a680532-97ab-41cf-a391-29e6c18724f8"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|params": [
+                    "re,s"
+                ],
+                "fn": "patch",
+                "implHandler": [
+                    "re=eval(\"/\"+re+\"/ig\");\t//不区分大小写，如须则去掉i,改为 re=eval(\"/\"+re+\"/g\")",
+                    "return s.match(re).length;"
+                ]
+            },
+            "name": "patch",
+            "designerId": "573ff8fe-1d1a-4e99-bc1d-48780860cd85"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|params": [
+                    "str",
+                    "array"
+                ],
+                "fn": "cute",
+                "implHandler": [
+                    "var surfixStr = \"\";",
+                    "if (str.indexOf('[')!=-1) {",
+                    "    var index = str.indexOf('[');",
+                    "    str = str.substring(index+1,str.length);",
+                    "",
+                    "    if (str.indexOf(']')!=-1) {",
+                    "        var itemName = str.substring(0,str.indexOf(']'));",
+                    "        array.push(itemName);",
+                    "        str = str.substring(str.indexOf(']')+1,str.length);\t",
+                    "        cute(str,array);",
+                    "",
+                    "    }else {",
+                    "        console.log(\"缺少']'\");",
+                    "    }",
+                    "}"
+                ]
+            },
+            "name": "cute",
+            "designerId": "e2bd842e-37bf-4091-a38f-3e5bb6a94a59"
+        }
+    ]
+}

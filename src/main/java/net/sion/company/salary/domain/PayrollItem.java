@@ -3,6 +3,7 @@ package net.sion.company.salary.domain;
 
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.roo.addon.javabean.RooJavaBean;
 import org.springframework.roo.addon.layers.repository.mongo.RooMongoEntity;
@@ -26,7 +27,7 @@ public class PayrollItem {
 	
 	String dept;	//部门
 	
-	List<PayrollCell> salaryPayCells;	//薪资明细项
+	List<Map<String,String>> values;	//薪资明细项
 	
 	
 }

@@ -1479,6 +1479,7 @@
                     return position;
                 }
             },
+            
             visible: (function() {
                 var visible = self.visible;
                 return function() {

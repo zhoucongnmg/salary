@@ -46,14 +46,45 @@
                     "userConfig": {
                         "fn": "onPanelAfterRender",
                         "implHandler": [
+                            "var me = this,",
+                            "    ns = me.getNamespace(),",
+                            "    ctrl = Ext.create(ns + '.controller.Display');",
                             "",
                             "$('#term_demo').terminal(function(command, term) {",
                             "",
-                            " }, {",
-                            "     greetings: '输入公式，按回车键校验公式，按SHIFT+回车键换行',",
-                            "     name: 'js_demo',",
-                            "     height: 92,",
-                            "     prompt: '请输入公式>'});",
+                            "",
+                            "}, {",
+                            "    greetings: '输入公式，按回车键校验公式，按SHIFT+回车键换行',",
+                            "    name: 'js_demo',",
+                            "    height: 85,",
+                            "    prompt: '请输入公式>',",
+                            "    keydown: function(e,term) {",
+                            "        var commandStr = term.get_command(),",
+                            "            pos = term.export_view().position;",
+                            "        //验证退格键",
+                            "        /**",
+                            "        if (ctrl.isItemIn(commandStr,pos)){",
+                            "            return false;",
+                            "        }",
+                            "        **/",
+                            "",
+                            "        if (e.which == 8) {",
+                            "            if (commandStr&&commandStr.length>0) {",
+                            "                if (commandStr.charAt(pos-1)==']'&&(commandStr.indexOf('[')>-1&&commandStr.indexOf('[')<pos)) {",
+                            "                    commandStr = commandStr.substring(0,commandStr.indexOf('['));",
+                            "                    term.set_command(commandStr);",
+                            "                    return false;",
+                            "                }",
+                            "            }",
+                            "        }else if (e.which==219 || e.which==221) { //验证\"[\"和\"]\"",
+                            "            return false;",
+                            "        }else {",
+                            "            return true;",
+                            "        }",
+                            "        ",
+                            "",
+                            "    }",
+                            "});",
                             ""
                         ],
                         "name": "afterrender",
@@ -182,7 +213,7 @@
                                     "var me = this,",
                                     "    namespace = me.getNamespace(),",
                                     "    calc_ItemSelection = me.down('#Calc_ItemSelection'),",
-                                    "    ctrl = Ext.create(namespace + '.controller.FormulaController');",
+                                    "    ctrl = Ext.create(namespace + '.controller.Display');",
                                     "",
                                     "",
                                     "ctrl.addInputScreen('[' + calc_ItemSelection.getValue() + ']');",
@@ -345,7 +376,7 @@
                                     "var me = this,",
                                     "    namespace = me.getNamespace(),",
                                     "    result_ItemSelection = me.down('#Result_ItemSelection'),",
-                                    "    ctrl = Ext.create(namespace + '.controller.FormulaController');",
+                                    "    ctrl = Ext.create(namespace + '.controller.Display');",
                                     "",
                                     "",
                                     "ctrl.addInputScreen('[' + result_ItemSelection.getValue() + ']');",
@@ -506,7 +537,7 @@
                             "codeClass": null,
                             "userConfig": {
                                 "_type": "Operation",
-                                "_value": "÷",
+                                "_value": "/",
                                 "layout|flex": 1,
                                 "text": "÷"
                             },
@@ -670,7 +701,7 @@
                             "codeClass": null,
                             "userConfig": {
                                 "_type": "Operation",
-                                "_value": "×",
+                                "_value": "*",
                                 "layout|flex": 1,
                                 "text": "×"
                             },
@@ -1239,35 +1270,6 @@
                     },
                     "name": "calcbutton24",
                     "designerId": "6bb9ab93-3b34-4394-bace-bc310bac54e6",
-                    "customConfigs": [
-                        {
-                            "group": "(Custom Properties)",
-                            "name": "_type",
-                            "type": "string"
-                        },
-                        {
-                            "group": "(Custom Properties)",
-                            "name": "_value",
-                            "type": "string"
-                        }
-                    ],
-                    "masterInstanceId": "7956b8cb-c39f-4d4d-96b2-d372f1d0915c"
-                },
-                {
-                    "type": "linkedinstance",
-                    "reference": {
-                        "name": "items",
-                        "type": "array"
-                    },
-                    "codeClass": null,
-                    "userConfig": {
-                        "_type": "Logical",
-                        "_value": "then",
-                        "layout|flex": 1.25,
-                        "text": "则"
-                    },
-                    "name": "calcbutton25",
-                    "designerId": "8e6c368e-e230-4c33-8f73-a973987738ed",
                     "customConfigs": [
                         {
                             "group": "(Custom Properties)",

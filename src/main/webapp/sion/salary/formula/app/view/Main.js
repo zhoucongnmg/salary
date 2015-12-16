@@ -218,7 +218,7 @@ Ext.define('sion.salary.formula.view.Main', {
                                 {
                                     xtype: 'calcbutton',
                                     _type: 'Operation',
-                                    _value: '÷',
+                                    _value: '/',
                                     text: '÷',
                                     flex: 1
                                 },
@@ -264,7 +264,7 @@ Ext.define('sion.salary.formula.view.Main', {
                                 {
                                     xtype: 'calcbutton',
                                     _type: 'Operation',
-                                    _value: '×',
+                                    _value: '*',
                                     text: '×',
                                     flex: 1
                                 },
@@ -440,13 +440,6 @@ Ext.define('sion.salary.formula.view.Main', {
                             _value: 'if',
                             text: '如果',
                             flex: 1.25
-                        },
-                        {
-                            xtype: 'calcbutton',
-                            _type: 'Logical',
-                            _value: 'then',
-                            text: '则',
-                            flex: 1.25
                         }
                     ]
                 }
@@ -457,14 +450,45 @@ Ext.define('sion.salary.formula.view.Main', {
     },
 
     onPanelAfterRender: function(component, eOpts) {
+        var me = this,
+            ns = me.getNamespace(),
+            ctrl = Ext.create(ns + '.controller.Display');
 
         $('#term_demo').terminal(function(command, term) {
 
-         }, {
-             greetings: '输入公式，按回车键校验公式，按SHIFT+回车键换行',
-             name: 'js_demo',
-             height: 92,
-             prompt: '请输入公式>'});
+
+        }, {
+            greetings: '输入公式，按回车键校验公式，按SHIFT+回车键换行',
+            name: 'js_demo',
+            height: 85,
+            prompt: '请输入公式>',
+            keydown: function(e,term) {
+                var commandStr = term.get_command(),
+                    pos = term.export_view().position;
+                //验证退格键
+                /**
+                if (ctrl.isItemIn(commandStr,pos)){
+                    return false;
+                }
+                **/
+
+                if (e.which == 8) {
+                    if (commandStr&&commandStr.length>0) {
+                        if (commandStr.charAt(pos-1)==']'&&(commandStr.indexOf('[')>-1&&commandStr.indexOf('[')<pos)) {
+                            commandStr = commandStr.substring(0,commandStr.indexOf('['));
+                            term.set_command(commandStr);
+                            return false;
+                        }
+                    }
+                }else if (e.which==219 || e.which==221) { //验证"["和"]"
+                    return false;
+                }else {
+                    return true;
+                }
+
+
+            }
+        });
 
     },
 
@@ -473,7 +497,7 @@ Ext.define('sion.salary.formula.view.Main', {
         var me = this,
             namespace = me.getNamespace(),
             calc_ItemSelection = me.down('#Calc_ItemSelection'),
-            ctrl = Ext.create(namespace + '.controller.FormulaController');
+            ctrl = Ext.create(namespace + '.controller.Display');
 
 
         ctrl.addInputScreen('[' + calc_ItemSelection.getValue() + ']');
@@ -485,7 +509,7 @@ Ext.define('sion.salary.formula.view.Main', {
         var me = this,
             namespace = me.getNamespace(),
             result_ItemSelection = me.down('#Result_ItemSelection'),
-            ctrl = Ext.create(namespace + '.controller.FormulaController');
+            ctrl = Ext.create(namespace + '.controller.Display');
 
 
         ctrl.addInputScreen('[' + result_ItemSelection.getValue() + ']');
