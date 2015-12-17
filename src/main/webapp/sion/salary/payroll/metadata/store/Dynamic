@@ -1,0 +1,15 @@
+{
+    "type": "Ext.data.Store",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userClassName": "Dynamic",
+        "model": "Dynamic",
+        "storeId": "Dynamic"
+    },
+    "name": "MyStore",
+    "designerId": "a22f48f1-d3d8-415a-908a-50cd838da633"
+}
