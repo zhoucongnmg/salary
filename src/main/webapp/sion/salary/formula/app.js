@@ -36,7 +36,9 @@ Ext.application({
     ],
     controllers: [
         'Display',
-        'Validate'
+        'Validator',
+        'Terminal',
+        'Api'
     ],
     name: 'sion.salary.formula',
 

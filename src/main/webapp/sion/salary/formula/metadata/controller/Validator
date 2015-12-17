@@ -6,7 +6,7 @@
     },
     "codeClass": null,
     "userConfig": {
-        "designer|userClassName": "Validate"
+        "designer|userClassName": "Validator"
     },
     "name": "MyController",
     "designerId": "f33e9a6a-ce3b-4a70-accd-bc7adf5bb4fa",
@@ -33,18 +33,23 @@
             "codeClass": null,
             "userConfig": {
                 "designer|params": [
-                    "str,array"
+                    "str,store"
                 ],
                 "fn": "validate",
                 "implHandler": [
-                    "var message;",
-                    "for (var i=0;i<array.length;i++) {",
-                    "    str = str.replace('[' + array[i] + ']','(' + Math.random()*100 + ')');",
-                    "}",
+                    "var message = '';",
+                    "store.each(function(record,index) {",
+                    "    var text = record.get('text');",
+                    "    str = str.replace('[' + text + ']','(' + Math.random()*100 + ')');",
+                    "});",
                     "try {",
                     "    eval(str);",
                     "}catch (e) {",
-                    "    message = e.message.replace(\"Unexpected token \",\"错误字符 '\") + \"'\";",
+                    "    if (e.message.indexOf('Unexpected token')>-1) {",
+                    "        message = e.message.replace(\"Unexpected token \",\"错误字符 '\") + \"'\";",
+                    "    }else if (e.message.indexOf('is not defined')>-1) {",
+                    "        message = e.message.replace(\"is not defined\",\"未定义\");",
+                    "    }",
                     "}",
                     "",
                     "return message;"
@@ -52,44 +57,6 @@
             },
             "name": "validate",
             "designerId": "c49d9170-867b-4e89-843a-eed02db20fb4"
-        },
-        {
-            "type": "basicfunction",
-            "reference": {
-                "name": "items",
-                "type": "array"
-            },
-            "codeClass": null,
-            "userConfig": {
-                "fn": "getTerm",
-                "implHandler": [
-                    "var me = this,",
-                    "    term = $('#term_demo').terminal();",
-                    "",
-                    "return term;"
-                ]
-            },
-            "name": "getTerm",
-            "designerId": "b2174a24-2f09-45c2-8e4a-26b3f22f4782"
-        },
-        {
-            "type": "basicfunction",
-            "reference": {
-                "name": "items",
-                "type": "array"
-            },
-            "codeClass": null,
-            "userConfig": {
-                "fn": "getCommand",
-                "implHandler": [
-                    "var me = this,",
-                    "    term = me.getTerm();",
-                    "",
-                    "return term.get_command();"
-                ]
-            },
-            "name": "getCommand",
-            "designerId": "6a680532-97ab-41cf-a391-29e6c18724f8"
         },
         {
             "type": "basicfunction",

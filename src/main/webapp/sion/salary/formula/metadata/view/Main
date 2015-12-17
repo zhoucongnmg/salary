@@ -29,7 +29,7 @@
                 "html": [
                     "<div id=\"term_demo\" class=\"terminal\"></div>"
                 ],
-                "layout|flex": 1,
+                "layout|flex": 2,
                 "minHeight": 92,
                 "title": null
             },
@@ -48,42 +48,15 @@
                         "implHandler": [
                             "var me = this,",
                             "    ns = me.getNamespace(),",
-                            "    ctrl = Ext.create(ns + '.controller.Display');",
+                            "    formulaId = me._formulaId,",
+                            "    terminal = Ext.create(ns + '.controller.Terminal');",
                             "",
-                            "$('#term_demo').terminal(function(command, term) {",
-                            "",
-                            "",
-                            "}, {",
+                            "terminal.initTerm({",
+                            "    id: formulaId,",
                             "    greetings: '输入公式，按回车键校验公式，按SHIFT+回车键换行',",
                             "    name: 'js_demo',",
                             "    height: 85,",
-                            "    prompt: '请输入公式>',",
-                            "    keydown: function(e,term) {",
-                            "        var commandStr = term.get_command(),",
-                            "            pos = term.export_view().position;",
-                            "        //验证退格键",
-                            "        /**",
-                            "        if (ctrl.isItemIn(commandStr,pos)){",
-                            "            return false;",
-                            "        }",
-                            "        **/",
-                            "",
-                            "        if (e.which == 8) {",
-                            "            if (commandStr&&commandStr.length>0) {",
-                            "                if (commandStr.charAt(pos-1)==']'&&(commandStr.indexOf('[')>-1&&commandStr.indexOf('[')<pos)) {",
-                            "                    commandStr = commandStr.substring(0,commandStr.indexOf('['));",
-                            "                    term.set_command(commandStr);",
-                            "                    return false;",
-                            "                }",
-                            "            }",
-                            "        }else if (e.which==219 || e.which==221) { //验证\"[\"和\"]\"",
-                            "            return false;",
-                            "        }else {",
-                            "            return true;",
-                            "        }",
-                            "        ",
-                            "",
-                            "    }",
+                            "    prompt: '>'",
                             "});",
                             ""
                         ],
@@ -161,15 +134,42 @@
                         "maxHeight": null,
                         "minHeight": null,
                         "store": [
-                            "[['基本工资','基本工资'],['职级工资','职级工资'],['岗位工资','岗位工资'],['绩效工资','绩效工资']]"
+                            "[{id:'f1',text:'基本工资'},{id:'f2',text:'职级工资'},{id:'f3',text:'岗位工资'},{id:'f4',text:'绩效工资'}]"
                         ],
-                        "style": null
+                        "style": null,
+                        "valueField": "id"
                     },
                     "name": "MyComboBox",
                     "configAlternates": {
                         "store": "array"
                     },
-                    "designerId": "2870fbf3-8169-4057-bfcf-e27cc90080c1"
+                    "designerId": "2870fbf3-8169-4057-bfcf-e27cc90080c1",
+                    "cn": [
+                        {
+                            "type": "processcfgfunction",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "designer|params": [
+                                    "config"
+                                ],
+                                "fn": "processCalc_ItemSelection",
+                                "implHandler": [
+                                    "var me = this;",
+                                    "if (me._store) {",
+                                    "    config.store = me._store;",
+                                    "}",
+                                    "",
+                                    "return config;"
+                                ]
+                            },
+                            "name": "processCalc_ItemSelection",
+                            "designerId": "44c8da6e-fe31-4ee7-9df3-ed0f1a9cb541"
+                        }
+                    ]
                 },
                 {
                     "type": "Ext.toolbar.Spacer",
@@ -272,6 +272,7 @@
                 ],
                 "border": false,
                 "container|align": "middle",
+                "hidden": true,
                 "layout": "hbox",
                 "layout|flex": 1.2,
                 "margin": "0 10 0 10",

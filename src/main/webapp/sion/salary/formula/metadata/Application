@@ -8,7 +8,9 @@
     "userConfig": {
         "controllers": [
             "Display",
-            "Validate"
+            "Validator",
+            "Terminal",
+            "Api"
         ],
         "name": "sion.salary.formula",
         "paths": [

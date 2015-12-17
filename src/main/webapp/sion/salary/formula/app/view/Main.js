@@ -37,7 +37,7 @@ Ext.define('sion.salary.formula.view.Main', {
             items: [
                 {
                     xtype: 'panel',
-                    flex: 1,
+                    flex: 2,
                     html: '<div id="term_demo" class="terminal"></div>',
                     minHeight: 92,
                     listeners: {
@@ -63,7 +63,7 @@ Ext.define('sion.salary.formula.view.Main', {
                             xtype: 'tbspacer',
                             flex: 0.2
                         },
-                        {
+                        me.processCalc_ItemSelection({
                             xtype: 'combobox',
                             flex: 8,
                             itemId: 'Calc_ItemSelection',
@@ -71,24 +71,25 @@ Ext.define('sion.salary.formula.view.Main', {
                             hideLabel: true,
                             emptyText: '请选择计算项',
                             store: [
-                                [
-                                    '基本工资',
-                                    '基本工资'
-                                ],
-                                [
-                                    '职级工资',
-                                    '职级工资'
-                                ],
-                                [
-                                    '岗位工资',
-                                    '岗位工资'
-                                ],
-                                [
-                                    '绩效工资',
-                                    '绩效工资'
-                                ]
-                            ]
-                        },
+                                {
+                                    id: 'f1',
+                                    text: '基本工资'
+                                },
+                                {
+                                    id: 'f2',
+                                    text: '职级工资'
+                                },
+                                {
+                                    id: 'f3',
+                                    text: '岗位工资'
+                                },
+                                {
+                                    id: 'f4',
+                                    text: '绩效工资'
+                                }
+                            ],
+                            valueField: 'id'
+                        }),
                         {
                             xtype: 'tbspacer',
                             flex: 0.3
@@ -118,6 +119,7 @@ Ext.define('sion.salary.formula.view.Main', {
                     xtype: 'panel',
                     flex: 1.2,
                     border: false,
+                    hidden: true,
                     margin: '0 10 0 10',
                     style: 'border:1px solid #CCC;border-radius:4px;',
                     bodyCls: 'formula-itempanel',
@@ -449,45 +451,27 @@ Ext.define('sion.salary.formula.view.Main', {
         me.callParent(arguments);
     },
 
+    processCalc_ItemSelection: function(config) {
+        var me = this;
+        if (me._store) {
+            config.store = me._store;
+        }
+
+        return config;
+    },
+
     onPanelAfterRender: function(component, eOpts) {
         var me = this,
             ns = me.getNamespace(),
-            ctrl = Ext.create(ns + '.controller.Display');
+            formulaId = me._formulaId,
+            terminal = Ext.create(ns + '.controller.Terminal');
 
-        $('#term_demo').terminal(function(command, term) {
-
-
-        }, {
+        terminal.initTerm({
+            id: formulaId,
             greetings: '输入公式，按回车键校验公式，按SHIFT+回车键换行',
             name: 'js_demo',
             height: 85,
-            prompt: '请输入公式>',
-            keydown: function(e,term) {
-                var commandStr = term.get_command(),
-                    pos = term.export_view().position;
-                //验证退格键
-                /**
-                if (ctrl.isItemIn(commandStr,pos)){
-                    return false;
-                }
-                **/
-
-                if (e.which == 8) {
-                    if (commandStr&&commandStr.length>0) {
-                        if (commandStr.charAt(pos-1)==']'&&(commandStr.indexOf('[')>-1&&commandStr.indexOf('[')<pos)) {
-                            commandStr = commandStr.substring(0,commandStr.indexOf('['));
-                            term.set_command(commandStr);
-                            return false;
-                        }
-                    }
-                }else if (e.which==219 || e.which==221) { //验证"["和"]"
-                    return false;
-                }else {
-                    return true;
-                }
-
-
-            }
+            prompt: '>'
         });
 
     },

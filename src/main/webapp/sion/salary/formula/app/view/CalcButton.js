@@ -56,7 +56,8 @@ Ext.define('sion.salary.formula.view.CalcButton', {
             type = button._type;
 
         if (type=='Logical') {
-            text = 'if () {} else {}';
+            text = 'if (){\r\n'+
+                    '}';
         }
         ctrl.addInputScreen(text);
     }
