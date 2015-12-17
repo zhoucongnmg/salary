@@ -13,10 +13,20 @@
             }
         },
         "urlPrefix": "",
-        "exportPath": ""
+        "exportPath": "D:/SpringToolSuite/vfabric-tc-server-developer-2.9.5.SR1/test/wtpwebapps/salary/sion/salary/payroll",
+        "projectHasEnabledWebServer": false,
+        "lockUrlPrefix": false,
+        "buildShouldOverwriteIndex": true,
+        "generateArchitectVersion": true,
+        "spacesToIndent": 4,
+        "lineEnding": "CRLF",
+        "genTimestamps": false,
+        "cacheBust": false,
+        "installStatus": "Not Installed",
+        "displayfield-ExtBox1-1133-inputEl": "a new version of the framework is available"
     },
     "xdsVersion": "3.2.0",
-    "xdsBuild": 75,
+    "xdsBuild": 239,
     "schemaVersion": 1,
     "upgradeVersion": 310000000001,
     "framework": "ext42",
@@ -24,14 +34,19 @@
         "view": [
             "9f3362b8-8e84-421a-bb82-bf7de4bac62b",
             "ab191b14-fffd-4c4d-be41-8dbf0d999859",
-            "fa44aed0-accb-42c4-bff9-897d94b66223"
+            "fa44aed0-accb-42c4-bff9-897d94b66223",
+            "e912961e-0f61-4e60-a08a-663905a73e93",
+            "88cf984a-a976-4126-b677-6ef701d8331b"
         ],
         "store": [
-            "4090d199-fa8f-45f8-962c-f596178171f3"
+            "4090d199-fa8f-45f8-962c-f596178171f3",
+            "a22f48f1-d3d8-415a-908a-50cd838da633"
         ],
         "controller": [],
         "model": [
-            "a9aacafa-3df0-4597-b5d7-d09963d317e6"
+            "a9aacafa-3df0-4597-b5d7-d09963d317e6",
+            "aad7f3a1-56df-4ec2-bb6c-6c1aec3df746",
+            "1c1e5316-2d72-47c4-bdb0-035d5e19dacb"
         ],
         "resource": [
             "0aa67b68-ffad-4a3c-9005-648029f8bf8a",

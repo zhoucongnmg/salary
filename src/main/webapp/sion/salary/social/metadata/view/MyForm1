@@ -13,5 +13,20 @@
         "width": 400
     },
     "name": "MyForm1",
-    "designerId": "26120aba-dcec-4196-8883-8a38765b9248"
+    "designerId": "26120aba-dcec-4196-8883-8a38765b9248",
+    "cn": [
+        {
+            "type": "Ext.form.Label",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "text": "My Label"
+            },
+            "name": "MyLabel1",
+            "designerId": "59d918da-84ef-4635-8e15-077a59410ea7"
+        }
+    ]
 }

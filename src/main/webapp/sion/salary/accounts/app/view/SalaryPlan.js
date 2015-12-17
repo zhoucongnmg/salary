@@ -23,7 +23,7 @@ Ext.define('sion.salary.accounts.view.SalaryPlan', {
         'Ext.form.field.Checkbox',
         'Ext.form.field.TextArea',
         'Ext.grid.Panel',
-        'Ext.grid.column.Number',
+        'Ext.grid.RowNumberer',
         'Ext.grid.column.Boolean',
         'Ext.grid.column.Action',
         'Ext.grid.View'
@@ -112,52 +112,79 @@ Ext.define('sion.salary.accounts.view.SalaryPlan', {
                     store: 'AccountItem',
                     columns: [
                         {
-                            xtype: 'numbercolumn',
-                            dataIndex: 'number',
-                            text: '序号'
+                            xtype: 'rownumberer',
+                            text: '序号',
+                            flex: 1
                         },
                         {
                             xtype: 'gridcolumn',
                             dataIndex: 'name',
-                            text: '项目名称'
+                            text: '项目名称',
+                            flex: 3
                         },
                         {
                             xtype: 'gridcolumn',
                             dataIndex: 'type',
-                            text: '项目类型'
+                            text: '项目类型',
+                            flex: 2
                         },
                         {
                             xtype: 'gridcolumn',
                             dataIndex: 'fieldName',
-                            text: '字段'
+                            text: '字段',
+                            flex: 1
                         },
                         {
                             xtype: 'gridcolumn',
                             dataIndex: 'value',
-                            text: '公式'
+                            text: '公式',
+                            flex: 6
                         },
                         {
                             xtype: 'booleancolumn',
                             dataIndex: 'show',
-                            text: '是否显示'
+                            text: '是否显示',
+                            flex: 2,
+                            falseText: '否',
+                            trueText: '是'
                         },
                         {
                             xtype: 'actioncolumn',
                             dataIndex: 'date',
                             text: '操作',
+                            flex: 2,
                             items: [
                                 {
-                                    tooltip: '测试公式'
+                                    handler: function(view, rowIndex, colIndex, item, e, record, row) {
+                                        var panel = this.up('panel').up('panel');
+
+                                        panel.detail(record);
+                                    },
+                                    iconCls: 's_icon_page_edit',
+                                    tooltip: '修改'
                                 },
                                 {
+                                    handler: function(view, rowIndex, colIndex, item, e, record, row) {
+                                        var store = Ext.getStore('AccountItem');
 
-                                },
-                                {
-
+                                        Ext.Msg.confirm('提示', '确定要删除吗？', function(text){
+                                            if (text == 'yes'){
+                                                store.remove(record);
+                                            }
+                                        });
+                                    },
+                                    iconCls: 's_icon_cross',
+                                    tooltip: '删除'
                                 }
                             ]
                         }
-                    ]
+                    ],
+                    listeners: {
+                        itemdblclick: {
+                            fn: me.onItemGridItemDblClick,
+                            scope: me
+                        }
+                    }
                 }
             ],
             listeners: {
@@ -198,9 +225,6 @@ Ext.define('sion.salary.accounts.view.SalaryPlan', {
         if(record.get('id') === ''){
             store.add(record);
         }
-        alert('submit');
-        console.log(record);
-        console.log(store);
         store.sync({
             success: function(response, opts){
                 Ext.Msg.alert("提示", "保存成功");
@@ -215,9 +239,11 @@ Ext.define('sion.salary.accounts.view.SalaryPlan', {
     },
 
     onAddSalaryItemClick: function(button, e, eOpts) {
-        var me =this,
-            namespace=me.getNamespace();
-        Ext.create(namespace+".view.AddSalaryItem").show();
+        this.detail(null);
+    },
+
+    onItemGridItemDblClick: function(dataview, record, item, index, e, eOpts) {
+        this.detail(record);
     },
 
     onWindowRender: function(component, eOpts) {
@@ -256,6 +282,19 @@ Ext.define('sion.salary.accounts.view.SalaryPlan', {
                 name: ''
             }));
         }
+    },
+
+    detail: function(record) {
+        var me = this,
+            grid = me.down('grid'),
+            namespace = me.getNamespace();
+        //     accountItem = Ext.create(namespace + '.model.AccountItem');
+
+        Ext.create(namespace+".view.AddSalaryItem", {
+            //     _account : me._account,
+            _accountItem : record,
+            _store : grid.getStore()
+        }).show();
     }
 
 });

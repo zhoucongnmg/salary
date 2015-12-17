@@ -16,9 +16,11 @@ import javax.servlet.http.HttpSession;
 import net.sion.boot.config.jackson.CustomJackson;
 import net.sion.boot.mongo.template.SessionMongoTemplate;
 import net.sion.company.salary.domain.Account;
+import net.sion.company.salary.domain.AccountItem;
 import net.sion.company.salary.domain.PersonAccountFile;
 import net.sion.company.salary.domain.PersonAccountItem;
 import net.sion.company.salary.sessionrepository.AccountRepository;
+import net.sion.company.salary.sessionrepository.FormulaRepository;
 import net.sion.company.salary.sessionrepository.PersonAccountFileRepository;
 import net.sion.core.admin.domain.User;
 import net.sion.core.admin.service.AdminService;
@@ -56,6 +58,8 @@ public class AccountController {
 	@Autowired SessionMongoTemplate mongoTemplate; 
 	@Autowired CustomJackson jackson;
 	@Autowired PersonAccountFileRepository personAccountFileRepository;
+	@Autowired FormulaRepository formulaRepository;
+	
 	/**
 	 * 创建套帐
 	 * 
@@ -76,10 +80,17 @@ public class AccountController {
 			account.setCreateUserName(user.getName());
 		}
 		accountRepository.save(account);
+		saveFormulas(account.getAccountItems());
 		return new Response(true);
 	}
-	
-
+	//保存公式
+	private void saveFormulas(List<AccountItem> list){
+		for(AccountItem item : list){
+			if(item.getFormula() != null){
+				formulaRepository.save(item.getFormula());
+			}
+		}
+	}
 	/**
 	 * 删除套帐
 	 * 

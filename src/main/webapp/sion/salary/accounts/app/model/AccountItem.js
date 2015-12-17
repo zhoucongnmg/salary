@@ -42,6 +42,12 @@ Ext.define('sion.salary.accounts.model.AccountItem', {
         {
             name: 'show',
             type: 'boolean'
+        },
+        {
+            name: 'id'
+        },
+        {
+            name: 'formula'
         }
     ]
 });

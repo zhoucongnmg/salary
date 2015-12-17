@@ -97,6 +97,16 @@ Ext.define('sion.salary.payroll.view.PayrollGrid', {
                                             scope: me
                                         }
                                     }
+                                },
+                                {
+                                    xtype: 'button',
+                                    text: '测试',
+                                    listeners: {
+                                        click: {
+                                            fn: me.onButtonClick1,
+                                            scope: me
+                                        }
+                                    }
                                 }
                             ]
                         }
@@ -162,6 +172,15 @@ Ext.define('sion.salary.payroll.view.PayrollGrid', {
 
     onButtonClick: function(button, e, eOpts) {
         Ext.create("sion.salary.payroll.view.SelectPerson_win").show();
+    },
+
+    onButtonClick1: function(button, e, eOpts) {
+        var me = this,
+            namespace = me.getNamespace();
+
+        Ext.create(namespace+".view.DynamicTest", {
+
+        }).show();
     }
 
 });

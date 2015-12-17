@@ -102,6 +102,32 @@
             },
             "name": "MyField27",
             "designerId": "43bd8e39-5434-4a8d-a09b-13a7f8ef4bef"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "id"
+            },
+            "name": "MyField50",
+            "designerId": "1d03727b-eabb-4d03-a3b4-ec6fb87e872a"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "formula"
+            },
+            "name": "MyField51",
+            "designerId": "f46ce067-00ad-4246-87be-0f7364f8a2bd"
         }
     ]
 }

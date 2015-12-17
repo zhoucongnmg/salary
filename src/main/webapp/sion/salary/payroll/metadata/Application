@@ -7,19 +7,24 @@
     "codeClass": null,
     "userConfig": {
         "models": [
-            "Person"
+            "Person",
+            "Dynamic",
+            "Main"
         ],
         "name": "sion.salary.payroll",
         "paths": [
             "{'sion.salary.payroll' : 'sion/salary/payroll/app'}"
         ],
         "stores": [
-            "PersonStore"
+            "PersonStore",
+            "Dynamic"
         ],
         "views": [
             "PayrollGrid",
             "PayrollForm",
-            "SelectPerson_win"
+            "SelectPerson_win",
+            "DynamicTest",
+            "DynamicGrid"
         ]
     },
     "name": "Application",

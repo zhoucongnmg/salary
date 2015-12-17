@@ -76,9 +76,6 @@
                                     "if(record.get('id') === ''){",
                                     "    store.add(record);",
                                     "}",
-                                    "alert('submit');",
-                                    "console.log(record);",
-                                    "console.log(store);",
                                     "store.sync({",
                                     "    success: function(response, opts){",
                                     "        Ext.Msg.alert(\"提示\", \"保存成功\");",
@@ -188,9 +185,7 @@
                             "userConfig": {
                                 "fn": "onAddSalaryItemClick",
                                 "implHandler": [
-                                    "var me =this,",
-                                    "    namespace=me.getNamespace();",
-                                    "Ext.create(namespace+\".view.AddSalaryItem\").show();"
+                                    "this.detail(null);"
                                 ],
                                 "name": "click",
                                 "scope": "me"
@@ -221,18 +216,18 @@
             "designerId": "d92f684f-f79a-4616-8eb2-1af6b9c15e5b",
             "cn": [
                 {
-                    "type": "Ext.grid.column.Number",
+                    "type": "Ext.grid.RowNumberer",
                     "reference": {
                         "name": "columns",
                         "type": "array"
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "dataIndex": "number",
+                        "flex": 1,
                         "text": "序号"
                     },
-                    "name": "MyNumberColumn1",
-                    "designerId": "f0285ade-eccf-4703-aac3-ae39684530b9"
+                    "name": "MyRowNumberer",
+                    "designerId": "459c31e6-74a1-4dd2-913b-280c77bf4736"
                 },
                 {
                     "type": "Ext.grid.column.Column",
@@ -243,6 +238,7 @@
                     "codeClass": null,
                     "userConfig": {
                         "dataIndex": "name",
+                        "flex": 3,
                         "text": "项目名称"
                     },
                     "name": "MyColumn8",
@@ -257,6 +253,7 @@
                     "codeClass": null,
                     "userConfig": {
                         "dataIndex": "type",
+                        "flex": 2,
                         "text": "项目类型"
                     },
                     "name": "MyColumn10",
@@ -271,6 +268,7 @@
                     "codeClass": null,
                     "userConfig": {
                         "dataIndex": "fieldName",
+                        "flex": 1,
                         "text": "字段"
                     },
                     "name": "MyColumn11",
@@ -285,6 +283,7 @@
                     "codeClass": null,
                     "userConfig": {
                         "dataIndex": "value",
+                        "flex": 6,
                         "text": "公式"
                     },
                     "name": "MyColumn12",
@@ -299,7 +298,10 @@
                     "codeClass": null,
                     "userConfig": {
                         "dataIndex": "show",
-                        "text": "是否显示"
+                        "falseText": "否",
+                        "flex": 2,
+                        "text": "是否显示",
+                        "trueText": "是"
                     },
                     "name": "MyBooleanColumn3",
                     "designerId": "bb392920-1b19-4c19-8fc1-97ebf3e66512"
@@ -313,6 +315,7 @@
                     "codeClass": null,
                     "userConfig": {
                         "dataIndex": "date",
+                        "flex": 2,
                         "text": "操作"
                     },
                     "name": "MyActionColumn3",
@@ -326,24 +329,41 @@
                             },
                             "codeClass": null,
                             "userConfig": {
-                                "designer|displayName": "test",
-                                "tooltip": "测试公式"
-                            },
-                            "name": "MyActionColumnItem8",
-                            "designerId": "620f0b9e-18f9-44ed-be6c-c7f0e9de449a"
-                        },
-                        {
-                            "type": "actioncolumnitem",
-                            "reference": {
-                                "name": "items",
-                                "type": "array"
-                            },
-                            "codeClass": null,
-                            "userConfig": {
-                                "designer|displayName": "modify"
+                                "designer|displayName": "modify",
+                                "iconCls": "s_icon_page_edit",
+                                "tooltip": "修改"
                             },
                             "name": "MyActionColumnItem9",
-                            "designerId": "b51ce6fd-780a-4e29-9fd4-0515d17056e6"
+                            "designerId": "b51ce6fd-780a-4e29-9fd4-0515d17056e6",
+                            "cn": [
+                                {
+                                    "type": "fixedfunction",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "designer|params": [
+                                            "view",
+                                            "rowIndex",
+                                            "colIndex",
+                                            "item",
+                                            "e",
+                                            "record",
+                                            "row"
+                                        ],
+                                        "fn": "handler",
+                                        "implHandler": [
+                                            "var panel = this.up('panel').up('panel');",
+                                            "",
+                                            "panel.detail(record);"
+                                        ]
+                                    },
+                                    "name": "handler",
+                                    "designerId": "4b01f7d7-af4c-4d36-9e88-97d9af268b66"
+                                }
+                            ]
                         },
                         {
                             "type": "actioncolumnitem",
@@ -353,10 +373,45 @@
                             },
                             "codeClass": null,
                             "userConfig": {
-                                "designer|displayName": "delete"
+                                "designer|displayName": "delete",
+                                "iconCls": "s_icon_cross",
+                                "tooltip": "删除"
                             },
                             "name": "MyActionColumnItem10",
-                            "designerId": "6ddd5caf-ca2f-4793-b2a9-9e84fc8bfc9d"
+                            "designerId": "6ddd5caf-ca2f-4793-b2a9-9e84fc8bfc9d",
+                            "cn": [
+                                {
+                                    "type": "fixedfunction",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "designer|params": [
+                                            "view",
+                                            "rowIndex",
+                                            "colIndex",
+                                            "item",
+                                            "e",
+                                            "record",
+                                            "row"
+                                        ],
+                                        "fn": "handler",
+                                        "implHandler": [
+                                            "var store = Ext.getStore('AccountItem');",
+                                            "",
+                                            "Ext.Msg.confirm('提示', '确定要删除吗？', function(text){",
+                                            "    if (text == 'yes'){",
+                                            "        store.remove(record);",
+                                            "    }",
+                                            "});"
+                                        ]
+                                    },
+                                    "name": "handler",
+                                    "designerId": "5f0987b0-9bd2-4ac1-a41b-341c8bbceadb"
+                                }
+                            ]
                         }
                     ]
                 },
@@ -369,6 +424,24 @@
                     "codeClass": null,
                     "name": "MyGridView3",
                     "designerId": "fc7f4ea7-67ab-4e98-9022-4a034c8e55ee"
+                },
+                {
+                    "type": "basiceventbinding",
+                    "reference": {
+                        "name": "listeners",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fn": "onItemGridItemDblClick",
+                        "implHandler": [
+                            "this.detail(record);"
+                        ],
+                        "name": "itemdblclick",
+                        "scope": "me"
+                    },
+                    "name": "onItemGridItemDblClick",
+                    "designerId": "bd048dcd-b121-4254-ba8d-b02d8d6c80d0"
                 }
             ]
         },
@@ -437,6 +510,34 @@
             },
             "name": "onWindowBeforeRender",
             "designerId": "da5ed7bd-a9bf-4d4b-9881-0709f951eb5c"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|params": [
+                    "record"
+                ],
+                "fn": "detail",
+                "implHandler": [
+                    "var me = this,",
+                    "    grid = me.down('grid'),",
+                    "    namespace = me.getNamespace();",
+                    "//     accountItem = Ext.create(namespace + '.model.AccountItem');",
+                    "",
+                    "Ext.create(namespace+\".view.AddSalaryItem\", {",
+                    "    //     _account : me._account,",
+                    "    _accountItem : record,",
+                    "    _store : grid.getStore()",
+                    "}).show();"
+                ]
+            },
+            "name": "detail",
+            "designerId": "f46ded6e-a79f-432e-b1c1-2b69ea191b45"
         }
     ]
 }

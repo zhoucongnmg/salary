@@ -138,14 +138,13 @@ Ext.define('sion.salary.accounts.view.SalaryItemGrid', {
     },
 
     onGridpanelRender: function(component, eOpts) {
-
-
         var me = this,
             store = component.getStore();
 
         store.clearFilter(true);
         Ext.apply(store.proxy.extraParams, {
-            system : ''
+            system : '',
+            type : ''
         });
         store.load();
     },

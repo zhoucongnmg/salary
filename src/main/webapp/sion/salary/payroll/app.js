@@ -24,15 +24,20 @@ Ext.application({
         'sion.salary.payroll': 'sion/salary/payroll/app'
     },
     models: [
-        'Person'
+        'Person',
+        'Dynamic',
+        'Main'
     ],
     stores: [
-        'PersonStore'
+        'PersonStore',
+        'Dynamic'
     ],
     views: [
         'PayrollGrid',
         'PayrollForm',
-        'SelectPerson_win'
+        'SelectPerson_win',
+        'DynamicTest',
+        'DynamicGrid'
     ],
     name: 'sion.salary.payroll',
 
