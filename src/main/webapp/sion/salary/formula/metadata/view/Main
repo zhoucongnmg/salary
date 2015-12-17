@@ -26,9 +26,7 @@
             },
             "codeClass": null,
             "userConfig": {
-                "html": [
-                    "<div id=\"term_demo\" class=\"terminal\"></div>"
-                ],
+                "html": null,
                 "layout|flex": 2,
                 "minHeight": 92,
                 "title": null
@@ -65,6 +63,30 @@
                     },
                     "name": "onPanelAfterRender",
                     "designerId": "f26db9a4-31ac-477e-b044-3fe577ccc7f8"
+                },
+                {
+                    "type": "processcfgfunction",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "designer|params": [
+                            "config"
+                        ],
+                        "fn": "processMyPanel",
+                        "implHandler": [
+                            "var me = this,",
+                            "    formulaId = me._formulaId;",
+                            "",
+                            "config.html = '<div id=\"'+formulaId+'\" class=\"terminal\"></div>';",
+                            "",
+                            "return config;"
+                        ]
+                    },
+                    "name": "processMyPanel",
+                    "designerId": "b77fa42f-7e63-4026-9271-3d83525de1b7"
                 }
             ]
         },

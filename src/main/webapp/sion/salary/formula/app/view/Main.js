@@ -35,10 +35,9 @@ Ext.define('sion.salary.formula.view.Main', {
 
         Ext.applyIf(me, {
             items: [
-                {
+                me.processMyPanel({
                     xtype: 'panel',
                     flex: 2,
-                    html: '<div id="term_demo" class="terminal"></div>',
                     minHeight: 92,
                     listeners: {
                         afterrender: {
@@ -46,7 +45,7 @@ Ext.define('sion.salary.formula.view.Main', {
                             scope: me
                         }
                     }
-                },
+                }),
                 {
                     xtype: 'panel',
                     flex: 1.2,
@@ -449,6 +448,15 @@ Ext.define('sion.salary.formula.view.Main', {
         });
 
         me.callParent(arguments);
+    },
+
+    processMyPanel: function(config) {
+        var me = this,
+            formulaId = me._formulaId;
+
+        config.html = '<div id="'+formulaId+'" class="terminal"></div>';
+
+        return config;
     },
 
     processCalc_ItemSelection: function(config) {
