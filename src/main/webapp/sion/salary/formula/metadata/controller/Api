@@ -1,0 +1,175 @@
+{
+    "type": "Ext.app.Controller",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userClassName": "Api"
+    },
+    "name": "MyController",
+    "designerId": "7d6c55ed-fda7-4eb9-9f0b-f0c17f3953ff",
+    "cn": [
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "getFormula",
+                "implHandler": [
+                    "var me = this,",
+                    "    conifg = me._config,",
+                    "    formulaId = config._formulaId,",
+                    "    ctrl = me.getTerminalCtrl(),",
+                    "    term = ctrl.getTerm(formulaId);",
+                    "",
+                    "",
+                    "return term._history;",
+                    ""
+                ]
+            },
+            "name": "getFormula",
+            "designerId": "809589fb-bc4a-4238-9fbc-d2c97588e8dd"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "validateFormula",
+                "implHandler": [
+                    "var me = this,",
+                    "    conifg = me._config,",
+                    "    formulaId = config._formulaId,",
+                    "    ctrl = me.getTerminalCtrl(),",
+                    "    validator = me.getValidatorCtrl(),",
+                    "    command = ctrl.getCommand(formulaId);",
+                    "",
+                    "return validator.validate(command,config._store);"
+                ]
+            },
+            "name": "validateFormula",
+            "designerId": "c4d688d9-daba-494b-8442-043e6be8d911"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "getFields",
+                "implHandler": [
+                    "var me = this,",
+                    "    conifg = me._config,",
+                    "    store = config._store,",
+                    "    json = [];",
+                    "",
+                    "store.each(function(record,index) {",
+                    "    var text = record.get('text');",
+                    "    if (str.indexOf('[' + text + ']')>-1){",
+                    "        json.push({",
+                    "            fieldId : record.get('id'),",
+                    "            text : record.get('text')",
+                    "        });",
+                    "    }",
+                    "    ",
+                    "});",
+                    "return json;"
+                ]
+            },
+            "name": "getFields",
+            "designerId": "11222972-9f0b-4adb-a360-4fbd7b853b51"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|params": [
+                    "config"
+                ],
+                "fn": "initFormula",
+                "implHandler": [
+                    "/**",
+                    " config : {",
+                    "     _formulaId : //窗口的ItemId",
+                    "     _container :  //需要将公式编辑器面板显示到哪一个Container中",
+                    "     _store : //计算项store(Model必须包含id,text等field)",
+                    "",
+                    " }",
+                    " **/",
+                    "",
+                    "var me = this,",
+                    "    container = config._container,",
+                    "    ns = me.getNamespace(),",
+                    "    main,win;",
+                    "",
+                    "me._config = config;",
+                    "if (container) {",
+                    "    main = Ext.create(ns + '.view.Main',{",
+                    "        _store : config._store,",
+                    "        _formulaId : config._formulaId",
+                    "    });",
+                    "    container.add(main);",
+                    "}else {",
+                    "    win = Ext.create(ns + '.view.FormulaWin',{",
+                    "        _store : config._store,",
+                    "        _formulaId : config._formulaId",
+                    "    });",
+                    "    win.show();",
+                    "}",
+                    "",
+                    ""
+                ]
+            },
+            "name": "initFormula",
+            "designerId": "964c6443-18da-423b-93f5-c7864938c824"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "getTerminalCtrl",
+                "implHandler": [
+                    "return this.getController('Terminal');"
+                ]
+            },
+            "name": "getTerminalCtrl",
+            "designerId": "c008668b-8307-40ac-9c89-a2469fad9ada"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "getValidatorCtrl",
+                "implHandler": [
+                    "",
+                    "return this.getController('Validator');",
+                    ""
+                ]
+            },
+            "name": "getValidatorCtrl",
+            "designerId": "e3a56a51-9c15-4881-a6e5-dbd72dd2a3ad"
+        }
+    ]
+}
