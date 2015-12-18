@@ -456,6 +456,7 @@ Ext.define('sion.salary.formula.view.Main', {
         var me = this,
             ns = me.getNamespace(),
             formulaId = me._formulaId,
+            command = me._command,
             terminal = Ext.create(ns + '.controller.Terminal');
 
         terminal.initTerm({
@@ -466,6 +467,7 @@ Ext.define('sion.salary.formula.view.Main', {
             prompt: '>'
         });
 
+        terminal.setCommand(command);
     },
 
     onCalc_ItemSelectionAfterRender: function(component, eOpts) {

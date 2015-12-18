@@ -71,9 +71,6 @@ Ext.define('sion.salary.formula.controller.Terminal', {
             commandStr = term.get_command(),
             pos = term.export_view().position;
 
-
-
-
         if (e.which == 8) {
             if (commandStr&&commandStr.length>0) {
                 if (commandStr.charAt(pos-1)==']'&&(commandStr.indexOf('[')>-1&&commandStr.indexOf('[')<pos)) {
@@ -94,6 +91,13 @@ Ext.define('sion.salary.formula.controller.Terminal', {
             }
             **/
         }
+    },
+
+    setCommand: function(command) {
+         var me = this,
+             term = me.getTerm(id);
+
+        return term.set_command(command);
     }
 
 });

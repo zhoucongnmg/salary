@@ -25,21 +25,21 @@ Ext.define('sion.salary.formula.controller.Api', {
             config = me._config,
             formulaId = config._formulaId,
             ctrl = me.getTerminalCtrl(),
-            term = ctrl.getTerm(formulaId);
+            term = ctrl.getTerm(formulaId),
+            command = ctrl.getCommand(formulaId);
 
 
-        return term._history;
+        return term._history.push(command);
     },
 
-    validateFormula: function() {
+    validateFormula: function(formula) {
         var me = this,
             config = me._config,
             formulaId = config._formulaId,
             ctrl = me.getTerminalCtrl(),
-            validator = me.getValidatorCtrl(),
-            command = ctrl.getCommand(formulaId);
+            validator = me.getValidatorCtrl();
 
-        return validator.validate(command,config._data);
+        return validator.validate(formula,config._data);
     },
 
     getFields: function(formula) {
@@ -66,7 +66,8 @@ Ext.define('sion.salary.formula.controller.Api', {
         config : {
             _formulaId : //窗口的ItemId
             _container :  //需要将公式编辑器面板显示到哪一个Container中
-            _data : //计算项store(Model必须包含id,text等field)
+            _data : //计算项store(Model必须包含id,text等field),
+            _command: //已存在的公式用于回显
         }
                      **/
         Ext.util.CSS.swapStyleSheet('formula-base','sion/salary/formula/resources/formula.css');
@@ -83,13 +84,15 @@ Ext.define('sion.salary.formula.controller.Api', {
         if (container) {
             main = Ext.create(ns + '.view.Main',{
                 _data : config._data,
-                _formulaId : config._formulaId
+                _formulaId : config._formulaId,
+                _command : config._command
             });
             container.add(main);
         }else {
             win = Ext.create(ns + '.view.FormulaWin',{
                 _data : config._data,
-                _formulaId : config._formulaId
+                _formulaId : config._formulaId,
+                _command : config._command
             });
             win.show();
         }
