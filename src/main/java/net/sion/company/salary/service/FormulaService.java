@@ -153,9 +153,7 @@ public class FormulaService {
 		
 		Formula f = new Formula(formula,formulaItems,resultFieldId);
 		
-		formulaRepository.save(f);
-		
-		return f;
+		return formulaRepository.save(f);
 	}
 	
 	/**
@@ -164,8 +162,7 @@ public class FormulaService {
 	 */
 	public Formula create(Formula f){
 		
-		formulaRepository.save(f);
 		
-		return f;
+		return formulaRepository.save(f);
 	}
 }

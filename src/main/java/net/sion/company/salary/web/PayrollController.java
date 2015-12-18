@@ -13,15 +13,12 @@ import net.sion.company.salary.domain.Account;
 import net.sion.company.salary.domain.AccountItem;
 import net.sion.company.salary.domain.Payroll;
 import net.sion.company.salary.domain.PayrollItem;
-import net.sion.company.salary.domain.PersonAccountFile;
 import net.sion.company.salary.sessionrepository.AccountRepository;
 import net.sion.company.salary.sessionrepository.PayrollItemRepository;
 import net.sion.company.salary.sessionrepository.PersonAccountFileRepository;
 import net.sion.company.salary.sessionrepository.PersonAccountRepository;
 import net.sion.util.mvc.Response;
 
-import org.apache.commons.lang3.StringUtils;
-import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,7 +28,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
 
 /**
@@ -50,23 +46,23 @@ public class PayrollController {
 	public List<Map<String,String>> fillSimpleFields(List<Map<String,String>> fields) {
 		Map<String,String> map = new HashMap<String,String>();
 		map.put("name", "id");
-		map.put("type", "String");
+		map.put("type", "string");
 		fields.add(map);
 		map = new HashMap<String,String>();
 		map.put("name", "personId");
-		map.put("type", "String");
+		map.put("type", "string");
 		fields.add(map);
 		map = new HashMap<String,String>();
 		map.put("name", "name");
-		map.put("type", "String");
+		map.put("type", "string");
 		fields.add(map);
 		map = new HashMap<String,String>();
 		map.put("name", "duty");
-		map.put("type", "String");
+		map.put("type", "string");
 		fields.add(map);
 		map = new HashMap<String,String>();
 		map.put("name", "dept");
-		map.put("type", "String");
+		map.put("type", "string");
 		fields.add(map);
 		return fields;
 	}
@@ -76,16 +72,19 @@ public class PayrollController {
 		map.put("header", "姓名");
 		map.put("dataIndex", "name");
 		map.put("flex", 1);
+		map.put("coltype", "readonly");
 		columns.add(map);
 		map = new HashMap<String,Object>();
 		map.put("header", "职务");
 		map.put("dataIndex", "duty");
 		map.put("flex", 1);
+		map.put("coltype", "readonly");
 		columns.add(map);
 		map = new HashMap<String,Object>();
 		map.put("header", "部门");
 		map.put("dataIndex", "dept");
 		map.put("flex", 1);
+		map.put("coltype", "readonly");
 		columns.add(map);
 		return columns;
 	}
@@ -114,18 +113,10 @@ public class PayrollController {
 		fillSimpleFields(fields);
 		fillSimpleColumns(columns);
 		
-		
-		
-		
-		
-		
-		List<AccountItem> inputItems = new ArrayList();
 		for(AccountItem item : items){
 			fields.add(getFields(item));
 			columns.add(getColumns(item));
-			if("输入项".equals(item.getType())){
-				inputItems.add(item);
-			}
+			
 		}
 		/*
 		List<PersonAccountFile> members = personAccountRepository.findByAccountId(account.getId());
@@ -162,24 +153,28 @@ public class PayrollController {
 		m.put("data", data);
 		return new Response("sucess", m, true);
 	}
-	private Map getFields(AccountItem item){
-		Map map = new HashMap();
+	private Map<String,String> getFields(AccountItem item){
+		Map<String,String> map = new HashMap<String,String>();
 		map.put("name", item.getFieldName());
-		if("输入项".equals(item.getType())){
-			map.put("type", "float");
-		}else{
-			map.put("type", "String");
-		}
+		map.put("type", "float");
 		return map;
 	}
-	private Map getColumns(AccountItem item){
-		Map map = new HashMap();
-		if("输入项".equals(item.getType())){
-			Map editor = new HashMap();
-			editor.put("xtype", "numberfield");
-			editor.put("name", item.getFieldName());
-			map.put("editor", editor);
+	private Map<String,Object> getColumns(AccountItem item){
+		Map<String,Object> map = new HashMap<String,Object>();
+		switch (item.getType()) {
+			case Input :
+				Map<String,String> editor = new HashMap<String,String>();
+				editor.put("xtype", "numberfield");
+				editor.put("name", item.getFieldName());
+				map.put("editor", editor);
+				map.put("coltype", "input");
+				break;
+			case Calculate :
+				map.put("coltype", "calculate");
+				
 		}
+		
+			
 		map.put("flex", 1);
 		map.put("header", item.getName());
 		map.put("dataIndex", item.getFieldName());
