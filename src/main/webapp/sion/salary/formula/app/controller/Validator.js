@@ -23,7 +23,7 @@ Ext.define('sion.salary.formula.controller.Validator', {
     validate: function(str,store) {
         var message = '';
         store.each(function(record,index) {
-            var text = record.get('text');
+            var text = record.get('name');
             str = str.replace('[' + text + ']','(' + Math.random()*100 + ')');
         });
         try {
