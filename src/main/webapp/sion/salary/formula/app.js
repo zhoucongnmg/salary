@@ -28,6 +28,12 @@ Ext.application({
         'sion.salary.formula': 'sion/salary/formula/app',
         'formula.jqueryTerminal': 'sion/salary/formula/jqueryTerminal'
     },
+    models: [
+        'Item'
+    ],
+    stores: [
+        'Item'
+    ],
     views: [
         'Main',
         'FormulaWin',
@@ -35,18 +41,24 @@ Ext.application({
         'CalcButton'
     ],
     controllers: [
-        'FormulaController'
+        'Display',
+        'Validator',
+        'Terminal',
+        'Api'
     ],
     name: 'sion.salary.formula',
 
     launch: function() {
-        Ext.util.CSS.swapStyleSheet('formula-base','sion/salary/formula/resources/formula.css');
-        Ext.util.CSS.swapStyleSheet('formula-terminal','sion/salary/formula/jqueryTerminal/terminal.css');
-        Ext.util.CSS.swapStyleSheet('formula-terminal-base','sion/salary/formula/jqueryTerminal/style.css');
+        /**
         var me = this,
             ns = me.getNamespace();
-        var win = Ext.create(ns + '.view.FormulaWin');
+        var win = Ext.create(ns + '.view.FormulaWin',{
+            _config : {
+                formulaId:'formula'
+            }
+        });
         win.show();
+        **/
     }
 
 });

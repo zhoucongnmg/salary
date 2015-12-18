@@ -1,0 +1,160 @@
+{
+    "type": "Ext.app.Controller",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userClassName": "Terminal"
+    },
+    "name": "MyController",
+    "designerId": "2c58285e-e9db-4e51-985f-9d5efb8462d8",
+    "cn": [
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|params": [
+                    "config"
+                ],
+                "fn": "initTerm",
+                "implHandler": [
+                    "var me = this,",
+                    "    itemSelection = me.getItemSelection(),",
+                    "    ns = me.getNamespace(),",
+                    "    store = itemSelection.getStore(),",
+                    "    validator = Ext.create(ns + '.controller.Validator'),",
+                    "    message;",
+                    "",
+                    "config.keydown = me.onKeydown;",
+                    "config._controller = me;",
+                    "",
+                    "$('#' + config.id).terminal(function(command, term) {",
+                    "    var history = term._history||[];",
+                    "    ",
+                    "    message = validator.validate(command,store);",
+                    "    if (message=='') {",
+                    "        term.echo('验证成功');",
+                    "        history.push(command);",
+                    "    }else {",
+                    "        term.error(message);",
+                    "    }",
+                    "",
+                    "",
+                    "}, config);"
+                ]
+            },
+            "name": "initTerm",
+            "designerId": "63b4b38c-88f7-4404-8a4a-6d2c238928c7"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|params": [
+                    "id"
+                ],
+                "fn": "getTerm",
+                "implHandler": [
+                    "var me = this,",
+                    "    term = $('#'+id).terminal();",
+                    "",
+                    "return term;"
+                ]
+            },
+            "name": "getTerm",
+            "designerId": "1cf99fcb-0d39-4062-b796-3ca3edabd42a"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|params": [
+                    "id"
+                ],
+                "fn": "getCommand",
+                "implHandler": [
+                    "var me = this,",
+                    "    term = me.getTerm(id);",
+                    "",
+                    "return term.get_command();"
+                ]
+            },
+            "name": "getCommand",
+            "designerId": "c6851633-f7c1-4db6-97f0-98bc93c55bc9"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|params": [
+                    "e",
+                    "term"
+                ],
+                "fn": "onKeydown",
+                "implHandler": [
+                    "var me = this._controller,",
+                    "    commandStr = term.get_command(),",
+                    "    pos = term.export_view().position;",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "if (e.which == 8) {",
+                    "    if (commandStr&&commandStr.length>0) {",
+                    "        if (commandStr.charAt(pos-1)==']'&&(commandStr.indexOf('[')>-1&&commandStr.indexOf('[')<pos)) {",
+                    "            commandStr = commandStr.substring(0,commandStr.indexOf('['));",
+                    "            term.set_command(commandStr);",
+                    "            return false;",
+                    "        }",
+                    "    }",
+                    "}else if (e.which==219 || e.which==221) { //验证\"[\"和\"]\"",
+                    "    return false;",
+                    "}else if (e.which==13) {",
+                    "    /**",
+                    "    message = validator.validate(commandStr,store);",
+                    "    if (message=='') {",
+                    "        term.echo('验证成功');",
+                    "    }else {",
+                    "        term.error(message);",
+                    "    }",
+                    "    **/",
+                    "}"
+                ]
+            },
+            "name": "onKeydown",
+            "designerId": "1a2f5726-71ba-4be2-8d98-bd63f8ee9670"
+        },
+        {
+            "type": "controllerref",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "ref": "itemSelection",
+                "selector": "#Calc_ItemSelection"
+            },
+            "name": "itemSelection",
+            "designerId": "33dbd47a-4f5f-40eb-995f-8623a879fd29"
+        }
+    ]
+}

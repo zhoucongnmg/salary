@@ -3,6 +3,8 @@
  */
 package net.sion.company.salary.domain;
 
+import org.springframework.data.annotation.Transient;
+
 
 /**
  * @author zhangligang
@@ -59,4 +61,19 @@ public class AccountItem {
 	String fieldName;//字段名c
 	String value;//值或公式
 	boolean show;//是否显示
+	String id;
+	@Transient
+	Formula formula;
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
+	public Formula getFormula() {
+		return formula;
+	}
+	public void setFormula(Formula formula) {
+		this.formula = formula;
+	}
 }

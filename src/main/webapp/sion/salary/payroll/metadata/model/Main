@@ -1,0 +1,81 @@
+{
+    "type": "Ext.data.Model",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userClassName": "Main"
+    },
+    "name": "MyModel",
+    "designerId": "1c1e5316-2d72-47c4-bdb0-035d5e19dacb",
+    "cn": [
+        {
+            "type": "Ext.data.proxy.Ajax",
+            "reference": {
+                "name": "proxy",
+                "type": "object"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "api": [
+                    "{",
+                    "    create: 'salary/payroll/addPayroll',",
+                    "    update: 'salary/payroll/updatePayroll'",
+                    "}       "
+                ]
+            },
+            "name": "MyAjaxProxy2",
+            "designerId": "d93b5c37-44f6-49eb-9ed6-9a27bf4b01f7",
+            "cn": [
+                {
+                    "type": "Ext.data.writer.Json",
+                    "reference": {
+                        "name": "writer",
+                        "type": "object"
+                    },
+                    "codeClass": null,
+                    "name": "MyJsonWriter1",
+                    "designerId": "8247a2f5-a411-4cc9-8663-4b3ab42a8440"
+                },
+                {
+                    "type": "Ext.data.reader.Json",
+                    "reference": {
+                        "name": "reader",
+                        "type": "object"
+                    },
+                    "codeClass": null,
+                    "name": "MyJsonReader2",
+                    "designerId": "68d03537-2db7-4efe-b035-b98303fec68d"
+                }
+            ]
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "roll"
+            },
+            "name": "MyField7",
+            "designerId": "d536587d-b5f1-44d3-b115-e7af0ddbefaf"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "accountId"
+            },
+            "name": "MyField8",
+            "designerId": "60e3c363-7f8b-44a1-a78b-d2993e9563bb"
+        }
+    ]
+}

@@ -7,7 +7,7 @@
     "codeClass": null,
     "userConfig": {
         "container|align": "stretch",
-        "designer|userAlias": "mypanel11",
+        "designer|userAlias": "FormulaMain",
         "designer|userClassName": "Main",
         "height": null,
         "layout": "vbox",
@@ -26,10 +26,8 @@
             },
             "codeClass": null,
             "userConfig": {
-                "html": [
-                    "<div id=\"term_demo\" class=\"terminal\"></div>"
-                ],
-                "layout|flex": 1,
+                "html": null,
+                "layout|flex": 2,
                 "minHeight": 92,
                 "title": null
             },
@@ -46,14 +44,18 @@
                     "userConfig": {
                         "fn": "onPanelAfterRender",
                         "implHandler": [
+                            "var me = this,",
+                            "    ns = me.getNamespace(),",
+                            "    formulaId = me._formulaId,",
+                            "    terminal = Ext.create(ns + '.controller.Terminal');",
                             "",
-                            "$('#term_demo').terminal(function(command, term) {",
-                            "",
-                            " }, {",
-                            "     greetings: '输入公式，按回车键校验公式，按SHIFT+回车键换行',",
-                            "     name: 'js_demo',",
-                            "     height: 92,",
-                            "     prompt: '请输入公式>'});",
+                            "terminal.initTerm({",
+                            "    id: formulaId,",
+                            "    greetings: '输入公式，按回车键校验公式，按SHIFT+回车键换行',",
+                            "    name: 'js_demo',",
+                            "    height: 85,",
+                            "    prompt: '>'",
+                            "});",
                             ""
                         ],
                         "name": "afterrender",
@@ -61,6 +63,30 @@
                     },
                     "name": "onPanelAfterRender",
                     "designerId": "f26db9a4-31ac-477e-b044-3fe577ccc7f8"
+                },
+                {
+                    "type": "processcfgfunction",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "designer|params": [
+                            "config"
+                        ],
+                        "fn": "processMyPanel",
+                        "implHandler": [
+                            "var me = this,",
+                            "    formulaId = me._formulaId;",
+                            "",
+                            "config.html = '<div id=\"'+formulaId+'\" class=\"terminal\"></div>';",
+                            "",
+                            "return config;"
+                        ]
+                    },
+                    "name": "processMyPanel",
+                    "designerId": "b77fa42f-7e63-4026-9271-3d83525de1b7"
                 }
             ]
         },
@@ -111,11 +137,14 @@
                     },
                     "codeClass": null,
                     "userConfig": {
+                        "allowBlank": false,
+                        "autoSelect": false,
                         "baseBodyCls": null,
                         "baseCls": null,
                         "border": null,
                         "cls": null,
                         "componentCls": null,
+                        "displayField": "name",
                         "emptyCls": null,
                         "emptyText": "请选择计算项",
                         "fieldCls": null,
@@ -129,16 +158,48 @@
                         "margin": null,
                         "maxHeight": null,
                         "minHeight": null,
-                        "store": [
-                            "[['基本工资','基本工资'],['职级工资','职级工资'],['岗位工资','岗位工资'],['绩效工资','绩效工资']]"
-                        ],
-                        "style": null
+                        "queryMode": "local",
+                        "store": "Item",
+                        "style": null,
+                        "valueField": "name"
                     },
                     "name": "MyComboBox",
-                    "configAlternates": {
-                        "store": "array"
-                    },
-                    "designerId": "2870fbf3-8169-4057-bfcf-e27cc90080c1"
+                    "designerId": "2870fbf3-8169-4057-bfcf-e27cc90080c1",
+                    "cn": [
+                        {
+                            "type": "basiceventbinding",
+                            "reference": {
+                                "name": "listeners",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fn": "onCalc_ItemSelectionAfterRender",
+                                "implHandler": [
+                                    "var me = this,",
+                                    "    ns = me.getNamespace(),",
+                                    "    store = component.getStore(),",
+                                    "    data = me._data;",
+                                    "if (me._data) {",
+                                    "    Ext.Array.each(data,function(d,index){",
+                                    "        var record = Ext.create(ns + '.model.Item',{",
+                                    "            id: d.get('id'),",
+                                    "            name : d.get('name')",
+                                    "        });",
+                                    "",
+                                    "        store.add(record);",
+                                    "    });",
+                                    "",
+                                    "}",
+                                    ""
+                                ],
+                                "name": "afterrender",
+                                "scope": "me"
+                            },
+                            "name": "onCalc_ItemSelectionAfterRender",
+                            "designerId": "ffde0ffb-4520-4e96-addd-47980c11278f"
+                        }
+                    ]
                 },
                 {
                     "type": "Ext.toolbar.Spacer",
@@ -182,12 +243,11 @@
                                     "var me = this,",
                                     "    namespace = me.getNamespace(),",
                                     "    calc_ItemSelection = me.down('#Calc_ItemSelection'),",
-                                    "    ctrl = Ext.create(namespace + '.controller.FormulaController');",
+                                    "    ctrl = Ext.create(namespace + '.controller.Display'),",
+                                    "    formulaId = me._formulaId;",
                                     "",
                                     "",
-                                    "ctrl.addInputScreen('[' + calc_ItemSelection.getValue() + ']');",
-                                    "",
-                                    ""
+                                    "ctrl.addInputScreen(formulaId,'[' + calc_ItemSelection.getValue() + ']');"
                                 ],
                                 "name": "click",
                                 "scope": "me"
@@ -241,6 +301,7 @@
                 ],
                 "border": false,
                 "container|align": "middle",
+                "hidden": true,
                 "layout": "hbox",
                 "layout|flex": 1.2,
                 "margin": "0 10 0 10",
@@ -345,11 +406,9 @@
                                     "var me = this,",
                                     "    namespace = me.getNamespace(),",
                                     "    result_ItemSelection = me.down('#Result_ItemSelection'),",
-                                    "    ctrl = Ext.create(namespace + '.controller.FormulaController');",
+                                    "    ctrl = Ext.create(namespace + '.controller.Display');",
                                     "",
-                                    "",
-                                    "ctrl.addInputScreen('[' + result_ItemSelection.getValue() + ']');",
-                                    ""
+                                    "ctrl.addInputScreen('[' + result_ItemSelection.getValue() + ']');"
                                 ],
                                 "name": "click",
                                 "scope": "me"
@@ -506,7 +565,7 @@
                             "codeClass": null,
                             "userConfig": {
                                 "_type": "Operation",
-                                "_value": "÷",
+                                "_value": "/",
                                 "layout|flex": 1,
                                 "text": "÷"
                             },
@@ -670,7 +729,7 @@
                             "codeClass": null,
                             "userConfig": {
                                 "_type": "Operation",
-                                "_value": "×",
+                                "_value": "*",
                                 "layout|flex": 1,
                                 "text": "×"
                             },
@@ -1239,35 +1298,6 @@
                     },
                     "name": "calcbutton24",
                     "designerId": "6bb9ab93-3b34-4394-bace-bc310bac54e6",
-                    "customConfigs": [
-                        {
-                            "group": "(Custom Properties)",
-                            "name": "_type",
-                            "type": "string"
-                        },
-                        {
-                            "group": "(Custom Properties)",
-                            "name": "_value",
-                            "type": "string"
-                        }
-                    ],
-                    "masterInstanceId": "7956b8cb-c39f-4d4d-96b2-d372f1d0915c"
-                },
-                {
-                    "type": "linkedinstance",
-                    "reference": {
-                        "name": "items",
-                        "type": "array"
-                    },
-                    "codeClass": null,
-                    "userConfig": {
-                        "_type": "Logical",
-                        "_value": "then",
-                        "layout|flex": 1.25,
-                        "text": "则"
-                    },
-                    "name": "calcbutton25",
-                    "designerId": "8e6c368e-e230-4c33-8f73-a973987738ed",
                     "customConfigs": [
                         {
                             "group": "(Custom Properties)",

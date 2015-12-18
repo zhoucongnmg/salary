@@ -16,12 +16,25 @@
 Ext.define('sion.salary.social.view.MyForm1', {
     extend: 'Ext.form.Panel',
 
+    requires: [
+        'Ext.form.Label'
+    ],
+
     height: 250,
     width: 400,
     bodyPadding: 10,
 
     initComponent: function() {
         var me = this;
+
+        Ext.applyIf(me, {
+            items: [
+                {
+                    xtype: 'label',
+                    text: 'My Label'
+                }
+            ]
+        });
 
         me.callParent(arguments);
     }

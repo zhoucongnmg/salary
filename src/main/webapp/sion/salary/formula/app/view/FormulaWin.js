@@ -31,13 +31,21 @@ Ext.define('sion.salary.formula.view.FormulaWin', {
 
         Ext.applyIf(me, {
             items: [
-                {
-                    xtype: 'mypanel11'
-                }
+                me.processMain({
+                    xtype: 'FormulaMain'
+                })
             ]
         });
 
         me.callParent(arguments);
+    },
+
+    processMain: function(config) {
+        var me = this,
+            parentConfig = me._config;
+
+
+        return parentConfig;
     }
 
 });

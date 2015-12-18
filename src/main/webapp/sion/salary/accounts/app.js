@@ -20,6 +20,10 @@ Ext.Loader.setConfig({
 
 
 Ext.application({
+
+    requires: [
+        'sion.salary.social'
+    ],
     paths: {
         'sion.salary.accounts': 'sion/salary/accounts/app'
     },
@@ -29,7 +33,8 @@ Ext.application({
         'SalaryItem',
         'AccountItem',
         'PersonAccount',
-        'PersonAccountItem'
+        'PersonAccountItem',
+        'Dynamic'
     ],
     stores: [
         'SalaryItem',
@@ -37,7 +42,8 @@ Ext.application({
         'Account',
         'AccountMember',
         'PersonAccount',
-        'PersonAccountItem'
+        'PersonAccountItem',
+        'Dynamic'
     ],
     views: [
         'SalaryPlanGrid',
@@ -48,7 +54,8 @@ Ext.application({
         'AddSalaryItem',
         'AccountMember',
         'AccountMemberConfig',
-        'SalaryItemRead'
+        'SalaryItemRead',
+        'testDynamicGrid'
     ],
     name: 'sion.salary.accounts',
 

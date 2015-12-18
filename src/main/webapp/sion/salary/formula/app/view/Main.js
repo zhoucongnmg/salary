@@ -15,7 +15,7 @@
 
 Ext.define('sion.salary.formula.view.Main', {
     extend: 'Ext.panel.Panel',
-    alias: 'widget.mypanel11',
+    alias: 'widget.FormulaMain',
 
     requires: [
         'sion.salary.formula.view.CalcButton',
@@ -35,10 +35,9 @@ Ext.define('sion.salary.formula.view.Main', {
 
         Ext.applyIf(me, {
             items: [
-                {
+                me.processMyPanel({
                     xtype: 'panel',
-                    flex: 1,
-                    html: '<div id="term_demo" class="terminal"></div>',
+                    flex: 2,
                     minHeight: 92,
                     listeners: {
                         afterrender: {
@@ -46,7 +45,7 @@ Ext.define('sion.salary.formula.view.Main', {
                             scope: me
                         }
                     }
-                },
+                }),
                 {
                     xtype: 'panel',
                     flex: 1.2,
@@ -69,25 +68,19 @@ Ext.define('sion.salary.formula.view.Main', {
                             itemId: 'Calc_ItemSelection',
                             fieldLabel: '计算项',
                             hideLabel: true,
+                            allowBlank: false,
                             emptyText: '请选择计算项',
-                            store: [
-                                [
-                                    '基本工资',
-                                    '基本工资'
-                                ],
-                                [
-                                    '职级工资',
-                                    '职级工资'
-                                ],
-                                [
-                                    '岗位工资',
-                                    '岗位工资'
-                                ],
-                                [
-                                    '绩效工资',
-                                    '绩效工资'
-                                ]
-                            ]
+                            autoSelect: false,
+                            displayField: 'name',
+                            queryMode: 'local',
+                            store: 'Item',
+                            valueField: 'name',
+                            listeners: {
+                                afterrender: {
+                                    fn: me.onCalc_ItemSelectionAfterRender,
+                                    scope: me
+                                }
+                            }
                         },
                         {
                             xtype: 'tbspacer',
@@ -118,6 +111,7 @@ Ext.define('sion.salary.formula.view.Main', {
                     xtype: 'panel',
                     flex: 1.2,
                     border: false,
+                    hidden: true,
                     margin: '0 10 0 10',
                     style: 'border:1px solid #CCC;border-radius:4px;',
                     bodyCls: 'formula-itempanel',
@@ -218,7 +212,7 @@ Ext.define('sion.salary.formula.view.Main', {
                                 {
                                     xtype: 'calcbutton',
                                     _type: 'Operation',
-                                    _value: '÷',
+                                    _value: '/',
                                     text: '÷',
                                     flex: 1
                                 },
@@ -264,7 +258,7 @@ Ext.define('sion.salary.formula.view.Main', {
                                 {
                                     xtype: 'calcbutton',
                                     _type: 'Operation',
-                                    _value: '×',
+                                    _value: '*',
                                     text: '×',
                                     flex: 1
                                 },
@@ -440,13 +434,6 @@ Ext.define('sion.salary.formula.view.Main', {
                             _value: 'if',
                             text: '如果',
                             flex: 1.25
-                        },
-                        {
-                            xtype: 'calcbutton',
-                            _type: 'Logical',
-                            _value: 'then',
-                            text: '则',
-                            flex: 1.25
                         }
                     ]
                 }
@@ -456,15 +443,47 @@ Ext.define('sion.salary.formula.view.Main', {
         me.callParent(arguments);
     },
 
+    processMyPanel: function(config) {
+        var me = this,
+            formulaId = me._formulaId;
+
+        config.html = '<div id="'+formulaId+'" class="terminal"></div>';
+
+        return config;
+    },
+
     onPanelAfterRender: function(component, eOpts) {
+        var me = this,
+            ns = me.getNamespace(),
+            formulaId = me._formulaId,
+            terminal = Ext.create(ns + '.controller.Terminal');
 
-        $('#term_demo').terminal(function(command, term) {
+        terminal.initTerm({
+            id: formulaId,
+            greetings: '输入公式，按回车键校验公式，按SHIFT+回车键换行',
+            name: 'js_demo',
+            height: 85,
+            prompt: '>'
+        });
 
-         }, {
-             greetings: '输入公式，按回车键校验公式，按SHIFT+回车键换行',
-             name: 'js_demo',
-             height: 92,
-             prompt: '请输入公式>'});
+    },
+
+    onCalc_ItemSelectionAfterRender: function(component, eOpts) {
+        var me = this,
+            ns = me.getNamespace(),
+            store = component.getStore(),
+            data = me._data;
+        if (me._data) {
+            Ext.Array.each(data,function(d,index){
+                var record = Ext.create(ns + '.model.Item',{
+                    id: d.get('id'),
+                    name : d.get('name')
+                });
+
+                store.add(record);
+            });
+
+        }
 
     },
 
@@ -473,23 +492,20 @@ Ext.define('sion.salary.formula.view.Main', {
         var me = this,
             namespace = me.getNamespace(),
             calc_ItemSelection = me.down('#Calc_ItemSelection'),
-            ctrl = Ext.create(namespace + '.controller.FormulaController');
+            ctrl = Ext.create(namespace + '.controller.Display'),
+            formulaId = me._formulaId;
 
 
-        ctrl.addInputScreen('[' + calc_ItemSelection.getValue() + ']');
-
-
+        ctrl.addInputScreen(formulaId,'[' + calc_ItemSelection.getValue() + ']');
     },
 
     onButtonClick1: function(button, e, eOpts) {
         var me = this,
             namespace = me.getNamespace(),
             result_ItemSelection = me.down('#Result_ItemSelection'),
-            ctrl = Ext.create(namespace + '.controller.FormulaController');
-
+            ctrl = Ext.create(namespace + '.controller.Display');
 
         ctrl.addInputScreen('[' + result_ItemSelection.getValue() + ']');
-
     }
 
 });

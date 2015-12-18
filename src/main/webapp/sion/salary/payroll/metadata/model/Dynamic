@@ -1,0 +1,63 @@
+{
+    "type": "Ext.data.Model",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userClassName": "Dynamic",
+        "idProperty": null
+    },
+    "name": "MyModel",
+    "designerId": "aad7f3a1-56df-4ec2-bb6c-6c1aec3df746",
+    "cn": [
+        {
+            "type": "Ext.data.proxy.Ajax",
+            "reference": {
+                "name": "proxy",
+                "type": "object"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "api": [
+                    "{",
+                    "    create: 'salary/payroll/addPayroll',",
+                    "    update: 'salary/payroll/updatePayroll'",
+                    "}       "
+                ],
+                "url": "salary/payroll/addPayroll"
+            },
+            "name": "MyAjaxProxy1",
+            "designerId": "f3239187-11c4-4e87-ba5c-c74cb52020cb",
+            "cn": [
+                {
+                    "type": "Ext.data.writer.Json",
+                    "reference": {
+                        "name": "writer",
+                        "type": "object"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "allowSingle": false
+                    },
+                    "name": "MyJsonWriter",
+                    "designerId": "b9d53ae7-f131-4f2c-80f8-7ce172744ad7"
+                },
+                {
+                    "type": "Ext.data.reader.Json",
+                    "reference": {
+                        "name": "reader",
+                        "type": "object"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "root": "data"
+                    },
+                    "name": "MyJsonReader1",
+                    "designerId": "a6f8657e-2ee4-4d83-83e3-b6af423a5786"
+                }
+            ]
+        }
+    ]
+}

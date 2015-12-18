@@ -24,7 +24,32 @@
             "codeClass": null,
             "name": "main",
             "designerId": "54c51416-4dfd-4d7a-8cf4-c0c2b1ebcde5",
-            "masterInstanceId": "f9c170c7-941d-461e-9ccd-9d5ad6de60d8"
+            "masterInstanceId": "f9c170c7-941d-461e-9ccd-9d5ad6de60d8",
+            "cn": [
+                {
+                    "type": "processcfgfunction",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "designer|params": [
+                            "config"
+                        ],
+                        "fn": "processMain",
+                        "implHandler": [
+                            "var me = this,",
+                            "    parentConfig = me._config;",
+                            "",
+                            "",
+                            "return parentConfig;"
+                        ]
+                    },
+                    "name": "processMain",
+                    "designerId": "ea2bdea6-f72f-41ba-825b-0081f63e8c23"
+                }
+            ]
         }
     ]
 }

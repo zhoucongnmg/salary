@@ -188,6 +188,44 @@
                                     "designerId": "59c7e746-062c-4d23-8a5b-ab2d4c1cebad"
                                 }
                             ]
+                        },
+                        {
+                            "type": "Ext.button.Button",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "text": "测试"
+                            },
+                            "name": "MyButton6",
+                            "designerId": "3f987adc-2987-4532-be46-10b09b2c1720",
+                            "cn": [
+                                {
+                                    "type": "basiceventbinding",
+                                    "reference": {
+                                        "name": "listeners",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fn": "onButtonClick1",
+                                        "implHandler": [
+                                            "var me = this,",
+                                            "    namespace = me.getNamespace();",
+                                            "",
+                                            "Ext.create(namespace+\".view.DynamicTest\", {",
+                                            "",
+                                            "}).show();"
+                                        ],
+                                        "name": "click",
+                                        "scope": "me"
+                                    },
+                                    "name": "onButtonClick1",
+                                    "designerId": "0943daf3-6504-4efd-bda4-0b9829922209"
+                                }
+                            ]
                         }
                     ]
                 }

@@ -51,11 +51,112 @@
                             "codeClass": null,
                             "userConfig": {
                                 "fn": "onButtonClick",
+                                "implHandler": [
+                                    "var me = this,",
+                                    "    accountItem = me._accountItem,",
+                                    "    grid = me.down('gridpanel'),",
+                                    "    account = me._account,",
+                                    "    form = me.down('form'),",
+                                    "    record = form.getRecord(),",
+                                    "    store = Ext.getStore('AccountItem'),",
+                                    "    select = grid.getSelectionModel().getSelection(),",
+                                    "    formula = me._formula;",
+                                    "",
+                                    "if(select.length < 1){",
+                                    "    Ext.Msg.alert('提示', '请选择待选项目');",
+                                    "    return false;",
+                                    "}",
+                                    "",
+                                    "if(accountItem === null){",
+                                    "    if(recordIndex > -1){",
+                                    "        Ext.Msg.alert('提示', '该项目已经存在，不能重复录入');",
+                                    "        return false;",
+                                    "    }",
+                                    "}else{",
+                                    "    if(recordIndex > -1 && recordIndex !== store.indexOf(record)){",
+                                    "        Ext.Msg.alert('提示', '该项目已经存在，不能重复录入');",
+                                    "        return false;",
+                                    "    }",
+                                    "}",
+                                    "",
+                                    "var recordIndex = store.find('salaryItemId', select[0].get('id'));",
+                                    "form.updateRecord(record);",
+                                    "if(record.get('type') == '系统提取项'){",
+                                    "    record.set('value', '');",
+                                    "}",
+                                    "if(record.get('type') == '计算项'){",
+                                    "//     alert('kai shi ');",
+                                    "//     var app = Ext.ClassManager.get('sion.salary.formula' + \".$application\").create();",
+                                    "//     alert(app);",
+                                    "//     var Api = app.getController('Api');",
+                                    "//     alert(Api);",
+                                    "",
+                                    "//     var c = Api.getFormula();",
+                                    "//     console.log(c);",
+                                    "",
+                                    "    var a = formula.getFormula();",
+                                    "    console.log(a);",
+                                    "",
+                                    "    var b = formula.getFields();",
+                                    "    console.log(b);",
+                                    "",
+                                    "    record.set('formula', null);",
+                                    "    record.set('value', '');",
+                                    "}else{",
+                                    "    record.set('formula', null);",
+                                    "}",
+                                    "record.set('salaryItemId', select[0].get('id'));",
+                                    "record.set('name', select[0].get('name'));",
+                                    "record.set('fieldName', select[0].get('field'));",
+                                    "if(accountItem === null){",
+                                    "    store.add(record);",
+                                    "}",
+                                    "me.close();"
+                                ],
                                 "name": "click",
                                 "scope": "me"
                             },
                             "name": "onButtonClick",
                             "designerId": "97a17018-c9a6-4e1e-861c-2340918063e7"
+                        }
+                    ]
+                },
+                {
+                    "type": "Ext.button.Button",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|flex": null,
+                        "text": "动态列"
+                    },
+                    "name": "MyButton8",
+                    "designerId": "81bbd0e7-6a53-4d67-b452-8efabdbfc4dc",
+                    "cn": [
+                        {
+                            "type": "basiceventbinding",
+                            "reference": {
+                                "name": "listeners",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fn": "onButtonClick1",
+                                "implHandler": [
+                                    "var me = this,",
+                                    "    namespace = me.getNamespace();",
+                                    "",
+                                    "Ext.create(namespace+\".view.testDynamicGrid\", {",
+                                    "",
+                                    "}).show();"
+                                ],
+                                "name": "click",
+                                "scope": "me"
+                            },
+                            "name": "onButtonClick1",
+                            "designerId": "8afad220-2f6a-4537-bd48-8cc32ed0997c"
                         }
                     ]
                 }
@@ -105,7 +206,8 @@
                                 "boxLabel": "在薪资报表中显示",
                                 "fieldLabel": null,
                                 "hideEmptyLabel": false,
-                                "layout|anchor": "100%"
+                                "layout|anchor": "100%",
+                                "name": "show"
                             },
                             "name": "MyCheckbox2",
                             "designerId": "fc142102-069d-461e-b34f-c066c988f4cf"
@@ -119,7 +221,9 @@
                             "codeClass": null,
                             "userConfig": {
                                 "fieldLabel": "类型",
+                                "itemId": "type",
                                 "layout|anchor": "100%",
+                                "name": "type",
                                 "store": [
                                     "['输入项','计算项','系统提取项']"
                                 ]
@@ -138,21 +242,40 @@
                                     },
                                     "codeClass": null,
                                     "userConfig": {
-                                        "fn": "onComboboxChange",
+                                        "fn": "onTypeChange",
                                         "implHandler": [
-                                            "var window=field.up(\"window\");",
-                                            "if(newValue===\"计算项\"){",
-                                            "    window.width=860;",
+                                            "var me = this,",
+                                            "    store = Ext.getStore('SalaryItem'),",
+                                            "//     newValue = field.getValue(),",
+                                            "    window = field.up(\"window\");",
+                                            "",
+                                            "if('计算项' == newValue){",
+                                            "    me.down('#formulaPanel').show();",
+                                            "    me.down('#inputPanel').hide();",
+                                            "    me.getSalaryItem(newValue);",
+                                            "}else if('输入项' == newValue){",
+                                            "    me.down('#formulaPanel').hide();",
+                                            "    me.down('#inputPanel').show();",
+                                            "    me.getSalaryItem(newValue);",
+                                            "}else if('系统提取项' == newValue){",
+                                            "    me.down('#formulaPanel').hide();",
+                                            "    me.down('#inputPanel').hide();",
+                                            "    me.getSalaryItem(newValue);",
+                                            "}else{",
+                                            "    store.removeAll();",
+                                            "}",
+                                            "if(newValue === \"计算项\"){",
+                                            "//     window.width=860;",
                                             "}",
                                             "else{",
-                                            "    window.width=320;",
+                                            "//     window.width=320;",
                                             "}"
                                         ],
                                         "name": "change",
                                         "scope": "me"
                                     },
-                                    "name": "onComboboxChange",
-                                    "designerId": "4183c6f7-dade-4e3d-b98a-a45d225e62b7"
+                                    "name": "onTypeChange",
+                                    "designerId": "643c71e2-6030-43a0-a7a8-dd49c8e41b22"
                                 }
                             ]
                         },
@@ -180,7 +303,7 @@
                                     "codeClass": null,
                                     "userConfig": {
                                         "dataIndex": "name",
-                                        "text": "待选项目",
+                                        "text": "请选择结果项",
                                         "width": "100%"
                                     },
                                     "name": "MyColumn2",
@@ -206,11 +329,11 @@
                                     "userConfig": {
                                         "fn": "onGridpanelBeforeRender",
                                         "implHandler": [
-                                            "var store = component.getStore();",
+                                            "// var store = component.getStore();",
                                             "",
-                                            "if(store.getCount() === 0){",
-                                            "    store.load();",
-                                            "}"
+                                            "// if(store.getCount() === 0){",
+                                            "//     store.load();",
+                                            "// }"
                                         ],
                                         "name": "beforerender",
                                         "scope": "me"
@@ -230,9 +353,14 @@
                     },
                     "codeClass": null,
                     "userConfig": {
+                        "hidden": true,
+                        "itemId": "inputPanel",
                         "layout|flex": 1,
                         "layout|margins": "0 10 0 20",
-                        "title": "公式",
+                        "style": [
+                            "padding-top:10px;"
+                        ],
+                        "title": null,
                         "width": 100
                     },
                     "name": "MyFieldSet2",
@@ -246,45 +374,119 @@
                             },
                             "codeClass": null,
                             "userConfig": {
-                                "fieldLabel": null,
-                                "height": 126,
+                                "fieldLabel": "值",
+                                "labelWidth": 20,
                                 "layout|anchor": "100%",
-                                "width": 478
+                                "name": "value",
+                                "rows": 20
                             },
                             "name": "MyTextArea",
-                            "designerId": "3f4487e5-f537-4299-b11c-b4abb7493d7e"
-                        },
-                        {
-                            "type": "Ext.button.Button",
-                            "reference": {
-                                "name": "items",
-                                "type": "array"
-                            },
-                            "codeClass": null,
-                            "userConfig": {
-                                "text": "+ ",
-                                "width": 50
-                            },
-                            "name": "MyButton8",
-                            "designerId": "65fbf955-142e-4c9b-99b6-cb6c35275032"
-                        },
-                        {
-                            "type": "Ext.button.Button",
-                            "reference": {
-                                "name": "items",
-                                "type": "array"
-                            },
-                            "codeClass": null,
-                            "userConfig": {
-                                "text": "- ",
-                                "width": 50
-                            },
-                            "name": "MyButton9",
-                            "designerId": "69f037ed-df7f-457b-a158-7f8f93ea3388"
+                            "designerId": "01fea991-e816-43c4-807d-b480871e9764"
                         }
                     ]
+                },
+                {
+                    "type": "Ext.form.FieldSet",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "hidden": true,
+                        "itemId": "formulaPanel",
+                        "layout": "fit",
+                        "layout|flex": 1,
+                        "layout|margins": "0 10 0 20",
+                        "title": "公式",
+                        "width": 100
+                    },
+                    "name": "MyFieldSet4",
+                    "designerId": "be66de0c-08ac-48ce-851d-696c64eeaf6b"
                 }
             ]
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|params": [
+                    "type"
+                ],
+                "fn": "getSalaryItem",
+                "implHandler": [
+                    "var me = this,",
+                    "    grid = me.down('gridpanel'),",
+                    "    store = grid.getStore(),",
+                    "    accountItem = me._accountItem,",
+                    "    system = false;",
+                    "",
+                    "if(type === '系统提取项'){",
+                    "    system = true;",
+                    "}",
+                    "store.clearFilter(true);",
+                    "Ext.apply(store.proxy.extraParams, {",
+                    "    system : system,",
+                    "    type : type",
+                    "});",
+                    "store.load({",
+                    "    scope: this,",
+                    "    callback: function(records, operation, success) {",
+                    "        var record = store.find('id', accountItem.get('salaryItemId'));",
+                    "        grid.getSelectionModel().select(record);",
+                    "    }",
+                    "});"
+                ]
+            },
+            "name": "getSalaryItem",
+            "designerId": "52a4a64b-8d14-4cdd-8ce7-bdffcd73c098"
+        },
+        {
+            "type": "basiceventbinding",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "onWindowAfterRender",
+                "implHandler": [
+                    "var me = this,",
+                    "    namespace = me.getNamespace(),",
+                    "    form = me.down('form'),",
+                    "    record = me._accountItem,",
+                    "    store = Ext.getStore('AccountItem'),",
+                    "    panel = me.down('#formulaPanel');",
+                    "",
+                    "var app = Ext.ClassManager.get('sion.salary.formula' + \".$application\").create();",
+                    "var Api = app.getController('Api');",
+                    "Api.initFormula({",
+                    "    _formulaId : 'AddSalaryItem',//窗口的ItemId",
+                    "    _container :  panel,//需要将公式编辑器面板显示到哪一个Container中",
+                    "    _data : store.data.items//计算项store(Model必须包含id,text等field)",
+                    "",
+                    "});",
+                    "me._formula = Api;",
+                    "if(record === null){",
+                    "    record = Ext.create(namespace + '.model.AccountItem', {",
+                    "        id : Ext.data.IdGenerator.get('uuid').generate()",
+                    "    });",
+                    "    me._accountItem = record;",
+                    "}else{",
+                    "//     me.down('#type').setValue(record.get('type'));",
+                    "    me.getSalaryItem(record.get('type'));",
+                    "}",
+                    "form.loadRecord(record);"
+                ],
+                "name": "afterrender",
+                "scope": "me"
+            },
+            "name": "onWindowAfterRender",
+            "designerId": "d80cc5df-d58f-43af-be59-44172df35ea3"
         }
     ]
 }

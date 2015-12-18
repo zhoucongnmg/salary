@@ -11,5 +11,17 @@
         "storeId": "AccountItem"
     },
     "name": "MyStore",
-    "designerId": "541db390-fbe9-465f-8d0d-1da9256d7f0f"
+    "designerId": "541db390-fbe9-465f-8d0d-1da9256d7f0f",
+    "cn": [
+        {
+            "type": "Ext.data.proxy.Memory",
+            "reference": {
+                "name": "proxy",
+                "type": "object"
+            },
+            "codeClass": null,
+            "name": "MyMemoryProxy1",
+            "designerId": "d484c4c1-5e42-4d6d-9908-a1263108d853"
+        }
+    ]
 }

@@ -1,0 +1,228 @@
+{
+    "type": "Ext.window.Window",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userClassName": "DynamicGrid",
+        "height": 500,
+        "layout": "fit",
+        "title": null,
+        "width": 800
+    },
+    "name": "MyWindow1",
+    "designerId": "88cf984a-a976-4126-b677-6ef701d8331b",
+    "cn": [
+        {
+            "type": "Ext.grid.Panel",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "title": null
+            },
+            "name": "MyGridPanel2",
+            "designerId": "f0e6906a-93f4-4c00-a1a8-bf7718223157",
+            "cn": [
+                {
+                    "type": "Ext.grid.column.Column",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dataIndex": "string",
+                        "text": "String"
+                    },
+                    "name": "MyColumn12",
+                    "designerId": "d4262980-dac4-4d34-9f08-670fe7728bf0"
+                },
+                {
+                    "type": "Ext.grid.View",
+                    "reference": {
+                        "name": "viewConfig",
+                        "type": "object"
+                    },
+                    "codeClass": null,
+                    "name": "MyGridView3",
+                    "designerId": "6a6b0dd2-0a8c-47c5-8ec0-0ba9345c8eb4"
+                },
+                {
+                    "type": "Ext.grid.plugin.CellEditing",
+                    "reference": {
+                        "name": "plugins",
+                        "type": "array"
+                    },
+                    "codeClass": "Ext.grid.plugin.CellEditing",
+                    "name": "MyCellEditingPlugin",
+                    "designerId": "12c771ff-66e9-44e6-b093-1f667f2a8cbd"
+                }
+            ]
+        },
+        {
+            "type": "basiceventbinding",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "onWindowBeforeRender",
+                "implHandler": [
+                    "//     fields = [{'name': 'a', 'type': 'String'},{'name': 'b', 'type': 'String'},{'name': 'c', 'type': 'String'}],",
+                    "//     columns = [{'header': '编号a', 'dataIndex': 'a'}, {'header': '编号b', 'dataIndex': 'b'}, {'header': '编号c', 'dataIndex': 'c'}],",
+                    "//     data = [{'a':'张三', 'b':'1981年', 'c':'男'},{'a':'赵四', 'b':'1984年', 'c':'女'}],",
+                    "var me = this,",
+                    "    accountId = me._accountId,",
+                    "    grid = me.down('grid'),",
+                    "    store = Ext.getStore('Dynamic');",
+                    "",
+                    "Ext.Ajax.request({",
+                    "    url:'salary/payroll/memberList',",
+                    "    params : {",
+                    "        accountId : accountId",
+                    "    },",
+                    "    method:'post',",
+                    "    async: true,",
+                    "    success: function(response){",
+                    "        store.removeAll();",
+                    "        json = Ext.JSON.decode(response.responseText);",
+                    "        store.model.setFields(json.data.fields, null, null);",
+                    "        store.add(json.data.data);",
+                    "        grid.reconfigure(store, json.data.columns);",
+                    "        me._columns = json.data.columns;",
+                    "    },failure: function(){",
+                    "        Ext.Msg.alert(\"提示\", \"加载失败\");",
+                    "    }",
+                    "});"
+                ],
+                "name": "beforerender",
+                "scope": "me"
+            },
+            "name": "onWindowBeforeRender",
+            "designerId": "f24dd15c-3ec2-4170-8e3b-a6473af7a17e"
+        },
+        {
+            "type": "Ext.toolbar.Toolbar",
+            "reference": {
+                "name": "dockedItems",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "dock": "top"
+            },
+            "name": "MyToolbar2",
+            "designerId": "45e3118a-1e46-41ab-aced-b469f860ea8e",
+            "cn": [
+                {
+                    "type": "Ext.button.Button",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|flex": null,
+                        "text": "保存"
+                    },
+                    "name": "MyButton7",
+                    "designerId": "889b141f-2e33-4325-ae06-ebf58c88e56f",
+                    "cn": [
+                        {
+                            "type": "basiceventbinding",
+                            "reference": {
+                                "name": "listeners",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fn": "onButtonClick",
+                                "implHandler": [
+                                    "var me = this,",
+                                    "    accountId = me._accountId,",
+                                    "    namespace = me.getNamespace(),",
+                                    "    mainModel = Ext.create(namespace + '.model.Main'),",
+                                    "    grid = me.down('grid'),",
+                                    "    store = grid.getStore(),",
+                                    "    data = [];",
+                                    "",
+                                    "// alert('aaa');",
+                                    "// store.setProxy(new Ext.data.proxy.Proxy({",
+                                    "//     type: 'ajax',",
+                                    "//     api: {",
+                                    "//         create: 'salary/payroll/addPayroll',",
+                                    "// //         read: 'feeItem/list',",
+                                    "//         update: 'salary/payroll/updatePayroll'",
+                                    "// //         destroy: 'feeItem/delete'",
+                                    "//     },",
+                                    "//     reader: {",
+                                    "//         type: 'json',",
+                                    "//         rootProperty : 'data'",
+                                    "//     },",
+                                    "//     writer: {",
+                                    "//         type: 'json',",
+                                    "//         allowSingle: false,",
+                                    "//     }",
+                                    "// }));",
+                                    "// console.log(store);",
+                                    "// store.sync({",
+                                    "//     success: function(response, options){",
+                                    "//         alert('sucess');",
+                                    "//     },failure: function(response, options){",
+                                    "//         Ext.Msg.alert(\"提示\", \"操作失败\");",
+                                    "//     }",
+                                    "// });",
+                                    "",
+                                    "Ext.Array.each(store.getModifiedRecords(), function(record){",
+                                    "    data.push(record.getData());",
+                                    "});",
+                                    "mainModel.set('roll', data);",
+                                    "mainModel.set('accountId', accountId);",
+                                    "",
+                                    "// alert(data);",
+                                    "// Ext.Ajax.request({",
+                                    "//         url :'salary/payroll/addPayroll',",
+                                    "//         params : {",
+                                    "// //             accountId : 'abcde',",
+                                    "//             pays : data",
+                                    "// //             pays : data",
+                                    "//         },",
+                                    "//     success:function(response, action){",
+                                    "//         Ext.Msg.alert(\"提示\", \"提交成功\");",
+                                    "//     },failure: function(){",
+                                    "//         Ext.Msg.alert(\"提示\", \"提交失败\");",
+                                    "//     }",
+                                    "// });",
+                                    "",
+                                    "mainModel.save({",
+                                    "    url: 'salary/payroll/addPayroll',",
+                                    "    success: function(e,operation){",
+                                    "        Ext.Msg.alert(\"提示\", \"保存成功\");",
+                                    "        processStore.load();",
+                                    "        me.close();",
+                                    "    },",
+                                    "    failure: function(){",
+                                    "        Ext.Msg.alert(\"提示\", \"保存失败\");",
+                                    "        processStore.load();",
+                                    "        me.close();",
+                                    "    }",
+                                    "});"
+                                ],
+                                "name": "click",
+                                "scope": "me"
+                            },
+                            "name": "onButtonClick",
+                            "designerId": "4b462508-73e2-4a5f-b8db-15ee26fc6cb5"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
