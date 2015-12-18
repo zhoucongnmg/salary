@@ -147,6 +147,7 @@ Ext.define('sion.salary.level.view.LevelGrid', {
             namespace=me.getNamespace(),
             grid=me.down('gridpanel');
         Ext.create(namespace+".view.Level_win",{_levelGrid:grid}).show();
+        // test Ext.create(namespace+".view.MyWindow").show();
     },
 
     onPanelAfterRender: function(component, eOpts) {

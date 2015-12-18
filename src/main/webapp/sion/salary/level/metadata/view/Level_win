@@ -467,8 +467,8 @@
                 "fn": "onWindowBeforeClose",
                 "implHandler": [
                     "var me=this,",
-                    "            grid=me.down('gridpanel'),",
-                    "            store=grid.getStore();",
+                    "    grid=me.down('gridpanel'),",
+                    "    store=grid.getStore();",
                     "store.removeAll();"
                 ],
                 "name": "beforeclose",

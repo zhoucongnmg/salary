@@ -11,6 +11,7 @@ import net.sion.company.salary.sessionrepository.FormulaRepository;
 import net.sion.util.mvc.Response;
 
 @RestController
+@RequestMapping("/salary/formula/") 
 public class FormulaController {
 	@Autowired
 	private FormulaRepository formulaRepository;
