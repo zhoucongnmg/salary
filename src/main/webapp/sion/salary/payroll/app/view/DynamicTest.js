@@ -17,7 +17,8 @@ Ext.define('sion.salary.payroll.view.DynamicTest', {
     extend: 'Ext.window.Window',
 
     requires: [
-        'Ext.button.Button'
+        'Ext.button.Button',
+        'Ext.form.field.Text'
     ],
 
     height: 250,
@@ -37,6 +38,10 @@ Ext.define('sion.salary.payroll.view.DynamicTest', {
                             scope: me
                         }
                     }
+                },
+                {
+                    xtype: 'textfield',
+                    fieldLabel: 'Label'
                 }
             ]
         });

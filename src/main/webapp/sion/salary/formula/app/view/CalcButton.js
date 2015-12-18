@@ -53,8 +53,9 @@ Ext.define('sion.salary.formula.view.CalcButton', {
             ns = me.getNamespace(),
             ctrl = Ext.create(ns + '.controller.Display'),
             text = button.getText(),
-            main = button.up('formulaMain'),
-            formulaId = main._formulaId;
+            main = button.up('FormulaMain'),
+            formulaId = main._formulaId,
+            type = button._type;
 
         if (type=='Logical') {
             text = 'if (){\r\n'+

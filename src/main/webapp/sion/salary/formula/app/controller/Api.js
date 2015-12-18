@@ -16,6 +16,10 @@
 Ext.define('sion.salary.formula.controller.Api', {
     extend: 'Ext.app.Controller',
 
+    getTerminalCtrl: function() {
+        return this.getController('Terminal');
+    },
+
     getFormula: function() {
         var me = this,
             conifg = me._config,
@@ -25,7 +29,6 @@ Ext.define('sion.salary.formula.controller.Api', {
 
 
         return term._history;
-
     },
 
     validateFormula: function() {
@@ -36,16 +39,16 @@ Ext.define('sion.salary.formula.controller.Api', {
             validator = me.getValidatorCtrl(),
             command = ctrl.getCommand(formulaId);
 
-        return validator.validate(command,config._store);
+        return validator.validate(command,config._data);
     },
 
     getFields: function() {
         var me = this,
             conifg = me._config,
-            store = config._store,
+            data = config._data,
             json = [];
 
-        store.each(function(record,index) {
+        Ext.Array.each(data,function(record,index) {
             var text = record.get('name');
             if (str.indexOf('[' + text + ']')>-1){
                 json.push({
@@ -60,13 +63,12 @@ Ext.define('sion.salary.formula.controller.Api', {
 
     initFormula: function(config) {
         /**
-         config : {
-             _formulaId : //窗口的ItemId
-             _container :  //需要将公式编辑器面板显示到哪一个Container中
-             _store : //计算项store(Model必须包含id,text等field)
-
-         }
-         **/
+        config : {
+            _formulaId : //窗口的ItemId
+            _container :  //需要将公式编辑器面板显示到哪一个Container中
+            _data : //计算项store(Model必须包含id,text等field)
+        }
+                     **/
         Ext.util.CSS.swapStyleSheet('formula-base','sion/salary/formula/resources/formula.css');
         Ext.util.CSS.swapStyleSheet('formula-terminal','sion/salary/formula/jqueryTerminal/terminal.css');
         Ext.util.CSS.swapStyleSheet('formula-terminal-base','sion/salary/formula/jqueryTerminal/style.css');
@@ -80,28 +82,17 @@ Ext.define('sion.salary.formula.controller.Api', {
         me._config = config;
         if (container) {
             main = Ext.create(ns + '.view.Main',{
-                _store : config._store,
+                _data : config._data,
                 _formulaId : config._formulaId
             });
             container.add(main);
         }else {
             win = Ext.create(ns + '.view.FormulaWin',{
-                _store : config._store,
+                _data : config._data,
                 _formulaId : config._formulaId
             });
             win.show();
         }
-
-
-    },
-
-    getTerminalCtrl: function() {
-        return this.getController('Terminal');
-    },
-
-    getValidatorCtrl: function() {
-
-        return this.getController('Validator');
 
     }
 

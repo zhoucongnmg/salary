@@ -26,7 +26,7 @@
         "displayfield-ExtBox1-1126-inputEl": "a new version of the framework is available"
     },
     "xdsVersion": "3.2.0",
-    "xdsBuild": 75,
+    "xdsBuild": 239,
     "schemaVersion": 1,
     "upgradeVersion": 310000000001,
     "framework": "ext42",
@@ -37,14 +37,18 @@
             "7956b8cb-c39f-4d4d-96b2-d372f1d0915c",
             "9ab5b571-6407-456b-80a2-8c7e2fb2f6a5"
         ],
-        "store": [],
+        "store": [
+            "73e64a1c-5c9a-4cad-b19c-dacd32557938"
+        ],
         "controller": [
             "fd8c0104-b1bc-42bc-b449-7060f3f01c8a",
             "f33e9a6a-ce3b-4a70-accd-bc7adf5bb4fa",
             "2c58285e-e9db-4e51-985f-9d5efb8462d8",
             "7d6c55ed-fda7-4eb9-9f0b-f0c17f3953ff"
         ],
-        "model": [],
+        "model": [
+            "07d5f1d0-6a14-444d-9567-33de0d1ebd8f"
+        ],
         "resource": [
             "1df0b2d9-fab1-408e-9cdc-91d0f60e8bfd",
             "f375323f-ad6c-43d5-bfd8-677fca0fa9b1"

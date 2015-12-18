@@ -28,6 +28,12 @@ Ext.application({
         'sion.salary.formula': 'sion/salary/formula/app',
         'formula.jqueryTerminal': 'sion/salary/formula/jqueryTerminal'
     },
+    models: [
+        'Item'
+    ],
+    stores: [
+        'Item'
+    ],
     views: [
         'Main',
         'FormulaWin',
@@ -43,7 +49,7 @@ Ext.application({
     name: 'sion.salary.formula',
 
     launch: function() {
-
+        /**
         var me = this,
             ns = me.getNamespace();
         var win = Ext.create(ns + '.view.FormulaWin',{
@@ -52,6 +58,7 @@ Ext.application({
             }
         });
         win.show();
+        **/
     }
 
 });

@@ -137,6 +137,8 @@
                     },
                     "codeClass": null,
                     "userConfig": {
+                        "allowBlank": false,
+                        "autoSelect": false,
                         "baseBodyCls": null,
                         "baseCls": null,
                         "border": null,
@@ -156,39 +158,46 @@
                         "margin": null,
                         "maxHeight": null,
                         "minHeight": null,
-                        "store": null,
+                        "queryMode": "local",
+                        "store": "Item",
                         "style": null,
-                        "valueField": "id"
+                        "valueField": "name"
                     },
                     "name": "MyComboBox",
-                    "configAlternates": {
-                        "store": "array"
-                    },
                     "designerId": "2870fbf3-8169-4057-bfcf-e27cc90080c1",
                     "cn": [
                         {
-                            "type": "processcfgfunction",
+                            "type": "basiceventbinding",
                             "reference": {
-                                "name": "items",
+                                "name": "listeners",
                                 "type": "array"
                             },
                             "codeClass": null,
                             "userConfig": {
-                                "designer|params": [
-                                    "config"
-                                ],
-                                "fn": "processCalc_ItemSelection",
+                                "fn": "onCalc_ItemSelectionAfterRender",
                                 "implHandler": [
-                                    "var me = this;",
-                                    "if (me._store) {",
-                                    "    config.store = me._store;",
-                                    "}",
+                                    "var me = this,",
+                                    "    ns = me.getNamespace(),",
+                                    "    store = component.getStore(),",
+                                    "    data = me._data;",
+                                    "if (me._data) {",
+                                    "    Ext.Array.each(data,function(d,index){",
+                                    "        var record = Ext.create(ns + '.model.Item',{",
+                                    "            id: d.get('id'),",
+                                    "            name : d.get('name')",
+                                    "        });",
                                     "",
-                                    "return config;"
-                                ]
+                                    "        store.add(record);",
+                                    "    });",
+                                    "",
+                                    "}",
+                                    ""
+                                ],
+                                "name": "afterrender",
+                                "scope": "me"
                             },
-                            "name": "processCalc_ItemSelection",
-                            "designerId": "44c8da6e-fe31-4ee7-9df3-ed0f1a9cb541"
+                            "name": "onCalc_ItemSelectionAfterRender",
+                            "designerId": "ffde0ffb-4520-4e96-addd-47980c11278f"
                         }
                     ]
                 },

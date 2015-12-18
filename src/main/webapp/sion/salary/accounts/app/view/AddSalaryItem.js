@@ -155,6 +155,7 @@ Ext.define('sion.salary.accounts.view.AddSalaryItem', {
                             hidden: true,
                             itemId: 'formulaPanel',
                             width: 100,
+                            layout: 'fit',
                             title: '公式'
                         }
                     ]
@@ -179,7 +180,8 @@ Ext.define('sion.salary.accounts.view.AddSalaryItem', {
             form = me.down('form'),
             record = form.getRecord(),
             store = Ext.getStore('AccountItem'),
-            select = grid.getSelectionModel().getSelection();
+            select = grid.getSelectionModel().getSelection(),
+            formula = me._formula;
 
         if(select.length < 1){
             Ext.Msg.alert('提示', '请选择待选项目');
@@ -204,6 +206,13 @@ Ext.define('sion.salary.accounts.view.AddSalaryItem', {
             record.set('value', '');
         }
         if(record.get('type') == '计算项'){
+            alert('kai shi ');
+            var a = formula.getFormula();
+            console.log(a);
+
+            var b = formula.getFields();
+            console.log(b);
+
             record.set('formula', null);
             record.set('value', '');
         }else{
@@ -270,22 +279,22 @@ Ext.define('sion.salary.accounts.view.AddSalaryItem', {
             form = me.down('form'),
             record = me._accountItem,
             store = Ext.getStore('AccountItem'),
-            win = Ext.create("sion.salary.formula.view.Main");
+            panel = me.down('#formulaPanel');
 
-        // me.down('#formulaPanel').add(win);
         var app = Ext.ClassManager.get('sion.salary.formula' + ".$application").create();
         var Api = app.getController('Api');
-        var panel = Api.initFormula({
+        var formula = Api.initFormula({
             _formulaId : 'AddSalaryItem',//窗口的ItemId
-            _container :  me.down('#formulaPanel'),//需要将公式编辑器面板显示到哪一个Container中
-            _store : store//计算项store(Model必须包含id,text等field)
+            _container :  panel,//需要将公式编辑器面板显示到哪一个Container中
+            _data : store.data.items//计算项store(Model必须包含id,text等field)
 
         });
-
+        me._formula = formula;
         if(record === null){
             record = Ext.create(namespace + '.model.AccountItem', {
                 id : Ext.data.IdGenerator.get('uuid').generate()
             });
+            me._accountItem = record;
         }else{
         //     me.down('#type').setValue(record.get('type'));
             me.getSalaryItem(record.get('type'));

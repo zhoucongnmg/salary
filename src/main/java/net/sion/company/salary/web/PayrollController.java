@@ -54,6 +54,10 @@ public class PayrollController {
 	public @ResponseBody Response memberList(HttpSession session,String accountId) {
 //		List<Account> list = accountRepository.findAll();
 //		Account account = list.get(0);
+		List<PayrollItem> payrollItems = payrollItemRepository.findByAccountId(accountId);
+		if(payrollItems != null && payrollItems.size()>0){
+			payrollItems.get(0);
+		}
 		Account account = accountRepository.findOne(accountId);
 		List<AccountItem> items = account.getAccountItems();
 		List<Map> fields = new ArrayList();

@@ -20,9 +20,9 @@ Ext.define('sion.salary.formula.controller.Validator', {
 
     },
 
-    validate: function(str,store) {
+    validate: function(str,data) {
         var message = '';
-        store.each(function(record,index) {
+        Ext.Array.each(data,function(record,index) {
             var text = record.get('name');
             str = str.replace('[' + text + ']','(' + Math.random()*100 + ')');
         });

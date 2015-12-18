@@ -33,12 +33,12 @@
             "codeClass": null,
             "userConfig": {
                 "designer|params": [
-                    "str,store"
+                    "str,data"
                 ],
                 "fn": "validate",
                 "implHandler": [
                     "var message = '';",
-                    "store.each(function(record,index) {",
+                    "Ext.Array.each(data,function(record,index) {",
                     "    var text = record.get('name');",
                     "    str = str.replace('[' + text + ']','(' + Math.random()*100 + ')');",
                     "});",

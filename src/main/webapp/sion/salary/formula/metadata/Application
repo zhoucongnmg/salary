@@ -12,6 +12,9 @@
             "Terminal",
             "Api"
         ],
+        "models": [
+            "Item"
+        ],
         "name": "sion.salary.formula",
         "paths": [
             "{",
@@ -22,6 +25,9 @@
         ],
         "requires": [
             "formula.jqueryTerminal.terminal"
+        ],
+        "stores": [
+            "Item"
         ],
         "views": [
             "Main",
@@ -53,7 +59,7 @@
             "userConfig": {
                 "fn": "launch",
                 "implHandler": [
-                    "",
+                    "/**",
                     "var me = this,",
                     "    ns = me.getNamespace();",
                     "var win = Ext.create(ns + '.view.FormulaWin',{",
@@ -61,7 +67,8 @@
                     "        formulaId:'formula'",
                     "    }",
                     "});",
-                    "win.show();"
+                    "win.show();",
+                    "**/"
                 ]
             },
             "name": "launch",

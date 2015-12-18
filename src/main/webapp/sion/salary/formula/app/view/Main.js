@@ -62,16 +62,26 @@ Ext.define('sion.salary.formula.view.Main', {
                             xtype: 'tbspacer',
                             flex: 0.2
                         },
-                        me.processCalc_ItemSelection({
+                        {
                             xtype: 'combobox',
                             flex: 8,
                             itemId: 'Calc_ItemSelection',
                             fieldLabel: '计算项',
                             hideLabel: true,
+                            allowBlank: false,
                             emptyText: '请选择计算项',
+                            autoSelect: false,
                             displayField: 'name',
-                            valueField: 'id'
-                        }),
+                            queryMode: 'local',
+                            store: 'Item',
+                            valueField: 'name',
+                            listeners: {
+                                afterrender: {
+                                    fn: me.onCalc_ItemSelectionAfterRender,
+                                    scope: me
+                                }
+                            }
+                        },
                         {
                             xtype: 'tbspacer',
                             flex: 0.3
@@ -442,15 +452,6 @@ Ext.define('sion.salary.formula.view.Main', {
         return config;
     },
 
-    processCalc_ItemSelection: function(config) {
-        var me = this;
-        if (me._store) {
-            config.store = me._store;
-        }
-
-        return config;
-    },
-
     onPanelAfterRender: function(component, eOpts) {
         var me = this,
             ns = me.getNamespace(),
@@ -464,6 +465,25 @@ Ext.define('sion.salary.formula.view.Main', {
             height: 85,
             prompt: '>'
         });
+
+    },
+
+    onCalc_ItemSelectionAfterRender: function(component, eOpts) {
+        var me = this,
+            ns = me.getNamespace(),
+            store = component.getStore(),
+            data = me._data;
+        if (me._data) {
+            Ext.Array.each(data,function(d,index){
+                var record = Ext.create(ns + '.model.Item',{
+                    id: d.get('id'),
+                    name : d.get('name')
+                });
+
+                store.add(record);
+            });
+
+        }
 
     },
 

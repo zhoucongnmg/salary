@@ -51,6 +51,19 @@
                     "designerId": "7fb2ffbc-dbbd-4da0-9569-e8a046644fd1"
                 }
             ]
+        },
+        {
+            "type": "Ext.form.field.Text",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fieldLabel": "Label"
+            },
+            "name": "MyTextField1",
+            "designerId": "8a149c7f-4bed-43e0-9854-41f891a5103e"
         }
     ]
 }
