@@ -136,19 +136,19 @@ Ext.define('sion.salary.payroll.view.DynamicGrid', {
         //     }
         // }));
         // console.log(store);
-        // store.sync({
-        //     success: function(response, options){
-        //         alert('sucess');
-        //     },failure: function(response, options){
-        //         Ext.Msg.alert("提示", "操作失败");
-        //     }
-        // });
-
-        Ext.Array.each(store.getModifiedRecords(), function(record){
-            data.push(record.getData());
+        store.sync({
+            success: function(response, options){
+                alert('sucess');
+            },failure: function(response, options){
+                Ext.Msg.alert("提示", "操作失败");
+            }
         });
-        mainModel.set('roll', data);
-        mainModel.set('accountId', accountId);
+
+        // Ext.Array.each(store.getModifiedRecords(), function(record){
+        //     data.push(record.getData());
+        // });
+        // mainModel.set('roll', data);
+        // mainModel.set('accountId', accountId);
 
         // alert(data);
         // Ext.Ajax.request({
@@ -165,19 +165,19 @@ Ext.define('sion.salary.payroll.view.DynamicGrid', {
         //     }
         // });
 
-        mainModel.save({
-            url: 'salary/payroll/addPayroll',
-            success: function(e,operation){
-                Ext.Msg.alert("提示", "保存成功");
-                processStore.load();
-                me.close();
-            },
-            failure: function(){
-                Ext.Msg.alert("提示", "保存失败");
-                processStore.load();
-                me.close();
-            }
-        });
+        // mainModel.save({
+        //     url: 'salary/payroll/addPayroll',
+        //     success: function(e,operation){
+        //         Ext.Msg.alert("提示", "保存成功");
+        //         processStore.load();
+        //         me.close();
+        //     },
+        //     failure: function(){
+        //         Ext.Msg.alert("提示", "保存失败");
+        //         processStore.load();
+        //         me.close();
+        //     }
+        // });
     }
 
 });

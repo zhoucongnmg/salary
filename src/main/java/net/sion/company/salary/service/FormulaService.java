@@ -2,20 +2,19 @@ package net.sion.company.salary.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
-import javax.validation.constraints.NotNull;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import com.gs.collections.impl.factory.Lists;
 
 import net.sion.company.salary.domain.Formula;
 import net.sion.company.salary.domain.FormulaItem;
+import net.sion.company.salary.domain.FormulaItem.FormulaType;
 import net.sion.company.salary.sessionrepository.FormulaRepository;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 @Service
 public class FormulaService {
@@ -80,7 +79,7 @@ public class FormulaService {
 		Formula formula = formulaRepository.findOne(formulaId);
 		List<FormulaItem> items = formula.getItems();
 		for (FormulaItem item : items) {
-			if (FormulaItem.FormulaType.ResultItem.equals(item.getType())) {
+			if (FormulaType.Result.equals(item.getType())) {
 				items.addAll(this.getFormulaItems(item.getFieldId()));
 			}
 		}
@@ -103,10 +102,10 @@ public class FormulaService {
 		
 		for (FormulaItem item : items) {
 			switch (item.getType()) {
-			case CalculateItem:
+			case Calculate:
 				formulaString.replaceAll(item.getText(), item.getValue());
 				break;
-			case ResultItem:
+			case Result:
 				Double temp = calculate(formulaId, params);
 				formulaString.replaceAll(item.getText(), String.valueOf(temp));
 				break;
@@ -122,8 +121,38 @@ public class FormulaService {
 		}
 		return result;
 	}
-
-	public void create(Formula formula){
-		formulaRepository.save(formula);
+	
+	
+	/**
+	 * 保存公式
+	 * @param formula 公式内容
+	 * @param result	公式结果项
+	 * @param items	公式计算项
+	 */
+	public void create(String formula,Map<String,String> result,Map<String,String> items){
+		List<FormulaItem> formulaItems = new ArrayList<FormulaItem>();
+		//TODO save type of Calculate item.
+		for (Map.Entry<String, String> entry : items.entrySet()) {
+			FormulaItem item = new FormulaItem();
+			String key = entry.getKey();
+			String value = entry.getValue();
+			if ("id".equals(key)) {
+				item.setFieldId(value);
+			}else if ("name".equals(key)) {
+				item.setText(value);
+			}
+			item.setType(FormulaType.Calculate);
+			formulaItems.add(item);
+		}
+		//TODO save type of Result item.
+		String resultFieldId = result.get("id");
+		String resultName = result.get("name");
+		
+		FormulaItem resultItem = new FormulaItem(resultFieldId,resultName,FormulaType.Result);
+		formulaItems.add(resultItem);
+		
+		Formula f = new Formula(formula,formulaItems,resultFieldId);
+		
+		formulaRepository.save(f);
 	}
 }

@@ -20,11 +20,30 @@ public class FormulaItem {
 //		Operation, //运算符(加减乘除)
 //		Symbols, //符号
 //		Numeric,	//数字(0-9)
-		CalculateItem,	//计算项,
-		ResultItem	//结果项,此项目是另一个计算公式的结果
+		Calculate,	//计算项,
+		Result	//结果项,此项目是另一个计算公式的结果
 //		Logical //逻辑运算符（与、或、如果、则、>=、<=、>、<）
 		
 	}
+	
+	
+	public FormulaItem() {
+		
+	}
+	
+	public FormulaItem(String fieldId,String text,FormulaType type) {
+		this.fieldId = fieldId;
+		this.text = text;
+		this.type = type;
+	}
+	
+	public FormulaItem(String fieldId,String text,FormulaType type,String value) {
+		this(fieldId,text,type);
+		this.value = value;
+	}
+	
+	
+	
 
 	public String getValue() {
 		return value;

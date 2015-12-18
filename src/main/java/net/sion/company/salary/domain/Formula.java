@@ -21,10 +21,16 @@ public class Formula {
 	//计算公式文本 形式如： 1-（2X 请假天数）+补助
 	String formula;
 	
-	public enum BusinessType{
-		Salary
+	public Formula () {
+		
 	}
-
+	
+	public Formula(String formula,List<FormulaItem> items,String resultFieldId) {
+		this.formula = formula;
+		this.items = items;
+		this.resultFieldId = resultFieldId;
+	}
+	
 	public String getId() {
 		return id;
 	}
