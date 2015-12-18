@@ -37,7 +37,8 @@ Ext.application({
         'LevelGrid',
         'Level_win',
         'PersonLevelGrid',
-        'PersonLevel_win'
+        'PersonLevel_win',
+        'MyWindow'
     ],
     name: 'sion.salary.level',
 

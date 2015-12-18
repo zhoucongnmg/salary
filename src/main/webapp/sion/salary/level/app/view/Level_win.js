@@ -325,8 +325,8 @@ Ext.define('sion.salary.level.view.Level_win', {
 
     onWindowBeforeClose: function(panel, eOpts) {
         var me=this,
-                    grid=me.down('gridpanel'),
-                    store=grid.getStore();
+            grid=me.down('gridpanel'),
+            store=grid.getStore();
         store.removeAll();
     }
 

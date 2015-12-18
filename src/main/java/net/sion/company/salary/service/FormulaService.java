@@ -123,4 +123,7 @@ public class FormulaService {
 		return result;
 	}
 
+	public void create(Formula formula){
+		formulaRepository.save(formula);
+	}
 }
