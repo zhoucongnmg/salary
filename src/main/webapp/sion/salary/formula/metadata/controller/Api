@@ -38,7 +38,7 @@
                 "fn": "getFormula",
                 "implHandler": [
                     "var me = this,",
-                    "    conifg = me._config,",
+                    "    config = me._config,",
                     "    formulaId = config._formulaId,",
                     "    ctrl = me.getTerminalCtrl(),",
                     "    term = ctrl.getTerm(formulaId);",
@@ -61,7 +61,7 @@
                 "fn": "validateFormula",
                 "implHandler": [
                     "var me = this,",
-                    "    conifg = me._config,",
+                    "    config = me._config,",
                     "    formulaId = config._formulaId,",
                     "    ctrl = me.getTerminalCtrl(),",
                     "    validator = me.getValidatorCtrl(),",
@@ -81,16 +81,19 @@
             },
             "codeClass": null,
             "userConfig": {
+                "designer|params": [
+                    "formula"
+                ],
                 "fn": "getFields",
                 "implHandler": [
                     "var me = this,",
-                    "    conifg = me._config,",
+                    "    config = me._config,",
                     "    data = config._data,",
                     "    json = [];",
                     "",
                     "Ext.Array.each(data,function(record,index) {",
                     "    var text = record.get('name');",
-                    "    if (str.indexOf('[' + text + ']')>-1){",
+                    "    if (formula.indexOf('[' + text + ']')>-1){",
                     "        json.push({",
                     "            fieldId : record.get('id'),",
                     "            text : text",

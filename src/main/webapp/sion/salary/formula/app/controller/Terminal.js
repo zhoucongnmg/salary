@@ -29,24 +29,26 @@ Ext.define('sion.salary.formula.controller.Terminal', {
             ns = me.getNamespace(),
             store = itemSelection.getStore(),
             validator = Ext.create(ns + '.controller.Validator'),
-            message;
+            message,
+            term;
 
         config.keydown = me.onKeydown;
         config._controller = me;
 
-        $('#' + config.id).terminal(function(command, term) {
+        var term = $('#' + config.id).terminal(function(command, term) {
             var history = term._history||[];
-
-            message = validator.validate(command,store);
-            if (message=='') {
-                term.echo('验证成功');
-                history.push(command);
-            }else {
-                term.error(message);
+            if (command.trim()!='') {
+                message = validator.validate(command,store.data.items);
+                if (message=='') {
+                    term.echo('验证成功');
+                    history.push(command);
+                }else {
+                    term.error(message);
+                }
             }
 
-
         }, config);
+        term.focus(true);
     },
 
     getTerm: function(id) {

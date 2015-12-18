@@ -22,7 +22,7 @@ Ext.define('sion.salary.formula.controller.Api', {
 
     getFormula: function() {
         var me = this,
-            conifg = me._config,
+            config = me._config,
             formulaId = config._formulaId,
             ctrl = me.getTerminalCtrl(),
             term = ctrl.getTerm(formulaId);
@@ -33,7 +33,7 @@ Ext.define('sion.salary.formula.controller.Api', {
 
     validateFormula: function() {
         var me = this,
-            conifg = me._config,
+            config = me._config,
             formulaId = config._formulaId,
             ctrl = me.getTerminalCtrl(),
             validator = me.getValidatorCtrl(),
@@ -42,15 +42,15 @@ Ext.define('sion.salary.formula.controller.Api', {
         return validator.validate(command,config._data);
     },
 
-    getFields: function() {
+    getFields: function(formula) {
         var me = this,
-            conifg = me._config,
+            config = me._config,
             data = config._data,
             json = [];
 
         Ext.Array.each(data,function(record,index) {
             var text = record.get('name');
-            if (str.indexOf('[' + text + ']')>-1){
+            if (formula.indexOf('[' + text + ']')>-1){
                 json.push({
                     fieldId : record.get('id'),
                     text : text
