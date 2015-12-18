@@ -42,6 +42,7 @@ Ext.define('sion.salary.formula.controller.Terminal', {
                 if (message=='') {
                     term.echo('验证成功');
                     history.push(command);
+                    term._history = history;
                 }else {
                     term.error(message);
                 }
