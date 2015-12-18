@@ -57,8 +57,9 @@
                             "    height: 85,",
                             "    prompt: '>'",
                             "});",
-                            "",
-                            "terminal.setCommand(command);"
+                            "if (command) {",
+                            "    terminal.setCommand(formulaId,command);",
+                            "}"
                         ],
                         "name": "afterrender",
                         "scope": "me"

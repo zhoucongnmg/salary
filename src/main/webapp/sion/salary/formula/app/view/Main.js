@@ -466,8 +466,9 @@ Ext.define('sion.salary.formula.view.Main', {
             height: 85,
             prompt: '>'
         });
-
-        terminal.setCommand(command);
+        if (command) {
+            terminal.setCommand(formulaId,command);
+        }
     },
 
     onCalc_ItemSelectionAfterRender: function(component, eOpts) {
