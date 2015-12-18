@@ -29,7 +29,9 @@ Ext.define('sion.salary.formula.controller.Api', {
             command = ctrl.getCommand(formulaId),
             history = term._history;
 
-        history.push(command);
+        if (command.trim()!='') {
+            history.push(command);
+        }
         return history;
     },
 
