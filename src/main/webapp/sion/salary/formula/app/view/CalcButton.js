@@ -53,13 +53,15 @@ Ext.define('sion.salary.formula.view.CalcButton', {
             ns = me.getNamespace(),
             ctrl = Ext.create(ns + '.controller.Display'),
             text = button.getText(),
-            type = button._type;
+            main = formulaMain.up('formulaMain'),
+            formulaId = main._formulaId;
 
         if (type=='Logical') {
             text = 'if (){\r\n'+
                     '}';
         }
-        ctrl.addInputScreen(text);
+        ctrl.addInputScreen(formulaId,text);
+
     }
 
 });

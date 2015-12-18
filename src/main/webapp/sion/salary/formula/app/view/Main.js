@@ -15,7 +15,7 @@
 
 Ext.define('sion.salary.formula.view.Main', {
     extend: 'Ext.panel.Panel',
-    alias: 'widget.mypanel11',
+    alias: 'widget.FormulaMain',
 
     requires: [
         'sion.salary.formula.view.CalcButton',
@@ -69,24 +69,7 @@ Ext.define('sion.salary.formula.view.Main', {
                             fieldLabel: '计算项',
                             hideLabel: true,
                             emptyText: '请选择计算项',
-                            store: [
-                                {
-                                    id: 'f1',
-                                    text: '基本工资'
-                                },
-                                {
-                                    id: 'f2',
-                                    text: '职级工资'
-                                },
-                                {
-                                    id: 'f3',
-                                    text: '岗位工资'
-                                },
-                                {
-                                    id: 'f4',
-                                    text: '绩效工资'
-                                }
-                            ],
+                            displayField: 'name',
                             valueField: 'id'
                         }),
                         {
@@ -489,12 +472,11 @@ Ext.define('sion.salary.formula.view.Main', {
         var me = this,
             namespace = me.getNamespace(),
             calc_ItemSelection = me.down('#Calc_ItemSelection'),
-            ctrl = Ext.create(namespace + '.controller.Display');
+            ctrl = Ext.create(namespace + '.controller.Display'),
+            formulaId = me._formulaId;
 
 
-        ctrl.addInputScreen('[' + calc_ItemSelection.getValue() + ']');
-
-
+        ctrl.addInputScreen(formulaId,'[' + calc_ItemSelection.getValue() + ']');
     },
 
     onButtonClick1: function(button, e, eOpts) {
@@ -503,9 +485,7 @@ Ext.define('sion.salary.formula.view.Main', {
             result_ItemSelection = me.down('#Result_ItemSelection'),
             ctrl = Ext.create(namespace + '.controller.Display');
 
-
         ctrl.addInputScreen('[' + result_ItemSelection.getValue() + ']');
-
     }
 
 });

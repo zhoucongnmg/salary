@@ -32,7 +32,7 @@ Ext.define('sion.salary.formula.view.FormulaWin', {
         Ext.applyIf(me, {
             items: [
                 me.processMain({
-                    xtype: 'mypanel11'
+                    xtype: 'FormulaMain'
                 })
             ]
         });

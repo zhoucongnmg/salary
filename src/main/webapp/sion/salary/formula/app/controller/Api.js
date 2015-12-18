@@ -46,11 +46,11 @@ Ext.define('sion.salary.formula.controller.Api', {
             json = [];
 
         store.each(function(record,index) {
-            var text = record.get('text');
+            var text = record.get('name');
             if (str.indexOf('[' + text + ']')>-1){
                 json.push({
                     fieldId : record.get('id'),
-                    text : record.get('text')
+                    text : text
                 });
             }
 

@@ -27,10 +27,10 @@ Ext.define('sion.salary.formula.controller.Display', {
         }
     ],
 
-    addInputScreen: function(value, type) {
+    addInputScreen: function(id, value) {
 
         var me = this,
-            term = $('#term_demo').terminal();
+            term = $('#'+id).terminal();
         term.insert(value);
         term.focus(true);
     },

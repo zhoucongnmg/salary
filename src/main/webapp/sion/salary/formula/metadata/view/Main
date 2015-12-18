@@ -7,7 +7,7 @@
     "codeClass": null,
     "userConfig": {
         "container|align": "stretch",
-        "designer|userAlias": "mypanel11",
+        "designer|userAlias": "FormulaMain",
         "designer|userClassName": "Main",
         "height": null,
         "layout": "vbox",
@@ -142,6 +142,7 @@
                         "border": null,
                         "cls": null,
                         "componentCls": null,
+                        "displayField": "name",
                         "emptyCls": null,
                         "emptyText": "请选择计算项",
                         "fieldCls": null,
@@ -155,9 +156,7 @@
                         "margin": null,
                         "maxHeight": null,
                         "minHeight": null,
-                        "store": [
-                            "[{id:'f1',text:'基本工资'},{id:'f2',text:'职级工资'},{id:'f3',text:'岗位工资'},{id:'f4',text:'绩效工资'}]"
-                        ],
+                        "store": null,
                         "style": null,
                         "valueField": "id"
                     },
@@ -235,12 +234,11 @@
                                     "var me = this,",
                                     "    namespace = me.getNamespace(),",
                                     "    calc_ItemSelection = me.down('#Calc_ItemSelection'),",
-                                    "    ctrl = Ext.create(namespace + '.controller.Display');",
+                                    "    ctrl = Ext.create(namespace + '.controller.Display'),",
+                                    "    formulaId = me._formulaId;",
                                     "",
                                     "",
-                                    "ctrl.addInputScreen('[' + calc_ItemSelection.getValue() + ']');",
-                                    "",
-                                    ""
+                                    "ctrl.addInputScreen(formulaId,'[' + calc_ItemSelection.getValue() + ']');"
                                 ],
                                 "name": "click",
                                 "scope": "me"
@@ -401,9 +399,7 @@
                                     "    result_ItemSelection = me.down('#Result_ItemSelection'),",
                                     "    ctrl = Ext.create(namespace + '.controller.Display');",
                                     "",
-                                    "",
-                                    "ctrl.addInputScreen('[' + result_ItemSelection.getValue() + ']');",
-                                    ""
+                                    "ctrl.addInputScreen('[' + result_ItemSelection.getValue() + ']');"
                                 ],
                                 "name": "click",
                                 "scope": "me"

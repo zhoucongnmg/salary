@@ -48,14 +48,14 @@
             "codeClass": null,
             "userConfig": {
                 "designer|params": [
-                    "value",
-                    "type"
+                    "id",
+                    "value"
                 ],
                 "fn": "addInputScreen",
                 "implHandler": [
                     "",
                     "var me = this,",
-                    "    term = $('#term_demo').terminal();",
+                    "    term = $('#'+id).terminal();",
                     "term.insert(value);",
                     "term.focus(true);"
                 ]
