@@ -67,6 +67,10 @@ Ext.define('sion.salary.formula.controller.Api', {
 
          }
          **/
+        Ext.util.CSS.swapStyleSheet('formula-base','sion/salary/formula/resources/formula.css');
+        Ext.util.CSS.swapStyleSheet('formula-terminal','sion/salary/formula/jqueryTerminal/terminal.css');
+        Ext.util.CSS.swapStyleSheet('formula-terminal-base','sion/salary/formula/jqueryTerminal/style.css');
+
 
         var me = this,
             container = config._container,
