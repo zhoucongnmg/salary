@@ -26,10 +26,11 @@ Ext.define('sion.salary.formula.controller.Api', {
             formulaId = config._formulaId,
             ctrl = me.getTerminalCtrl(),
             term = ctrl.getTerm(formulaId),
-            command = ctrl.getCommand(formulaId);
+            command = ctrl.getCommand(formulaId),
+            history = term._history;
 
-
-        return term._history.push(command);
+        history.push(command);
+        return history;
     },
 
     validateFormula: function(formula) {

@@ -94,8 +94,8 @@ Ext.define('sion.salary.formula.controller.Terminal', {
     },
 
     setCommand: function(id, command) {
-         var me = this,
-             term = me.getTerm(id);
+        var me = this,
+            term = me.getTerm(id);
 
         return term.set_command(command);
     }
