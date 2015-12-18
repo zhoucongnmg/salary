@@ -108,4 +108,14 @@ public class AccountItem {
 	public void setFormula(Formula formula) {
 		this.formula = formula;
 	}
+
+	public String getFormulaId() {
+		return formulaId;
+	}
+
+	public void setFormulaId(String formulaId) {
+		this.formulaId = formulaId;
+	}
+	
+	
 }

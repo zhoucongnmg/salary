@@ -13,6 +13,7 @@ import net.sion.company.salary.domain.Account;
 import net.sion.company.salary.domain.AccountItem;
 import net.sion.company.salary.domain.Payroll;
 import net.sion.company.salary.domain.PayrollItem;
+import net.sion.company.salary.domain.PersonAccountFile;
 import net.sion.company.salary.sessionrepository.AccountRepository;
 import net.sion.company.salary.sessionrepository.PayrollItemRepository;
 import net.sion.company.salary.sessionrepository.PersonAccountFileRepository;
@@ -96,8 +97,6 @@ public class PayrollController {
 	 */
 	@RequestMapping(value = "memberList")
 	public @ResponseBody Response memberList(HttpSession session,String accountId) {
-//		List<Account> list = accountRepository.findAll();
-//		Account account = list.get(0);
 		List<PayrollItem> payrollItems = payrollItemRepository.findByAccountId(accountId);
 		if(payrollItems != null && payrollItems.size()>0){
 			payrollItems.get(0);
@@ -116,11 +115,10 @@ public class PayrollController {
 		for(AccountItem item : items){
 			fields.add(getFields(item));
 			columns.add(getColumns(item));
-			
 		}
-		/*
+		
 		List<PersonAccountFile> members = personAccountRepository.findByAccountId(account.getId());
-		for(PersonAccountFile person : members){
+		/*for(PersonAccountFile person : members){
 			map = new HashMap();
 //			map.put("id", new ObjectId().toString());
 			map.put("personId", person.getId());
@@ -170,10 +168,10 @@ public class PayrollController {
 				map.put("coltype", "input");
 				break;
 			case Calculate :
-				map.put("coltype", "calculate");
-				
+				map.put("coltype", "readonly");
+			case System : 
+				map.put("coltype", "readonly");
 		}
-		
 			
 		map.put("flex", 1);
 		map.put("header", item.getName());
