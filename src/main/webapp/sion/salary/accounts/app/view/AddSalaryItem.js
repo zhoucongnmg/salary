@@ -206,7 +206,15 @@ Ext.define('sion.salary.accounts.view.AddSalaryItem', {
             record.set('value', '');
         }
         if(record.get('type') == '计算项'){
-            alert('kai shi ');
+        //     alert('kai shi ');
+        //     var app = Ext.ClassManager.get('sion.salary.formula' + ".$application").create();
+        //     alert(app);
+        //     var Api = app.getController('Api');
+        //     alert(Api);
+
+        //     var c = Api.getFormula();
+        //     console.log(c);
+
             var a = formula.getFormula();
             console.log(a);
 
@@ -283,13 +291,13 @@ Ext.define('sion.salary.accounts.view.AddSalaryItem', {
 
         var app = Ext.ClassManager.get('sion.salary.formula' + ".$application").create();
         var Api = app.getController('Api');
-        var formula = Api.initFormula({
+        Api.initFormula({
             _formulaId : 'AddSalaryItem',//窗口的ItemId
             _container :  panel,//需要将公式编辑器面板显示到哪一个Container中
             _data : store.data.items//计算项store(Model必须包含id,text等field)
 
         });
-        me._formula = formula;
+        me._formula = Api;
         if(record === null){
             record = Ext.create(namespace + '.model.AccountItem', {
                 id : Ext.data.IdGenerator.get('uuid').generate()
