@@ -1,0 +1,14 @@
+{
+    "type": "Ext.data.Model",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userClassName": "PayrollItem",
+        "idProperty": null
+    },
+    "name": "MyModel",
+    "designerId": "aad7f3a1-56df-4ec2-bb6c-6c1aec3df746"
+}

@@ -8,7 +8,7 @@
     "userConfig": {
         "models": [
             "Person",
-            "Dynamic",
+            "PayrollItem",
             "Main"
         ],
         "name": "sion.salary.payroll",
@@ -17,7 +17,7 @@
         ],
         "stores": [
             "PersonStore",
-            "Dynamic"
+            "PayrollItem"
         ],
         "views": [
             "PayrollGrid",

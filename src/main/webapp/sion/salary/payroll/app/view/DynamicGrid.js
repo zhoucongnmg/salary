@@ -85,8 +85,9 @@ Ext.define('sion.salary.payroll.view.DynamicGrid', {
         //     data = [{'a':'张三', 'b':'1981年', 'c':'男'},{'a':'赵四', 'b':'1984年', 'c':'女'}],
         var me = this,
             accountId = me._accountId,
+            ns = me.getNamespace(),
             grid = me.down('grid'),
-            store = Ext.getStore('Dynamic');
+            store = Ext.getStore('PayrollItem');
 
         Ext.Ajax.request({
             url:'salary/payroll/memberList',
@@ -98,7 +99,7 @@ Ext.define('sion.salary.payroll.view.DynamicGrid', {
             success: function(response){
                 store.removeAll();
                 json = Ext.JSON.decode(response.responseText);
-                store.model.setFields(json.data.fields, null, null);
+                store.model.setFields(json.data.fields);
                 store.add(json.data.data);
                 grid.reconfigure(store, json.data.columns);
                 me._columns = json.data.columns;

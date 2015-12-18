@@ -129,7 +129,7 @@ public class FormulaService {
 	 * @param result	公式结果项
 	 * @param items	公式计算项
 	 */
-	public void create(String formula,Map<String,String> result,Map<String,String> items){
+	public Formula create(String formula,Map<String,String> result,Map<String,String> items){
 		List<FormulaItem> formulaItems = new ArrayList<FormulaItem>();
 		//TODO save type of Calculate item.
 		for (Map.Entry<String, String> entry : items.entrySet()) {
@@ -154,5 +154,18 @@ public class FormulaService {
 		Formula f = new Formula(formula,formulaItems,resultFieldId);
 		
 		formulaRepository.save(f);
+		
+		return f;
+	}
+	
+	/**
+	 * 保存公式
+	 * @param f 公式domain
+	 */
+	public Formula create(Formula f){
+		
+		formulaRepository.save(f);
+		
+		return f;
 	}
 }

@@ -1,16 +1,17 @@
 {
-    "type": "Ext.data.Model",
+    "type": "Ext.data.Store",
     "reference": {
         "name": "items",
         "type": "array"
     },
     "codeClass": null,
     "userConfig": {
-        "designer|userClassName": "Dynamic",
-        "idProperty": null
+        "designer|userClassName": "PayrollItem",
+        "model": "PayrollItem",
+        "storeId": "PayrollItem"
     },
-    "name": "MyModel",
-    "designerId": "aad7f3a1-56df-4ec2-bb6c-6c1aec3df746",
+    "name": "MyStore",
+    "designerId": "a22f48f1-d3d8-415a-908a-50cd838da633",
     "cn": [
         {
             "type": "Ext.data.proxy.Ajax",
@@ -29,7 +30,7 @@
                 "url": "salary/payroll/addPayroll"
             },
             "name": "MyAjaxProxy1",
-            "designerId": "f3239187-11c4-4e87-ba5c-c74cb52020cb",
+            "designerId": "2cbc313a-888f-43e4-a41b-717f83b5a76c",
             "cn": [
                 {
                     "type": "Ext.data.writer.Json",

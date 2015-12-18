@@ -25,12 +25,12 @@ Ext.application({
     },
     models: [
         'Person',
-        'Dynamic',
+        'PayrollItem',
         'Main'
     ],
     stores: [
         'PersonStore',
-        'Dynamic'
+        'PayrollItem'
     ],
     views: [
         'PayrollGrid',

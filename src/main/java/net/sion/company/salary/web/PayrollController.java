@@ -47,6 +47,51 @@ public class PayrollController {
 	@Autowired CustomJackson jackson;
 	@Autowired PayrollItemRepository payrollItemRepository;
 	
+	public List<Map<String,String>> fillSimpleFields(List<Map<String,String>> fields) {
+		Map<String,String> map = new HashMap<String,String>();
+		map.put("name", "id");
+		map.put("type", "String");
+		fields.add(map);
+		map = new HashMap<String,String>();
+		map.put("name", "personId");
+		map.put("type", "String");
+		fields.add(map);
+		map = new HashMap<String,String>();
+		map.put("name", "name");
+		map.put("type", "String");
+		fields.add(map);
+		map = new HashMap<String,String>();
+		map.put("name", "duty");
+		map.put("type", "String");
+		fields.add(map);
+		map = new HashMap<String,String>();
+		map.put("name", "dept");
+		map.put("type", "String");
+		fields.add(map);
+		return fields;
+	}
+	
+	public List<Map<String,Object>> fillSimpleColumns(List<Map<String,Object>> columns) {
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("header", "姓名");
+		map.put("dataIndex", "name");
+		map.put("flex", 1);
+		columns.add(map);
+		map = new HashMap<String,Object>();
+		map.put("header", "职务");
+		map.put("dataIndex", "duty");
+		map.put("flex", 1);
+		columns.add(map);
+		map = new HashMap<String,Object>();
+		map.put("header", "部门");
+		map.put("dataIndex", "dept");
+		map.put("flex", 1);
+		columns.add(map);
+		return columns;
+	}
+	
+	
+	
 	/**
 	 * @author lil 工资条列表
 	 */
@@ -60,46 +105,19 @@ public class PayrollController {
 		}
 		Account account = accountRepository.findOne(accountId);
 		List<AccountItem> items = account.getAccountItems();
-		List<Map> fields = new ArrayList();
-		List<Map> columns = new ArrayList();
-		List<Map> data = new ArrayList();
+		List<Map<String,String>> fields = new ArrayList<Map<String,String>>();
+		List<Map<String,Object>> columns = new ArrayList<Map<String,Object>>();
+		List<Map<String,String>> data = new ArrayList<Map<String,String>>();
 		
-		Map map = new HashMap();
-		map.put("name", "id");
-		map.put("type", "String");
-		fields.add(map);
-		map = new HashMap();
-		map.put("name", "personId");
-		map.put("type", "String");
-		fields.add(map);
-		map = new HashMap();
-		map.put("name", "name");
-		map.put("type", "String");
-		fields.add(map);
-		map = new HashMap();
-		map.put("name", "duty");
-		map.put("type", "String");
-		fields.add(map);
-		map = new HashMap();
-		map.put("name", "dept");
-		map.put("type", "String");
-		fields.add(map);
 		
-		map = new HashMap();
-		map.put("header", "姓名");
-		map.put("dataIndex", "name");
-		map.put("flex", 1);
-		columns.add(map);
-		map = new HashMap();
-		map.put("header", "职务");
-		map.put("dataIndex", "duty");
-		map.put("flex", 1);
-		columns.add(map);
-		map = new HashMap();
-		map.put("header", "部门");
-		map.put("dataIndex", "dept");
-		map.put("flex", 1);
-		columns.add(map);
+		
+		fillSimpleFields(fields);
+		fillSimpleColumns(columns);
+		
+		
+		
+		
+		
 		
 		List<AccountItem> inputItems = new ArrayList();
 		for(AccountItem item : items){
@@ -109,6 +127,7 @@ public class PayrollController {
 				inputItems.add(item);
 			}
 		}
+		/*
 		List<PersonAccountFile> members = personAccountRepository.findByAccountId(account.getId());
 		for(PersonAccountFile person : members){
 			map = new HashMap();
@@ -121,7 +140,7 @@ public class PayrollController {
 				map.put(item.getSalaryItemId(), item.getValue());
 			}
 			data.add(map);
-		}
+		}*/
 //		map = new HashMap();
 //		map.put("name", "c");
 //		map.put("type", "String");
@@ -177,7 +196,8 @@ public class PayrollController {
 	 * @throws JsonParseException 
 	 */
 	@RequestMapping(value = "addPayroll")
-	public Response addPayroll(@RequestBody Map<String, Object> jsonData,HttpSession session) throws JsonParseException, JsonMappingException, JsonProcessingException, IOException {
+	public Response addPayroll(@RequestBody List<Map<String, Object>> jsonData,HttpSession session) {
+		/*
 		List<Map<String, String>> roll = jackson.readValue(jackson.writeValueAsString(jsonData.get("roll")), new TypeReference<List<Map<String, String>>>(){});
 		String accountId = jackson.readValue(jackson.writeValueAsString(jsonData.get("accountId")), new TypeReference<String>(){});
 		for(Map<String, String> map : roll){
@@ -211,6 +231,7 @@ public class PayrollController {
 			item.setAccountId(accountId);
 			payrollItemRepository.save(item);
 		}
+		*/
 		return new Response(true);
 	}
 	/**
