@@ -16,4 +16,6 @@ public interface PersonAccountFileRepository extends MongoRepository<PersonAccou
 
 	@Query(value = "?0")
 	List<PersonAccountFile> getPages(Object query);
+	
+	List<PersonAccountFile> findByPersonIdIn(List<String> personIds);
 }

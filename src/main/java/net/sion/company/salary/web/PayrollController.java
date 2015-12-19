@@ -11,11 +11,13 @@ import javax.servlet.http.HttpSession;
 import net.sion.boot.config.jackson.CustomJackson;
 import net.sion.company.salary.domain.Account;
 import net.sion.company.salary.domain.AccountItem;
+import net.sion.company.salary.domain.AccountItem.AccountItemType;
 import net.sion.company.salary.domain.Payroll;
 import net.sion.company.salary.domain.PayrollItem;
 import net.sion.company.salary.domain.PersonAccountFile;
 import net.sion.company.salary.sessionrepository.AccountRepository;
 import net.sion.company.salary.sessionrepository.PayrollItemRepository;
+import net.sion.company.salary.sessionrepository.PayrollRepository;
 import net.sion.company.salary.sessionrepository.PersonAccountFileRepository;
 import net.sion.company.salary.sessionrepository.PersonAccountRepository;
 import net.sion.util.mvc.Response;
@@ -42,26 +44,27 @@ public class PayrollController {
 	@Autowired PersonAccountFileRepository personAccountFileRepository;
 	@Autowired PersonAccountRepository personAccountRepository;
 	@Autowired CustomJackson jackson;
+	@Autowired PayrollRepository payrollRepository;
 	@Autowired PayrollItemRepository payrollItemRepository;
 	
-	public List<Map<String,String>> fillSimpleFields(List<Map<String,String>> fields) {
-		Map<String,String> map = new HashMap<String,String>();
+	public List<Map<String,Object>> fillSimpleFields(List<Map<String,Object>> fields) {
+		Map<String,Object> map = new HashMap<String,Object>();
 		map.put("name", "id");
 		map.put("type", "string");
 		fields.add(map);
-		map = new HashMap<String,String>();
+		map = new HashMap<String,Object>();
 		map.put("name", "personId");
 		map.put("type", "string");
 		fields.add(map);
-		map = new HashMap<String,String>();
+		map = new HashMap<String,Object>();
 		map.put("name", "name");
 		map.put("type", "string");
 		fields.add(map);
-		map = new HashMap<String,String>();
+		map = new HashMap<String,Object>();
 		map.put("name", "duty");
 		map.put("type", "string");
 		fields.add(map);
-		map = new HashMap<String,String>();
+		map = new HashMap<String,Object>();
 		map.put("name", "dept");
 		map.put("type", "string");
 		fields.add(map);
@@ -90,22 +93,61 @@ public class PayrollController {
 		return columns;
 	}
 	
+	public List<Map<String,Object>> fillData(Map<String,String> persons, List<PayrollItem> items, List<AccountItem> accountItems) {
+		List<Map<String,Object>> data = new ArrayList<Map<String,Object>>();
+		
+		Map<String,PayrollItem> payrollItemMap = new HashMap<String,PayrollItem>();
+		for (PayrollItem item : items) {
+			payrollItemMap.put(item.getPersonId(), item);
+		}
+		List<String> newPersonIds = new ArrayList<String>();
+		for (Map.Entry<String, String> entry : persons.entrySet()) { 
+			String personId = entry.getKey();
+			if (payrollItemMap.get(personId)!=null) {
+				PayrollItem item = payrollItemMap.get(personId);
+				Map<String,Object> itemMap = item.parseMap();
+				data.add(itemMap);
+			}else {
+				newPersonIds.add(personId);
+			}
+			
+		}
+		if (newPersonIds.size()>0) {
+			List<PersonAccountFile> personList = personAccountFileRepository.findByPersonIdIn(newPersonIds);
+			for (PersonAccountFile person : personList) {
+				Map<String,Object> personMap = new HashMap<String,Object>();
+				personMap.put("personId", person.getId());
+				personMap.put("name", person.getName());
+				personMap.put("duty", person.getDuty());
+				personMap.put("dept", person.getDept());
+				for(AccountItem item : accountItems){
+					personMap.put(item.getSalaryItemId(), item.getType()==AccountItemType.Input?item.getValue():"");
+					// TODO 看其他列是否含有公式  有公式将输入项和数值传入 返回其他列和其对应的数值 
+				}
+				data.add(personMap);
+			}
+			
+			
+		}
+		
+		return data;
+	}
+	
 	
 	
 	/**
 	 * @author lil 工资条列表
 	 */
 	@RequestMapping(value = "memberList")
-	public @ResponseBody Response memberList(HttpSession session,String accountId) {
-		List<PayrollItem> payrollItems = payrollItemRepository.findByAccountId(accountId);
-		if(payrollItems != null && payrollItems.size()>0){
-			payrollItems.get(0);
-		}
-		Account account = accountRepository.findOne(accountId);
+	public @ResponseBody Response memberList(@RequestParam String id) {
+		
+		Payroll payroll = payrollRepository.findOne(id);
+		
+		Account account = accountRepository.findOne(payroll.getAccountId());
 		List<AccountItem> items = account.getAccountItems();
-		List<Map<String,String>> fields = new ArrayList<Map<String,String>>();
+		List<Map<String,Object>> fields = new ArrayList<Map<String,Object>>();
 		List<Map<String,Object>> columns = new ArrayList<Map<String,Object>>();
-		List<Map<String,String>> data = new ArrayList<Map<String,String>>();
+		List<Map<String,Object>> data = new ArrayList<Map<String,Object>>();
 		
 		
 		
@@ -117,43 +159,19 @@ public class PayrollController {
 			columns.add(getColumns(item));
 		}
 		
-		List<PersonAccountFile> members = personAccountRepository.findByAccountId(account.getId());
-		/*for(PersonAccountFile person : members){
-			map = new HashMap();
-//			map.put("id", new ObjectId().toString());
-			map.put("personId", person.getId());
-			map.put("name", person.getName());
-			map.put("duty", person.getDuty());
-			map.put("dept", person.getDept());
-			for(AccountItem item : inputItems){
-				map.put(item.getSalaryItemId(), item.getValue());
-			}
-			data.add(map);
-		}*/
-//		map = new HashMap();
-//		map.put("name", "c");
-//		map.put("type", "String");
-//		fields.add(map);
+		List<PayrollItem> payrollItemList = payrollItemRepository.findByPayrollId(id);
 		
-//		map = new HashMap();
-//		map.put("header", "性别");
-//		map.put("dataIndex", "c");
-//		columns.add(map);
+		data = fillData(payroll.getPersons(),payrollItemList,account.getAccountItems());
 		
-//		map = new HashMap();
-//		map.put("a", "赵四");
-//		map.put("b", "1984年");
-//		map.put("c", "女");
-//		data.add(map);
-		Map m = new HashMap();
+		Map<String,List<Map<String,Object>>> m = new HashMap<String,List<Map<String,Object>>>();
 		m.put("fields", fields);
 		m.put("columns", columns);
 		m.put("data", data);
 		return new Response("sucess", m, true);
 	}
-	private Map<String,String> getFields(AccountItem item){
-		Map<String,String> map = new HashMap<String,String>();
-		map.put("name", item.getFieldName());
+	private Map<String,Object> getFields(AccountItem item){
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("name", item.getSalaryItemId());
 		map.put("type", "float");
 		return map;
 	}
@@ -175,7 +193,7 @@ public class PayrollController {
 			
 		map.put("flex", 1);
 		map.put("header", item.getName());
-		map.put("dataIndex", item.getFieldName());
+		map.put("dataIndex", item.getSalaryItemId());
 		return map;
 	}
 	/**

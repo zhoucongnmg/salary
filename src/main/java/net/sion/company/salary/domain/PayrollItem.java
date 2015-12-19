@@ -11,6 +11,7 @@ import net.sion.boot.config.jackson.CustomJackson;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.roo.addon.javabean.RooJavaBean;
 import org.springframework.roo.addon.layers.repository.mongo.RooMongoEntity;
 
@@ -24,11 +25,14 @@ import com.fasterxml.jackson.core.type.TypeReference;
 
 @RooJavaBean
 @RooMongoEntity
+@Document(collection="Company_Salary_PayrollItem")
 public class PayrollItem {
 	
 	@Id
 	String id;
-	String accountId;//方案id
+	
+	String payrollId;
+	
 	String personId;	//人事档案id
 	
 	String name;	//姓名
@@ -37,14 +41,14 @@ public class PayrollItem {
 	
 	String dept;	//部门
 	
-	Map<String,String> values;	//薪资明细项
+	Map<String,Object> values;	//薪资明细项
 	
 	@Autowired CustomJackson jackson;
 	
-	public Map<String,String> parseMap() {
-		Map<String, String> map = new HashMap<String,String>();
+	public Map<String,Object> parseMap() {
+		Map<String, Object> map = new HashMap<String,Object>();
 		try {
-			map = jackson.readValue(jackson.writeValueAsString(this), new TypeReference<Map<String,String>>(){});
+			map = jackson.readValue(jackson.writeValueAsString(this), new TypeReference<Map<String,Object>>(){});
 			map.putAll(values);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -94,19 +98,23 @@ public class PayrollItem {
 		this.dept = dept;
 	}
 
-	public Map<String, String> getValues() {
+	public Map<String, Object> getValues() {
 		return values;
 	}
 
-	public void setValues(Map<String, String> values) {
+	public void setValues(Map<String, Object> values) {
 		this.values = values;
 	}
-	public String getAccountId() {
-		return accountId;
+
+
+	public String getPayrollId() {
+		return payrollId;
 	}
 
-	public void setAccountId(String accountId) {
-		this.accountId = accountId;
+
+	public void setPayrollId(String payrollId) {
+		this.payrollId = payrollId;
 	}
+	
 	
 }
