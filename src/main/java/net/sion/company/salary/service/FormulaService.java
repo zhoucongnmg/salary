@@ -73,6 +73,7 @@ public class FormulaService {
 	public Map<String,String> caculateFormulas(List<String> formulaIds,Map<String,String>params) throws Exception{
 		Map<String, String> result=new HashMap<String,String>();
 		for (String formulaId : formulaIds) {
+			Formula formula = formulaRepository.findOne(formulaId);
 			List<FormulaItem> items=this.getFormulaItems(formulaId);
 			
 			for (FormulaItem formulaItem : items) {
@@ -83,7 +84,7 @@ public class FormulaService {
 				formulaItem.setValue(value);
 			}
 			
-			result.put(formulaId,String.valueOf(this.calculate(formulaId, items)));
+			result.put(formula.getResultFieldId(),String.valueOf(this.calculate(formulaId, items)));
 		}
 		
 		return result;
