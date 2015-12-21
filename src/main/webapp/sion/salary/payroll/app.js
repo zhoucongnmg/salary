@@ -26,25 +26,24 @@ Ext.application({
     models: [
         'Person',
         'Payroll',
-        'Account',
-        'TempPerson'
+        'Account'
     ],
     stores: [
         'AccountStore',
         'PersonStore',
-        'PayrollStore',
-        'TempPersonStore'
+        'PayrollStore'
     ],
     views: [
         'SelectPerson_win',
         'PayrollMainForm',
+        'UnpublishPayroll',
         'PayrollForm',
-        'GetPayroll'
+        'PaidPayroll'
     ],
     name: 'sion.salary.payroll',
 
     launch: function() {
-        Ext.create('sion.salary.payroll.view.PayrollMainForm', {renderTo: Ext.getBody()});
+        Ext.create('sion.salary.payroll.view.UnpublishPayroll', {renderTo: Ext.getBody()});
     }
 
 });

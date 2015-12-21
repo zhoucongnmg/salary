@@ -7,7 +7,6 @@
     "codeClass": null,
     "userConfig": {
         "autoShow": true,
-        "designer|initialView": true,
         "designer|userClassName": "PayrollMainForm",
         "height": 604,
         "layout": "border",
@@ -75,20 +74,6 @@
                             },
                             "name": "onPanelBeforeActivate",
                             "designerId": "64091999-83e0-4ab5-8adc-acb0a587cce5"
-                        },
-                        {
-                            "type": "linkedinstance",
-                            "reference": {
-                                "name": "items",
-                                "type": "array"
-                            },
-                            "codeClass": null,
-                            "userConfig": {
-                                "layout|region": "center"
-                            },
-                            "name": "payrollform",
-                            "designerId": "b0544512-dfca-48f5-b852-401be489895d",
-                            "masterInstanceId": "699c4ac8-e3f6-490b-92ca-eba3ef3d83e1"
                         }
                     ]
                 },
@@ -142,20 +127,6 @@
                             },
                             "name": "onPanelBeforeActivate1",
                             "designerId": "9b245d61-4090-47f1-815b-089e1a03ce9a"
-                        },
-                        {
-                            "type": "linkedinstance",
-                            "reference": {
-                                "name": "items",
-                                "type": "array"
-                            },
-                            "codeClass": null,
-                            "userConfig": {
-                                "layout|region": "center"
-                            },
-                            "name": "getpayroll",
-                            "designerId": "2f8a6a5a-7dd8-4507-92e0-3681f595b62b",
-                            "masterInstanceId": "02f3d5a0-98dc-4e83-be20-913355b92319"
                         }
                     ]
                 },

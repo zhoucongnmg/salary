@@ -306,6 +306,8 @@ public class PayrollController {
 		payroll.setCreateDate(getCurrentDate());
 		payroll.setState(PayrollStatus.Unpublish.toString());
 		payroll.setId(new ObjectId().toString());
+		payroll.setMonth(payroll.getMonth().substring(0, 7));
+		payroll.setSocialCostMonth(payroll.getSocialCostMonth().substring(0, 7));
 
 		mongoTemplate.save(payroll);
 
@@ -328,9 +330,10 @@ public class PayrollController {
 	 * @return
 	 */
 	@RequestMapping(value = "read")
-	public Map<String, Object> read(Integer start,Integer limit,Integer page,String state,String subject,String month,String socialCostMonth) {
+	public Map<String, Object> read(Integer start, Integer limit, Integer page, String state, String subject,
+			String month, String socialCostMonth) {
 
-		Query q = getPageQuery(start,limit,page,state,subject,month,socialCostMonth);
+		Query q = getPageQuery(start, limit, page, state, subject, month, socialCostMonth);
 		List<Payroll> payrolls = mongoTemplate.find(q, Payroll.class);
 		Long total = mongoTemplate.count(q, Payroll.class);
 
@@ -348,17 +351,18 @@ public class PayrollController {
 		return map;
 	}
 
-	private Query getPageQuery(Integer start,Integer limit,Integer page,String state,String subject,String month,String socialCostMonth) {
+	private Query getPageQuery(Integer start, Integer limit, Integer page, String state, String subject, String month,
+			String socialCostMonth) {
 
 		Map<String, Object> mapFilter = new HashMap<String, Object>();
 
 		mapFilter.put("state", state);
-		if (subject != null)
+		if (notNull(subject))
 			mapFilter.put("subject", subject);
-		if (month != null)
-			mapFilter.put("month", month);
-		if (socialCostMonth != null)
-			mapFilter.put("socialCostMonth", socialCostMonth);
+		if (notNull(month))
+			mapFilter.put("month", month.substring(0, 7));
+		if (notNull(socialCostMonth))
+			mapFilter.put("socialCostMonth", socialCostMonth.substring(0, 7));
 
 		DBObject dbobject = new BasicDBObject();
 		dbobject.putAll(mapFilter);
@@ -368,16 +372,45 @@ public class PayrollController {
 		return q;
 	}
 
+	private Boolean notNull(String string) {
+		return string != null && string.length() != 0;
+	}
+
 	/**
-	 * 更新工资表状态
+	 * 更新工资表状态为Paid
 	 * 
 	 * @param person
 	 * @return
 	 */
+	@RequestMapping(value = "batchUpdate")
+	public Response batchUpdate(@RequestParam(value = "arrId")List<String> arrId) {
+		updateState(arrId,PayrollStatus.Paid.toString());
+		return new Response(true);
+	}
+	/**
+	 * 更新工资条状态为Unpublish
+	 * @param arrId
+	 * @return
+	 */
+	@RequestMapping(value = "batchWithdraw")
+	public Response batchWithdraw(@RequestParam(value = "arrId")List<String> arrId) {
+		updateState(arrId,PayrollStatus.Unpublish.toString());
+		return new Response(true);
+	}
+	
+	private void updateState(List<String> arrId,String state){
+		for (String id : arrId) {
+			Payroll payroll = mongoTemplate.findById(id,Payroll.class);
+			payroll.setState(state);
+			mongoTemplate.save(payroll);
+		}
+	}
+
 	@RequestMapping(value = "update")
 	public Response update(@RequestBody Payroll payroll) {
 
 		mongoTemplate.save(payroll);
+
 		return new Response(true);
 	}
 

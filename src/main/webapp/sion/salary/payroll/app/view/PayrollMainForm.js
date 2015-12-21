@@ -17,11 +17,8 @@ Ext.define('sion.salary.payroll.view.PayrollMainForm', {
     extend: 'Ext.window.Window',
 
     requires: [
-        'sion.salary.payroll.view.PayrollForm',
-        'sion.salary.payroll.view.GetPayroll',
         'Ext.tab.Panel',
-        'Ext.tab.Tab',
-        'Ext.form.Panel'
+        'Ext.tab.Tab'
     ],
 
     autoShow: true,
@@ -50,13 +47,7 @@ Ext.define('sion.salary.payroll.view.PayrollMainForm', {
                                     fn: me.onPanelBeforeActivate,
                                     scope: me
                                 }
-                            },
-                            items: [
-                                {
-                                    xtype: 'myform1',
-                                    region: 'center'
-                                }
-                            ]
+                            }
                         },
                         {
                             xtype: 'panel',
@@ -68,13 +59,7 @@ Ext.define('sion.salary.payroll.view.PayrollMainForm', {
                                     fn: me.onPanelBeforeActivate1,
                                     scope: me
                                 }
-                            },
-                            items: [
-                                {
-                                    xtype: 'getpayroll',
-                                    region: 'center'
-                                }
-                            ]
+                            }
                         },
                         {
                             xtype: 'panel',

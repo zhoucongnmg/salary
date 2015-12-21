@@ -9,8 +9,7 @@
         "models": [
             "Person",
             "Payroll",
-            "Account",
-            "TempPerson"
+            "Account"
         ],
         "name": "sion.salary.payroll",
         "paths": [
@@ -19,14 +18,14 @@
         "stores": [
             "AccountStore",
             "PersonStore",
-            "PayrollStore",
-            "TempPersonStore"
+            "PayrollStore"
         ],
         "views": [
             "SelectPerson_win",
             "PayrollMainForm",
+            "UnpublishPayroll",
             "PayrollForm",
-            "GetPayroll"
+            "PaidPayroll"
         ]
     },
     "name": "Application",
