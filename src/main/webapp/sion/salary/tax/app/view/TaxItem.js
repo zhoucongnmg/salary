@@ -26,6 +26,7 @@ Ext.define('sion.salary.tax.view.TaxItem', {
 
     height: 250,
     width: 400,
+    layout: 'fit',
 
     initComponent: function() {
         var me = this;
@@ -43,6 +44,7 @@ Ext.define('sion.salary.tax.view.TaxItem', {
                                 {
                                     xtype: 'button',
                                     width: 70,
+                                    iconCls: 's_icon_table_save',
                                     text: '保存',
                                     listeners: {
                                         click: {

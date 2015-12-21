@@ -23,6 +23,7 @@ Ext.define('sion.salary.social.view.SocialPlanGrid', {
 
     height: 505,
     width: 1005,
+    layout: 'fit',
     title: '社保方案',
 
     initComponent: function() {

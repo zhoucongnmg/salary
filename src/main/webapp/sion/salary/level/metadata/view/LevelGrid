@@ -37,8 +37,11 @@
                     },
                     "codeClass": null,
                     "userConfig": {
+                        "iconCls": "s_icon_action_add",
                         "layout|flex": null,
-                        "text": "新建"
+                        "style": null,
+                        "text": "<span style=\"font-size:14px;color:#3892D3;font-weight:bold;\">新建</span>",
+                        "width": null
                     },
                     "name": "MyButton",
                     "designerId": "08a3d1ac-393d-4e91-9672-d7c986193acf",
@@ -93,6 +96,7 @@
                     "codeClass": null,
                     "userConfig": {
                         "dataIndex": "name",
+                        "flex": 1,
                         "text": "层次名称",
                         "width": "20%"
                     },
@@ -108,6 +112,7 @@
                     "codeClass": null,
                     "userConfig": {
                         "dataIndex": "levelItems",
+                        "flex": 1,
                         "text": "级别",
                         "width": "60%"
                     },
@@ -151,6 +156,8 @@
                     },
                     "codeClass": null,
                     "userConfig": {
+                        "flex": 0.3,
+                        "text": "修改",
                         "width": 35
                     },
                     "name": "MyActionColumn4",
@@ -166,7 +173,7 @@
                             "userConfig": {
                                 "designer|displayName": "modify",
                                 "iconCls": "s_icon_page_edit",
-                                "tooltip": "编辑"
+                                "tooltip": "修改"
                             },
                             "name": "MyActionColumnItem2",
                             "designerId": "1fc224ad-7f9c-4c48-b1d9-6b671566b839",
@@ -210,6 +217,8 @@
                     },
                     "codeClass": null,
                     "userConfig": {
+                        "flex": 0.3,
+                        "text": "删除",
                         "width": 35
                     },
                     "name": "MyActionColumn5",

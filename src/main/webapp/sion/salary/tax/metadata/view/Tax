@@ -37,6 +37,7 @@
                     },
                     "codeClass": null,
                     "userConfig": {
+                        "iconCls": "s_icon_table_save",
                         "layout|flex": null,
                         "text": "保存",
                         "width": 70
@@ -149,44 +150,61 @@
                     "designerId": "f2e1ac08-3637-4118-9b33-3f44b5a56633"
                 },
                 {
-                    "type": "Ext.button.Button",
+                    "type": "Ext.toolbar.Toolbar",
                     "reference": {
-                        "name": "items",
+                        "name": "dockedItems",
                         "type": "array"
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "text": "增加",
-                        "width": 70
+                        "dock": "bottom"
                     },
-                    "name": "MyButton2",
-                    "designerId": "e47de815-06ef-4bd8-8a0e-2020230419bd",
+                    "name": "MyToolbar3",
+                    "designerId": "d53d345e-6561-4031-a1bd-5d3d76c29156",
                     "cn": [
                         {
-                            "type": "basiceventbinding",
+                            "type": "Ext.button.Button",
                             "reference": {
-                                "name": "listeners",
+                                "name": "items",
                                 "type": "array"
                             },
                             "codeClass": null,
                             "userConfig": {
-                                "fn": "onButtonClick1",
-                                "implHandler": [
-                                    "var me = this,",
-                                    "    namespace = me.getNamespace(),",
-                                    "    itemGrid = me.down('#itemGrid'),",
-                                    "    store = itemGrid.getStore();",
-                                    "",
-                                    "panel =  Ext.create(namespace + '.view.TaxItem',{",
-                                    "    _itemStore : store",
-                                    "});",
-                                    "panel.show();"
-                                ],
-                                "name": "click",
-                                "scope": "me"
+                                "iconCls": "s_icon_action_add",
+                                "layout|flex": null,
+                                "text": "增加",
+                                "width": 70
                             },
-                            "name": "onButtonClick1",
-                            "designerId": "34f96d45-3d1e-4404-935a-51a75d566573"
+                            "name": "MyButton2",
+                            "designerId": "e47de815-06ef-4bd8-8a0e-2020230419bd",
+                            "cn": [
+                                {
+                                    "type": "basiceventbinding",
+                                    "reference": {
+                                        "name": "listeners",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fn": "onButtonClick1",
+                                        "implHandler": [
+                                            "var me = this,",
+                                            "    namespace = me.getNamespace(),",
+                                            "    itemGrid = me.down('#itemGrid'),",
+                                            "    store = itemGrid.getStore();",
+                                            "",
+                                            "panel =  Ext.create(namespace + '.view.TaxItem',{",
+                                            "    _itemStore : store",
+                                            "});",
+                                            "panel.show();"
+                                        ],
+                                        "name": "click",
+                                        "scope": "me"
+                                    },
+                                    "name": "onButtonClick1",
+                                    "designerId": "34f96d45-3d1e-4404-935a-51a75d566573"
+                                }
+                            ]
                         }
                     ]
                 }

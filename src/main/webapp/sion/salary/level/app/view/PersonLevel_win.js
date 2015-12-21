@@ -38,6 +38,7 @@ Ext.define('sion.salary.level.view.PersonLevel_win', {
                     items: [
                         {
                             xtype: 'button',
+                            iconCls: 's_icon_table_save',
                             text: '保存'
                         }
                     ]

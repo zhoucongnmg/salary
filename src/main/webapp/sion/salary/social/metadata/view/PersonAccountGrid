@@ -24,276 +24,264 @@
             },
             "codeClass": null,
             "userConfig": {
-                "dock": "top",
-                "height": 90
+                "dock": "top"
             },
-            "name": "MyToolbar",
-            "designerId": "24a8aa8f-5079-4a2e-85d4-9f27d6d9903b",
+            "name": "MyToolbar10",
+            "designerId": "cf07170a-90e9-43c8-9c64-7bd50a7aa9c7",
             "cn": [
                 {
-                    "type": "Ext.form.Panel",
+                    "type": "Ext.button.Button",
                     "reference": {
                         "name": "items",
                         "type": "array"
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "bodyPadding": 10,
-                        "height": 122,
-                        "layout": "column",
+                        "iconCls": "s_icon_action_add",
                         "layout|flex": null,
-                        "title": null,
-                        "width": 951
+                        "text": "<span style=\"font-size:14px;color:#3892D3;font-weight:bold;\">新建</span>"
                     },
-                    "name": "MyForm",
-                    "designerId": "84fa6fcb-cc7a-43fe-bff3-710c08fa2442",
+                    "name": "MyButton2",
+                    "designerId": "3f1b58be-4339-4544-8411-a61bd1fb8c23",
                     "cn": [
                         {
-                            "type": "Ext.form.field.ComboBox",
+                            "type": "basiceventbinding",
                             "reference": {
-                                "name": "items",
+                                "name": "listeners",
                                 "type": "array"
                             },
                             "codeClass": null,
                             "userConfig": {
-                                "displayField": "name",
-                                "fieldLabel": "薪资方案",
-                                "itemId": "salaryAccount",
-                                "labelWidth": 60,
-                                "layout|columnWidth": 0.22,
-                                "store": "SalaryAccount",
-                                "valueField": "id"
+                                "fn": "onButtonClick",
+                                "implHandler": [
+                                    "var me=this,",
+                                    "    namespace=me.getNamespace();",
+                                    "Ext.create(namespace+'.view.PersonAccountForm',{_grid:me}).show();",
+                                    ""
+                                ],
+                                "name": "click",
+                                "scope": "me"
                             },
-                            "name": "MyComboBox11",
-                            "designerId": "de56efae-0001-4ebe-b7df-ca777dc58bbd"
-                        },
-                        {
-                            "type": "Ext.form.field.ComboBox",
-                            "reference": {
-                                "name": "items",
-                                "type": "array"
-                            },
-                            "codeClass": null,
-                            "userConfig": {
-                                "displayField": "name",
-                                "fieldLabel": "社保方案",
-                                "itemId": "socialAccount",
-                                "labelWidth": 60,
-                                "layout|columnWidth": 0.22,
-                                "padding": null,
-                                "store": "SocialAccount",
-                                "valueField": "id"
-                            },
-                            "name": "MyComboBox2",
-                            "designerId": "75299fb4-166a-4ca1-bcf9-e01741c0257b"
-                        },
-                        {
-                            "type": "Ext.form.field.ComboBox",
-                            "reference": {
-                                "name": "items",
-                                "type": "array"
-                            },
-                            "codeClass": null,
-                            "userConfig": {
-                                "fieldLabel": "社保状态",
-                                "itemId": "status",
-                                "labelWidth": 60,
-                                "layout|columnWidth": 0.2,
-                                "margin": "0 0 0 10",
-                                "padding": null,
-                                "store": [
-                                    "[['In','在保'],['Out','退保']]"
-                                ]
-                            },
-                            "name": "MyComboBox",
-                            "configAlternates": {
-                                "store": "array"
-                            },
-                            "designerId": "13d8dbdb-7596-4ef6-bbf4-906f6d062d44"
-                        },
-                        {
-                            "type": "Ext.form.field.Date",
-                            "reference": {
-                                "name": "items",
-                                "type": "array"
-                            },
-                            "codeClass": null,
-                            "userConfig": {
-                                "fieldLabel": "参保日期",
-                                "format": "Y-m-d",
-                                "itemId": "from",
-                                "labelWidth": 60,
-                                "layout|columnWidth": 0.22,
-                                "margin": "0 0 0 10",
-                                "width": null
-                            },
-                            "name": "MyDateField",
-                            "designerId": "ae3dde60-c5e3-4319-9695-435cd2887bd0"
-                        },
-                        {
-                            "type": "Ext.form.field.Date",
-                            "reference": {
-                                "name": "items",
-                                "type": "array"
-                            },
-                            "codeClass": null,
-                            "userConfig": {
-                                "fieldLabel": " 至 ",
-                                "format": "Y-m-d",
-                                "itemId": "to",
-                                "labelSeparator": " ",
-                                "labelWidth": 10,
-                                "layout|columnWidth": 0.18,
-                                "margin": "0 0 0 10"
-                            },
-                            "name": "MyDateField1",
-                            "designerId": "c98f38f1-c8bb-477e-9c5a-fdfeaa2e9a5b"
-                        },
-                        {
-                            "type": "Ext.button.Button",
-                            "reference": {
-                                "name": "items",
-                                "type": "array"
-                            },
-                            "codeClass": null,
-                            "userConfig": {
-                                "margin": "0 0 0 10",
-                                "padding": null,
-                                "style": null,
-                                "text": "查询"
-                            },
-                            "name": "MyButton",
-                            "designerId": "292b1a83-79a7-4386-9f52-fb474c2c32c1",
-                            "cn": [
-                                {
-                                    "type": "basiceventbinding",
-                                    "reference": {
-                                        "name": "listeners",
-                                        "type": "array"
-                                    },
-                                    "codeClass": null,
-                                    "userConfig": {
-                                        "fn": "onSearchClick1",
-                                        "implHandler": [
-                                            "var me=this,",
-                                            "    store=me.getStore(),",
-                                            "    dateUtil = Ext.create(me.getNamespace() + '.controller.DateUtil'),",
-                                            "    startDate=me.down('#from').getValue(),",
-                                            "    endDate=me.down('#to').getValue();",
-                                            "store.getProxy().setExtraParam(\"from\",startDate===null?\"\":dateUtil.format(new Date(startDate),'yyyy-MM-dd'));",
-                                            "store.getProxy().setExtraParam(\"to\",endDate===null?\"\":dateUtil.format(new Date(endDate),'yyyy-MM-dd'));",
-                                            "store.getProxy().setExtraParam(\"status\",me.down('#status').getValue());",
-                                            "store.getProxy().setExtraParam(\"salaryAccount\",me.down('#salaryAccount').getValue());",
-                                            "store.getProxy().setExtraParam(\"socialAccount\",me.down('#socialAccount').getValue());",
-                                            "",
-                                            "store.reload();"
-                                        ],
-                                        "name": "click",
-                                        "scope": "me"
-                                    },
-                                    "name": "onSearchClick1",
-                                    "designerId": "7ceca0ca-2d3a-429d-986c-0388b4f1dea6"
-                                }
-                            ]
-                        },
-                        {
-                            "type": "Ext.button.Button",
-                            "reference": {
-                                "name": "items",
-                                "type": "array"
-                            },
-                            "codeClass": null,
-                            "userConfig": {
-                                "margin": "0 0 0 10",
-                                "text": "重置"
-                            },
-                            "name": "MyButton6",
-                            "designerId": "28bf796a-9f25-486b-a738-a02fa6fc61a0",
-                            "cn": [
-                                {
-                                    "type": "basiceventbinding",
-                                    "reference": {
-                                        "name": "listeners",
-                                        "type": "array"
-                                    },
-                                    "codeClass": null,
-                                    "userConfig": {
-                                        "fn": "onResetClick1",
-                                        "implHandler": [
-                                            "var me=this,",
-                                            "    store=me.getStore();",
-                                            "",
-                                            "store.getProxy().setExtraParam(\"from\",\"\");",
-                                            "store.getProxy().setExtraParam(\"to\",\"\");",
-                                            "store.getProxy().setExtraParam(\"status\",\"\");",
-                                            "store.getProxy().setExtraParam(\"salaryAccount\",\"\");",
-                                            "store.getProxy().setExtraParam(\"socialAccount\",\"\");",
-                                            "",
-                                            "me.down('#from').setValue(\"\");",
-                                            "me.down('#to').setValue(\"\");",
-                                            "me.down('#status').setValue(\"\");",
-                                            "me.down('#salaryAccount').setValue(\"\");",
-                                            "me.down('#socialAccount').setValue(\"\");"
-                                        ],
-                                        "name": "click",
-                                        "scope": "me"
-                                    },
-                                    "name": "onResetClick1",
-                                    "designerId": "fe40fc98-7a46-4ab5-b58a-8db4527a7d02"
-                                }
-                            ]
-                        },
-                        {
-                            "type": "Ext.toolbar.Spacer",
-                            "reference": {
-                                "name": "items",
-                                "type": "array"
-                            },
-                            "codeClass": null,
-                            "userConfig": {
-                                "height": 20,
-                                "layout|columnWidth": 1.2
-                            },
-                            "name": "MySpacer18",
-                            "designerId": "9c93d7a0-c6df-4a80-acf2-5404b3922dfd"
-                        },
-                        {
-                            "type": "Ext.button.Button",
-                            "reference": {
-                                "name": "items",
-                                "type": "array"
-                            },
-                            "codeClass": null,
-                            "userConfig": {
-                                "text": "新建"
-                            },
-                            "name": "MyButton2",
-                            "designerId": "3f1b58be-4339-4544-8411-a61bd1fb8c23",
-                            "cn": [
-                                {
-                                    "type": "basiceventbinding",
-                                    "reference": {
-                                        "name": "listeners",
-                                        "type": "array"
-                                    },
-                                    "codeClass": null,
-                                    "userConfig": {
-                                        "fn": "onButtonClick",
-                                        "implHandler": [
-                                            "var me=this,",
-                                            "    namespace=me.getNamespace();",
-                                            "Ext.create(namespace+'.view.PersonAccountForm',{_grid:me}).show();",
-                                            ""
-                                        ],
-                                        "name": "click",
-                                        "scope": "me"
-                                    },
-                                    "name": "onButtonClick",
-                                    "designerId": "a2630f73-ff22-466f-995f-2dfa35b42ce3"
-                                }
-                            ]
+                            "name": "onButtonClick",
+                            "designerId": "a2630f73-ff22-466f-995f-2dfa35b42ce3"
                         }
                     ]
+                },
+                {
+                    "type": "Ext.button.Button",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "iconCls": "s_icon_action_search",
+                        "layout|flex": null,
+                        "margin": "0 0 0 10",
+                        "padding": null,
+                        "style": null,
+                        "text": "查询"
+                    },
+                    "name": "MyButton",
+                    "designerId": "292b1a83-79a7-4386-9f52-fb474c2c32c1",
+                    "cn": [
+                        {
+                            "type": "basiceventbinding",
+                            "reference": {
+                                "name": "listeners",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fn": "onSearchClick1",
+                                "implHandler": [
+                                    "var me=this,",
+                                    "    store=me.getStore(),",
+                                    "    dateUtil = Ext.create(me.getNamespace() + '.controller.DateUtil'),",
+                                    "    startDate=me.down('#from').getValue(),",
+                                    "    endDate=me.down('#to').getValue();",
+                                    "store.getProxy().setExtraParam(\"from\",startDate===null?\"\":dateUtil.format(new Date(startDate),'yyyy-MM-dd'));",
+                                    "store.getProxy().setExtraParam(\"to\",endDate===null?\"\":dateUtil.format(new Date(endDate),'yyyy-MM-dd'));",
+                                    "store.getProxy().setExtraParam(\"status\",me.down('#status').getValue());",
+                                    "store.getProxy().setExtraParam(\"salaryAccount\",me.down('#salaryAccount').getValue());",
+                                    "store.getProxy().setExtraParam(\"socialAccount\",me.down('#socialAccount').getValue());",
+                                    "",
+                                    "store.reload();"
+                                ],
+                                "name": "click",
+                                "scope": "me"
+                            },
+                            "name": "onSearchClick1",
+                            "designerId": "7ceca0ca-2d3a-429d-986c-0388b4f1dea6"
+                        }
+                    ]
+                },
+                {
+                    "type": "Ext.button.Button",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "iconCls": "s_icon_action_clockwise",
+                        "layout|flex": null,
+                        "margin": "0 0 0 10",
+                        "text": "重置"
+                    },
+                    "name": "MyButton6",
+                    "designerId": "28bf796a-9f25-486b-a738-a02fa6fc61a0",
+                    "cn": [
+                        {
+                            "type": "basiceventbinding",
+                            "reference": {
+                                "name": "listeners",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fn": "onResetClick1",
+                                "implHandler": [
+                                    "var me=this,",
+                                    "    store=me.getStore();",
+                                    "",
+                                    "store.getProxy().setExtraParam(\"from\",\"\");",
+                                    "store.getProxy().setExtraParam(\"to\",\"\");",
+                                    "store.getProxy().setExtraParam(\"status\",\"\");",
+                                    "store.getProxy().setExtraParam(\"salaryAccount\",\"\");",
+                                    "store.getProxy().setExtraParam(\"socialAccount\",\"\");",
+                                    "",
+                                    "me.down('#from').setValue(\"\");",
+                                    "me.down('#to').setValue(\"\");",
+                                    "me.down('#status').setValue(\"\");",
+                                    "me.down('#salaryAccount').setValue(\"\");",
+                                    "me.down('#socialAccount').setValue(\"\");"
+                                ],
+                                "name": "click",
+                                "scope": "me"
+                            },
+                            "name": "onResetClick1",
+                            "designerId": "fe40fc98-7a46-4ab5-b58a-8db4527a7d02"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "type": "Ext.toolbar.Toolbar",
+            "reference": {
+                "name": "dockedItems",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "dock": "top"
+            },
+            "name": "MyToolbar9",
+            "designerId": "1e24ce9d-b5cb-4f97-883c-8fd7ff56208b",
+            "cn": [
+                {
+                    "type": "Ext.form.field.ComboBox",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "displayField": "name",
+                        "fieldLabel": "薪资方案",
+                        "itemId": "salaryAccount",
+                        "labelWidth": 60,
+                        "layout|flex": null,
+                        "store": "SalaryAccount",
+                        "valueField": "id"
+                    },
+                    "name": "MyComboBox11",
+                    "designerId": "de56efae-0001-4ebe-b7df-ca777dc58bbd"
+                },
+                {
+                    "type": "Ext.form.field.ComboBox",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "displayField": "name",
+                        "fieldLabel": "社保方案",
+                        "itemId": "socialAccount",
+                        "labelWidth": 60,
+                        "layout|flex": null,
+                        "padding": null,
+                        "store": "SocialAccount",
+                        "valueField": "id"
+                    },
+                    "name": "MyComboBox2",
+                    "designerId": "75299fb4-166a-4ca1-bcf9-e01741c0257b"
+                },
+                {
+                    "type": "Ext.form.field.ComboBox",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fieldLabel": "社保状态",
+                        "itemId": "status",
+                        "labelWidth": 60,
+                        "layout|flex": null,
+                        "margin": "0 0 0 10",
+                        "padding": null,
+                        "store": [
+                            "[['In','在保'],['Out','退保']]"
+                        ],
+                        "width": 160
+                    },
+                    "name": "MyComboBox",
+                    "configAlternates": {
+                        "store": "array"
+                    },
+                    "designerId": "13d8dbdb-7596-4ef6-bbf4-906f6d062d44"
+                },
+                {
+                    "type": "Ext.form.field.Date",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fieldLabel": "参保日期",
+                        "format": "Y-m-d",
+                        "itemId": "from",
+                        "labelWidth": 60,
+                        "layout|flex": null,
+                        "margin": "0 0 0 10",
+                        "width": 170
+                    },
+                    "name": "MyDateField",
+                    "designerId": "ae3dde60-c5e3-4319-9695-435cd2887bd0"
+                },
+                {
+                    "type": "Ext.form.field.Date",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fieldLabel": " 至 ",
+                        "format": "Y-m-d",
+                        "itemId": "to",
+                        "labelSeparator": " ",
+                        "labelWidth": 10,
+                        "layout|flex": null,
+                        "margin": "0 0 0 10",
+                        "width": 120
+                    },
+                    "name": "MyDateField1",
+                    "designerId": "c98f38f1-c8bb-477e-9c5a-fdfeaa2e9a5b"
                 }
             ]
         },
@@ -306,6 +294,7 @@
             "codeClass": null,
             "userConfig": {
                 "dataIndex": "personCode",
+                "flex": 1,
                 "text": "员工编号"
             },
             "name": "MyColumn",
@@ -320,6 +309,7 @@
             "codeClass": null,
             "userConfig": {
                 "dataIndex": "name",
+                "flex": 1,
                 "text": "员工姓名"
             },
             "name": "MyColumn5",
@@ -334,6 +324,7 @@
             "codeClass": null,
             "userConfig": {
                 "dataIndex": "dept",
+                "flex": 1,
                 "text": "部门"
             },
             "name": "MyColumn2",
@@ -348,6 +339,7 @@
             "codeClass": null,
             "userConfig": {
                 "dataIndex": "duty",
+                "flex": 1,
                 "text": "职务"
             },
             "name": "MyColumn20",
@@ -362,6 +354,7 @@
             "codeClass": null,
             "userConfig": {
                 "dataIndex": "idCard",
+                "flex": 1,
                 "text": "身份证号"
             },
             "name": "MyColumn1",
@@ -376,6 +369,7 @@
             "codeClass": null,
             "userConfig": {
                 "dataIndex": "accountId",
+                "flex": 1,
                 "text": "薪资方案"
             },
             "name": "MyColumn3",
@@ -426,6 +420,7 @@
             "codeClass": null,
             "userConfig": {
                 "dataIndex": "level",
+                "flex": 1,
                 "text": "薪资层次"
             },
             "name": "MyColumn4",
@@ -476,6 +471,7 @@
             "codeClass": null,
             "userConfig": {
                 "dataIndex": "rank",
+                "flex": 1,
                 "text": "薪资级别"
             },
             "name": "MyColumn6",
@@ -490,6 +486,7 @@
             "codeClass": null,
             "userConfig": {
                 "dataIndex": "insuredPerson",
+                "flex": 1,
                 "text": "社保方案"
             },
             "name": "MyColumn8",
@@ -542,6 +539,7 @@
             "codeClass": null,
             "userConfig": {
                 "dataIndex": "insuredPerson",
+                "flex": 1,
                 "text": "社保状态"
             },
             "name": "MyColumn26",
@@ -586,6 +584,7 @@
             "codeClass": null,
             "userConfig": {
                 "dataIndex": "insuredPerson",
+                "flex": 1,
                 "text": "社保代付地"
             },
             "name": "MyColumn27",
@@ -627,6 +626,7 @@
             "codeClass": null,
             "userConfig": {
                 "dataIndex": "insuredPerson",
+                "flex": 1,
                 "text": "公积金代付地"
             },
             "name": "MyColumn28",

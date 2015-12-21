@@ -37,11 +37,10 @@
                     },
                     "codeClass": null,
                     "userConfig": {
+                        "iconCls": "s_icon_action_add",
                         "layout|flex": null,
-                        "style": [
-                            "background:#3ca9fc;"
-                        ],
-                        "text": "<font color='#fff'>新增</font>",
+                        "style": null,
+                        "text": "<span style=\"font-size:14px;color:#3892D3;font-weight:bold;\">新增</span>",
                         "width": 70
                     },
                     "name": "MyButton5",
@@ -78,6 +77,7 @@
                     },
                     "codeClass": null,
                     "userConfig": {
+                        "iconCls": "s_icon_action_search",
                         "layout|flex": null,
                         "text": "查询",
                         "width": 70
@@ -169,6 +169,7 @@
                     },
                     "codeClass": null,
                     "userConfig": {
+                        "iconCls": "s_icon_action_clockwise",
                         "layout|flex": null,
                         "text": "重置",
                         "width": 70
@@ -329,7 +330,7 @@
             "codeClass": null,
             "userConfig": {
                 "dataIndex": "name",
-                "flex": 0.4,
+                "flex": 6,
                 "text": "套账名称"
             },
             "name": "MyColumn",
@@ -354,7 +355,7 @@
             "codeClass": null,
             "userConfig": {
                 "dataIndex": "createUserName",
-                "flex": 0.2,
+                "flex": 3,
                 "text": "创建人"
             },
             "name": "MyColumn2",
@@ -369,7 +370,7 @@
             "codeClass": null,
             "userConfig": {
                 "dataIndex": "date",
-                "flex": 0.2,
+                "flex": 3,
                 "text": "创建日期"
             },
             "name": "MyColumn23",
@@ -383,7 +384,7 @@
             },
             "codeClass": null,
             "userConfig": {
-                "flex": 0.1,
+                "flex": 2,
                 "hideable": false,
                 "text": "方案成员",
                 "tooltip": "修改"
@@ -448,7 +449,7 @@
             },
             "codeClass": null,
             "userConfig": {
-                "flex": 0.06,
+                "flex": 1,
                 "hideable": false,
                 "text": "修改",
                 "tooltip": "修改"
@@ -507,7 +508,7 @@
             },
             "codeClass": null,
             "userConfig": {
-                "flex": 0.06,
+                "flex": 1,
                 "hideable": false,
                 "text": "删除",
                 "tooltip": "删除"

@@ -48,6 +48,7 @@ Ext.define('sion.salary.tax.view.Tax', {
                         {
                             xtype: 'button',
                             width: 70,
+                            iconCls: 's_icon_table_save',
                             text: '保存',
                             listeners: {
                                 click: {
@@ -81,17 +82,26 @@ Ext.define('sion.salary.tax.view.Tax', {
                             name: 'threshold',
                             allowBlank: false,
                             minValue: 0
-                        },
+                        }
+                    ],
+                    dockedItems: [
                         {
-                            xtype: 'button',
-                            width: 70,
-                            text: '增加',
-                            listeners: {
-                                click: {
-                                    fn: me.onButtonClick1,
-                                    scope: me
+                            xtype: 'toolbar',
+                            dock: 'bottom',
+                            items: [
+                                {
+                                    xtype: 'button',
+                                    width: 70,
+                                    iconCls: 's_icon_action_add',
+                                    text: '增加',
+                                    listeners: {
+                                        click: {
+                                            fn: me.onButtonClick1,
+                                            scope: me
+                                        }
+                                    }
                                 }
-                            }
+                            ]
                         }
                     ]
                 },

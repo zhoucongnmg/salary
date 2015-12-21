@@ -66,9 +66,8 @@ Ext.define('sion.salary.accounts.view.SalaryItems', {
                             items: [
                                 {
                                     xtype: 'button',
-                                    style: 'background:#3ca9fc;',
-                                    width: 70,
-                                    text: '<font color=\'#fff\'>新建</font>',
+                                    iconCls: 's_icon_action_add',
+                                    text: '<span style="font-size:14px;color:#3892D3;font-weight:bold;">新建</span>',
                                     listeners: {
                                         click: {
                                             fn: me.onNewSalaryItemClick,

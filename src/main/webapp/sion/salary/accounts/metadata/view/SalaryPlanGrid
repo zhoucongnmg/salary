@@ -36,12 +36,11 @@
                     },
                     "codeClass": null,
                     "userConfig": {
+                        "iconCls": "s_icon_action_add",
                         "layout|flex": null,
-                        "style": [
-                            "background:#3ca9fc;"
-                        ],
-                        "text": "<font color='#fff'>新建方案</font>",
-                        "width": 70
+                        "style": null,
+                        "text": "<span style=\"font-size:14px;color:#3892D3;font-weight:bold;\">新建方案</span>",
+                        "width": null
                     },
                     "name": "MyButton",
                     "designerId": "c8d5a0c2-a9f5-44f1-b5e9-c82564da58e2",

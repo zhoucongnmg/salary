@@ -113,12 +113,11 @@
                             },
                             "codeClass": null,
                             "userConfig": {
+                                "iconCls": "s_icon_action_add",
                                 "layout|flex": null,
-                                "style": [
-                                    "background:#3ca9fc;"
-                                ],
-                                "text": "<font color='#fff'>新建</font>",
-                                "width": 70
+                                "style": null,
+                                "text": "<span style=\"font-size:14px;color:#3892D3;font-weight:bold;\">新建</span>",
+                                "width": null
                             },
                             "name": "MyButton2",
                             "designerId": "63904556-88cc-4b10-b3e7-e6a352e34831",

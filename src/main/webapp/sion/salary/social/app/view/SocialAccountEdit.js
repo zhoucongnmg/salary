@@ -46,7 +46,7 @@ Ext.define('sion.salary.social.view.SocialAccountEdit', {
                     items: [
                         {
                             xtype: 'button',
-                            iconCls: 's_icon_page_add',
+                            iconCls: 's_icon_table_save',
                             text: '保存信息',
                             listeners: {
                                 click: {
@@ -108,6 +108,7 @@ Ext.define('sion.salary.social.view.SocialAccountEdit', {
                                 {
                                     xtype: 'button',
                                     width: 70,
+                                    iconCls: 's_icon_action_add',
                                     text: '新增',
                                     listeners: {
                                         click: {

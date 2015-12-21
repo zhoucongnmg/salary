@@ -34,7 +34,7 @@ Ext.application({
         'AccountItem',
         'PersonAccount',
         'PersonAccountItem',
-        'Dynamic'
+        'AccountItemType'
     ],
     stores: [
         'SalaryItem',
@@ -43,7 +43,7 @@ Ext.application({
         'AccountMember',
         'PersonAccount',
         'PersonAccountItem',
-        'Dynamic'
+        'AccountItemType'
     ],
     views: [
         'SalaryPlanGrid',
@@ -54,8 +54,7 @@ Ext.application({
         'AddSalaryItem',
         'AccountMember',
         'AccountMemberConfig',
-        'SalaryItemRead',
-        'testDynamicGrid'
+        'SalaryItemRead'
     ],
     name: 'sion.salary.accounts',
 

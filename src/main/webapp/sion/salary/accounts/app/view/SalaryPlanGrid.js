@@ -38,9 +38,8 @@ Ext.define('sion.salary.accounts.view.SalaryPlanGrid', {
                     items: [
                         {
                             xtype: 'button',
-                            style: 'background:#3ca9fc;',
-                            width: 70,
-                            text: '<font color=\'#fff\'>新建方案</font>',
+                            iconCls: 's_icon_action_add',
+                            text: '<span style="font-size:14px;color:#3892D3;font-weight:bold;">新建方案</span>',
                             listeners: {
                                 click: {
                                     fn: me.onNewAccountClick,

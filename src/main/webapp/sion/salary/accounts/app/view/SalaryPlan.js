@@ -50,6 +50,7 @@ Ext.define('sion.salary.accounts.view.SalaryPlan', {
                         {
                             xtype: 'button',
                             width: 70,
+                            iconCls: 's_icon_table_save',
                             text: '保存',
                             listeners: {
                                 click: {
@@ -88,17 +89,25 @@ Ext.define('sion.salary.accounts.view.SalaryPlan', {
                             anchor: '100%',
                             fieldLabel: '备注',
                             name: 'remark'
-                        },
+                        }
+                    ],
+                    dockedItems: [
                         {
-                            xtype: 'button',
-                            width: 70,
-                            text: '新增',
-                            listeners: {
-                                click: {
-                                    fn: me.onAddSalaryItemClick,
-                                    scope: me
+                            xtype: 'toolbar',
+                            dock: 'bottom',
+                            items: [
+                                {
+                                    xtype: 'button',
+                                    iconCls: 's_icon_action_add',
+                                    text: '新增',
+                                    listeners: {
+                                        click: {
+                                            fn: me.onAddSalaryItemClick,
+                                            scope: me
+                                        }
+                                    }
                                 }
-                            }
+                            ]
                         }
                     ]
                 },
@@ -124,6 +133,12 @@ Ext.define('sion.salary.accounts.view.SalaryPlan', {
                         },
                         {
                             xtype: 'gridcolumn',
+                            renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
+                                var store = Ext.getStore("AccountItemType"),
+                                    rec = store.findRecord('id', value);
+
+                                return rec.get("name");
+                            },
                             dataIndex: 'type',
                             text: '项目类型',
                             flex: 2

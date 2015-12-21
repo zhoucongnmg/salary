@@ -128,6 +128,19 @@
             },
             "name": "MyField51",
             "designerId": "f46ce067-00ad-4246-87be-0f7364f8a2bd"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "formulaId"
+            },
+            "name": "MyField54",
+            "designerId": "ce5358a7-b3fa-4269-b46c-4c6c171e415c"
         }
     ]
 }

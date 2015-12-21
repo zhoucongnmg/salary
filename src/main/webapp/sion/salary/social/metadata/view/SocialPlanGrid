@@ -8,6 +8,7 @@
     "userConfig": {
         "designer|userClassName": "SocialPlanGrid",
         "height": 505,
+        "layout": "fit",
         "title": "社保方案",
         "width": 1005
     },

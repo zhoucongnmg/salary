@@ -38,9 +38,9 @@ Ext.define('sion.salary.social.view.SocialAccountItemEdit', {
                     items: [
                         {
                             xtype: 'button',
-                            style: 'background:#3ca9fc;',
                             width: 70,
-                            text: '<font color=\'#fff\'>保存</font>',
+                            iconCls: 's_icon_table_save',
+                            text: '保存',
                             listeners: {
                                 click: {
                                     fn: me.onButtonClick,

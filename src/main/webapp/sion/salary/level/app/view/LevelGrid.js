@@ -38,7 +38,8 @@ Ext.define('sion.salary.level.view.LevelGrid', {
                     items: [
                         {
                             xtype: 'button',
-                            text: '新建',
+                            iconCls: 's_icon_action_add',
+                            text: '<span style="font-size:14px;color:#3892D3;font-weight:bold;">新建</span>',
                             listeners: {
                                 click: {
                                     fn: me.onButtonClick,
@@ -60,7 +61,8 @@ Ext.define('sion.salary.level.view.LevelGrid', {
                             xtype: 'gridcolumn',
                             width: '20%',
                             dataIndex: 'name',
-                            text: '层次名称'
+                            text: '层次名称',
+                            flex: 1
                         },
                         {
                             xtype: 'gridcolumn',
@@ -71,11 +73,14 @@ Ext.define('sion.salary.level.view.LevelGrid', {
                             },
                             width: '60%',
                             dataIndex: 'levelItems',
-                            text: '级别'
+                            text: '级别',
+                            flex: 1
                         },
                         {
                             xtype: 'actioncolumn',
                             width: 35,
+                            text: '修改',
+                            flex: 0.3,
                             items: [
                                 {
                                     handler: function(view, rowIndex, colIndex, item, e, record, row) {
@@ -84,13 +89,15 @@ Ext.define('sion.salary.level.view.LevelGrid', {
                                         Ext.create("sion.salary.level.view.Level_win",{_levelGrid:grid,_record:record}).show();
                                     },
                                     iconCls: 's_icon_page_edit',
-                                    tooltip: '编辑'
+                                    tooltip: '修改'
                                 }
                             ]
                         },
                         {
                             xtype: 'actioncolumn',
                             width: 35,
+                            text: '删除',
+                            flex: 0.3,
                             items: [
                                 {
                                     handler: function(view, rowIndex, colIndex, item, e, record, row) {

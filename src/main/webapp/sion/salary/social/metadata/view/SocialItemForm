@@ -9,6 +9,7 @@
         "bodyPadding": 10,
         "designer|userClassName": "SocialItemForm",
         "height": 274,
+        "layout": "fit",
         "title": null,
         "width": 481
     },
@@ -170,59 +171,76 @@
                     "designerId": "a86417aa-7d2c-4529-9a94-1f4adcb05525"
                 },
                 {
-                    "type": "Ext.button.Button",
+                    "type": "Ext.toolbar.Toolbar",
                     "reference": {
-                        "name": "items",
+                        "name": "dockedItems",
                         "type": "array"
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "text": "保存",
-                        "width": 70
+                        "dock": "top"
                     },
-                    "name": "MyButton4",
-                    "designerId": "763cc199-100d-4b58-9a54-3ba729c4f41c",
+                    "name": "MyToolbar8",
+                    "designerId": "71a26562-b136-41a0-bf26-6b1bce555d5f",
                     "cn": [
                         {
-                            "type": "basiceventbinding",
+                            "type": "Ext.button.Button",
                             "reference": {
-                                "name": "listeners",
+                                "name": "items",
                                 "type": "array"
                             },
                             "codeClass": null,
                             "userConfig": {
-                                "fn": "onButtonClick",
-                                "implHandler": [
-                                    "var me = this,",
-                                    "    namespace = me.getNamespace(),",
-                                    "    form = me.down(\"form\"),",
-                                    "    store = Ext.StoreManager.lookup(\"SocialItem\");",
-                                    "",
-                                    "record = form.getRecord();",
-                                    "form.updateRecord(record);",
-                                    "if(!me.down('#name').isValid() || !me.down('#itemType').isValid() || !me.down('#carryType').isValid()|| !me.down('#precision').isValid()){",
-                                    "    Ext.Msg.alert(\"提示\", \"信息不完整，请继续填写！\");",
-                                    "    return false;",
-                                    "}",
-                                    "record.save({",
-                                    "    url: 'salary/socialitem/create',",
-                                    "    success: function(response, opts){",
-                                    "        Ext.Msg.alert(\"提示\", \"保存成功\");",
-                                    "        //         var leaveStore = Ext.StoreManager.lookup(\"OverTimeApply\");//更新数据从前台取",
-                                    "        store.load();",
-                                    "        me.close();",
-                                    "    },",
-                                    "    failure: function(){",
-                                    "        Ext.Msg.alert(\"提示\", \"保存失败\");",
-                                    "        me.close();",
-                                    "    }",
-                                    "});"
-                                ],
-                                "name": "click",
-                                "scope": "me"
+                                "iconCls": "s_icon_table_save",
+                                "layout|flex": null,
+                                "text": "保存",
+                                "width": 70
                             },
-                            "name": "onButtonClick",
-                            "designerId": "c2b542a2-50a8-4d0a-83db-b66bc0f0f6b5"
+                            "name": "MyButton4",
+                            "designerId": "763cc199-100d-4b58-9a54-3ba729c4f41c",
+                            "cn": [
+                                {
+                                    "type": "basiceventbinding",
+                                    "reference": {
+                                        "name": "listeners",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fn": "onButtonClick",
+                                        "implHandler": [
+                                            "var me = this,",
+                                            "    namespace = me.getNamespace(),",
+                                            "    form = me.down(\"form\"),",
+                                            "    store = Ext.StoreManager.lookup(\"SocialItem\");",
+                                            "",
+                                            "record = form.getRecord();",
+                                            "form.updateRecord(record);",
+                                            "if(!me.down('#name').isValid() || !me.down('#itemType').isValid() || !me.down('#carryType').isValid()|| !me.down('#precision').isValid()){",
+                                            "    Ext.Msg.alert(\"提示\", \"信息不完整，请继续填写！\");",
+                                            "    return false;",
+                                            "}",
+                                            "record.save({",
+                                            "    url: 'salary/socialitem/create',",
+                                            "    success: function(response, opts){",
+                                            "        Ext.Msg.alert(\"提示\", \"保存成功\");",
+                                            "        //         var leaveStore = Ext.StoreManager.lookup(\"OverTimeApply\");//更新数据从前台取",
+                                            "        store.load();",
+                                            "        me.close();",
+                                            "    },",
+                                            "    failure: function(){",
+                                            "        Ext.Msg.alert(\"提示\", \"保存失败\");",
+                                            "        me.close();",
+                                            "    }",
+                                            "});"
+                                        ],
+                                        "name": "click",
+                                        "scope": "me"
+                                    },
+                                    "name": "onButtonClick",
+                                    "designerId": "c2b542a2-50a8-4d0a-83db-b66bc0f0f6b5"
+                                }
+                            ]
                         }
                     ]
                 }

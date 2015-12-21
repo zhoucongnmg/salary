@@ -37,6 +37,7 @@
                     },
                     "codeClass": null,
                     "userConfig": {
+                        "iconCls": "s_icon_table_save",
                         "layout|flex": null,
                         "text": "保存",
                         "width": 70
@@ -162,36 +163,53 @@
                     "designerId": "ebc4ba2a-fd78-4b01-b828-c273f5b7e83d"
                 },
                 {
-                    "type": "Ext.button.Button",
+                    "type": "Ext.toolbar.Toolbar",
                     "reference": {
-                        "name": "items",
+                        "name": "dockedItems",
                         "type": "array"
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "text": "新增",
-                        "width": 70
+                        "dock": "bottom"
                     },
-                    "name": "MyButton4",
-                    "designerId": "19cee27d-252e-45b7-9f79-3e9d93ca0587",
+                    "name": "MyToolbar7",
+                    "designerId": "3a9e6909-b616-434f-afe4-84e24ccffc7e",
                     "cn": [
                         {
-                            "type": "basiceventbinding",
+                            "type": "Ext.button.Button",
                             "reference": {
-                                "name": "listeners",
+                                "name": "items",
                                 "type": "array"
                             },
                             "codeClass": null,
                             "userConfig": {
-                                "fn": "onAddSalaryItemClick",
-                                "implHandler": [
-                                    "this.detail(null);"
-                                ],
-                                "name": "click",
-                                "scope": "me"
+                                "iconCls": "s_icon_action_add",
+                                "layout|flex": null,
+                                "text": "新增",
+                                "width": null
                             },
-                            "name": "onAddSalaryItemClick",
-                            "designerId": "b0a7a897-e88a-4be3-a7ac-378da9995402"
+                            "name": "MyButton4",
+                            "designerId": "19cee27d-252e-45b7-9f79-3e9d93ca0587",
+                            "cn": [
+                                {
+                                    "type": "basiceventbinding",
+                                    "reference": {
+                                        "name": "listeners",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fn": "onAddSalaryItemClick",
+                                        "implHandler": [
+                                            "this.detail(null);"
+                                        ],
+                                        "name": "click",
+                                        "scope": "me"
+                                    },
+                                    "name": "onAddSalaryItemClick",
+                                    "designerId": "b0a7a897-e88a-4be3-a7ac-378da9995402"
+                                }
+                            ]
                         }
                     ]
                 }
@@ -257,7 +275,37 @@
                         "text": "项目类型"
                     },
                     "name": "MyColumn10",
-                    "designerId": "f61358ba-c1f8-465f-8eff-8887d3f61cdf"
+                    "designerId": "f61358ba-c1f8-465f-8eff-8887d3f61cdf",
+                    "cn": [
+                        {
+                            "type": "fixedfunction",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "designer|params": [
+                                    "value",
+                                    "metaData",
+                                    "record",
+                                    "rowIndex",
+                                    "colIndex",
+                                    "store",
+                                    "view"
+                                ],
+                                "fn": "renderer",
+                                "implHandler": [
+                                    "var store = Ext.getStore(\"AccountItemType\"),",
+                                    "    rec = store.findRecord('id', value);",
+                                    "",
+                                    "return rec.get(\"name\");"
+                                ]
+                            },
+                            "name": "renderer",
+                            "designerId": "2eb85934-bc5e-41e8-9b2c-9a1323c4b346"
+                        }
+                    ]
                 },
                 {
                     "type": "Ext.grid.column.Column",

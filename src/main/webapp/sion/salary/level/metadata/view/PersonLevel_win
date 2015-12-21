@@ -35,6 +35,7 @@
                     },
                     "codeClass": null,
                     "userConfig": {
+                        "iconCls": "s_icon_table_save",
                         "layout|flex": null,
                         "text": "保存"
                     },

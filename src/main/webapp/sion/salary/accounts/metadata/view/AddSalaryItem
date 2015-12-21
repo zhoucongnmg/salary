@@ -35,6 +35,7 @@
                     },
                     "codeClass": null,
                     "userConfig": {
+                        "iconCls": "s_icon_table_save",
                         "layout|flex": null,
                         "text": "确定",
                         "width": 70
@@ -59,8 +60,10 @@
                                     "    form = me.down('form'),",
                                     "    record = form.getRecord(),",
                                     "    store = Ext.getStore('AccountItem'),",
+                                    "    formulaItemStore = Ext.getStore('FormulaItem'),",
                                     "    select = grid.getSelectionModel().getSelection(),",
-                                    "    formula = me._formula;",
+                                    "    formulaApi = me._formulaApi,",
+                                    "    formulaItems = new Array();",
                                     "",
                                     "if(select.length < 1){",
                                     "    Ext.Msg.alert('提示', '请选择待选项目');",
@@ -81,29 +84,47 @@
                                     "",
                                     "var recordIndex = store.find('salaryItemId', select[0].get('id'));",
                                     "form.updateRecord(record);",
-                                    "if(record.get('type') == '系统提取项'){",
+                                    "if(record.get('type') == 'System'){",
                                     "    record.set('value', '');",
                                     "}",
-                                    "if(record.get('type') == '计算项'){",
-                                    "//     alert('kai shi ');",
-                                    "//     var app = Ext.ClassManager.get('sion.salary.formula' + \".$application\").create();",
-                                    "//     alert(app);",
-                                    "//     var Api = app.getController('Api');",
-                                    "//     alert(Api);",
-                                    "",
-                                    "//     var c = Api.getFormula();",
-                                    "//     console.log(c);",
-                                    "",
-                                    "    var a = formula.getFormula();",
-                                    "    console.log(a);",
-                                    "",
-                                    "    var b = formula.getFields();",
-                                    "    console.log(b);",
-                                    "",
-                                    "    record.set('formula', null);",
-                                    "    record.set('value', '');",
+                                    "if(record.get('type') == 'Calculate'){",
+                                    "    var formulaDatas = formulaApi.getFormula();",
+                                    "    if(!formulaDatas){",
+                                    "        Ext.Msg.alert('', '公式未完成，不能保存');",
+                                    "        return false;",
+                                    "    }",
+                                    "    var formulaData = formulaDatas[formulaDatas.length - 1],",
+                                    "        formulaFields = formulaApi.getFields(formulaData);",
+                                    "    alert('validate 1');",
+                                    "    var va = formulaApi.validateFormula(formulaData);",
+                                    "    alert('validate 2');",
+                                    "    console.log(va);",
+                                    "    Ext.Array.each(formulaFields, function(formulaField){",
+                                    "        var formulaItem = {",
+                                    "            value : '',",
+                                    "            fieldId : formulaField.fieldId,",
+                                    "            text : formulaField.text,",
+                                    "            type : 'Calculate'",
+                                    "        };",
+                                    "        formulaItems.push(formulaItem);",
+                                    "    });",
+                                    "    var formulaResult = {",
+                                    "        value : '',",
+                                    "        fieldId : select[0].id,",
+                                    "        text : select[0].name,",
+                                    "        type : 'Result'",
+                                    "    };",
+                                    "    formulaItems.push(formulaResult);",
+                                    "    var formula = {",
+                                    "        items : formulaItems,",
+                                    "        resultFieldId : '',",
+                                    "        formula : formulaData",
+                                    "    };",
+                                    "    record.set('formula', formula);",
+                                    "    record.set('value', formulaData);",
                                     "}else{",
                                     "    record.set('formula', null);",
+                                    "    record.set('formulaId', '');",
                                     "}",
                                     "record.set('salaryItemId', select[0].get('id'));",
                                     "record.set('name', select[0].get('name'));",
@@ -118,45 +139,6 @@
                             },
                             "name": "onButtonClick",
                             "designerId": "97a17018-c9a6-4e1e-861c-2340918063e7"
-                        }
-                    ]
-                },
-                {
-                    "type": "Ext.button.Button",
-                    "reference": {
-                        "name": "items",
-                        "type": "array"
-                    },
-                    "codeClass": null,
-                    "userConfig": {
-                        "layout|flex": null,
-                        "text": "动态列"
-                    },
-                    "name": "MyButton8",
-                    "designerId": "81bbd0e7-6a53-4d67-b452-8efabdbfc4dc",
-                    "cn": [
-                        {
-                            "type": "basiceventbinding",
-                            "reference": {
-                                "name": "listeners",
-                                "type": "array"
-                            },
-                            "codeClass": null,
-                            "userConfig": {
-                                "fn": "onButtonClick1",
-                                "implHandler": [
-                                    "var me = this,",
-                                    "    namespace = me.getNamespace();",
-                                    "",
-                                    "Ext.create(namespace+\".view.testDynamicGrid\", {",
-                                    "",
-                                    "}).show();"
-                                ],
-                                "name": "click",
-                                "scope": "me"
-                            },
-                            "name": "onButtonClick1",
-                            "designerId": "8afad220-2f6a-4537-bd48-8cc32ed0997c"
                         }
                     ]
                 }
@@ -220,18 +202,15 @@
                             },
                             "codeClass": null,
                             "userConfig": {
+                                "displayField": "name",
                                 "fieldLabel": "类型",
                                 "itemId": "type",
                                 "layout|anchor": "100%",
                                 "name": "type",
-                                "store": [
-                                    "['输入项','计算项','系统提取项']"
-                                ]
+                                "store": "AccountItemType",
+                                "valueField": "id"
                             },
                             "name": "MyComboBox1",
-                            "configAlternates": {
-                                "store": "array"
-                            },
                             "designerId": "a55d8885-5989-4391-89d2-7c6076cb3f34",
                             "cn": [
                                 {
@@ -249,22 +228,22 @@
                                             "//     newValue = field.getValue(),",
                                             "    window = field.up(\"window\");",
                                             "",
-                                            "if('计算项' == newValue){",
+                                            "if('Calculate' == newValue){",
                                             "    me.down('#formulaPanel').show();",
                                             "    me.down('#inputPanel').hide();",
                                             "    me.getSalaryItem(newValue);",
-                                            "}else if('输入项' == newValue){",
+                                            "}else if('Input' == newValue){",
                                             "    me.down('#formulaPanel').hide();",
                                             "    me.down('#inputPanel').show();",
                                             "    me.getSalaryItem(newValue);",
-                                            "}else if('系统提取项' == newValue){",
+                                            "}else if('System' == newValue){",
                                             "    me.down('#formulaPanel').hide();",
                                             "    me.down('#inputPanel').hide();",
                                             "    me.getSalaryItem(newValue);",
                                             "}else{",
                                             "    store.removeAll();",
                                             "}",
-                                            "if(newValue === \"计算项\"){",
+                                            "if(newValue === \"Calculate\"){",
                                             "//     window.width=860;",
                                             "}",
                                             "else{",
@@ -318,28 +297,6 @@
                                     "codeClass": null,
                                     "name": "MyGridView4",
                                     "designerId": "f034aa33-7ec4-4393-9128-e8e52b90a224"
-                                },
-                                {
-                                    "type": "basiceventbinding",
-                                    "reference": {
-                                        "name": "listeners",
-                                        "type": "array"
-                                    },
-                                    "codeClass": null,
-                                    "userConfig": {
-                                        "fn": "onGridpanelBeforeRender",
-                                        "implHandler": [
-                                            "// var store = component.getStore();",
-                                            "",
-                                            "// if(store.getCount() === 0){",
-                                            "//     store.load();",
-                                            "// }"
-                                        ],
-                                        "name": "beforerender",
-                                        "scope": "me"
-                                    },
-                                    "name": "onGridpanelBeforeRender",
-                                    "designerId": "d3db7f3f-33ca-45ea-9068-35450b2db058"
                                 }
                             ]
                         }
@@ -425,7 +382,7 @@
                     "    accountItem = me._accountItem,",
                     "    system = false;",
                     "",
-                    "if(type === '系统提取项'){",
+                    "if(type === 'System'){",
                     "    system = true;",
                     "}",
                     "store.clearFilter(true);",
@@ -436,8 +393,10 @@
                     "store.load({",
                     "    scope: this,",
                     "    callback: function(records, operation, success) {",
-                    "        var record = store.find('id', accountItem.get('salaryItemId'));",
-                    "        grid.getSelectionModel().select(record);",
+                    "        if(accountItem !== null){",
+                    "            var record = store.find('id', accountItem.get('salaryItemId'));",
+                    "            grid.getSelectionModel().select(record);",
+                    "        }",
                     "    }",
                     "});"
                 ]
@@ -462,20 +421,37 @@
                     "    store = Ext.getStore('AccountItem'),",
                     "    panel = me.down('#formulaPanel');",
                     "",
+                    "if(record !== null && record.get('type') == 'Calculate' && record.get('formulaId') !== ''){",
+                    "    Ext.Ajax.request({",
+                    "        url: 'salary/formula/read',",
+                    "        method: 'get',",
+                    "        async: false,    //不使用异步",
+                    "        params: {",
+                    "            id: record.get('formulaId')",
+                    "        },",
+                    "        success: function(response, opts){",
+                    "            var data = Ext.JSON.decode(response.responseText);",
+                    "            record.set('formula', data);",
+                    "        },",
+                    "        failure: function(response, opts) {",
+                    "            Ext.Msg.alert('提示信息','数据请求错误，请稍候重新尝试获取数据……');",
+                    "        }",
+                    "    });",
+                    "}",
                     "var app = Ext.ClassManager.get('sion.salary.formula' + \".$application\").create();",
                     "var Api = app.getController('Api');",
                     "Api.initFormula({",
                     "    _formulaId : 'AddSalaryItem',//窗口的ItemId",
                     "    _container :  panel,//需要将公式编辑器面板显示到哪一个Container中",
-                    "    _data : store.data.items//计算项store(Model必须包含id,text等field)",
-                    "",
+                    "    _data : store.data.items,//计算项store(Model必须包含id,text等field)",
+                    "    _command : record !== null && record.get('formula') !== null ? record.get('formula').formula : ''",
                     "});",
-                    "me._formula = Api;",
+                    "me._formulaApi = Api;",
                     "if(record === null){",
                     "    record = Ext.create(namespace + '.model.AccountItem', {",
                     "        id : Ext.data.IdGenerator.get('uuid').generate()",
                     "    });",
-                    "    me._accountItem = record;",
+                    "//     me._accountItem = record;",
                     "}else{",
                     "//     me.down('#type').setValue(record.get('type'));",
                     "    me.getSalaryItem(record.get('type'));",
@@ -487,6 +463,25 @@
             },
             "name": "onWindowAfterRender",
             "designerId": "d80cc5df-d58f-43af-be59-44172df35ea3"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|params": [
+                    "id"
+                ],
+                "fn": "loadFormula",
+                "implHandler": [
+                    ""
+                ]
+            },
+            "name": "loadFormula",
+            "designerId": "88479ed7-4b8a-494a-be5c-2a08b527bc79"
         }
     ]
 }

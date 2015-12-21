@@ -39,6 +39,7 @@
                     },
                     "codeClass": null,
                     "userConfig": {
+                        "iconCls": "s_icon_table_save",
                         "layout|flex": null,
                         "text": "保存"
                     },
@@ -140,8 +141,9 @@
             "codeClass": null,
             "userConfig": {
                 "bodyPadding": 10,
+                "container|align": "stretch",
                 "header": false,
-                "layout": null,
+                "layout": "vbox",
                 "title": "My Form"
             },
             "name": "MyForm",
@@ -158,82 +160,10 @@
                         "fieldLabel": "名称",
                         "height": 35,
                         "itemId": "name",
-                        "layout|anchor": "100%",
                         "name": "name"
                     },
                     "name": "MyTextField",
                     "designerId": "2947bff6-f30d-450d-afe8-ea93d5702b39"
-                },
-                {
-                    "type": "Ext.button.Button",
-                    "reference": {
-                        "name": "items",
-                        "type": "array"
-                    },
-                    "codeClass": null,
-                    "userConfig": {
-                        "text": "添加等级"
-                    },
-                    "name": "MyButton4",
-                    "designerId": "0be4cee0-2a93-4a51-80c9-44b2314b4034",
-                    "cn": [
-                        {
-                            "type": "basiceventbinding",
-                            "reference": {
-                                "name": "listeners",
-                                "type": "array"
-                            },
-                            "codeClass": null,
-                            "userConfig": {
-                                "fn": "onAddRowClick",
-                                "implHandler": [
-                                    "var me=this,",
-                                    "    grid=me.down('gridpanel'),",
-                                    "    store=grid.getStore(),",
-                                    "    form=me.down('form');",
-                                    "",
-                                    "var model=Ext.create(me.itemModel);",
-                                    "",
-                                    "store.add(model);"
-                                ],
-                                "name": "click",
-                                "scope": "me"
-                            },
-                            "name": "onAddRowClick",
-                            "designerId": "b80a2ce6-b8a6-435a-bec7-13571d60d101"
-                        }
-                    ]
-                },
-                {
-                    "type": "Ext.button.Button",
-                    "reference": {
-                        "name": "items",
-                        "type": "array"
-                    },
-                    "codeClass": null,
-                    "userConfig": {
-                        "margin": "0 0 0 10",
-                        "text": "删除等级"
-                    },
-                    "name": "MyButton5",
-                    "designerId": "ae0150dc-3079-4cd3-ac20-6f8c59651035",
-                    "cn": [
-                        {
-                            "type": "basiceventbinding",
-                            "reference": {
-                                "name": "listeners",
-                                "type": "array"
-                            },
-                            "codeClass": null,
-                            "userConfig": {
-                                "fn": "onDeleteClick",
-                                "name": "click",
-                                "scope": "me"
-                            },
-                            "name": "onDeleteClick",
-                            "designerId": "b6267138-387e-4631-b182-49f10e07ce32"
-                        }
-                    ]
                 },
                 {
                     "type": "Ext.form.FieldSet",
@@ -243,12 +173,101 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "layout": "fit",
+                        "container|align": "stretch",
+                        "layout": "vbox",
+                        "layout|flex": 1,
                         "title": null
                     },
                     "name": "MyFieldSet",
                     "designerId": "cc500bb4-32c8-4942-8d83-db3d74186b32",
                     "cn": [
+                        {
+                            "type": "Ext.toolbar.Toolbar",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "name": "MyToolbar4",
+                            "designerId": "e3278aad-0df7-48ff-9c2a-253876cc47de",
+                            "cn": [
+                                {
+                                    "type": "Ext.button.Button",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "iconCls": "s_icon_action_add",
+                                        "layout|flex": null,
+                                        "text": "添加等级"
+                                    },
+                                    "name": "MyButton4",
+                                    "designerId": "0be4cee0-2a93-4a51-80c9-44b2314b4034",
+                                    "cn": [
+                                        {
+                                            "type": "basiceventbinding",
+                                            "reference": {
+                                                "name": "listeners",
+                                                "type": "array"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "fn": "onAddRowClick",
+                                                "implHandler": [
+                                                    "var me=this,",
+                                                    "    grid=me.down('gridpanel'),",
+                                                    "    store=grid.getStore(),",
+                                                    "    form=me.down('form');",
+                                                    "",
+                                                    "var model=Ext.create(me.itemModel);",
+                                                    "",
+                                                    "store.add(model);"
+                                                ],
+                                                "name": "click",
+                                                "scope": "me"
+                                            },
+                                            "name": "onAddRowClick",
+                                            "designerId": "b80a2ce6-b8a6-435a-bec7-13571d60d101"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "Ext.button.Button",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "iconCls": "s_icon_cross",
+                                        "layout|flex": null,
+                                        "margin": "0 0 0 10",
+                                        "text": "删除等级"
+                                    },
+                                    "name": "MyButton5",
+                                    "designerId": "ae0150dc-3079-4cd3-ac20-6f8c59651035",
+                                    "cn": [
+                                        {
+                                            "type": "basiceventbinding",
+                                            "reference": {
+                                                "name": "listeners",
+                                                "type": "array"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "fn": "onDeleteClick",
+                                                "name": "click",
+                                                "scope": "me"
+                                            },
+                                            "name": "onDeleteClick",
+                                            "designerId": "b6267138-387e-4631-b182-49f10e07ce32"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
                         {
                             "type": "Ext.grid.Panel",
                             "reference": {
@@ -258,7 +277,8 @@
                             "codeClass": null,
                             "userConfig": {
                                 "header": false,
-                                "height": 483,
+                                "height": null,
+                                "layout|flex": 1,
                                 "store": "LevelItemStore",
                                 "title": "My Grid Panel"
                             },
@@ -274,6 +294,7 @@
                                     "codeClass": null,
                                     "userConfig": {
                                         "dataIndex": "rank",
+                                        "flex": 1,
                                         "text": "等级"
                                     },
                                     "name": "MyColumn7",
@@ -363,7 +384,7 @@
                     "",
                     "var cols=grid.columns;",
                     "Ext.Array.each(cols,function(c){",
-                    "    columns.push({text:c.text,dataIndex:c.dataIndex,editor:c.editor});",
+                    "    columns.push({text:c.text,dataIndex:c.dataIndex,editor:c.editor,flex:1});",
                     "});",
                     "",
                     "Ext.Array.each(me._salaryItems,function(salary){",
@@ -383,14 +404,14 @@
                     "    Ext.Array.each(levelItems,function(item){",
                     "        var model=Ext.create(me.itemModel);",
                     "            model.set(\"rank\",item.rank);",
-                    "        ",
+                    "",
                     "        var salaryItemValues=item.salaryItemValues,",
                     "            salaryItemNames=item.salaryItemNames;",
                     "",
                     "        Ext.Array.each(salaryItemValues,function(value){",
                     "            var key=Object.keys(value)[0];",
                     "            model.set(key,value[key]);",
-                    "        }); ",
+                    "        });",
                     "         store.add(model);",
                     "    });",
                     "",

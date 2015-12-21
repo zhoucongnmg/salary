@@ -48,6 +48,7 @@ Ext.define('sion.salary.accounts.view.AccountMemberConfig', {
                         {
                             xtype: 'button',
                             width: 70,
+                            iconCls: 's_icon_table_save',
                             text: '保存',
                             listeners: {
                                 click: {

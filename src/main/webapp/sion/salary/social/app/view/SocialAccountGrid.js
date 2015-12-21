@@ -40,9 +40,9 @@ Ext.define('sion.salary.social.view.SocialAccountGrid', {
                     items: [
                         {
                             xtype: 'button',
-                            style: 'background:#3ca9fc;',
                             width: 70,
-                            text: '<font color=\'#fff\'>新增</font>',
+                            iconCls: 's_icon_action_add',
+                            text: '<span style="font-size:14px;color:#3892D3;font-weight:bold;">新增</span>',
                             listeners: {
                                 click: {
                                     fn: me.onButtonClick,
@@ -53,6 +53,7 @@ Ext.define('sion.salary.social.view.SocialAccountGrid', {
                         {
                             xtype: 'button',
                             width: 70,
+                            iconCls: 's_icon_action_search',
                             text: '查询',
                             listeners: {
                                 click: {
@@ -64,6 +65,7 @@ Ext.define('sion.salary.social.view.SocialAccountGrid', {
                         {
                             xtype: 'button',
                             width: 70,
+                            iconCls: 's_icon_action_clockwise',
                             text: '重置',
                             listeners: {
                                 click: {
@@ -130,26 +132,26 @@ Ext.define('sion.salary.social.view.SocialAccountGrid', {
                     xtype: 'gridcolumn',
                     dataIndex: 'name',
                     text: '套账名称',
-                    flex: 0.4
+                    flex: 6
                 },
                 {
                     xtype: 'gridcolumn',
                     dataIndex: 'createUserName',
                     text: '创建人',
-                    flex: 0.2
+                    flex: 3
                 },
                 {
                     xtype: 'gridcolumn',
                     dataIndex: 'date',
                     text: '创建日期',
-                    flex: 0.2
+                    flex: 3
                 },
                 {
                     xtype: 'actioncolumn',
                     hideable: false,
                     text: '方案成员',
                     tooltip: '修改',
-                    flex: 0.1,
+                    flex: 2,
                     items: [
                         {
                             handler: function(view, rowIndex, colIndex, item, e, record, row) {
@@ -171,7 +173,7 @@ Ext.define('sion.salary.social.view.SocialAccountGrid', {
                     hideable: false,
                     text: '修改',
                     tooltip: '修改',
-                    flex: 0.06,
+                    flex: 1,
                     items: [
                         {
                             handler: function(view, rowIndex, colIndex, item, e, record, row) {
@@ -187,7 +189,7 @@ Ext.define('sion.salary.social.view.SocialAccountGrid', {
                     hideable: false,
                     text: '删除',
                     tooltip: '删除',
-                    flex: 0.06,
+                    flex: 1,
                     items: [
                         {
                             handler: function(view, rowIndex, colIndex, item, e, record, row) {

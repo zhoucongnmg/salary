@@ -125,6 +125,7 @@ Ext.define('sion.salary.accounts.view.AccountMember', {
                                 {
                                     xtype: 'button',
                                     width: 70,
+                                    iconCls: 's_icon_action_add',
                                     text: '新增',
                                     listeners: {
                                         click: {
@@ -135,9 +136,9 @@ Ext.define('sion.salary.accounts.view.AccountMember', {
                                 },
                                 {
                                     xtype: 'button',
-                                    style: 'background:#3ca9fc;',
                                     width: 70,
-                                    text: '<font color=\'#fff\'>保存</font>',
+                                    iconCls: 's_icon_table_save',
+                                    text: '保存',
                                     listeners: {
                                         click: {
                                             fn: me.onButtonClick1,

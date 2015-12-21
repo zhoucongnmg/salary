@@ -13,7 +13,7 @@
             "AccountItem",
             "PersonAccount",
             "PersonAccountItem",
-            "Dynamic"
+            "AccountItemType"
         ],
         "name": "sion.salary.accounts",
         "paths": [
@@ -31,7 +31,7 @@
             "AccountMember",
             "PersonAccount",
             "PersonAccountItem",
-            "Dynamic"
+            "AccountItemType"
         ],
         "views": [
             "SalaryPlanGrid",
@@ -42,8 +42,7 @@
             "AddSalaryItem",
             "AccountMember",
             "AccountMemberConfig",
-            "SalaryItemRead",
-            "testDynamicGrid"
+            "SalaryItemRead"
         ]
     },
     "name": "Application",

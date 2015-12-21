@@ -73,19 +73,16 @@
                     "codeClass": null,
                     "userConfig": {
                         "allowBlank": false,
+                        "displayField": "name",
                         "editable": false,
                         "fieldLabel": "类型",
                         "itemId": "type",
                         "layout|anchor": "100%",
                         "name": "type",
-                        "store": [
-                            "['输入项','计算项']"
-                        ]
+                        "store": "AccountItemType",
+                        "valueField": "id"
                     },
                     "name": "MyComboBox",
-                    "configAlternates": {
-                        "store": "array"
-                    },
                     "designerId": "4b4bf8af-290e-46ba-9fc8-f4bba32dd132"
                 },
                 {
@@ -164,9 +161,10 @@
                     },
                     "codeClass": null,
                     "userConfig": {
+                        "iconCls": "s_icon_table_save",
                         "layout|flex": null,
                         "text": "保存",
-                        "width": 70
+                        "width": null
                     },
                     "name": "MyButton6",
                     "designerId": "d9a49ee1-a586-4f84-be00-c3abeeb48ee7",

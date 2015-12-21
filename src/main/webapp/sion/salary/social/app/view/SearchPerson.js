@@ -17,19 +17,17 @@ Ext.define('sion.salary.social.view.SearchPerson', {
     extend: 'Ext.window.Window',
 
     requires: [
-        'Ext.toolbar.Toolbar',
-        'Ext.button.Button',
         'Ext.grid.Panel',
         'Ext.grid.column.Column',
         'Ext.grid.View',
-        'Ext.selection.CheckboxModel'
+        'Ext.selection.CheckboxModel',
+        'Ext.toolbar.Toolbar',
+        'Ext.button.Button'
     ],
 
     height: 640,
     maxHeight: 640,
-    maxWidth: 720,
     minHeight: 640,
-    minWidth: 720,
     width: 720,
     layout: 'fit',
     title: '人员薪资档案',
@@ -38,24 +36,6 @@ Ext.define('sion.salary.social.view.SearchPerson', {
         var me = this;
 
         Ext.applyIf(me, {
-            dockedItems: [
-                {
-                    xtype: 'toolbar',
-                    dock: 'top',
-                    items: [
-                        {
-                            xtype: 'button',
-                            text: '确定',
-                            listeners: {
-                                click: {
-                                    fn: me.onButtonClick,
-                                    scope: me
-                                }
-                            }
-                        }
-                    ]
-                }
-            ],
             items: [
                 {
                     xtype: 'gridpanel',
@@ -67,36 +47,60 @@ Ext.define('sion.salary.social.view.SearchPerson', {
                             xtype: 'gridcolumn',
                             width: '18%',
                             dataIndex: 'personCode',
-                            text: '员工编号'
+                            text: '员工编号',
+                            flex: 1
                         },
                         {
                             xtype: 'gridcolumn',
                             width: '18%',
                             dataIndex: 'name',
-                            text: '员工姓名'
+                            text: '员工姓名',
+                            flex: 1
                         },
                         {
                             xtype: 'gridcolumn',
                             width: '20%',
                             dataIndex: 'dept',
-                            text: '部门'
+                            text: '部门',
+                            flex: 1
                         },
                         {
                             xtype: 'gridcolumn',
                             width: '18%',
                             dataIndex: 'duty',
-                            text: '职务'
+                            text: '职务',
+                            flex: 1
                         },
                         {
                             xtype: 'gridcolumn',
                             width: '20%',
                             dataIndex: 'idCard',
-                            text: '身份证号'
+                            text: '身份证号',
+                            flex: 2
                         }
                     ],
                     selModel: Ext.create('Ext.selection.CheckboxModel', {
 
-                    })
+                    }),
+                    dockedItems: [
+                        {
+                            xtype: 'toolbar',
+                            dock: 'top',
+                            items: [
+                                {
+                                    xtype: 'button',
+                                    iconCls: 's_icon_table_save',
+                                    text: '确定',
+                                    listeners: {
+                                        click: {
+                                            fn: me.onButtonClick,
+                                            scope: me
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    ]
                 }
             ],
             listeners: {

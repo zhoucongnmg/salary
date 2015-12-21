@@ -17,8 +17,11 @@ import net.sion.boot.config.jackson.CustomJackson;
 import net.sion.boot.mongo.template.SessionMongoTemplate;
 import net.sion.company.salary.domain.Account;
 import net.sion.company.salary.domain.AccountItem;
+import net.sion.company.salary.domain.Formula;
+import net.sion.company.salary.domain.FormulaItem;
 import net.sion.company.salary.domain.PersonAccountFile;
 import net.sion.company.salary.domain.PersonAccountItem;
+import net.sion.company.salary.service.FormulaService;
 import net.sion.company.salary.sessionrepository.AccountRepository;
 import net.sion.company.salary.sessionrepository.FormulaRepository;
 import net.sion.company.salary.sessionrepository.PersonAccountFileRepository;
@@ -59,6 +62,7 @@ public class AccountController {
 	@Autowired CustomJackson jackson;
 	@Autowired PersonAccountFileRepository personAccountFileRepository;
 	@Autowired FormulaRepository formulaRepository;
+	@Autowired FormulaService formulaService;
 	
 	/**
 	 * 创建套帐
@@ -79,18 +83,16 @@ public class AccountController {
 			account.setCreateUserId(user.getId());
 			account.setCreateUserName(user.getName());
 		}
-		accountRepository.save(account);
-		saveFormulas(account.getAccountItems());
-		return new Response(true);
-	}
-	//保存公式
-	private void saveFormulas(List<AccountItem> list){
-		for(AccountItem item : list){
-			if(item.getFormula() != null){
-				formulaRepository.save(item.getFormula());
+		for(AccountItem accountItem : account.getAccountItems()){
+			if(accountItem.getFormula() != null){
+				Formula formula = formulaService.create(accountItem.getFormula());
+				accountItem.setFormulaId(formula.getId());
 			}
 		}
+		accountRepository.save(account);
+		return new Response(true);
 	}
+
 	/**
 	 * 删除套帐
 	 * 

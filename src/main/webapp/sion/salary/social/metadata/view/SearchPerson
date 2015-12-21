@@ -10,75 +10,15 @@
         "height": 640,
         "layout": "fit",
         "maxHeight": 640,
-        "maxWidth": 720,
+        "maxWidth": null,
         "minHeight": 640,
-        "minWidth": 720,
+        "minWidth": null,
         "title": "人员薪资档案",
         "width": 720
     },
     "name": "MyWindow",
     "designerId": "9339bdfc-ed9f-4ffc-a55d-7bd4af7376f7",
     "cn": [
-        {
-            "type": "Ext.toolbar.Toolbar",
-            "reference": {
-                "name": "dockedItems",
-                "type": "array"
-            },
-            "codeClass": null,
-            "userConfig": {
-                "dock": "top"
-            },
-            "name": "MyToolbar2",
-            "designerId": "4a35d69d-08bb-4e11-b572-256e3e64eef7",
-            "cn": [
-                {
-                    "type": "Ext.button.Button",
-                    "reference": {
-                        "name": "items",
-                        "type": "array"
-                    },
-                    "codeClass": null,
-                    "userConfig": {
-                        "layout|flex": null,
-                        "text": "确定"
-                    },
-                    "name": "MyButton10",
-                    "designerId": "fb920755-f017-4472-83d7-9b4e27a10b00",
-                    "cn": [
-                        {
-                            "type": "basiceventbinding",
-                            "reference": {
-                                "name": "listeners",
-                                "type": "array"
-                            },
-                            "codeClass": null,
-                            "userConfig": {
-                                "fn": "onButtonClick",
-                                "implHandler": [
-                                    "var me=this,",
-                                    "    grid=me.down('gridpanel');",
-                                    "persons = grid.getSelectionModel().getSelection();",
-                                    "",
-                                    "if(persons === null||persons.length===0){",
-                                    "    Ext.Msg.alert(\"提示\",\"请至少选中表格中的一条记录!\");",
-                                    "    return;",
-                                    "}",
-                                    "if(this._callback){",
-                                    "    this._callback(persons,this._scope);",
-                                    "    me.close();",
-                                    "}"
-                                ],
-                                "name": "click",
-                                "scope": "me"
-                            },
-                            "name": "onButtonClick",
-                            "designerId": "ac2c26fd-02b3-4dc9-b663-0032f6e8bd05"
-                        }
-                    ]
-                }
-            ]
-        },
         {
             "type": "Ext.grid.Panel",
             "reference": {
@@ -103,6 +43,7 @@
                     "codeClass": null,
                     "userConfig": {
                         "dataIndex": "personCode",
+                        "flex": 1,
                         "text": "员工编号",
                         "width": "18%"
                     },
@@ -118,6 +59,7 @@
                     "codeClass": null,
                     "userConfig": {
                         "dataIndex": "name",
+                        "flex": 1,
                         "text": "员工姓名",
                         "width": "18%"
                     },
@@ -133,6 +75,7 @@
                     "codeClass": null,
                     "userConfig": {
                         "dataIndex": "dept",
+                        "flex": 1,
                         "text": "部门",
                         "width": "20%"
                     },
@@ -148,6 +91,7 @@
                     "codeClass": null,
                     "userConfig": {
                         "dataIndex": "duty",
+                        "flex": 1,
                         "text": "职务",
                         "width": "18%"
                     },
@@ -163,6 +107,7 @@
                     "codeClass": null,
                     "userConfig": {
                         "dataIndex": "idCard",
+                        "flex": 2,
                         "text": "身份证号",
                         "width": "20%"
                     },
@@ -188,6 +133,67 @@
                     "codeClass": "Ext.selection.CheckboxModel",
                     "name": "MyCheckboxSelectionModel",
                     "designerId": "7cbf45fc-9f8d-4489-bfdf-594ab5517f6c"
+                },
+                {
+                    "type": "Ext.toolbar.Toolbar",
+                    "reference": {
+                        "name": "dockedItems",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dock": "top"
+                    },
+                    "name": "MyToolbar2",
+                    "designerId": "4a35d69d-08bb-4e11-b572-256e3e64eef7",
+                    "cn": [
+                        {
+                            "type": "Ext.button.Button",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "iconCls": "s_icon_table_save",
+                                "layout|flex": null,
+                                "text": "确定"
+                            },
+                            "name": "MyButton10",
+                            "designerId": "fb920755-f017-4472-83d7-9b4e27a10b00",
+                            "cn": [
+                                {
+                                    "type": "basiceventbinding",
+                                    "reference": {
+                                        "name": "listeners",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fn": "onButtonClick",
+                                        "implHandler": [
+                                            "var me=this,",
+                                            "    grid=me.down('gridpanel');",
+                                            "persons = grid.getSelectionModel().getSelection();",
+                                            "",
+                                            "if(persons === null||persons.length===0){",
+                                            "    Ext.Msg.alert(\"提示\",\"请至少选中表格中的一条记录!\");",
+                                            "    return;",
+                                            "}",
+                                            "if(this._callback){",
+                                            "    this._callback(persons,this._scope);",
+                                            "    me.close();",
+                                            "}"
+                                        ],
+                                        "name": "click",
+                                        "scope": "me"
+                                    },
+                                    "name": "onButtonClick",
+                                    "designerId": "ac2c26fd-02b3-4dc9-b663-0032f6e8bd05"
+                                }
+                            ]
+                        }
+                    ]
                 }
             ]
         },

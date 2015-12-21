@@ -17,11 +17,9 @@ Ext.define('sion.salary.social.view.PersonAccountGrid', {
     extend: 'Ext.grid.Panel',
 
     requires: [
-        'Ext.form.Panel',
+        'Ext.button.Button',
         'Ext.form.field.ComboBox',
         'Ext.form.field.Date',
-        'Ext.button.Button',
-        'Ext.toolbar.Spacer',
         'Ext.grid.column.Column',
         'Ext.grid.View',
         'Ext.toolbar.Paging'
@@ -39,110 +37,102 @@ Ext.define('sion.salary.social.view.PersonAccountGrid', {
                 {
                     xtype: 'toolbar',
                     dock: 'top',
-                    height: 90,
                     items: [
                         {
-                            xtype: 'form',
-                            height: 122,
-                            width: 951,
-                            layout: 'column',
-                            bodyPadding: 10,
-                            items: [
-                                {
-                                    xtype: 'combobox',
-                                    columnWidth: 0.22,
-                                    itemId: 'salaryAccount',
-                                    fieldLabel: '薪资方案',
-                                    labelWidth: 60,
-                                    displayField: 'name',
-                                    store: 'SalaryAccount',
-                                    valueField: 'id'
-                                },
-                                {
-                                    xtype: 'combobox',
-                                    columnWidth: 0.22,
-                                    itemId: 'socialAccount',
-                                    fieldLabel: '社保方案',
-                                    labelWidth: 60,
-                                    displayField: 'name',
-                                    store: 'SocialAccount',
-                                    valueField: 'id'
-                                },
-                                {
-                                    xtype: 'combobox',
-                                    columnWidth: 0.2,
-                                    itemId: 'status',
-                                    margin: '0 0 0 10',
-                                    fieldLabel: '社保状态',
-                                    labelWidth: 60,
-                                    store: [
-                                        [
-                                            'In',
-                                            '在保'
-                                        ],
-                                        [
-                                            'Out',
-                                            '退保'
-                                        ]
-                                    ]
-                                },
-                                {
-                                    xtype: 'datefield',
-                                    columnWidth: 0.22,
-                                    itemId: 'from',
-                                    margin: '0 0 0 10',
-                                    fieldLabel: '参保日期',
-                                    labelWidth: 60,
-                                    format: 'Y-m-d'
-                                },
-                                {
-                                    xtype: 'datefield',
-                                    columnWidth: 0.18,
-                                    itemId: 'to',
-                                    margin: '0 0 0 10',
-                                    fieldLabel: ' 至 ',
-                                    labelSeparator: ' ',
-                                    labelWidth: 10,
-                                    format: 'Y-m-d'
-                                },
-                                {
-                                    xtype: 'button',
-                                    margin: '0 0 0 10',
-                                    text: '查询',
-                                    listeners: {
-                                        click: {
-                                            fn: me.onSearchClick1,
-                                            scope: me
-                                        }
-                                    }
-                                },
-                                {
-                                    xtype: 'button',
-                                    margin: '0 0 0 10',
-                                    text: '重置',
-                                    listeners: {
-                                        click: {
-                                            fn: me.onResetClick1,
-                                            scope: me
-                                        }
-                                    }
-                                },
-                                {
-                                    xtype: 'tbspacer',
-                                    columnWidth: 1.2,
-                                    height: 20
-                                },
-                                {
-                                    xtype: 'button',
-                                    text: '新建',
-                                    listeners: {
-                                        click: {
-                                            fn: me.onButtonClick,
-                                            scope: me
-                                        }
-                                    }
+                            xtype: 'button',
+                            iconCls: 's_icon_action_add',
+                            text: '<span style="font-size:14px;color:#3892D3;font-weight:bold;">新建</span>',
+                            listeners: {
+                                click: {
+                                    fn: me.onButtonClick,
+                                    scope: me
                                 }
+                            }
+                        },
+                        {
+                            xtype: 'button',
+                            margin: '0 0 0 10',
+                            iconCls: 's_icon_action_search',
+                            text: '查询',
+                            listeners: {
+                                click: {
+                                    fn: me.onSearchClick1,
+                                    scope: me
+                                }
+                            }
+                        },
+                        {
+                            xtype: 'button',
+                            margin: '0 0 0 10',
+                            iconCls: 's_icon_action_clockwise',
+                            text: '重置',
+                            listeners: {
+                                click: {
+                                    fn: me.onResetClick1,
+                                    scope: me
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    xtype: 'toolbar',
+                    dock: 'top',
+                    items: [
+                        {
+                            xtype: 'combobox',
+                            itemId: 'salaryAccount',
+                            fieldLabel: '薪资方案',
+                            labelWidth: 60,
+                            displayField: 'name',
+                            store: 'SalaryAccount',
+                            valueField: 'id'
+                        },
+                        {
+                            xtype: 'combobox',
+                            itemId: 'socialAccount',
+                            fieldLabel: '社保方案',
+                            labelWidth: 60,
+                            displayField: 'name',
+                            store: 'SocialAccount',
+                            valueField: 'id'
+                        },
+                        {
+                            xtype: 'combobox',
+                            itemId: 'status',
+                            margin: '0 0 0 10',
+                            width: 160,
+                            fieldLabel: '社保状态',
+                            labelWidth: 60,
+                            store: [
+                                [
+                                    'In',
+                                    '在保'
+                                ],
+                                [
+                                    'Out',
+                                    '退保'
+                                ]
                             ]
+                        },
+                        {
+                            xtype: 'datefield',
+                            itemId: 'from',
+                            margin: '0 0 0 10',
+                            width: 170,
+                            fieldLabel: '参保日期',
+                            labelWidth: 60,
+                            format: 'Y-m-d'
+                        },
+                        {
+                            xtype: 'datefield',
+                            itemId: 'to',
+                            margin: '0 0 0 10',
+                            width: 120,
+                            fieldLabel: ' 至 ',
+                            labelSeparator: ' ',
+                            labelWidth: 10,
+                            format: 'Y-m-d'
                         }
                     ]
                 },
@@ -158,27 +148,32 @@ Ext.define('sion.salary.social.view.PersonAccountGrid', {
                 {
                     xtype: 'gridcolumn',
                     dataIndex: 'personCode',
-                    text: '员工编号'
+                    text: '员工编号',
+                    flex: 1
                 },
                 {
                     xtype: 'gridcolumn',
                     dataIndex: 'name',
-                    text: '员工姓名'
+                    text: '员工姓名',
+                    flex: 1
                 },
                 {
                     xtype: 'gridcolumn',
                     dataIndex: 'dept',
-                    text: '部门'
+                    text: '部门',
+                    flex: 1
                 },
                 {
                     xtype: 'gridcolumn',
                     dataIndex: 'duty',
-                    text: '职务'
+                    text: '职务',
+                    flex: 1
                 },
                 {
                     xtype: 'gridcolumn',
                     dataIndex: 'idCard',
-                    text: '身份证号'
+                    text: '身份证号',
+                    flex: 1
                 },
                 {
                     xtype: 'gridcolumn',
@@ -195,7 +190,8 @@ Ext.define('sion.salary.social.view.PersonAccountGrid', {
                         return value;
                     },
                     dataIndex: 'accountId',
-                    text: '薪资方案'
+                    text: '薪资方案',
+                    flex: 1
                 },
                 {
                     xtype: 'gridcolumn',
@@ -212,12 +208,14 @@ Ext.define('sion.salary.social.view.PersonAccountGrid', {
                         return value;
                     },
                     dataIndex: 'level',
-                    text: '薪资层次'
+                    text: '薪资层次',
+                    flex: 1
                 },
                 {
                     xtype: 'gridcolumn',
                     dataIndex: 'rank',
-                    text: '薪资级别'
+                    text: '薪资级别',
+                    flex: 1
                 },
                 {
                     xtype: 'gridcolumn',
@@ -236,7 +234,8 @@ Ext.define('sion.salary.social.view.PersonAccountGrid', {
 
                     },
                     dataIndex: 'insuredPerson',
-                    text: '社保方案'
+                    text: '社保方案',
+                    flex: 1
                 },
                 {
                     xtype: 'gridcolumn',
@@ -247,7 +246,8 @@ Ext.define('sion.salary.social.view.PersonAccountGrid', {
                         return '退保';
                     },
                     dataIndex: 'insuredPerson',
-                    text: '社保状态'
+                    text: '社保状态',
+                    flex: 1
                 },
                 {
                     xtype: 'gridcolumn',
@@ -255,7 +255,8 @@ Ext.define('sion.salary.social.view.PersonAccountGrid', {
                         return value.socialWorkplace;
                     },
                     dataIndex: 'insuredPerson',
-                    text: '社保代付地'
+                    text: '社保代付地',
+                    flex: 1
                 },
                 {
                     xtype: 'gridcolumn',
@@ -263,7 +264,8 @@ Ext.define('sion.salary.social.view.PersonAccountGrid', {
                         return value.accumulationFundsWorkplace;
                     },
                     dataIndex: 'insuredPerson',
-                    text: '公积金代付地'
+                    text: '公积金代付地',
+                    flex: 1
                 }
             ],
             listeners: {
@@ -293,6 +295,13 @@ Ext.define('sion.salary.social.view.PersonAccountGrid', {
         config._socialAccountStore=Ext.create(ns+'.store.SocialAccount');
         config._levelStore=Ext.create(ns+'.store.LevelStore');
         return config;
+    },
+
+    onButtonClick: function(button, e, eOpts) {
+        var me=this,
+            namespace=me.getNamespace();
+        Ext.create(namespace+'.view.PersonAccountForm',{_grid:me}).show();
+
     },
 
     onSearchClick1: function(button, e, eOpts) {
@@ -325,13 +334,6 @@ Ext.define('sion.salary.social.view.PersonAccountGrid', {
         me.down('#status').setValue("");
         me.down('#salaryAccount').setValue("");
         me.down('#socialAccount').setValue("");
-    },
-
-    onButtonClick: function(button, e, eOpts) {
-        var me=this,
-            namespace=me.getNamespace();
-        Ext.create(namespace+'.view.PersonAccountForm',{_grid:me}).show();
-
     },
 
     onGridpanelAfterRender: function(component, eOpts) {

@@ -285,6 +285,7 @@
                             },
                             "codeClass": null,
                             "userConfig": {
+                                "iconCls": "s_icon_action_add",
                                 "layout|flex": null,
                                 "style": null,
                                 "text": "新增",
@@ -324,11 +325,10 @@
                             },
                             "codeClass": null,
                             "userConfig": {
+                                "iconCls": "s_icon_table_save",
                                 "layout|flex": null,
-                                "style": [
-                                    "background:#3ca9fc;"
-                                ],
-                                "text": "<font color='#fff'>保存</font>",
+                                "style": null,
+                                "text": "保存",
                                 "width": 70
                             },
                             "name": "MyButton10",

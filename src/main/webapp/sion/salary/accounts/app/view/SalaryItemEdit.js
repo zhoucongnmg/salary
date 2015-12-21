@@ -65,10 +65,9 @@ Ext.define('sion.salary.accounts.view.SalaryItemEdit', {
                             name: 'type',
                             allowBlank: false,
                             editable: false,
-                            store: [
-                                '输入项',
-                                '计算项'
-                            ]
+                            displayField: 'name',
+                            store: 'AccountItemType',
+                            valueField: 'id'
                         },
                         {
                             xtype: 'checkboxfield',
@@ -105,7 +104,7 @@ Ext.define('sion.salary.accounts.view.SalaryItemEdit', {
                     items: [
                         {
                             xtype: 'button',
-                            width: 70,
+                            iconCls: 's_icon_table_save',
                             text: '保存',
                             listeners: {
                                 click: {

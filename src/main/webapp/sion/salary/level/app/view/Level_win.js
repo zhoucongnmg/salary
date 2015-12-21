@@ -44,6 +44,7 @@ Ext.define('sion.salary.level.view.Level_win', {
                     items: [
                         {
                             xtype: 'button',
+                            iconCls: 's_icon_table_save',
                             text: '保存',
                             listeners: {
                                 click: {
@@ -61,43 +62,57 @@ Ext.define('sion.salary.level.view.Level_win', {
                     bodyPadding: 10,
                     header: false,
                     title: 'My Form',
+                    layout: {
+                        type: 'vbox',
+                        align: 'stretch'
+                    },
                     items: [
                         {
                             xtype: 'textfield',
-                            anchor: '100%',
                             height: 35,
                             itemId: 'name',
                             fieldLabel: '名称',
                             name: 'name'
                         },
                         {
-                            xtype: 'button',
-                            text: '添加等级',
-                            listeners: {
-                                click: {
-                                    fn: me.onAddRowClick,
-                                    scope: me
-                                }
-                            }
-                        },
-                        {
-                            xtype: 'button',
-                            margin: '0 0 0 10',
-                            text: '删除等级',
-                            listeners: {
-                                click: {
-                                    fn: me.onDeleteClick,
-                                    scope: me
-                                }
-                            }
-                        },
-                        {
                             xtype: 'fieldset',
-                            layout: 'fit',
+                            flex: 1,
+                            layout: {
+                                type: 'vbox',
+                                align: 'stretch'
+                            },
                             items: [
                                 {
+                                    xtype: 'toolbar',
+                                    items: [
+                                        {
+                                            xtype: 'button',
+                                            iconCls: 's_icon_action_add',
+                                            text: '添加等级',
+                                            listeners: {
+                                                click: {
+                                                    fn: me.onAddRowClick,
+                                                    scope: me
+                                                }
+                                            }
+                                        },
+                                        {
+                                            xtype: 'button',
+                                            margin: '0 0 0 10',
+                                            iconCls: 's_icon_cross',
+                                            text: '删除等级',
+                                            listeners: {
+                                                click: {
+                                                    fn: me.onDeleteClick,
+                                                    scope: me
+                                                }
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
                                     xtype: 'gridpanel',
-                                    height: 483,
+                                    flex: 1,
                                     header: false,
                                     title: 'My Grid Panel',
                                     store: 'LevelItemStore',
@@ -106,6 +121,7 @@ Ext.define('sion.salary.level.view.Level_win', {
                                             xtype: 'gridcolumn',
                                             dataIndex: 'rank',
                                             text: '等级',
+                                            flex: 1,
                                             editor: {
                                                 xtype: 'textfield'
                                             }
@@ -284,7 +300,7 @@ Ext.define('sion.salary.level.view.Level_win', {
 
         var cols=grid.columns;
         Ext.Array.each(cols,function(c){
-            columns.push({text:c.text,dataIndex:c.dataIndex,editor:c.editor});
+            columns.push({text:c.text,dataIndex:c.dataIndex,editor:c.editor,flex:1});
         });
 
         Ext.Array.each(me._salaryItems,function(salary){

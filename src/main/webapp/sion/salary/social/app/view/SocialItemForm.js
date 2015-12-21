@@ -23,11 +23,13 @@ Ext.define('sion.salary.social.view.SocialItemForm', {
         'Ext.form.RadioGroup',
         'Ext.form.field.Radio',
         'Ext.form.field.Display',
+        'Ext.toolbar.Toolbar',
         'Ext.button.Button'
     ],
 
     height: 274,
     width: 481,
+    layout: 'fit',
     bodyPadding: 10,
 
     initComponent: function() {
@@ -97,17 +99,26 @@ Ext.define('sion.salary.social.view.SocialItemForm', {
                             fieldLabel: '温馨提示',
                             labelStyle: 'color:red;',
                             value: '小数保留方式默认为四舍五入方式；如需见分进角，则小数位数选1，保留方式选择直接进位即可。 '
-                        },
+                        }
+                    ],
+                    dockedItems: [
                         {
-                            xtype: 'button',
-                            width: 70,
-                            text: '保存',
-                            listeners: {
-                                click: {
-                                    fn: me.onButtonClick,
-                                    scope: me
+                            xtype: 'toolbar',
+                            dock: 'top',
+                            items: [
+                                {
+                                    xtype: 'button',
+                                    width: 70,
+                                    iconCls: 's_icon_table_save',
+                                    text: '保存',
+                                    listeners: {
+                                        click: {
+                                            fn: me.onButtonClick,
+                                            scope: me
+                                        }
+                                    }
                                 }
-                            }
+                            ]
                         }
                     ]
                 }
