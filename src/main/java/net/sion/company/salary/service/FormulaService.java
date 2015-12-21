@@ -1,6 +1,7 @@
 package net.sion.company.salary.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -62,11 +63,30 @@ public class FormulaService {
 	
 	
 	/**
-	 * TODO 方法：传入 FieldId和值的集合，返回受其影响的公式及结果
+	 * 方法：传入 FieldId和值的集合，返回受其影响的公式及结果
+	 * 
+	 * @param formulaIds
+	 * @param params
+	 * @return
+	 * @throws Exception
 	 */
-	public List<Formula> caculateInfluencedFormula(){
+	public Map<String,String> caculateInfluencedFormula(List<String> formulaIds,Map<String,String>params) throws Exception{
+		Map<String, String> result=new HashMap<String,String>();
+		for (String formulaId : formulaIds) {
+			List<FormulaItem> items=this.getFormulaItems(formulaId);
+			
+			for (FormulaItem formulaItem : items) {
+				String value=params.get(formulaItem.getFieldId());
+				if(value==null){
+					throw new Exception("无法确定公式中变量的值："+formulaItem.getText());
+				}
+				formulaItem.setValue(value);
+			}
+			
+			result.put(formulaId,String.valueOf(this.calculate(formulaId, items)));
+		}
 		
-		return null;
+		return result;
 	}
 	
 	/**
