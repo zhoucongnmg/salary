@@ -1,0 +1,30 @@
+{
+    "type": "Ext.data.Store",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "data": [
+            "[{id:'Input',name:'输入项'},{id:'Calculate',name:'计算项'},{id:'System',name:'系统提取项'}]"
+        ],
+        "designer|userClassName": "AccountItemType",
+        "model": "AccountItemType",
+        "storeId": "AccountItemType"
+    },
+    "name": "MyStore",
+    "designerId": "7e322a18-6086-4a79-889e-804435e95071",
+    "cn": [
+        {
+            "type": "Ext.data.proxy.Memory",
+            "reference": {
+                "name": "proxy",
+                "type": "object"
+            },
+            "codeClass": null,
+            "name": "MyMemoryProxy3",
+            "designerId": "865817de-db18-4e4b-a6aa-880ec67c24de"
+        }
+    ]
+}
