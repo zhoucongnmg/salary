@@ -1,0 +1,41 @@
+{
+    "type": "Ext.data.Model",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userClassName": "TempPerson"
+    },
+    "name": "MyModel",
+    "designerId": "5aa538ca-45ae-4b07-8806-525b6ca848d8",
+    "cn": [
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "id"
+            },
+            "name": "MyField16",
+            "designerId": "6a4c251e-3e5a-45c7-827b-8d9d199b1349"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "name"
+            },
+            "name": "MyField17",
+            "designerId": "d3c3b8c3-5ecc-4cc4-b44a-4786aa4fca37"
+        }
+    ]
+}

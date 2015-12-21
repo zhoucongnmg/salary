@@ -6,12 +6,12 @@
     },
     "codeClass": null,
     "userConfig": {
-        "designer|userClassName": "PersonStore",
-        "model": "Person",
-        "storeId": "PersonStore"
+        "designer|userClassName": "AccountStore",
+        "model": "Account",
+        "storeId": "AccountStore"
     },
     "name": "MyStore",
-    "designerId": "731d001c-257c-4805-8131-044d2515c2e2",
+    "designerId": "c8b6122a-a8fe-49be-98e9-028c6874105d",
     "cn": [
         {
             "type": "Ext.data.proxy.Ajax",
@@ -23,12 +23,12 @@
             "userConfig": {
                 "api": [
                     "{",
-                    "read: 'salary/payroll/getAccountPersons'",
+                    "read: 'salary/payroll/getAcountList'",
                     "}"
                 ]
             },
-            "name": "MyAjaxProxy",
-            "designerId": "4d47093c-5ff4-4494-8754-2e73027efddd",
+            "name": "MyAjaxProxy1",
+            "designerId": "8bed22f1-fbc9-40db-afeb-570ff76bfa47",
             "cn": [
                 {
                     "type": "Ext.data.reader.Json",
@@ -41,8 +41,8 @@
                         "messageProperty": "message",
                         "root": "data"
                     },
-                    "name": "MyJsonReader",
-                    "designerId": "c2ad10aa-9996-425a-b05f-186eb133f70c"
+                    "name": "MyJsonReader1",
+                    "designerId": "84669ff2-72d3-43cb-8c33-ee30674cbf69"
                 }
             ]
         }

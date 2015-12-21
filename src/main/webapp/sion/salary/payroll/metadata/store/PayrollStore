@@ -1,0 +1,16 @@
+{
+    "type": "Ext.data.Store",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userClassName": "PayrollStore",
+        "model": "Payroll",
+        "pageSize": 2,
+        "storeId": "PayrollStore"
+    },
+    "name": "MyStore",
+    "designerId": "c2c9c26d-c541-4ace-9fda-ef406f617ba8"
+}

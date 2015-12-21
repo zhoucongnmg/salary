@@ -92,7 +92,7 @@
                 "header": false,
                 "height": 329,
                 "margin": 10,
-                "store": "PersonStore",
+                "store": null,
                 "title": "My Grid Panel"
             },
             "name": "MyGridPanel1",

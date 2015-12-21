@@ -8,23 +8,25 @@
     "userConfig": {
         "models": [
             "Person",
-            "PayrollItem",
-            "Main"
+            "Payroll",
+            "Account",
+            "TempPerson"
         ],
         "name": "sion.salary.payroll",
         "paths": [
             "{'sion.salary.payroll' : 'sion/salary/payroll/app'}"
         ],
         "stores": [
+            "AccountStore",
             "PersonStore",
-            "PayrollItem"
+            "PayrollStore",
+            "TempPersonStore"
         ],
         "views": [
-            "PayrollGrid",
-            "PayrollForm",
             "SelectPerson_win",
-            "DynamicTest",
-            "DynamicGrid"
+            "PayrollMainForm",
+            "PayrollForm",
+            "GetPayroll"
         ]
     },
     "name": "Application",

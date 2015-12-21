@@ -1,0 +1,660 @@
+{
+    "type": "Ext.panel.Panel",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userAlias": "getpayroll",
+        "designer|userClassName": "GetPayroll",
+        "height": 487,
+        "itemId": "GetPayroll",
+        "layout": "border",
+        "title": "",
+        "width": 670
+    },
+    "name": "MyPanel3",
+    "designerId": "02f3d5a0-98dc-4e83-be20-913355b92319",
+    "cn": [
+        {
+            "type": "Ext.form.Panel",
+            "reference": {
+                "name": "dockedItems",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "bodyPadding": 10,
+                "dock": "top",
+                "height": null,
+                "layout": "column",
+                "title": null,
+                "width": 100
+            },
+            "name": "MyForm",
+            "designerId": "5ab59cb4-a1d2-40ef-af29-925004bd69b3",
+            "cn": [
+                {
+                    "type": "Ext.form.field.Text",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fieldLabel": "薪资主题",
+                        "itemId": "subject",
+                        "labelWidth": 60,
+                        "layout|columnWidth": 0.25,
+                        "margin": "",
+                        "padding": null
+                    },
+                    "name": "MyTextField",
+                    "designerId": "dbeb7a61-3e27-4cbb-9553-58e55ffc85ce"
+                },
+                {
+                    "type": "Ext.form.field.ComboBox",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fieldLabel": "薪资套账",
+                        "hidden": true,
+                        "labelWidth": 60,
+                        "layout|columnWidth": 0.25,
+                        "padding": "0 0 0 25"
+                    },
+                    "name": "MyComboBox2",
+                    "designerId": "a98db989-539d-4e38-b945-1866b06259f8"
+                },
+                {
+                    "type": "Ext.form.field.Date",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fieldLabel": "薪资月份",
+                        "format": "Y-m",
+                        "itemId": "month",
+                        "labelWidth": 60,
+                        "layout|columnWidth": 0.2,
+                        "padding": "0 0 0 25"
+                    },
+                    "name": "MyDateField",
+                    "designerId": "d8f3d52e-e6a8-4efe-805e-aacca772c69c"
+                },
+                {
+                    "type": "Ext.form.field.Date",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fieldLabel": "社保扣费月",
+                        "format": "Y-m",
+                        "itemId": "socialCostMonth",
+                        "labelWidth": 80,
+                        "layout|columnWidth": 0.22,
+                        "padding": "0 0 0 25"
+                    },
+                    "name": "MyDateField1",
+                    "designerId": "33b60e07-afcc-43f1-91ee-2bc39085a59d"
+                },
+                {
+                    "type": "Ext.toolbar.Spacer",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "height": 15,
+                        "layout|columnWidth": 0.07
+                    },
+                    "name": "MySpacer1",
+                    "designerId": "6777a407-4cb9-4881-ac37-a69b3678be7b"
+                },
+                {
+                    "type": "Ext.button.Button",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|columnWidth": 0.1,
+                        "padding": null,
+                        "style": null,
+                        "text": "查询"
+                    },
+                    "name": "MyButton",
+                    "designerId": "7df1081e-6706-48f1-bf09-557f72cb79bc",
+                    "cn": [
+                        {
+                            "type": "basiceventbinding",
+                            "reference": {
+                                "name": "listeners",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fn": "onButtonClick1",
+                                "implHandler": [
+                                    "var me = this,",
+                                    "    store = me.down('#PayrollGrid').getStore(),",
+                                    "    month = me.down('#month').getValue(),",
+                                    "    subject = me.down('#subject').getValue(),",
+                                    "    socialCostMonth = me.down('#socialCostMonth').getValue();",
+                                    "",
+                                    "store.load({",
+                                    "    params:{",
+                                    "        state:'Unpublish',",
+                                    "        start:'0',",
+                                    "        page:'1',",
+                                    "        subject:subject,",
+                                    "        month:month,",
+                                    "        socialCostMonth:socialCostMonth",
+                                    "    }",
+                                    "});"
+                                ],
+                                "name": "click",
+                                "scope": "me"
+                            },
+                            "name": "onButtonClick1",
+                            "designerId": "f153d114-0d52-4362-b55b-77d29844e5c0"
+                        }
+                    ]
+                },
+                {
+                    "type": "Ext.toolbar.Spacer",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "height": 20,
+                        "layout|columnWidth": 0.05
+                    },
+                    "name": "MySpacer4",
+                    "designerId": "b84224c4-1edb-4f76-a51e-f16faaf2faf0"
+                },
+                {
+                    "type": "Ext.button.Button",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|columnWidth": 0.1,
+                        "text": "发放"
+                    },
+                    "name": "MyButton2",
+                    "designerId": "58ff493d-fe2f-4201-a54f-0f8a10e28e8b",
+                    "cn": [
+                        {
+                            "type": "basiceventbinding",
+                            "reference": {
+                                "name": "listeners",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fn": "onButtonClick",
+                                "implHandler": [
+                                    "var me = this,",
+                                    "    grid = me.down('gridpanel'),",
+                                    "    store = grid.getStore(),",
+                                    "    records = grid.getSelectionModel().getSelection();",
+                                    "",
+                                    "Ext.Msg.confirm({",
+                                    "    title:\"提示\",",
+                                    "    msg:\"确定发放工资？\",",
+                                    "    buttons:Ext.MessageBox.OKCANCEL,",
+                                    "    width:200,",
+                                    "    fn:function(buttonId){",
+                                    "        if(buttonId==\"ok\"){",
+                                    "            Ext.each(records, function (item) {",
+                                    "                item.set('state','Paid');",
+                                    "            });",
+                                    "            store.sync({",
+                                    "                success: function(response, opts){",
+                                    "                    store.reload();",
+                                    "                    Ext.Msg.alert(\"提示\", \"操作成功\");",
+                                    "                },",
+                                    "                failure: function(){",
+                                    "                    Ext.Msg.alert(\"提示\", \"操作失败\");",
+                                    "                }",
+                                    "            });",
+                                    "        }",
+                                    "    }",
+                                    "});"
+                                ],
+                                "name": "click",
+                                "scope": "me"
+                            },
+                            "name": "onButtonClick",
+                            "designerId": "04780842-79f4-446c-8201-dfcf50acc9a8"
+                        }
+                    ]
+                },
+                {
+                    "type": "Ext.toolbar.Spacer",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "height": 20,
+                        "layout|columnWidth": 1.1
+                    },
+                    "name": "MySpacer",
+                    "designerId": "0ff6ba34-f040-4b81-adef-badc18985a17"
+                }
+            ]
+        },
+        {
+            "type": "Ext.grid.Panel",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "itemId": "PayrollGrid",
+                "layout|region": "center",
+                "store": "PayrollStore",
+                "title": null
+            },
+            "name": "MyGridPanel",
+            "designerId": "6823a197-bf4c-49fe-ba80-59ee4ef6ea1f",
+            "cn": [
+                {
+                    "type": "Ext.grid.column.Column",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dataIndex": "subject",
+                        "flex": 1,
+                        "menuDisabled": true,
+                        "text": "薪资主题"
+                    },
+                    "name": "MyColumn",
+                    "designerId": "1f0e7f4a-4950-45dc-9b55-8e120e309544"
+                },
+                {
+                    "type": "Ext.grid.column.Column",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dataIndex": "accountName",
+                        "flex": 1,
+                        "menuDisabled": true,
+                        "text": "套账名称"
+                    },
+                    "name": "MyColumn1",
+                    "designerId": "8b1fde1d-effc-422b-be8d-93af514b1937"
+                },
+                {
+                    "type": "Ext.grid.column.Column",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dataIndex": "state",
+                        "flex": 1,
+                        "menuDisabled": true,
+                        "text": "状态"
+                    },
+                    "name": "MyColumn2",
+                    "designerId": "ec2af2d4-5409-4056-bc1b-2d455669204f",
+                    "cn": [
+                        {
+                            "type": "fixedfunction",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "designer|params": [
+                                    "value",
+                                    "metaData",
+                                    "record",
+                                    "rowIndex",
+                                    "colIndex",
+                                    "store",
+                                    "view"
+                                ],
+                                "fn": "renderer",
+                                "implHandler": [
+                                    "return value=='Unpublish'?'待发':'已发';"
+                                ]
+                            },
+                            "name": "renderer",
+                            "designerId": "ee93ea66-4e4e-4a1a-a8d6-d1fd8efdb95e"
+                        }
+                    ]
+                },
+                {
+                    "type": "Ext.grid.column.Date",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dataIndex": "month",
+                        "flex": 1,
+                        "format": "Y-m",
+                        "menuDisabled": true,
+                        "text": "薪资月份"
+                    },
+                    "name": "MyDateColumn1",
+                    "designerId": "229dfc3d-89a6-4dec-aab4-46112dd0de4a"
+                },
+                {
+                    "type": "Ext.grid.column.Date",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dataIndex": "socialCostMonth",
+                        "flex": 1,
+                        "format": "Y-m",
+                        "menuDisabled": true,
+                        "text": "社保扣费月"
+                    },
+                    "name": "MyDateColumn",
+                    "designerId": "20aa78be-a218-49c3-ab05-be9be49b41cf"
+                },
+                {
+                    "type": "Ext.grid.column.Column",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "flex": 1,
+                        "menuDisabled": true,
+                        "text": "发放人数"
+                    },
+                    "name": "MyColumn4",
+                    "designerId": "363a827c-4981-473c-9cfd-904a95a9f21e",
+                    "cn": [
+                        {
+                            "type": "fixedfunction",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "designer|params": [
+                                    "value",
+                                    "metaData",
+                                    "record",
+                                    "rowIndex",
+                                    "colIndex",
+                                    "store",
+                                    "view"
+                                ],
+                                "fn": "renderer",
+                                "implHandler": [
+                                    "// console.log(record.get('persons').length);",
+                                    "return record.get('persons').length;"
+                                ]
+                            },
+                            "name": "renderer",
+                            "designerId": "364b5141-cbad-4edc-ac1f-9b14374c17ae"
+                        }
+                    ]
+                },
+                {
+                    "type": "Ext.grid.column.Column",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "flex": 1,
+                        "menuDisabled": true,
+                        "text": "薪资总额"
+                    },
+                    "name": "MyColumn5",
+                    "designerId": "59d5eec7-ada7-4e17-baf7-5bed03484a85"
+                },
+                {
+                    "type": "Ext.grid.column.Column",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dataIndex": "createPersonName",
+                        "flex": 1,
+                        "menuDisabled": true,
+                        "text": "创建人"
+                    },
+                    "name": "MyColumn12",
+                    "designerId": "71bc6361-64a2-4b50-9faf-17bb76f6c821"
+                },
+                {
+                    "type": "Ext.grid.column.Column",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dataIndex": "createDate",
+                        "flex": 1,
+                        "menuDisabled": true,
+                        "text": "创建日期"
+                    },
+                    "name": "MyColumn6",
+                    "designerId": "de81d5ab-0fd5-4640-af4a-08841e328be2"
+                },
+                {
+                    "type": "Ext.grid.column.Action",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "flex": 1,
+                        "iconCls": null,
+                        "menuDisabled": true,
+                        "menuText": "",
+                        "text": "编辑",
+                        "width": 61
+                    },
+                    "name": "MyActionColumn",
+                    "designerId": "f119923c-f2d9-4cab-80eb-137fb8f41e0d",
+                    "cn": [
+                        {
+                            "type": "actioncolumnitem",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "iconCls": "s_icon_table_edit"
+                            },
+                            "name": "MyActionColumnItem",
+                            "designerId": "6c2f7bc4-bc01-486b-906b-bc0524c1dacc"
+                        }
+                    ]
+                },
+                {
+                    "type": "Ext.grid.column.Action",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "flex": 1,
+                        "menuDisabled": true,
+                        "text": "发放",
+                        "width": 62
+                    },
+                    "name": "MyActionColumn1",
+                    "designerId": "00ad34f9-a81a-45bc-9e16-1be4974f10f2",
+                    "cn": [
+                        {
+                            "type": "actioncolumnitem",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "iconCls": "s_icon_action_search"
+                            },
+                            "name": "MyActionColumnItem1",
+                            "designerId": "22341a33-abbe-4edd-9adf-938adb560428",
+                            "cn": [
+                                {
+                                    "type": "fixedfunction",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "designer|params": [
+                                            "view",
+                                            "rowIndex",
+                                            "colIndex",
+                                            "item",
+                                            "e",
+                                            "record",
+                                            "row"
+                                        ],
+                                        "fn": "handler",
+                                        "implHandler": [
+                                            "var grid = view.up('grid'),",
+                                            "    store = grid.getStore();",
+                                            "",
+                                            "Ext.Msg.confirm({",
+                                            "    title:\"提示\",",
+                                            "    msg:\"确定发放工资？\",",
+                                            "    buttons:Ext.MessageBox.OKCANCEL,",
+                                            "    width:200,",
+                                            "    fn:function(buttonId){",
+                                            "        if(buttonId==\"ok\"){",
+                                            "            record.set('state','Paid');",
+                                            "            record.save({",
+                                            "                success: function(response, opts){",
+                                            "                    store.removeAt(rowIndex);",
+                                            "                    store.commitChanges();",
+                                            "                    Ext.Msg.alert(\"提示\", \"操作成功\");",
+                                            "                },",
+                                            "                failure: function(){",
+                                            "                    Ext.Msg.alert(\"提示\", \"操作失败\");",
+                                            "                }",
+                                            "            });",
+                                            "        }",
+                                            "    }",
+                                            "});"
+                                        ]
+                                    },
+                                    "name": "handler",
+                                    "designerId": "3c39d945-3bca-4b29-a2c6-6b4c1d7e8636"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "type": "Ext.selection.CheckboxModel",
+                    "reference": {
+                        "name": "selModel",
+                        "type": "object"
+                    },
+                    "codeClass": "Ext.selection.CheckboxModel",
+                    "name": "MyCheckboxSelectionModel1",
+                    "designerId": "3d42f75d-47a0-49fb-8e66-cb19cbe29d01"
+                },
+                {
+                    "type": "Ext.toolbar.Paging",
+                    "reference": {
+                        "name": "dockedItems",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "afterPageText": "共{0}页",
+                        "beforePageText": "当前",
+                        "designer|displayName": "分页",
+                        "displayInfo": true,
+                        "displayMsg": "当前 {0} - {1} 共{2}",
+                        "dock": "bottom",
+                        "emptyMsg": "无记录",
+                        "firstText": "首页",
+                        "lastText": "尾页",
+                        "nextText": "下一页",
+                        "prevText": "上一页",
+                        "refreshText": "刷新",
+                        "store": "PayrollStore",
+                        "width": 360
+                    },
+                    "name": "MyPagingToolbar",
+                    "designerId": "7877805e-f16a-4f71-a9c0-f51949357e3d",
+                    "cn": [
+                        {
+                            "type": "basiceventbinding",
+                            "reference": {
+                                "name": "listeners",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fn": "onPagingtoolbarBeforeChange",
+                                "implHandler": [
+                                    "var me = this,",
+                                    "    grid = me.down('gridpanel'),",
+                                    "    title = me.up('panel').title,",
+                                    "    state = title == '待发薪资'?'Unpublish':'Paid';",
+                                    "Ext.apply(grid.getStore().model.proxy.extraParams,{",
+                                    "",
+                                    "    state:state",
+                                    "",
+                                    "});"
+                                ],
+                                "name": "beforechange",
+                                "scope": "me"
+                            },
+                            "name": "onPagingtoolbarBeforeChange",
+                            "designerId": "5539b9a7-d193-45fc-985c-8e17835254d5"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

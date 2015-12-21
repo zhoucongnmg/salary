@@ -70,7 +70,6 @@ Ext.define('sion.salary.payroll.view.SelectPerson_win', {
                     margin: 10,
                     header: false,
                     title: 'My Grid Panel',
-                    store: 'PersonStore',
                     columns: [
                         {
                             xtype: 'checkcolumn',

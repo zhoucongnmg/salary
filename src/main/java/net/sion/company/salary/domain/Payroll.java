@@ -32,17 +32,22 @@ public class Payroll {
 	
 	String accountId;	//套账Id
 	
+	@Transient
+	String accountName;  //套帐Name
+	
 	Map<String,String> persons;	//发放人员 
 	
-	String date;	//套账创建日期
+	String createDate;	//套账创建日期
 	
-	String processId;	//流程实例id
-	
-	List<SocialAccountItem> socialAccountsItems;	//社保套账明细项目
+//	String processId;	//流程实例id
 	
 	@Transient
-	List<AccountItem> accountItems;	//薪资项目(用于前台列显示)
+	String createPersonName;//创建人name
 	
+	String createPersonId;  //创建人id
+
+	String state;//状态
+		
 	
 	public enum PayrollStatus{
 		Unpublish,
@@ -111,48 +116,55 @@ public class Payroll {
 	}
 
 
-	public String getDate() {
-		return date;
+	public String getAccountName() {
+		return accountName;
 	}
 
 
-	public void setDate(String date) {
-		this.date = date;
+	public void setAccountName(String accountName) {
+		this.accountName = accountName;
 	}
 
 
-	public String getProcessId() {
-		return processId;
+	public String getCreateDate() {
+		return createDate;
 	}
 
 
-	public void setProcessId(String processId) {
-		this.processId = processId;
+	public void setCreateDate(String createDate) {
+		this.createDate = createDate;
 	}
 
 
-	public List<SocialAccountItem> getSocialAccountsItems() {
-		return socialAccountsItems;
+	public String getCreatePersonName() {
+		return createPersonName;
 	}
 
 
-	public void setSocialAccountsItems(List<SocialAccountItem> socialAccountsItems) {
-		this.socialAccountsItems = socialAccountsItems;
+	public void setCreatePersonName(String createPersonName) {
+		this.createPersonName = createPersonName;
 	}
 
 
-	public List<AccountItem> getAccountItems() {
-		return accountItems;
+	public String getCreatePersonId() {
+		return createPersonId;
 	}
 
 
-	public void setAccountItems(List<AccountItem> accountItems) {
-		this.accountItems = accountItems;
+	public void setCreatePersonId(String createPersonId) {
+		this.createPersonId = createPersonId;
 	}
-	
-	
-	
-	
-	
+
+
+	public String getState() {
+		return state;
+	}
+
+
+	public void setState(String state) {
+		this.state = state;
+	}
+
+
 	
 }

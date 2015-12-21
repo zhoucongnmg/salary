@@ -25,24 +25,26 @@ Ext.application({
     },
     models: [
         'Person',
-        'PayrollItem',
-        'Main'
+        'Payroll',
+        'Account',
+        'TempPerson'
     ],
     stores: [
+        'AccountStore',
         'PersonStore',
-        'PayrollItem'
+        'PayrollStore',
+        'TempPersonStore'
     ],
     views: [
-        'PayrollGrid',
-        'PayrollForm',
         'SelectPerson_win',
-        'DynamicTest',
-        'DynamicGrid'
+        'PayrollMainForm',
+        'PayrollForm',
+        'GetPayroll'
     ],
     name: 'sion.salary.payroll',
 
     launch: function() {
-        Ext.create('sion.salary.payroll.view.PayrollGrid', {renderTo: Ext.getBody()});
+        Ext.create('sion.salary.payroll.view.PayrollMainForm', {renderTo: Ext.getBody()});
     }
 
 });

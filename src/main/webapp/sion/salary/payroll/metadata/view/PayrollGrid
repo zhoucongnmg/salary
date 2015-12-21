@@ -6,7 +6,6 @@
     },
     "codeClass": null,
     "userConfig": {
-        "designer|initialView": true,
         "designer|userClassName": "PayrollGrid",
         "height": 515,
         "title": null,

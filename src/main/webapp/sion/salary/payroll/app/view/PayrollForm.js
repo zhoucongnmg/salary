@@ -14,24 +14,27 @@
  */
 
 Ext.define('sion.salary.payroll.view.PayrollForm', {
-    extend: 'Ext.window.Window',
+    extend: 'Ext.form.Panel',
+    alias: 'widget.myform1',
 
     requires: [
         'Ext.toolbar.Toolbar',
         'Ext.button.Button',
         'Ext.form.FieldSet',
         'Ext.toolbar.Spacer',
+        'Ext.form.field.Date',
         'Ext.form.field.ComboBox',
+        'Ext.form.field.Hidden',
         'Ext.grid.Panel',
         'Ext.grid.column.Column',
-        'Ext.grid.View',
         'Ext.selection.CheckboxModel'
     ],
 
-    height: 505,
-    width: 1055,
-    layout: 'column',
+    height: 420,
+    itemId: 'PayrollForm',
+    width: 671,
     bodyPadding: 10,
+    title: '',
 
     initComponent: function() {
         var me = this;
@@ -45,7 +48,13 @@ Ext.define('sion.salary.payroll.view.PayrollForm', {
                         {
                             xtype: 'button',
                             iconCls: 's_icon_page_add',
-                            text: '保存薪资信息'
+                            text: '保存薪资信息',
+                            listeners: {
+                                click: {
+                                    fn: me.onButtonClick,
+                                    scope: me
+                                }
+                            }
                         }
                     ]
                 }
@@ -53,76 +62,128 @@ Ext.define('sion.salary.payroll.view.PayrollForm', {
             items: [
                 {
                     xtype: 'fieldset',
-                    columnWidth: 1,
-                    height: 408,
                     layout: 'column',
                     title: '薪资信息',
                     items: [
                         {
                             xtype: 'textfield',
-                            columnWidth: 0.45,
+                            columnWidth: 0.35,
                             fieldLabel: '薪资主题',
-                            labelWidth: 80
+                            labelWidth: 80,
+                            name: 'subject',
+                            allowBlank: false,
+                            blankText: '薪资主题不能为空',
+                            validateBlank: true
                         },
                         {
                             xtype: 'tbspacer',
-                            columnWidth: 0.1,
+                            columnWidth: 0.2,
                             height: 20
                         },
                         {
-                            xtype: 'textfield',
-                            columnWidth: 0.45,
+                            xtype: 'datefield',
+                            columnWidth: 0.35,
                             fieldLabel: '薪资月份',
-                            labelWidth: 80
+                            name: 'month',
+                            allowBlank: false,
+                            blankText: '薪资月份不能为空',
+                            validateBlank: true,
+                            format: 'Y年m月',
+                            submitFormat: 'Y年m月'
                         },
                         {
                             xtype: 'tbspacer',
                             columnWidth: 1,
-                            height: 20
-                        },
-                        {
-                            xtype: 'textfield',
-                            columnWidth: 0.45,
-                            fieldLabel: '社保扣费月',
-                            labelWidth: 80
-                        },
-                        {
-                            xtype: 'tbspacer',
-                            columnWidth: 0.1,
                             height: 20
                         },
                         {
                             xtype: 'combobox',
-                            columnWidth: 0.45,
-                            hidden: true,
+                            columnWidth: 0.35,
                             fieldLabel: '薪资套账',
-                            labelWidth: 80
+                            labelWidth: 80,
+                            name: 'accountId',
+                            allowBlank: false,
+                            blankText: '套帐方案不能为空',
+                            emptyText: '--请选择--',
+                            validateBlank: true,
+                            editable: false,
+                            displayField: 'name',
+                            store: 'AccountStore',
+                            valueField: 'id',
+                            listeners: {
+                                select: {
+                                    fn: me.onComboboxSelect,
+                                    scope: me
+                                }
+                            }
+                        },
+                        {
+                            xtype: 'tbspacer',
+                            columnWidth: 0.2,
+                            height: 20
+                        },
+                        {
+                            xtype: 'datefield',
+                            columnWidth: 0.35,
+                            fieldLabel: '社保扣费月',
+                            name: 'socialCostMonth',
+                            allowBlank: false,
+                            blankText: '社保月份不能为空',
+                            validateBlank: true,
+                            format: 'Y年m月',
+                            submitFormat: 'Y年m月'
                         },
                         {
                             xtype: 'tbspacer',
                             columnWidth: 1,
                             height: 20
+                        },
+                        {
+                            xtype: 'hiddenfield',
+                            fieldLabel: 'Label',
+                            name: 'date'
+                        },
+                        {
+                            xtype: 'hiddenfield',
+                            fieldLabel: 'Label',
+                            name: 'createPersonName'
+                        },
+                        {
+                            xtype: 'hiddenfield',
+                            fieldLabel: 'Label',
+                            name: 'id'
+                        },
+                        {
+                            xtype: 'hiddenfield',
+                            fieldLabel: 'Label',
+                            name: 'state'
+                        },
+                        {
+                            xtype: 'hiddenfield',
+                            fieldLabel: 'Label',
+                            name: 'persons'
                         },
                         {
                             xtype: 'gridpanel',
                             columnWidth: 1,
                             height: 295,
+                            store: 'PersonStore',
                             columns: [
                                 {
                                     xtype: 'gridcolumn',
-                                    dataIndex: 'string',
+                                    dataIndex: 'name',
                                     text: '姓名',
                                     flex: 1
                                 },
                                 {
                                     xtype: 'gridcolumn',
-                                    dataIndex: 'string',
+                                    dataIndex: 'dept',
                                     text: '部门',
                                     flex: 0.6
                                 },
                                 {
                                     xtype: 'gridcolumn',
-                                    dataIndex: 'string',
+                                    dataIndex: 'position',
                                     text: '职务',
                                     flex: 1.7
                                 }
@@ -133,10 +194,71 @@ Ext.define('sion.salary.payroll.view.PayrollForm', {
                         }
                     ]
                 }
-            ]
+            ],
+            listeners: {
+                afterrender: {
+                    fn: me.onPayrollFormAfterRender,
+                    scope: me
+                }
+            }
         });
 
         me.callParent(arguments);
+    },
+
+    onButtonClick: function(button, e, eOpts) {
+        var me = this,
+            form = me.getForm(),
+            record = form.getRecord(),
+            itemGrid = me.down('gridpanel'),
+            itemMap = {},
+            itemStore = itemGrid.getStore();
+
+
+        if(!form.isValid()){
+            Ext.Msg.alert("提示", "信息不完整，请继续填写！");
+            return false;
+        }
+
+        form.updateRecord();
+        itemStore.each(function(item){
+            itemMap[item.get('id')] = item.get('name');
+
+
+        //     Ext.apply(itemMap,{
+        //         item.get('id') :
+        //     })
+        });
+
+        record.set('persons',itemMap);
+
+        record.save({
+            success: function(response, opts){
+                Ext.Msg.alert("提示", "保存成功");
+            },
+            failure: function(){
+                Ext.Msg.alert("提示", "保存失败");
+            }
+        });
+    },
+
+    onComboboxSelect: function(combo, records, eOpts) {
+        var me = this,
+        store = me.down('gridpanel').getStore();
+
+        store.load({
+           params:{
+               accountId:records[0].get('id')
+            }
+        });
+
+    },
+
+    onPayrollFormAfterRender: function(component, eOpts) {
+        var me = this,
+            namespace = me.getNamespace();
+            record = Ext.create(namespace+'.model.Payroll');
+        me.loadRecord(record);
     }
 
 });

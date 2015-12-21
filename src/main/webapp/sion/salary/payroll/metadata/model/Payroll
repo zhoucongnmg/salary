@@ -1,0 +1,197 @@
+{
+    "type": "Ext.data.Model",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userClassName": "Payroll"
+    },
+    "name": "MyModel",
+    "designerId": "6a223471-9191-4651-ad77-6549791038d9",
+    "cn": [
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "id"
+            },
+            "name": "MyField7",
+            "designerId": "28bf850f-2c00-4c78-b20d-7666177bf5c4"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "subject"
+            },
+            "name": "MyField8",
+            "designerId": "b28c51d1-5133-4a33-856b-bf87cf87f735"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "dateFormat": null,
+                "name": "month",
+                "type": null
+            },
+            "name": "MyField9",
+            "designerId": "20aa2db2-a8aa-4491-b8f9-5404f74df4fa"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "dateFormat": null,
+                "name": "socialCostMonth",
+                "type": null
+            },
+            "name": "MyField10",
+            "designerId": "2bf52a85-53bb-40fa-88a8-6e81d593d06a"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "accountId"
+            },
+            "name": "MyField11",
+            "designerId": "18da4382-24c6-4e85-bb8d-8ec005797025"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "createDate"
+            },
+            "name": "MyField13",
+            "designerId": "a9d9818c-31df-4b77-88c8-5caeb67a9f36"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "persons"
+            },
+            "name": "MyField12",
+            "designerId": "968d9298-ee1b-4289-b5be-cbf05151d520"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "createPersonName"
+            },
+            "name": "MyField",
+            "designerId": "272e68dd-3d7b-4ec6-a913-d79ca8a4c56a"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "state"
+            },
+            "name": "MyField3",
+            "designerId": "6f2cc0e8-a39d-4e03-8343-b5e6166e6c11"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "createPersonId"
+            },
+            "name": "MyField5",
+            "designerId": "e0670bf2-dd9e-448b-ac75-285cf4143f55"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "accountName"
+            },
+            "name": "MyField6",
+            "designerId": "45c1b76d-31e9-4f5e-bf6e-b2913c43426d"
+        },
+        {
+            "type": "Ext.data.proxy.Ajax",
+            "reference": {
+                "name": "proxy",
+                "type": "object"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "api": [
+                    "{",
+                    "create: 'salary/payroll/create',",
+                    "update:'salary/payroll/update',",
+                    "read:'salary/payroll/read'",
+                    "}"
+                ]
+            },
+            "name": "MyAjaxProxy2",
+            "designerId": "a3ead4e6-6b56-4eb9-9ec9-debf36d6196c",
+            "cn": [
+                {
+                    "type": "Ext.data.reader.Json",
+                    "reference": {
+                        "name": "reader",
+                        "type": "object"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "messageProperty": "message",
+                        "root": "data"
+                    },
+                    "name": "MyJsonReader2",
+                    "designerId": "a6243325-d6c7-4ce7-9037-defc4898ba86"
+                }
+            ]
+        }
+    ]
+}

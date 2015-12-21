@@ -18,4 +18,7 @@ public interface PersonAccountFileRepository extends MongoRepository<PersonAccou
 	List<PersonAccountFile> getPages(Object query);
 	
 	List<PersonAccountFile> findByPersonIdIn(List<String> personIds);
+	
+	List<PersonAccountFile> findByAccountId(String accountId);
+	
 }
