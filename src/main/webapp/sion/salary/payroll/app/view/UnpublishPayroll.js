@@ -281,7 +281,8 @@ Ext.define('sion.salary.payroll.view.UnpublishPayroll', {
 
 
                                         Ext.create(namespace + '.view.DynamicGrid',{
-                                            _id : record.get('id')
+                                            _id : record.get('id'),
+                                            _accountId : record.get('accountId')
                                         }).show();
 
                                     },

@@ -219,7 +219,8 @@ public class PayrollController {
 		case Input:
 			Map<String, String> editor = new HashMap<String, String>();
 			editor.put("xtype", "numberfield");
-			editor.put("name", item.getFieldName());
+			editor.put("name", item.getSalaryItemId());
+			editor.put("allowBlank", "false");
 			map.put("editor", editor);
 			map.put("coltype", "input");
 			break;
@@ -470,6 +471,57 @@ public class PayrollController {
 		payrollItemRepository.save(payrollItem);
 		return new Response(payrollItem);
 	}
+	
+	/**
+	 * 查找条目Field中与改工资条对应的公式的其他关联Field，然后传入field参与计算
+	 * @param accountId	//方案id
+	 * @param fieldId	//薪资项目id
+	 * @return
+	 */
+	public Response calculate(@RequestParam Map<String,Object> map) {
+		
+		String accountId = (String) map.get("accountId");
+		String fieldId = (String) map.get("fieldId");
+		Map<String,String> recordMap = (Map<String, String>) map.get("record"); 
+		
+		Account account = accountRepository.findOne(accountId);
+		Set<String> formulaIds = account.getFormulaIds();
+		Set<String> fieldIds = formulaService.getInfluencedField(formulaIds, fieldId);
+		
+		Map<String,String> values = new HashMap<String,String>();
+		for (String id : fieldIds) {
+			String value = recordMap.get(id);
+			values.put(id, value);
+		}
+		
+		Map<String, String> changeFields = new HashMap<String,String>();
+		try {
+			changeFields = formulaService.caculateFormulas(formulaIds,values);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		return new Response(changeFields);
+	}
+	
+	
+	/**
+	 * 查找条目Field中与改工资条对应的公式的其他关联Field
+	 * @param accountId	//方案id
+	 * @param fieldId	//薪资项目id
+	 * @return
+	 */
+	public Response getInfluencedField(@RequestParam String accountId,@RequestParam String fieldId) {
+		Account account = accountRepository.findOne(accountId);
+		Set<String> formulaIds = account.getFormulaIds();
+		Set<String> fields = formulaService.getInfluencedField(formulaIds, fieldId);
+		
+		return new Response(fields);
+	}
+	
+	
 
 	/**
 	 * 工作流相关-保存草稿

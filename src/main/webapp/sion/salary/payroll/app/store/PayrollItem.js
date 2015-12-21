@@ -32,8 +32,8 @@ Ext.define('sion.salary.payroll.store.PayrollItem', {
             proxy: {
                 type: 'ajax',
                 api: {
-                    create: 'salary/payroll/addPayroll',
-                    update: 'salary/payroll/updatePayroll'
+                    create: 'salary/payroll/savePayrollItem',
+                    update: 'salary/payroll/savePayrollItem'
                 },
                 url: 'salary/payroll/addPayroll',
                 writer: {

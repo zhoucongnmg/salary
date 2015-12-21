@@ -2,6 +2,7 @@ package net.sion.company.salary.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -13,8 +14,6 @@ import javax.script.ScriptException;
 import net.sion.company.salary.domain.Formula;
 import net.sion.company.salary.domain.FormulaItem;
 import net.sion.company.salary.domain.FormulaItem.FormulaType;
-import net.sion.company.salary.domain.Payroll;
-import net.sion.company.salary.domain.PayrollItem;
 import net.sion.company.salary.sessionrepository.FormulaRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,14 +37,14 @@ public class FormulaService {
 	 * @param fieldId
 	 * @return 
 	 */
-	public List<String> getInfluencedField(List<String> formulaIds,String fieldId){
+	public Set<String> getInfluencedField(Set<String> formulaIds,String fieldId){
 		//找到所有满足ids条件的公式
 		List<Formula> formulas=(List<Formula>) formulaRepository.findAll(formulaIds);
 		return findInfluenced(fieldId, formulas);
 	}
 
-	private List<String> findInfluenced(String fieldId,List<Formula> formulas) {
-		List<String> infuencedList=new ArrayList<String>();
+	private Set<String> findInfluenced(String fieldId,List<Formula> formulas) {
+		Set<String> infuencedList=new HashSet<String>();
 		
 		for (int i = formulas.size()-1; i >0; i--) {
 			List<FormulaItem> items=formulas.get(i).getItems();
@@ -190,12 +189,4 @@ public class FormulaService {
 		return formulaRepository.save(f);
 	}
 	
-	public static void main(String[] args) {
-		PayrollItem payroll = new PayrollItem();
-		Map<String,String> map = new HashMap<String,String>();
-		map.put("dept", "develop");
-		map.put("abc", "123");
-		payroll.convertDomain(map);
-		System.out.println(payroll);
-	}
 }

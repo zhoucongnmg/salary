@@ -23,8 +23,8 @@
             "userConfig": {
                 "api": [
                     "{",
-                    "    create: 'salary/payroll/addPayroll',",
-                    "    update: 'salary/payroll/updatePayroll'",
+                    "    create: 'salary/payroll/savePayrollItem',",
+                    "    update: 'salary/payroll/savePayrollItem'",
                     "}       "
                 ],
                 "url": "salary/payroll/addPayroll"
