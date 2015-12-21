@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpSession;
 
@@ -19,7 +20,7 @@ import net.sion.company.salary.domain.Payroll;
 import net.sion.company.salary.domain.Payroll.PayrollStatus;
 import net.sion.company.salary.domain.PayrollItem;
 import net.sion.company.salary.domain.PersonAccountFile;
-import net.sion.company.salary.domain.ReadPayRollParameter;
+import net.sion.company.salary.service.FormulaService;
 import net.sion.company.salary.sessionrepository.AccountRepository;
 import net.sion.company.salary.sessionrepository.PayrollItemRepository;
 import net.sion.company.salary.sessionrepository.PayrollRepository;
@@ -72,6 +73,8 @@ public class PayrollController {
 	PersonAccountFileRepository personAcountFileRepsitory;
 	@Autowired
 	AdminService adminService;
+	@Autowired
+	FormulaService formulaService;
 
 	public List<Map<String, Object>> fillSimpleFields(List<Map<String, Object>> fields) {
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -119,44 +122,54 @@ public class PayrollController {
 		return columns;
 	}
 
-	public List<Map<String, Object>> fillData(Map<String, String> persons, List<PayrollItem> items,
-			List<AccountItem> accountItems) {
-		List<Map<String, Object>> data = new ArrayList<Map<String, Object>>();
-
-		Map<String, PayrollItem> payrollItemMap = new HashMap<String, PayrollItem>();
+	public List<Map<String,Object>> fillData(Map<String,String> persons, List<PayrollItem> items, Account account) {
+		List<Map<String,Object>> data = new ArrayList<Map<String,Object>>();
+		
+		Map<String,PayrollItem> payrollItemMap = new HashMap<String,PayrollItem>();
 		for (PayrollItem item : items) {
 			payrollItemMap.put(item.getPersonId(), item);
 		}
 		List<String> newPersonIds = new ArrayList<String>();
-		for (Map.Entry<String, String> entry : persons.entrySet()) {
+		for (Map.Entry<String, String> entry : persons.entrySet()) { 
 			String personId = entry.getKey();
-			if (payrollItemMap.get(personId) != null) {
+			if (payrollItemMap.get(personId)!=null) {
 				PayrollItem item = payrollItemMap.get(personId);
-				Map<String, Object> itemMap = item.parseMap();
+				Map<String,Object> itemMap = item.parseMap();
 				data.add(itemMap);
-			} else {
+			}else {
 				newPersonIds.add(personId);
 			}
-
+			
 		}
-		if (newPersonIds.size() > 0) {
-			List<PersonAccountFile> personList = personAccountFileRepository.findByPersonIdIn(newPersonIds);
-			for (PersonAccountFile person : personList) {
-				Map<String, Object> personMap = new HashMap<String, Object>();
-				personMap.put("personId", person.getId());
-				personMap.put("name", person.getName());
-				personMap.put("duty", person.getDuty());
-				personMap.put("dept", person.getDept());
-				for (AccountItem item : accountItems) {
-					personMap.put(item.getSalaryItemId(),
-							item.getType() == AccountItemType.Input ? item.getValue() : "");
-					// TODO 看其他列是否含有公式 有公式将输入项和数值传入 返回其他列和其对应的数值
+		if (newPersonIds.size()>0) {
+			Set<String> formulaIds = account.getFormulaIds();
+			Map<String,String> salaryItemValues = account.getSalaryItemValues();
+			Map<String, String> result;
+			try {
+				result = formulaService.caculateFormulas(formulaIds, salaryItemValues);
+				Iterable<PersonAccountFile> personList = personAccountFileRepository.findAll(newPersonIds);
+				for (PersonAccountFile person : personList) {
+					Map<String,Object> personMap = new HashMap<String,Object>();
+					personMap.put("personId", person.getId());
+					personMap.put("name", person.getName());
+					personMap.put("duty", person.getDuty());
+					personMap.put("dept", person.getDept());
+					for(AccountItem item : account.getAccountItems()){
+						if (item.getType()==AccountItemType.Input) {
+							personMap.put(item.getSalaryItemId(), item.getValue());
+						}
+					}
+					personMap.putAll(result);
+					data.add(personMap);
 				}
-				data.add(personMap);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-
+			
+			
 		}
-
+		
 		return data;
 	}
 
@@ -184,7 +197,7 @@ public class PayrollController {
 
 		List<PayrollItem> payrollItemList = payrollItemRepository.findByPayrollId(id);
 
-		data = fillData(payroll.getPersons(), payrollItemList, account.getAccountItems());
+		data = fillData(payroll.getPersons(), payrollItemList, account);
 
 		Map<String, List<Map<String, Object>>> m = new HashMap<String, List<Map<String, Object>>>();
 		m.put("fields", fields);

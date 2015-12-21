@@ -34,12 +34,20 @@ Ext.define('sion.salary.main.store.AutoMenuStore', {
                     imgSrc: 'images/iconbig/group.png',
                     menuItems: [
                         {
-                            text: '薪资发放',
+                            text: '待发薪资',
                             iconCls: 's_icon_action_copy',
                             imgSrc: 'images/action_copy.png',
                             namespace: 'sion.salary.payroll',
-                            viewName: 'PayrollGrid',
-                            desc: '生成薪金记录，审批发放'
+                            viewName: 'UnpublishPayroll',
+                            desc: '显示待发薪资的列表'
+                        },
+                        {
+                            text: '已发薪资',
+                            iconCls: 's_icon_action_copy',
+                            imgSrc: 'images/action_copy.png',
+                            namespace: 'sion.salary.payroll',
+                            viewName: 'PaidPayroll',
+                            desc: '显示待发薪资的列表'
                         },
                         {
                             text: '薪资档案',

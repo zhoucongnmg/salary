@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
@@ -70,7 +71,7 @@ public class FormulaService {
 	 * @return
 	 * @throws Exception
 	 */
-	public Map<String,String> caculateFormulas(List<String> formulaIds,Map<String,String>params) throws Exception{
+	public Map<String,String> caculateFormulas(Set<String> formulaIds,Map<String,String>params) throws Exception{
 		Map<String, String> result=new HashMap<String,String>();
 		for (String formulaId : formulaIds) {
 			Formula formula = formulaRepository.findOne(formulaId);

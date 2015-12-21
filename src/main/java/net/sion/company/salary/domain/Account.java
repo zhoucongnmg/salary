@@ -3,9 +3,15 @@
  */
 package net.sion.company.salary.domain;
 
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
+import net.sion.company.salary.domain.AccountItem.AccountItemType;
+
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.roo.addon.javabean.RooJavaBean;
@@ -35,6 +41,30 @@ public class Account {
 	String date; // 套账创建日期
 	String remark; // 备注
 
+	
+	public Set<String> getFormulaIds() {
+		Set<String> formulaIds = new HashSet<String>();
+		for (AccountItem item : accountItems) {
+			if (item.getType() == AccountItemType.Calculate&&StringUtils.isNotBlank(item.getFormulaId())) {
+				formulaIds.add(item.getFormulaId());
+			}
+		}
+		
+		return formulaIds;
+	}
+	
+	public Map<String,String> getSalaryItemValues() {
+		Map<String,String> salaryItemValues = new HashMap<String,String>();
+		for (AccountItem item : accountItems) {
+			if (item.getType() == AccountItemType.Input) {
+				salaryItemValues.put(item.getSalaryItemId(),item.getValue());
+			}
+		}
+		
+		return salaryItemValues;
+	}
+	
+	
 	public String getId() {
 		return id;
 	}

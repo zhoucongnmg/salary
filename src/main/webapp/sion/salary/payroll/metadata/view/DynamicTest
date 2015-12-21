@@ -41,7 +41,7 @@
                             "    namespace = me.getNamespace();",
                             "",
                             "Ext.create(namespace+\".view.DynamicGrid\", {",
-                            "    _accountId : '566a461a9929c0da95998785'",
+                            "    _id : '5677756dcd133484ff6d7441'",
                             "}).show();"
                         ],
                         "name": "click",
