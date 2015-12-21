@@ -6,9 +6,7 @@
     },
     "codeClass": null,
     "userConfig": {
-        "autoShow": true,
-        "designer|initialView": true,
-        "designer|userAlias": "getunpublishpayroll",
+        "designer|userAlias": "unpublishpayroll",
         "designer|userClassName": "UnpublishPayroll",
         "height": 487,
         "itemId": "getUnpublishPayroll",
@@ -663,6 +661,71 @@
                                     },
                                     "name": "handler",
                                     "designerId": "3c39d945-3bca-4b29-a2c6-6b4c1d7e8636"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "type": "Ext.grid.column.Action",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "flex": 1,
+                        "menuDisabled": true,
+                        "text": "查看",
+                        "width": 62
+                    },
+                    "name": "MyActionColumn2",
+                    "designerId": "b0b05cb5-7703-45ee-846f-2410a5f79cac",
+                    "cn": [
+                        {
+                            "type": "actioncolumnitem",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "iconCls": "s_icon_action_search"
+                            },
+                            "name": "MyActionColumnItem1",
+                            "designerId": "0b1548d3-f687-4679-9d30-0dc2933d6a3d",
+                            "cn": [
+                                {
+                                    "type": "fixedfunction",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "designer|params": [
+                                            "view",
+                                            "rowIndex",
+                                            "colIndex",
+                                            "item",
+                                            "e",
+                                            "record",
+                                            "row"
+                                        ],
+                                        "fn": "handler",
+                                        "implHandler": [
+                                            "var me = this.up('unpublishpayroll'),",
+                                            "    namespace = me.getNamespace();",
+                                            "",
+                                            "",
+                                            "Ext.create(namespace + '.view.DynamicGrid',{",
+                                            "    _id : record.get('id')",
+                                            "}).show();",
+                                            ""
+                                        ]
+                                    },
+                                    "name": "handler",
+                                    "designerId": "1adbd2b0-11ab-4974-9f58-cb2f6d4f2665"
                                 }
                             ]
                         }

@@ -13,6 +13,8 @@ import javax.script.ScriptException;
 import net.sion.company.salary.domain.Formula;
 import net.sion.company.salary.domain.FormulaItem;
 import net.sion.company.salary.domain.FormulaItem.FormulaType;
+import net.sion.company.salary.domain.Payroll;
+import net.sion.company.salary.domain.PayrollItem;
 import net.sion.company.salary.sessionrepository.FormulaRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -186,5 +188,14 @@ public class FormulaService {
 		
 		
 		return formulaRepository.save(f);
+	}
+	
+	public static void main(String[] args) {
+		PayrollItem payroll = new PayrollItem();
+		Map<String,String> map = new HashMap<String,String>();
+		map.put("dept", "develop");
+		map.put("abc", "123");
+		payroll.convertDomain(map);
+		System.out.println(payroll);
 	}
 }

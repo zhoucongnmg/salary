@@ -100,6 +100,10 @@ Ext.define('sion.salary.formula.controller.Api', {
             win.show();
         }
 
+    },
+
+    getValidatorCtrl: function() {
+        return this.getController('Validator');
     }
 
 });

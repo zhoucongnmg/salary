@@ -3,8 +3,9 @@ package net.sion.company.salary.domain;
 
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import net.sion.boot.config.jackson.CustomJackson;
@@ -41,7 +42,7 @@ public class PayrollItem {
 	
 	String dept;	//部门
 	
-	Map<String,Object> values;	//薪资明细项
+	Map<String,Object> values = new HashMap<String,Object>();	//薪资明细项
 	
 	@Autowired CustomJackson jackson;
 	
@@ -57,7 +58,44 @@ public class PayrollItem {
 		return map;
 	}
 	
+	public void convertDomain(Map<String,String> map) {
+		Class<? extends PayrollItem> me = this.getClass();
+		for (Map.Entry<String, String> entry : map.entrySet()) {
+			String key = entry.getKey();
+			String value = entry.getValue();
+			try {
+				Method m = me.getMethod("set" + toUpperCaseFirstOne(key),String.class);
+				m.invoke(this, value);
+			} catch (NoSuchMethodException e) {
+				// TODO Auto-generated catch block
+				values.put(key, value);
+			} catch (SecurityException e) {
+				// TODO Auto-generated catch block
+			} catch (IllegalAccessException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IllegalArgumentException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (InvocationTargetException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+		
+	}
 	
+	
+	//首字母转大写
+    public String toUpperCaseFirstOne(String s)
+    {
+        if(Character.isUpperCase(s.charAt(0)))
+            return s;
+        else
+            return (new StringBuilder()).append(Character.toUpperCase(s.charAt(0))).append(s.substring(1)).toString();
+    }
+    
 	public String getId() {
 		return id;
 	}

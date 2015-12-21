@@ -165,6 +165,22 @@
             },
             "name": "initFormula",
             "designerId": "d4f8f6c1-6698-4022-8539-1ecc1ef1c122"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "getValidatorCtrl",
+                "implHandler": [
+                    "return this.getController('Validator');"
+                ]
+            },
+            "name": "getValidatorCtrl",
+            "designerId": "f8714075-8a84-436f-aeb5-5db16b59f637"
         }
     ]
 }

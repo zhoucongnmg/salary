@@ -40,10 +40,5 @@ Ext.application({
         'PayrollForm',
         'PaidPayroll'
     ],
-    name: 'sion.salary.payroll',
-
-    launch: function() {
-        Ext.create('sion.salary.payroll.view.UnpublishPayroll', {renderTo: Ext.getBody()});
-    }
-
+    name: 'sion.salary.payroll'
 });

@@ -33,8 +33,7 @@ Ext.application({
         'SalaryItem',
         'AccountItem',
         'PersonAccount',
-        'PersonAccountItem',
-        'AccountItemType'
+        'PersonAccountItem'
     ],
     stores: [
         'SalaryItem',
@@ -42,8 +41,7 @@ Ext.application({
         'Account',
         'AccountMember',
         'PersonAccount',
-        'PersonAccountItem',
-        'AccountItemType'
+        'PersonAccountItem'
     ],
     views: [
         'SalaryPlanGrid',

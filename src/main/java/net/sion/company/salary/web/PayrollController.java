@@ -176,8 +176,8 @@ public class PayrollController {
 	/**
 	 * @author lil 工资条列表
 	 */
-	@RequestMapping(value = "memberList")
-	public @ResponseBody Response memberList(@RequestParam String id) {
+	@RequestMapping(value = "findItemList")
+	public @ResponseBody Response findItemList(@RequestParam String id) {
 
 		Payroll payroll = payrollRepository.findOne(id);
 
@@ -427,17 +427,6 @@ public class PayrollController {
 		return new Response(true);
 	}
 
-	/**
-	 * 查询工资表
-	 * 
-	 * @param
-	 * @return
-	 */
-	@RequestMapping(value = "load")
-	public Response load() {
-		// TODO 读取工资表
-		return new Response(true);
-	}
 
 	/**
 	 * 删除工资表
@@ -468,16 +457,18 @@ public class PayrollController {
 	}
 
 	/**
-	 * 更新工资表条目
+	 * 保存工资表条目
 	 * 
 	 * @param 工资表id
 	 * @return
 	 */
-	@RequestMapping(value = "updatePayrollCell")
-	public Response updatePayrollItem(@RequestBody PayrollItem item, String activityItemId) {
+	@RequestMapping(value = "savePayrollItem")
+	public Response savePayrollItem(@RequestBody Map<String,String> item) {
 		// TODO 调用SalaryService.computeSalary更新与之关联的其他工资表项目
-
-		return new Response(true);
+		PayrollItem payrollItem = new PayrollItem();
+		payrollItem.convertDomain(item);
+		payrollItemRepository.save(payrollItem);
+		return new Response(payrollItem);
 	}
 
 	/**

@@ -15,7 +15,7 @@
 
 Ext.define('sion.salary.payroll.view.UnpublishPayroll', {
     extend: 'Ext.panel.Panel',
-    alias: 'widget.getunpublishpayroll',
+    alias: 'widget.unpublishpayroll',
 
     requires: [
         'Ext.form.Panel',
@@ -30,7 +30,6 @@ Ext.define('sion.salary.payroll.view.UnpublishPayroll', {
         'Ext.toolbar.Paging'
     ],
 
-    autoShow: true,
     height: 487,
     itemId: 'getUnpublishPayroll',
     width: 670,
@@ -263,6 +262,28 @@ Ext.define('sion.salary.payroll.view.UnpublishPayroll', {
                                                 }
                                             }
                                         });
+                                    },
+                                    iconCls: 's_icon_action_search'
+                                }
+                            ]
+                        },
+                        {
+                            xtype: 'actioncolumn',
+                            width: 62,
+                            menuDisabled: true,
+                            text: '查看',
+                            flex: 1,
+                            items: [
+                                {
+                                    handler: function(view, rowIndex, colIndex, item, e, record, row) {
+                                        var me = this.up('unpublishpayroll'),
+                                            namespace = me.getNamespace();
+
+
+                                        Ext.create(namespace + '.view.DynamicGrid',{
+                                            _id : record.get('id')
+                                        }).show();
+
                                     },
                                     iconCls: 's_icon_action_search'
                                 }
