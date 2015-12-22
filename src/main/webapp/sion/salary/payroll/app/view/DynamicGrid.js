@@ -153,7 +153,7 @@ Ext.define('sion.salary.payroll.view.DynamicGrid', {
             jsonData : {
                 accountId : accountId,
                 fieldId : fieldId,
-                record : record
+                record : record.data
             },
             success: function(response){
                 var json = Ext.JSON.decode(response.responseText);

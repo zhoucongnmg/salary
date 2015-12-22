@@ -478,10 +478,10 @@ public class PayrollController {
 	 * @param fieldId	//薪资项目id
 	 * @return
 	 */
+	@RequestMapping(value = "calculate")
 	public Response calculate(@RequestBody Map<String,Object> map) {
 		
 		String accountId = (String) map.get("accountId");
-		String fieldId = (String) map.get("fieldId");
 		Map<String,String> recordMap = (Map<String, String>) map.get("record"); 
 		
 		Account account = accountRepository.findOne(accountId);
@@ -500,7 +500,9 @@ public class PayrollController {
 		**/
 		Map<String, String> changeFields = new HashMap<String,String>();
 		try {
-			changeFields = formulaService.caculateFormulas(formulaIds,recordMap);
+			PayrollItem payrollItem = new PayrollItem();
+			payrollItem.convertDomain(recordMap);
+			changeFields = formulaService.caculateFormulas(formulaIds,payrollItem.getValues());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

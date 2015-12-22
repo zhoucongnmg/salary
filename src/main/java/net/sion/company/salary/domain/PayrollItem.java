@@ -42,7 +42,7 @@ public class PayrollItem {
 	
 	String dept;	//部门
 	
-	Map<String,Object> values = new HashMap<String,Object>();	//薪资明细项
+	Map<String,String> values = new HashMap<String,String>();	//薪资明细项
 	
 	@Autowired CustomJackson jackson;
 	
@@ -136,11 +136,11 @@ public class PayrollItem {
 		this.dept = dept;
 	}
 
-	public Map<String, Object> getValues() {
+	public Map<String, String> getValues() {
 		return values;
 	}
 
-	public void setValues(Map<String, Object> values) {
+	public void setValues(Map<String, String> values) {
 		this.values = values;
 	}
 
