@@ -63,7 +63,37 @@
                 "width": null
             },
             "name": "MyColumn5",
-            "designerId": "dc81e637-d941-4cee-b78e-e1eb57692aad"
+            "designerId": "dc81e637-d941-4cee-b78e-e1eb57692aad",
+            "cn": [
+                {
+                    "type": "fixedfunction",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "designer|params": [
+                            "value",
+                            "metaData",
+                            "record",
+                            "rowIndex",
+                            "colIndex",
+                            "store",
+                            "view"
+                        ],
+                        "fn": "renderer",
+                        "implHandler": [
+                            "var store = Ext.getStore(\"AccountItemType\"),",
+                            "    rec = store.findRecord('id', value);",
+                            "",
+                            "return rec.get(\"name\");"
+                        ]
+                    },
+                    "name": "renderer",
+                    "designerId": "b6737453-d272-4e8c-a52b-58ac2f973a25"
+                }
+            ]
         },
         {
             "type": "Ext.grid.column.Column",

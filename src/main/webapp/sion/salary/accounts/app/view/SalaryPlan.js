@@ -152,7 +152,7 @@ Ext.define('sion.salary.accounts.view.SalaryPlan', {
                         {
                             xtype: 'gridcolumn',
                             dataIndex: 'value',
-                            text: '公式',
+                            text: '值或计算公式',
                             flex: 6
                         },
                         {

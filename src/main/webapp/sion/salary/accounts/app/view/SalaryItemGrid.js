@@ -46,6 +46,12 @@ Ext.define('sion.salary.accounts.view.SalaryItemGrid', {
                 },
                 {
                     xtype: 'gridcolumn',
+                    renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
+                        var store = Ext.getStore("AccountItemType"),
+                            rec = store.findRecord('id', value);
+
+                        return rec.get("name");
+                    },
                     dataIndex: 'type',
                     text: '类型',
                     flex: 1

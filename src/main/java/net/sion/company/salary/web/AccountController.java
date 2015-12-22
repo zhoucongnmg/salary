@@ -97,6 +97,7 @@ public class AccountController {
 		accountRepository.save(account);
 		return new Response(true);
 	}
+	//删除方案中的公式
 	private void deleteFormula(String accountId){
 		Account account = accountRepository.findOne(accountId);
 		for(AccountItem accountItem : account.getAccountItems()){
@@ -114,6 +115,7 @@ public class AccountController {
 	 */
 	@RequestMapping(value = "remove")
 	public @ResponseBody Response remove(@RequestParam String id) {
+		deleteFormula(id);
 		accountRepository.delete(id);
 		return new Response(true);
 	}

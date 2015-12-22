@@ -336,7 +336,7 @@
                     "userConfig": {
                         "dataIndex": "value",
                         "flex": 6,
-                        "text": "公式"
+                        "text": "值或计算公式"
                     },
                     "name": "MyColumn12",
                     "designerId": "86645e7b-4389-46d4-afcd-b646c42903c8"
