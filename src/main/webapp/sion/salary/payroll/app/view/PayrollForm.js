@@ -223,17 +223,13 @@ Ext.define('sion.salary.payroll.view.PayrollForm', {
         form.updateRecord();
         itemStore.each(function(item){
             itemMap[item.get('id')] = item.get('name');
-
-
-        //     Ext.apply(itemMap,{
-        //         item.get('id') :
-        //     })
         });
 
         record.set('persons',itemMap);
 
         record.save({
             success: function(response, opts){
+                me.close();
                 Ext.Msg.alert("提示", "保存成功");
             },
             failure: function(){
@@ -256,8 +252,7 @@ Ext.define('sion.salary.payroll.view.PayrollForm', {
 
     onPayrollFormAfterRender: function(component, eOpts) {
         var me = this,
-            namespace = me.getNamespace();
-            record = Ext.create(namespace+'.model.Payroll');
+            record = me._link.record;
         me.loadRecord(record);
     }
 

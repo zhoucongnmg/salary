@@ -27,7 +27,7 @@
                 "dock": "top",
                 "height": null,
                 "layout": "column",
-                "title": "My Tab",
+                "title": "",
                 "width": 100
             },
             "name": "MyForm",
@@ -309,8 +309,14 @@
                             "userConfig": {
                                 "fn": "onButtonClick2",
                                 "implHandler": [
-                                    "var panel = Ext.create('sion.salary.payroll.view.PayrollForm');",
+                                    "var panel,",
+                                    "    record = Ext.create('sion.salary.payroll.model.Payroll');",
                                     "",
+                                    "panel = Ext.create('sion.salary.payroll.view.PayrollForm',{",
+                                    "    _link:{",
+                                    "        record:record",
+                                    "    }",
+                                    "});",
                                     "panel.show();"
                                 ],
                                 "name": "click",
@@ -345,9 +351,11 @@
             },
             "codeClass": null,
             "userConfig": {
+                "height": 418,
                 "itemId": "PayrollGrid",
                 "store": "PayrollStore",
-                "title": "My Tab"
+                "title": "",
+                "width": 669
             },
             "name": "MyGridPanel",
             "designerId": "6823a197-bf4c-49fe-ba80-59ee4ef6ea1f",
@@ -581,7 +589,39 @@
                                 "iconCls": "s_icon_table_edit"
                             },
                             "name": "MyActionColumnItem",
-                            "designerId": "6c2f7bc4-bc01-486b-906b-bc0524c1dacc"
+                            "designerId": "6c2f7bc4-bc01-486b-906b-bc0524c1dacc",
+                            "cn": [
+                                {
+                                    "type": "fixedfunction",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "designer|params": [
+                                            "view",
+                                            "rowIndex",
+                                            "colIndex",
+                                            "item",
+                                            "e",
+                                            "record",
+                                            "row"
+                                        ],
+                                        "fn": "handler",
+                                        "implHandler": [
+                                            "var panel = Ext.create('sion.salary.payroll.view.PayrollForm',{",
+                                            "    _link:{",
+                                            "        record:record",
+                                            "    }",
+                                            "});",
+                                            "panel.show();"
+                                        ]
+                                    },
+                                    "name": "handler",
+                                    "designerId": "4e1e2df1-8fd3-4e0a-a0d4-9e1de5dfd0e5"
+                                }
+                            ]
                         }
                     ]
                 },

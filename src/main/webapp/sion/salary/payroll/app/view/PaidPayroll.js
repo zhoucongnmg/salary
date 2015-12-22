@@ -218,19 +218,6 @@ Ext.define('sion.salary.payroll.view.PaidPayroll', {
                         },
                         {
                             xtype: 'actioncolumn',
-                            width: 61,
-                            menuDisabled: true,
-                            menuText: '',
-                            text: '编辑',
-                            flex: 1,
-                            items: [
-                                {
-                                    iconCls: 's_icon_table_edit'
-                                }
-                            ]
-                        },
-                        {
-                            xtype: 'actioncolumn',
                             width: 62,
                             menuDisabled: true,
                             text: '撤回',
@@ -386,8 +373,14 @@ Ext.define('sion.salary.payroll.view.PaidPayroll', {
     },
 
     onButtonClick2: function(button, e, eOpts) {
-        var panel = Ext.create('sion.salary.payroll.view.PayrollForm');
+        var panel,
+            record = Ext.create('sion.salary.payroll.model.Payroll');
 
+        panel = Ext.create('sion.salary.payroll.view.PayrollForm',{
+            _link:{
+                record:record
+            }
+        });
         panel.show();
     },
 

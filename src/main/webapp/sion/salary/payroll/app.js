@@ -35,7 +35,6 @@ Ext.application({
     ],
     views: [
         'SelectPerson_win',
-        'PayrollMainForm',
         'UnpublishPayroll',
         'PayrollForm',
         'PaidPayroll'

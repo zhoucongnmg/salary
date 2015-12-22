@@ -46,7 +46,7 @@ Ext.define('sion.salary.payroll.view.UnpublishPayroll', {
                     width: 100,
                     layout: 'column',
                     bodyPadding: 10,
-                    title: 'My Tab',
+                    title: '',
                     items: [
                         {
                             xtype: 'textfield',
@@ -141,8 +141,10 @@ Ext.define('sion.salary.payroll.view.UnpublishPayroll', {
             items: [
                 {
                     xtype: 'gridpanel',
+                    height: 418,
                     itemId: 'PayrollGrid',
-                    title: 'My Tab',
+                    width: 669,
+                    title: '',
                     store: 'PayrollStore',
                     columns: [
                         {
@@ -225,6 +227,14 @@ Ext.define('sion.salary.payroll.view.UnpublishPayroll', {
                             flex: 1,
                             items: [
                                 {
+                                    handler: function(view, rowIndex, colIndex, item, e, record, row) {
+                                        var panel = Ext.create('sion.salary.payroll.view.PayrollForm',{
+                                            _link:{
+                                                record:record
+                                            }
+                                        });
+                                        panel.show();
+                                    },
                                     iconCls: 's_icon_table_edit'
                                 }
                             ]
@@ -409,8 +419,14 @@ Ext.define('sion.salary.payroll.view.UnpublishPayroll', {
     },
 
     onButtonClick2: function(button, e, eOpts) {
-        var panel = Ext.create('sion.salary.payroll.view.PayrollForm');
+        var panel,
+            record = Ext.create('sion.salary.payroll.model.Payroll');
 
+        panel = Ext.create('sion.salary.payroll.view.PayrollForm',{
+            _link:{
+                record:record
+            }
+        });
         panel.show();
     },
 

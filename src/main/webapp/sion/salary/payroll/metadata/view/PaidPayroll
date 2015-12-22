@@ -310,8 +310,14 @@
                             "userConfig": {
                                 "fn": "onButtonClick2",
                                 "implHandler": [
-                                    "var panel = Ext.create('sion.salary.payroll.view.PayrollForm');",
+                                    "var panel,",
+                                    "    record = Ext.create('sion.salary.payroll.model.Payroll');",
                                     "",
+                                    "panel = Ext.create('sion.salary.payroll.view.PayrollForm',{",
+                                    "    _link:{",
+                                    "        record:record",
+                                    "    }",
+                                    "});",
                                     "panel.show();"
                                 ],
                                 "name": "click",
@@ -553,39 +559,6 @@
                     },
                     "name": "MyColumn6",
                     "designerId": "6d04a4c8-cc00-4d7c-894f-a3190a6b99de"
-                },
-                {
-                    "type": "Ext.grid.column.Action",
-                    "reference": {
-                        "name": "columns",
-                        "type": "array"
-                    },
-                    "codeClass": null,
-                    "userConfig": {
-                        "flex": 1,
-                        "iconCls": null,
-                        "menuDisabled": true,
-                        "menuText": "",
-                        "text": "编辑",
-                        "width": 61
-                    },
-                    "name": "MyActionColumn",
-                    "designerId": "248e4b88-a571-4029-8217-d9c298393b96",
-                    "cn": [
-                        {
-                            "type": "actioncolumnitem",
-                            "reference": {
-                                "name": "items",
-                                "type": "array"
-                            },
-                            "codeClass": null,
-                            "userConfig": {
-                                "iconCls": "s_icon_table_edit"
-                            },
-                            "name": "MyActionColumnItem",
-                            "designerId": "6bc57817-b6a0-4a2a-be1d-4ee4d7a758e0"
-                        }
-                    ]
                 },
                 {
                     "type": "Ext.grid.column.Action",
