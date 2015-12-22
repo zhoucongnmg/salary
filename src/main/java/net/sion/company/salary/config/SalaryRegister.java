@@ -21,6 +21,7 @@ public class SalaryRegister extends AbstractAppRegisterListener {
 		List<Module> salaryList=AppEnum.Salary.getModules();
 		empty.addAll(AppEnum.Salary.getModules());
 		salaryList.get(1).addDepends(formula);
+		salaryList.get(1).addDepends(AppEnum.HR.getModules().get(0));
 		
 		Module m0 = AppEnum.Salary.getModules().get(0);
 		m0.addDepends(salaryList.get(1));
