@@ -103,7 +103,7 @@ public class FormulaService {
 		List<FormulaItem> items = formula.getItems();
 		for (FormulaItem item : items) {
 			if (FormulaType.Result.equals(item.getType())) {
-				items.addAll(this.getFormulaItems(item.getFieldId()));
+				items.addAll(this.getFormulaItems(item.getFormulaId()));
 			}
 		}
 		return items;
