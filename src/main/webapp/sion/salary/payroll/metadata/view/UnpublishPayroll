@@ -10,6 +10,7 @@
         "designer|userClassName": "UnpublishPayroll",
         "height": 487,
         "itemId": "getUnpublishPayroll",
+        "layout": "border",
         "title": "",
         "width": 670
     },
@@ -309,15 +310,16 @@
                             "userConfig": {
                                 "fn": "onButtonClick2",
                                 "implHandler": [
-                                    "var panel,",
+                                    "var window,",
                                     "    record = Ext.create('sion.salary.payroll.model.Payroll');",
                                     "",
-                                    "panel = Ext.create('sion.salary.payroll.view.PayrollForm',{",
+                                    "window = Ext.create('sion.salary.payroll.view.PayrollWindow',{",
+                                    "    title:'新建工资条',",
                                     "    _link:{",
                                     "        record:record",
                                     "    }",
                                     "});",
-                                    "panel.show();"
+                                    "window.show();"
                                 ],
                                 "name": "click",
                                 "scope": "me"
@@ -351,11 +353,10 @@
             },
             "codeClass": null,
             "userConfig": {
-                "height": 418,
                 "itemId": "PayrollGrid",
+                "layout|region": "center",
                 "store": "PayrollStore",
-                "title": "",
-                "width": 669
+                "title": ""
             },
             "name": "MyGridPanel",
             "designerId": "6823a197-bf4c-49fe-ba80-59ee4ef6ea1f",
@@ -610,12 +611,13 @@
                                         ],
                                         "fn": "handler",
                                         "implHandler": [
-                                            "var panel = Ext.create('sion.salary.payroll.view.PayrollForm',{",
+                                            "var window = Ext.create('sion.salary.payroll.view.PayrollWindow',{",
+                                            "    title:'修改工资条',",
                                             "    _link:{",
                                             "        record:record",
                                             "    }",
                                             "});",
-                                            "panel.show();"
+                                            "window.show();"
                                         ]
                                     },
                                     "name": "handler",
@@ -844,7 +846,7 @@
             },
             "codeClass": null,
             "userConfig": {
-                "fn": "onGetPayrollAfterRender",
+                "fn": "onGetUnpublishPayrollActivate",
                 "implHandler": [
                     "var me = this,",
                     "    store = me.down('gridpanel').getStore();",
@@ -856,11 +858,11 @@
                     "    }",
                     "});"
                 ],
-                "name": "afterrender",
+                "name": "activate",
                 "scope": "me"
             },
-            "name": "onGetPayrollAfterRender",
-            "designerId": "2be2b626-a331-4b52-bdea-7c7e0c7b61f0"
+            "name": "onGetUnpublishPayrollActivate",
+            "designerId": "d3dbb045-fd2c-40c1-81e9-961c71b90eeb"
         }
     ]
 }

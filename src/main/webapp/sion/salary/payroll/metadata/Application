@@ -23,8 +23,8 @@
         "views": [
             "SelectPerson_win",
             "UnpublishPayroll",
-            "PayrollForm",
-            "PaidPayroll"
+            "PaidPayroll",
+            "PayrollWindow"
         ]
     },
     "name": "Application",

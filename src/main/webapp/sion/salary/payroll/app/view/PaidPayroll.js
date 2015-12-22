@@ -285,8 +285,8 @@ Ext.define('sion.salary.payroll.view.PaidPayroll', {
                 }
             ],
             listeners: {
-                afterrender: {
-                    fn: me.onGetPayrollAfterRender,
+                activate: {
+                    fn: me.onGetPaidPayrollActivate,
                     scope: me
                 }
             }
@@ -373,15 +373,16 @@ Ext.define('sion.salary.payroll.view.PaidPayroll', {
     },
 
     onButtonClick2: function(button, e, eOpts) {
-        var panel,
+        var window,
             record = Ext.create('sion.salary.payroll.model.Payroll');
 
-        panel = Ext.create('sion.salary.payroll.view.PayrollForm',{
+        window = Ext.create('sion.salary.payroll.view.PayrollWindow',{
+            title:'新建工资条',
             _link:{
                 record:record
             }
         });
-        panel.show();
+        window.show();
     },
 
     onPagingtoolbarBeforeChange: function(pagingtoolbar, page, eOpts) {
@@ -394,9 +395,10 @@ Ext.define('sion.salary.payroll.view.PaidPayroll', {
         });
     },
 
-    onGetPayrollAfterRender: function(component, eOpts) {
+    onGetPaidPayrollActivate: function(component, eOpts) {
         var me = this,
             store = me.down('gridpanel').getStore();
+
         store.load({
             params:{
                 state:'Paid',

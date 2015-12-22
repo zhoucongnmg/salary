@@ -26,7 +26,7 @@ Ext.define('sion.salary.payroll.store.PayrollStore', {
         me.callParent([Ext.apply({
             model: 'sion.salary.payroll.model.Payroll',
             storeId: 'PayrollStore',
-            pageSize: 2
+            pageSize: 30
         }, cfg)]);
     }
 });

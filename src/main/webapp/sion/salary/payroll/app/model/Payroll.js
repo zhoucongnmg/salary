@@ -30,10 +30,12 @@ Ext.define('sion.salary.payroll.model.Payroll', {
             name: 'subject'
         },
         {
-            name: 'month'
+            name: 'month',
+            type: 'date'
         },
         {
-            name: 'socialCostMonth'
+            name: 'socialCostMonth',
+            type: 'date'
         },
         {
             name: 'accountId'

@@ -310,15 +310,16 @@
                             "userConfig": {
                                 "fn": "onButtonClick2",
                                 "implHandler": [
-                                    "var panel,",
+                                    "var window,",
                                     "    record = Ext.create('sion.salary.payroll.model.Payroll');",
                                     "",
-                                    "panel = Ext.create('sion.salary.payroll.view.PayrollForm',{",
+                                    "window = Ext.create('sion.salary.payroll.view.PayrollWindow',{",
+                                    "    title:'新建工资条',",
                                     "    _link:{",
                                     "        record:record",
                                     "    }",
                                     "});",
-                                    "panel.show();"
+                                    "window.show();"
                                 ],
                                 "name": "click",
                                 "scope": "me"
@@ -713,10 +714,11 @@
             },
             "codeClass": null,
             "userConfig": {
-                "fn": "onGetPayrollAfterRender",
+                "fn": "onGetPaidPayrollActivate",
                 "implHandler": [
                     "var me = this,",
                     "    store = me.down('gridpanel').getStore();",
+                    "",
                     "store.load({",
                     "    params:{",
                     "        state:'Paid',",
@@ -725,11 +727,11 @@
                     "    }",
                     "});"
                 ],
-                "name": "afterrender",
+                "name": "activate",
                 "scope": "me"
             },
-            "name": "onGetPayrollAfterRender",
-            "designerId": "a446fad9-04e9-4dc0-ba55-711cdc9d24a3"
+            "name": "onGetPaidPayrollActivate",
+            "designerId": "2e92a103-eab0-42b9-a6e2-ebfea2c08209"
         }
     ]
 }

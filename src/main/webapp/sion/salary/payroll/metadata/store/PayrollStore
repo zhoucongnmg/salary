@@ -8,7 +8,7 @@
     "userConfig": {
         "designer|userClassName": "PayrollStore",
         "model": "Payroll",
-        "pageSize": 2,
+        "pageSize": 30,
         "storeId": "PayrollStore"
     },
     "name": "MyStore",

@@ -47,7 +47,7 @@
             "userConfig": {
                 "dateFormat": null,
                 "name": "month",
-                "type": null
+                "type": "date"
             },
             "name": "MyField9",
             "designerId": "20aa2db2-a8aa-4491-b8f9-5404f74df4fa"
@@ -62,7 +62,7 @@
             "userConfig": {
                 "dateFormat": null,
                 "name": "socialCostMonth",
-                "type": null
+                "type": "date"
             },
             "name": "MyField10",
             "designerId": "2bf52a85-53bb-40fa-88a8-6e81d593d06a"

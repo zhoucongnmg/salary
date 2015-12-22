@@ -36,8 +36,8 @@ Ext.application({
     views: [
         'SelectPerson_win',
         'UnpublishPayroll',
-        'PayrollForm',
-        'PaidPayroll'
+        'PaidPayroll',
+        'PayrollWindow'
     ],
     name: 'sion.salary.payroll'
 });

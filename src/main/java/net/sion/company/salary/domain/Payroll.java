@@ -165,6 +165,5 @@ public class Payroll {
 		this.state = state;
 	}
 
-
 	
 }
