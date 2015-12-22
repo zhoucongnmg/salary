@@ -37,6 +37,12 @@ Ext.define('sion.salary.accounts.view.AddSalaryItem', {
         var me = this;
 
         Ext.applyIf(me, {
+            listeners: {
+                afterrender: {
+                    fn: me.onWindowAfterRender,
+                    scope: me
+                }
+            },
             dockedItems: [
                 {
                     xtype: 'toolbar',
@@ -143,128 +149,10 @@ Ext.define('sion.salary.accounts.view.AddSalaryItem', {
                         }
                     ]
                 }
-            ],
-            listeners: {
-                afterrender: {
-                    fn: me.onWindowAfterRender,
-                    scope: me
-                }
-            }
+            ]
         });
 
         me.callParent(arguments);
-    },
-
-    onButtonClick: function(button, e, eOpts) {
-        var me = this,
-            accountItem = me._accountItem,
-            grid = me.down('gridpanel'),
-            account = me._account,
-            form = me.down('form'),
-            record = form.getRecord(),
-            store = Ext.getStore('AccountItem'),
-            formulaItemStore = Ext.getStore('FormulaItem'),
-            select = grid.getSelectionModel().getSelection(),
-            formulaApi = me._formulaApi,
-            formulaItems = new Array();
-
-        if(select.length < 1){
-            Ext.Msg.alert('提示', '请选择待选项目');
-            return false;
-        }
-
-        if(accountItem === null){
-            if(recordIndex > -1){
-                Ext.Msg.alert('提示', '该项目已经存在，不能重复录入');
-                return false;
-            }
-        }else{
-            if(recordIndex > -1 && recordIndex !== store.indexOf(record)){
-                Ext.Msg.alert('提示', '该项目已经存在，不能重复录入');
-                return false;
-            }
-        }
-
-        var recordIndex = store.find('salaryItemId', select[0].get('id'));
-        form.updateRecord(record);
-        if(record.get('type') == 'System'){
-            record.set('value', '');
-        }
-        if(record.get('type') == 'Calculate'){
-            var formulaDatas = formulaApi.getFormula();
-            if(!formulaDatas){
-                Ext.Msg.alert('', '公式未完成，不能保存');
-                return false;
-            }
-            var formulaData = formulaDatas[formulaDatas.length - 1],
-                formulaFields = formulaApi.getFields(formulaData);
-            alert('validate 1');
-            var va = formulaApi.validateFormula(formulaData);
-            alert('validate 2');
-            console.log(va);
-            Ext.Array.each(formulaFields, function(formulaField){
-                var formulaItem = {
-                    value : '',
-                    fieldId : formulaField.fieldId,
-                    text : formulaField.text,
-                    type : 'Calculate'
-                };
-                formulaItems.push(formulaItem);
-            });
-            var formulaResult = {
-                value : '',
-                fieldId : select[0].id,
-                text : select[0].name,
-                type : 'Result'
-            };
-            formulaItems.push(formulaResult);
-            var formula = {
-                items : formulaItems,
-                resultFieldId : '',
-                formula : formulaData
-            };
-            record.set('formula', formula);
-            record.set('value', formulaData);
-        }else{
-            record.set('formula', null);
-            record.set('formulaId', '');
-        }
-        record.set('salaryItemId', select[0].get('id'));
-        record.set('name', select[0].get('name'));
-        record.set('fieldName', select[0].get('field'));
-        if(accountItem === null){
-            store.add(record);
-        }
-        me.close();
-    },
-
-    onTypeChange: function(field, newValue, oldValue, eOpts) {
-        var me = this,
-            store = Ext.getStore('SalaryItem'),
-        //     newValue = field.getValue(),
-            window = field.up("window");
-
-        if('Calculate' == newValue){
-            me.down('#formulaPanel').show();
-            me.down('#inputPanel').hide();
-            me.getSalaryItem(newValue);
-        }else if('Input' == newValue){
-            me.down('#formulaPanel').hide();
-            me.down('#inputPanel').show();
-            me.getSalaryItem(newValue);
-        }else if('System' == newValue){
-            me.down('#formulaPanel').hide();
-            me.down('#inputPanel').hide();
-            me.getSalaryItem(newValue);
-        }else{
-            store.removeAll();
-        }
-        if(newValue === "Calculate"){
-        //     window.width=860;
-        }
-        else{
-        //     window.width=320;
-        }
     },
 
     onWindowAfterRender: function(component, eOpts) {
@@ -305,12 +193,112 @@ Ext.define('sion.salary.accounts.view.AddSalaryItem', {
             record = Ext.create(namespace + '.model.AccountItem', {
                 id : Ext.data.IdGenerator.get('uuid').generate()
             });
-        //     me._accountItem = record;
         }else{
         //     me.down('#type').setValue(record.get('type'));
             me.getSalaryItem(record.get('type'));
         }
         form.loadRecord(record);
+    },
+
+    onButtonClick: function(button, e, eOpts) {
+        var me = this,
+            accountItem = me._accountItem,
+            grid = me.down('gridpanel'),
+            account = me._account,
+            form = me.down('form'),
+            record = form.getRecord(),
+            store = Ext.getStore('AccountItem'),
+            formulaItemStore = Ext.getStore('FormulaItem'),
+            select = grid.getSelectionModel().getSelection(),
+            formulaApi = me._formulaApi,
+            formulaItems = new Array();
+
+        if(select.length < 1){
+            Ext.Msg.alert('提示', '请选择结果项');
+            return false;
+        }
+        var recordIndex = store.find('salaryItemId', select[0].data.id);
+        if(accountItem === null){
+            if(recordIndex > -1){
+                Ext.Msg.alert('提示', '该项目已经存在，不能重复录入');
+                return false;
+            }
+        }else{
+            if(recordIndex > -1 && recordIndex !== store.indexOf(record)){
+                Ext.Msg.alert('提示', '该项目已经存在，不能重复录入');
+                return false;
+            }
+        }
+        form.updateRecord(record);
+        if(record.get('type') == 'System'){
+            record.set('value', '');
+        }
+        if(record.get('type') == 'Calculate'){
+            var formulaDatas = formulaApi.getFormula();
+            if(!formulaDatas){
+                Ext.Msg.alert('', '公式未完成，不能保存');
+                return false;
+            }
+            var formulaData = formulaDatas[formulaDatas.length - 1];
+            var va = formulaApi.validateFormula(formulaData);
+            var formulaFields = formulaApi.getFields(formulaData);
+            Ext.Array.each(formulaFields, function(formulaField){
+                var item = store.findRecord('id', formulaField.fieldId);
+                var formulaItem = {
+                    value : '',
+                    fieldId : item.data.salaryItemId,
+                    text : formulaField.text,
+                    type : 'Calculate'
+                };
+                formulaItems.push(formulaItem);
+            });
+            var formulaResult = {
+                value : '',
+                fieldId : select[0].data.id,
+                text : select[0].data.name,
+                type : 'Result'
+            };
+            formulaItems.push(formulaResult);
+            var formula = {
+                items : formulaItems,
+                resultFieldId : select[0].data.id,
+                formula : formulaData
+            };
+            record.set('formula', formula);
+            record.set('value', formulaData);
+        }else{
+            record.set('formula', null);
+            record.set('formulaId', '');
+        }
+        record.set('salaryItemId', select[0].data.id);
+        record.set('name', select[0].data.name);
+        record.set('fieldName', select[0].data.field);
+        if(accountItem === null){
+            store.add(record);
+        }
+        me.close();
+    },
+
+    onTypeChange: function(field, newValue, oldValue, eOpts) {
+        var me = this,
+            store = Ext.getStore('SalaryItem'),
+            window = field.up("window");
+
+        if('Calculate' == newValue){
+            me.down('#formulaPanel').show();
+            me.down('#inputPanel').hide();
+            me.getSalaryItem(newValue);
+        }else if('Input' == newValue){
+            me.down('#formulaPanel').hide();
+            me.down('#inputPanel').show();
+            me.getSalaryItem(newValue);
+        }else if('System' == newValue){
+            me.down('#formulaPanel').hide();
+            me.down('#inputPanel').hide();
+            me.getSalaryItem(newValue);
+        }else{
+            store.removeAll();
+        }
     },
 
     getSalaryItem: function(type) {
@@ -337,10 +325,6 @@ Ext.define('sion.salary.accounts.view.AddSalaryItem', {
                 }
             }
         });
-    },
-
-    loadFormula: function(id) {
-
     }
 
 });
