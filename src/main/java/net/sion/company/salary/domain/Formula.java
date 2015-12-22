@@ -17,15 +17,6 @@ public class Formula {
 	String id;
 	//公式中变量（公式项）列表
 	List<FormulaItem> items;
-	@Transient
-//	List<Object> objects;
-//	public List<Object> getObjects() {
-//		return objects;
-//	}
-//
-//	public void setObjects(List<Object> objects) {
-//		this.objects = objects;
-//	}
 
 	//结果字段Id
 	String resultFieldId;

@@ -33,7 +33,8 @@ Ext.application({
         'SalaryItem',
         'AccountItem',
         'PersonAccount',
-        'PersonAccountItem'
+        'PersonAccountItem',
+        'AccountItemType'
     ],
     stores: [
         'SalaryItem',
@@ -41,7 +42,8 @@ Ext.application({
         'Account',
         'AccountMember',
         'PersonAccount',
-        'PersonAccountItem'
+        'PersonAccountItem',
+        'AccountItemType'
     ],
     views: [
         'SalaryPlanGrid',
@@ -49,10 +51,10 @@ Ext.application({
         'SalaryItemGrid',
         'SalaryPlan',
         'SalaryItemEdit',
-        'AddSalaryItem',
         'AccountMember',
         'AccountMemberConfig',
-        'SalaryItemRead'
+        'SalaryItemRead',
+        'AddSalaryItem'
     ],
     name: 'sion.salary.accounts',
 

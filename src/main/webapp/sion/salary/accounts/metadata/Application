@@ -12,7 +12,8 @@
             "SalaryItem",
             "AccountItem",
             "PersonAccount",
-            "PersonAccountItem"
+            "PersonAccountItem",
+            "AccountItemType"
         ],
         "name": "sion.salary.accounts",
         "paths": [
@@ -29,7 +30,8 @@
             "Account",
             "AccountMember",
             "PersonAccount",
-            "PersonAccountItem"
+            "PersonAccountItem",
+            "AccountItemType"
         ],
         "views": [
             "SalaryPlanGrid",
@@ -37,10 +39,10 @@
             "SalaryItemGrid",
             "SalaryPlan",
             "SalaryItemEdit",
-            "AddSalaryItem",
             "AccountMember",
             "AccountMemberConfig",
-            "SalaryItemRead"
+            "SalaryItemRead",
+            "AddSalaryItem"
         ]
     },
     "name": "Application",
