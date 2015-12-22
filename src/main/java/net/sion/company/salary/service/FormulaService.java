@@ -134,6 +134,7 @@ public class FormulaService {
 		List<FormulaItem> items = formula.getItems();
 		String formulaString = formula.getFormula();
 
+		
 		for (FormulaItem item : items) {
 			if (FormulaType.Calculate.equals(item.getType())) {
 				Formula tmpFormula = this.findFormulaInList(formulas, item.getFieldId());
