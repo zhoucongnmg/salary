@@ -16,7 +16,7 @@
         "exportPath": "F:/spring-tool-suite-3.7.1.RELEASE-e4.5.1-win32-x86_64/sts-bundle/pivotal-tc-server-developer-3.1.2.RELEASE/base-instance/wtpwebapps/salary/sion/salary/payroll"
     },
     "xdsVersion": "3.2.0",
-    "xdsBuild": 75,
+    "xdsBuild": 339,
     "schemaVersion": 1,
     "upgradeVersion": 310000000001,
     "framework": "ext42",
@@ -25,9 +25,9 @@
             "e912961e-0f61-4e60-a08a-663905a73e93",
             "88cf984a-a976-4126-b677-6ef701d8331b",
             "fa44aed0-accb-42c4-bff9-897d94b66223",
-            "699c4ac8-e3f6-490b-92ca-eba3ef3d83e1",
             "02f3d5a0-98dc-4e83-be20-913355b92319",
-            "2bc9523b-b2ee-42ce-8c53-be649e5bb646"
+            "2bc9523b-b2ee-42ce-8c53-be649e5bb646",
+            "708dc4f8-9f08-4e2e-9781-b52f59cab93a"
         ],
         "store": [
             "a22f48f1-d3d8-415a-908a-50cd838da633",

@@ -316,7 +316,9 @@ public class PayrollController {
 	public Response create(HttpSession session, @RequestBody Payroll payroll) {
 
 		User user = adminService.getUser(session);
+		
 		payroll.setCreatePersonId(user.getId());
+		payroll.setCreatePersonName(user.getName());
 		payroll.setCreateDate(getCurrentDate());
 		payroll.setState(PayrollStatus.Unpublish.toString());
 		payroll.setId(new ObjectId().toString());
@@ -351,13 +353,6 @@ public class PayrollController {
 		List<Payroll> payrolls = mongoTemplate.find(q, Payroll.class);
 		Long total = mongoTemplate.count(q, Payroll.class);
 
-		for (Payroll payroll : payrolls) {
-			User user = mongoTemplate.findById(payroll.getCreatePersonId(), User.class);
-			payroll.setCreatePersonName(user.getName());
-			Account account = mongoTemplate.findById(payroll.getAccountId(), Account.class);
-			payroll.setAccountName(account.getName());
-		}
-
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("total", total);
 		map.put("data", payrolls);
@@ -378,12 +373,16 @@ public class PayrollController {
 		if (notNull(socialCostMonth))
 			mapFilter.put("socialCostMonth", socialCostMonth.substring(0, 7));
 
-		DBObject dbobject = new BasicDBObject();
-		dbobject.putAll(mapFilter);
-		Query q = new BasicQuery(dbobject);
+		Query q = getQueryWithFilter(mapFilter);
 
 		q.with(new Sort(Sort.Direction.ASC, "_id")).skip(start).limit(limit);
 		return q;
+	}
+	
+	private Query getQueryWithFilter(Map<String, Object> mapFilter){
+		DBObject dbobject = new BasicDBObject();
+		dbobject.putAll(mapFilter);
+		return new BasicQuery(dbobject);
 	}
 
 	private Boolean notNull(String string) {
@@ -478,18 +477,14 @@ public class PayrollController {
 	 * @param fieldId	//薪资项目id
 	 * @return
 	 */
-	@RequestMapping(value = "calculate")
-	public Response calculate(@RequestBody Map<String,Object> map) {
+	public Response calculate(@RequestParam Map<String,Object> map) {
 		
 		String accountId = (String) map.get("accountId");
+		String fieldId = (String) map.get("fieldId");
 		Map<String,String> recordMap = (Map<String, String>) map.get("record"); 
 		
 		Account account = accountRepository.findOne(accountId);
 		Set<String> formulaIds = account.getFormulaIds();
-		
-		/**
-		
-		formulaService.caculateFormulas(formulaIds, recordMap);
 		Set<String> fieldIds = formulaService.getInfluencedField(formulaIds, fieldId);
 		
 		Map<String,String> values = new HashMap<String,String>();
@@ -497,12 +492,10 @@ public class PayrollController {
 			String value = recordMap.get(id);
 			values.put(id, value);
 		}
-		**/
+		
 		Map<String, String> changeFields = new HashMap<String,String>();
 		try {
-			PayrollItem payrollItem = new PayrollItem();
-			payrollItem.convertDomain(recordMap);
-			changeFields = formulaService.caculateFormulas(formulaIds,payrollItem.getValues());
+			changeFields = formulaService.caculateFormulas(formulaIds,values);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
