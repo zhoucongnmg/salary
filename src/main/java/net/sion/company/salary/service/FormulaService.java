@@ -83,27 +83,6 @@ public class FormulaService {
 
 		return result;
 	}
-	// public Map<String,String> caculateFormulas(Set<String>
-	// formulaIds,Map<String,String>params) throws Exception{
-	// Map<String, String> result=new HashMap<String,String>();
-	// for (String formulaId : formulaIds) {
-	// Formula formula = formulaRepository.findOne(formulaId);
-	// List<FormulaItem> items=this.getFormulaItems(formulaId);
-	//
-	// for (FormulaItem formulaItem : items) {
-	// String value=params.get(formulaItem.getFieldId());
-	// if(value==null){
-	// throw new Exception("无法确定公式中变量的值："+formulaItem.getText());
-	// }
-	// formulaItem.setValue(value);
-	// }
-	//
-	// result.put(formula.getResultFieldId(),String.valueOf(this.calculate(formulaId,
-	// items)));
-	// }
-	//
-	// return result;
-	// }
 
 	/**
 	 * 取得要计算某字段值时公式中所有需要的变量字段 （向下递归）
