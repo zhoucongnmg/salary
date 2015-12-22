@@ -252,13 +252,13 @@ Ext.define('sion.salary.accounts.view.AddSalaryItem', {
                 };
                 formulaItems.push(formulaItem);
             });
-            var formulaResult = {
-                value : '',
-                fieldId : select[0].data.id,
-                text : select[0].data.name,
-                type : 'Result'
-            };
-            formulaItems.push(formulaResult);
+        //     var formulaResult = {
+        //         value : '',
+        //         fieldId : select[0].data.id,
+        //         text : select[0].data.name,
+        //         type : 'Result'
+        //     };
+        //     formulaItems.push(formulaResult);
             var formula = {
                 items : formulaItems,
                 resultFieldId : select[0].data.id,
