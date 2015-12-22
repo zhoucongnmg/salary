@@ -203,10 +203,6 @@ Ext.define('sion.salary.accounts.view.SalaryPlan', {
                 }
             ],
             listeners: {
-                render: {
-                    fn: me.onWindowRender,
-                    scope: me
-                },
                 beforerender: {
                     fn: me.onWindowBeforeRender,
                     scope: me
@@ -224,6 +220,7 @@ Ext.define('sion.salary.accounts.view.SalaryPlan', {
             store = Ext.getStore("Account"),
             itemGrid = me.down('#itemGrid'),
             itemList = [],
+            account = me._account;
             itemStore = itemGrid.getStore();
 
         record = form.getRecord();
@@ -237,20 +234,23 @@ Ext.define('sion.salary.accounts.view.SalaryPlan', {
         });
         record.set('accountItems', itemList);
         record.set('persons', null);
-        if(record.get('id') === ''){
+        // if(record.get('id') === ''){
+        //     store.add(record);
+        // }
+        if(account){
+            Ext.Msg.confirm('提示', '是否更新工资条？', function(text){
+                if(text == 'yes'){
+                    record.set('updatePayroll', true);
+                }else{
+                    record.set('updatePayroll', false);
+                }
+                me.save(store);
+            });
+        }else{
             store.add(record);
+            me.save(store);
         }
-        store.sync({
-            success: function(response, opts){
-                Ext.Msg.alert("提示", "保存成功");
-                store.load();
-                me.close();
-            },
-            failure: function(){
-                Ext.Msg.alert("提示", "保存失败");
-                me.close();
-            }
-        });
+
     },
 
     onAddSalaryItemClick: function(button, e, eOpts) {
@@ -259,25 +259,6 @@ Ext.define('sion.salary.accounts.view.SalaryPlan', {
 
     onItemGridItemDblClick: function(dataview, record, item, index, e, eOpts) {
         this.detail(record);
-    },
-
-    onWindowRender: function(component, eOpts) {
-        // var me = this,
-        //     namespace = me.getNamespace(),
-        //     itemStore = Ext.getStore('AccountItem'),
-        //     form = me.down("form"),
-        //     account = me._account;
-
-        // itemStore.removeAll();
-        // if(account){
-        //     itemStore.add(account.get('accountItems'));
-        //     form.loadRecord(account);
-        // }else{
-        //     form.loadRecord(Ext.create(namespace + '.model.Account', {
-        //         id: '',
-        //         name: ''
-        //     }));
-        // }
     },
 
     onWindowBeforeRender: function(component, eOpts) {
@@ -289,7 +270,33 @@ Ext.define('sion.salary.accounts.view.SalaryPlan', {
 
         itemStore.removeAll();
         if(account){
-            itemStore.add(account.get('accountItems'));
+            Ext.Array.each(account.get('accountItems'), function(item){
+                console.log(item);
+                if(item !== null && item.type == 'Calculate' && item.formulaId !== ''){
+        //              var formula = me.getFormula(item.formulaId);
+                    Ext.Ajax.request({
+                        url: 'salary/formula/read',
+                        method: 'get',
+                        async: false,    //不使用异步
+                        params: {
+                            id: item.formulaId
+                        },
+                        success: function(response, opts){
+                            var data = Ext.JSON.decode(response.responseText);
+        //                     console.log(data);
+                            item.formula = data;
+        //                     console.log(item);
+                        },
+                        failure: function(response, opts) {
+                            Ext.Msg.alert('提示信息','数据请求错误，请稍候重新尝试获取数据……');
+                        }
+                    });
+                }else{
+                    item.formula = null;
+                }
+                itemStore.add(item);
+            });
+        //     itemStore.add(account.get('accountItems'));
             form.loadRecord(account);
         }else{
             form.loadRecord(Ext.create(namespace + '.model.Account', {
@@ -310,6 +317,45 @@ Ext.define('sion.salary.accounts.view.SalaryPlan', {
             _accountItem : record,
             _store : grid.getStore()
         }).show();
+    },
+
+    getFormula: function(id) {
+        // if(record !== null && record.get('type') == 'Calculate' && record.get('formulaId') !== ''){
+            Ext.Ajax.request({
+                url: 'salary/formula/read',
+                method: 'get',
+                async: false,    //不使用异步
+                params: {
+                    id: id
+                },
+                success: function(response, opts){
+                    var data = Ext.JSON.decode(response.responseText);
+                    alert(data);
+                    console.log(data);
+                    return data;
+        //             record.set('formula', data);
+                },
+                failure: function(response, opts) {
+                    Ext.Msg.alert('提示信息','数据请求错误，请稍候重新尝试获取数据……');
+                }
+            });
+        // }
+    },
+
+    save: function(store) {
+        var me = this;
+
+        store.sync({
+            success: function(response, opts){
+                Ext.Msg.alert("提示", "保存成功");
+                store.load();
+                me.close();
+            },
+            failure: function(){
+                Ext.Msg.alert("提示", "保存失败");
+                me.close();
+            }
+        });
     }
 
 });

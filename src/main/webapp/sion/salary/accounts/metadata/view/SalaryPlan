@@ -61,6 +61,7 @@
                                     "    store = Ext.getStore(\"Account\"),",
                                     "    itemGrid = me.down('#itemGrid'),",
                                     "    itemList = [],",
+                                    "    account = me._account;",
                                     "    itemStore = itemGrid.getStore();",
                                     "",
                                     "record = form.getRecord();",
@@ -74,20 +75,23 @@
                                     "});",
                                     "record.set('accountItems', itemList);",
                                     "record.set('persons', null);",
-                                    "if(record.get('id') === ''){",
+                                    "// if(record.get('id') === ''){",
+                                    "//     store.add(record);",
+                                    "// }",
+                                    "if(account){",
+                                    "    Ext.Msg.confirm('提示', '是否更新工资条？', function(text){",
+                                    "        if(text == 'yes'){",
+                                    "            record.set('updatePayroll', true);",
+                                    "        }else{",
+                                    "            record.set('updatePayroll', false);",
+                                    "        }",
+                                    "        me.save(store);",
+                                    "    });",
+                                    "}else{",
                                     "    store.add(record);",
+                                    "    me.save(store);",
                                     "}",
-                                    "store.sync({",
-                                    "    success: function(response, opts){",
-                                    "        Ext.Msg.alert(\"提示\", \"保存成功\");",
-                                    "        store.load();",
-                                    "        me.close();",
-                                    "    },",
-                                    "    failure: function(){",
-                                    "        Ext.Msg.alert(\"提示\", \"保存失败\");",
-                                    "        me.close();",
-                                    "    }",
-                                    "});"
+                                    ""
                                 ],
                                 "name": "click",
                                 "scope": "me"
@@ -501,39 +505,6 @@
             },
             "codeClass": null,
             "userConfig": {
-                "fn": "onWindowRender",
-                "implHandler": [
-                    "// var me = this,",
-                    "//     namespace = me.getNamespace(),",
-                    "//     itemStore = Ext.getStore('AccountItem'),",
-                    "//     form = me.down(\"form\"),",
-                    "//     account = me._account;",
-                    "",
-                    "// itemStore.removeAll();",
-                    "// if(account){",
-                    "//     itemStore.add(account.get('accountItems'));",
-                    "//     form.loadRecord(account);",
-                    "// }else{",
-                    "//     form.loadRecord(Ext.create(namespace + '.model.Account', {",
-                    "//         id: '',",
-                    "//         name: ''",
-                    "//     }));",
-                    "// }"
-                ],
-                "name": "render",
-                "scope": "me"
-            },
-            "name": "onWindowRender",
-            "designerId": "47f706c4-ad0d-46b7-98e0-525e91d8a6c7"
-        },
-        {
-            "type": "basiceventbinding",
-            "reference": {
-                "name": "listeners",
-                "type": "array"
-            },
-            "codeClass": null,
-            "userConfig": {
                 "fn": "onWindowBeforeRender",
                 "implHandler": [
                     "var me = this,",
@@ -544,7 +515,33 @@
                     "",
                     "itemStore.removeAll();",
                     "if(account){",
-                    "    itemStore.add(account.get('accountItems'));",
+                    "    Ext.Array.each(account.get('accountItems'), function(item){",
+                    "        console.log(item);",
+                    "        if(item !== null && item.type == 'Calculate' && item.formulaId !== ''){",
+                    "//              var formula = me.getFormula(item.formulaId);",
+                    "            Ext.Ajax.request({",
+                    "                url: 'salary/formula/read',",
+                    "                method: 'get',",
+                    "                async: false,    //不使用异步",
+                    "                params: {",
+                    "                    id: item.formulaId",
+                    "                },",
+                    "                success: function(response, opts){",
+                    "                    var data = Ext.JSON.decode(response.responseText);",
+                    "//                     console.log(data);",
+                    "                    item.formula = data;",
+                    "//                     console.log(item);",
+                    "                },",
+                    "                failure: function(response, opts) {",
+                    "                    Ext.Msg.alert('提示信息','数据请求错误，请稍候重新尝试获取数据……');",
+                    "                }",
+                    "            });",
+                    "        }else{",
+                    "            item.formula = null;",
+                    "        }",
+                    "        itemStore.add(item);",
+                    "    });",
+                    "//     itemStore.add(account.get('accountItems'));",
                     "    form.loadRecord(account);",
                     "}else{",
                     "    form.loadRecord(Ext.create(namespace + '.model.Account', {",
@@ -586,6 +583,75 @@
             },
             "name": "detail",
             "designerId": "f46ded6e-a79f-432e-b1c1-2b69ea191b45"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|params": [
+                    "id"
+                ],
+                "fn": "getFormula",
+                "implHandler": [
+                    "// if(record !== null && record.get('type') == 'Calculate' && record.get('formulaId') !== ''){",
+                    "    Ext.Ajax.request({",
+                    "        url: 'salary/formula/read',",
+                    "        method: 'get',",
+                    "        async: false,    //不使用异步",
+                    "        params: {",
+                    "            id: id",
+                    "        },",
+                    "        success: function(response, opts){",
+                    "            var data = Ext.JSON.decode(response.responseText);",
+                    "            alert(data);",
+                    "            console.log(data);",
+                    "            return data;",
+                    "//             record.set('formula', data);",
+                    "        },",
+                    "        failure: function(response, opts) {",
+                    "            Ext.Msg.alert('提示信息','数据请求错误，请稍候重新尝试获取数据……');",
+                    "        }",
+                    "    });",
+                    "// }"
+                ]
+            },
+            "name": "getFormula",
+            "designerId": "a4e813ab-01cc-4c4e-8876-eece2e4aff7d"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|params": [
+                    "store"
+                ],
+                "fn": "save",
+                "implHandler": [
+                    "var me = this;",
+                    "",
+                    "store.sync({",
+                    "    success: function(response, opts){",
+                    "        Ext.Msg.alert(\"提示\", \"保存成功\");",
+                    "        store.load();",
+                    "        me.close();",
+                    "    },",
+                    "    failure: function(){",
+                    "        Ext.Msg.alert(\"提示\", \"保存失败\");",
+                    "        me.close();",
+                    "    }",
+                    "});"
+                ]
+            },
+            "name": "save",
+            "designerId": "9d307f19-551e-477c-baa4-5e86e0597d08"
         }
     ]
 }

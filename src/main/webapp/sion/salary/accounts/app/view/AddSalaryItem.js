@@ -163,23 +163,23 @@ Ext.define('sion.salary.accounts.view.AddSalaryItem', {
             store = Ext.getStore('AccountItem'),
             panel = me.down('#formulaPanel');
 
-        if(record !== null && record.get('type') == 'Calculate' && record.get('formulaId') !== ''){
-            Ext.Ajax.request({
-                url: 'salary/formula/read',
-                method: 'get',
-                async: false,    //不使用异步
-                params: {
-                    id: record.get('formulaId')
-                },
-                success: function(response, opts){
-                    var data = Ext.JSON.decode(response.responseText);
-                    record.set('formula', data);
-                },
-                failure: function(response, opts) {
-                    Ext.Msg.alert('提示信息','数据请求错误，请稍候重新尝试获取数据……');
-                }
-            });
-        }
+        // if(record !== null && record.get('type') == 'Calculate' && record.get('formulaId') !== ''){
+        //     Ext.Ajax.request({
+        //         url: 'salary/formula/read',
+        //         method: 'get',
+        //         async: false,    //不使用异步
+        //         params: {
+        //             id: record.get('formulaId')
+        //         },
+        //         success: function(response, opts){
+        //             var data = Ext.JSON.decode(response.responseText);
+        //             record.set('formula', data);
+        //         },
+        //         failure: function(response, opts) {
+        //             Ext.Msg.alert('提示信息','数据请求错误，请稍候重新尝试获取数据……');
+        //         }
+        //     });
+        // }
         var app = Ext.ClassManager.get('sion.salary.formula' + ".$application").create();
         var Api = app.getController('Api');
         Api.initFormula({
@@ -194,7 +194,6 @@ Ext.define('sion.salary.accounts.view.AddSalaryItem', {
                 id : Ext.data.IdGenerator.get('uuid').generate()
             });
         }else{
-        //     me.down('#type').setValue(record.get('type'));
             me.getSalaryItem(record.get('type'));
         }
         form.loadRecord(record);

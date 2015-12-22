@@ -82,7 +82,12 @@ public class AccountController {
 			User user = adminService.getUser(session);
 			account.setCreateUserId(user.getId());
 			account.setCreateUserName(user.getName());
+		}else{
+			deleteFormula(account.getId());
+			System.out.println(account.isUpdatePayroll());
+			//TODO 更新工资条
 		}
+		
 		for(AccountItem accountItem : account.getAccountItems()){
 			if(accountItem.getFormula() != null){
 				Formula formula = formulaService.create(accountItem.getFormula());
@@ -91,6 +96,14 @@ public class AccountController {
 		}
 		accountRepository.save(account);
 		return new Response(true);
+	}
+	private void deleteFormula(String accountId){
+		Account account = accountRepository.findOne(accountId);
+		for(AccountItem accountItem : account.getAccountItems()){
+			if(!"".equals(accountItem.getFormulaId())){
+				formulaRepository.delete(accountItem.getFormulaId());
+			}
+		}
 	}
 
 	/**

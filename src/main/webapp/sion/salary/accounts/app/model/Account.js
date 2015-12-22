@@ -45,6 +45,10 @@ Ext.define('sion.salary.accounts.model.Account', {
         },
         {
             name: 'remark'
+        },
+        {
+            name: 'updatePayroll',
+            type: 'boolean'
         }
     ]
 });

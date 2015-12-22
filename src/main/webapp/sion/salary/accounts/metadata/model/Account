@@ -115,6 +115,21 @@
             },
             "name": "MyField28",
             "designerId": "d7682dcb-f6ab-4025-b61d-d415df17dc72"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "defaultValue": null,
+                "name": "updatePayroll",
+                "type": "boolean"
+            },
+            "name": "MyField55",
+            "designerId": "9d1417a8-a0c6-4978-a632-98505c51e500"
         }
     ]
 }

@@ -13,6 +13,7 @@ import net.sion.company.salary.domain.AccountItem.AccountItemType;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.roo.addon.javabean.RooJavaBean;
 import org.springframework.roo.addon.layers.repository.mongo.RooMongoEntity;
@@ -40,8 +41,15 @@ public class Account {
 	String createUserName;
 	String date; // 套账创建日期
 	String remark; // 备注
+	@Transient
+	boolean updatePayroll;//修改时是否更新工资条
+	public boolean isUpdatePayroll() {
+		return updatePayroll;
+	}
+	public void setUpdatePayroll(boolean updatePayroll) {
+		this.updatePayroll = updatePayroll;
+	}
 
-	
 	public Set<String> getFormulaIds() {
 		Set<String> formulaIds = new HashSet<String>();
 		for (AccountItem item : accountItems) {
