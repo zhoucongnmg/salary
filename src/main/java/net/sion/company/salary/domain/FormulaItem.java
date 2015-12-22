@@ -15,14 +15,13 @@ public class FormulaItem {
 	private String fieldId;//字段
 	private String text;//字段的中文文本
 	private FormulaType type;//项目类型
-	private String formulaId;//结果项,此项目是另一个计算公式的Id
 	
 	public enum FormulaType {
 //		Operation, //运算符(加减乘除)
 //		Symbols, //符号
 //		Numeric,	//数字(0-9)
-		Calculate,	//计算项,
-		Result	//结果项,此项目是另一个计算公式的结果
+		Calculate,	//计算项,此项目有可能是另一个计算公式的结果，也可能是代表了一个数字
+//		Result	//结果项
 //		Logical //逻辑运算符（与、或、如果、则、>=、<=、>、<）
 		
 	}
@@ -84,15 +83,5 @@ public class FormulaItem {
 	public void setText(String text) {
 		this.text = text;
 	}
-
-	public String getFormulaId() {
-		return formulaId;
-	}
-
-	public void setFormulaId(String formulaId) {
-		this.formulaId = formulaId;
-	}
-	
-	
 	
 }

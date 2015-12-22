@@ -10,4 +10,6 @@ public interface FormulaRepository extends MongoRepository<Formula, String> {
 
 	List<Formula> findByItemsFieldId(String fieldId);
 
+	Formula findByResultFieldId(String fieldId);
+
 }
