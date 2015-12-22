@@ -23,6 +23,7 @@
             },
             "codeClass": null,
             "userConfig": {
+                "emptyText": "无工资条数据",
                 "title": null
             },
             "name": "MyGridPanel2",
@@ -37,7 +38,7 @@
                     "codeClass": null,
                     "userConfig": {
                         "dataIndex": "string",
-                        "text": "String"
+                        "text": null
                     },
                     "name": "MyColumn12",
                     "designerId": "d4262980-dac4-4d34-9f08-670fe7728bf0"
@@ -108,7 +109,7 @@
                     "    id = me._id,",
                     "    ns = me.getNamespace(),",
                     "    grid = me.down('grid'),",
-                    "    store = Ext.getStore('PayrollItem');",
+                    "    store = Ext.create(ns+'.store.PayrollItem');",
                     "",
                     "Ext.Ajax.request({",
                     "    url:'salary/payroll/findItemList',",
@@ -220,7 +221,7 @@
                     "    url:'salary/payroll/calculate',",
                     "    async : false,",
                     "    jsonData : {",
-                    "        accountId : _accountId,",
+                    "        accountId : accountId,",
                     "        fieldId : fieldId,",
                     "        record : record",
                     "    },",

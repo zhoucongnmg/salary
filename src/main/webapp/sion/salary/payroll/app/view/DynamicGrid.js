@@ -36,11 +36,11 @@ Ext.define('sion.salary.payroll.view.DynamicGrid', {
             items: [
                 {
                     xtype: 'gridpanel',
+                    emptyText: '无工资条数据',
                     columns: [
                         {
                             xtype: 'gridcolumn',
-                            dataIndex: 'string',
-                            text: 'String'
+                            dataIndex: 'string'
                         }
                     ],
                     plugins: [
@@ -103,7 +103,7 @@ Ext.define('sion.salary.payroll.view.DynamicGrid', {
             id = me._id,
             ns = me.getNamespace(),
             grid = me.down('grid'),
-            store = Ext.getStore('PayrollItem');
+            store = Ext.create(ns+'.store.PayrollItem');
 
         Ext.Ajax.request({
             url:'salary/payroll/findItemList',
@@ -151,7 +151,7 @@ Ext.define('sion.salary.payroll.view.DynamicGrid', {
             url:'salary/payroll/calculate',
             async : false,
             jsonData : {
-                accountId : _accountId,
+                accountId : accountId,
                 fieldId : fieldId,
                 record : record
             },

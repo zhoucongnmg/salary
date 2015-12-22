@@ -141,12 +141,12 @@ public class FormulaService {
 				String value = params.get(item.getFieldId());
 				// 这不是个公式，应该从Param中取值。或者这是个公式，但Param已经存在之前计算出来的结果，也是从param中取值。
 				if (tmpFormula == null || value != null) {
-					formulaString.replaceAll(item.getText(), value);
+					formulaString = formulaString.replaceAll(("\\[".concat(item.getText()).concat("\\]")), value);
 				} else {
 					// 这是个公式，递归计算结果，并把结果加入到Params中以便于后续运算可能会被用到
 					Double temp = calculate(this.findFormulaInList(formulas, item.getFieldId()), formulas, params);
 					params.put(item.getFieldId(), String.valueOf(temp));
-					formulaString.replaceAll(item.getText(), String.valueOf(temp));
+					formulaString = formulaString.replaceAll(("\\[".concat(item.getText()).concat("\\]")), String.valueOf(temp));
 				}
 			}
 		}
@@ -195,7 +195,7 @@ public class FormulaService {
 		}
 		return result;
 	}
-
+	
 	/**
 	 * 保存公式
 	 * 

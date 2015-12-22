@@ -478,7 +478,7 @@ public class PayrollController {
 	 * @param fieldId	//薪资项目id
 	 * @return
 	 */
-	public Response calculate(@RequestParam Map<String,Object> map) {
+	public Response calculate(@RequestBody Map<String,Object> map) {
 		
 		String accountId = (String) map.get("accountId");
 		String fieldId = (String) map.get("fieldId");
@@ -486,6 +486,10 @@ public class PayrollController {
 		
 		Account account = accountRepository.findOne(accountId);
 		Set<String> formulaIds = account.getFormulaIds();
+		
+		/**
+		
+		formulaService.caculateFormulas(formulaIds, recordMap);
 		Set<String> fieldIds = formulaService.getInfluencedField(formulaIds, fieldId);
 		
 		Map<String,String> values = new HashMap<String,String>();
@@ -493,10 +497,10 @@ public class PayrollController {
 			String value = recordMap.get(id);
 			values.put(id, value);
 		}
-		
+		**/
 		Map<String, String> changeFields = new HashMap<String,String>();
 		try {
-			changeFields = formulaService.caculateFormulas(formulaIds,values);
+			changeFields = formulaService.caculateFormulas(formulaIds,recordMap);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
