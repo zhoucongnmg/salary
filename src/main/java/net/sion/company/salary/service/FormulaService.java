@@ -77,6 +77,11 @@ public class FormulaService {
 	public Map<String, String> caculateFormulas(Set<String> formulaIds, Map<String, String> params) throws Exception {
 		Map<String, String> result = new HashMap<String, String>();
 		List<Formula> formulas = (List<Formula>) formulaRepository.findAll(formulaIds);
+		// 先过滤掉Params中计算项的值，防止“修改”时旧值干扰
+		for (Formula formula : formulas) {
+			params.remove(formula.getResultFieldId());
+		}
+		
 		for (Formula formula : formulas) {
 			result.put(formula.getResultFieldId(), String.valueOf(this.calculate(formula, formulas, params)));
 		}
