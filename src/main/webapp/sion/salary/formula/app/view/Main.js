@@ -430,7 +430,7 @@ Ext.define('sion.salary.formula.view.Main', {
                         },
                         {
                             xtype: 'calcbutton',
-                            _type: 'Logical',
+                            _type: 'LogicalIf',
                             _value: 'if',
                             text: '如果',
                             flex: 1.25

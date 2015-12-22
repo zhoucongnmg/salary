@@ -61,11 +61,11 @@ public class Account {
 		return formulaIds;
 	}
 	
-	public Map<String,String> getSalaryItemValues() {
-		Map<String,String> salaryItemValues = new HashMap<String,String>();
+	public Map<String,Double> getSalaryItemValues() {
+		Map<String,Double> salaryItemValues = new HashMap<String,Double>();
 		for (AccountItem item : accountItems) {
 			if (item.getType() == AccountItemType.Input) {
-				salaryItemValues.put(item.getSalaryItemId(),item.getValue());
+				salaryItemValues.put(item.getSalaryItemId(),Double.valueOf(item.getValue()));
 			}
 		}
 		

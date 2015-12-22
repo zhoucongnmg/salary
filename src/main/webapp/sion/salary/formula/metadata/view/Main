@@ -1294,7 +1294,7 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "_type": "Logical",
+                        "_type": "LogicalIf",
                         "_value": "if",
                         "layout|flex": 1.25,
                         "text": "如果"

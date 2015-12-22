@@ -42,7 +42,7 @@ public class PayrollItem {
 	
 	String dept;	//部门
 	
-	Map<String,String> values = new HashMap<String,String>();	//薪资明细项
+	Map<String,Double> values = new HashMap<String,Double>();	//薪资明细项
 	
 	@Autowired CustomJackson jackson;
 	
@@ -68,7 +68,7 @@ public class PayrollItem {
 				m.invoke(this, value);
 			} catch (NoSuchMethodException e) {
 				// TODO Auto-generated catch block
-				values.put(key, value);
+				values.put(key, Double.valueOf(value));
 			} catch (SecurityException e) {
 				// TODO Auto-generated catch block
 			} catch (IllegalAccessException e) {
@@ -136,11 +136,11 @@ public class PayrollItem {
 		this.dept = dept;
 	}
 
-	public Map<String, String> getValues() {
+	public Map<String, Double> getValues() {
 		return values;
 	}
 
-	public void setValues(Map<String, String> values) {
+	public void setValues(Map<String, Double> values) {
 		this.values = values;
 	}
 

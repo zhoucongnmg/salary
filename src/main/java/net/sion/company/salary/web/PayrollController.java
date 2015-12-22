@@ -143,7 +143,7 @@ public class PayrollController {
 		}
 		if (newPersonIds.size()>0) {
 			Set<String> formulaIds = account.getFormulaIds();
-			Map<String,String> salaryItemValues = account.getSalaryItemValues();
+			Map<String,Double> salaryItemValues = account.getSalaryItemValues();
 			Map<String, String> result;
 			try {
 				result = formulaService.caculateFormulas(formulaIds, salaryItemValues);
@@ -218,7 +218,7 @@ public class PayrollController {
 		switch (item.getType()) {
 		case Input:
 			Map<String, String> editor = new HashMap<String, String>();
-			editor.put("xtype", "numberfield");
+			editor.put("xtype", "textfield");
 			editor.put("name", item.getSalaryItemId());
 			editor.put("allowBlank", "false");
 			map.put("editor", editor);
@@ -236,42 +236,6 @@ public class PayrollController {
 		return map;
 	}
 
-	/**
-	 * 新建工资条
-	 * 
-	 * @param person
-	 * @return
-	 * @throws IOException
-	 * @throws JsonProcessingException
-	 * @throws JsonMappingException
-	 * @throws JsonParseException
-	 */
-	@RequestMapping(value = "addPayroll")
-	public Response addPayroll(@RequestBody List<Map<String, Object>> jsonData, HttpSession session) {
-		/*
-		 * List<Map<String, String>> roll =
-		 * jackson.readValue(jackson.writeValueAsString(jsonData.get("roll")),
-		 * new TypeReference<List<Map<String, String>>>(){}); String accountId =
-		 * jackson.readValue(jackson.writeValueAsString(jsonData.get("accountId"
-		 * )), new TypeReference<String>(){}); for(Map<String, String> map :
-		 * roll){ PayrollItem item = null; if
-		 * (!StringUtils.isEmpty(map.get("id"))) { item =
-		 * payrollItemRepository.findOne(map.get("id")); }else{ item = new
-		 * PayrollItem(); item.setId(new ObjectId().toString()); }
-		 * List<Map<String,String>> values = new ArrayList(); //遍历map中的键 for
-		 * (String key : map.keySet()) { if("personId".equals(key)){
-		 * item.setPersonId(map.get(key)); }else if("name".equals(key)){
-		 * item.setName(map.get(key)); }else if("duty".equals(key)){
-		 * item.setDuty(map.get(key)); }else if("dept".equals(key)){
-		 * item.setDept(map.get(key)); }else if("id".equals(key)){
-		 * 
-		 * }else { Map<String,String> accountItem = new HashMap();
-		 * accountItem.put(key, map.get(key)); values.add(accountItem); } }
-		 * item.setValues(values); item.setAccountId(accountId);
-		 * payrollItemRepository.save(item); }
-		 */
-		return new Response(true);
-	}
 
 	/**
 	 * 读取套帐列表
@@ -477,14 +441,18 @@ public class PayrollController {
 	 * @param fieldId	//薪资项目id
 	 * @return
 	 */
-	public Response calculate(@RequestParam Map<String,Object> map) {
+	@RequestMapping("calculate")
+	public Response calculate(@RequestBody Map<String,Object> map) {
 		
 		String accountId = (String) map.get("accountId");
-		String fieldId = (String) map.get("fieldId");
 		Map<String,String> recordMap = (Map<String, String>) map.get("record"); 
 		
 		Account account = accountRepository.findOne(accountId);
 		Set<String> formulaIds = account.getFormulaIds();
+		
+		/**
+		
+		formulaService.caculateFormulas(formulaIds, recordMap);
 		Set<String> fieldIds = formulaService.getInfluencedField(formulaIds, fieldId);
 		
 		Map<String,String> values = new HashMap<String,String>();
@@ -492,10 +460,12 @@ public class PayrollController {
 			String value = recordMap.get(id);
 			values.put(id, value);
 		}
-		
+		**/
 		Map<String, String> changeFields = new HashMap<String,String>();
 		try {
-			changeFields = formulaService.caculateFormulas(formulaIds,values);
+			PayrollItem payrollItem = new PayrollItem();
+			payrollItem.convertDomain(recordMap);
+			changeFields = formulaService.caculateFormulas(formulaIds,payrollItem.getValues());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

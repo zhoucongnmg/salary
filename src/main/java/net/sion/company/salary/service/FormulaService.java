@@ -74,7 +74,7 @@ public class FormulaService {
 	 * @return fieldId和Value键值对
 	 * @throws Exception
 	 */
-	public Map<String, String> caculateFormulas(Set<String> formulaIds, Map<String, String> params) throws Exception {
+	public Map<String, String> caculateFormulas(Set<String> formulaIds, Map<String, Double> params) throws Exception {
 		Map<String, String> result = new HashMap<String, String>();
 		List<Formula> formulas = (List<Formula>) formulaRepository.findAll(formulaIds);
 		// 先过滤掉Params中计算项的值，防止“修改”时旧值干扰
@@ -133,7 +133,7 @@ public class FormulaService {
 	 * @param items
 	 * @return
 	 */
-	public Double calculate(Formula formula, List<Formula> formulas, Map<String, String> params) {
+	public Double calculate(Formula formula, List<Formula> formulas, Map<String, Double> params) {
 		Double result = new Double(0);
 
 		List<FormulaItem> items = formula.getItems();
@@ -143,14 +143,14 @@ public class FormulaService {
 		for (FormulaItem item : items) {
 			if (FormulaType.Calculate.equals(item.getType())) {
 				Formula tmpFormula = this.findFormulaInList(formulas, item.getFieldId());
-				String value = params.get(item.getFieldId());
+				Double value = params.get(item.getFieldId());
 				// 这不是个公式，应该从Param中取值。或者这是个公式，但Param已经存在之前计算出来的结果，也是从param中取值。
 				if (tmpFormula == null || value != null) {
-					formulaString = formulaString.replaceAll(("\\[".concat(item.getText()).concat("\\]")), value);
+					formulaString = formulaString.replaceAll(("\\[".concat(item.getText()).concat("\\]")), value+"");
 				} else {
 					// 这是个公式，递归计算结果，并把结果加入到Params中以便于后续运算可能会被用到
 					Double temp = calculate(this.findFormulaInList(formulas, item.getFieldId()), formulas, params);
-					params.put(item.getFieldId(), String.valueOf(temp));
+					params.put(item.getFieldId(), temp);
 					formulaString = formulaString.replaceAll(("\\[".concat(item.getText()).concat("\\]")), String.valueOf(temp));
 				}
 			}
