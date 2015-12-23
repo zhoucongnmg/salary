@@ -57,15 +57,26 @@ public class SocialAccount {
 	public void setSocialAccountItems(List<SocialAccountItem> socialAccountItems) {
 		this.socialAccountItems = socialAccountItems;
 	}
+	public float getAccumulationSum() {
+		return accumulationSum;
+	}
+	public void setAccumulationSum(float accumulationSum) {
+		this.accumulationSum = accumulationSum;
+	}
+	public float getSocialSum() {
+		return socialSum;
+	}
+	public void setSocialSum(float socialSum) {
+		this.socialSum = socialSum;
+	}
+	
 	String name;	//套账名称
 	
 	String date;	//套账创建日期
 	String createUserId;//
 	String createUserName;
 	List<SocialAccountItem> socialAccountItems;	//社保套账明细项目
-	
-	
-	
-	
+	float accumulationSum;//公积金总额
+	float socialSum;//社保总额
 	
 }

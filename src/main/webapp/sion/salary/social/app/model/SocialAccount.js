@@ -38,6 +38,14 @@ Ext.define('sion.salary.social.model.SocialAccount', {
         },
         {
             name: 'createUserName'
+        },
+        {
+            name: 'accumulationSum',
+            type: 'float'
+        },
+        {
+            name: 'socialSum',
+            type: 'float'
         }
     ]
 });

@@ -88,6 +88,34 @@
             },
             "name": "MyField22",
             "designerId": "2f1df95c-6b76-4092-b595-d2497c0c0c28"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "accumulationSum",
+                "type": "float"
+            },
+            "name": "MyField73",
+            "designerId": "e97cb476-e846-4e30-9a25-fe69f8a4a078"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "socialSum",
+                "type": "float"
+            },
+            "name": "MyField74",
+            "designerId": "b90285da-032d-4743-be7d-0b0926028a13"
         }
     ]
 }

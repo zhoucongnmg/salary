@@ -3,6 +3,7 @@ package net.sion.company.salary.sessionrepository;
 import java.util.List;
 
 import net.sion.company.salary.domain.SocialItem;
+import net.sion.company.salary.domain.SocialItem.SocialItemType;
 
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.repository.MongoRepository;
@@ -16,4 +17,7 @@ public interface SocialItemRepository extends MongoRepository<SocialItem, String
 
 	@Query(value = "?0")
 	List<SocialItem> getPages(Object query);
+	
+	@Query(value = "?0")
+	List<SocialItem> findByItemType(SocialItemType itemType);
 }
