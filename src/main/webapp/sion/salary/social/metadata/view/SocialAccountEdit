@@ -119,6 +119,7 @@
                     "    store = itemGrid.getStore();",
                     "",
                     "var panel =  Ext.create(namespace + '.view.SocialAccountItemEdit',{",
+                    "//     _opener : me,",
                     "    _socialAccountItem : record,",
                     "    _itemStore : store",
                     "});",
@@ -276,15 +277,7 @@
                                     "userConfig": {
                                         "fn": "onButtonClick1",
                                         "implHandler": [
-                                            "var me = this,",
-                                            "    namespace = me.getNamespace(),",
-                                            "    itemGrid = me.down('#itemGrid'),",
-                                            "    store = itemGrid.getStore();",
-                                            "",
-                                            "panel =  Ext.create(namespace + '.view.SocialAccountItemEdit',{",
-                                            "    _itemStore : store",
-                                            "});",
-                                            "panel.show();"
+                                            "this.detailItem(null);"
                                         ],
                                         "name": "click",
                                         "scope": "me"
@@ -524,11 +517,13 @@
                                         ],
                                         "fn": "handler",
                                         "implHandler": [
-                                            "var store = Ext.getStore('SocialAccountItem');",
+                                            "var me = this.up('window'),",
+                                            "    store = Ext.getStore('SocialAccountItem');",
                                             "",
                                             "Ext.Msg.confirm('提示', '确定要删除吗？', function(text){",
                                             "    if (text == 'yes'){",
                                             "        store.remove(record);",
+                                            "        me.sum();",
                                             "    }",
                                             "});"
                                         ]
@@ -602,6 +597,45 @@
                     "designerId": "0f0cebcd-b6ee-4e14-bf07-65262aa20047"
                 }
             ]
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "sum",
+                "implHandler": [
+                    "// var me = this,",
+                    "//     socialItemStore = Ext.getStore('SocialItem'),",
+                    "//     namespace = me.getNamespace(),",
+                    "//     form = me.down(\"form\"),",
+                    "//     record = form.getRecord(),",
+                    "//     itemGrid = me.down('#itemGrid'),",
+                    "//     accumulationSum = 0,",
+                    "//     socialSum = 0,",
+                    "//     store = itemGrid.getStore();",
+                    "// alert('sum');",
+                    "",
+                    "",
+                    "// store.each(function(item){",
+                    "//     console.log(item);",
+                    "//     alert(item.data.socialItemId);",
+                    "//     var socialItem = socialItemStore.findRecord('id', item.data.socialItemId);",
+                    "//     alert();",
+                    "//     if(socialItem.get('itemType') == 'SocialSecurity'){",
+                    "//         socialSum = 0;",
+                    "//     }else{",
+                    "//         accumulationSum = 0;",
+                    "//     }",
+                    "// //     itemList.push(item.data);",
+                    "// });"
+                ]
+            },
+            "name": "sum",
+            "designerId": "a9b77838-ac89-461c-94bc-1e6b7bb958cd"
         }
     ]
 }

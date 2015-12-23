@@ -14,7 +14,13 @@ import javax.servlet.http.HttpSession;
 import net.sion.boot.config.jackson.CustomJackson;
 import net.sion.boot.mongo.template.SessionMongoTemplate;
 import net.sion.company.salary.domain.SocialAccount;
+import net.sion.company.salary.domain.SocialAccountItem;
+import net.sion.company.salary.domain.SocialAccountItem.PaymentType;
+import net.sion.company.salary.domain.SocialItem;
+import net.sion.company.salary.domain.SocialItem.DecimalCarryType;
+import net.sion.company.salary.domain.SocialItem.SocialItemType;
 import net.sion.company.salary.sessionrepository.SocialAccountRepository;
+import net.sion.company.salary.sessionrepository.SocialItemRepository;
 import net.sion.core.admin.domain.User;
 import net.sion.core.admin.service.AdminService;
 import net.sion.util.mvc.Response;
@@ -51,6 +57,7 @@ public class SocialAccountController {
 	@Autowired CustomJackson jackson;
 	@Autowired AdminService adminService;
 	@Autowired SessionMongoTemplate mongoTemplate; 
+	@Autowired SocialItemRepository socialItemRepository;
 	/**
 	 * 创建社保方案
 	 * 
@@ -69,10 +76,70 @@ public class SocialAccountController {
 			account.setCreateUserId(user.getId());
 			account.setCreateUserName(user.getName());
 		}
+		account = sum(account);
 		socialAccountRepository.save(account);
 		return new Response(true);
 	}
-
+	private SocialAccount sum(SocialAccount account){
+		double accumulationCompanySum = 0;//单位缴费公积金
+		double accumulationPersonSum = 0;//个人缴费公积金
+		double socialCompanySum = 0;//单位缴费社保
+		double socialPersonSum = 0;//个人缴费社保
+		
+		for(SocialAccountItem socialAccountItem : account.getSocialAccountItems()){
+			String socialItemId = socialAccountItem.getSocialItemId();
+			SocialItem socialItem = socialItemRepository.findOne(socialItemId);
+			if(socialItem.getItemType() == SocialItemType.SocialSecurity){
+				//社保
+				sumItem(socialAccountItem);
+				Map<String, Double> map = sumItem(socialAccountItem);
+				socialCompanySum += decimal(socialItem.getCarryType(), socialItem.getPrecision(), map.get("company").floatValue());
+				socialPersonSum += decimal(socialItem.getCarryType(), socialItem.getPrecision(), map.get("person").floatValue());
+			}else{
+				//公积金
+				Map<String, Double> map = sumItem(socialAccountItem);
+				accumulationCompanySum += decimal(socialItem.getCarryType(), socialItem.getPrecision(), map.get("company").floatValue());
+				accumulationPersonSum += decimal(socialItem.getCarryType(), socialItem.getPrecision(), map.get("person").floatValue());
+			}
+		}
+		account.setAccumulationCompanySum(accumulationCompanySum);
+		account.setAccumulationPersonSum(accumulationPersonSum);
+		account.setSocialCompanySum(socialCompanySum);
+		account.setSocialPersonSum(socialPersonSum);
+		return account;
+	}
+	private Map<String, Double> sumItem(SocialAccountItem socialAccountItem){
+		Map<String, Double> map = new HashMap();
+		double cardinality = socialAccountItem.getCardinality();
+		//公司
+		if(socialAccountItem.getCompanyPaymentType() == PaymentType.Percent){
+			//百分比
+			map.put("company", Double.valueOf(cardinality * socialAccountItem.getCompanyPaymentValue() * 0.01));	
+		}else{
+			//定额
+			map.put("company", Double.valueOf(socialAccountItem.getCompanyPaymentValue()));
+		}
+		//个人
+		if(socialAccountItem.getPersonalPaymentType() == PaymentType.Percent){
+			map.put("person", Double.valueOf(cardinality * socialAccountItem.getPersonalPaymentValue() * 0.01));
+		}else{
+			map.put("person", Double.valueOf(socialAccountItem.getPersonalPaymentValue()));
+		}
+		return map;
+	}
+	private double decimal(DecimalCarryType type, int precision, double value){
+		if(type == DecimalCarryType.Round){
+			//四舍五入
+			
+		}else if(type == DecimalCarryType.Isopsephy){
+			//数值进位
+			
+		}else{
+			//数值舍位
+			
+		}
+		return value;
+	}
 	/**
 	 * 查询社保方案
 	 * @param 

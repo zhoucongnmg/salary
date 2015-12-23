@@ -163,6 +163,7 @@ Ext.define('sion.salary.social.view.SocialAccountItemEdit', {
 
     onButtonClick: function(button, e, eOpts) {
         var me = this,
+        //     opener = me._opener,
             namespace = me.getNamespace(),
             uuid = Ext.create('Ext.data.UuidGenerator'),
             id = uuid.generate(),
@@ -178,10 +179,12 @@ Ext.define('sion.salary.social.view.SocialAccountItemEdit', {
             return false;
         }
         record.set('socialItemName', me.down('#socialItemName').getRawValue());
+        record.set('socialItemId', me.down('#socialItemName').getValue());
         if(record.get('id') === ''){
             record.set('id', id);
             store.add(record);
         }
+        // opener.sum();
         me.close();
         // record.save({
         //     url: 'salary/socialitem/create',

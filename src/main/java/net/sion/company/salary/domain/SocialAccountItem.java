@@ -79,7 +79,21 @@ public class SocialAccountItem {
 	public void setPersonalPaymentType(PaymentType personalPaymentType) {
 		this.personalPaymentType = personalPaymentType;
 	}
+	public double getCompanyPaymentFinalValue() {
+		return companyPaymentFinalValue;
+	}
 
+	public void setCompanyPaymentFinalValue(double companyPaymentFinalValue) {
+		this.companyPaymentFinalValue = companyPaymentFinalValue;
+	}
+
+	public double getPersonalPaymentFinalValue() {
+		return personalPaymentFinalValue;
+	}
+
+	public void setPersonalPaymentFinalValue(double personalPaymentFinalValue) {
+		this.personalPaymentFinalValue = personalPaymentFinalValue;
+	}
 	String socialItemName;	//社保项目名称
 	
 	double cardinality;	//基数
@@ -88,6 +102,8 @@ public class SocialAccountItem {
 	
 	double personalPaymentValue;	//个人缴费
 	
+	double companyPaymentFinalValue;	//单位缴费(用于工资条)
+	double personalPaymentFinalValue;	//个人缴费(用于工资条)
 	PaymentType companyPaymentType;	//单位缴费类型
 	
 	PaymentType personalPaymentType;	//个人缴费类型

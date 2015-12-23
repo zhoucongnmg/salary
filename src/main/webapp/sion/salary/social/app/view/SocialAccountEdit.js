@@ -180,11 +180,13 @@ Ext.define('sion.salary.social.view.SocialAccountEdit', {
                             items: [
                                 {
                                     handler: function(view, rowIndex, colIndex, item, e, record, row) {
-                                        var store = Ext.getStore('SocialAccountItem');
+                                        var me = this.up('window'),
+                                            store = Ext.getStore('SocialAccountItem');
 
                                         Ext.Msg.confirm('提示', '确定要删除吗？', function(text){
                                             if (text == 'yes'){
                                                 store.remove(record);
+                                                me.sum();
                                             }
                                         });
                                     },
@@ -248,15 +250,7 @@ Ext.define('sion.salary.social.view.SocialAccountEdit', {
     },
 
     onButtonClick1: function(button, e, eOpts) {
-        var me = this,
-            namespace = me.getNamespace(),
-            itemGrid = me.down('#itemGrid'),
-            store = itemGrid.getStore();
-
-        panel =  Ext.create(namespace + '.view.SocialAccountItemEdit',{
-            _itemStore : store
-        });
-        panel.show();
+        this.detailItem(null);
     },
 
     onGridpanelRender: function(component, eOpts) {
@@ -289,11 +283,39 @@ Ext.define('sion.salary.social.view.SocialAccountEdit', {
             store = itemGrid.getStore();
 
         var panel =  Ext.create(namespace + '.view.SocialAccountItemEdit',{
+        //     _opener : me,
             _socialAccountItem : record,
             _itemStore : store
         });
         panel.show();
         // me.resetGridSelect(record);
+    },
+
+    sum: function() {
+        // var me = this,
+        //     socialItemStore = Ext.getStore('SocialItem'),
+        //     namespace = me.getNamespace(),
+        //     form = me.down("form"),
+        //     record = form.getRecord(),
+        //     itemGrid = me.down('#itemGrid'),
+        //     accumulationSum = 0,
+        //     socialSum = 0,
+        //     store = itemGrid.getStore();
+        // alert('sum');
+
+
+        // store.each(function(item){
+        //     console.log(item);
+        //     alert(item.data.socialItemId);
+        //     var socialItem = socialItemStore.findRecord('id', item.data.socialItemId);
+        //     alert();
+        //     if(socialItem.get('itemType') == 'SocialSecurity'){
+        //         socialSum = 0;
+        //     }else{
+        //         accumulationSum = 0;
+        //     }
+        // //     itemList.push(item.data);
+        // });
     }
 
 });
