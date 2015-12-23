@@ -236,6 +236,11 @@ Ext.define('sion.salary.level.view.Level_win', {
         });
 
 
+        if(levelItems.length===0){
+           Ext.Msg.alert("提示","薪资层次至少应包含一个级别!");
+           return;
+        }
+
         model.set("levelItems",levelItems);
 
 
@@ -275,7 +280,15 @@ Ext.define('sion.salary.level.view.Level_win', {
     },
 
     onDeleteClick: function(button, e, eOpts) {
+        var me=this,
+            grid=me.down('gridpanel');
 
+        if(grid.getSelectionModel().getCount()===0){
+            Ext.Msg.alert("提示","请先选择一条数据!");
+            return;
+        }
+
+        grid.getStore().remove(grid.getSelectionModel().getSelection());
     },
 
     onRowEditingEdit: function(editor, context, eOpts) {
