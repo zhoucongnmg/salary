@@ -129,6 +129,8 @@ Ext.define('sion.salary.level.view.Level_win', {
                                     ],
                                     plugins: [
                                         Ext.create('Ext.grid.plugin.RowEditing', {
+                                            saveBtnText: '保存',
+                                            cancelBtnText: '取消',
                                             listeners: {
                                                 edit: {
                                                     fn: me.onRowEditingEdit,

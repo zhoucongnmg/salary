@@ -329,8 +329,24 @@
                                         "type": "array"
                                     },
                                     "codeClass": "Ext.grid.plugin.RowEditing",
+                                    "userConfig": {
+                                        "cancelBtnText": "取消",
+                                        "saveBtnText": "保存"
+                                    },
                                     "name": "MyRowEditingPlugin",
                                     "designerId": "64367b8b-0cf1-40bf-840d-39f551aa7cc2",
+                                    "customConfigs": [
+                                        {
+                                            "group": "(Custom Properties)",
+                                            "name": "saveBtnText",
+                                            "type": "string"
+                                        },
+                                        {
+                                            "group": "(Custom Properties)",
+                                            "name": "cancelBtnText",
+                                            "type": "string"
+                                        }
+                                    ],
                                     "cn": [
                                         {
                                             "type": "basiceventbinding",
