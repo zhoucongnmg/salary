@@ -1,6 +1,7 @@
 package net.sion.company.salary.web;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -76,9 +77,10 @@ public class SocialAccountController {
 	 * 查询社保方案
 	 * @param 
 	 * @return
+	 * @throws UnsupportedEncodingException 
 	 */
 	@RequestMapping(value = "load")
-	public @ResponseBody Map<String, Object> load(HttpSession session, int page, int start, int limit, String name, String creater, String startDate, String endDate){
+	public @ResponseBody Map<String, Object> load(HttpSession session, int page, int start, int limit, String name, String creater, String startDate, String endDate) throws UnsupportedEncodingException{
 //		socialAccountRepository.findAll();
 		Map filter = new HashMap();
 		filter.put("page", page);
@@ -92,9 +94,9 @@ public class SocialAccountController {
 		return find(filter, user, true);
 	}
 	@SuppressWarnings("unchecked")
-	private Map<String, Object> find(Map filter, User user, boolean self) {
-		String name = filter.get("name")==null ? "" : filter.get("name").toString();
-		String creater = filter.get("creater")==null ? "" : filter.get("creater").toString();
+	private Map<String, Object> find(Map filter, User user, boolean self) throws UnsupportedEncodingException {
+		String name = filter.get("name")==null ? "" : new String(filter.get("name").toString().getBytes("ISO-8859-1"),"UTF-8");
+		String creater = filter.get("creater")==null ? "" : new String(filter.get("creater").toString().getBytes("ISO-8859-1"),"UTF-8");
 		String startDate = filter.get("startDate") == null ? "" : filter.get("startDate").toString();
 		String endDate = filter.get("endDate") == null ? "" : filter.get("endDate").toString();
 		
@@ -107,7 +109,7 @@ public class SocialAccountController {
 		if(!creater.equals("")){
 			Map map = new HashMap();
 			map.put("$regex", creater);
-			filterMap.put("creater", map);
+			filterMap.put("createUserName", map);
 		}
 		Map dateMap = new HashMap();
 		if(!startDate.equals("")){
