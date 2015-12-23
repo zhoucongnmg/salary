@@ -2,6 +2,7 @@ package net.sion.company.salary.web;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -89,18 +90,27 @@ public class SocialAccountController {
 		for(SocialAccountItem socialAccountItem : account.getSocialAccountItems()){
 			String socialItemId = socialAccountItem.getSocialItemId();
 			SocialItem socialItem = socialItemRepository.findOne(socialItemId);
+			double companyPaymentFinalValue = 0;	//单位缴费(用于工资条)
+			double personalPaymentFinalValue = 0;	//个人缴费(用于工资条)
 			if(socialItem.getItemType() == SocialItemType.SocialSecurity){
 				//社保
-				sumItem(socialAccountItem);
-				Map<String, Double> map = sumItem(socialAccountItem);
-				socialCompanySum += decimal(socialItem.getCarryType(), socialItem.getPrecision(), map.get("company").floatValue());
-				socialPersonSum += decimal(socialItem.getCarryType(), socialItem.getPrecision(), map.get("person").floatValue());
+				Map<String, Double> map = getFinalValue(socialAccountItem);
+				companyPaymentFinalValue = decimal(socialItem.getCarryType(), socialItem.getPrecision(), map.get("company").floatValue());
+				personalPaymentFinalValue = decimal(socialItem.getCarryType(), socialItem.getPrecision(), map.get("person").floatValue());
+				
+				socialCompanySum += companyPaymentFinalValue;
+				socialPersonSum += personalPaymentFinalValue;
 			}else{
 				//公积金
-				Map<String, Double> map = sumItem(socialAccountItem);
-				accumulationCompanySum += decimal(socialItem.getCarryType(), socialItem.getPrecision(), map.get("company").floatValue());
-				accumulationPersonSum += decimal(socialItem.getCarryType(), socialItem.getPrecision(), map.get("person").floatValue());
+				Map<String, Double> map = getFinalValue(socialAccountItem);
+				companyPaymentFinalValue = decimal(socialItem.getCarryType(), socialItem.getPrecision(), map.get("company").floatValue());
+				personalPaymentFinalValue = decimal(socialItem.getCarryType(), socialItem.getPrecision(), map.get("person").floatValue());
+				
+				accumulationCompanySum += companyPaymentFinalValue;
+				accumulationPersonSum += personalPaymentFinalValue;
 			}
+			socialAccountItem.setCompanyPaymentFinalValue(companyPaymentFinalValue);
+			socialAccountItem.setPersonalPaymentFinalValue(personalPaymentFinalValue);
 		}
 		account.setAccumulationCompanySum(accumulationCompanySum);
 		account.setAccumulationPersonSum(accumulationPersonSum);
@@ -108,7 +118,7 @@ public class SocialAccountController {
 		account.setSocialPersonSum(socialPersonSum);
 		return account;
 	}
-	private Map<String, Double> sumItem(SocialAccountItem socialAccountItem){
+	private Map<String, Double> getFinalValue(SocialAccountItem socialAccountItem){
 		Map<String, Double> map = new HashMap();
 		double cardinality = socialAccountItem.getCardinality();
 		//公司
@@ -130,13 +140,14 @@ public class SocialAccountController {
 	private double decimal(DecimalCarryType type, int precision, double value){
 		if(type == DecimalCarryType.Round){
 			//四舍五入
-			
+			BigDecimal b = new BigDecimal(value);  
+			value = b.setScale(precision, BigDecimal.ROUND_HALF_UP).doubleValue();  
 		}else if(type == DecimalCarryType.Isopsephy){
 			//数值进位
-			
+			value = Math.ceil(value);
 		}else{
 			//数值舍位
-			
+			value = Math.floor(value);
 		}
 		return value;
 	}
