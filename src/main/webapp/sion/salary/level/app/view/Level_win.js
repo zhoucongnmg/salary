@@ -29,7 +29,7 @@ Ext.define('sion.salary.level.view.Level_win', {
     ],
 
     height: 640,
-    width: 780,
+    width: 900,
     layout: 'fit',
     title: '薪资层次',
 

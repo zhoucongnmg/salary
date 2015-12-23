@@ -9,7 +9,7 @@
         "autoLoad": false,
         "designer|userClassName": "SocialAccount",
         "model": "SocialAccount",
-        "pageSize": 10,
+        "pageSize": 20,
         "remoteFilter": true,
         "remoteSort": true,
         "storeId": "SocialAccount"

@@ -17,52 +17,54 @@ Ext.define('sion.salary.accounts.view.SalaryPlanGrid', {
     extend: 'Ext.panel.Panel',
 
     requires: [
-        'Ext.button.Button',
         'Ext.grid.Panel',
+        'Ext.button.Button',
         'Ext.grid.column.Boolean',
         'Ext.grid.column.Action',
         'Ext.grid.View',
         'Ext.toolbar.Paging'
     ],
 
+    layout: 'fit',
     title: '薪资方案',
 
     initComponent: function() {
         var me = this;
 
         Ext.applyIf(me, {
-            dockedItems: [
-                {
-                    xtype: 'toolbar',
-                    dock: 'top',
-                    items: [
-                        {
-                            xtype: 'button',
-                            iconCls: 's_icon_action_add',
-                            text: '<span style="font-size:14px;color:#3892D3;font-weight:bold;">新建方案</span>',
-                            listeners: {
-                                click: {
-                                    fn: me.onNewAccountClick,
-                                    scope: me
-                                }
-                            }
-                        }
-                    ]
-                },
-                {
-                    xtype: 'pagingtoolbar',
-                    dock: 'bottom',
-                    width: 360,
-                    displayInfo: true,
-                    store: 'Account'
-                }
-            ],
             items: [
                 {
                     xtype: 'gridpanel',
+                    maxHeight: 610,
                     header: false,
                     title: 'salary accounts',
                     store: 'Account',
+                    dockedItems: [
+                        {
+                            xtype: 'toolbar',
+                            dock: 'top',
+                            items: [
+                                {
+                                    xtype: 'button',
+                                    iconCls: 's_icon_action_add',
+                                    text: '<span style="font-size:14px;color:#3892D3;font-weight:bold;">新建方案</span>',
+                                    listeners: {
+                                        click: {
+                                            fn: me.onNewAccountClick,
+                                            scope: me
+                                        }
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            xtype: 'pagingtoolbar',
+                            dock: 'bottom',
+                            width: 360,
+                            displayInfo: true,
+                            store: 'Account'
+                        }
+                    ],
                     columns: [
                         {
                             xtype: 'gridcolumn',

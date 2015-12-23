@@ -197,9 +197,7 @@
                                         ],
                                         "fn": "handler",
                                         "implHandler": [
-                                            "var me=this,",
-                                            "    grid=me.down('gridpanel');",
-                                            "Ext.create(\"sion.salary.level.view.Level_win\",{_levelGrid:grid,_record:record}).show();"
+                                            "this.up('gridpanel').up().detail(record);"
                                         ]
                                     },
                                     "name": "handler",
@@ -304,6 +302,24 @@
                     "codeClass": null,
                     "name": "MyGridView",
                     "designerId": "a4b89800-f314-437f-89c1-a5c20b6bc97a"
+                },
+                {
+                    "type": "basiceventbinding",
+                    "reference": {
+                        "name": "listeners",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fn": "onGridpanelItemDblClick",
+                        "implHandler": [
+                            "this.detail(record);"
+                        ],
+                        "name": "itemdblclick",
+                        "scope": "me"
+                    },
+                    "name": "onGridpanelItemDblClick",
+                    "designerId": "4606a486-61c7-4f99-ab0e-30628ad91c85"
                 }
             ]
         },
@@ -326,6 +342,31 @@
             },
             "name": "onPanelAfterRender",
             "designerId": "055d3cf1-de9c-4e78-a2ae-5a22e3b44c73"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|params": [
+                    "record"
+                ],
+                "fn": "detail",
+                "implHandler": [
+                    "var me = this,",
+                    "    grid = me.down('gridpanel');",
+                    "",
+                    "Ext.create(\"sion.salary.level.view.Level_win\",{",
+                    "    _levelGrid:grid,",
+                    "    _record:record",
+                    "}).show();"
+                ]
+            },
+            "name": "detail",
+            "designerId": "9645c4a6-f230-4e09-ba40-5635ad3414e0"
         }
     ]
 }

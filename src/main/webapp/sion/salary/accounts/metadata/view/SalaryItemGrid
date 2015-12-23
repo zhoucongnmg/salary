@@ -105,7 +105,7 @@
             "userConfig": {
                 "dataIndex": "note",
                 "flex": 3,
-                "text": "说明",
+                "text": "备注",
                 "width": null
             },
             "name": "MyColumn6",

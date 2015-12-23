@@ -84,9 +84,7 @@ Ext.define('sion.salary.level.view.LevelGrid', {
                             items: [
                                 {
                                     handler: function(view, rowIndex, colIndex, item, e, record, row) {
-                                        var me=this,
-                                            grid=me.down('gridpanel');
-                                        Ext.create("sion.salary.level.view.Level_win",{_levelGrid:grid,_record:record}).show();
+                                        this.up('gridpanel').up().detail(record);
                                     },
                                     iconCls: 's_icon_page_edit',
                                     tooltip: '修改'
@@ -135,7 +133,13 @@ Ext.define('sion.salary.level.view.LevelGrid', {
                                 }
                             ]
                         }
-                    ]
+                    ],
+                    listeners: {
+                        itemdblclick: {
+                            fn: me.onGridpanelItemDblClick,
+                            scope: me
+                        }
+                    }
                 }
             ],
             listeners: {
@@ -157,10 +161,24 @@ Ext.define('sion.salary.level.view.LevelGrid', {
         // test Ext.create(namespace+".view.MyWindow").show();
     },
 
+    onGridpanelItemDblClick: function(dataview, record, item, index, e, eOpts) {
+        this.detail(record);
+    },
+
     onPanelAfterRender: function(component, eOpts) {
         var me =this,
             grid=me.down('gridpanel');
         grid.getStore().load();
+    },
+
+    detail: function(record) {
+        var me = this,
+            grid = me.down('gridpanel');
+
+        Ext.create("sion.salary.level.view.Level_win",{
+            _levelGrid:grid,
+            _record:record
+        }).show();
     }
 
 });

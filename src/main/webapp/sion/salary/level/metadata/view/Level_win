@@ -10,7 +10,7 @@
         "height": 640,
         "layout": "fit",
         "title": "薪资层次",
-        "width": 780
+        "width": 900
     },
     "name": "MyWindow",
     "configAlternates": {

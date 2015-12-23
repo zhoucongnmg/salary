@@ -59,7 +59,7 @@ Ext.define('sion.salary.accounts.view.SalaryItemGrid', {
                 {
                     xtype: 'gridcolumn',
                     dataIndex: 'note',
-                    text: '说明',
+                    text: '备注',
                     flex: 3
                 },
                 {

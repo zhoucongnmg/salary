@@ -25,7 +25,6 @@ Ext.define('sion.salary.social.view.PersonAccountGrid', {
         'Ext.toolbar.Paging'
     ],
 
-    height: 515,
     width: 1006,
     store: 'PersonAccountStore',
 

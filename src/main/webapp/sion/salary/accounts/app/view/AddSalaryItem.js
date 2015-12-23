@@ -233,13 +233,19 @@ Ext.define('sion.salary.accounts.view.AddSalaryItem', {
             record.set('value', '');
         }
         if(record.get('type') == 'Calculate'){
+            alert('getFormula');
             var formulaDatas = formulaApi.getFormula();
+            alert('getFormula ok');
             if(!formulaDatas){
                 Ext.Msg.alert('', '公式未完成，不能保存');
                 return false;
             }
+            alert('aaa');
             var formulaData = formulaDatas[formulaDatas.length - 1];
+            alert('validateFormula');
             var va = formulaApi.validateFormula(formulaData);
+            alert('validateFormula ok');
+            console.log(va);
             var formulaFields = formulaApi.getFields(formulaData);
             Ext.Array.each(formulaFields, function(formulaField){
                 var item = store.findRecord('id', formulaField.fieldId);
@@ -251,13 +257,13 @@ Ext.define('sion.salary.accounts.view.AddSalaryItem', {
                 };
                 formulaItems.push(formulaItem);
             });
-        //     var formulaResult = {
-        //         value : '',
-        //         fieldId : select[0].data.id,
-        //         text : select[0].data.name,
-        //         type : 'Result'
-        //     };
-        //     formulaItems.push(formulaResult);
+            //     var formulaResult = {
+            //         value : '',
+            //         fieldId : select[0].data.id,
+            //         text : select[0].data.name,
+            //         type : 'Result'
+            //     };
+            //     formulaItems.push(formulaResult);
             var formula = {
                 items : formulaItems,
                 resultFieldId : select[0].data.id,

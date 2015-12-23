@@ -9,67 +9,14 @@
         "designer|initialView": true,
         "designer|userClassName": "SalaryPlanGrid",
         "height": null,
+        "layout": "fit",
+        "maxHeight": null,
         "title": "薪资方案",
         "width": null
     },
     "name": "MyPanel",
     "designerId": "b1b3e30e-dd86-429e-810d-470b9d8934f9",
     "cn": [
-        {
-            "type": "Ext.toolbar.Toolbar",
-            "reference": {
-                "name": "dockedItems",
-                "type": "array"
-            },
-            "codeClass": null,
-            "userConfig": {
-                "dock": "top"
-            },
-            "name": "MyToolbar",
-            "designerId": "68e3d53c-8ee6-4379-aef2-62a78ad5dffe",
-            "cn": [
-                {
-                    "type": "Ext.button.Button",
-                    "reference": {
-                        "name": "items",
-                        "type": "array"
-                    },
-                    "codeClass": null,
-                    "userConfig": {
-                        "iconCls": "s_icon_action_add",
-                        "layout|flex": null,
-                        "style": null,
-                        "text": "<span style=\"font-size:14px;color:#3892D3;font-weight:bold;\">新建方案</span>",
-                        "width": null
-                    },
-                    "name": "MyButton",
-                    "designerId": "c8d5a0c2-a9f5-44f1-b5e9-c82564da58e2",
-                    "cn": [
-                        {
-                            "type": "basiceventbinding",
-                            "reference": {
-                                "name": "listeners",
-                                "type": "array"
-                            },
-                            "codeClass": null,
-                            "userConfig": {
-                                "fn": "onNewAccountClick",
-                                "implHandler": [
-                                    "var me = this,",
-                                    "    namespace = me.getNamespace();",
-                                    "",
-                                    "Ext.create(namespace+\".view.SalaryPlan\").show();"
-                                ],
-                                "name": "click",
-                                "scope": "me"
-                            },
-                            "name": "onNewAccountClick",
-                            "designerId": "04edc1ae-74ca-471b-8f36-3e497dce0601"
-                        }
-                    ]
-                }
-            ]
-        },
         {
             "type": "Ext.grid.Panel",
             "reference": {
@@ -79,12 +26,68 @@
             "codeClass": null,
             "userConfig": {
                 "header": false,
+                "maxHeight": 610,
                 "store": "Account",
                 "title": "salary accounts"
             },
             "name": "MyGridPanel",
             "designerId": "a9439085-f12a-41d7-81a7-3b866891e73f",
             "cn": [
+                {
+                    "type": "Ext.toolbar.Toolbar",
+                    "reference": {
+                        "name": "dockedItems",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dock": "top"
+                    },
+                    "name": "MyToolbar",
+                    "designerId": "68e3d53c-8ee6-4379-aef2-62a78ad5dffe",
+                    "cn": [
+                        {
+                            "type": "Ext.button.Button",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "iconCls": "s_icon_action_add",
+                                "layout|flex": null,
+                                "style": null,
+                                "text": "<span style=\"font-size:14px;color:#3892D3;font-weight:bold;\">新建方案</span>",
+                                "width": null
+                            },
+                            "name": "MyButton",
+                            "designerId": "c8d5a0c2-a9f5-44f1-b5e9-c82564da58e2",
+                            "cn": [
+                                {
+                                    "type": "basiceventbinding",
+                                    "reference": {
+                                        "name": "listeners",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fn": "onNewAccountClick",
+                                        "implHandler": [
+                                            "var me = this,",
+                                            "    namespace = me.getNamespace();",
+                                            "",
+                                            "Ext.create(namespace+\".view.SalaryPlan\").show();"
+                                        ],
+                                        "name": "click",
+                                        "scope": "me"
+                                    },
+                                    "name": "onNewAccountClick",
+                                    "designerId": "04edc1ae-74ca-471b-8f36-3e497dce0601"
+                                }
+                            ]
+                        }
+                    ]
+                },
                 {
                     "type": "Ext.grid.column.Column",
                     "reference": {
@@ -409,6 +412,22 @@
                     },
                     "name": "onGridpanelRender",
                     "designerId": "876cf8b7-b00b-4d00-bb90-2438eeef9b1d"
+                },
+                {
+                    "type": "Ext.toolbar.Paging",
+                    "reference": {
+                        "name": "dockedItems",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "displayInfo": true,
+                        "dock": "bottom",
+                        "store": "Account",
+                        "width": 360
+                    },
+                    "name": "MyPagingToolbar",
+                    "designerId": "57cb2841-a791-4c7c-8362-9e1d1bffa50c"
                 }
             ]
         },
@@ -437,22 +456,6 @@
             },
             "name": "detail",
             "designerId": "2718a5b1-a927-4f3e-9530-c7920c91bd45"
-        },
-        {
-            "type": "Ext.toolbar.Paging",
-            "reference": {
-                "name": "dockedItems",
-                "type": "array"
-            },
-            "codeClass": null,
-            "userConfig": {
-                "displayInfo": true,
-                "dock": "bottom",
-                "store": "Account",
-                "width": 360
-            },
-            "name": "MyPagingToolbar",
-            "designerId": "57cb2841-a791-4c7c-8362-9e1d1bffa50c"
         }
     ]
 }

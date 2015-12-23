@@ -8,7 +8,9 @@
     "userConfig": {
         "designer|userAlias": "socialaccountgrid",
         "designer|userClassName": "SocialAccountGrid",
-        "height": 515,
+        "height": null,
+        "maxHeight": 610,
+        "minHeight": null,
         "store": "SocialAccount",
         "title": null,
         "width": 1006
@@ -331,7 +333,7 @@
             "userConfig": {
                 "dataIndex": "name",
                 "flex": 6,
-                "text": "套账名称"
+                "text": "方案名称"
             },
             "name": "MyColumn",
             "designerId": "8e12e793-c1f5-4370-8e90-abf2b64cd968"

@@ -25,7 +25,7 @@ Ext.define('sion.salary.social.view.SocialAccountGrid', {
         'Ext.toolbar.Paging'
     ],
 
-    height: 515,
+    maxHeight: 610,
     width: 1006,
     store: 'SocialAccount',
 
@@ -131,7 +131,7 @@ Ext.define('sion.salary.social.view.SocialAccountGrid', {
                 {
                     xtype: 'gridcolumn',
                     dataIndex: 'name',
-                    text: '套账名称',
+                    text: '方案名称',
                     flex: 6
                 },
                 {

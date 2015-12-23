@@ -28,6 +28,7 @@ Ext.define('sion.salary.social.store.PersonAccountStore', {
         me.callParent([Ext.apply({
             model: 'sion.salary.social.model.PersonAccount',
             storeId: 'PersonAccountStore',
+            pageSize: 20,
             proxy: {
                 type: 'ajax',
                 url: 'salary/person/load',

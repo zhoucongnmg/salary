@@ -8,7 +8,8 @@
     "userConfig": {
         "designer|initialView": true,
         "designer|userClassName": "PersonAccountGrid",
-        "height": 515,
+        "height": null,
+        "maxHeight": null,
         "store": "PersonAccountStore",
         "title": null,
         "width": 1006

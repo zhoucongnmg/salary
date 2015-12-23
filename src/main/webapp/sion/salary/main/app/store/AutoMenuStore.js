@@ -112,14 +112,6 @@ Ext.define('sion.salary.main.store.AutoMenuStore', {
                             desc: '定义社保公积金基础项目'
                         },
                         {
-                            text: '社保套帐',
-                            iconCls: 's_icon_chart_pie',
-                            imgSrc: 'images/chart_pie.png',
-                            namespace: 'sion.salary.social',
-                            viewName: 'SocialAccountGrid',
-                            desc: '社保套帐'
-                        },
-                        {
                             text: '个税设置',
                             iconCls: 's_icon_action_copy',
                             imgSrc: 'images/action_copy.png',
