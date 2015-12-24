@@ -6,60 +6,79 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import net.sion.boot.mongo.template.SessionMongoTemplate;
 import net.sion.company.salary.domain.PersonAccountFile;
 import net.sion.company.salary.domain.PersonExtension;
 import net.sion.company.salary.domain.SocialAccount;
 import net.sion.company.salary.domain.SocialAccountItem;
+import net.sion.company.salary.domain.SocialItem.SocialItemType;
 import net.sion.company.salary.sessionrepository.PersonAccountFileRepository;
 import net.sion.company.salary.sessionrepository.SocialAccountRepository;
 import net.sion.company.salary.sessionrepository.SocialItemRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
 @Service
 public class SocialService {
 	@Autowired SocialAccountRepository socialAccountRepository;
 	@Autowired SocialItemRepository socialItemRepository;
-	@Autowired SessionMongoTemplate mongoTemplate; 
 	@Autowired PersonAccountFileRepository personAccountFileRepository;
 	
-	public Map<String, PersonExtension> getSocialAccountByPsersons(Set<String> ids){
-		Map<String, PersonExtension> map = new HashMap<String, PersonExtension>();
-		Query query = new Query(Criteria.where("id").in(ids));
-		List<PersonAccountFile> personList = mongoTemplate.find(query, PersonAccountFile.class);
+	public Map<String, PersonExtension<SocialAccountItem>> getSocialAccountByPsersons(Set<String> ids){
+		Map<String, PersonExtension<SocialAccountItem>> map = new HashMap<String, PersonExtension<SocialAccountItem>>();
+		Iterable<PersonAccountFile> personList = personAccountFileRepository.findAll(ids);
 		List<String> accountIds = new ArrayList<String>();
 		Map<String, List<String>> accountPerson = new HashMap<String, List<String>>();
 		for(PersonAccountFile personAccountFile : personList){
 			if(personAccountFile.getInsuredPerson() != null && !"".equals(personAccountFile.getInsuredPerson().getAccountId())){
 				accountIds.add(personAccountFile.getInsuredPerson().getAccountId());
-				if(accountPerson.get(personAccountFile.getInsuredPerson().getAccountId()) != null){
-					List<String> persons = accountPerson.get(personAccountFile.getInsuredPerson().getAccountId());
-					persons.add(personAccountFile.getId());
-					accountPerson.put(personAccountFile.getInsuredPerson().getAccountId(), persons);
-				}else{
-					List<String> persons = new ArrayList<String>();
-					persons.add(personAccountFile.getId());
-					accountPerson.put(personAccountFile.getInsuredPerson().getAccountId(), persons);
+				List<String> persons = accountPerson.get(personAccountFile.getInsuredPerson().getAccountId());
+				if(persons == null){
+					persons = new ArrayList<String>();
 				}
+				persons.add(personAccountFile.getId());
+				accountPerson.put(personAccountFile.getInsuredPerson().getAccountId(), persons);
 			}
 		}
-		List<SocialAccount> socialAccountList = mongoTemplate.find(new Query(Criteria.where("id").in(accountIds)), SocialAccount.class);
+		Iterable<SocialAccount> socialAccountList =  socialAccountRepository.findAll(accountIds);
 		for(SocialAccount socialAccount : socialAccountList){
 			List<String> personIds = accountPerson.get(socialAccount.getId());
 			for(String personId : personIds){
-				PersonExtension personExtension = new PersonExtension(personId);
-				Map<String, SocialAccountItem> items = new HashMap<String, SocialAccountItem>();
+				PersonExtension<SocialAccountItem> personExtension = new PersonExtension<SocialAccountItem>(personId);
 				for(SocialAccountItem item : socialAccount.getSocialAccountItems()){
-					items.put(item.getSocialItemId(), item);
+					personExtension.putItem(item.getSocialItemId(), item);
 				}
-				personExtension.setItems(items);
 				map.put(personId, personExtension);
 			}
 		}
 		return map;
+	}
+	/***
+	 * 
+	 * @param personId 员工id
+	 * @param isPerson 是个人还是公司
+	 * @param isSocial 是社保还是公积金
+	 * @return
+	 */
+	public double getSocialSum(String personId, boolean isPerson, SocialItemType itemType){
+		double pay = 0;
+		PersonAccountFile personAccountFile = personAccountFileRepository.findOne(personId);
+		if(personAccountFile.getInsuredPerson() != null && !"".equals(personAccountFile.getInsuredPerson().getAccountId())){
+			SocialAccount socialAccount = socialAccountRepository.findOne(personAccountFile.getInsuredPerson().getAccountId());
+			if(itemType == SocialItemType.SocialSecurity){
+				if(isPerson){
+					pay = socialAccount.getSocialPersonSum();
+				}else{
+					pay = socialAccount.getSocialCompanySum();
+				}
+			}else{
+				if(isPerson){
+					pay = socialAccount.getAccumulationPersonSum();
+				}else{
+					pay = socialAccount.getAccumulationCompanySum();
+				}
+			}
+		}
+		return pay;
 	}
 }

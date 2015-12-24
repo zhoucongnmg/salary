@@ -7,19 +7,23 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpSession;
 
 import net.sion.boot.config.jackson.CustomJackson;
 import net.sion.boot.mongo.template.SessionMongoTemplate;
+import net.sion.company.salary.domain.PersonExtension;
 import net.sion.company.salary.domain.SocialAccount;
 import net.sion.company.salary.domain.SocialAccountItem;
 import net.sion.company.salary.domain.SocialAccountItem.PaymentType;
 import net.sion.company.salary.domain.SocialItem;
 import net.sion.company.salary.domain.SocialItem.DecimalCarryType;
 import net.sion.company.salary.domain.SocialItem.SocialItemType;
+import net.sion.company.salary.service.SocialService;
 import net.sion.company.salary.sessionrepository.SocialAccountRepository;
 import net.sion.company.salary.sessionrepository.SocialItemRepository;
 import net.sion.core.admin.domain.User;
@@ -59,6 +63,7 @@ public class SocialAccountController {
 	@Autowired AdminService adminService;
 	@Autowired SessionMongoTemplate mongoTemplate; 
 	@Autowired SocialItemRepository socialItemRepository;
+	@Autowired SocialService socialService;
 	/**
 	 * 创建社保方案
 	 * 
@@ -78,6 +83,20 @@ public class SocialAccountController {
 			account.setCreateUserName(user.getName());
 		}
 		account = sum(account);
+		
+//		Set set = new HashSet();
+//		set.add("564d828a464b57c56a844c7f");
+//		set.add("564ec925464b57c56a8450d1");
+//		set.add("5679ffda9929e8ed6767159f");
+//		set.add("564d75e7464bb8da6db35fe4");
+//		set.add("567a500599291ff5ac53bdea");
+//		set.add("567a500d99291ff5ac53bdeb");
+//		Map<String, PersonExtension<SocialAccountItem>> map = socialService.getSocialAccountByPsersons(set);
+//		double d1 = socialService.getSocialSum("5679ffda9929e8ed6767159f", true, SocialItemType.SocialSecurity);
+//		double d2 = socialService.getSocialSum("5679ffda9929e8ed6767159f", true, SocialItemType.AccumulationFunds);
+//		double d3 = socialService.getSocialSum("5679ffda9929e8ed6767159f", false, SocialItemType.SocialSecurity);
+//		double d4 = socialService.getSocialSum("5679ffda9929e8ed6767159f", false, SocialItemType.AccumulationFunds);
+		
 		socialAccountRepository.save(account);
 		return new Response(true);
 	}
