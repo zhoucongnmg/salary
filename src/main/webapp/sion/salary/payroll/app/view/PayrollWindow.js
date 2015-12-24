@@ -107,11 +107,11 @@ Ext.define('sion.salary.payroll.view.PayrollWindow', {
                                 {
                                     xtype: 'combobox',
                                     columnWidth: 0.35,
-                                    fieldLabel: '薪资套账',
+                                    fieldLabel: '薪资方案',
                                     labelWidth: 80,
                                     name: 'accountId',
                                     allowBlank: false,
-                                    blankText: '套帐方案不能为空',
+                                    blankText: '薪资方案不能为空',
                                     emptyText: '--请选择--',
                                     validateBlank: true,
                                     editable: false,
@@ -229,6 +229,7 @@ Ext.define('sion.salary.payroll.view.PayrollWindow', {
             record = form.getRecord(),
             comboBox = me.down('combobox'),
             itemGrid = me.down('gridpanel'),
+            selectedRows = itemGrid.getSelectionModel().getSelection(),
             itemMap = {},
             itemStore = itemGrid.getStore();
 
@@ -238,8 +239,14 @@ Ext.define('sion.salary.payroll.view.PayrollWindow', {
             return false;
         }
 
+        if(!selectedRows[0]){
+            Ext.Msg.alert("提示", "请选择人员！");
+            return false;
+        }
+
         form.updateRecord();
-        itemStore.each(function(item){
+
+        Ext.each(selectedRows, function (item) {
             itemMap[item.get('id')] = item.get('name');
         });
 
@@ -270,8 +277,7 @@ Ext.define('sion.salary.payroll.view.PayrollWindow', {
 
         store.load({
            params:{
-               accountId:records[0].get('id'),
-               persons:null
+               accountId:records[0].get('id')
 
             }
         });
@@ -283,14 +289,14 @@ Ext.define('sion.salary.payroll.view.PayrollWindow', {
             store = me.down('gridpanel').getStore(),
             record = me._link.record;
 
+        console.log(record.get('persons'));
+
         me.down('form').loadRecord(record);
 
         if(me.title=='修改工资条'){
             store.load({
                 params:{
-                    accountId:record.get('accountId'),
-                    persons:record.get('persons')
-
+                    accountId:record.get('accountId')
                 }
             });
         }

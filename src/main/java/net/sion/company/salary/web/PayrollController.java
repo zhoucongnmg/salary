@@ -34,6 +34,7 @@ import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.query.BasicQuery;
+import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -122,40 +123,40 @@ public class PayrollController {
 		return columns;
 	}
 
-	public List<Map<String,Object>> fillData(Map<String,String> persons, List<PayrollItem> items, Account account) {
-		List<Map<String,Object>> data = new ArrayList<Map<String,Object>>();
-		
-		Map<String,PayrollItem> payrollItemMap = new HashMap<String,PayrollItem>();
+	public List<Map<String, Object>> fillData(Map<String, String> persons, List<PayrollItem> items, Account account) {
+		List<Map<String, Object>> data = new ArrayList<Map<String, Object>>();
+
+		Map<String, PayrollItem> payrollItemMap = new HashMap<String, PayrollItem>();
 		for (PayrollItem item : items) {
 			payrollItemMap.put(item.getPersonId(), item);
 		}
 		List<String> newPersonIds = new ArrayList<String>();
-		for (Map.Entry<String, String> entry : persons.entrySet()) { 
+		for (Map.Entry<String, String> entry : persons.entrySet()) {
 			String personId = entry.getKey();
-			if (payrollItemMap.get(personId)!=null) {
+			if (payrollItemMap.get(personId) != null) {
 				PayrollItem item = payrollItemMap.get(personId);
-				Map<String,Object> itemMap = item.parseMap();
+				Map<String, Object> itemMap = item.parseMap();
 				data.add(itemMap);
-			}else {
+			} else {
 				newPersonIds.add(personId);
 			}
-			
+
 		}
-		if (newPersonIds.size()>0) {
+		if (newPersonIds.size() > 0) {
 			Set<String> formulaIds = account.getFormulaIds();
-			Map<String,Double> salaryItemValues = account.getSalaryItemValues();
+			Map<String, Double> salaryItemValues = account.getSalaryItemValues();
 			Map<String, String> result;
 			try {
 				result = formulaService.caculateFormulas(formulaIds, salaryItemValues);
 				Iterable<PersonAccountFile> personList = personAccountFileRepository.findAll(newPersonIds);
 				for (PersonAccountFile person : personList) {
-					Map<String,Object> personMap = new HashMap<String,Object>();
+					Map<String, Object> personMap = new HashMap<String, Object>();
 					personMap.put("personId", person.getId());
 					personMap.put("name", person.getName());
 					personMap.put("duty", person.getDuty());
 					personMap.put("dept", person.getDept());
-					for(AccountItem item : account.getAccountItems()){
-						if (item.getType()==AccountItemType.Input) {
+					for (AccountItem item : account.getAccountItems()) {
+						if (item.getType() == AccountItemType.Input) {
 							personMap.put(item.getSalaryItemId(), item.getValue());
 						}
 					}
@@ -166,10 +167,9 @@ public class PayrollController {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
-			
+
 		}
-		
+
 		return data;
 	}
 
@@ -236,10 +236,9 @@ public class PayrollController {
 		return map;
 	}
 
-
 	/**
-	 * 读取套帐列表
-	 * zhoucong
+	 * 读取套帐列表 zhoucong
+	 * 
 	 * @return
 	 */
 	@RequestMapping(value = "getAcountList")
@@ -249,18 +248,34 @@ public class PayrollController {
 	}
 
 	/**
-	 * 读取套帐下的人员信息
-	 * zhoucong
+	 * 读取套帐下的人员信息 zhoucong
+	 * 
 	 * @return
 	 */
 	@RequestMapping(value = "getAccountPersons")
-	public Response getAccountPersons(@RequestParam String accountId,@RequestParam Map<String,String> persons) {
-		List<PersonAccountFile> accountPersonList = personAcountFileRepsitory.findByAccountId(accountId);
+	public Response getAccountPersons(@RequestParam(value = "accountId") String accountId) {
+
+		List<PersonAccountFile> accountPersonList = personAccountFileRepository.findByAccountId(accountId);
 		return new Response(accountPersonList);
 	}
 
+//	/**
+//	 * 人员信息回显
+//	 */
+//	@RequestMapping(value = "getPayrollPersons")
+//	public Response getPayrollPersons(Payroll payroll) {
+//		Map<String,String> persons = payroll.getPersons();
+//		Set<String> personsId = persons.keySet();
+//		
+//		Query query = new Query(Criteria.where("accountId").is(payroll.getAccountId()).and("personId").in(personsId));
+//		List<PersonAccountFile> accountPersonList = mongoTemplate.find(query, PersonAccountFile.class);
+//		
+//		return new Response(accountPersonList);
+//	}
+
 	/**
 	 * 修改工资条
+	 * 
 	 * @param person
 	 * @return
 	 */
@@ -270,8 +285,8 @@ public class PayrollController {
 	}
 
 	/**
-	 * 创建工资条
-	 * zhoucong
+	 * 创建工资条 zhoucong
+	 * 
 	 * @param person
 	 * @return
 	 */
@@ -279,7 +294,7 @@ public class PayrollController {
 	public Response create(HttpSession session, @RequestBody Payroll payroll) {
 
 		User user = adminService.getUser(session);
-		
+
 		payroll.setCreatePersonId(user.getId());
 		payroll.setCreatePersonName(user.getName());
 		payroll.setCreateDate(getCurrentDate());
@@ -290,7 +305,7 @@ public class PayrollController {
 
 		Payroll roll = payrollRepository.save(payroll);
 
-		return new Response("sucess",roll,true);
+		return new Response("sucess", roll, true);
 	}
 
 	private String getCurrentDate() {
@@ -300,8 +315,8 @@ public class PayrollController {
 	}
 
 	/**
-	 * 读取工资条
-	 * zhoucong
+	 * 读取工资条 zhoucong
+	 * 
 	 * @param parameterObject
 	 *            TODO
 	 * @param id
@@ -341,8 +356,8 @@ public class PayrollController {
 		q.with(new Sort(Sort.Direction.ASC, "_id")).skip(start).limit(limit);
 		return q;
 	}
-	
-	private Query getQueryWithFilter(Map<String, Object> mapFilter){
+
+	private Query getQueryWithFilter(Map<String, Object> mapFilter) {
 		DBObject dbobject = new BasicDBObject();
 		dbobject.putAll(mapFilter);
 		return new BasicQuery(dbobject);
@@ -353,39 +368,40 @@ public class PayrollController {
 	}
 
 	/**
-	 * 更新工资表状态为Paid
-	 * zhoucong
+	 * 更新工资表状态为Paid zhoucong
+	 * 
 	 * @param person
 	 * @return
 	 */
 	@RequestMapping(value = "batchUpdate")
-	public Response batchUpdate(@RequestParam(value = "arrId")List<String> arrId) {
-		updatePayrollState(arrId,PayrollStatus.Paid.toString());
+	public Response batchUpdate(@RequestParam(value = "arrId") List<String> arrId) {
+		updatePayrollState(arrId, PayrollStatus.Paid.toString());
 		return new Response(true);
 	}
+
 	/**
-	 * 更新工资条状态为Unpublish
-	 * zhoucong
+	 * 更新工资条状态为Unpublish zhoucong
+	 * 
 	 * @param arrId
 	 * @return
 	 */
 	@RequestMapping(value = "batchWithdraw")
-	public Response batchWithdraw(@RequestParam(value = "arrId")List<String> arrId) {
-		updatePayrollState(arrId,PayrollStatus.Unpublish.toString());
+	public Response batchWithdraw(@RequestParam(value = "arrId") List<String> arrId) {
+		updatePayrollState(arrId, PayrollStatus.Unpublish.toString());
 		return new Response(true);
 	}
-	
-	private void updatePayrollState(List<String> arrId,String state){
+
+	private void updatePayrollState(List<String> arrId, String state) {
 		for (String id : arrId) {
-			Payroll payroll = mongoTemplate.findById(id,Payroll.class);
+			Payroll payroll = mongoTemplate.findById(id, Payroll.class);
 			payroll.setState(state);
 			mongoTemplate.save(payroll);
 		}
 	}
 
 	/**
-	 * 更新工资条
-	 * zhoucong
+	 * 更新工资条 zhoucong
+	 * 
 	 * @param payroll
 	 * @return
 	 */
@@ -397,18 +413,17 @@ public class PayrollController {
 		return new Response(true);
 	}
 
-
 	/**
-	 * 删除工资条
-	 * zhoucong
+	 * 删除工资条 zhoucong
+	 * 
 	 * @param 社保套账id
 	 * @return
 	 */
 	@RequestMapping(value = "remove")
 	public Response remove(@RequestBody Payroll payroll) {
-		
+
 		mongoTemplate.remove(payroll);
-		
+
 		return new Response(true);
 	}
 
@@ -436,70 +451,71 @@ public class PayrollController {
 	 * @return
 	 */
 	@RequestMapping(value = "savePayrollItem")
-	public Response savePayrollItem(@RequestBody Map<String,String> item) {
+	public Response savePayrollItem(@RequestBody Map<String, String> item) {
 		// TODO 调用SalaryService.computeSalary更新与之关联的其他工资表项目
 		PayrollItem payrollItem = new PayrollItem();
 		payrollItem.convertDomain(item);
 		payrollItemRepository.save(payrollItem);
 		return new Response(payrollItem);
 	}
-	
+
 	/**
 	 * 查找条目Field中与改工资条对应的公式的其他关联Field，然后传入field参与计算
-	 * @param accountId	//方案id
-	 * @param fieldId	//薪资项目id
+	 * 
+	 * @param accountId
+	 *            //方案id
+	 * @param fieldId
+	 *            //薪资项目id
 	 * @return
 	 */
 	@RequestMapping("calculate")
-	public Response calculate(@RequestBody Map<String,Object> map) {
-		
+	public Response calculate(@RequestBody Map<String, Object> map) {
+
 		String accountId = (String) map.get("accountId");
-		Map<String,String> recordMap = (Map<String, String>) map.get("record"); 
-		
+		Map<String, String> recordMap = (Map<String, String>) map.get("record");
+
 		Account account = accountRepository.findOne(accountId);
 		Set<String> formulaIds = account.getFormulaIds();
-		
+
 		/**
-		
-		formulaService.caculateFormulas(formulaIds, recordMap);
-		Set<String> fieldIds = formulaService.getInfluencedField(formulaIds, fieldId);
-		
-		Map<String,String> values = new HashMap<String,String>();
-		for (String id : fieldIds) {
-			String value = recordMap.get(id);
-			values.put(id, value);
-		}
-		**/
-		Map<String, String> changeFields = new HashMap<String,String>();
+		 * 
+		 * formulaService.caculateFormulas(formulaIds, recordMap); Set
+		 * <String> fieldIds = formulaService.getInfluencedField(formulaIds,
+		 * fieldId);
+		 * 
+		 * Map<String,String> values = new HashMap<String,String>(); for (String
+		 * id : fieldIds) { String value = recordMap.get(id); values.put(id,
+		 * value); }
+		 **/
+		Map<String, String> changeFields = new HashMap<String, String>();
 		try {
 			PayrollItem payrollItem = new PayrollItem();
 			payrollItem.convertDomain(recordMap);
-			changeFields = formulaService.caculateFormulas(formulaIds,payrollItem.getValues());
+			changeFields = formulaService.caculateFormulas(formulaIds, payrollItem.getValues());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
+
 		return new Response(changeFields);
 	}
-	
-	
+
 	/**
 	 * 查找条目Field中与改工资条对应的公式的其他关联Field
-	 * @param accountId	//方案id
-	 * @param fieldId	//薪资项目id
+	 * 
+	 * @param accountId
+	 *            //方案id
+	 * @param fieldId
+	 *            //薪资项目id
 	 * @return
 	 */
-	public Response getInfluencedField(@RequestParam String accountId,@RequestParam String fieldId) {
+	public Response getInfluencedField(@RequestParam String accountId, @RequestParam String fieldId) {
 		Account account = accountRepository.findOne(accountId);
 		Set<String> formulaIds = account.getFormulaIds();
 		Set<String> fields = formulaService.getInfluencedField(formulaIds, fieldId);
-		
+
 		return new Response(fields);
 	}
-	
-	
 
 	/**
 	 * 工作流相关-保存草稿
