@@ -122,6 +122,7 @@ Ext.define('sion.salary.payroll.view.PaidPayroll', {
                         {
                             xtype: 'button',
                             columnWidth: 0.07,
+                            hidden: true,
                             text: '新建',
                             listeners: {
                                 click: {

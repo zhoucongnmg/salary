@@ -60,82 +60,12 @@
             },
             "codeClass": null,
             "userConfig": {
-                "name": "monthFmt"
-            },
-            "name": "MyField17",
-            "designerId": "a5306f9c-1510-43a0-8a24-23a5465c094d",
-            "cn": [
-                {
-                    "type": "fixedfunction",
-                    "reference": {
-                        "name": "items",
-                        "type": "array"
-                    },
-                    "codeClass": null,
-                    "userConfig": {
-                        "designer|params": [
-                            "v",
-                            "rec"
-                        ],
-                        "fn": "convert",
-                        "implHandler": [
-                            "return Ext.Date.format(rec.get('month'),'Y-m');"
-                        ]
-                    },
-                    "name": "convert",
-                    "designerId": "21cb31dc-bb4a-422d-aae5-482fdf3680cb"
-                }
-            ]
-        },
-        {
-            "type": "Ext.data.Field",
-            "reference": {
-                "name": "fields",
-                "type": "array"
-            },
-            "codeClass": null,
-            "userConfig": {
                 "dateFormat": null,
                 "name": "socialCostMonth",
                 "type": "date"
             },
             "name": "MyField10",
             "designerId": "2bf52a85-53bb-40fa-88a8-6e81d593d06a"
-        },
-        {
-            "type": "Ext.data.Field",
-            "reference": {
-                "name": "fields",
-                "type": "array"
-            },
-            "codeClass": null,
-            "userConfig": {
-                "name": "socialCostMonthFmt"
-            },
-            "name": "MyField18",
-            "designerId": "3fa7a1b1-0b9a-4015-a72f-35f73d5fa931",
-            "cn": [
-                {
-                    "type": "fixedfunction",
-                    "reference": {
-                        "name": "items",
-                        "type": "array"
-                    },
-                    "codeClass": null,
-                    "userConfig": {
-                        "designer|params": [
-                            "v",
-                            "rec"
-                        ],
-                        "fn": "convert",
-                        "implHandler": [
-                            "return Ext.Date.format(rec.get('socialCostMonth'),'Y-m');"
-                        ]
-                    },
-                    "name": "convert",
-                    "designerId": "587d3905-a7f3-4a23-938a-c778e6440725"
-                }
-            ]
         },
         {
             "type": "Ext.data.Field",
@@ -175,41 +105,6 @@
             },
             "name": "MyField12",
             "designerId": "968d9298-ee1b-4289-b5be-cbf05151d520"
-        },
-        {
-            "type": "Ext.data.Field",
-            "reference": {
-                "name": "fields",
-                "type": "array"
-            },
-            "codeClass": null,
-            "userConfig": {
-                "name": "personSize"
-            },
-            "name": "MyField16",
-            "designerId": "c534379a-0a65-4795-9248-0ca66eceaad6",
-            "cn": [
-                {
-                    "type": "fixedfunction",
-                    "reference": {
-                        "name": "items",
-                        "type": "array"
-                    },
-                    "codeClass": null,
-                    "userConfig": {
-                        "designer|params": [
-                            "v",
-                            "rec"
-                        ],
-                        "fn": "convert",
-                        "implHandler": [
-                            "return Ext.Object.getSize(rec.get('persons')) + '人';"
-                        ]
-                    },
-                    "name": "convert",
-                    "designerId": "76836785-401e-48d2-b2f7-a6911ca44be4"
-                }
-            ]
         },
         {
             "type": "Ext.data.Field",
@@ -275,7 +170,8 @@
                     "{",
                     "create: 'salary/payroll/create',",
                     "update:'salary/payroll/update',",
-                    "read:'salary/payroll/read'",
+                    "read:'salary/payroll/read',",
+                    "destroy: 'salary/payroll/remove'",
                     "}"
                 ]
             },

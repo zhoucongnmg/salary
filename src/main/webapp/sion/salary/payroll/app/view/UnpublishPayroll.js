@@ -242,6 +242,41 @@ Ext.define('sion.salary.payroll.view.UnpublishPayroll', {
                         },
                         {
                             xtype: 'actioncolumn',
+                            text: '删除',
+                            flex: 1,
+                            items: [
+                                {
+                                    handler: function(view, rowIndex, colIndex, item, e, record, row) {
+                                        Ext.Msg.confirm({
+                                            title:"提示",
+                                            msg:"确定删除工资条？",
+                                            buttons:Ext.MessageBox.OKCANCEL,
+                                            width:200,
+                                            fn:function(buttonId){
+                                                if(buttonId=="ok"){
+
+                                                    //5.0以后使用erase，5.0以前为destroy
+                                                    record.destroy({
+                                                        success: function(){
+                                                            record.commit();
+                                                            Ext.Msg.alert('提示','删除成功');
+                                                        },
+                                                        failure: function(record){
+                                                            record.reject();
+                                                            Ext.Msg.alert('提示', '请检查网络连接状况');
+                                                        }
+                                                    });
+                                                }
+                                            }
+                                        });
+
+                                    },
+                                    iconCls: 's_icon_table_delete'
+                                }
+                            ]
+                        },
+                        {
+                            xtype: 'actioncolumn',
                             width: 62,
                             menuDisabled: true,
                             text: '发放',
@@ -274,7 +309,7 @@ Ext.define('sion.salary.payroll.view.UnpublishPayroll', {
                                             }
                                         });
                                     },
-                                    iconCls: 's_icon_table_go'
+                                    iconCls: 's_icon_action_search'
                                 }
                             ]
                         },
@@ -293,7 +328,6 @@ Ext.define('sion.salary.payroll.view.UnpublishPayroll', {
 
                                         Ext.create(namespace + '.view.DynamicGrid',{
                                             _id : record.get('id'),
-                                            _record : record,
                                             _accountId : record.get('accountId')
                                         }).show();
 
@@ -421,13 +455,17 @@ Ext.define('sion.salary.payroll.view.UnpublishPayroll', {
     },
 
     onButtonClick2: function(button, e, eOpts) {
-        var window,
+        var me = this,
+            window,
+            grid = me.down('gridpanel'),
+            store = grid.getStore(),
             record = Ext.create('sion.salary.payroll.model.Payroll');
 
         window = Ext.create('sion.salary.payroll.view.PayrollWindow',{
             title:'新建工资条',
             _link:{
-                record:record
+                record:record,
+                payrollStore:store
             }
         });
         window.show();

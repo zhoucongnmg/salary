@@ -250,6 +250,11 @@ Ext.define('sion.salary.payroll.view.PayrollWindow', {
             success: function(response, opts){
                 record.commit();
                 itemStore.removeAll();
+                if(me.title=='新建工资条'){
+                    payrollStore = me._link.payrollStore;
+                    payrollStore.insert(payrollStore.getCount(),response.data);
+                    payrollStore.commitChanges();
+                }
                 me.close();
                 Ext.Msg.alert("提示", "保存成功");
             },
@@ -266,6 +271,7 @@ Ext.define('sion.salary.payroll.view.PayrollWindow', {
         store.load({
            params:{
                accountId:records[0].get('id'),
+               persons:null
 
             }
         });
@@ -274,12 +280,21 @@ Ext.define('sion.salary.payroll.view.PayrollWindow', {
 
     onPayrollFormAfterRender: function(component, eOpts) {
         var me = this,
+            store = me.down('gridpanel').getStore(),
             record = me._link.record;
+
         me.down('form').loadRecord(record);
 
-        if(record.get('persons')){
+        if(me.title=='修改工资条'){
+            store.load({
+                params:{
+                    accountId:record.get('accountId'),
+                    persons:record.get('persons')
 
+                }
+            });
         }
+
     },
 
     onWindowBeforeClose: function(panel, eOpts) {

@@ -310,13 +310,17 @@
                             "userConfig": {
                                 "fn": "onButtonClick2",
                                 "implHandler": [
-                                    "var window,",
+                                    "var me = this,",
+                                    "    window,",
+                                    "    grid = me.down('gridpanel'),",
+                                    "    store = grid.getStore(),",
                                     "    record = Ext.create('sion.salary.payroll.model.Payroll');",
                                     "",
                                     "window = Ext.create('sion.salary.payroll.view.PayrollWindow',{",
                                     "    title:'新建工资条',",
                                     "    _link:{",
-                                    "        record:record",
+                                    "        record:record,",
+                                    "        payrollStore:store",
                                     "    }",
                                     "});",
                                     "window.show();"
@@ -636,6 +640,84 @@
                     "codeClass": null,
                     "userConfig": {
                         "flex": 1,
+                        "text": "删除"
+                    },
+                    "name": "MyActionColumn3",
+                    "designerId": "c8851504-8fe8-46ca-b9ef-fed6347d86cf",
+                    "cn": [
+                        {
+                            "type": "actioncolumnitem",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "iconCls": "s_icon_table_delete"
+                            },
+                            "name": "MyActionColumnItem2",
+                            "designerId": "8ab7311e-a6a0-44b9-9c1b-bf2eb3cc25fc",
+                            "cn": [
+                                {
+                                    "type": "fixedfunction",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "designer|params": [
+                                            "view",
+                                            "rowIndex",
+                                            "colIndex",
+                                            "item",
+                                            "e",
+                                            "record",
+                                            "row"
+                                        ],
+                                        "fn": "handler",
+                                        "implHandler": [
+                                            "Ext.Msg.confirm({",
+                                            "    title:\"提示\",",
+                                            "    msg:\"确定删除工资条？\",",
+                                            "    buttons:Ext.MessageBox.OKCANCEL,",
+                                            "    width:200,",
+                                            "    fn:function(buttonId){",
+                                            "        if(buttonId==\"ok\"){",
+                                            "",
+                                            "            //5.0以后使用erase，5.0以前为destroy",
+                                            "            record.destroy({",
+                                            "                success: function(){",
+                                            "                    record.commit();",
+                                            "                    Ext.Msg.alert('提示','删除成功');",
+                                            "                },",
+                                            "                failure: function(record){",
+                                            "                    record.reject();",
+                                            "                    Ext.Msg.alert('提示', '请检查网络连接状况');",
+                                            "                }",
+                                            "            });",
+                                            "        }",
+                                            "    }",
+                                            "});",
+                                            ""
+                                        ]
+                                    },
+                                    "name": "handler",
+                                    "designerId": "530edb4b-732d-4889-ae42-7ce77943aff2"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "type": "Ext.grid.column.Action",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "flex": 1,
                         "menuDisabled": true,
                         "text": "发放",
                         "width": 62
@@ -651,7 +733,7 @@
                             },
                             "codeClass": null,
                             "userConfig": {
-                                "iconCls": "s_icon_table_go"
+                                "iconCls": "s_icon_action_search"
                             },
                             "name": "MyActionColumnItem1",
                             "designerId": "22341a33-abbe-4edd-9adf-938adb560428",
@@ -762,7 +844,6 @@
                                             "",
                                             "Ext.create(namespace + '.view.DynamicGrid',{",
                                             "    _id : record.get('id'),",
-                                            "    _record : record,",
                                             "    _accountId : record.get('accountId')",
                                             "}).show();",
                                             ""
