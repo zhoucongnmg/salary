@@ -18,6 +18,5 @@ public interface SocialItemRepository extends MongoRepository<SocialItem, String
 	@Query(value = "?0")
 	List<SocialItem> getPages(Object query);
 	
-	@Query(value = "?0")
 	List<SocialItem> findByItemType(SocialItemType itemType);
 }

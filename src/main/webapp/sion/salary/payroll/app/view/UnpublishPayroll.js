@@ -274,7 +274,7 @@ Ext.define('sion.salary.payroll.view.UnpublishPayroll', {
                                             }
                                         });
                                     },
-                                    iconCls: 's_icon_action_search'
+                                    iconCls: 's_icon_table_go'
                                 }
                             ]
                         },
@@ -293,6 +293,7 @@ Ext.define('sion.salary.payroll.view.UnpublishPayroll', {
 
                                         Ext.create(namespace + '.view.DynamicGrid',{
                                             _id : record.get('id'),
+                                            _record : record,
                                             _accountId : record.get('accountId')
                                         }).show();
 

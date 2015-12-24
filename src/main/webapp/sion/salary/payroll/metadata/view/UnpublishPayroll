@@ -651,7 +651,7 @@
                             },
                             "codeClass": null,
                             "userConfig": {
-                                "iconCls": "s_icon_action_search"
+                                "iconCls": "s_icon_table_go"
                             },
                             "name": "MyActionColumnItem1",
                             "designerId": "22341a33-abbe-4edd-9adf-938adb560428",
@@ -762,6 +762,7 @@
                                             "",
                                             "Ext.create(namespace + '.view.DynamicGrid',{",
                                             "    _id : record.get('id'),",
+                                            "    _record : record,",
                                             "    _accountId : record.get('accountId')",
                                             "}).show();",
                                             ""

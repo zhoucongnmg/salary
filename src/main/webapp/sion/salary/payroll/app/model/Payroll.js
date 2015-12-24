@@ -34,8 +34,20 @@ Ext.define('sion.salary.payroll.model.Payroll', {
             type: 'date'
         },
         {
+            convert: function(v, rec) {
+                return Ext.Date.format(rec.get('month'),'Y-m');
+            },
+            name: 'monthFmt'
+        },
+        {
             name: 'socialCostMonth',
             type: 'date'
+        },
+        {
+            convert: function(v, rec) {
+                return Ext.Date.format(rec.get('socialCostMonth'),'Y-m');
+            },
+            name: 'socialCostMonthFmt'
         },
         {
             name: 'accountId'
@@ -45,6 +57,12 @@ Ext.define('sion.salary.payroll.model.Payroll', {
         },
         {
             name: 'persons'
+        },
+        {
+            convert: function(v, rec) {
+                return Ext.Object.getSize(rec.get('persons')) + '人';
+            },
+            name: 'personSize'
         },
         {
             name: 'createPersonName'

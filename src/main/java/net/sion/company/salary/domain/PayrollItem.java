@@ -5,6 +5,8 @@ package net.sion.company.salary.domain;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -58,17 +60,22 @@ public class PayrollItem {
 		return map;
 	}
 	
-	public void convertDomain(Map<String,String> map) {
+	public void convertDomain(Map<String,?> map) {
 		Class<? extends PayrollItem> me = this.getClass();
-		for (Map.Entry<String, String> entry : map.entrySet()) {
+		for (Map.Entry<String, ?> entry : map.entrySet()) {
 			String key = entry.getKey();
-			String value = entry.getValue();
+			Object value = entry.getValue();
 			try {
 				Method m = me.getMethod("set" + toUpperCaseFirstOne(key),String.class);
 				m.invoke(this, value);
 			} catch (NoSuchMethodException e) {
 				// TODO Auto-generated catch block
-				values.put(key, Double.valueOf(value));
+				if (value instanceof Double) {
+					values.put(key,(Double)value);
+				}else if (value instanceof Integer) {
+					values.put(key,Double.valueOf(((Integer) value).intValue()));
+				}
+				
 			} catch (SecurityException e) {
 				// TODO Auto-generated catch block
 			} catch (IllegalAccessException e) {
@@ -85,6 +92,7 @@ public class PayrollItem {
 		}
 		
 	}
+	
 	
 	
 	//首字母转大写
