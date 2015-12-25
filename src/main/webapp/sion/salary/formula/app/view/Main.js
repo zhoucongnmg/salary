@@ -477,6 +477,7 @@ Ext.define('sion.salary.formula.view.Main', {
             store = component.getStore(),
             data = me._data;
         if (me._data) {
+            store.removeAll();
             Ext.Array.each(data,function(d,index){
                 var record = Ext.create(ns + '.model.Item',{
                     id: d.get('id'),

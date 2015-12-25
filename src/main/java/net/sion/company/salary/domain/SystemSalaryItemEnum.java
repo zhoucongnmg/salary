@@ -7,6 +7,18 @@ public enum SystemSalaryItemEnum {
 
 	PersonalSocialTotal (
 			new SalaryItem("PersonalSocialTotal","个人社保合计",SalaryItemType.System)
+	),
+	
+	PersonalAccumulationFundsTotal (
+			new SalaryItem("PersonalSocialTotal","个人公积金合计",SalaryItemType.System)
+	),
+	
+	CompanySocialTotal (
+			new SalaryItem("CompanySocialTotal","公司社保合计",SalaryItemType.System)
+	),
+	
+	CompanyAccumulationFundsTotal (
+			new SalaryItem("CompanySocialTotal","公司公积金合计",SalaryItemType.System)
 	);
 	
 	SystemSalaryItemEnum(){

@@ -16,7 +16,7 @@ public abstract class AbstractSystemSalaryItemListener implements ApplicationLis
 		}
 	}
 	
-	public abstract void getValue(SystemSalaryItemEvent event);
+	public abstract String getValue(SystemSalaryItemEvent event);
 
 	public abstract SystemSalaryItemEnum hook();
 }
