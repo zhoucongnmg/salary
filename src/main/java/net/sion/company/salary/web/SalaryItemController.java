@@ -15,7 +15,6 @@ import javax.servlet.http.HttpSession;
 
 import net.sion.boot.mongo.template.SessionMongoTemplate;
 import net.sion.company.salary.domain.SalaryItem;
-import net.sion.company.salary.domain.SalaryItemSystem;
 import net.sion.company.salary.sessionrepository.SalaryItemRepository;
 import net.sion.util.mvc.Response;
 
@@ -38,7 +37,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class SalaryItemController {
 	@Autowired SalaryItemRepository salaryItemRepository;
 	@Autowired SessionMongoTemplate mongoTemplate; 
-	
+	/*
 	private List<SalaryItem> getSalaryItemSystem(){
 		List<SalaryItem> list = new ArrayList();
 		for (SalaryItemSystem s : SalaryItemSystem.values()) {  
@@ -46,7 +45,7 @@ public class SalaryItemController {
         }  
 		return list;
 	}
-
+*/
 	@RequestMapping(value = "create")
 	public @ResponseBody Response create(@RequestBody SalaryItem item, HttpSession session) {
 		if(item.getId() == null || "".equals(item.getId())){
