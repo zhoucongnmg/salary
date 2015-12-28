@@ -247,7 +247,7 @@ Ext.define('sion.salary.payroll.view.PayrollWindow', {
         form.updateRecord();
 
         Ext.each(selectedRows, function (item) {
-            itemMap[item.get('id')] = item.get('name');
+            itemMap[item.get('personCode')] = item.get('name');
         });
 
         record.set('persons',itemMap);
@@ -273,12 +273,13 @@ Ext.define('sion.salary.payroll.view.PayrollWindow', {
 
     onComboboxSelect: function(combo, records, eOpts) {
         var me = this,
+            record = {},
         store = me.down('gridpanel').getStore();
 
         store.load({
            params:{
                accountId:records[0].get('id'),
-               persons:null
+               persons:Ext.encode(record)
             }
         });
 
@@ -286,7 +287,8 @@ Ext.define('sion.salary.payroll.view.PayrollWindow', {
 
     onPayrollFormAfterRender: function(component, eOpts) {
         var me = this,
-            store = me.down('gridpanel').getStore(),
+            grid = me.down('gridpanel'),
+            store = grid.getStore(),
             record = me._link.record;
 
         me.down('form').loadRecord(record);
@@ -298,6 +300,7 @@ Ext.define('sion.salary.payroll.view.PayrollWindow', {
                     persons:Ext.encode(record.get('persons'))
                 }
             });
+            grid.getSelectionModel().selectAll();
         }
 
     },

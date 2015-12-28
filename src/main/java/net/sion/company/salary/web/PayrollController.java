@@ -31,7 +31,9 @@ import net.sion.core.admin.domain.User;
 import net.sion.core.admin.service.AdminService;
 import net.sion.util.mvc.Response;
 
+import org.apache.commons.collections.bag.SynchronizedSortedBag;
 import org.bson.types.ObjectId;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.query.BasicQuery;
@@ -254,25 +256,36 @@ public class PayrollController {
 	 * @return
 	 */
 	@RequestMapping(value = "getAccountPersons")
-	public Response getAccountPersons(@RequestParam(value = "accountId") String accountId,@RequestParam(value = "persons") Object a) {
+	public Response getAccountPersons(@RequestParam(value = "accountId") String accountId,
+			@RequestParam(value = "persons") JSONObject persons) {
 
-		List<PersonAccountFile> accountPersonList = personAccountFileRepository.findByAccountId(accountId);
+		Query query;
+		if (persons.length() != 0) {
+			Set<String> personsId = persons.keySet();
+			query = new Query(Criteria.where("accountId").is(accountId).and("personCode").in(personsId));
+		}
+		else
+			query = new Query(Criteria.where("accountId").is(accountId));
+		List<PersonAccountFile> accountPersonList = mongoTemplate.find(query, PersonAccountFile.class);
+
 		return new Response(accountPersonList);
 	}
 
-//	/**
-//	 * 人员信息回显
-//	 */
-//	@RequestMapping(value = "getPayrollPersons")
-//	public Response getPayrollPersons(Payroll payroll) {
-//		Map<String,String> persons = payroll.getPersons();
-//		Set<String> personsId = persons.keySet();
-//		
-//		Query query = new Query(Criteria.where("accountId").is(payroll.getAccountId()).and("personId").in(personsId));
-//		List<PersonAccountFile> accountPersonList = mongoTemplate.find(query, PersonAccountFile.class);
-//		
-//		return new Response(accountPersonList);
-//	}
+	// /**
+	// * 人员信息回显
+	// */
+	// @RequestMapping(value = "getPayrollPersons")
+	// public Response getPayrollPersons(Payroll payroll) {
+	// Map<String,String> persons = payroll.getPersons();
+	// Set<String> personsId = persons.keySet();
+	//
+	// Query query = new
+	// Query(Criteria.where("accountId").is(payroll.getAccountId()).and("personId").in(personsId));
+	// List<PersonAccountFile> accountPersonList = mongoTemplate.find(query,
+	// PersonAccountFile.class);
+	//
+	// return new Response(accountPersonList);
+	// }
 
 	/**
 	 * 修改工资条
@@ -345,9 +358,9 @@ public class PayrollController {
 		Map<String, Object> mapFilter = new HashMap<String, Object>();
 
 		mapFilter.put("state", state);
-		if (notNull(subject)){
-			Pattern patternSubject = Pattern.compile("^.*"+subject.trim()+".*$", Pattern.CASE_INSENSITIVE);
-			mapFilter.put("subject", patternSubject);	
+		if (notNull(subject)) {
+			Pattern patternSubject = Pattern.compile("^.*" + subject.trim() + ".*$", Pattern.CASE_INSENSITIVE);
+			mapFilter.put("subject", patternSubject);
 		}
 		if (notNull(month))
 			mapFilter.put("month", month.substring(0, 7));
@@ -355,7 +368,6 @@ public class PayrollController {
 			mapFilter.put("socialCostMonth", socialCostMonth.substring(0, 7));
 
 		Query q = getQueryWithFilter(mapFilter);
-
 		q.with(new Sort(Sort.Direction.ASC, "_id")).skip(start).limit(limit);
 		return q;
 	}

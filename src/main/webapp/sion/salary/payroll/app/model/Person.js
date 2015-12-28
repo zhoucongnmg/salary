@@ -30,6 +30,9 @@ Ext.define('sion.salary.payroll.model.Person', {
         {
             mapping: 'duty',
             name: 'position'
+        },
+        {
+            name: 'personCode'
         }
     ]
 });

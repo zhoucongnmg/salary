@@ -92,7 +92,7 @@
                                             "form.updateRecord();",
                                             "",
                                             "Ext.each(selectedRows, function (item) {",
-                                            "    itemMap[item.get('id')] = item.get('name');",
+                                            "    itemMap[item.get('personCode')] = item.get('name');",
                                             "});",
                                             "",
                                             "record.set('persons',itemMap);",
@@ -244,12 +244,13 @@
                                         "fn": "onComboboxSelect",
                                         "implHandler": [
                                             "var me = this,",
+                                            "    record = {},",
                                             "store = me.down('gridpanel').getStore();",
                                             "",
                                             "store.load({",
                                             "   params:{",
                                             "       accountId:records[0].get('id'),",
-                                            "       persons:null",
+                                            "       persons:Ext.encode(record)",
                                             "    }",
                                             "});",
                                             ""
@@ -470,7 +471,8 @@
                         "fn": "onPayrollFormAfterRender",
                         "implHandler": [
                             "var me = this,",
-                            "    store = me.down('gridpanel').getStore(),",
+                            "    grid = me.down('gridpanel'),",
+                            "    store = grid.getStore(),",
                             "    record = me._link.record;",
                             "",
                             "me.down('form').loadRecord(record);",
@@ -482,6 +484,7 @@
                             "            persons:Ext.encode(record.get('persons'))",
                             "        }",
                             "    });",
+                            "    grid.getSelectionModel().selectAll();",
                             "}",
                             ""
                         ],
