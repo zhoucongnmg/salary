@@ -1,0 +1,66 @@
+{
+    "type": "Ext.data.Store",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "autoLoad": false,
+        "designer|userClassName": "SocialAccountAll",
+        "model": "SocialAccount",
+        "pageSize": 20,
+        "remoteFilter": true,
+        "remoteSort": true,
+        "storeId": "SocialAccountAll"
+    },
+    "name": "SocialAccount1",
+    "designerId": "f5d4ee19-f47d-4f5b-bdbd-5437a9c4a534",
+    "cn": [
+        {
+            "type": "Ext.data.proxy.Ajax",
+            "reference": {
+                "name": "proxy",
+                "type": "object"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "api": [
+                    "{",
+                    "create: 'salary/socialaccount/create',",
+                    "read: 'salary/socialaccount/loadAll',",
+                    "update: 'salary/socialaccount/create',",
+                    "destroy: 'salary/socialaccount/remove'",
+                    "}"
+                ]
+            },
+            "name": "MyAjaxProxy1",
+            "designerId": "b8eb79de-8ff8-48c9-9e74-b7075f9bee83",
+            "cn": [
+                {
+                    "type": "Ext.data.reader.Json",
+                    "reference": {
+                        "name": "reader",
+                        "type": "object"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "root": "data"
+                    },
+                    "name": "MyJsonReader1",
+                    "designerId": "6df6eb5c-b48b-4287-9a5f-d22fc84fda3e"
+                },
+                {
+                    "type": "Ext.data.writer.Json",
+                    "reference": {
+                        "name": "writer",
+                        "type": "object"
+                    },
+                    "codeClass": null,
+                    "name": "MyJsonWriter1",
+                    "designerId": "ac160980-3f5d-48a6-90e6-107363009add"
+                }
+            ]
+        }
+    ]
+}
