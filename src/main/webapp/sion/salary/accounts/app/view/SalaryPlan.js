@@ -265,7 +265,7 @@ Ext.define('sion.salary.accounts.view.SalaryPlan', {
     onWindowBeforeRender: function(component, eOpts) {
         var me = this,
             namespace = me.getNamespace(),
-        //     itemStore = Ext.getStore('AccountItem'),
+            //     itemStore = Ext.getStore('AccountItem'),
             grid = me.down('grid'),
             itemStore = grid.getStore(),
             form = me.down("form"),
@@ -276,7 +276,7 @@ Ext.define('sion.salary.accounts.view.SalaryPlan', {
             Ext.Array.each(account.get('accountItems'), function(item){
                 console.log(item);
                 if(item !== null && item.type == 'Calculate' && item.formulaId !== ''){
-        //              var formula = me.getFormula(item.formulaId);
+                    //              var formula = me.getFormula(item.formulaId);
                     Ext.Ajax.request({
                         url: 'salary/formula/read',
                         method: 'get',
@@ -285,8 +285,10 @@ Ext.define('sion.salary.accounts.view.SalaryPlan', {
                             id: item.formulaId
                         },
                         success: function(response, opts){
-                            var data = Ext.JSON.decode(response.responseText);
-                            item.formula = data;
+                            if(response.responseText !== ''){
+                                var data = Ext.JSON.decode(response.responseText);
+                                item.formula = data;
+                            }
                         },
                         failure: function(response, opts) {
                             Ext.Msg.alert('提示信息','数据请求错误，请稍候重新尝试获取数据……');
@@ -295,11 +297,11 @@ Ext.define('sion.salary.accounts.view.SalaryPlan', {
                 }else{
                     item.formula = null;
                 }
-        //         var accountItem = Ext.create(namespace + '.model.AccountItem');
-        //         accountItem.set(item);
+                //         var accountItem = Ext.create(namespace + '.model.AccountItem');
+                //         accountItem.set(item);
                 itemStore.add(item);
             });
-        //     itemStore.add(account.get('accountItems'));
+            //     itemStore.add(account.get('accountItems'));
             form.loadRecord(account);
         }else{
             form.loadRecord(Ext.create(namespace + '.model.Account', {

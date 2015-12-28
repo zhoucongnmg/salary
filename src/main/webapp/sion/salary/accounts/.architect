@@ -34,7 +34,6 @@
                         },
                         {
                             "id": "fc13bcac-ab75-47a5-a051-91ce8288b8b2",
-                            "expanded": false,
                             "cn": [
                                 {
                                     "id": "71669953-5578-4a3b-bf8c-8d582afd121b",
@@ -54,6 +53,19 @@
                                     "cn": [
                                         {
                                             "id": "4c4d9d32-bcfa-4212-ba13-2b2e4b878762"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "id": "0ba8b325-8988-4f91-bc32-b8931b0c301b",
+                            "cn": [
+                                {
+                                    "id": "eb39380c-3e4e-4da9-8277-23bc074924f9",
+                                    "cn": [
+                                        {
+                                            "id": "814aa9b1-fd8b-41ff-b934-ddfb55568e92"
                                         }
                                     ]
                                 }
@@ -910,8 +922,8 @@
         "topInstance": null
     },
     "inspectorState": {
-        "topInstance": "fdfc7c61-6d60-4c22-aeab-ad8e1f75d827",
-        "selectedInstance": "da5ed7bd-a9bf-4d4b-9881-0709f951eb5c"
+        "topInstance": "b1b3e30e-dd86-429e-810d-470b9d8934f9",
+        "selectedInstance": "eb39380c-3e4e-4da9-8277-23bc074924f9"
     },
     "editMode": "code",
     "userSettings": {

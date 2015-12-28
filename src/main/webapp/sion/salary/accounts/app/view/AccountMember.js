@@ -157,7 +157,7 @@ Ext.define('sion.salary.accounts.view.AccountMember', {
                     dock: 'bottom',
                     width: 360,
                     displayInfo: true,
-                    store: 'AccountMember'
+                    store: 'PersonAccount'
                 }
             ]
         });

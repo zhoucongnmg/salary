@@ -130,6 +130,40 @@ Ext.define('sion.salary.accounts.view.SalaryPlanGrid', {
                         {
                             xtype: 'actioncolumn',
                             hideable: false,
+                            text: '复制',
+                            flex: 1,
+                            items: [
+                                {
+                                    handler: function(view, rowIndex, colIndex, item, e, record, row) {
+                                        alert('复制了');
+                                        var store = Ext.getStore("Account");
+
+                                        // Ext.Msg.confirm('提示', '确定要删除吗？', function(text){
+                                        //     if (text == 'yes'){
+                                        Ext.Ajax.request({
+                                            url :'salary/account/copy',//请求的服务器地址
+                                            params : {
+                                                id : record.get('id')
+                                            },//发送json对象
+                                            success:function(response,action){
+                                                store.load();
+                                                Ext.Msg.alert("提示", "复制成功");
+                                            },failure: function(){
+                                                store.load();
+                                                Ext.Msg.alert("提示", "复制失败");
+                                            }
+                                        });
+                                        //     }
+                                        // });
+                                    },
+                                    iconCls: 's_icon_action_copy',
+                                    tooltip: '复制'
+                                }
+                            ]
+                        },
+                        {
+                            xtype: 'actioncolumn',
+                            hideable: false,
                             text: '删除',
                             flex: 1,
                             items: [

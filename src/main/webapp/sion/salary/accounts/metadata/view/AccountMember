@@ -383,7 +383,7 @@
             "userConfig": {
                 "displayInfo": true,
                 "dock": "bottom",
-                "store": "AccountMember",
+                "store": "PersonAccount",
                 "width": 360
             },
             "name": "MyPagingToolbar1",

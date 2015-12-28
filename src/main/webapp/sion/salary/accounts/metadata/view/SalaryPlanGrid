@@ -288,6 +288,85 @@
                     "userConfig": {
                         "flex": 1,
                         "hideable": false,
+                        "text": "复制",
+                        "width": null
+                    },
+                    "name": "MyActionColumn7",
+                    "designerId": "0ba8b325-8988-4f91-bc32-b8931b0c301b",
+                    "cn": [
+                        {
+                            "type": "actioncolumnitem",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "designer|displayName": "modify",
+                                "iconCls": "s_icon_action_copy",
+                                "tooltip": "复制"
+                            },
+                            "name": "MyActionColumnItem2",
+                            "designerId": "eb39380c-3e4e-4da9-8277-23bc074924f9",
+                            "cn": [
+                                {
+                                    "type": "fixedfunction",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "designer|params": [
+                                            "view",
+                                            "rowIndex",
+                                            "colIndex",
+                                            "item",
+                                            "e",
+                                            "record",
+                                            "row"
+                                        ],
+                                        "fn": "handler",
+                                        "implHandler": [
+                                            "alert('复制了');",
+                                            "var store = Ext.getStore(\"Account\");",
+                                            "",
+                                            "// Ext.Msg.confirm('提示', '确定要删除吗？', function(text){",
+                                            "//     if (text == 'yes'){",
+                                            "        Ext.Ajax.request({",
+                                            "            url :'salary/account/copy',//请求的服务器地址",
+                                            "            params : {",
+                                            "                id : record.get('id')",
+                                            "            },//发送json对象",
+                                            "            success:function(response,action){",
+                                            "                store.load();",
+                                            "                Ext.Msg.alert(\"提示\", \"复制成功\");",
+                                            "            },failure: function(){",
+                                            "                store.load();",
+                                            "                Ext.Msg.alert(\"提示\", \"复制失败\");",
+                                            "            }",
+                                            "        });",
+                                            "//     }",
+                                            "// });"
+                                        ]
+                                    },
+                                    "name": "handler",
+                                    "designerId": "814aa9b1-fd8b-41ff-b934-ddfb55568e92"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "type": "Ext.grid.column.Action",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "flex": 1,
+                        "hideable": false,
                         "text": "删除",
                         "width": null
                     },

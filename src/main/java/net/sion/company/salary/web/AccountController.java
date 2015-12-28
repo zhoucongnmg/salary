@@ -97,6 +97,28 @@ public class AccountController {
 		accountRepository.save(account);
 		return new Response(true);
 	}
+	/**
+	 * 复制套帐
+	 * 
+	 * @param account
+	 * @return
+	 */
+	@RequestMapping(value = "copy")
+	public @ResponseBody Response copy(HttpSession session, String id) {
+		Account account = accountRepository.findOne(id);
+		Account copy = (Account)account.clone();
+		copy.setId(new ObjectId().toString());
+		copy.setName(copy.getName() + " - 副本");
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		Date date = new Date();
+		copy.setDate(sdf.format(date));
+		User user = adminService.getUser(session);
+		copy.setCreateUserId(user.getId());
+		copy.setCreateUserName(user.getName());
+		accountRepository.save(copy);
+		return new Response(true);
+	}
 	//删除方案中的公式
 	private void deleteFormula(String accountId){
 		Account account = accountRepository.findOne(accountId);

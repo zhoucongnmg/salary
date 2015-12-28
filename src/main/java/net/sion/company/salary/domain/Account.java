@@ -24,7 +24,17 @@ import org.springframework.roo.addon.layers.repository.mongo.RooMongoEntity;
 @RooJavaBean
 @RooMongoEntity
 @Document(collection = "Company_Salary_Account")
-public class Account {
+public class Account implements Cloneable{
+	@Override  
+    public Object clone() {  
+		Account a = null;  
+        try{  
+            a = (Account)super.clone();  
+        }catch(CloneNotSupportedException e) {  
+            e.printStackTrace();  
+        }  
+        return a;  
+    }
 	@Id
 	String id;
 
