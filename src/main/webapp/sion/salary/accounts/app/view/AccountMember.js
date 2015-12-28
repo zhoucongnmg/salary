@@ -92,6 +92,7 @@ Ext.define('sion.salary.accounts.view.AccountMember', {
                         },
                         {
                             xtype: 'actioncolumn',
+                            hideable: false,
                             text: '删除',
                             flex: 0.5,
                             items: [

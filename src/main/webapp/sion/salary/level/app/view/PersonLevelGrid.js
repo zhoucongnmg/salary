@@ -89,6 +89,7 @@ Ext.define('sion.salary.level.view.PersonLevelGrid', {
                         {
                             xtype: 'actioncolumn',
                             width: 35,
+                            hideable: false,
                             items: [
                                 {
                                     handler: function(view, rowIndex, colIndex, item, e, record, row) {
@@ -102,6 +103,7 @@ Ext.define('sion.salary.level.view.PersonLevelGrid', {
                         {
                             xtype: 'actioncolumn',
                             width: 35,
+                            hideable: false,
                             items: [
                                 {
                                     iconCls: 's_icon_cross',

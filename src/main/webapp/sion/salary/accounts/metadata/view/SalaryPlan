@@ -165,57 +165,6 @@
                     },
                     "name": "MyTextArea2",
                     "designerId": "ebc4ba2a-fd78-4b01-b828-c273f5b7e83d"
-                },
-                {
-                    "type": "Ext.toolbar.Toolbar",
-                    "reference": {
-                        "name": "dockedItems",
-                        "type": "array"
-                    },
-                    "codeClass": null,
-                    "userConfig": {
-                        "dock": "bottom"
-                    },
-                    "name": "MyToolbar7",
-                    "designerId": "3a9e6909-b616-434f-afe4-84e24ccffc7e",
-                    "cn": [
-                        {
-                            "type": "Ext.button.Button",
-                            "reference": {
-                                "name": "items",
-                                "type": "array"
-                            },
-                            "codeClass": null,
-                            "userConfig": {
-                                "iconCls": "s_icon_action_add",
-                                "layout|flex": null,
-                                "text": "新增",
-                                "width": null
-                            },
-                            "name": "MyButton4",
-                            "designerId": "19cee27d-252e-45b7-9f79-3e9d93ca0587",
-                            "cn": [
-                                {
-                                    "type": "basiceventbinding",
-                                    "reference": {
-                                        "name": "listeners",
-                                        "type": "array"
-                                    },
-                                    "codeClass": null,
-                                    "userConfig": {
-                                        "fn": "onAddSalaryItemClick",
-                                        "implHandler": [
-                                            "this.detail(null);"
-                                        ],
-                                        "name": "click",
-                                        "scope": "me"
-                                    },
-                                    "name": "onAddSalaryItemClick",
-                                    "designerId": "b0a7a897-e88a-4be3-a7ac-378da9995402"
-                                }
-                            ]
-                        }
-                    ]
                 }
             ]
         },
@@ -367,7 +316,9 @@
                     "codeClass": null,
                     "userConfig": {
                         "dataIndex": "date",
+                        "enableColumnHide": null,
                         "flex": 2,
+                        "hideable": false,
                         "text": "操作"
                     },
                     "name": "MyActionColumn3",
@@ -495,6 +446,85 @@
                     },
                     "name": "onItemGridItemDblClick",
                     "designerId": "bd048dcd-b121-4254-ba8d-b02d8d6c80d0"
+                },
+                {
+                    "type": "Ext.toolbar.Toolbar",
+                    "reference": {
+                        "name": "dockedItems",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dock": "top"
+                    },
+                    "name": "MyToolbar7",
+                    "designerId": "3a9e6909-b616-434f-afe4-84e24ccffc7e",
+                    "cn": [
+                        {
+                            "type": "Ext.form.Label",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "html": "<span style='font-weight:bold'>薪资项目</span>",
+                                "layout|flex": null,
+                                "text": null
+                            },
+                            "name": "MyLabel",
+                            "designerId": "1d20282e-f4c0-49e0-8066-a5fd63ac9caf"
+                        },
+                        {
+                            "type": "Ext.toolbar.Fill",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "layout|flex": null
+                            },
+                            "name": "MyFill",
+                            "designerId": "a885880f-1c50-46d4-b2d4-3a02aac85295"
+                        },
+                        {
+                            "type": "Ext.button.Button",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "iconCls": "s_icon_action_add",
+                                "layout|flex": null,
+                                "text": "新增",
+                                "width": null
+                            },
+                            "name": "MyButton4",
+                            "designerId": "19cee27d-252e-45b7-9f79-3e9d93ca0587",
+                            "cn": [
+                                {
+                                    "type": "basiceventbinding",
+                                    "reference": {
+                                        "name": "listeners",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fn": "onAddSalaryItemClick",
+                                        "implHandler": [
+                                            "this.detail(null);"
+                                        ],
+                                        "name": "click",
+                                        "scope": "me"
+                                    },
+                                    "name": "onAddSalaryItemClick",
+                                    "designerId": "b0a7a897-e88a-4be3-a7ac-378da9995402"
+                                }
+                            ]
+                        }
+                    ]
                 }
             ]
         },

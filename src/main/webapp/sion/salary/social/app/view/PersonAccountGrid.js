@@ -93,7 +93,7 @@ Ext.define('sion.salary.social.view.PersonAccountGrid', {
                             fieldLabel: '社保方案',
                             labelWidth: 60,
                             displayField: 'name',
-                            store: 'SocialAccount',
+                            store: 'SocialAccountAll',
                             valueField: 'id'
                         },
                         {

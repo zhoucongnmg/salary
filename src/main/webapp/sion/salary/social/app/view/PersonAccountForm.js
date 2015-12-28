@@ -288,7 +288,8 @@ Ext.define('sion.salary.social.view.PersonAccountForm', {
                                     ],
                                     plugins: [
                                         Ext.create('Ext.grid.plugin.RowEditing', {
-
+                                            cancelBtnText: '取消',
+                                            saveBtnText: '保存'
                                         })
                                     ]
                                 },
@@ -521,7 +522,8 @@ Ext.define('sion.salary.social.view.PersonAccountForm', {
                                     ],
                                     plugins: [
                                         Ext.create('Ext.grid.plugin.RowEditing', {
-
+                                            saveBtnText: '保存',
+                                            cancelBtnText: '取消'
                                         })
                                     ]
                                 }

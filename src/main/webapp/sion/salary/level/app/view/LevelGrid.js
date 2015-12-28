@@ -79,6 +79,7 @@ Ext.define('sion.salary.level.view.LevelGrid', {
                         {
                             xtype: 'actioncolumn',
                             width: 35,
+                            hideable: false,
                             text: '修改',
                             flex: 0.3,
                             items: [
@@ -94,6 +95,7 @@ Ext.define('sion.salary.level.view.LevelGrid', {
                         {
                             xtype: 'actioncolumn',
                             width: 35,
+                            hideable: false,
                             text: '删除',
                             flex: 0.3,
                             items: [

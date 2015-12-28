@@ -231,7 +231,7 @@
                             },
                             "codeClass": null,
                             "userConfig": {
-                                "html": "<span style='font-weight:bold'>套帐项目</span>",
+                                "html": "<span style='font-weight:bold'>社保项目</span>",
                                 "layout|flex": null,
                                 "text": null
                             },

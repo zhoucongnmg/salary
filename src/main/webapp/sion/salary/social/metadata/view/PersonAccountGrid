@@ -214,7 +214,7 @@
                         "labelWidth": 60,
                         "layout|flex": null,
                         "padding": null,
-                        "store": "SocialAccount",
+                        "store": "SocialAccountAll",
                         "valueField": "id"
                     },
                     "name": "MyComboBox2",

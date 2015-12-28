@@ -26,7 +26,9 @@ Ext.define('sion.salary.accounts.view.SalaryPlan', {
         'Ext.grid.RowNumberer',
         'Ext.grid.column.Boolean',
         'Ext.grid.column.Action',
-        'Ext.grid.View'
+        'Ext.grid.View',
+        'Ext.form.Label',
+        'Ext.toolbar.Fill'
     ],
 
     height: 600,
@@ -90,25 +92,6 @@ Ext.define('sion.salary.accounts.view.SalaryPlan', {
                             fieldLabel: '备注',
                             name: 'remark'
                         }
-                    ],
-                    dockedItems: [
-                        {
-                            xtype: 'toolbar',
-                            dock: 'bottom',
-                            items: [
-                                {
-                                    xtype: 'button',
-                                    iconCls: 's_icon_action_add',
-                                    text: '新增',
-                                    listeners: {
-                                        click: {
-                                            fn: me.onAddSalaryItemClick,
-                                            scope: me
-                                        }
-                                    }
-                                }
-                            ]
-                        }
                     ]
                 },
                 {
@@ -166,6 +149,7 @@ Ext.define('sion.salary.accounts.view.SalaryPlan', {
                         {
                             xtype: 'actioncolumn',
                             dataIndex: 'date',
+                            hideable: false,
                             text: '操作',
                             flex: 2,
                             items: [
@@ -200,7 +184,33 @@ Ext.define('sion.salary.accounts.view.SalaryPlan', {
                             fn: me.onItemGridItemDblClick,
                             scope: me
                         }
-                    }
+                    },
+                    dockedItems: [
+                        {
+                            xtype: 'toolbar',
+                            dock: 'top',
+                            items: [
+                                {
+                                    xtype: 'label',
+                                    html: '<span style=\'font-weight:bold\'>薪资项目</span>'
+                                },
+                                {
+                                    xtype: 'tbfill'
+                                },
+                                {
+                                    xtype: 'button',
+                                    iconCls: 's_icon_action_add',
+                                    text: '新增',
+                                    listeners: {
+                                        click: {
+                                            fn: me.onAddSalaryItemClick,
+                                            scope: me
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    ]
                 }
             ],
             listeners: {
@@ -254,12 +264,12 @@ Ext.define('sion.salary.accounts.view.SalaryPlan', {
 
     },
 
-    onAddSalaryItemClick: function(button, e, eOpts) {
-        this.detail(null);
-    },
-
     onItemGridItemDblClick: function(dataview, record, item, index, e, eOpts) {
         this.detail(record);
+    },
+
+    onAddSalaryItemClick: function(button, e, eOpts) {
+        this.detail(null);
     },
 
     onWindowBeforeRender: function(component, eOpts) {

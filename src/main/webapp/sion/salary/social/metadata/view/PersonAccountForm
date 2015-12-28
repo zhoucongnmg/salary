@@ -705,8 +705,24 @@
                                         "type": "array"
                                     },
                                     "codeClass": "Ext.grid.plugin.RowEditing",
+                                    "userConfig": {
+                                        "cancelBtnText": "取消",
+                                        "saveBtnText": "保存"
+                                    },
                                     "name": "MyRowEditingPlugin",
-                                    "designerId": "5acf885a-82e6-469d-83a3-c3d921a1b981"
+                                    "designerId": "5acf885a-82e6-469d-83a3-c3d921a1b981",
+                                    "customConfigs": [
+                                        {
+                                            "group": "(Custom Properties)",
+                                            "name": "cancelBtnText",
+                                            "type": "string"
+                                        },
+                                        {
+                                            "group": "(Custom Properties)",
+                                            "name": "saveBtnText",
+                                            "type": "string"
+                                        }
+                                    ]
                                 }
                             ]
                         },
@@ -1264,8 +1280,24 @@
                                         "type": "array"
                                     },
                                     "codeClass": "Ext.grid.plugin.RowEditing",
+                                    "userConfig": {
+                                        "cancelBtnText": "取消",
+                                        "saveBtnText": "保存"
+                                    },
                                     "name": "MyRowEditingPlugin1",
-                                    "designerId": "6353fdec-068c-4825-a641-8d90ab5e37ca"
+                                    "designerId": "6353fdec-068c-4825-a641-8d90ab5e37ca",
+                                    "customConfigs": [
+                                        {
+                                            "group": "(Custom Properties)",
+                                            "name": "saveBtnText",
+                                            "type": "string"
+                                        },
+                                        {
+                                            "group": "(Custom Properties)",
+                                            "name": "cancelBtnText",
+                                            "type": "string"
+                                        }
+                                    ]
                                 }
                             ]
                         }

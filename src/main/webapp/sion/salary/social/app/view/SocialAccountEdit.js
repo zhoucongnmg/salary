@@ -100,7 +100,7 @@ Ext.define('sion.salary.social.view.SocialAccountEdit', {
                             items: [
                                 {
                                     xtype: 'label',
-                                    html: '<span style=\'font-weight:bold\'>套帐项目</span>'
+                                    html: '<span style=\'font-weight:bold\'>社保项目</span>'
                                 },
                                 {
                                     xtype: 'tbfill'

@@ -157,6 +157,7 @@
                     "codeClass": null,
                     "userConfig": {
                         "flex": 0.3,
+                        "hideable": false,
                         "text": "修改",
                         "width": 35
                     },
@@ -216,6 +217,7 @@
                     "codeClass": null,
                     "userConfig": {
                         "flex": 0.3,
+                        "hideable": false,
                         "text": "删除",
                         "width": 35
                     },

@@ -164,6 +164,7 @@
                     },
                     "codeClass": null,
                     "userConfig": {
+                        "hideable": false,
                         "text": null,
                         "width": 35
                     },
@@ -222,6 +223,7 @@
                     },
                     "codeClass": null,
                     "userConfig": {
+                        "hideable": false,
                         "width": 35
                     },
                     "name": "MyActionColumn",
