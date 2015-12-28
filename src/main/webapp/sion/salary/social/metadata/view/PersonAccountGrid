@@ -701,8 +701,8 @@
                 "fn": "onGridpanelItemDblClick",
                 "implHandler": [
                     "var me=this,",
-                    "            namespace=me.getNamespace();",
-                    "        Ext.create(namespace+'.view.PersonAccountForm',{_grid:me,_record:record}).show();"
+                    "    namespace=me.getNamespace();",
+                    "Ext.create(namespace+'.view.PersonAccountForm',{_grid:me,_record:record}).show();"
                 ],
                 "name": "itemdblclick",
                 "scope": "me"

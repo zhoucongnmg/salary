@@ -163,7 +163,7 @@ Ext.define('sion.salary.social.view.SocialAccountItemEdit', {
 
     onButtonClick: function(button, e, eOpts) {
         var me = this,
-        //     opener = me._opener,
+            //     opener = me._opener,
             namespace = me.getNamespace(),
             uuid = Ext.create('Ext.data.UuidGenerator'),
             id = uuid.generate(),

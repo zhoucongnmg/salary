@@ -57,7 +57,7 @@ public class SocialService {
 	 * 
 	 * @param personId 员工id
 	 * @param isPerson 是个人还是公司
-	 * @param isSocial 是社保还是公积金
+	 * @param SocialItemType SocialSecurity:社保; AccumulationFunds:公积金
 	 * @return
 	 */
 	public double getSocialSum(String personId, boolean isPerson, SocialItemType itemType){

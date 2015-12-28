@@ -343,8 +343,8 @@ Ext.define('sion.salary.social.view.PersonAccountGrid', {
 
     onGridpanelItemDblClick: function(dataview, record, item, index, e, eOpts) {
         var me=this,
-                    namespace=me.getNamespace();
-                Ext.create(namespace+'.view.PersonAccountForm',{_grid:me,_record:record}).show();
+            namespace=me.getNamespace();
+        Ext.create(namespace+'.view.PersonAccountForm',{_grid:me,_record:record}).show();
     },
 
     onGridpanelBeforeRender: function(component, eOpts) {

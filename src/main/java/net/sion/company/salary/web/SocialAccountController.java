@@ -170,6 +170,11 @@ public class SocialAccountController {
 		}
 		return value;
 	}
+	@RequestMapping(value = "loadAll")
+	public @ResponseBody Response loadAll(){
+		List<SocialAccount> list = socialAccountRepository.findAll();
+		return new Response(list);
+	}
 	/**
 	 * 查询社保方案
 	 * @param 

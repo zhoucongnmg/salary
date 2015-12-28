@@ -160,7 +160,9 @@ Ext.define('sion.salary.accounts.view.AddSalaryItem', {
             namespace = me.getNamespace(),
             form = me.down('form'),
             record = me._accountItem,
-            store = Ext.getStore('AccountItem'),
+        //     store = Ext.getStore('AccountItem'),
+            store = me._store,
+        //     items = [],
             panel = me.down('#formulaPanel');
 
         // if(record !== null && record.get('type') == 'Calculate' && record.get('formulaId') !== ''){
@@ -182,10 +184,12 @@ Ext.define('sion.salary.accounts.view.AddSalaryItem', {
         // }
         var app = Ext.ClassManager.get('sion.salary.formula' + ".$application").create();
         var Api = app.getController('Api');
+
         Api.initFormula({
             _formulaId : 'AddSalaryItem',//窗口的ItemId
             _container :  panel,//需要将公式编辑器面板显示到哪一个Container中
             _data : store.data.items,//计算项store(Model必须包含id,text等field)
+        //     _data : store.getUpdatedRecords(),
             _command : record !== null && record.get('formula') !== null ? record.get('formula').formula : ''
         });
         me._formulaApi = Api;
@@ -206,7 +210,8 @@ Ext.define('sion.salary.accounts.view.AddSalaryItem', {
             account = me._account,
             form = me.down('form'),
             record = form.getRecord(),
-            store = Ext.getStore('AccountItem'),
+        //     store = Ext.getStore('AccountItem'),
+            store = me._store,
             formulaItemStore = Ext.getStore('FormulaItem'),
             select = grid.getSelectionModel().getSelection(),
             formulaApi = me._formulaApi,
@@ -233,19 +238,13 @@ Ext.define('sion.salary.accounts.view.AddSalaryItem', {
             record.set('value', '');
         }
         if(record.get('type') == 'Calculate'){
-            alert('getFormula');
             var formulaDatas = formulaApi.getFormula();
-            alert('getFormula ok');
             if(!formulaDatas){
                 Ext.Msg.alert('', '公式未完成，不能保存');
                 return false;
             }
-            alert('aaa');
             var formulaData = formulaDatas[formulaDatas.length - 1];
-            alert('validateFormula');
             var va = formulaApi.validateFormula(formulaData);
-            alert('validateFormula ok');
-            console.log(va);
             var formulaFields = formulaApi.getFields(formulaData);
             Ext.Array.each(formulaFields, function(formulaField){
                 var item = store.findRecord('id', formulaField.fieldId);

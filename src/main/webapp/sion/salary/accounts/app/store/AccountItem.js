@@ -17,8 +17,7 @@ Ext.define('sion.salary.accounts.store.AccountItem', {
     extend: 'Ext.data.Store',
 
     requires: [
-        'sion.salary.accounts.model.AccountItem',
-        'Ext.data.proxy.Memory'
+        'sion.salary.accounts.model.AccountItem'
     ],
 
     constructor: function(cfg) {
@@ -26,10 +25,7 @@ Ext.define('sion.salary.accounts.store.AccountItem', {
         cfg = cfg || {};
         me.callParent([Ext.apply({
             model: 'sion.salary.accounts.model.AccountItem',
-            storeId: 'AccountItem',
-            proxy: {
-                type: 'memory'
-            }
+            storeId: 'AccountItem'
         }, cfg)]);
     }
 });

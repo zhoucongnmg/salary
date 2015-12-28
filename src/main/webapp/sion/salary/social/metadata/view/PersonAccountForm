@@ -931,7 +931,7 @@
                                 "labelWidth": 80,
                                 "layout|columnWidth": 0.45,
                                 "name": "accountId",
-                                "store": "SocialAccount",
+                                "store": "SocialAccountAll",
                                 "valueField": "id"
                             },
                             "name": "MyComboBox4",

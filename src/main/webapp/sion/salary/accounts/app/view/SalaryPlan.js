@@ -180,7 +180,8 @@ Ext.define('sion.salary.accounts.view.SalaryPlan', {
                                 },
                                 {
                                     handler: function(view, rowIndex, colIndex, item, e, record, row) {
-                                        var store = Ext.getStore('AccountItem');
+                                        // var store = Ext.getStore('AccountItem');
+                                        var store = view.getStore();
 
                                         Ext.Msg.confirm('提示', '确定要删除吗？', function(text){
                                             if (text == 'yes'){
@@ -264,7 +265,9 @@ Ext.define('sion.salary.accounts.view.SalaryPlan', {
     onWindowBeforeRender: function(component, eOpts) {
         var me = this,
             namespace = me.getNamespace(),
-            itemStore = Ext.getStore('AccountItem'),
+        //     itemStore = Ext.getStore('AccountItem'),
+            grid = me.down('grid'),
+            itemStore = grid.getStore(),
             form = me.down("form"),
             account = me._account;
 
@@ -283,9 +286,7 @@ Ext.define('sion.salary.accounts.view.SalaryPlan', {
                         },
                         success: function(response, opts){
                             var data = Ext.JSON.decode(response.responseText);
-        //                     console.log(data);
                             item.formula = data;
-        //                     console.log(item);
                         },
                         failure: function(response, opts) {
                             Ext.Msg.alert('提示信息','数据请求错误，请稍候重新尝试获取数据……');
@@ -294,6 +295,8 @@ Ext.define('sion.salary.accounts.view.SalaryPlan', {
                 }else{
                     item.formula = null;
                 }
+        //         var accountItem = Ext.create(namespace + '.model.AccountItem');
+        //         accountItem.set(item);
                 itemStore.add(item);
             });
         //     itemStore.add(account.get('accountItems'));

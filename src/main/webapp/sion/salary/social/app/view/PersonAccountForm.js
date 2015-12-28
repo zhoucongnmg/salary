@@ -393,7 +393,7 @@ Ext.define('sion.salary.social.view.PersonAccountForm', {
                                     name: 'accountId',
                                     editable: false,
                                     displayField: 'name',
-                                    store: 'SocialAccount',
+                                    store: 'SocialAccountAll',
                                     valueField: 'id'
                                 },
                                 {
