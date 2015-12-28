@@ -277,8 +277,8 @@ Ext.define('sion.salary.payroll.view.PayrollWindow', {
 
         store.load({
            params:{
-               accountId:records[0].get('id')
-
+               accountId:records[0].get('id'),
+               persons:null
             }
         });
 
@@ -289,14 +289,13 @@ Ext.define('sion.salary.payroll.view.PayrollWindow', {
             store = me.down('gridpanel').getStore(),
             record = me._link.record;
 
-        console.log(record.get('persons'));
-
         me.down('form').loadRecord(record);
 
         if(me.title=='修改工资条'){
             store.load({
                 params:{
-                    accountId:record.get('accountId')
+                    accountId:record.get('accountId'),
+                    persons:Ext.encode(record.get('persons'))
                 }
             });
         }

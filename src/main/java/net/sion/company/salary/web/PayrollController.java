@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpSession;
 
@@ -253,7 +254,7 @@ public class PayrollController {
 	 * @return
 	 */
 	@RequestMapping(value = "getAccountPersons")
-	public Response getAccountPersons(@RequestParam(value = "accountId") String accountId) {
+	public Response getAccountPersons(@RequestParam(value = "accountId") String accountId,@RequestParam(value = "persons") Object a) {
 
 		List<PersonAccountFile> accountPersonList = personAccountFileRepository.findByAccountId(accountId);
 		return new Response(accountPersonList);
@@ -344,8 +345,10 @@ public class PayrollController {
 		Map<String, Object> mapFilter = new HashMap<String, Object>();
 
 		mapFilter.put("state", state);
-		if (notNull(subject))
-			mapFilter.put("subject", subject);
+		if (notNull(subject)){
+			Pattern patternSubject = Pattern.compile("^.*"+subject.trim()+".*$", Pattern.CASE_INSENSITIVE);
+			mapFilter.put("subject", patternSubject);	
+		}
 		if (notNull(month))
 			mapFilter.put("month", month.substring(0, 7));
 		if (notNull(socialCostMonth))
