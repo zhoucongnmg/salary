@@ -39,7 +39,7 @@
                     "codeClass": null,
                     "userConfig": {
                         "allowBlank": false,
-                        "fieldLabel": "名称",
+                        "fieldLabel": "项目名称",
                         "itemId": "name",
                         "layout|anchor": "100%",
                         "name": "name"

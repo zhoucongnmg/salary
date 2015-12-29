@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.regex.Pattern;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import net.sion.boot.config.jackson.CustomJackson;
@@ -22,6 +23,7 @@ import net.sion.company.salary.domain.Payroll.PayrollStatus;
 import net.sion.company.salary.domain.PayrollItem;
 import net.sion.company.salary.domain.PersonAccountFile;
 import net.sion.company.salary.service.FormulaService;
+import net.sion.company.salary.service.PayrollService;
 import net.sion.company.salary.sessionrepository.AccountRepository;
 import net.sion.company.salary.sessionrepository.PayrollItemRepository;
 import net.sion.company.salary.sessionrepository.PayrollRepository;
@@ -31,10 +33,10 @@ import net.sion.core.admin.domain.User;
 import net.sion.core.admin.service.AdminService;
 import net.sion.util.mvc.Response;
 
-import org.apache.commons.collections.bag.SynchronizedSortedBag;
 import org.bson.types.ObjectId;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.query.BasicQuery;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -45,9 +47,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
 
@@ -79,6 +78,8 @@ public class PayrollController {
 	AdminService adminService;
 	@Autowired
 	FormulaService formulaService;
+	@Autowired PayrollService payrollService;
+	@Autowired ApplicationContext ctx;
 
 	public List<Map<String, Object>> fillSimpleFields(List<Map<String, Object>> fields) {
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -207,6 +208,34 @@ public class PayrollController {
 		m.put("columns", columns);
 		m.put("data", data);
 		return new Response("sucess", m, true);
+	}
+	/**
+	 * @author lil 工资条列表
+	 * @throws IOException 
+	 */
+	@RequestMapping(value = "exportItemList")
+	public void exportItemList(HttpServletResponse response, @RequestParam String id) throws IOException {
+		String serverPath = ctx.getResource("/").getFile().getPath();
+		Payroll payroll = payrollRepository.findOne(id);
+
+		Account account = accountRepository.findOne(payroll.getAccountId());
+		List<AccountItem> items = account.getAccountItems();
+		List<Map<String, Object>> fields = new ArrayList<Map<String, Object>>();
+		List<Map<String, Object>> columns = new ArrayList<Map<String, Object>>();
+		List<Map<String, Object>> data = new ArrayList<Map<String, Object>>();
+
+		fillSimpleFields(fields);
+		fillSimpleColumns(columns);
+
+		for (AccountItem item : items) {
+			fields.add(getFields(item));
+			columns.add(getColumns(item));
+		}
+
+		List<PayrollItem> payrollItemList = payrollItemRepository.findByPayrollId(id);
+
+		data = fillData(payroll.getPersons(), payrollItemList, account);
+		payrollService.exportExcel( columns, data, response);
 	}
 
 	private Map<String, Object> getFields(AccountItem item) {

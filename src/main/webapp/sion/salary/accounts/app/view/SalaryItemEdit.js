@@ -45,7 +45,7 @@ Ext.define('sion.salary.accounts.view.SalaryItemEdit', {
                             xtype: 'textfield',
                             anchor: '100%',
                             itemId: 'name',
-                            fieldLabel: '名称',
+                            fieldLabel: '项目名称',
                             name: 'name',
                             allowBlank: false
                         },
