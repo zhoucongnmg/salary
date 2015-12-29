@@ -24,7 +24,7 @@ public class SocialService {
 	@Autowired SocialItemRepository socialItemRepository;
 	@Autowired PersonAccountFileRepository personAccountFileRepository;
 	
-	public Map<String, PersonExtension<SocialAccountItem>> getSocialAccountByPsersons(Set<String> ids){
+	public Map<String, PersonExtension<SocialAccountItem>> getSocialAccountByPersons(Set<String> ids){
 		Map<String, PersonExtension<SocialAccountItem>> map = new HashMap<String, PersonExtension<SocialAccountItem>>();
 		Iterable<PersonAccountFile> personList = personAccountFileRepository.findAll(ids);
 		List<String> accountIds = new ArrayList<String>();
