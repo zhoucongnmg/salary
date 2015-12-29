@@ -36,6 +36,19 @@
             },
             "name": "MyField1",
             "designerId": "7277bde5-9da2-40e5-8f2e-4a5e633bd898"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "salaryItemNames"
+            },
+            "name": "MyField9",
+            "designerId": "74bde2b8-ad7f-4ef2-9471-31f0fe139d39"
         }
     ]
 }

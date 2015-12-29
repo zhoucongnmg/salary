@@ -4,6 +4,7 @@
 package net.sion.company.salary.domain;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -18,7 +19,9 @@ public class Level {
 	String id;
 	
 	String name;//层次名称
+	Map<String,String> salaryItemNames;//项目ID与项目名称
 	List<LevelItem> levelItems;//层次项目
+	
 	
 	public String getId() {
 		return id;
@@ -37,5 +40,11 @@ public class Level {
 	}
 	public void setLevelItems(List<LevelItem> levelItems) {
 		this.levelItems = levelItems;
+	}
+	public Map<String, String> getSalaryItemNames() {
+		return salaryItemNames;
+	}
+	public void setSalaryItemNames(Map<String, String> salaryItemNames) {
+		this.salaryItemNames = salaryItemNames;
 	}
 }

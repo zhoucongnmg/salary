@@ -65,9 +65,7 @@ public class PersonLevelService {
 		PersonExtension<Double> personExt = new PersonExtension<Double>();
 		for (LevelItem	item : level.getLevelItems()) {
 			if(item.getRank().equals(personAccountFile.getRank())){
-				for (Map<String, Double> map : item.getSalaryItemValues()) {
-					personExt.putAllItem(map);
-				}
+					personExt.putAllItem(item.getSalaryItemValues());
 			}
 		}
 		return personExt;
