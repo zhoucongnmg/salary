@@ -3,7 +3,6 @@ package net.sion.company.salary.config;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.sion.boot.mongo.template.DynamicMongoTemplate;
 import net.sion.company.salary.domain.SalaryItem;
 import net.sion.company.salary.domain.SalaryItem.SalaryItemType;
 import net.sion.company.salary.domain.SystemSalaryItemEnum;

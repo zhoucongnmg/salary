@@ -11,7 +11,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
  * @author niex
  *	公式
  */
-@Document(collection="Company_Common_Formula")
+@Document(collection="Company_Salary_Formula")
 public class Formula {
 	@Id
 	String id;
