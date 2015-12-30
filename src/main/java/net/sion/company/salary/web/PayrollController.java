@@ -97,6 +97,9 @@ public class PayrollController {
 	@Autowired
 	SystemSalaryItemPublisher publisher;
 	@Autowired PayrollService payrollService;
+	
+	@Autowired UserRepository userRepository;
+	@Autowired DeptRepository deptRepository;
 
 	public List<Map<String, Object>> fillSimpleFields(List<Map<String, Object>> fields, Map<String, String> opts) {
 		Map<String, Object> map = new HashMap<String, Object>();
