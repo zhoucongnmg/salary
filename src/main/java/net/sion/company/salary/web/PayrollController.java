@@ -379,20 +379,22 @@ public class PayrollController {
 	 * @throws IOException 
 	 */
 	@RequestMapping(value = "exportItemList")
-	public void exportItemList(HttpServletResponse response, @RequestParam String id) throws IOException {
-		createExcel("export", id, response);
+	public void exportItemList(HttpServletResponse response,@RequestParam String id, @RequestParam Map<String,Map<String,String>> opts) throws IOException {
+//		String id = (String)param.get("id");
+		Map<String,String> opt = (Map<String,String>)opts.get("opts");
+		createExcel("export", id, opt, response);
 	}
 	/**
 	 * @author lil 生成工资条
 	 * @throws IOException 
 	 */
 	@RequestMapping(value = "createPayrollExcel")
-	public void createPayrollExcel(HttpServletResponse response, @RequestParam String id) throws IOException {
-		createExcel("create", id, response);
+	public void createPayrollExcel(HttpServletResponse response, @RequestParam String id, @RequestParam Map<String,String> opts) throws IOException {
+		createExcel("create", id, opts, response);
 	}
-	private void createExcel(String method, String id, HttpServletResponse response) throws IOException{
+	private void createExcel(String method, String id, Map<String,String> opts, HttpServletResponse response) throws IOException{
 //		Map<String,String> opts = (Map<String,String>)param.get("opts");
-		Map<String,String> opts = null;
+//		Map<String,String> opts = null;
 		Payroll payroll = payrollRepository.findOne(id);
 		Account account = accountRepository.findOne(payroll.getAccountId());
 		List<AccountItem> items = account.getAccountItems();
