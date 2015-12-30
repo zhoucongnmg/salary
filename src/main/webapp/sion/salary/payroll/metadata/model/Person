@@ -20,10 +20,10 @@
             },
             "codeClass": null,
             "userConfig": {
-                "name": "name"
+                "name": "id"
             },
             "name": "MyField1",
-            "designerId": "caca0767-3a5a-4a9e-aa8a-213bc168f16d"
+            "designerId": "b1ec0065-123f-4942-a049-b45cce0bf954"
         },
         {
             "type": "Ext.data.Field",
@@ -33,10 +33,10 @@
             },
             "codeClass": null,
             "userConfig": {
-                "name": "dept"
+                "name": "name"
             },
             "name": "MyField2",
-            "designerId": "29bad7ec-cd60-4454-907e-b13c442e68fd"
+            "designerId": "95c0ff2e-c37b-45a5-aa81-fcaf9bcc2a23"
         },
         {
             "type": "Ext.data.Field",
@@ -46,11 +46,13 @@
             },
             "codeClass": null,
             "userConfig": {
-                "mapping": "duty",
-                "name": "position"
+                "defaultValue": [
+                    "true"
+                ],
+                "name": "checked"
             },
             "name": "MyField4",
-            "designerId": "b05db5c9-30fb-4071-92c1-b20f35937c3e"
+            "designerId": "a95ef641-6d0d-4373-90de-98ed5da2cd83"
         },
         {
             "type": "Ext.data.Field",
@@ -60,10 +62,13 @@
             },
             "codeClass": null,
             "userConfig": {
-                "name": "personCode"
+                "defaultValue": [
+                    "true"
+                ],
+                "name": "expanded"
             },
             "name": "MyField16",
-            "designerId": "9908e24c-ad19-453f-808a-110d820336e8"
+            "designerId": "c58ad868-c50e-40a4-b8f3-1c2c423e4faf"
         }
     ]
 }

@@ -22,17 +22,18 @@ Ext.define('sion.salary.payroll.model.Person', {
 
     fields: [
         {
+            name: 'id'
+        },
+        {
             name: 'name'
         },
         {
-            name: 'dept'
+            defaultValue: true,
+            name: 'checked'
         },
         {
-            mapping: 'duty',
-            name: 'position'
-        },
-        {
-            name: 'personCode'
+            defaultValue: true,
+            name: 'expanded'
         }
     ]
 });

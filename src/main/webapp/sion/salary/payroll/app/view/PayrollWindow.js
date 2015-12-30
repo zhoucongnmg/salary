@@ -25,14 +25,12 @@ Ext.define('sion.salary.payroll.view.PayrollWindow', {
         'Ext.form.field.Date',
         'Ext.form.field.ComboBox',
         'Ext.form.field.Hidden',
-        'Ext.grid.Panel',
-        'Ext.grid.column.Column',
-        'Ext.selection.CheckboxModel'
+        'Ext.tree.Panel',
+        'Ext.tree.Column'
     ],
 
-    height: 454,
+    height: 430,
     width: 642,
-    layout: 'fit',
     title: 'My Window',
 
     initComponent: function() {
@@ -68,7 +66,7 @@ Ext.define('sion.salary.payroll.view.PayrollWindow', {
                     items: [
                         {
                             xtype: 'fieldset',
-                            height: 362,
+                            height: 100,
                             width: 605,
                             layout: 'column',
                             title: '薪资信息',
@@ -170,38 +168,29 @@ Ext.define('sion.salary.payroll.view.PayrollWindow', {
                                     xtype: 'hiddenfield',
                                     fieldLabel: 'Label',
                                     name: 'persons'
-                                },
-                                {
-                                    xtype: 'gridpanel',
-                                    columnWidth: 1,
-                                    height: 231,
-                                    width: 605,
-                                    store: 'PersonStore',
-                                    columns: [
-                                        {
-                                            xtype: 'gridcolumn',
-                                            dataIndex: 'name',
-                                            text: '姓名',
-                                            flex: 1
-                                        },
-                                        {
-                                            xtype: 'gridcolumn',
-                                            dataIndex: 'dept',
-                                            text: '部门',
-                                            flex: 0.6
-                                        },
-                                        {
-                                            xtype: 'gridcolumn',
-                                            dataIndex: 'position',
-                                            text: '职务',
-                                            flex: 1.7
-                                        }
-                                    ],
-                                    selModel: Ext.create('Ext.selection.CheckboxModel', {
-
-                                    })
                                 }
                             ]
+                        },
+                        {
+                            xtype: 'treepanel',
+                            height: 300,
+                            store: 'PersonStore',
+                            rootVisible: false,
+                            useArrows: true,
+                            columns: [
+                                {
+                                    xtype: 'treecolumn',
+                                    dataIndex: 'name',
+                                    text: '人员信息',
+                                    flex: 1
+                                }
+                            ],
+                            listeners: {
+                                checkchange: {
+                                    fn: me.onTreepanelCheckChange,
+                                    scope: me
+                                }
+                            }
                         }
                     ],
                     listeners: {
@@ -228,10 +217,10 @@ Ext.define('sion.salary.payroll.view.PayrollWindow', {
             form = me.down('form').getForm(),
             record = form.getRecord(),
             comboBox = me.down('combobox'),
-            itemGrid = me.down('gridpanel'),
-            selectedRows = itemGrid.getSelectionModel().getSelection(),
+            itemTree = me.down('treepanel'),
+            selectedRows = itemTree.getChecked(),
             itemMap = {},
-            itemStore = itemGrid.getStore();
+            itemStore = itemTree.getStore();
 
 
         if(!form.isValid()){
@@ -247,7 +236,9 @@ Ext.define('sion.salary.payroll.view.PayrollWindow', {
         form.updateRecord();
 
         Ext.each(selectedRows, function (item) {
-            itemMap[item.get('personCode')] = item.get('name');
+            if(item.isLeaf()){
+                itemMap[item.get('id')] = item.get('name');
+            }
         });
 
         record.set('persons',itemMap);
@@ -256,7 +247,6 @@ Ext.define('sion.salary.payroll.view.PayrollWindow', {
         record.save({
             success: function(response, opts){
                 record.commit();
-                itemStore.removeAll();
                 if(me.title=='新建工资条'){
                     payrollStore = me._link.payrollStore;
                     payrollStore.insert(payrollStore.getCount(),response.data);
@@ -274,7 +264,7 @@ Ext.define('sion.salary.payroll.view.PayrollWindow', {
     onComboboxSelect: function(combo, records, eOpts) {
         var me = this,
             record = {},
-        store = me.down('gridpanel').getStore();
+        store = me.down('treepanel').getStore();
 
         store.load({
            params:{
@@ -287,8 +277,8 @@ Ext.define('sion.salary.payroll.view.PayrollWindow', {
 
     onPayrollFormAfterRender: function(component, eOpts) {
         var me = this,
-            grid = me.down('gridpanel'),
-            store = grid.getStore(),
+            tree = me.down('treepanel'),
+            store = tree.getStore(),
             record = me._link.record;
 
         me.down('form').loadRecord(record);
@@ -300,16 +290,46 @@ Ext.define('sion.salary.payroll.view.PayrollWindow', {
                     persons:Ext.encode(record.get('persons'))
                 }
             });
-            grid.getSelectionModel().selectAll();
         }
 
     },
 
+    onTreepanelCheckChange: function(node, checked, eOpts) {
+        node.cascadeBy(function (n) { n.set('checked', checked); });
+
+        this.checkParent(node);
+    },
+
     onWindowBeforeClose: function(panel, eOpts) {
         var me = this,
-            store = me.down('gridpanel').getStore();
+            tree = me.down('treepanel'),
+            root = tree.getRootNode();
+        this.removeTree(root);
+    },
 
-        store.removeAll();
+    checkParent: function(node) {
+        node = node.parentNode;
+        if(!node) return;
+        var checkP=false;
+        node.cascadeBy(function (n)
+                       {
+                           if (n != node) {
+                               if (n.get('checked') == true) {
+                                   checkP = true;
+                               }
+                           }
+                       });
+        node.set('checked', checkP);
+        this.checkParent(node);
+
+    },
+
+    removeTree: function(node) {
+        if (!node) return;
+        while (node.hasChildNodes()) {
+            this.removeTree(node.firstChild);
+            node.removeChild(node.firstChild);
+        }
     }
 
 });

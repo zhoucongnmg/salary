@@ -30,8 +30,8 @@ Ext.application({
     ],
     stores: [
         'AccountStore',
-        'PersonStore',
-        'PayrollStore'
+        'PayrollStore',
+        'PersonStore'
     ],
     views: [
         'SelectPerson_win',
