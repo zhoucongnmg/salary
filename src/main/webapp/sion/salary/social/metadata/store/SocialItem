@@ -6,7 +6,7 @@
     },
     "codeClass": null,
     "userConfig": {
-        "autoLoad": false,
+        "autoLoad": true,
         "autoSync": null,
         "designer|userClassName": "SocialItem",
         "model": "SocialItem",

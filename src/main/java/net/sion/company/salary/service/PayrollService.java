@@ -48,4 +48,32 @@ public class PayrollService {
 		FileUtil.download(file, false, response);
 		return filePath;
 	}
+	public  String createExcel(List<Map<String, Object>> columns, List<Map<String, Object>> datas, HttpServletResponse response) throws IOException{
+		String serverPath = ctx.getResource("/").getFile().getPath();
+		List<List<Object>> list = new ArrayList<List<Object>>();
+		List<String> columnDataIndex = new ArrayList<String>();
+		List<Object> columnHeader = new ArrayList<Object>();
+		for(Map<String, Object> column : columns){
+			columnHeader.add(column.get("header").toString());
+			columnDataIndex.add(column.get("dataIndex").toString());
+		}
+		
+		for(Map<String, Object> data : datas){
+			List<Object> rowList = new ArrayList<Object>();
+			for(String column : columnDataIndex){
+				if(data.get(column) != null){
+					rowList.add(data.get(column).toString());
+				}else{
+					rowList.add("");
+				}
+			}
+			list.add(columnHeader);
+			list.add(rowList);
+			list.add(null);
+		}
+		String filePath = asposeUtil.createExcelSimple(list, "Sheet1", serverPath, "xls");
+		File file = new File(filePath);
+		FileUtil.download(file, false, response);
+		return filePath;
+	}
 }

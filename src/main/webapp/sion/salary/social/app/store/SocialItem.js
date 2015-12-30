@@ -27,7 +27,7 @@ Ext.define('sion.salary.social.store.SocialItem', {
         var me = this;
         cfg = cfg || {};
         me.callParent([Ext.apply({
-            autoLoad: false,
+            autoLoad: true,
             model: 'sion.salary.social.model.SocialItem',
             storeId: 'SocialItem',
             proxy: {
