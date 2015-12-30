@@ -7,6 +7,7 @@ import net.sion.boot.mongo.template.DynamicMongoTemplate;
 import net.sion.company.salary.domain.SalaryItem;
 import net.sion.company.salary.domain.SalaryItem.SalaryItemType;
 import net.sion.company.salary.domain.SystemSalaryItemEnum;
+import net.sion.company.salary.dynamicrepository.DynamicSalaryItemRepository;
 import net.sion.core.admin.domain.Company;
 import net.sion.core.app.domain.App;
 import net.sion.core.app.domain.AppEnum;
@@ -19,7 +20,7 @@ import org.springframework.stereotype.Component;
 public class SystemSalaryItemRegister extends AbstractAppInstallListener{
 	
 	@Autowired
-	DynamicMongoTemplate dmt;
+	DynamicSalaryItemRepository dsir;
 	
 	@Override
 	public String listenTo() {
@@ -34,7 +35,7 @@ public class SystemSalaryItemRegister extends AbstractAppInstallListener{
 			SalaryItem salaryItem =  new SalaryItem(item.getId(),item.getName(),SalaryItemType.System);
 			salaryItems.add(salaryItem);
 		}
-		dmt.save(salaryItems, "SalaryItem");
+		dsir.save(salaryItems);
 	}
 
 	@Override
