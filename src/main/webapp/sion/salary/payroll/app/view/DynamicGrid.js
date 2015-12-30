@@ -301,19 +301,19 @@ Ext.define('sion.salary.payroll.view.DynamicGrid', {
             store = grid.getStore(),
             data = [];
 
-        store.each(function(record,index){
-           record.set('payrollId',id);
-        });
+        // store.each(function(record,index){
+        //    record.set('payrollId',id);
+        // });
 
-        store.sync({
-            success: function(response, options){
-                Ext.Msg.alert("提示", "保存工资条成功");
+        // store.sync({
+        //     success: function(response, options){
+        //         Ext.Msg.alert("提示", "保存工资条成功");
 
-            },failure: function(response, options){
-                Ext.Msg.alert("提示", "操作失败");
-            }
-        });
-
+        //     },failure: function(response, options){
+        //         Ext.Msg.alert("提示", "操作失败");
+        //     }
+        // });
+        window.location.href = 'salary/payroll/exportItemList?id=' + id;
     },
 
     onButtonClick11: function(button, e, eOpts) {
@@ -326,18 +326,19 @@ Ext.define('sion.salary.payroll.view.DynamicGrid', {
             store = grid.getStore(),
             data = [];
 
-        store.each(function(record,index){
-           record.set('payrollId',id);
-        });
+        // store.each(function(record,index){
+        //    record.set('payrollId',id);
+        // });
 
-        store.sync({
-            success: function(response, options){
-                Ext.Msg.alert("提示", "保存工资条成功");
+        // store.sync({
+        //     success: function(response, options){
+        //         Ext.Msg.alert("提示", "保存工资条成功");
 
-            },failure: function(response, options){
-                Ext.Msg.alert("提示", "操作失败");
-            }
-        });
+        //     },failure: function(response, options){
+        //         Ext.Msg.alert("提示", "操作失败");
+        //     }
+        // });
+        window.location.href = 'salary/payroll/createPayrollExcel?id=' + id;
 
     },
 

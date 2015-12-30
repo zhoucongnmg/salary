@@ -71,10 +71,10 @@ Ext.define('sion.salary.social.view.SocialAccountItemEdit', {
                                 {
                                     xtype: 'combobox',
                                     flex: 1,
-                                    itemId: 'socialItemName',
+                                    itemId: 'socialItemId',
                                     fieldLabel: '名称',
                                     labelWidth: 60,
-                                    name: 'socialItemName',
+                                    name: 'socialItemId',
                                     allowBlank: false,
                                     editable: false,
                                     displayField: 'name',
@@ -163,7 +163,6 @@ Ext.define('sion.salary.social.view.SocialAccountItemEdit', {
 
     onButtonClick: function(button, e, eOpts) {
         var me = this,
-            //     opener = me._opener,
             namespace = me.getNamespace(),
             uuid = Ext.create('Ext.data.UuidGenerator'),
             id = uuid.generate(),
@@ -172,33 +171,26 @@ Ext.define('sion.salary.social.view.SocialAccountItemEdit', {
 
         record = form.getRecord();
         form.updateRecord(record);
-        if(!me.down('#socialItemName').isValid() || !me.down('#cardinality').isValid() ||
+        if(!me.down('#socialItemId').isValid() || !me.down('#cardinality').isValid() ||
            !me.down('#companyPaymentType').isValid() || !me.down('#personalPaymentType').isValid() ||
            !me.down('#companyPaymentValue').isValid()|| !me.down('#personalPaymentValue').isValid()){
             Ext.Msg.alert("提示", "信息不完整，请继续填写！");
             return false;
         }
-        record.set('socialItemName', me.down('#socialItemName').getRawValue());
-        record.set('socialItemId', me.down('#socialItemName').getValue());
+        record.set('socialItemName', me.down('#socialItemId').getRawValue());
+        record.set('socialItemId', me.down('#socialItemId').getValue());
+        if(record.get('companyPaymentType') == 'Percent'){
+            record.set('companyPaymentValue',Number(record.get('companyPaymentValue')) * 0.01);
+        }
+        if(record.get('personalPaymentType') == 'Percent'){
+            record.set('personalPaymentValue',Number((Number(record.get('personalPaymentValue')) * 0.01)).toFixed(2));
+        }
+
         if(record.get('id') === ''){
             record.set('id', id);
             store.add(record);
         }
-        // opener.sum();
         me.close();
-        // record.save({
-        //     url: 'salary/socialitem/create',
-        //     success: function(response, opts){
-        //         Ext.Msg.alert("提示", "保存成功");
-        //         //         var leaveStore = Ext.StoreManager.lookup("OverTimeApply");//更新数据从前台取
-        //         store.load();
-        //         me.close();
-        //     },
-        //     failure: kfunction(){
-        //         Ext.Msg.alert("提示", "保存失败");
-        //         me.close();
-        //     }
-        // });
     },
 
     onWindowBeforeRender: function(component, eOpts) {
@@ -209,6 +201,12 @@ Ext.define('sion.salary.social.view.SocialAccountItemEdit', {
 
         if(item){
             form.loadRecord(item);
+            if(item.get('companyPaymentType') == 'Percent'){
+                me.down('#companyPaymentValue').setValue(parseFloat(item.get('companyPaymentValue'))  * 100 + '%');
+            }
+            if(item.get('personalPaymentType') == 'Percent'){
+                me.down('#personalPaymentValue').setValue(parseFloat(item.get('personalPaymentValue'))  * 100 + '%');
+            }
         }else{
             form.loadRecord(Ext.create(namespace + '.model.SocialAccountItem', {
                 id: '',

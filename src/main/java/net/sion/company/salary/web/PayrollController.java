@@ -1,5 +1,6 @@
 package net.sion.company.salary.web;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -10,6 +11,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.regex.Pattern;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import net.sion.boot.config.jackson.CustomJackson;
@@ -28,6 +30,7 @@ import net.sion.company.salary.domain.SocialItem.SocialItemType;
 import net.sion.company.salary.domain.SystemSalaryItemEnum;
 import net.sion.company.salary.event.SystemSalaryItemPublisher;
 import net.sion.company.salary.service.FormulaService;
+import net.sion.company.salary.service.PayrollService;
 import net.sion.company.salary.service.SocialService;
 import net.sion.company.salary.sessionrepository.AccountRepository;
 import net.sion.company.salary.sessionrepository.PayrollItemRepository;
@@ -89,6 +92,7 @@ public class PayrollController {
 	SocialItemRepository socialItemRepository;
 	@Autowired
 	SystemSalaryItemPublisher publisher;
+	@Autowired PayrollService payrollService;
 
 	public List<Map<String, Object>> fillSimpleFields(List<Map<String, Object>> fields, Map<String,String> opts) {
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -370,7 +374,45 @@ public class PayrollController {
 		m.put("data", data);
 		return new Response(m);
 	}
-
+	/**
+	 * @author lil 导出工资条
+	 * @throws IOException 
+	 */
+	@RequestMapping(value = "exportItemList")
+	public void exportItemList(HttpServletResponse response, @RequestParam String id) throws IOException {
+		createExcel("export", id, response);
+	}
+	/**
+	 * @author lil 生成工资条
+	 * @throws IOException 
+	 */
+	@RequestMapping(value = "createPayrollExcel")
+	public void createPayrollExcel(HttpServletResponse response, @RequestParam String id) throws IOException {
+		createExcel("create", id, response);
+	}
+	private void createExcel(String method, String id, HttpServletResponse response) throws IOException{
+//		Map<String,String> opts = (Map<String,String>)param.get("opts");
+		Map<String,String> opts = null;
+		Payroll payroll = payrollRepository.findOne(id);
+		Account account = accountRepository.findOne(payroll.getAccountId());
+		List<AccountItem> items = account.getAccountItems();
+		List<Map<String, Object>> fields = new ArrayList<Map<String, Object>>();
+		List<Map<String, Object>> columns = new ArrayList<Map<String, Object>>();
+		List<Map<String, Object>> data = new ArrayList<Map<String, Object>>();
+		fillSimpleFields(fields, opts);
+		fillSimpleColumns(columns, opts);
+		for (AccountItem item : items) {
+			fields.add(getFields(item));
+			columns.add(getColumns(item));
+		}
+		List<PayrollItem> payrollItemList = payrollItemRepository.findByPayrollId(id);
+		data = fillData(payroll.getPersons(), payrollItemList, account);
+		if("create".equals(method)){
+			payrollService.createExcel(columns, data, response);
+		}else if("export".equals(method)){
+			payrollService.exportExcel(columns, data, response);
+		}
+	}
 	private Map<String, Object> getFields(AccountItem item) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("name", item.getSalaryItemId());

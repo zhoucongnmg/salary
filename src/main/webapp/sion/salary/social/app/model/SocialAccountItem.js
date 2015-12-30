@@ -31,16 +31,28 @@ Ext.define('sion.salary.social.model.SocialAccountItem', {
             name: 'cardinality'
         },
         {
-            name: 'companyPaymentValue'
-        },
-        {
-            name: 'personalPaymentValue'
-        },
-        {
             name: 'companyPaymentType'
         },
         {
             name: 'personalPaymentType'
+        },
+        {
+            convert: function(v, rec) {
+                // if(rec.get('companyPaymentType') == 'Percent'){
+                //     v = v * 100;
+                // }
+                return v;
+            },
+            name: 'companyPaymentValue'
+        },
+        {
+            convert: function(v, rec) {
+                // if(rec.get('personalPaymentType') == 'Percent'){
+                //     v = v * 100;
+                // }
+                return v;
+            },
+            name: 'personalPaymentValue'
         },
         {
             name: 'id'

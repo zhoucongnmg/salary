@@ -109,27 +109,15 @@ public class SocialAccountController {
 		for(SocialAccountItem socialAccountItem : account.getSocialAccountItems()){
 			String socialItemId = socialAccountItem.getSocialItemId();
 			SocialItem socialItem = socialItemRepository.findOne(socialItemId);
-			double companyPaymentFinalValue = 0;	//单位缴费(用于工资条)
-			double personalPaymentFinalValue = 0;	//个人缴费(用于工资条)
+			socialAccountItem.generateDecimalFinalValue(socialItem.getCarryType(), socialItem.getPrecision());
 			if(socialItem.getItemType() == SocialItemType.SocialSecurity){
-				//社保
-				Map<String, Double> map = getFinalValue(socialAccountItem);
-				companyPaymentFinalValue = decimal(socialItem.getCarryType(), socialItem.getPrecision(), map.get("company").floatValue());
-				personalPaymentFinalValue = decimal(socialItem.getCarryType(), socialItem.getPrecision(), map.get("person").floatValue());
-				
-				socialCompanySum += companyPaymentFinalValue;
-				socialPersonSum += personalPaymentFinalValue;
-			}else{
+				socialCompanySum += socialAccountItem.getCompanyPaymentFinalValue();
+				socialPersonSum += socialAccountItem.getPersonalPaymentFinalValue();
+			}else if (socialItem.getItemType() == SocialItemType.AccumulationFunds){
 				//公积金
-				Map<String, Double> map = getFinalValue(socialAccountItem);
-				companyPaymentFinalValue = decimal(socialItem.getCarryType(), socialItem.getPrecision(), map.get("company").floatValue());
-				personalPaymentFinalValue = decimal(socialItem.getCarryType(), socialItem.getPrecision(), map.get("person").floatValue());
-				
-				accumulationCompanySum += companyPaymentFinalValue;
-				accumulationPersonSum += personalPaymentFinalValue;
+				accumulationCompanySum += socialAccountItem.getCompanyPaymentFinalValue();
+				accumulationPersonSum += socialAccountItem.getPersonalPaymentFinalValue();
 			}
-			socialAccountItem.setCompanyPaymentFinalValue(companyPaymentFinalValue);
-			socialAccountItem.setPersonalPaymentFinalValue(personalPaymentFinalValue);
 		}
 		account.setAccumulationCompanySum(accumulationCompanySum);
 		account.setAccumulationPersonSum(accumulationPersonSum);
@@ -137,39 +125,7 @@ public class SocialAccountController {
 		account.setSocialPersonSum(socialPersonSum);
 		return account;
 	}
-	private Map<String, Double> getFinalValue(SocialAccountItem socialAccountItem){
-		Map<String, Double> map = new HashMap();
-		double cardinality = socialAccountItem.getCardinality();
-		//公司
-		if(socialAccountItem.getCompanyPaymentType() == PaymentType.Percent){
-			//百分比
-			map.put("company", Double.valueOf(cardinality * socialAccountItem.getCompanyPaymentValue() * 0.01));	
-		}else{
-			//定额
-			map.put("company", Double.valueOf(socialAccountItem.getCompanyPaymentValue()));
-		}
-		//个人
-		if(socialAccountItem.getPersonalPaymentType() == PaymentType.Percent){
-			map.put("person", Double.valueOf(cardinality * socialAccountItem.getPersonalPaymentValue() * 0.01));
-		}else{
-			map.put("person", Double.valueOf(socialAccountItem.getPersonalPaymentValue()));
-		}
-		return map;
-	}
-	private double decimal(DecimalCarryType type, int precision, double value){
-		if(type == DecimalCarryType.Round){
-			//四舍五入
-			BigDecimal b = new BigDecimal(value);  
-			value = b.setScale(precision, BigDecimal.ROUND_HALF_UP).doubleValue();  
-		}else if(type == DecimalCarryType.Isopsephy){
-			//数值进位
-			value = Math.ceil(value);
-		}else{
-			//数值舍位
-			value = Math.floor(value);
-		}
-		return value;
-	}
+	
 	@RequestMapping(value = "loadAll")
 	public @ResponseBody Response loadAll(){
 		List<SocialAccount> list = socialAccountRepository.findAll();

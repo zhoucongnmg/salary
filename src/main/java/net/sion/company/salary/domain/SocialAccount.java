@@ -17,9 +17,17 @@ import org.springframework.roo.addon.layers.repository.mongo.RooMongoEntity;
 @RooMongoEntity
 @Document(collection="Company_Salary_SocialAccount")
 public class SocialAccount {
-	
 	@Id
 	String id;
+	String name;	//套账名称
+	String date;	//套账创建日期
+	String createUserId;//
+	String createUserName;
+	List<SocialAccountItem> socialAccountItems;	//社保套账明细项目
+	double accumulationCompanySum;//单位缴费公积金总额
+	double accumulationPersonSum;//个人缴费公积金总额
+	double socialCompanySum;//单位缴费社保总额
+	double socialPersonSum;//个人缴费社保总额
 	
 	public String getId() {
 		return id;
@@ -57,19 +65,6 @@ public class SocialAccount {
 	public void setSocialAccountItems(List<SocialAccountItem> socialAccountItems) {
 		this.socialAccountItems = socialAccountItems;
 	}
-	
-	
-	String name;	//套账名称
-	
-	String date;	//套账创建日期
-	String createUserId;//
-	String createUserName;
-	List<SocialAccountItem> socialAccountItems;	//社保套账明细项目
-	double accumulationCompanySum;//单位缴费公积金总额
-	double accumulationPersonSum;//个人缴费公积金总额
-	double socialCompanySum;//单位缴费社保总额
-	double socialPersonSum;//个人缴费社保总额
-	
 	public double getAccumulationCompanySum() {
 		return accumulationCompanySum;
 	}
