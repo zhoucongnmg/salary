@@ -607,6 +607,7 @@
                                             "",
                                             "                salaryItemStore.each(function(salaryItem){",
                                             "                    salaryItem.set('rankValue',item.salaryItemValues[salaryItem.data.salaryItemId]);",
+                                            "                    salaryItem.set('choose','Level');",
                                             "                });",
                                             "",
                                             "            }",
@@ -1181,7 +1182,19 @@
                                         "text": "基数"
                                     },
                                     "name": "MyColumn13",
-                                    "designerId": "5a5f74cc-092a-42c4-80e4-fbc71e4f6302"
+                                    "designerId": "5a5f74cc-092a-42c4-80e4-fbc71e4f6302",
+                                    "cn": [
+                                        {
+                                            "type": "Ext.form.field.Number",
+                                            "reference": {
+                                                "name": "editor",
+                                                "type": "object"
+                                            },
+                                            "codeClass": null,
+                                            "name": "MyNumberField7",
+                                            "designerId": "cbb881d7-039f-4b02-ba95-ce8e4ad1661d"
+                                        }
+                                    ]
                                 },
                                 {
                                     "type": "Ext.grid.column.Column",
@@ -1636,7 +1649,9 @@
                     "        var items=account.data.accountItems;",
                     "        Ext.Array.each(items,function(item){",
                     "            if(item.type==='Input'){",
-                    "                gridStore.add(Ext.create(namespace+\".model.PersonSalaryItem\",item));",
+                    "                var salaryItem=Ext.create(namespace+\".model.PersonSalaryItem\",item);",
+                    "                salaryItem.set('choose','Solution');",
+                    "                gridStore.add(salaryItem);",
                     "            }",
                     "        });",
                     "    }",

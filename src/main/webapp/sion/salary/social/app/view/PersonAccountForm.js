@@ -477,7 +477,10 @@ Ext.define('sion.salary.social.view.PersonAccountForm', {
                                             xtype: 'gridcolumn',
                                             dataIndex: 'cardinality',
                                             text: '基数',
-                                            flex: 0.6
+                                            flex: 0.6,
+                                            editor: {
+                                                xtype: 'numberfield'
+                                            }
                                         },
                                         {
                                             xtype: 'gridcolumn',
@@ -687,6 +690,7 @@ Ext.define('sion.salary.social.view.PersonAccountForm', {
 
                         salaryItemStore.each(function(salaryItem){
                             salaryItem.set('rankValue',item.salaryItemValues[salaryItem.data.salaryItemId]);
+                            salaryItem.set('choose','Level');
                         });
 
                     }
@@ -846,7 +850,9 @@ Ext.define('sion.salary.social.view.PersonAccountForm', {
                 var items=account.data.accountItems;
                 Ext.Array.each(items,function(item){
                     if(item.type==='Input'){
-                        gridStore.add(Ext.create(namespace+".model.PersonSalaryItem",item));
+                        var salaryItem=Ext.create(namespace+".model.PersonSalaryItem",item);
+                        salaryItem.set('choose','Solution');
+                        gridStore.add(salaryItem);
                     }
                 });
             }

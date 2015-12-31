@@ -424,14 +424,17 @@ Ext.define('sion.salary.level.view.Level_win', {
             myCheckboxItems = [];
         var keys=me._record?Object.keys(me._record.data.salaryItemNames):[];
         Ext.Array.each(me._salaryItems,function(salary){
-            var checked=false;
-            Ext.Array.each(keys,function(k){if(k===salary.id)checked=true;});
+            if(salary.type==="Input"){
+                var checked=false;
+                Ext.Array.each(keys,function(k){if(k===salary.id)checked=true;});
 
-            myCheckboxItems.push({
-                boxLabel : salary.name,
-                name : salary.id,
-                checked:checked
-            });
+                myCheckboxItems.push({
+                    boxLabel : salary.name,
+                    name : salary.id,
+                    checked:checked
+                });
+            }
+
         });
 
         var myCheckboxGroup = new Ext.form.CheckboxGroup({

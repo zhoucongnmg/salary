@@ -689,7 +689,6 @@
                         },
                         {
                             "id": "5fa41cc2-434a-4402-80ec-60bd34c359a6",
-                            "expanded": false,
                             "cn": [
                                 {
                                     "id": "f5c180c3-8fdb-4805-bcc1-a5786c7ba1f1"
@@ -749,11 +748,15 @@
                                             "id": "47c7ed23-b867-4581-aed3-0d93568b4bc1"
                                         },
                                         {
-                                            "id": "5a5f74cc-092a-42c4-80e4-fbc71e4f6302"
+                                            "id": "5a5f74cc-092a-42c4-80e4-fbc71e4f6302",
+                                            "cn": [
+                                                {
+                                                    "id": "cbb881d7-039f-4b02-ba95-ce8e4ad1661d"
+                                                }
+                                            ]
                                         },
                                         {
                                             "id": "80fb5444-ccc6-487d-964e-393cc1b50b72",
-                                            "expanded": false,
                                             "cn": [
                                                 {
                                                     "id": "a66f07f0-2e90-48d0-8663-7921822bd4a0"
@@ -896,6 +899,7 @@
                         },
                         {
                             "id": "0904095f-3687-4cf8-a878-822ad4ea11c5",
+                            "expanded": false,
                             "cn": [
                                 {
                                     "id": "4ea482d9-0b16-4673-a2a2-23b933f213fe"
@@ -904,6 +908,7 @@
                         },
                         {
                             "id": "5012490f-f347-4c4e-b727-e4777bc4a664",
+                            "expanded": false,
                             "cn": [
                                 {
                                     "id": "88acb208-5b82-467c-b1a9-e5668c2ba14e"
@@ -1726,13 +1731,8 @@
         "topInstance": null
     },
     "inspectorState": {
-<<<<<<< HEAD
         "topInstance": "ab191b14-fffd-4c4d-be41-8dbf0d999859",
-        "selectedInstance": "32248814-28a2-421f-91f3-0944a8bb356a"
-=======
-        "topInstance": "67f56a2a-24ab-4092-8e30-7f91a7e3560a",
-        "selectedInstance": "4db510df-8e16-4a3c-8bae-659e963f4551"
->>>>>>> branch 'develop' of http://mysionccsvn.f3322.org:10080/enterprise/salary.git
+        "selectedInstance": "5a5f74cc-092a-42c4-80e4-fbc71e4f6302"
     },
     "editMode": "code",
     "userSettings": {
