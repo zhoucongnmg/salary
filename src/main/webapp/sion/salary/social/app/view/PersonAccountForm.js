@@ -240,7 +240,13 @@ Ext.define('sion.salary.social.view.PersonAccountForm', {
                                     displayField: 'rank',
                                     queryMode: 'local',
                                     store: 'RankStore',
-                                    valueField: 'rank'
+                                    valueField: 'rank',
+                                    listeners: {
+                                        change: {
+                                            fn: me.onRankChange,
+                                            scope: me
+                                        }
+                                    }
                                 },
                                 {
                                     xtype: 'tbspacer',
@@ -272,17 +278,41 @@ Ext.define('sion.salary.social.view.PersonAccountForm', {
                                     columns: [
                                         {
                                             xtype: 'gridcolumn',
-                                            width: '40%',
+                                            width: '30%',
                                             dataIndex: 'name',
                                             text: '工资项目'
                                         },
                                         {
                                             xtype: 'gridcolumn',
-                                            width: '58%',
+                                            width: '15%',
                                             dataIndex: 'value',
-                                            text: '值',
+                                            text: '方案值'
+                                        },
+                                        {
+                                            xtype: 'gridcolumn',
+                                            width: '15%',
+                                            dataIndex: 'rankValue',
+                                            text: '层级值'
+                                        },
+                                        {
+                                            xtype: 'gridcolumn',
+                                            width: '15%',
+                                            dataIndex: 'personValue',
+                                            text: '个人值',
                                             editor: {
                                                 xtype: 'numberfield'
+                                            }
+                                        },
+                                        {
+                                            xtype: 'gridcolumn',
+                                            width: '20%',
+                                            dataIndex: 'choose',
+                                            text: '取值设置',
+                                            editor: {
+                                                xtype: 'combobox',
+                                                displayField: 'name',
+                                                store: 'ChooseStore',
+                                                valueField: 'value'
                                             }
                                         }
                                     ],
@@ -574,16 +604,20 @@ Ext.define('sion.salary.social.view.PersonAccountForm', {
             model=Ext.create(namespace+".model.PersonAccount",salaryForm.getValues());
         }
 
+        //薪资项目个人值设置、取值设置
+        var accountItemsSetting={};
         salaryItemStore.each(function(item){
-            accountItems.push({accountItemId:item.data.salaryItemId,accountItemName:item.data.name,value:item.data.value});
+            accountItems.push({accountItemId:item.data.salaryItemId,accountItemName:item.data.name,value:item.data.personValue});
+            accountItemsSetting[item.data.salaryItemId]=item.data.choose;
         });
-
+        //保险项目设置
         insuredItemStore.each(function(item){
             insuredItems.push(item.data);
         });
 
 
         model.set("accountItems",accountItems);
+        model.set('accountItemsSetting',accountItemsSetting);
         model.set('insuredItems',insuredItems);
         insuredPerson=Ext.create(namespace+".model.InsuredPerson",socialForm.getValues());
         if(!insuredPerson.data.status||insuredPerson.data.status.length===0){
@@ -640,6 +674,28 @@ Ext.define('sion.salary.social.view.PersonAccountForm', {
 
     },
 
+    onRankChange: function(field, newValue, oldValue, eOpts) {
+        var me=this,
+            levelStore=me.down('#level').getStore(),
+            levelValue=me.down('#level').getValue(),
+            salaryItemStore=me.down('#SalaryItemGrid').getStore();
+        levelStore.each(function(level){
+            if(level.data.id===levelValue){
+                var levelItems=level.data.levelItems;
+                Ext.Array.each(levelItems,function(item){
+                    if(item.rank===newValue){
+
+                        salaryItemStore.each(function(salaryItem){
+                            salaryItem.set('rankValue',item.salaryItemValues[salaryItem.data.salaryItemId]);
+                        });
+
+                    }
+                });
+            }
+        });
+
+    },
+
     onWindowAfterRender: function(component, eOpts) {
         var me=this,
             namespace=me.getNamespace(),
@@ -663,8 +719,13 @@ Ext.define('sion.salary.social.view.PersonAccountForm', {
             salaryForm.getForm().setValues(me._record.data);
             socialForm.getForm().setValues(me._record.data.insuredPerson);
             salaryItemStore.removeAll();
+            //回显
             Ext.Array.each(me._record.data.accountItems,function(item){
-                salaryItemStore.add(Ext.create(namespace+".model.PersonSalaryItem",{salaryItemId:item.accountItemId,name:item.accountItemName,value:item.value}));
+                salaryItemStore.add(Ext.create(namespace+".model.PersonSalaryItem",
+                                               {salaryItemId:item.accountItemId,
+                                                name:item.accountItemName,
+                                                personValue:item.value,
+                                                choose:me._record.data.accountItemsSetting[item.accountItemId]}));
             });
             insuredItemStore.removeAll();
             Ext.Array.each(me._record.data.insuredItems,function(item){
@@ -674,6 +735,33 @@ Ext.define('sion.salary.social.view.PersonAccountForm', {
             salaryForm.down('#personCode').setReadOnly(true);
             salaryForm.down('#name').setReadOnly(true);
             salaryForm.down('#search').disabled=true;
+
+            var echotask = new Ext.util.DelayedTask(function(){
+
+                accountId.getStore().each(function(account){
+                    if(account.data.id===me._record.data.accountId){
+                        var items=account.data.accountItems;
+                        me.fillSalaryItemValue(salaryItemStore,items);
+                    }
+                });
+
+                level.getStore().each(function(level){
+
+                    if(level.data.id===me._record.data.level){
+                        var levelItems=level.data.levelItems;
+                        Ext.Array.each(levelItems,function(item){
+                            if(item.rank===me._record.data.rank){
+
+                                me.fillRankValue(salaryItemStore,item.salaryItemValues);
+
+                            }
+                        });
+                    }
+                });
+
+            });
+
+            echotask.delay(500);
         }
 
         var task = new Ext.util.DelayedTask(function(){
@@ -757,9 +845,33 @@ Ext.define('sion.salary.social.view.PersonAccountForm', {
             if(account.data.id===newValue){
                 var items=account.data.accountItems;
                 Ext.Array.each(items,function(item){
-                    gridStore.add(Ext.create(namespace+".model.PersonSalaryItem",item));
+                    if(item.type==='Input'){
+                        gridStore.add(Ext.create(namespace+".model.PersonSalaryItem",item));
+                    }
                 });
             }
+        });
+    },
+
+    fillSalaryItemValue: function(gridStore, items) {
+        gridStore.each(function(salaryItem){
+            Ext.Array.each(items,function(item){
+                if(salaryItem.data.salaryItemId===item.salaryItemId){
+                    salaryItem.set('value',item.value);
+                }
+            });
+
+
+        });
+    },
+
+    fillRankValue: function(gridStore, items) {
+        gridStore.each(function(salaryItem){
+            Ext.Array.each(items,function(item){
+                salaryItem.set('rankValue',item[salaryItem.data.salaryItemId]);
+            });
+
+
         });
     }
 

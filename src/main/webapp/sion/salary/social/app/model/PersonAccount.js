@@ -71,6 +71,9 @@ Ext.define('sion.salary.social.model.PersonAccount', {
         },
         {
             name: 'personId'
+        },
+        {
+            name: 'accountItemsSetting'
         }
     ]
 });

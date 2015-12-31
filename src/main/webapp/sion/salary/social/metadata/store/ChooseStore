@@ -1,0 +1,45 @@
+{
+    "type": "Ext.data.Store",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "data": [
+            "[{value:\"Solution\",name:\"方案值\"},{value:\"Level\",name:\"层级值\"},{value:\"Person\",name:\"个人值\"}]"
+        ],
+        "designer|userClassName": "ChooseStore",
+        "storeId": "ChooseStore"
+    },
+    "name": "MyStore",
+    "designerId": "c653e81d-8959-494a-970a-2a2b4f749271",
+    "cn": [
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "name"
+            },
+            "name": "MyField79",
+            "designerId": "4fd5a7f5-0f8c-47a6-9473-1a3b132e9a9f"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "value"
+            },
+            "name": "MyField80",
+            "designerId": "5fdd40d5-740c-4ca0-b22c-06c8052718b4"
+        }
+    ]
+}

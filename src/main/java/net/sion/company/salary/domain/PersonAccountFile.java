@@ -4,6 +4,7 @@
 package net.sion.company.salary.domain;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -32,6 +33,13 @@ public class PersonAccountFile {
 	private List<PersonAccountItem> accountItems;//工资项目设置
 	private InsuredPerson insuredPerson;//社保信息
 	private List<SocialAccountItem> insuredItems;
+	private Map<String,ItemSetting> accountItemsSetting;//工资项目取值设置
+	
+	public enum ItemSetting{
+		Solution,
+		Level,
+		Person
+	}
 	
 	public String getId() {
 		return id;
@@ -135,6 +143,12 @@ public class PersonAccountFile {
 	}
 	public void setInsuredItems(List<SocialAccountItem> insuredItems) {
 		this.insuredItems = insuredItems;
+	}
+	public Map<String,ItemSetting> getAccountItemsSetting() {
+		return accountItemsSetting;
+	}
+	public void setAccountItemsSetting(Map<String,ItemSetting> accountItemsSetting) {
+		this.accountItemsSetting = accountItemsSetting;
 	}
 
 }

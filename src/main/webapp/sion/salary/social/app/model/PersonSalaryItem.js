@@ -29,6 +29,15 @@ Ext.define('sion.salary.social.model.PersonSalaryItem', {
         },
         {
             name: 'value'
+        },
+        {
+            name: 'rankValue'
+        },
+        {
+            name: 'personValue'
+        },
+        {
+            name: 'choose'
         }
     ]
 });

@@ -49,6 +49,45 @@
             },
             "name": "MyField63",
             "designerId": "8406c0d3-8909-4345-bdad-4813bf4658c6"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "rankValue"
+            },
+            "name": "MyField75",
+            "designerId": "35d1754d-e916-4fec-a788-485f5866e693"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "personValue"
+            },
+            "name": "MyField76",
+            "designerId": "dfafe2fd-0542-46a8-9244-b52071d07ae9"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "choose"
+            },
+            "name": "MyField77",
+            "designerId": "f53fa403-ec89-4dd3-9b34-25e6e8d6f1dc"
         }
     ]
 }
