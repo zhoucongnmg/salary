@@ -4,10 +4,12 @@
 package net.sion.company.salary.domain;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
  * @author zhangligang 薪资管理：薪资项目
  */
+@Document(collection="Company_Salary_SalaryItem")
 public class SalaryItem {
 	@Id
 	String id;

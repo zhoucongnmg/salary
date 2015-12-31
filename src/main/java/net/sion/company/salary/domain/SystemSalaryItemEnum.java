@@ -10,7 +10,7 @@ public enum SystemSalaryItemEnum {
 	),
 	
 	PersonalAccumulationFundsTotal (
-			new SalaryItem("PersonalSocialTotal","个人公积金合计",SalaryItemType.System)
+			new SalaryItem("PersonalAccumulationFundsTotal","个人公积金合计",SalaryItemType.System)
 	),
 	
 	CompanySocialTotal (
@@ -18,7 +18,7 @@ public enum SystemSalaryItemEnum {
 	),
 	
 	CompanyAccumulationFundsTotal (
-			new SalaryItem("CompanySocialTotal","公司公积金合计",SalaryItemType.System)
+			new SalaryItem("CompanyAccumulationFundsTotal","公司公积金合计",SalaryItemType.System)
 	);
 	
 	SystemSalaryItemEnum(){

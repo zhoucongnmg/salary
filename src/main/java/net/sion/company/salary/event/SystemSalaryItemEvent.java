@@ -25,6 +25,8 @@ public class SystemSalaryItemEvent extends ApplicationEvent{
 	
 	Date date;
 	
+			
+	
 	public SystemSalaryItemEvent(Object source,SystemSalaryItemEnum itemType) {
 		super(source);
 		this.itemType = itemType;
@@ -33,6 +35,14 @@ public class SystemSalaryItemEvent extends ApplicationEvent{
 	public SystemSalaryItemEvent(Object source, SystemSalaryItemEnum itemType, String userId) {
 		this(source,itemType);
 		this.userId = userId;
+	}
+	
+	public SystemSalaryItemEvent(Object source, SystemSalaryItemEnum itemType,
+			String personId, String deptId) {
+		super(source);
+		this.itemType = itemType;
+		this.personId = personId;
+		this.deptId = deptId;
 	}
 	
 	

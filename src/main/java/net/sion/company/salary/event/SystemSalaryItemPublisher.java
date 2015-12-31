@@ -20,8 +20,18 @@ public class SystemSalaryItemPublisher implements ApplicationEventPublisherAware
 		publisher = applicationEventPublisher;
 	}
 	
-	public void getValue(SystemSalaryItemEvent e) {
-		
+	public void getValue(SystemSalaryItemEnum itemType, String personId) {
+		SystemSalaryItemEvent e = new SystemSalaryItemEvent(this,itemType,personId);
+		publisher.publishEvent(e);
+	}
+	
+	public void getValue(SystemSalaryItemEnum itemType, String personId, String deptId) {
+		SystemSalaryItemEvent e = new SystemSalaryItemEvent(this,itemType,personId,deptId);
+		publisher.publishEvent(e);
+	}
+	
+	public void getValue(SystemSalaryItemEnum itemType, String userId, String personId, String companyId, String deptId, Date date) {
+		SystemSalaryItemEvent e = new SystemSalaryItemEvent(this,itemType,userId,personId,companyId,deptId,date);
 		publisher.publishEvent(e);
 	}
 	

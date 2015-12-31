@@ -7,8 +7,7 @@
     "codeClass": null,
     "userConfig": {
         "designer|userClassName": "PayrollWindow",
-        "height": 454,
-        "layout": "fit",
+        "height": 430,
         "title": "My Window",
         "width": 642
     },
@@ -73,10 +72,10 @@
                                             "    form = me.down('form').getForm(),",
                                             "    record = form.getRecord(),",
                                             "    comboBox = me.down('combobox'),",
-                                            "    itemGrid = me.down('gridpanel'),",
-                                            "    selectedRows = itemGrid.getSelectionModel().getSelection(),",
+                                            "    itemTree = me.down('treepanel'),",
+                                            "    selectedRows = itemTree.getChecked(),",
                                             "    itemMap = {},",
-                                            "    itemStore = itemGrid.getStore();",
+                                            "    itemStore = itemTree.getStore();",
                                             "",
                                             "",
                                             "if(!form.isValid()){",
@@ -92,7 +91,9 @@
                                             "form.updateRecord();",
                                             "",
                                             "Ext.each(selectedRows, function (item) {",
-                                            "    itemMap[item.get('personCode')] = item.get('name');",
+                                            "    if(item.isLeaf()){",
+                                            "        itemMap[item.get('id')] = item.get('name');",
+                                            "    }",
                                             "});",
                                             "",
                                             "record.set('persons',itemMap);",
@@ -101,7 +102,6 @@
                                             "record.save({",
                                             "    success: function(response, opts){",
                                             "        record.commit();",
-                                            "        itemStore.removeAll();",
                                             "        if(me.title=='新建工资条'){",
                                             "            payrollStore = me._link.payrollStore;",
                                             "            payrollStore.insert(payrollStore.getCount(),response.data);",
@@ -134,7 +134,7 @@
                     "codeClass": null,
                     "userConfig": {
                         "dock": null,
-                        "height": 362,
+                        "height": 100,
                         "layout": "column",
                         "title": "薪资信息",
                         "width": 605
@@ -245,7 +245,7 @@
                                         "implHandler": [
                                             "var me = this,",
                                             "    record = {},",
-                                            "store = me.down('gridpanel').getStore();",
+                                            "store = me.down('treepanel').getStore();",
                                             "",
                                             "store.load({",
                                             "   params:{",
@@ -383,80 +383,6 @@
                             },
                             "name": "MyHiddenField4",
                             "designerId": "a95a736d-3862-45bf-932e-501eafed6c8f"
-                        },
-                        {
-                            "type": "Ext.grid.Panel",
-                            "reference": {
-                                "name": "items",
-                                "type": "array"
-                            },
-                            "codeClass": null,
-                            "userConfig": {
-                                "height": 231,
-                                "layout|columnWidth": 1,
-                                "store": "PersonStore",
-                                "title": null,
-                                "width": 605
-                            },
-                            "name": "MyGridPanel",
-                            "designerId": "7a91a46b-2694-46af-b0da-184a0554f89a",
-                            "cn": [
-                                {
-                                    "type": "Ext.grid.column.Column",
-                                    "reference": {
-                                        "name": "columns",
-                                        "type": "array"
-                                    },
-                                    "codeClass": null,
-                                    "userConfig": {
-                                        "dataIndex": "name",
-                                        "flex": 1,
-                                        "text": "姓名"
-                                    },
-                                    "name": "MyColumn11",
-                                    "designerId": "47c7ed23-b867-4581-aed3-0d93568b4bc1"
-                                },
-                                {
-                                    "type": "Ext.grid.column.Column",
-                                    "reference": {
-                                        "name": "columns",
-                                        "type": "array"
-                                    },
-                                    "codeClass": null,
-                                    "userConfig": {
-                                        "dataIndex": "dept",
-                                        "flex": 0.6,
-                                        "text": "部门"
-                                    },
-                                    "name": "MyColumn13",
-                                    "designerId": "5a5f74cc-092a-42c4-80e4-fbc71e4f6302"
-                                },
-                                {
-                                    "type": "Ext.grid.column.Column",
-                                    "reference": {
-                                        "name": "columns",
-                                        "type": "array"
-                                    },
-                                    "codeClass": null,
-                                    "userConfig": {
-                                        "dataIndex": "position",
-                                        "flex": 1.7,
-                                        "text": "职务"
-                                    },
-                                    "name": "MyColumn18",
-                                    "designerId": "3a456ad7-a5d2-4bfc-8c3d-61a73b2fcb66"
-                                },
-                                {
-                                    "type": "Ext.selection.CheckboxModel",
-                                    "reference": {
-                                        "name": "selModel",
-                                        "type": "object"
-                                    },
-                                    "codeClass": "Ext.selection.CheckboxModel",
-                                    "name": "MyCheckboxSelectionModel",
-                                    "designerId": "849c7d0d-bdc2-454a-ae9a-28efc75c3f25"
-                                }
-                            ]
                         }
                     ]
                 },
@@ -471,8 +397,8 @@
                         "fn": "onPayrollFormAfterRender",
                         "implHandler": [
                             "var me = this,",
-                            "    grid = me.down('gridpanel'),",
-                            "    store = grid.getStore(),",
+                            "    tree = me.down('treepanel'),",
+                            "    store = tree.getStore(),",
                             "    record = me._link.record;",
                             "",
                             "me.down('form').loadRecord(record);",
@@ -484,7 +410,6 @@
                             "            persons:Ext.encode(record.get('persons'))",
                             "        }",
                             "    });",
-                            "    grid.getSelectionModel().selectAll();",
                             "}",
                             ""
                         ],
@@ -493,6 +418,60 @@
                     },
                     "name": "onPayrollFormAfterRender",
                     "designerId": "21e73762-c75e-4f8c-ba44-88b30a6fefd4"
+                },
+                {
+                    "type": "Ext.tree.Panel",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "height": 300,
+                        "rootVisible": false,
+                        "store": "PersonStore",
+                        "title": null,
+                        "useArrows": true
+                    },
+                    "name": "MyTreePanel",
+                    "designerId": "113b6de2-8ab7-4628-a6a0-9152610080af",
+                    "cn": [
+                        {
+                            "type": "Ext.tree.Column",
+                            "reference": {
+                                "name": "columns",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "dataIndex": "name",
+                                "flex": 1,
+                                "text": "人员信息"
+                            },
+                            "name": "MyTreeColumn",
+                            "designerId": "df46c8b7-b431-402a-9b67-8724394b7b38"
+                        },
+                        {
+                            "type": "basiceventbinding",
+                            "reference": {
+                                "name": "listeners",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fn": "onTreepanelCheckChange",
+                                "implHandler": [
+                                    "node.cascadeBy(function (n) { n.set('checked', checked); });",
+                                    "",
+                                    "this.checkParent(node);"
+                                ],
+                                "name": "checkchange",
+                                "scope": "me"
+                            },
+                            "name": "onTreepanelCheckChange",
+                            "designerId": "0dd0f0b5-d0f2-4cd8-8aa9-93bc990b9c98"
+                        }
+                    ]
                 }
             ]
         },
@@ -507,15 +486,70 @@
                 "fn": "onWindowBeforeClose",
                 "implHandler": [
                     "var me = this,",
-                    "    store = me.down('gridpanel').getStore();",
-                    "",
-                    "store.removeAll();"
+                    "    tree = me.down('treepanel'),",
+                    "    root = tree.getRootNode();",
+                    "this.removeTree(root);"
                 ],
                 "name": "beforeclose",
                 "scope": "me"
             },
             "name": "onWindowBeforeClose",
             "designerId": "65da0b0f-f9a4-4523-9ac0-a4cf030c2820"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|params": [
+                    "node"
+                ],
+                "fn": "checkParent",
+                "implHandler": [
+                    "node = node.parentNode;",
+                    "if(!node) return;",
+                    "var checkP=false;",
+                    "node.cascadeBy(function (n)",
+                    "               {",
+                    "                   if (n != node) {",
+                    "                       if (n.get('checked') == true) {",
+                    "                           checkP = true;",
+                    "                       }",
+                    "                   }",
+                    "               });",
+                    "node.set('checked', checkP);",
+                    "this.checkParent(node);",
+                    ""
+                ]
+            },
+            "name": "checkParent",
+            "designerId": "4a818bbb-c0e0-4728-8404-ea9a01b68841"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|params": [
+                    "node"
+                ],
+                "fn": "removeTree",
+                "implHandler": [
+                    "if (!node) return;  ",
+                    "while (node.hasChildNodes()) {  ",
+                    "    this.removeTree(node.firstChild);  ",
+                    "    node.removeChild(node.firstChild);  ",
+                    "}  "
+                ]
+            },
+            "name": "removeTree",
+            "designerId": "6e080b49-f28b-4c18-8fb9-9086b4a3a476"
         }
     ]
 }

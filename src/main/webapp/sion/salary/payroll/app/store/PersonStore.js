@@ -14,7 +14,7 @@
  */
 
 Ext.define('sion.salary.payroll.store.PersonStore', {
-    extend: 'Ext.data.Store',
+    extend: 'Ext.data.TreeStore',
 
     requires: [
         'sion.salary.payroll.model.Person',
@@ -34,9 +34,7 @@ Ext.define('sion.salary.payroll.store.PersonStore', {
                     read: 'salary/payroll/getAccountPersons'
                 },
                 reader: {
-                    type: 'json',
-                    messageProperty: 'message',
-                    root: 'data'
+                    type: 'json'
                 }
             }
         }, cfg)]);

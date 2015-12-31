@@ -2,11 +2,11 @@ package net.sion.company.salary.config;
 
 import java.util.List;
 
-import net.sion.core.admin.domain.Duties;
+import net.sion.core.admin.domain.Roles;
 import net.sion.core.app.domain.App;
 import net.sion.core.app.domain.AppEnum;
 import net.sion.core.app.domain.Module;
-import net.sion.core.app.domain.Role;
+import net.sion.core.app.domain.Permission;
 import net.sion.core.app.listener.AbstractAppRegisterListener;
 
 import org.springframework.stereotype.Component;
@@ -42,12 +42,14 @@ public class SalaryRegister extends AbstractAppRegisterListener {
 	}
 	
 	@Override
-	public List<Role> registRole(List<Role> empty) {
-		Role role = new Role(AppEnum.Salary.getApp(),"Salary","薪资管理员","薪资管理角色可以维护管理本公司人员的薪资信息");
-		role.addModules(AppEnum.Salary.getModules());
-		role.addModule(formula);
-		role.criteriaIn(new Duties[]{Duties.HR});
-		empty.add(role);
+	public List<Permission> registPermission(List<Permission> empty) {
+		Permission permission = new Permission(AppEnum.Salary.getApp(),"Salary","薪资管理员","薪资管理角色可以维护管理本公司人员的薪资信息");
+		permission.addModules(AppEnum.Salary.getModules());
+		permission.addModule(formula);
+		
+		Roles.HR.addPermission(permission);
+		
+		empty.add(permission);
 		return empty;
 	}
 	

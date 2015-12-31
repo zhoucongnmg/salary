@@ -5,6 +5,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -22,21 +24,31 @@ import net.sion.company.salary.domain.Payroll;
 import net.sion.company.salary.domain.Payroll.PayrollStatus;
 import net.sion.company.salary.domain.PayrollItem;
 import net.sion.company.salary.domain.PersonAccountFile;
+import net.sion.company.salary.domain.PersonExtension;
+import net.sion.company.salary.domain.SocialAccountItem;
+import net.sion.company.salary.domain.SocialItem;
+import net.sion.company.salary.domain.SocialItem.SocialItemType;
+import net.sion.company.salary.domain.SystemSalaryItemEnum;
+import net.sion.company.salary.event.SystemSalaryItemPublisher;
 import net.sion.company.salary.service.FormulaService;
 import net.sion.company.salary.service.PayrollService;
+import net.sion.company.salary.service.SocialService;
 import net.sion.company.salary.sessionrepository.AccountRepository;
 import net.sion.company.salary.sessionrepository.PayrollItemRepository;
 import net.sion.company.salary.sessionrepository.PayrollRepository;
 import net.sion.company.salary.sessionrepository.PersonAccountFileRepository;
 import net.sion.company.salary.sessionrepository.PersonAccountRepository;
+import net.sion.company.salary.sessionrepository.SocialItemRepository;
+import net.sion.core.admin.domain.Dept;
 import net.sion.core.admin.domain.User;
 import net.sion.core.admin.service.AdminService;
+import net.sion.core.admin.sessionrepository.DeptRepository;
+import net.sion.core.admin.sessionrepository.UserRepository;
 import net.sion.util.mvc.Response;
 
 import org.bson.types.ObjectId;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.query.BasicQuery;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -78,10 +90,18 @@ public class PayrollController {
 	AdminService adminService;
 	@Autowired
 	FormulaService formulaService;
+	@Autowired
+	SocialService socialService;
+	@Autowired
+	SocialItemRepository socialItemRepository;
+	@Autowired
+	SystemSalaryItemPublisher publisher;
 	@Autowired PayrollService payrollService;
-	@Autowired ApplicationContext ctx;
+	
+	@Autowired UserRepository userRepository;
+	@Autowired DeptRepository deptRepository;
 
-	public List<Map<String, Object>> fillSimpleFields(List<Map<String, Object>> fields) {
+	public List<Map<String, Object>> fillSimpleFields(List<Map<String, Object>> fields, Map<String, String> opts) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("name", "id");
 		map.put("type", "string");
@@ -102,28 +122,158 @@ public class PayrollController {
 		map.put("name", "dept");
 		map.put("type", "string");
 		fields.add(map);
+
+		if (opts != null) {
+			if ("on".equals(opts.get("showCompanySocial")) || "on".equals(opts.get("showPersonalSocial"))) {
+				List<SocialItem> socialItems = socialItemRepository.findByItemType(SocialItemType.SocialSecurity);
+				for (SocialItem item : socialItems) {
+					if ("on".equals(opts.get("showCompanySocial"))) {
+						map = new HashMap<String, Object>();
+						map.put("name", "companyPaymentValue");
+						map.put("type", "string");
+						fields.add(map);
+						map = new HashMap<String, Object>();
+						map.put("name", "companyPaymentFinalValue");
+						map.put("type", "double");
+						fields.add(map);
+					}
+
+					if ("on".equals(opts.get("showPersonalSocial"))) {
+						map = new HashMap<String, Object>();
+						map.put("name", "personalPaymentValue");
+						map.put("type", "string");
+						fields.add(map);
+						map = new HashMap<String, Object>();
+						map.put("name", "personalPaymentFinalValue");
+						map.put("type", "double");
+						fields.add(map);
+					}
+				}
+			}
+		}
+
+		if (opts != null) {
+			if ("on".equals(opts.get("showCompanySocial"))) {
+				map = new HashMap<String, Object>();
+				map.put("name", "companyPaymentValue");
+				map.put("type", "string");
+				fields.add(map);
+				map = new HashMap<String, Object>();
+				map.put("name", "companyPaymentFinalValue");
+				map.put("type", "double");
+				fields.add(map);
+			}
+
+			if ("on".equals(opts.get("showPersonalSocial"))) {
+				map = new HashMap<String, Object>();
+				map.put("name", "personalPaymentValue");
+				map.put("type", "string");
+				fields.add(map);
+				map = new HashMap<String, Object>();
+				map.put("name", "personalPaymentFinalValue");
+				map.put("type", "double");
+				fields.add(map);
+			}
+		}
 		return fields;
 	}
 
-	public List<Map<String, Object>> fillSimpleColumns(List<Map<String, Object>> columns) {
+	public List<Map<String, Object>> fillSimpleColumns(List<Map<String, Object>> columns, Map<String, String> opts) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("header", "姓名");
 		map.put("dataIndex", "name");
 		map.put("flex", 1);
 		map.put("coltype", "readonly");
+		map.put("dataType", "simple");
 		columns.add(map);
 		map = new HashMap<String, Object>();
 		map.put("header", "职务");
 		map.put("dataIndex", "duty");
 		map.put("flex", 1);
 		map.put("coltype", "readonly");
+		map.put("dataType", "simple");
 		columns.add(map);
 		map = new HashMap<String, Object>();
 		map.put("header", "部门");
 		map.put("dataIndex", "dept");
 		map.put("flex", 1);
 		map.put("coltype", "readonly");
+		map.put("dataType", "simple");
 		columns.add(map);
+		if (opts != null) {
+			if ("on".equals(opts.get("showCompanySocial")) || "on".equals(opts.get("showPersonalSocial"))) {
+				List<SocialItem> socialItems = socialItemRepository.findByItemType(SocialItemType.SocialSecurity);
+				for (SocialItem item : socialItems) {
+					map = new HashMap<String, Object>();
+					map.put("header", item.getName());
+					map.put("dataIndex", "string");
+					map.put("flex", 1);
+
+					List<Map<String, Object>> socialColumns = new ArrayList<Map<String, Object>>();
+
+					Map<String, Object> socialColumn = new HashMap<String, Object>();
+					socialColumn.put("header", "基数");
+					socialColumn.put("dataIndex", "string");
+					socialColumns.add(socialColumn);
+					if ("on".equals(opts.get("showCompanySocial"))) {
+						socialColumn = new HashMap<String, Object>();
+						socialColumn.put("header", "单位");
+						socialColumn.put("dataIndex", "string");
+
+						List<Map<String, Object>> companySocialColumns = new ArrayList<Map<String, Object>>();
+
+						Map<String, Object> companySocialColumn = new HashMap<String, Object>();
+						companySocialColumn.put("header", "比例");
+						companySocialColumn.put("dataIndex", item.getId() + "-companyPaymentValue");
+						companySocialColumn.put("flex", 1);
+						companySocialColumn.put("coltype", "readonly");
+						companySocialColumn.put("dataType", "simple");
+						companySocialColumns.add(companySocialColumn);
+						companySocialColumn = new HashMap<String, Object>();
+						companySocialColumn.put("header", "金额");
+						companySocialColumn.put("dataIndex", item.getId() + "-companyPaymentFinalValue");
+						companySocialColumn.put("flex", 1);
+						companySocialColumn.put("coltype", "readonly");
+						companySocialColumn.put("dataType", "simple");
+						companySocialColumns.add(companySocialColumn);
+
+						socialColumn.put("columns", companySocialColumns);
+						socialColumns.add(socialColumn);
+					}
+
+					if ("on".equals(opts.get("showPersonalSocial"))) {
+						socialColumn = new HashMap<String, Object>();
+						socialColumn.put("header", "个人");
+						socialColumn.put("dataIndex", "string");
+
+						List<Map<String, Object>> personalSocialColumns = new ArrayList<Map<String, Object>>();
+
+						Map<String, Object> personalSocialColumn = new HashMap<String, Object>();
+						personalSocialColumn.put("header", "比例");
+						personalSocialColumn.put("dataIndex", item.getId() + "-personalPaymentValue");
+						personalSocialColumn.put("flex", 1);
+						personalSocialColumn.put("coltype", "readonly");
+						personalSocialColumn.put("dataType", "simple");
+						personalSocialColumns.add(personalSocialColumn);
+						personalSocialColumn = new HashMap<String, Object>();
+						personalSocialColumn.put("header", "金额");
+						personalSocialColumn.put("dataIndex", item.getId() + "-personalPaymentFinalValue");
+						personalSocialColumn.put("flex", 1);
+						personalSocialColumn.put("coltype", "readonly");
+						personalSocialColumn.put("dataType", "simple");
+						personalSocialColumns.add(personalSocialColumn);
+
+						socialColumn.put("columns", personalSocialColumns);
+						socialColumns.add(socialColumn);
+					}
+
+					map.put("columns", socialColumns);
+
+					columns.add(map);
+				}
+			}
+		}
+
 		return columns;
 	}
 
@@ -134,7 +284,7 @@ public class PayrollController {
 		for (PayrollItem item : items) {
 			payrollItemMap.put(item.getPersonId(), item);
 		}
-		List<String> newPersonIds = new ArrayList<String>();
+		Set<String> newPersonIds = new HashSet<String>();
 		for (Map.Entry<String, String> entry : persons.entrySet()) {
 			String personId = entry.getKey();
 			if (payrollItemMap.get(personId) != null) {
@@ -153,16 +303,41 @@ public class PayrollController {
 			try {
 				result = formulaService.caculateFormulas(formulaIds, salaryItemValues);
 				Iterable<PersonAccountFile> personList = personAccountFileRepository.findAll(newPersonIds);
+				Map<String, PersonExtension<SocialAccountItem>> personSocialMap = socialService
+						.getSocialAccountByPersons(newPersonIds);
+
 				for (PersonAccountFile person : personList) {
 					Map<String, Object> personMap = new HashMap<String, Object>();
 					personMap.put("personId", person.getId());
 					personMap.put("name", person.getName());
 					personMap.put("duty", person.getDuty());
 					personMap.put("dept", person.getDept());
+
+					PersonExtension<SocialAccountItem> personExtension = personSocialMap.get(person.getId());
+					if (personExtension != null) {
+						Map<String, SocialAccountItem> socialAccountItemMap = personExtension.getItems();
+						for (Map.Entry<String, SocialAccountItem> entry : socialAccountItemMap.entrySet()) {
+							SocialAccountItem item = entry.getValue();
+							personMap.put(item.getSocialItemId() + "-companyPaymentValue",
+									item.getCompanyPaymentValue());
+							personMap.put(item.getSocialItemId() + "-companyPaymentFinalValue",
+									item.getCompanyPaymentFinalValue());
+							personMap.put(item.getSocialItemId() + "-personalPaymentValue",
+									item.getPersonalPaymentValue());
+							personMap.put(item.getSocialItemId() + "-personalPaymentFinalValue",
+									item.getCompanyPaymentValue());
+						}
+					}
+
 					for (AccountItem item : account.getAccountItems()) {
 						if (item.getType() == AccountItemType.Input) {
 							personMap.put(item.getSalaryItemId(), item.getValue());
+						} else if (item.getType() == AccountItemType.System) {
+							publisher.getValue(SystemSalaryItemEnum.valueOf(item.getSalaryItemId()), person.getId(),
+									person.getDept());
+							personMap.put(item.getSalaryItemId(), item.getValue());
 						}
+
 					}
 					personMap.putAll(result);
 					data.add(personMap);
@@ -181,8 +356,9 @@ public class PayrollController {
 	 * @author lil 工资条列表
 	 */
 	@RequestMapping(value = "findItemList")
-	public @ResponseBody Response findItemList(@RequestParam String id) {
-
+	public @ResponseBody Response findItemList(@RequestBody Map<String, Object> param) {
+		String id = (String) param.get("id");
+		Map<String, String> opts = (Map<String, String>) param.get("opts");
 		Payroll payroll = payrollRepository.findOne(id);
 
 		Account account = accountRepository.findOne(payroll.getAccountId());
@@ -191,8 +367,8 @@ public class PayrollController {
 		List<Map<String, Object>> columns = new ArrayList<Map<String, Object>>();
 		List<Map<String, Object>> data = new ArrayList<Map<String, Object>>();
 
-		fillSimpleFields(fields);
-		fillSimpleColumns(columns);
+		fillSimpleFields(fields, opts);
+		fillSimpleColumns(columns, opts);
 
 		for (AccountItem item : items) {
 			fields.add(getFields(item));
@@ -207,37 +383,49 @@ public class PayrollController {
 		m.put("fields", fields);
 		m.put("columns", columns);
 		m.put("data", data);
-		return new Response("sucess", m, true);
+		return new Response(m);
 	}
 	/**
-	 * @author lil 工资条列表
+	 * @author lil 导出工资条
 	 * @throws IOException 
 	 */
 	@RequestMapping(value = "exportItemList")
-	public void exportItemList(HttpServletResponse response, @RequestParam String id) throws IOException {
-		String serverPath = ctx.getResource("/").getFile().getPath();
+	public void exportItemList(HttpServletResponse response,@RequestParam String id, @RequestParam Map<String,Map<String,String>> opts) throws IOException {
+//		String id = (String)param.get("id");
+		Map<String,String> opt = (Map<String,String>)opts.get("opts");
+		createExcel("export", id, opt, response);
+	}
+	/**
+	 * @author lil 生成工资条
+	 * @throws IOException 
+	 */
+	@RequestMapping(value = "createPayrollExcel")
+	public void createPayrollExcel(HttpServletResponse response, @RequestParam String id, @RequestParam Map<String,String> opts) throws IOException {
+		createExcel("create", id, opts, response);
+	}
+	private void createExcel(String method, String id, Map<String,String> opts, HttpServletResponse response) throws IOException{
+//		Map<String,String> opts = (Map<String,String>)param.get("opts");
+//		Map<String,String> opts = null;
 		Payroll payroll = payrollRepository.findOne(id);
-
 		Account account = accountRepository.findOne(payroll.getAccountId());
 		List<AccountItem> items = account.getAccountItems();
 		List<Map<String, Object>> fields = new ArrayList<Map<String, Object>>();
 		List<Map<String, Object>> columns = new ArrayList<Map<String, Object>>();
 		List<Map<String, Object>> data = new ArrayList<Map<String, Object>>();
-
-		fillSimpleFields(fields);
-		fillSimpleColumns(columns);
-
+		fillSimpleFields(fields, opts);
+		fillSimpleColumns(columns, opts);
 		for (AccountItem item : items) {
 			fields.add(getFields(item));
 			columns.add(getColumns(item));
 		}
-
 		List<PayrollItem> payrollItemList = payrollItemRepository.findByPayrollId(id);
-
 		data = fillData(payroll.getPersons(), payrollItemList, account);
-		payrollService.exportExcel( columns, data, response);
+		if("create".equals(method)){
+			payrollService.createExcel(columns, data, response);
+		}else if("export".equals(method)){
+			payrollService.exportExcel(columns, data, response);
+		}
 	}
-
 	private Map<String, Object> getFields(AccountItem item) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("name", item.getSalaryItemId());
@@ -262,7 +450,6 @@ public class PayrollController {
 			map.put("coltype", "readonly");
 		}
 
-		map.put("flex", 1);
 		map.put("header", item.getName());
 		map.put("dataIndex", item.getSalaryItemId());
 		return map;
@@ -285,46 +472,86 @@ public class PayrollController {
 	 * @return
 	 */
 	@RequestMapping(value = "getAccountPersons")
-	public Response getAccountPersons(@RequestParam(value = "accountId") String accountId,
+	public List<Dept> getAccountPersons(HttpSession session, @RequestParam(value = "accountId") String accountId,
 			@RequestParam(value = "persons") JSONObject persons) {
+
+		Map<String, Object> allParentDeptMap = new HashMap<String, Object>();
+		Map<String, List<Object>> deptUserMap = new HashMap<String, List<Object>>();
 
 		Query query;
 		if (persons.length() != 0) {
 			Set<String> personsId = persons.keySet();
-			query = new Query(Criteria.where("accountId").is(accountId).and("personCode").in(personsId));
-		}
-		else
+			query = new Query(Criteria.where("accountId").is(accountId).and("personId").in(personsId));
+		} else
 			query = new Query(Criteria.where("accountId").is(accountId));
-		List<PersonAccountFile> accountPersonList = mongoTemplate.find(query, PersonAccountFile.class);
+		List<PersonAccountFile> personAccountFiles = mongoTemplate.find(query, PersonAccountFile.class);
 
-		return new Response(accountPersonList);
+		for (PersonAccountFile personAccountFile : personAccountFiles) {
+			if (personAccountFile.getPersonId() != null) {
+				User u = userRepository.findOne(personAccountFile.getPersonId());
+				if (u.getParentId() != null && u.getParentId().length() > 0) {
+					Map<String, Dept> deptMap = findAllParentIntoMap(u.getParentId(), u.getCompany());
+					allParentDeptMap.putAll(deptMap);
+					List<Object> userList = deptUserMap.get(u.getParentId());
+					if (userList == null) {
+						userList = new ArrayList<Object>();
+					}
+					userList.add(u);
+					deptUserMap.put(u.getParentId(), userList);
+				}
+			}
+		}
+
+		List deptUserList = new ArrayList();
+
+		String companyId = adminService.getCompany(session).getId();
+		List deptList = adminService.traverseDepts(companyId);
+
+		if (deptList != null && deptList.size() > 0) {
+			deptUserList = this.filterTraverseDeptsByMap(deptList, allParentDeptMap, deptUserMap);
+		}
+		return deptUserList;
 	}
 
-	// /**
-	// * 人员信息回显
-	// */
-	// @RequestMapping(value = "getPayrollPersons")
-	// public Response getPayrollPersons(Payroll payroll) {
-	// Map<String,String> persons = payroll.getPersons();
-	// Set<String> personsId = persons.keySet();
-	//
-	// Query query = new
-	// Query(Criteria.where("accountId").is(payroll.getAccountId()).and("personId").in(personsId));
-	// List<PersonAccountFile> accountPersonList = mongoTemplate.find(query,
-	// PersonAccountFile.class);
-	//
-	// return new Response(accountPersonList);
-	// }
+	private Map<String, Dept> findAllParentIntoMap(String deptId, String companyId) {
+		Dept dept = deptRepository.findOne(deptId);
+		if (companyId.equals(dept.getParentId())) {
+			Map<String, Dept> deptMap = new HashMap<String, Dept>();
+			deptMap.put(dept.getId(), dept);
+			return deptMap;
+		} else {
+			Map<String, Dept> returnDeptMap = this.findAllParentIntoMap(dept.getParentId(), companyId);
+			returnDeptMap.put(dept.getId(), dept);
+			return returnDeptMap;
+		}
+	}
 
-	/**
-	 * 修改工资条
-	 * 
-	 * @param person
-	 * @return
-	 */
-	@RequestMapping(value = "updatePayroll")
-	public Response updatePayroll(@RequestParam Map data) {
-		return new Response(true);
+	private List<Object> filterTraverseDeptsByMap(List<Object> deptList, Map<String, Object> allParentDeptMap,
+			Map<String, List<Object>> deptUserMap) {
+		Iterator<Object> it = deptList.iterator();
+		while (it.hasNext()) {
+			Dept dept = (Dept) it.next();
+			Dept t_dept = (Dept) allParentDeptMap.get(dept.getId());
+			if (t_dept == null) {
+				it.remove();
+			} else {
+				if (dept.getChildren() == null || dept.getChildren().size() == 0) {
+					List<Object> userList = deptUserMap.get(dept.getId());
+					if (userList != null && userList.size() > 0) {
+						dept.setChildren(userList);
+					}
+				} else {
+					List<Object> childrenDeptList = this.filterTraverseDeptsByMap(dept.getChildren(), allParentDeptMap,
+							deptUserMap);
+					List<Object> userList = deptUserMap.get(dept.getId());
+					if (userList != null && userList.size() > 0) {
+						childrenDeptList.addAll(userList);
+					}
+					dept.setChildren(childrenDeptList);
+				}
+			}
+		}
+		return deptList;
 	}
 
 	/**

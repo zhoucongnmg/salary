@@ -1,5 +1,5 @@
 {
-    "type": "Ext.data.Store",
+    "type": "Ext.data.TreeStore",
     "reference": {
         "name": "items",
         "type": "array"
@@ -8,10 +8,12 @@
     "userConfig": {
         "designer|userClassName": "PersonStore",
         "model": "Person",
+        "nodeParam": null,
+        "root": null,
         "storeId": "PersonStore"
     },
-    "name": "MyStore",
-    "designerId": "731d001c-257c-4805-8131-044d2515c2e2",
+    "name": "MyTreeStore",
+    "designerId": "aad417b5-82be-4869-9ded-e1f5756b9c7a",
     "cn": [
         {
             "type": "Ext.data.proxy.Ajax",
@@ -27,8 +29,8 @@
                     "}"
                 ]
             },
-            "name": "MyAjaxProxy",
-            "designerId": "4d47093c-5ff4-4494-8754-2e73027efddd",
+            "name": "MyAjaxProxy3",
+            "designerId": "3e6f41d0-7586-409f-bf1e-885158a25e9c",
             "cn": [
                 {
                     "type": "Ext.data.reader.Json",
@@ -37,12 +39,8 @@
                         "type": "object"
                     },
                     "codeClass": null,
-                    "userConfig": {
-                        "messageProperty": "message",
-                        "root": "data"
-                    },
-                    "name": "MyJsonReader",
-                    "designerId": "c2ad10aa-9996-425a-b05f-186eb133f70c"
+                    "name": "MyJsonReader3",
+                    "designerId": "6a5f1abb-4282-42db-8dc2-7ba7d9630cd3"
                 }
             ]
         }
