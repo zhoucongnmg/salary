@@ -17,7 +17,6 @@ Ext.define('sion.salary.payroll.view.DynamicGrid', {
     extend: 'Ext.window.Window',
 
     requires: [
-        'Ext.toolbar.Toolbar',
         'Ext.button.Button',
         'Ext.form.Panel',
         'Ext.form.field.Display',
@@ -26,7 +25,8 @@ Ext.define('sion.salary.payroll.view.DynamicGrid', {
         'Ext.grid.Panel',
         'Ext.grid.column.Column',
         'Ext.grid.View',
-        'Ext.grid.plugin.CellEditing'
+        'Ext.grid.plugin.CellEditing',
+        'Ext.toolbar.Paging'
     ],
 
     height: 700,
@@ -225,6 +225,7 @@ Ext.define('sion.salary.payroll.view.DynamicGrid', {
                 },
                 {
                     xtype: 'gridpanel',
+                    flex: 1,
                     autoScroll: true,
                     emptyText: '无工资条数据',
                     columns: [
@@ -252,6 +253,14 @@ Ext.define('sion.salary.payroll.view.DynamicGrid', {
                                 }
                             }
                         })
+                    ],
+                    dockedItems: [
+                        {
+                            xtype: 'pagingtoolbar',
+                            dock: 'bottom',
+                            width: 360,
+                            displayInfo: true
+                        }
                     ]
                 }
             ],
