@@ -119,7 +119,7 @@
                     "    store = itemGrid.getStore();",
                     "",
                     "var panel =  Ext.create(namespace + '.view.SocialAccountItemEdit',{",
-                    "//     _opener : me,",
+                    "    //     _opener : me,",
                     "    _socialAccountItem : record,",
                     "    _itemStore : store",
                     "});",

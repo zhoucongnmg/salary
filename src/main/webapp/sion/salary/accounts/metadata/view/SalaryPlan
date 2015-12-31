@@ -268,21 +268,6 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "dataIndex": "fieldName",
-                        "flex": 1,
-                        "text": "字段"
-                    },
-                    "name": "MyColumn11",
-                    "designerId": "98022f2e-5fe4-4006-9651-d10a61378923"
-                },
-                {
-                    "type": "Ext.grid.column.Column",
-                    "reference": {
-                        "name": "columns",
-                        "type": "array"
-                    },
-                    "codeClass": null,
-                    "userConfig": {
                         "dataIndex": "value",
                         "flex": 6,
                         "text": "值或计算公式"

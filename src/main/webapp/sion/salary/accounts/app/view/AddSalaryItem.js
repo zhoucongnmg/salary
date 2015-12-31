@@ -210,7 +210,7 @@ Ext.define('sion.salary.accounts.view.AddSalaryItem', {
             account = me._account,
             form = me.down('form'),
             record = form.getRecord(),
-        //     store = Ext.getStore('AccountItem'),
+            //     store = Ext.getStore('AccountItem'),
             store = me._store,
             formulaItemStore = Ext.getStore('FormulaItem'),
             select = grid.getSelectionModel().getSelection(),

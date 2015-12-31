@@ -41,22 +41,6 @@
             },
             "codeClass": null,
             "userConfig": {
-                "dataIndex": "field",
-                "flex": 1,
-                "text": "字段",
-                "width": null
-            },
-            "name": "MyColumn4",
-            "designerId": "9c21b907-fb8a-405a-84da-9587618cf553"
-        },
-        {
-            "type": "Ext.grid.column.Column",
-            "reference": {
-                "name": "columns",
-                "type": "array"
-            },
-            "codeClass": null,
-            "userConfig": {
                 "dataIndex": "type",
                 "flex": 1,
                 "text": "类型",
@@ -242,7 +226,7 @@
                                 "fn": "handler",
                                 "implHandler": [
                                     "var store = Ext.getStore(\"SalaryItem\");",
-                                    "if(record.get('system')){",
+                                    "if(record.get('type') == 'System'){",
                                     "    Ext.Msg.alert('提示','系统提取项不可删除！');",
                                     "    return false;",
                                     "}",
@@ -328,14 +312,13 @@
                     "    namespace = me.getNamespace(),",
                     "    str = '.view.SalaryItemEdit';",
                     "",
-                    "if(record.get('system')){",
+                    "if(record.get('type') == 'System'){",
                     "    str = '.view.SalaryItemRead';",
                     "}",
                     "var panel =  Ext.create(namespace + str,{",
                     "    _salaryItem : record",
                     "});",
-                    "panel.show();",
-                    "// me.resetGridSelect(record);"
+                    "panel.show();"
                 ]
             },
             "name": "detail",

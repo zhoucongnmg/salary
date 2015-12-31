@@ -60,25 +60,6 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "fieldLabel": "字段",
-                        "itemId": "field",
-                        "layout|anchor": "100%",
-                        "name": "field",
-                        "style": [
-                            "border-bottom:1px #f2f2f2 solid;"
-                        ]
-                    },
-                    "name": "MyDisplayField1",
-                    "designerId": "5cad2d15-5876-4f62-86d5-78da0798373e"
-                },
-                {
-                    "type": "Ext.form.field.Display",
-                    "reference": {
-                        "name": "items",
-                        "type": "array"
-                    },
-                    "codeClass": null,
-                    "userConfig": {
                         "fieldLabel": "类型",
                         "itemId": "type",
                         "layout|anchor": "100%",

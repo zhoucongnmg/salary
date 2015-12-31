@@ -161,12 +161,17 @@
                             "codeClass": null,
                             "userConfig": {
                                 "allowBlank": false,
+                                "decimalPrecision": null,
+                                "emptyText": null,
                                 "fieldLabel": "基数",
                                 "itemId": "cardinality",
                                 "labelWidth": 60,
                                 "layout|flex": 1,
+                                "minLength": null,
                                 "minValue": 0,
                                 "name": "cardinality",
+                                "renderData": null,
+                                "renderTo": null,
                                 "style": [
                                     "margin-left:10px;"
                                 ]

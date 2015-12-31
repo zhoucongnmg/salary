@@ -47,14 +47,6 @@ Ext.define('sion.salary.accounts.view.SalaryItemRead', {
                         {
                             xtype: 'displayfield',
                             anchor: '100%',
-                            itemId: 'field',
-                            style: 'border-bottom:1px #f2f2f2 solid;',
-                            fieldLabel: '字段',
-                            name: 'field'
-                        },
-                        {
-                            xtype: 'displayfield',
-                            anchor: '100%',
                             itemId: 'type',
                             style: 'border-bottom:1px #f2f2f2 solid;',
                             fieldLabel: '类型',

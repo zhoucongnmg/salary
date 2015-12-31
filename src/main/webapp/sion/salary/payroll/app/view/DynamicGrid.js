@@ -17,6 +17,7 @@ Ext.define('sion.salary.payroll.view.DynamicGrid', {
     extend: 'Ext.window.Window',
 
     requires: [
+        'Ext.toolbar.Toolbar',
         'Ext.button.Button',
         'Ext.form.Panel',
         'Ext.form.field.Display',
@@ -25,8 +26,7 @@ Ext.define('sion.salary.payroll.view.DynamicGrid', {
         'Ext.grid.Panel',
         'Ext.grid.column.Column',
         'Ext.grid.View',
-        'Ext.grid.plugin.CellEditing',
-        'Ext.toolbar.Paging'
+        'Ext.grid.plugin.CellEditing'
     ],
 
     height: 700,
@@ -225,7 +225,6 @@ Ext.define('sion.salary.payroll.view.DynamicGrid', {
                 },
                 {
                     xtype: 'gridpanel',
-                    flex: 1,
                     autoScroll: true,
                     emptyText: '无工资条数据',
                     columns: [
@@ -253,14 +252,6 @@ Ext.define('sion.salary.payroll.view.DynamicGrid', {
                                 }
                             }
                         })
-                    ],
-                    dockedItems: [
-                        {
-                            xtype: 'pagingtoolbar',
-                            dock: 'bottom',
-                            width: 360,
-                            displayInfo: true
-                        }
                     ]
                 }
             ],
@@ -303,51 +294,41 @@ Ext.define('sion.salary.payroll.view.DynamicGrid', {
     onButtonClick1: function(button, e, eOpts) {
         var me = this,
             id = me._id,
-            accountId = me._accountId,
-            namespace = me.getNamespace(),
-            mainModel = Ext.create(namespace + '.model.Main'),
-            grid = me.down('grid'),
-            store = grid.getStore(),
-            data = [];
+            searchForm = me.down('#searchForm'),
+            opts = searchForm.getForm().getValues();
 
-        // store.each(function(record,index){
-        //    record.set('payrollId',id);
-        // });
-
-        // store.sync({
-        //     success: function(response, options){
-        //         Ext.Msg.alert("提示", "保存工资条成功");
-
-        //     },failure: function(response, options){
-        //         Ext.Msg.alert("提示", "操作失败");
-        //     }
-        // });
-        window.location.href = 'salary/payroll/exportItemList?id=' + id;
+        Ext.Ajax.request({
+            url:'salary/payroll/saveExcelTemp',
+            method : 'POST',
+            jsonData : {
+                opts : opts
+            },
+            success: function(response){
+                var json = Ext.JSON.decode(response.responseText);
+                window.location.href = 'salary/payroll/exportItemList?id=' + id + '&optsId=' + json.message;
+            },failure: function(){
+            }
+        });
     },
 
     onButtonClick11: function(button, e, eOpts) {
         var me = this,
             id = me._id,
-            accountId = me._accountId,
-            namespace = me.getNamespace(),
-            mainModel = Ext.create(namespace + '.model.Main'),
-            grid = me.down('grid'),
-            store = grid.getStore(),
-            data = [];
+            searchForm = me.down('#searchForm'),
+            opts = searchForm.getForm().getValues();
 
-        // store.each(function(record,index){
-        //    record.set('payrollId',id);
-        // });
-
-        // store.sync({
-        //     success: function(response, options){
-        //         Ext.Msg.alert("提示", "保存工资条成功");
-
-        //     },failure: function(response, options){
-        //         Ext.Msg.alert("提示", "操作失败");
-        //     }
-        // });
-        window.location.href = 'salary/payroll/createPayrollExcel?id=' + id;
+        Ext.Ajax.request({
+            url:'salary/payroll/saveExcelTemp',
+            method : 'POST',
+            jsonData : {
+                opts : opts
+            },
+            success: function(response){
+                var json = Ext.JSON.decode(response.responseText);
+                window.location.href = 'salary/payroll/createPayrollExcel?id=' + id + '&optsId=' + json.message;
+            },failure: function(){
+            }
+        });
 
     },
 

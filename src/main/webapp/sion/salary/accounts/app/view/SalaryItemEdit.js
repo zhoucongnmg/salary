@@ -50,14 +50,6 @@ Ext.define('sion.salary.accounts.view.SalaryItemEdit', {
                             allowBlank: false
                         },
                         {
-                            xtype: 'textfield',
-                            anchor: '100%',
-                            itemId: 'field',
-                            fieldLabel: '字段',
-                            name: 'field',
-                            allowBlank: false
-                        },
-                        {
                             xtype: 'combobox',
                             anchor: '100%',
                             itemId: 'type',
@@ -66,7 +58,7 @@ Ext.define('sion.salary.accounts.view.SalaryItemEdit', {
                             allowBlank: false,
                             editable: false,
                             displayField: 'name',
-                            store: 'AccountItemType',
+                            store: 'AccountItemTypeExcludeSystem',
                             valueField: 'id'
                         },
                         {
@@ -136,7 +128,7 @@ Ext.define('sion.salary.accounts.view.SalaryItemEdit', {
 
         record = form.getRecord();
         form.updateRecord(record);
-        if(!me.down('#name').isValid() || !me.down('#field').isValid() || !me.down('#type').isValid() || !me.down('#decimalScale').isValid()){
+        if(!me.down('#name').isValid() || !me.down('#type').isValid() || !me.down('#decimalScale').isValid()){
             Ext.Msg.alert("提示", "信息不完整，请继续填写！");
             return false;
         }

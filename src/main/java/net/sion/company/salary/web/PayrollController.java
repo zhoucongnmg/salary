@@ -1,5 +1,6 @@
 package net.sion.company.salary.web;
 
+import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -46,9 +47,11 @@ import net.sion.core.admin.sessionrepository.DeptRepository;
 import net.sion.core.admin.sessionrepository.UserRepository;
 import net.sion.util.mvc.Response;
 
+import org.aspectj.util.FileUtil;
 import org.bson.types.ObjectId;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.query.BasicQuery;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -59,6 +62,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
 
@@ -100,6 +104,8 @@ public class PayrollController {
 	
 	@Autowired UserRepository userRepository;
 	@Autowired DeptRepository deptRepository;
+	@Autowired ApplicationContext ctx;
+
 
 	public List<Map<String, Object>> fillSimpleFields(List<Map<String, Object>> fields, Map<String,String> opts) {
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -382,42 +388,70 @@ public class PayrollController {
 	 * @throws IOException 
 	 */
 	@RequestMapping(value = "exportItemList")
-	public void exportItemList(HttpServletResponse response,@RequestParam String id, @RequestParam Map<String,Map<String,String>> opts) throws IOException {
-//		String id = (String)param.get("id");
-		Map<String,String> opt = (Map<String,String>)opts.get("opts");
-		createExcel("export", id, opt, response);
+	public void exportItemList(HttpServletResponse response,@RequestParam String id, @RequestParam String  optsId) throws IOException {
+		createExcel("export", id, optsId, response);
 	}
 	/**
 	 * @author lil 生成工资条
 	 * @throws IOException 
 	 */
 	@RequestMapping(value = "createPayrollExcel")
-	public void createPayrollExcel(HttpServletResponse response, @RequestParam String id, @RequestParam Map<String,String> opts) throws IOException {
-		createExcel("create", id, opts, response);
+	public void createPayrollExcel(HttpServletResponse response, @RequestParam String id, @RequestParam String  optsId) throws IOException {
+		createExcel("create", id, optsId, response);
 	}
-	private void createExcel(String method, String id, Map<String,String> opts, HttpServletResponse response) throws IOException{
-//		Map<String,String> opts = (Map<String,String>)param.get("opts");
-//		Map<String,String> opts = null;
-		Payroll payroll = payrollRepository.findOne(id);
-		Account account = accountRepository.findOne(payroll.getAccountId());
-		List<AccountItem> items = account.getAccountItems();
-		List<Map<String, Object>> fields = new ArrayList<Map<String, Object>>();
-		List<Map<String, Object>> columns = new ArrayList<Map<String, Object>>();
-		List<Map<String, Object>> data = new ArrayList<Map<String, Object>>();
-		fillSimpleFields(fields, opts);
-		fillSimpleColumns(columns, opts);
-		for (AccountItem item : items) {
-			fields.add(getFields(item));
-			columns.add(getColumns(item));
+	//保存opts临时文件
+		@RequestMapping(value = "saveExcelTemp")
+		public Response saveExcelTemp(@RequestBody Map<String, Object> param) throws IOException {
+			System.out.println("opts lai le ");
+			Map<String, String> opts = (Map<String, String>) param.get("opts");
+			Date date = new Date();
+			String serverPath = ctx.getResource("/").getFile().getPath();
+			String folderPath = serverPath + "/temp/salary/export";
+			File fileFordel  = new File(folderPath);
+			if(!fileFordel.exists()){
+				fileFordel.mkdirs();
+			}
+			String fileName = date.getTime()+"";
+			String filePath = folderPath + "/"+ fileName + ".json";
+			File file = new File(filePath);
+			if(file.exists()){
+				boolean boo = file.delete();
+				System.out.print(boo);
+			}
+			String josnStr = JSONObject.valueToString(opts);
+			System.out.println(josnStr);
+			FileUtil.writeAsString(file, josnStr);
+			return new Response(fileName, true);
 		}
-		List<PayrollItem> payrollItemList = payrollItemRepository.findByPayrollId(id);
-		data = fillData(payroll.getPersons(), payrollItemList, account);
-		if("create".equals(method)){
-			payrollService.createExcel(columns, data, response);
-		}else if("export".equals(method)){
-			payrollService.exportExcel(columns, data, response);
+		private void createExcel(String method, String id, String optsId, HttpServletResponse response) throws IOException{
+			String serverPath = ctx.getResource("/").getFile().getPath();
+			String folderPath = serverPath + "/temp/salary/export";
+			String filePath = folderPath + "/"+ optsId + ".json";
+			File file = new File(filePath);
+			String josnStr = FileUtil.readAsString(file);
+			Map<String, String> opts = jackson.readValue(josnStr, new TypeReference<Map<String, String>>(){});
+			file.delete();
+			
+			Payroll payroll = payrollRepository.findOne(id);
+			Account account = accountRepository.findOne(payroll.getAccountId());
+			List<AccountItem> items = account.getAccountItems();
+			List<Map<String, Object>> fields = new ArrayList<Map<String, Object>>();
+			List<Map<String, Object>> columns = new ArrayList<Map<String, Object>>();
+			List<Map<String, Object>> data = new ArrayList<Map<String, Object>>();
+			fillSimpleFields(fields, opts);
+			fillSimpleColumns(columns, opts);
+			for (AccountItem item : items) {
+				fields.add(getFields(item));
+				columns.add(getColumns(item));
+			}
+			List<PayrollItem> payrollItemList = payrollItemRepository.findByPayrollId(id);
+			data = fillData(payroll.getPersons(), payrollItemList, account);
+			if("create".equals(method)){
+				payrollService.createExcel(columns, data, response);
+			}else if("export".equals(method)){
+				payrollService.exportExcel(columns, data, response);
+			}
 		}
-	}
 	private Map<String, Object> getFields(AccountItem item) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("name", item.getSalaryItemId());

@@ -45,7 +45,8 @@
             },
             "codeClass": null,
             "userConfig": {
-                "name": "cardinality"
+                "name": "cardinality",
+                "type": "float"
             },
             "name": "MyField16",
             "designerId": "3462e7bf-833e-4c56-bfd9-072195cdb6b1"
@@ -84,35 +85,11 @@
             },
             "codeClass": null,
             "userConfig": {
-                "name": "companyPaymentValue"
+                "name": "companyPaymentValue",
+                "type": "float"
             },
             "name": "MyField17",
-            "designerId": "0409a5ff-3635-437d-ad36-09de921109bc",
-            "cn": [
-                {
-                    "type": "fixedfunction",
-                    "reference": {
-                        "name": "items",
-                        "type": "array"
-                    },
-                    "codeClass": null,
-                    "userConfig": {
-                        "designer|params": [
-                            "v",
-                            "rec"
-                        ],
-                        "fn": "convert",
-                        "implHandler": [
-                            "// if(rec.get('companyPaymentType') == 'Percent'){",
-                            "//     v = v * 100;",
-                            "// }",
-                            "return v;"
-                        ]
-                    },
-                    "name": "convert",
-                    "designerId": "0812cde7-3504-471d-ba15-d08f63c3a6d5"
-                }
-            ]
+            "designerId": "0409a5ff-3635-437d-ad36-09de921109bc"
         },
         {
             "type": "Ext.data.Field",
@@ -122,35 +99,11 @@
             },
             "codeClass": null,
             "userConfig": {
-                "name": "personalPaymentValue"
+                "name": "personalPaymentValue",
+                "type": "float"
             },
             "name": "MyField18",
-            "designerId": "ca5b4c7e-014f-4520-9d60-a27821daecde",
-            "cn": [
-                {
-                    "type": "fixedfunction",
-                    "reference": {
-                        "name": "items",
-                        "type": "array"
-                    },
-                    "codeClass": null,
-                    "userConfig": {
-                        "designer|params": [
-                            "v",
-                            "rec"
-                        ],
-                        "fn": "convert",
-                        "implHandler": [
-                            "// if(rec.get('personalPaymentType') == 'Percent'){",
-                            "//     v = v * 100;",
-                            "// }",
-                            "return v;"
-                        ]
-                    },
-                    "name": "convert",
-                    "designerId": "85b96e21-dec6-4dd0-8ca3-971eb9f1d864"
-                }
-            ]
+            "designerId": "ca5b4c7e-014f-4520-9d60-a27821daecde"
         },
         {
             "type": "Ext.data.Field",
