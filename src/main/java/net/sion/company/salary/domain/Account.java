@@ -75,7 +75,11 @@ public class Account implements Cloneable{
 		Map<String,Double> salaryItemValues = new HashMap<String,Double>();
 		for (AccountItem item : accountItems) {
 			if (item.getType() == AccountItemType.Input) {
-				salaryItemValues.put(item.getSalaryItemId(),Double.valueOf(item.getValue()));
+				if(StringUtils.isEmpty(item.getValue())){
+					salaryItemValues.put(item.getSalaryItemId(),Double.valueOf(0));
+				}else{
+					salaryItemValues.put(item.getSalaryItemId(),Double.valueOf(item.getValue()));
+				}
 			}
 		}
 		
