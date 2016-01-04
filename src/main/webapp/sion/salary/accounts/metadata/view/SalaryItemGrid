@@ -96,23 +96,6 @@
             "designerId": "1ae6d019-d684-44c8-ab2b-a9620fbc8f21"
         },
         {
-            "type": "Ext.grid.column.Boolean",
-            "reference": {
-                "name": "columns",
-                "type": "array"
-            },
-            "codeClass": null,
-            "userConfig": {
-                "dataIndex": "system",
-                "falseText": "否",
-                "flex": 1,
-                "text": "系统项",
-                "trueText": "是"
-            },
-            "name": "MyBooleanColumn1",
-            "designerId": "0741c148-89bf-4df4-950c-a1d8ad3fe7ca"
-        },
-        {
             "type": "Ext.grid.column.Action",
             "reference": {
                 "name": "columns",

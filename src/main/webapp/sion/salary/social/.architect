@@ -1147,7 +1147,7 @@
                 }
             ]
         },
-        "store": false,
+        "store": true,
         "ca038700-71cc-41be-bd64-d1a9b16fdf18": {
             "id": "ca038700-71cc-41be-bd64-d1a9b16fdf18",
             "cn": [
@@ -1720,8 +1720,8 @@
         "topInstance": null
     },
     "inspectorState": {
-        "topInstance": "a37fffad-cd50-40e6-b3f2-a6d95dbe2f06",
-        "selectedInstance": "a438413e-e235-45b2-9a82-91ded531a4c6"
+        "topInstance": "0a1e0fbc-0eaf-43e4-8f41-88715f560986",
+        "selectedInstance": "0a1e0fbc-0eaf-43e4-8f41-88715f560986"
     },
     "editMode": "code",
     "userSettings": {

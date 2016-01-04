@@ -25,7 +25,6 @@ Ext.define('sion.salary.social.view.SocialAccountGrid', {
         'Ext.toolbar.Paging'
     ],
 
-    maxHeight: 610,
     width: 1006,
     store: 'SocialAccount',
 

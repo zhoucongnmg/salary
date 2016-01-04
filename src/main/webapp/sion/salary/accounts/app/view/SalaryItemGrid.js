@@ -18,7 +18,6 @@ Ext.define('sion.salary.accounts.view.SalaryItemGrid', {
     alias: 'widget.salaryitemgrid',
 
     requires: [
-        'Ext.grid.column.Boolean',
         'Ext.grid.column.Action',
         'Ext.grid.View'
     ],
@@ -55,14 +54,6 @@ Ext.define('sion.salary.accounts.view.SalaryItemGrid', {
                     dataIndex: 'note',
                     text: '备注',
                     flex: 3
-                },
-                {
-                    xtype: 'booleancolumn',
-                    dataIndex: 'system',
-                    text: '系统项',
-                    flex: 1,
-                    falseText: '否',
-                    trueText: '是'
                 },
                 {
                     xtype: 'actioncolumn',

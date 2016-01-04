@@ -9,7 +9,7 @@
         "autoLoad": false,
         "designer|userClassName": "Account",
         "model": "Account",
-        "pageSize": 20,
+        "pageSize": 50,
         "remoteFilter": true,
         "remoteSort": true,
         "storeId": "Account"
