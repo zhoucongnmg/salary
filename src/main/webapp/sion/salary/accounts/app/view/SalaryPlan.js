@@ -69,14 +69,14 @@ Ext.define('sion.salary.accounts.view.SalaryPlan', {
                     xtype: 'form',
                     bodyPadding: 10,
                     header: false,
-                    title: 'My Form',
                     items: [
                         {
                             xtype: 'textfield',
                             anchor: '100%',
                             itemId: 'name',
                             fieldLabel: '方案名称',
-                            name: 'name'
+                            name: 'name',
+                            allowBlank: false
                         },
                         {
                             xtype: 'checkboxfield',
