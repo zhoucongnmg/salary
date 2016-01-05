@@ -27,7 +27,7 @@
                     "    update: 'salary/payroll/savePayrollItem'",
                     "}       "
                 ],
-                "url": "salary/payroll/addPayroll"
+                "url": null
             },
             "name": "MyAjaxProxy1",
             "designerId": "2cbc313a-888f-43e4-a41b-717f83b5a76c",

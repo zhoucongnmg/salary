@@ -41,22 +41,6 @@
             },
             "codeClass": null,
             "userConfig": {
-                "dataIndex": "field",
-                "flex": 1,
-                "text": "字段",
-                "width": null
-            },
-            "name": "MyColumn4",
-            "designerId": "9c21b907-fb8a-405a-84da-9587618cf553"
-        },
-        {
-            "type": "Ext.grid.column.Column",
-            "reference": {
-                "name": "columns",
-                "type": "array"
-            },
-            "codeClass": null,
-            "userConfig": {
                 "dataIndex": "type",
                 "flex": 1,
                 "text": "类型",
@@ -110,23 +94,6 @@
             },
             "name": "MyColumn6",
             "designerId": "1ae6d019-d684-44c8-ab2b-a9620fbc8f21"
-        },
-        {
-            "type": "Ext.grid.column.Boolean",
-            "reference": {
-                "name": "columns",
-                "type": "array"
-            },
-            "codeClass": null,
-            "userConfig": {
-                "dataIndex": "system",
-                "falseText": "否",
-                "flex": 1,
-                "text": "系统项",
-                "trueText": "是"
-            },
-            "name": "MyBooleanColumn1",
-            "designerId": "0741c148-89bf-4df4-950c-a1d8ad3fe7ca"
         },
         {
             "type": "Ext.grid.column.Action",
@@ -242,7 +209,7 @@
                                 "fn": "handler",
                                 "implHandler": [
                                     "var store = Ext.getStore(\"SalaryItem\");",
-                                    "if(record.get('system')){",
+                                    "if(record.get('type') == 'System'){",
                                     "    Ext.Msg.alert('提示','系统提取项不可删除！');",
                                     "    return false;",
                                     "}",
@@ -328,14 +295,13 @@
                     "    namespace = me.getNamespace(),",
                     "    str = '.view.SalaryItemEdit';",
                     "",
-                    "if(record.get('system')){",
+                    "if(record.get('type') == 'System'){",
                     "    str = '.view.SalaryItemRead';",
                     "}",
                     "var panel =  Ext.create(namespace + str,{",
                     "    _salaryItem : record",
                     "});",
-                    "panel.show();",
-                    "// me.resetGridSelect(record);"
+                    "panel.show();"
                 ]
             },
             "name": "detail",

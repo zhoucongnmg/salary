@@ -69,14 +69,14 @@ Ext.define('sion.salary.accounts.view.SalaryPlan', {
                     xtype: 'form',
                     bodyPadding: 10,
                     header: false,
-                    title: 'My Form',
                     items: [
                         {
                             xtype: 'textfield',
                             anchor: '100%',
                             itemId: 'name',
                             fieldLabel: '方案名称',
-                            name: 'name'
+                            name: 'name',
+                            allowBlank: false
                         },
                         {
                             xtype: 'checkboxfield',
@@ -125,12 +125,6 @@ Ext.define('sion.salary.accounts.view.SalaryPlan', {
                             dataIndex: 'type',
                             text: '项目类型',
                             flex: 2
-                        },
-                        {
-                            xtype: 'gridcolumn',
-                            dataIndex: 'fieldName',
-                            text: '字段',
-                            flex: 1
                         },
                         {
                             xtype: 'gridcolumn',

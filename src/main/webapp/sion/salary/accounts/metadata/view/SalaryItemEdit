@@ -48,23 +48,6 @@
                     "designerId": "d2a2b226-535d-46f6-93e8-b8afc2fa5863"
                 },
                 {
-                    "type": "Ext.form.field.Text",
-                    "reference": {
-                        "name": "items",
-                        "type": "array"
-                    },
-                    "codeClass": null,
-                    "userConfig": {
-                        "allowBlank": false,
-                        "fieldLabel": "字段",
-                        "itemId": "field",
-                        "layout|anchor": "100%",
-                        "name": "field"
-                    },
-                    "name": "MyTextField7",
-                    "designerId": "659fe7c6-107e-42d5-b542-31f82a9822ff"
-                },
-                {
                     "type": "Ext.form.field.ComboBox",
                     "reference": {
                         "name": "items",
@@ -79,7 +62,7 @@
                         "itemId": "type",
                         "layout|anchor": "100%",
                         "name": "type",
-                        "store": "AccountItemType",
+                        "store": "AccountItemTypeExcludeSystem",
                         "valueField": "id"
                     },
                     "name": "MyComboBox",
@@ -187,7 +170,7 @@
                                     "",
                                     "record = form.getRecord();",
                                     "form.updateRecord(record);",
-                                    "if(!me.down('#name').isValid() || !me.down('#field').isValid() || !me.down('#type').isValid() || !me.down('#decimalScale').isValid()){",
+                                    "if(!me.down('#name').isValid() || !me.down('#type').isValid() || !me.down('#decimalScale').isValid()){",
                                     "    Ext.Msg.alert(\"提示\", \"信息不完整，请继续填写！\");",
                                     "    return false;",
                                     "}",

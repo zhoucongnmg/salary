@@ -72,7 +72,9 @@ Ext.define('sion.salary.level.view.Level_win', {
                             height: 35,
                             itemId: 'name',
                             fieldLabel: '名称',
-                            name: 'name'
+                            name: 'name',
+                            allowBlank: false,
+                            allowOnlyWhitespace: false
                         },
                         {
                             xtype: 'fieldset',
@@ -166,17 +168,21 @@ Ext.define('sion.salary.level.view.Level_win', {
                                 {
                                     xtype: 'gridpanel',
                                     flex: 1,
+                                    autoScroll: true,
                                     header: false,
                                     title: 'My Grid Panel',
                                     store: 'LevelItemStore',
                                     columns: [
                                         {
                                             xtype: 'gridcolumn',
+                                            width: 100,
                                             dataIndex: 'rank',
                                             text: '等级',
                                             flex: 1,
                                             editor: {
-                                                xtype: 'textfield'
+                                                xtype: 'textfield',
+                                                allowBlank: false,
+                                                allowOnlyWhitespace: false
                                             }
                                         }
                                     ],
@@ -257,6 +263,11 @@ Ext.define('sion.salary.level.view.Level_win', {
             levelItems=[],
             model =me._record;
 
+        if(!form.isValid()){
+            Ext.Msg.alert("提示","请正确填写表单信息");
+            return;
+        }
+
         model.set('name',form.down('#name').getValue());
         //set items
         store.each(function(record){
@@ -282,6 +293,10 @@ Ext.define('sion.salary.level.view.Level_win', {
 
         if(levelItems.length===0){
            Ext.Msg.alert("提示","薪资层次至少应包含一个级别!");
+           return;
+        }
+        if(model.data.salaryItemNames.length===0){
+           Ext.Msg.alert("提示","薪资级别中至少应包含一个项目!");
            return;
         }
 
@@ -319,31 +334,6 @@ Ext.define('sion.salary.level.view.Level_win', {
             columns=new Array(),
             cbg=me.down('checkboxgroup'),
             itemNames={};
-
-        //Danymic columns
-        Ext.suspendLayouts();
-
-        //把表格中固定的列加到动态模型中
-        var cols=grid.columns;
-        columns.push({text:'等级',dataIndex:'rank',editor:cols[0].editor,flex:1});
-
-
-        //根据级别设置的薪资项加入动态模型
-        var cbitems = cbg.items;
-        for (var i = 0; i < cbitems.length; i++) {
-            if (cbitems.items[i].checked) {
-                columns.push({text:cbitems.items[i].boxLabel,dataIndex:cbitems.items[i].name,editor:cols[0].editor,flex:1});
-                var itemName={};
-                itemNames[cbitems.items[i].name]=cbitems.items[i].boxLabel;
-            }
-        }
-
-
-        grid.reconfigure(store, columns);
-        Ext.resumeLayouts(true);
-
-        me._record.set('salaryItemNames',itemNames);
-
         var ok=me.down('#btnOk'),
             cancel=me.down('#btnCancel'),
             edit=me.down('#btnEdit'),
@@ -351,12 +341,39 @@ Ext.define('sion.salary.level.view.Level_win', {
             del=me.down('#btnDelete'),
             panel=me.down('#salaryItemNamePanel');
 
+        //Danymic columns
+        // grid.suspendLayouts();
+
+        //把表格中固定的列加到动态模型中
+        var cols=grid.columns;
+        columns.push({text:'等级',dataIndex:'rank',editor:cols[0].editor,width:200});
+
+
+        //根据级别设置的薪资项加入动态模型
+        var cbitems = cbg.items;
+        for (var i = 0; i < cbitems.length; i++) {
+            if (cbitems.items[i].checked) {
+                columns.push({text:cbitems.items[i].boxLabel,dataIndex:cbitems.items[i].name,editor:cols[0].editor,width:100});
+                var itemName={};
+                itemNames[cbitems.items[i].name]=cbitems.items[i].boxLabel;
+            }
+        }
+        me._record.set('salaryItemNames',itemNames);
         edit.show();
         add.show();
         del.show();
         ok.hide();
         cancel.hide();
         panel.hide();
+
+        grid.reconfigure(store, columns);
+        // grid.resumeLayouts(true);
+
+
+
+
+
+
 
     },
 

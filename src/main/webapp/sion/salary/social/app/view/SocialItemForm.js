@@ -173,7 +173,7 @@ Ext.define('sion.salary.social.view.SocialItemForm', {
             form.loadRecord(Ext.create(namespace + '.model.SocialItem', {
                 name: '',
                 itemType: '',
-                carryType: '',
+                carryType: 'Round',
                 precision: ''
             }));
         }

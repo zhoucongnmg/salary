@@ -9,7 +9,7 @@
         "designer|userAlias": "socialaccountgrid",
         "designer|userClassName": "SocialAccountGrid",
         "height": null,
-        "maxHeight": 610,
+        "maxHeight": null,
         "minHeight": null,
         "store": "SocialAccount",
         "title": null,

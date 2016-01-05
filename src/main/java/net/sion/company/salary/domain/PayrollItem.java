@@ -5,14 +5,16 @@ package net.sion.company.salary.domain;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.Map;
 
+
+
+
 import net.sion.boot.config.jackson.CustomJackson;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.apache.commons.lang3.StringUtils;
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.roo.addon.javabean.RooJavaBean;
@@ -46,9 +48,23 @@ public class PayrollItem {
 	
 	Map<String,Double> values = new HashMap<String,Double>();	//薪资明细项
 	
-	@Autowired CustomJackson jackson;
-	
+	public PayrollItem() {
+	}
+
+	public PayrollItem(String id, String payrollId, String personId,
+			String name, String duty, String dept, Map<String, Double> values) {
+		super();
+		this.id = new ObjectId().toString();
+		this.payrollId = payrollId;
+		this.personId = personId;
+		this.name = name;
+		this.duty = duty;
+		this.dept = dept;
+		this.values = values;
+	}
+
 	public Map<String,Object> parseMap() {
+		CustomJackson jackson = new CustomJackson();
 		Map<String, Object> map = new HashMap<String,Object>();
 		try {
 			map = jackson.readValue(jackson.writeValueAsString(this), new TypeReference<Map<String,Object>>(){});
@@ -67,6 +83,9 @@ public class PayrollItem {
 			Object value = entry.getValue();
 			try {
 				Method m = me.getMethod("set" + toUpperCaseFirstOne(key),String.class);
+				if ("id".equals(key)&&StringUtils.isBlank((String)value)) {
+					value = new ObjectId().toString();
+				}
 				m.invoke(this, value);
 			} catch (NoSuchMethodException e) {
 				// TODO Auto-generated catch block

@@ -113,7 +113,7 @@
             "userConfig": {
                 "bodyPadding": 10,
                 "header": false,
-                "title": "My Form"
+                "title": null
             },
             "name": "MyForm",
             "designerId": "4043a29c-52b5-451b-95e2-9179de37f450",
@@ -126,6 +126,7 @@
                     },
                     "codeClass": null,
                     "userConfig": {
+                        "allowBlank": false,
                         "fieldLabel": "方案名称",
                         "itemId": "name",
                         "layout|anchor": "100%",
@@ -259,21 +260,6 @@
                             "designerId": "2eb85934-bc5e-41e8-9b2c-9a1323c4b346"
                         }
                     ]
-                },
-                {
-                    "type": "Ext.grid.column.Column",
-                    "reference": {
-                        "name": "columns",
-                        "type": "array"
-                    },
-                    "codeClass": null,
-                    "userConfig": {
-                        "dataIndex": "fieldName",
-                        "flex": 1,
-                        "text": "字段"
-                    },
-                    "name": "MyColumn11",
-                    "designerId": "98022f2e-5fe4-4006-9651-d10a61378923"
                 },
                 {
                     "type": "Ext.grid.column.Column",

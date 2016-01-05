@@ -60,25 +60,6 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "fieldLabel": "字段",
-                        "itemId": "field",
-                        "layout|anchor": "100%",
-                        "name": "field",
-                        "style": [
-                            "border-bottom:1px #f2f2f2 solid;"
-                        ]
-                    },
-                    "name": "MyDisplayField1",
-                    "designerId": "5cad2d15-5876-4f62-86d5-78da0798373e"
-                },
-                {
-                    "type": "Ext.form.field.Display",
-                    "reference": {
-                        "name": "items",
-                        "type": "array"
-                    },
-                    "codeClass": null,
-                    "userConfig": {
                         "fieldLabel": "类型",
                         "itemId": "type",
                         "layout|anchor": "100%",
@@ -165,7 +146,9 @@
                     "var me = this,",
                     "    namespace = me.getNamespace(),",
                     "    form = me.down(\"form\"),",
-                    "    salaryItem = me._salaryItem;",
+                    "    salaryItem = me._salaryItem,",
+                    "    store = Ext.getStore(\"AccountItemType\"),",
+                    "    rec = store.findRecord('id', salaryItem.get('type'));",
                     "",
                     "    form.loadRecord(salaryItem);",
                     "if(salaryItem.get('taxItem')){",
@@ -173,7 +156,7 @@
                     "}else{",
                     "    me.down('#taxItem').setValue('否');",
                     "}",
-                    ""
+                    "me.down('#type').setValue(rec.get(\"name\"));"
                 ],
                 "name": "beforerender",
                 "scope": "me"

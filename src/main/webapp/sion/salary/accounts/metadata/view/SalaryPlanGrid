@@ -26,7 +26,7 @@
             "codeClass": null,
             "userConfig": {
                 "header": false,
-                "maxHeight": 610,
+                "maxHeight": null,
                 "store": "Account",
                 "title": "salary accounts"
             },

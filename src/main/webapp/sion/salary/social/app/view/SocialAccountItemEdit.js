@@ -89,8 +89,8 @@ Ext.define('sion.salary.social.view.SocialAccountItemEdit', {
                                     fieldLabel: '基数',
                                     labelWidth: 60,
                                     name: 'cardinality',
-                                    allowBlank: false,
-                                    minValue: 0
+                                    value: 0.00,
+                                    allowBlank: false
                                 }
                             ]
                         },
@@ -109,8 +109,8 @@ Ext.define('sion.salary.social.view.SocialAccountItemEdit', {
                                     fieldLabel: '单位缴费',
                                     labelWidth: 60,
                                     name: 'companyPaymentValue',
-                                    allowBlank: false,
-                                    minValue: 0
+                                    value: 0.00,
+                                    allowBlank: false
                                 },
                                 {
                                     xtype: 'combobox',
@@ -131,6 +131,7 @@ Ext.define('sion.salary.social.view.SocialAccountItemEdit', {
                                     fieldLabel: '个人缴费',
                                     labelWidth: 60,
                                     name: 'personalPaymentValue',
+                                    value: 0.00,
                                     allowBlank: false,
                                     minValue: 0
                                 },
@@ -199,6 +200,29 @@ Ext.define('sion.salary.social.view.SocialAccountItemEdit', {
             form = me.down("form"),
             item = me._socialAccountItem;
 
+
+        Ext.override(Ext.form.NumberField, {
+            setValue : function(v){
+                v = typeof v == 'number' ? v : parseFloat(String(v).replace(this.decimalSeparator, "."));
+                v = isNaN(v) ? '' : v.toFixed(this.decimalPrecision).replace(".", this.decimalSeparator);
+                var f_x = Math.round(v*100)/100;
+                var s_x = f_x.toString();
+                var pos_decimal = s_x.indexOf('.');
+                if (pos_decimal < 0)
+                {
+                    pos_decimal = s_x.length;
+                    s_x += '.';
+                }
+                while (s_x.length <= pos_decimal + 2)
+                {
+                    s_x += '0';
+                }
+
+
+                return Ext.form.NumberField.superclass.setValue.call(this, s_x);
+            }
+        });
+
         if(item){
             form.loadRecord(item);
             if(item.get('companyPaymentType') == 'Percent'){
@@ -212,12 +236,17 @@ Ext.define('sion.salary.social.view.SocialAccountItemEdit', {
                 id: '',
                 socialItemId: '',
                 socialItemName: '',
-                companyPaymentValue: 0,
-                personalPaymentValue: 0,
-                cardinality: 0,
+                companyPaymentValue: 0.00,
+                personalPaymentValue: 0.00,
+                cardinality: 0.00,
                 companyPaymentType: '',
                 personalPaymentType: ''
             }));
+
+
+            Ext.Array.each(me.down('numberfield'),function(component,index){
+                component.setValue('0.00');
+            });
         }
     }
 

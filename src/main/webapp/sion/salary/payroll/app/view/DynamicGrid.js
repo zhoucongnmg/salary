@@ -17,6 +17,7 @@ Ext.define('sion.salary.payroll.view.DynamicGrid', {
     extend: 'Ext.window.Window',
 
     requires: [
+        'Ext.toolbar.Toolbar',
         'Ext.button.Button',
         'Ext.form.Panel',
         'Ext.form.field.Display',
@@ -25,8 +26,7 @@ Ext.define('sion.salary.payroll.view.DynamicGrid', {
         'Ext.grid.Panel',
         'Ext.grid.column.Column',
         'Ext.grid.View',
-        'Ext.grid.plugin.CellEditing',
-        'Ext.toolbar.Paging'
+        'Ext.grid.plugin.RowEditing'
     ],
 
     height: 700,
@@ -245,22 +245,16 @@ Ext.define('sion.salary.payroll.view.DynamicGrid', {
                         }
                     ],
                     plugins: [
-                        Ext.create('Ext.grid.plugin.CellEditing', {
+                        Ext.create('Ext.grid.plugin.RowEditing', {
+                            saveBtnText: '保存',
+                            cancelBtnText: '取消',
                             listeners: {
                                 edit: {
-                                    fn: me.onCellEditingEdit,
+                                    fn: me.onRowEditingEdit,
                                     scope: me
                                 }
                             }
                         })
-                    ],
-                    dockedItems: [
-                        {
-                            xtype: 'pagingtoolbar',
-                            dock: 'bottom',
-                            width: 360,
-                            displayInfo: true
-                        }
                     ]
                 }
             ],
@@ -285,9 +279,6 @@ Ext.define('sion.salary.payroll.view.DynamicGrid', {
             store = grid.getStore(),
             data = [];
 
-        store.each(function(record,index){
-           record.set('payrollId',id);
-        });
 
         store.sync({
             success: function(response, options){
@@ -303,77 +294,48 @@ Ext.define('sion.salary.payroll.view.DynamicGrid', {
     onButtonClick1: function(button, e, eOpts) {
         var me = this,
             id = me._id,
-            accountId = me._accountId,
-            namespace = me.getNamespace(),
-            mainModel = Ext.create(namespace + '.model.Main'),
-            grid = me.down('grid'),
-            store = grid.getStore(),
-            data = [];
+            searchForm = me.down('#searchForm'),
+            opts = searchForm.getForm().getValues();
 
-        // store.each(function(record,index){
-        //    record.set('payrollId',id);
-        // });
-
-        // store.sync({
-        //     success: function(response, options){
-        //         Ext.Msg.alert("提示", "保存工资条成功");
-
-        //     },failure: function(response, options){
-        //         Ext.Msg.alert("提示", "操作失败");
-        //     }
-        // });
-        window.location.href = 'salary/payroll/exportItemList?id=' + id;
+        Ext.Ajax.request({
+            url:'salary/payroll/saveExcelTemp',
+            method : 'POST',
+            jsonData : {
+                opts : opts
+            },
+            success: function(response){
+                var json = Ext.JSON.decode(response.responseText);
+                window.location.href = 'salary/payroll/exportItemList?id=' + id + '&optsId=' + json.message;
+            },
+            failure: function(){
+            }
+        });
     },
 
     onButtonClick11: function(button, e, eOpts) {
         var me = this,
             id = me._id,
-            accountId = me._accountId,
-            namespace = me.getNamespace(),
-            mainModel = Ext.create(namespace + '.model.Main'),
-            grid = me.down('grid'),
-            store = grid.getStore(),
-            data = [];
+            searchForm = me.down('#searchForm'),
+            opts = searchForm.getForm().getValues();
 
-        // store.each(function(record,index){
-        //    record.set('payrollId',id);
-        // });
-
-        // store.sync({
-        //     success: function(response, options){
-        //         Ext.Msg.alert("提示", "保存工资条成功");
-
-        //     },failure: function(response, options){
-        //         Ext.Msg.alert("提示", "操作失败");
-        //     }
-        // });
-        window.location.href = 'salary/payroll/createPayrollExcel?id=' + id;
+        Ext.Ajax.request({
+            url:'salary/payroll/saveExcelTemp',
+            method : 'POST',
+            jsonData : {
+                opts : opts
+            },
+            success: function(response){
+                var json = Ext.JSON.decode(response.responseText);
+                window.location.href = 'salary/payroll/createPayrollExcel?id=' + id + '&optsId=' + json.message;
+            },failure: function(){
+            }
+        });
 
     },
 
     onButtonClick111: function(button, e, eOpts) {
-        var me = this,
-            id = me._id,
-            accountId = me._accountId,
-            namespace = me.getNamespace(),
-            mainModel = Ext.create(namespace + '.model.Main'),
-            grid = me.down('grid'),
-            store = grid.getStore(),
-            data = [];
-
-        store.each(function(record,index){
-           record.set('payrollId',id);
-        });
-
-        store.sync({
-            success: function(response, options){
-                Ext.Msg.alert("提示", "保存工资条成功");
-
-            },failure: function(response, options){
-                Ext.Msg.alert("提示", "操作失败");
-            }
-        });
-
+        var me = this;
+        me.close();
     },
 
     onButtonClick2: function(button, e, eOpts) {
@@ -391,15 +353,19 @@ Ext.define('sion.salary.payroll.view.DynamicGrid', {
         me.loadData(id,grid,store,opts);
     },
 
-    onCellEditingEdit: function(editor, e, eOpts) {
+    onRowEditingEdit: function(editor, context, eOpts) {
+
+
         var me = this,
-            field = e.field,
-            record = e.record;
-        me.calculate(field,record,function(values){
+            record = context.record;
+
+
+        me.calculate(record,function(values){
             for (var key in values) {
                 record.set(key,values[key]);
             }
         });
+
     },
 
     onWindowBeforeRender: function(component, eOpts) {
@@ -411,22 +377,16 @@ Ext.define('sion.salary.payroll.view.DynamicGrid', {
             form = me.down('form'),
             store = Ext.create(ns+'.store.PayrollItem');
 
+        me.setTitle(record.get('subject'));
         form.loadRecord(record);
         me.loadData(id,grid,store);
     },
 
-    calculate: function(fieldId, record, cb) {
+    calculate: function(record, cb) {
         var me = this,
             grid = me.down('grid'),
             id = me._id,
             accountId = me._accountId;
-        /*
-        Ext.Array.each(grid.columnManager.columns,function(column,index) {
-            if (column.dataType == 'accountItem') {
-                json[column.dataIndex] = record.get(column.dataIndex);
-            }
-        });
-        */
 
         Ext.Ajax.request({
             url:'salary/payroll/calculate',

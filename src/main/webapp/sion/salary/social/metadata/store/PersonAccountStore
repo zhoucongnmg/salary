@@ -8,7 +8,7 @@
     "userConfig": {
         "designer|userClassName": "PersonAccountStore",
         "model": "PersonAccount",
-        "pageSize": 20,
+        "pageSize": 50,
         "storeId": "PersonAccountStore"
     },
     "name": "MyJsonStore",

@@ -47,14 +47,6 @@ Ext.define('sion.salary.accounts.view.SalaryItemRead', {
                         {
                             xtype: 'displayfield',
                             anchor: '100%',
-                            itemId: 'field',
-                            style: 'border-bottom:1px #f2f2f2 solid;',
-                            fieldLabel: '字段',
-                            name: 'field'
-                        },
-                        {
-                            xtype: 'displayfield',
-                            anchor: '100%',
                             itemId: 'type',
                             style: 'border-bottom:1px #f2f2f2 solid;',
                             fieldLabel: '类型',
@@ -101,7 +93,9 @@ Ext.define('sion.salary.accounts.view.SalaryItemRead', {
         var me = this,
             namespace = me.getNamespace(),
             form = me.down("form"),
-            salaryItem = me._salaryItem;
+            salaryItem = me._salaryItem,
+            store = Ext.getStore("AccountItemType"),
+            rec = store.findRecord('id', salaryItem.get('type'));
 
             form.loadRecord(salaryItem);
         if(salaryItem.get('taxItem')){
@@ -109,7 +103,7 @@ Ext.define('sion.salary.accounts.view.SalaryItemRead', {
         }else{
             me.down('#taxItem').setValue('否');
         }
-
+        me.down('#type').setValue(rec.get("name"));
     }
 
 });

@@ -1,5 +1,6 @@
 package net.sion.company.salary.web;
 
+import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -46,9 +47,11 @@ import net.sion.core.admin.sessionrepository.DeptRepository;
 import net.sion.core.admin.sessionrepository.UserRepository;
 import net.sion.util.mvc.Response;
 
+import org.aspectj.util.FileUtil;
 import org.bson.types.ObjectId;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.query.BasicQuery;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -59,6 +62,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
 
@@ -100,10 +104,16 @@ public class PayrollController {
 	
 	@Autowired UserRepository userRepository;
 	@Autowired DeptRepository deptRepository;
+	@Autowired ApplicationContext ctx;
+
 
 	public List<Map<String, Object>> fillSimpleFields(List<Map<String, Object>> fields, Map<String,String> opts) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("name", "id");
+		map.put("type", "string");
+		fields.add(map);
+		map = new HashMap<String, Object>();
+		map.put("name", "payrollId");
 		map.put("type", "string");
 		fields.add(map);
 		map = new HashMap<String, Object>();
@@ -127,24 +137,29 @@ public class PayrollController {
 			if ("on".equals(opts.get("showCompanySocial"))||"on".equals(opts.get("showPersonalSocial"))) {
 				List<SocialItem> socialItems = socialItemRepository.findByItemType(SocialItemType.SocialSecurity);
 				for (SocialItem item : socialItems) {
+					map = new HashMap<String, Object>();
+					map.put("name", item.getId() + "-cardinality");
+					map.put("type", "double");
+					fields.add(map);
+					
 					if ("on".equals(opts.get("showCompanySocial"))) {
 						map = new HashMap<String, Object>();
-						map.put("name", "companyPaymentValue");
-						map.put("type", "string");
+						map.put("name", item.getId() + "-companyPaymentValue");
+						map.put("type", "double");
 						fields.add(map);
 						map = new HashMap<String, Object>();
-						map.put("name", "companyPaymentFinalValue");
+						map.put("name", item.getId() + "-companyPaymentFinalValue");
 						map.put("type", "double");
 						fields.add(map);
 					}
 					
 					if ("on".equals(opts.get("showPersonalSocial"))) {
 						map = new HashMap<String, Object>();
-						map.put("name", "personalPaymentValue");
-						map.put("type", "string");
+						map.put("name", item.getId() + "-personalPaymentValue");
+						map.put("type", "double");
 						fields.add(map);
 						map = new HashMap<String, Object>();
-						map.put("name", "personalPaymentFinalValue");
+						map.put("name", item.getId() + "-personalPaymentFinalValue");
 						map.put("type", "double");
 						fields.add(map);
 					}
@@ -153,30 +168,6 @@ public class PayrollController {
 		}
 		
 		
-		
-		if (opts!=null) {
-			if ("on".equals(opts.get("showCompanySocial"))) {
-				map = new HashMap<String, Object>();
-				map.put("name", "companyPaymentValue");
-				map.put("type", "string");
-				fields.add(map);
-				map = new HashMap<String, Object>();
-				map.put("name", "companyPaymentFinalValue");
-				map.put("type", "double");
-				fields.add(map);
-			}
-			
-			if ("on".equals(opts.get("showPersonalSocial"))) {
-				map = new HashMap<String, Object>();
-				map.put("name", "personalPaymentValue");
-				map.put("type", "string");
-				fields.add(map);
-				map = new HashMap<String, Object>();
-				map.put("name", "personalPaymentFinalValue");
-				map.put("type", "double");
-				fields.add(map);
-			}
-		}
 		return fields;
 	}
 
@@ -211,7 +202,7 @@ public class PayrollController {
 					
 					Map<String,Object> socialColumn = new HashMap<String, Object>();
 					socialColumn.put("header", "基数");
-					socialColumn.put("dataIndex", "string");
+					socialColumn.put("dataIndex", item.getId() +"-cardinality");
 					socialColumns.add(socialColumn);
 					if ("on".equals(opts.get("showCompanySocial"))) {
 						socialColumn = new HashMap<String, Object>();
@@ -275,7 +266,7 @@ public class PayrollController {
 		return columns;
 	}
 
-	public List<Map<String, Object>> fillData(Map<String, String> persons, List<PayrollItem> items, Account account) {
+	public List<Map<String, Object>> fillData(Payroll payroll, List<PayrollItem> items, Account account) {
 		List<Map<String, Object>> data = new ArrayList<Map<String, Object>>();
 
 		Map<String, PayrollItem> payrollItemMap = new HashMap<String, PayrollItem>();
@@ -283,7 +274,7 @@ public class PayrollController {
 			payrollItemMap.put(item.getPersonId(), item);
 		}
 		Set<String> newPersonIds = new HashSet<String>();
-		for (Map.Entry<String, String> entry : persons.entrySet()) {
+		for (Map.Entry<String, String> entry : payroll.getPersons().entrySet()) {
 			String personId = entry.getKey();
 			if (payrollItemMap.get(personId) != null) {
 				PayrollItem item = payrollItemMap.get(personId);
@@ -306,6 +297,7 @@ public class PayrollController {
 				for (PersonAccountFile person : personList) {
 					Map<String, Object> personMap = new HashMap<String, Object>();
 					personMap.put("personId", person.getId());
+					personMap.put("payrollId", payroll.getId());
 					personMap.put("name", person.getName());
 					personMap.put("duty", person.getDuty());
 					personMap.put("dept", person.getDept());
@@ -315,6 +307,7 @@ public class PayrollController {
 						Map<String,SocialAccountItem> socialAccountItemMap = personExtension.getItems();
 						for (Map.Entry<String, SocialAccountItem> entry : socialAccountItemMap.entrySet()) {
 							SocialAccountItem item = entry.getValue();
+							personMap.put(item.getSocialItemId()+"-cardinality", item.getCardinality());
 							personMap.put(item.getSocialItemId()+"-companyPaymentValue", item.getCompanyPaymentValue());
 							personMap.put(item.getSocialItemId()+"-companyPaymentFinalValue", item.getCompanyPaymentFinalValue());
 							personMap.put(item.getSocialItemId()+"-personalPaymentValue", item.getPersonalPaymentValue());
@@ -361,15 +354,13 @@ public class PayrollController {
 
 		fillSimpleFields(fields,opts);
 		fillSimpleColumns(columns,opts);
-
 		for (AccountItem item : items) {
 			fields.add(getFields(item));
 			columns.add(getColumns(item));
 		}
-
 		List<PayrollItem> payrollItemList = payrollItemRepository.findByPayrollId(id);
 
-		data = fillData(payroll.getPersons(), payrollItemList, account);
+		data = fillData(payroll, payrollItemList, account);
 
 		Map<String, List<Map<String, Object>>> m = new HashMap<String, List<Map<String, Object>>>();
 		m.put("fields", fields);
@@ -382,22 +373,48 @@ public class PayrollController {
 	 * @throws IOException 
 	 */
 	@RequestMapping(value = "exportItemList")
-	public void exportItemList(HttpServletResponse response,@RequestParam String id, @RequestParam Map<String,Map<String,String>> opts) throws IOException {
-//		String id = (String)param.get("id");
-		Map<String,String> opt = (Map<String,String>)opts.get("opts");
-		createExcel("export", id, opt, response);
+	public void exportItemList(HttpServletResponse response,@RequestParam String id, @RequestParam String  optsId) throws IOException {
+		createExcel("export", id, optsId, response);
 	}
 	/**
 	 * @author lil 生成工资条
 	 * @throws IOException 
 	 */
 	@RequestMapping(value = "createPayrollExcel")
-	public void createPayrollExcel(HttpServletResponse response, @RequestParam String id, @RequestParam Map<String,String> opts) throws IOException {
-		createExcel("create", id, opts, response);
+	public void createPayrollExcel(HttpServletResponse response, @RequestParam String id, @RequestParam String  optsId) throws IOException {
+		createExcel("create", id, optsId, response);
 	}
-	private void createExcel(String method, String id, Map<String,String> opts, HttpServletResponse response) throws IOException{
-//		Map<String,String> opts = (Map<String,String>)param.get("opts");
-//		Map<String,String> opts = null;
+	//保存opts临时文件
+	@RequestMapping(value = "saveExcelTemp")
+	public Response saveExcelTemp(@RequestBody Map<String, Object> param) throws IOException {
+		Map<String, String> opts = (Map<String, String>) param.get("opts");
+		Date date = new Date();
+		String serverPath = ctx.getResource("/").getFile().getPath();
+		String folderPath = serverPath + "/temp/salary/export";
+		File fileFordel  = new File(folderPath);
+		if(!fileFordel.exists()){
+			fileFordel.mkdirs();
+		}
+		String fileName = date.getTime()+"";
+		String filePath = folderPath + "/"+ fileName + ".json";
+		File file = new File(filePath);
+		if(file.exists()){
+			boolean boo = file.delete();
+		}
+		String josnStr = JSONObject.valueToString(opts);
+		FileUtil.writeAsString(file, josnStr);
+		return new Response(fileName, true);
+	}
+	
+	private void createExcel(String method, String id, String optsId, HttpServletResponse response) throws IOException{
+		String serverPath = ctx.getResource("/").getFile().getPath();
+		String folderPath = serverPath + "/temp/salary/export";
+		String filePath = folderPath + "/"+ optsId + ".json";
+		File file = new File(filePath);
+		String josnStr = FileUtil.readAsString(file);
+		Map<String, String> opts = jackson.readValue(josnStr, new TypeReference<Map<String, String>>(){});
+		file.delete();
+		
 		Payroll payroll = payrollRepository.findOne(id);
 		Account account = accountRepository.findOne(payroll.getAccountId());
 		List<AccountItem> items = account.getAccountItems();
@@ -411,13 +428,14 @@ public class PayrollController {
 			columns.add(getColumns(item));
 		}
 		List<PayrollItem> payrollItemList = payrollItemRepository.findByPayrollId(id);
-		data = fillData(payroll.getPersons(), payrollItemList, account);
+		data = fillData(payroll, payrollItemList, account);
 		if("create".equals(method)){
 			payrollService.createExcel(columns, data, response);
 		}else if("export".equals(method)){
 			payrollService.exportExcel(columns, data, response);
 		}
 	}
+	
 	private Map<String, Object> getFields(AccountItem item) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("name", item.getSalaryItemId());
@@ -690,22 +708,6 @@ public class PayrollController {
 		return new Response(true);
 	}
 
-	/**
-	 * 查询工资表条目
-	 * 
-	 * @param 工资表id
-	 * @return 工资表条目明细
-	 */
-	@RequestMapping(value = "loadPayrollItemById")
-	public Response loadPayrollItemById(@RequestParam String id) {
-		// TODO 通过工资表id查找工资表单元格项
-
-		// TODO 将工资表单元格项拼成PayrollItem
-
-		// TODO 调用SalaryService.computeSalary查询其他初始化值并计算出各列结果
-
-		return new Response(true);
-	}
 
 	/**
 	 * 保存工资表条目
@@ -714,21 +716,22 @@ public class PayrollController {
 	 * @return
 	 */
 	@RequestMapping(value = "savePayrollItem")
-	public Response savePayrollItem(@RequestBody Map<String, String> item) {
-		// TODO 调用SalaryService.computeSalary更新与之关联的其他工资表项目
-		PayrollItem payrollItem = new PayrollItem();
-		payrollItem.convertDomain(item);
-		payrollItemRepository.save(payrollItem);
-		return new Response(payrollItem);
+	public Response savePayrollItem(@RequestBody List<Map<String, Object>> items) {
+		List<PayrollItem> saveItems = new ArrayList<PayrollItem>();
+		for (Map<String,Object>  item : items) {
+			PayrollItem payrollItem = new PayrollItem();
+			payrollItem.convertDomain(item);
+			saveItems.add(payrollItem);
+		}
+		payrollItemRepository.save(saveItems);
+		return new Response(saveItems);
 	}
 
 	/**
 	 * 查找条目Field中与改工资条对应的公式的其他关联Field，然后传入field参与计算
 	 * 
-	 * @param accountId
-	 *            //方案id
-	 * @param fieldId
-	 *            //薪资项目id
+	 * @param accountId	方案id
+	 * @param fieldId	薪资项目id
 	 * @return
 	 */
 	@RequestMapping("calculate")

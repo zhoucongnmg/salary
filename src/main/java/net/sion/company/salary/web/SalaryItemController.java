@@ -15,9 +15,11 @@ import javax.servlet.http.HttpSession;
 
 import net.sion.boot.mongo.template.SessionMongoTemplate;
 import net.sion.company.salary.domain.SalaryItem;
+import net.sion.company.salary.domain.SalaryItem.SalaryItemType;
 import net.sion.company.salary.sessionrepository.SalaryItemRepository;
 import net.sion.util.mvc.Response;
 
+import org.apache.commons.lang3.StringUtils;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -69,24 +71,11 @@ public class SalaryItemController {
 	
 	@RequestMapping(value="load")
 	public @ResponseBody Response load(@RequestParam String system, @RequestParam String type) throws UnsupportedEncodingException {
-		List<SalaryItem> list = new ArrayList();
 		Query query = new Query();
-		if("false".equals(system)){
-			query.addCriteria(Criteria.where("system").is(false));
-			type = new String(type.getBytes("ISO-8859-1"),"utf-8");
-			if(!"".equals(type)){
-				query.addCriteria(Criteria.where("type").is(type));
-			}
-//			list = mongoTemplate.find(query, SalaryItem.class);
-		}else if("true".equals(system)){
-			query.addCriteria(Criteria.where("system").is(true));
-//			list = mongoTemplate.find(query, SalaryItem.class);
+		if(StringUtils.isNotEmpty(type)){
+			query.addCriteria(Criteria.where("type").is(type));
 		}
-//		else{
-//			list = salaryItemRepository.findAll();
-//			list.addAll(getSalaryItemSystem());
-//		}
-		list = mongoTemplate.find(query, SalaryItem.class);
+		List<SalaryItem> list = mongoTemplate.find(query, SalaryItem.class);
 		return new Response(list);
 	}
 }

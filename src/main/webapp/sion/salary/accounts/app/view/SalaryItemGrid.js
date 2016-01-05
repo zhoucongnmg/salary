@@ -18,7 +18,6 @@ Ext.define('sion.salary.accounts.view.SalaryItemGrid', {
     alias: 'widget.salaryitemgrid',
 
     requires: [
-        'Ext.grid.column.Boolean',
         'Ext.grid.column.Action',
         'Ext.grid.View'
     ],
@@ -40,12 +39,6 @@ Ext.define('sion.salary.accounts.view.SalaryItemGrid', {
                 },
                 {
                     xtype: 'gridcolumn',
-                    dataIndex: 'field',
-                    text: '字段',
-                    flex: 1
-                },
-                {
-                    xtype: 'gridcolumn',
                     renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
                         var store = Ext.getStore("AccountItemType"),
                             rec = store.findRecord('id', value);
@@ -61,14 +54,6 @@ Ext.define('sion.salary.accounts.view.SalaryItemGrid', {
                     dataIndex: 'note',
                     text: '备注',
                     flex: 3
-                },
-                {
-                    xtype: 'booleancolumn',
-                    dataIndex: 'system',
-                    text: '系统项',
-                    flex: 1,
-                    falseText: '否',
-                    trueText: '是'
                 },
                 {
                     xtype: 'actioncolumn',
@@ -97,7 +82,7 @@ Ext.define('sion.salary.accounts.view.SalaryItemGrid', {
                         {
                             handler: function(view, rowIndex, colIndex, item, e, record, row) {
                                 var store = Ext.getStore("SalaryItem");
-                                if(record.get('system')){
+                                if(record.get('type') == 'System'){
                                     Ext.Msg.alert('提示','系统提取项不可删除！');
                                     return false;
                                 }
@@ -164,14 +149,13 @@ Ext.define('sion.salary.accounts.view.SalaryItemGrid', {
             namespace = me.getNamespace(),
             str = '.view.SalaryItemEdit';
 
-        if(record.get('system')){
+        if(record.get('type') == 'System'){
             str = '.view.SalaryItemRead';
         }
         var panel =  Ext.create(namespace + str,{
             _salaryItem : record
         });
         panel.show();
-        // me.resetGridSelect(record);
     }
 
 });

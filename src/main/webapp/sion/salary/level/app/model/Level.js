@@ -29,6 +29,9 @@ Ext.define('sion.salary.level.model.Level', {
         },
         {
             name: 'salaryItemNames'
+        },
+        {
+            name: 'id'
         }
     ]
 });

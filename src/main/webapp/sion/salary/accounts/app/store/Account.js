@@ -31,7 +31,7 @@ Ext.define('sion.salary.accounts.store.Account', {
             remoteFilter: true,
             remoteSort: true,
             storeId: 'Account',
-            pageSize: 20,
+            pageSize: 50,
             proxy: {
                 type: 'ajax',
                 api: {

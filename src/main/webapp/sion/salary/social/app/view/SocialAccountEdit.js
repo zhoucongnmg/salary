@@ -283,7 +283,7 @@ Ext.define('sion.salary.social.view.SocialAccountEdit', {
             store = itemGrid.getStore();
 
         var panel =  Ext.create(namespace + '.view.SocialAccountItemEdit',{
-        //     _opener : me,
+            //     _opener : me,
             _socialAccountItem : record,
             _itemStore : store
         });

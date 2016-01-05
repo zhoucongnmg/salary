@@ -85,7 +85,7 @@ Ext.define('sion.salary.accounts.view.AddSalaryItem', {
                                     anchor: '100%',
                                     hideEmptyLabel: false,
                                     name: 'show',
-                                    boxLabel: '在薪资报表中显示'
+                                    boxLabel: '在工资条中显示'
                                 },
                                 {
                                     xtype: 'combobox',
@@ -130,6 +130,7 @@ Ext.define('sion.salary.accounts.view.AddSalaryItem', {
                                 {
                                     xtype: 'textareafield',
                                     anchor: '100%',
+                                    itemId: 'inputValue',
                                     fieldLabel: '值',
                                     labelWidth: 20,
                                     name: 'value',
@@ -210,7 +211,7 @@ Ext.define('sion.salary.accounts.view.AddSalaryItem', {
             account = me._account,
             form = me.down('form'),
             record = form.getRecord(),
-        //     store = Ext.getStore('AccountItem'),
+            //     store = Ext.getStore('AccountItem'),
             store = me._store,
             formulaItemStore = Ext.getStore('FormulaItem'),
             select = grid.getSelectionModel().getSelection(),
@@ -233,6 +234,19 @@ Ext.define('sion.salary.accounts.view.AddSalaryItem', {
                 return false;
             }
         }
+        if(me.down('#type').getValue() == 'Input' ){
+            if(me.down('#inputValue').getValue() === ''){
+                 Ext.Msg.alert('提示', '请输入值');
+                 return false;
+            }
+
+        //     if(!/^[0-9]+$/.test(me.down('#inputValue').getValue())){
+            if(!/^(([0-9]+\.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*\.[0-9]+)|([0-9]*[1-9][0-9]*))$/.test(me.down('#inputValue').getValue())){
+                Ext.Msg.alert('提示', '值只能为数字，请重新输入');
+                return false;
+            }
+        }
+
         form.updateRecord(record);
         if(record.get('type') == 'System'){
             record.set('value', '');
