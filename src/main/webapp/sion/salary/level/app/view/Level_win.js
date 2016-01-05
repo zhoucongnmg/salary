@@ -168,12 +168,14 @@ Ext.define('sion.salary.level.view.Level_win', {
                                 {
                                     xtype: 'gridpanel',
                                     flex: 1,
+                                    autoScroll: true,
                                     header: false,
                                     title: 'My Grid Panel',
                                     store: 'LevelItemStore',
                                     columns: [
                                         {
                                             xtype: 'gridcolumn',
+                                            width: 100,
                                             dataIndex: 'rank',
                                             text: '等级',
                                             flex: 1,
@@ -340,18 +342,18 @@ Ext.define('sion.salary.level.view.Level_win', {
             panel=me.down('#salaryItemNamePanel');
 
         //Danymic columns
-        Ext.suspendLayouts();
+        // grid.suspendLayouts();
 
         //把表格中固定的列加到动态模型中
         var cols=grid.columns;
-        columns.push({text:'等级',dataIndex:'rank',editor:cols[0].editor,flex:1});
+        columns.push({text:'等级',dataIndex:'rank',editor:cols[0].editor,width:200});
 
 
         //根据级别设置的薪资项加入动态模型
         var cbitems = cbg.items;
         for (var i = 0; i < cbitems.length; i++) {
             if (cbitems.items[i].checked) {
-                columns.push({text:cbitems.items[i].boxLabel,dataIndex:cbitems.items[i].name,editor:cols[0].editor,flex:1});
+                columns.push({text:cbitems.items[i].boxLabel,dataIndex:cbitems.items[i].name,editor:cols[0].editor,width:100});
                 var itemName={};
                 itemNames[cbitems.items[i].name]=cbitems.items[i].boxLabel;
             }
@@ -365,7 +367,7 @@ Ext.define('sion.salary.level.view.Level_win', {
         panel.hide();
 
         grid.reconfigure(store, columns);
-        Ext.resumeLayouts(true);
+        // grid.resumeLayouts(true);
 
 
 
