@@ -5,7 +5,7 @@
 	<artifactId>sion-salary</artifactId>
 	<version>${sion-core.version}</version>
 	<packaging>war</packaging>
-	<name>salary</name> 
+	<name>salary</name>  
 	<parent>
 		<groupId>net.sion</groupId>
 		<artifactId>sion-pom</artifactId>
