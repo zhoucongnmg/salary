@@ -35,7 +35,6 @@ Ext.define('sion.salary.payroll.store.PayrollItem', {
                     create: 'salary/payroll/savePayrollItem',
                     update: 'salary/payroll/savePayrollItem'
                 },
-                url: 'salary/payroll/addPayroll',
                 writer: {
                     type: 'json',
                     allowSingle: false

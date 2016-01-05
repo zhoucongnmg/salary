@@ -64,14 +64,11 @@
                                     "    store = grid.getStore(),",
                                     "    data = [];",
                                     "",
-                                    "store.each(function(record,index){",
-                                    "   record.set('payrollId',id);",
-                                    "});",
                                     "",
                                     "store.sync({",
                                     "    success: function(response, options){",
                                     "        Ext.Msg.alert(\"提示\", \"保存工资条成功\");",
-                                    "    ",
+                                    "",
                                     "    },failure: function(response, options){",
                                     "        Ext.Msg.alert(\"提示\", \"操作失败\");",
                                     "    }",
@@ -124,7 +121,8 @@
                                     "    success: function(response){",
                                     "        var json = Ext.JSON.decode(response.responseText);",
                                     "        window.location.href = 'salary/payroll/exportItemList?id=' + id + '&optsId=' + json.message;",
-                                    "    },failure: function(){",
+                                    "    },",
+                                    "    failure: function(){",
                                     "    }",
                                     "});"
                                 ],
@@ -211,28 +209,8 @@
                             "userConfig": {
                                 "fn": "onButtonClick111",
                                 "implHandler": [
-                                    "var me = this,",
-                                    "    id = me._id,",
-                                    "    accountId = me._accountId,",
-                                    "    namespace = me.getNamespace(),",
-                                    "    mainModel = Ext.create(namespace + '.model.Main'),",
-                                    "    grid = me.down('grid'),",
-                                    "    store = grid.getStore(),",
-                                    "    data = [];",
-                                    "",
-                                    "store.each(function(record,index){",
-                                    "   record.set('payrollId',id);",
-                                    "});",
-                                    "",
-                                    "store.sync({",
-                                    "    success: function(response, options){",
-                                    "        Ext.Msg.alert(\"提示\", \"保存工资条成功\");",
-                                    "    ",
-                                    "    },failure: function(response, options){",
-                                    "        Ext.Msg.alert(\"提示\", \"操作失败\");",
-                                    "    }",
-                                    "});",
-                                    ""
+                                    "var me = this;",
+                                    "me.close();"
                                 ],
                                 "name": "click",
                                 "scope": "me"
@@ -541,6 +519,7 @@
             "userConfig": {
                 "autoScroll": true,
                 "emptyText": "无工资条数据",
+                "layout|flex": 1,
                 "title": null
             },
             "name": "MyGridPanel2",
@@ -599,14 +578,30 @@
                     "designerId": "6a6b0dd2-0a8c-47c5-8ec0-0ba9345c8eb4"
                 },
                 {
-                    "type": "Ext.grid.plugin.CellEditing",
+                    "type": "Ext.grid.plugin.RowEditing",
                     "reference": {
                         "name": "plugins",
                         "type": "array"
                     },
-                    "codeClass": "Ext.grid.plugin.CellEditing",
-                    "name": "MyCellEditingPlugin",
-                    "designerId": "12c771ff-66e9-44e6-b093-1f667f2a8cbd",
+                    "codeClass": "Ext.grid.plugin.RowEditing",
+                    "userConfig": {
+                        "cancelBtnText": "取消",
+                        "saveBtnText": "保存"
+                    },
+                    "name": "MyRowEditingPlugin",
+                    "designerId": "3161bf5a-cb63-4742-a342-6aa643ea3a61",
+                    "customConfigs": [
+                        {
+                            "group": "(Custom Properties)",
+                            "name": "saveBtnText",
+                            "type": "string"
+                        },
+                        {
+                            "group": "(Custom Properties)",
+                            "name": "cancelBtnText",
+                            "type": "string"
+                        }
+                    ],
                     "cn": [
                         {
                             "type": "basiceventbinding",
@@ -616,22 +611,26 @@
                             },
                             "codeClass": null,
                             "userConfig": {
-                                "fn": "onCellEditingEdit",
+                                "fn": "onRowEditingEdit",
                                 "implHandler": [
+                                    "",
+                                    "",
                                     "var me = this,",
-                                    "    field = e.field,",
-                                    "    record = e.record;",
-                                    "me.calculate(field,record,function(values){",
+                                    "    record = context.record;",
+                                    "",
+                                    "",
+                                    "me.calculate(record,function(values){",
                                     "    for (var key in values) {",
                                     "        record.set(key,values[key]);",
                                     "    }",
-                                    "});"
+                                    "});",
+                                    ""
                                 ],
                                 "name": "edit",
                                 "scope": "me"
                             },
-                            "name": "onCellEditingEdit",
-                            "designerId": "1cab0dd0-b3dc-4b93-a57a-045a30722c36"
+                            "name": "onRowEditingEdit",
+                            "designerId": "fddb8e60-2298-40f4-b585-ddae13a00659"
                         }
                     ]
                 }
@@ -655,6 +654,7 @@
                     "    form = me.down('form'),",
                     "    store = Ext.create(ns+'.store.PayrollItem');",
                     "",
+                    "me.setTitle(record.get('subject'));",
                     "form.loadRecord(record);",
                     "me.loadData(id,grid,store);"
                 ],
@@ -673,7 +673,6 @@
             "codeClass": null,
             "userConfig": {
                 "designer|params": [
-                    "fieldId",
                     "record",
                     "cb"
                 ],
@@ -683,13 +682,6 @@
                     "    grid = me.down('grid'),",
                     "    id = me._id,",
                     "    accountId = me._accountId;",
-                    "/*",
-                    "Ext.Array.each(grid.columnManager.columns,function(column,index) {",
-                    "    if (column.dataType == 'accountItem') {",
-                    "        json[column.dataIndex] = record.get(column.dataIndex);",
-                    "    }",
-                    "});",
-                    "*/",
                     "",
                     "Ext.Ajax.request({",
                     "    url:'salary/payroll/calculate',",
