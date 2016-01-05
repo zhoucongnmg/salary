@@ -113,7 +113,7 @@
             "userConfig": {
                 "bodyPadding": 10,
                 "header": false,
-                "title": "My Form"
+                "title": null
             },
             "name": "MyForm",
             "designerId": "4043a29c-52b5-451b-95e2-9179de37f450",
@@ -126,6 +126,7 @@
                     },
                     "codeClass": null,
                     "userConfig": {
+                        "allowBlank": false,
                         "fieldLabel": "方案名称",
                         "itemId": "name",
                         "layout|anchor": "100%",
