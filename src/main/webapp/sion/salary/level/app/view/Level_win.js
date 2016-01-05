@@ -72,7 +72,9 @@ Ext.define('sion.salary.level.view.Level_win', {
                             height: 35,
                             itemId: 'name',
                             fieldLabel: '名称',
-                            name: 'name'
+                            name: 'name',
+                            allowBlank: false,
+                            allowOnlyWhitespace: false
                         },
                         {
                             xtype: 'fieldset',
@@ -176,7 +178,9 @@ Ext.define('sion.salary.level.view.Level_win', {
                                             text: '等级',
                                             flex: 1,
                                             editor: {
-                                                xtype: 'textfield'
+                                                xtype: 'textfield',
+                                                allowBlank: false,
+                                                allowOnlyWhitespace: false
                                             }
                                         }
                                     ],
@@ -257,6 +261,11 @@ Ext.define('sion.salary.level.view.Level_win', {
             levelItems=[],
             model =me._record;
 
+        if(!form.isValid()){
+            Ext.Msg.alert("提示","请正确填写表单信息");
+            return;
+        }
+
         model.set('name',form.down('#name').getValue());
         //set items
         store.each(function(record){
@@ -282,6 +291,10 @@ Ext.define('sion.salary.level.view.Level_win', {
 
         if(levelItems.length===0){
            Ext.Msg.alert("提示","薪资层次至少应包含一个级别!");
+           return;
+        }
+        if(model.data.salaryItemNames.length===0){
+           Ext.Msg.alert("提示","薪资级别中至少应包含一个项目!");
            return;
         }
 
@@ -319,6 +332,12 @@ Ext.define('sion.salary.level.view.Level_win', {
             columns=new Array(),
             cbg=me.down('checkboxgroup'),
             itemNames={};
+        var ok=me.down('#btnOk'),
+            cancel=me.down('#btnCancel'),
+            edit=me.down('#btnEdit'),
+            add=me.down('#btnAdd'),
+            del=me.down('#btnDelete'),
+            panel=me.down('#salaryItemNamePanel');
 
         //Danymic columns
         Ext.suspendLayouts();
@@ -337,26 +356,22 @@ Ext.define('sion.salary.level.view.Level_win', {
                 itemNames[cbitems.items[i].name]=cbitems.items[i].boxLabel;
             }
         }
-
-
-        grid.reconfigure(store, columns);
-        Ext.resumeLayouts(true);
-
         me._record.set('salaryItemNames',itemNames);
-
-        var ok=me.down('#btnOk'),
-            cancel=me.down('#btnCancel'),
-            edit=me.down('#btnEdit'),
-            add=me.down('#btnAdd'),
-            del=me.down('#btnDelete'),
-            panel=me.down('#salaryItemNamePanel');
-
         edit.show();
         add.show();
         del.show();
         ok.hide();
         cancel.hide();
         panel.hide();
+
+        grid.reconfigure(store, columns);
+        Ext.resumeLayouts(true);
+
+
+
+
+
+
 
     },
 
