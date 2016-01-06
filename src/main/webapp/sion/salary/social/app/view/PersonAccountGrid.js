@@ -26,6 +26,7 @@ Ext.define('sion.salary.social.view.PersonAccountGrid', {
     ],
 
     width: 1006,
+    autoScroll: true,
     store: 'PersonAccountStore',
 
     initComponent: function() {

@@ -327,6 +327,21 @@
                             "designerId": "baec6714-ef42-40c6-ad77-7a0914823bf8"
                         },
                         {
+                            "type": "Ext.form.field.Hidden",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fieldLabel": "Label",
+                                "itemId": "deptId",
+                                "name": "deptId"
+                            },
+                            "name": "MyHiddenField1",
+                            "designerId": "719445a7-bb0c-4c05-bba3-f83008ffbf30"
+                        },
+                        {
                             "type": "Ext.toolbar.Spacer",
                             "reference": {
                                 "name": "items",
@@ -1547,7 +1562,7 @@
                     "        salaryForm.down('#duty').setValue(person.data.position);",
                     "        salaryForm.down('#idCard').setValue(person.data.idCard);",
                     "        salaryForm.down('#personId').setValue(person.data.id);",
-                    "",
+                    "        salaryForm.down('#deptId').setValue(person.data.deptId);",
                     "",
                     "    },",
                     "    failure:function(form,action){",

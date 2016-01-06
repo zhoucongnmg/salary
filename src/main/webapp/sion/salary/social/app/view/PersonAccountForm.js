@@ -22,13 +22,13 @@ Ext.define('sion.salary.social.view.PersonAccountForm', {
         'Ext.form.Panel',
         'Ext.tab.Tab',
         'Ext.toolbar.Spacer',
+        'Ext.form.field.Hidden',
         'Ext.form.field.ComboBox',
         'Ext.grid.Panel',
         'Ext.grid.column.Column',
         'Ext.form.field.Number',
         'Ext.grid.View',
         'Ext.grid.plugin.RowEditing',
-        'Ext.form.field.Hidden',
         'Ext.form.field.Date'
     ],
 
@@ -136,6 +136,12 @@ Ext.define('sion.salary.social.view.PersonAccountForm', {
                                     fieldLabel: '职务',
                                     labelWidth: 80,
                                     name: 'duty'
+                                },
+                                {
+                                    xtype: 'hiddenfield',
+                                    itemId: 'deptId',
+                                    fieldLabel: 'Label',
+                                    name: 'deptId'
                                 },
                                 {
                                     xtype: 'tbspacer',
@@ -807,7 +813,7 @@ Ext.define('sion.salary.social.view.PersonAccountForm', {
                 salaryForm.down('#duty').setValue(person.data.position);
                 salaryForm.down('#idCard').setValue(person.data.idCard);
                 salaryForm.down('#personId').setValue(person.data.id);
-
+                salaryForm.down('#deptId').setValue(person.data.deptId);
 
             },
             failure:function(form,action){
