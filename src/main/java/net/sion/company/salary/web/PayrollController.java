@@ -20,12 +20,13 @@ import net.sion.boot.config.jackson.CustomJackson;
 import net.sion.boot.mongo.template.SessionMongoTemplate;
 import net.sion.company.salary.domain.Account;
 import net.sion.company.salary.domain.AccountItem;
-import net.sion.company.salary.domain.AccountItem.AccountItemType;
+//import net.sion.company.salary.domain.AccountItem.AccountItemType;
 import net.sion.company.salary.domain.Payroll;
 import net.sion.company.salary.domain.Payroll.PayrollStatus;
 import net.sion.company.salary.domain.PayrollItem;
 import net.sion.company.salary.domain.PersonAccountFile;
 import net.sion.company.salary.domain.PersonExtension;
+import net.sion.company.salary.domain.SalaryItem.SalaryItemType;
 import net.sion.company.salary.domain.SocialAccountItem;
 import net.sion.company.salary.domain.SocialItem;
 import net.sion.company.salary.domain.SocialItem.SocialItemType;
@@ -316,13 +317,12 @@ public class PayrollController {
 					}
 					
 					for (AccountItem item : account.getAccountItems()) {
-						if (item.getType() == AccountItemType.Input) {
+						if (item.getType() == SalaryItemType.Input) {
 							personMap.put(item.getSalaryItemId(), item.getValue());
-						}else if (item.getType() == AccountItemType.System) {
+						}else if (item.getType() == SalaryItemType.System) {
 							publisher.getValue(SystemSalaryItemEnum.valueOf(item.getSalaryItemId()),person.getId(),person.getDept());
 							personMap.put(item.getSalaryItemId(), item.getValue());
-						}
-						
+						}					
 					}
 					personMap.putAll(result);
 					data.add(personMap);
@@ -481,6 +481,7 @@ public class PayrollController {
 	 * 
 	 * @return
 	 */
+	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "getAccountPersons")
 	public List<Dept> getAccountPersons(HttpSession session, @RequestParam(value = "accountId") String accountId,
 			@RequestParam(value = "persons") JSONObject persons) {
@@ -488,6 +489,8 @@ public class PayrollController {
 		Map<String, Object> allParentDeptMap = new HashMap<String, Object>();
 		Map<String, List<Object>> deptUserMap = new HashMap<String, List<Object>>();
 
+		String companyId = adminService.getCompany(session).getId();
+		
 		Query query;
 		if (persons.length() != 0) {
 			Set<String> personsId = persons.keySet();
@@ -498,23 +501,26 @@ public class PayrollController {
 
 		for (PersonAccountFile personAccountFile : personAccountFiles) {
 			if (personAccountFile.getPersonId() != null) {
-				User u = userRepository.findOne(personAccountFile.getPersonId());
-				if (u.getParentId() != null && u.getParentId().length() > 0) {
-					Map<String, Dept> deptMap = findAllParentIntoMap(u.getParentId(), u.getCompany());
+//				User u = userRepository.findOne(personAccountFile.getPersonId());
+				if (personAccountFile.getDeptId() != null && personAccountFile.getDeptId().length() > 0) {
+					Map<String, Dept> deptMap = findAllParentIntoMap(personAccountFile.getDeptId(), companyId);
 					allParentDeptMap.putAll(deptMap);
-					List<Object> userList = deptUserMap.get(u.getParentId());
+					List<Object> userList = deptUserMap.get(personAccountFile.getDeptId());
 					if (userList == null) {
 						userList = new ArrayList<Object>();
 					}
-					userList.add(u);
-					deptUserMap.put(u.getParentId(), userList);
+					Map<String,String> personName = new HashMap<String,String>();
+					personName.put("name", personAccountFile.getName());
+					userList.add(personName);
+					deptUserMap.put(personAccountFile.getDeptId(), userList);
 				}
 			}
 		}
 
-		List deptUserList = new ArrayList();
-
-		String companyId = adminService.getCompany(session).getId();
+		@SuppressWarnings("rawtypes")
+		List deptUserList = new ArrayList<Object>();
+		
+		@SuppressWarnings("rawtypes")
 		List deptList = adminService.traverseDepts(companyId);
 
 		if (deptList != null && deptList.size() > 0) {
@@ -537,7 +543,7 @@ public class PayrollController {
 		}
 	}
 
-	private List<Object> filterTraverseDeptsByMap(List<Object> deptList, Map<String, Object> allParentDeptMap,
+	private List<Object> filterTraverseDeptsByMap(List deptList, Map<String, Object> allParentDeptMap,
 			Map<String, List<Object>> deptUserMap) {
 		Iterator<Object> it = deptList.iterator();
 		while (it.hasNext()) {
