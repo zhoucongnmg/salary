@@ -22,7 +22,6 @@ Ext.define('sion.salary.payroll.view.PayrollWindow', {
         'Ext.button.Button',
         'Ext.form.FieldSet',
         'Ext.toolbar.Spacer',
-        'Ext.form.field.Date',
         'Ext.form.field.ComboBox',
         'Ext.form.field.Hidden',
         'Ext.tree.Panel',
@@ -86,17 +85,15 @@ Ext.define('sion.salary.payroll.view.PayrollWindow', {
                                     columnWidth: 0.2,
                                     height: 20
                                 },
-                                {
-                                    xtype: 'datefield',
+                                me.processMonth({
+                                    xtype: 'triggerfield',
                                     columnWidth: 0.35,
                                     fieldLabel: '薪资月份',
                                     name: 'month',
                                     allowBlank: false,
                                     blankText: '薪资月份不能为空',
-                                    validateBlank: true,
-                                    format: 'Y年m月',
-                                    submitFormat: 'Y年m月'
-                                },
+                                    validateBlank: true
+                                }),
                                 {
                                     xtype: 'tbspacer',
                                     columnWidth: 1,
@@ -128,17 +125,15 @@ Ext.define('sion.salary.payroll.view.PayrollWindow', {
                                     columnWidth: 0.2,
                                     height: 20
                                 },
-                                {
-                                    xtype: 'datefield',
+                                me.processSocialCostMonth({
+                                    xtype: 'triggerfield',
                                     columnWidth: 0.35,
                                     fieldLabel: '社保扣费月',
                                     name: 'socialCostMonth',
                                     allowBlank: false,
                                     blankText: '社保月份不能为空',
-                                    validateBlank: true,
-                                    format: 'Y年m月',
-                                    submitFormat: 'Y年m月'
-                                },
+                                    validateBlank: true
+                                }),
                                 {
                                     xtype: 'tbspacer',
                                     columnWidth: 1,
@@ -212,6 +207,22 @@ Ext.define('sion.salary.payroll.view.PayrollWindow', {
         me.callParent(arguments);
     },
 
+    processMonth: function(config) {
+        config.xtype=　'monthfield';
+        config.hiddenName = 'date';
+        config.format=　"Y-m";
+        return config;
+
+    },
+
+    processSocialCostMonth: function(config) {
+        config.xtype=　'monthfield';
+        config.hiddenName = 'date';
+        config.format=　"Y-m";
+        return config;
+
+    },
+
     onButtonClick: function(button, e, eOpts) {
         var me = this,
             form = me.down('form').getForm(),
@@ -278,6 +289,7 @@ Ext.define('sion.salary.payroll.view.PayrollWindow', {
     onPayrollFormAfterRender: function(component, eOpts) {
         var me = this,
             tree = me.down('treepanel'),
+            accountStore = me.down('combobox').getStore(),
             store = tree.getStore(),
             record = me._link.record;
 
@@ -290,6 +302,7 @@ Ext.define('sion.salary.payroll.view.PayrollWindow', {
                     persons:Ext.encode(record.get('persons'))
                 }
             });
+            accountStore.load();
         }
 
     },

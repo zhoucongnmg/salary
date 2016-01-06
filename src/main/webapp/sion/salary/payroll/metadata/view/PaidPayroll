@@ -71,7 +71,7 @@
                     "designerId": "a8d02982-1064-4ee0-be8b-6bb8c22b9d4f"
                 },
                 {
-                    "type": "Ext.form.field.Date",
+                    "type": "Ext.form.field.Trigger",
                     "reference": {
                         "name": "items",
                         "type": "array"
@@ -79,17 +79,39 @@
                     "codeClass": null,
                     "userConfig": {
                         "fieldLabel": "薪资月份",
-                        "format": "Y-m",
                         "itemId": "month",
-                        "labelWidth": 60,
-                        "layout|columnWidth": 0.2,
-                        "padding": "0 0 0 25"
+                        "layout|columnWidth": 0.2
                     },
-                    "name": "MyDateField",
-                    "designerId": "7b6d251e-46b0-4f99-a8b8-7d7523aea3a8"
+                    "name": "MyTriggerField2",
+                    "designerId": "973c8284-504b-4f8a-a8ba-e8ee5aa3cb49",
+                    "cn": [
+                        {
+                            "type": "processcfgfunction",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "designer|params": [
+                                    "config"
+                                ],
+                                "fn": "processMonth",
+                                "implHandler": [
+                                    "config.xtype=　'monthfield';",
+                                    "config.hiddenName = 'date';",
+                                    "config.format=　\"Y-m\";",
+                                    "return config;",
+                                    ""
+                                ]
+                            },
+                            "name": "processMonth",
+                            "designerId": "cd720800-6309-4fc4-8c4e-688cf2302104"
+                        }
+                    ]
                 },
                 {
-                    "type": "Ext.form.field.Date",
+                    "type": "Ext.form.field.Trigger",
                     "reference": {
                         "name": "items",
                         "type": "array"
@@ -97,14 +119,36 @@
                     "codeClass": null,
                     "userConfig": {
                         "fieldLabel": "社保扣费月",
-                        "format": "Y-m",
                         "itemId": "socialCostMonth",
-                        "labelWidth": 80,
-                        "layout|columnWidth": 0.22,
-                        "padding": "0 0 0 25"
+                        "layout|columnWidth": 0.2
                     },
-                    "name": "MyDateField1",
-                    "designerId": "ea5824df-ce87-4604-8ed5-18dacfa31417"
+                    "name": "MyTriggerField3",
+                    "designerId": "82955317-21e1-456f-93ab-fffe1e5353d3",
+                    "cn": [
+                        {
+                            "type": "processcfgfunction",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "designer|params": [
+                                    "config"
+                                ],
+                                "fn": "processSocialCostMonth",
+                                "implHandler": [
+                                    "config.xtype=　'monthfield';",
+                                    "config.hiddenName = 'date';",
+                                    "config.format=　\"Y-m\";",
+                                    "return config;",
+                                    ""
+                                ]
+                            },
+                            "name": "processSocialCostMonth",
+                            "designerId": "76feceb2-0fa6-4df3-8064-dea7c09882dc"
+                        }
+                    ]
                 },
                 {
                     "type": "Ext.toolbar.Spacer",

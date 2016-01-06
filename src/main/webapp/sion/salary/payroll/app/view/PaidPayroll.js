@@ -20,7 +20,6 @@ Ext.define('sion.salary.payroll.view.PaidPayroll', {
     requires: [
         'Ext.form.Panel',
         'Ext.form.field.ComboBox',
-        'Ext.form.field.Date',
         'Ext.toolbar.Spacer',
         'Ext.button.Button',
         'Ext.grid.Panel',
@@ -65,24 +64,18 @@ Ext.define('sion.salary.payroll.view.PaidPayroll', {
                             fieldLabel: '薪资套账',
                             labelWidth: 60
                         },
-                        {
-                            xtype: 'datefield',
+                        me.processMonth({
+                            xtype: 'triggerfield',
                             columnWidth: 0.2,
                             itemId: 'month',
-                            padding: '0 0 0 25',
-                            fieldLabel: '薪资月份',
-                            labelWidth: 60,
-                            format: 'Y-m'
-                        },
-                        {
-                            xtype: 'datefield',
-                            columnWidth: 0.22,
+                            fieldLabel: '薪资月份'
+                        }),
+                        me.processSocialCostMonth({
+                            xtype: 'triggerfield',
+                            columnWidth: 0.2,
                             itemId: 'socialCostMonth',
-                            padding: '0 0 0 25',
-                            fieldLabel: '社保扣费月',
-                            labelWidth: 80,
-                            format: 'Y-m'
-                        },
+                            fieldLabel: '社保扣费月'
+                        }),
                         {
                             xtype: 'tbspacer',
                             columnWidth: 0.05,
@@ -333,6 +326,22 @@ Ext.define('sion.salary.payroll.view.PaidPayroll', {
         });
 
         me.callParent(arguments);
+    },
+
+    processMonth: function(config) {
+        config.xtype=　'monthfield';
+        config.hiddenName = 'date';
+        config.format=　"Y-m";
+        return config;
+
+    },
+
+    processSocialCostMonth: function(config) {
+        config.xtype=　'monthfield';
+        config.hiddenName = 'date';
+        config.format=　"Y-m";
+        return config;
+
     },
 
     onButtonClick1: function(button, e, eOpts) {
