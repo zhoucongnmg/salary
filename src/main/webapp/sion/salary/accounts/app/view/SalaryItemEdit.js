@@ -132,7 +132,7 @@ Ext.define('sion.salary.accounts.view.SalaryItemEdit', {
             Ext.Msg.alert("提示", "信息不完整，请继续填写！");
             return false;
         }
-        record.set('show', true);
+        // record.set('show', true);
         if(record.get('id') === ''){
             store.add(record);
         }
@@ -161,12 +161,12 @@ Ext.define('sion.salary.accounts.view.SalaryItemEdit', {
             form.loadRecord(Ext.create(namespace + '.model.SalaryItem', {
                 id: '',
                 name: '',
-                field: '',
+        //         field: '',
                 type: '',
                 taxItem: false,
-                decimalScale: 0,
-                system: false,
-                show: true,
+        //         decimalScale: 0,
+        //         system: false,
+        //         show: true,
                 note: ''
             }));
         }

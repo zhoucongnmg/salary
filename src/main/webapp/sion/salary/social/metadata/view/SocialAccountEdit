@@ -297,7 +297,7 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "dataIndex": "socialItemName",
+                        "dataIndex": "name",
                         "flex": 4,
                         "text": "项目名称"
                     },

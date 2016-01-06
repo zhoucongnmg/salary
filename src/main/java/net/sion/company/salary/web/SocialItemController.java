@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 
 import net.sion.boot.mongo.template.SessionMongoTemplate;
 import net.sion.company.salary.domain.InsuredPerson;
+import net.sion.company.salary.domain.Item.ItemType;
 import net.sion.company.salary.domain.SocialAccount;
 import net.sion.company.salary.domain.SocialItem;
 import net.sion.company.salary.sessionrepository.SocialItemRepository;
@@ -44,6 +45,7 @@ public class SocialItemController {
 	 */
 	@RequestMapping(value = "/create")
 	public @ResponseBody Response create(@RequestBody SocialItem item, HttpSession session) {
+//		item.setItem(ItemType.SocialItem);
 		// TODO 保存投保人信息
 		if(item.getId() == null || "".equals(item.getId())){
 			item.setId(new ObjectId().toString());
@@ -73,7 +75,8 @@ public class SocialItemController {
 	@RequestMapping(value = "load")
 	public @ResponseBody Response load() {
 		// TODO 读取未投保人员
-		List<SocialItem> list = socialItemRepository.findAll();
+//		List<SocialItem> list = socialItemRepository.findAll();
+		List<SocialItem> list = socialItemRepository.findByItem(ItemType.SocialItem);
 		return new Response(list);
 	}
 	

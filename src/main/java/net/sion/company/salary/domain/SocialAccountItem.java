@@ -4,7 +4,6 @@ import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 
-import net.sion.company.salary.domain.SocialItem.DecimalCarryType;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.roo.addon.javabean.RooJavaBean;
@@ -17,10 +16,10 @@ import org.springframework.roo.addon.layers.repository.mongo.RooMongoEntity;
  */
 @RooJavaBean
 @RooMongoEntity
-public class SocialAccountItem {
-	String id;
+public class SocialAccountItem extends SocialItem{
+//	String id;
 	String socialItemId;	//社保项目
-	String socialItemName;	//社保项目名称
+//	String socialItemName;	//社保项目名称
 	double cardinality;	//基数
 	double companyPaymentValue;	//单位缴费
 	double personalPaymentValue;	//个人缴费
@@ -28,6 +27,8 @@ public class SocialAccountItem {
 	double personalPaymentFinalValue;	//个人缴费(用于工资条)
 	PaymentType companyPaymentType;	//单位缴费类型
 	PaymentType personalPaymentType;	//个人缴费类型
+//	private SocialAccountItem socialAccountItem;
+	
 	public enum PaymentType {
 		Percent,	//百分比
 		Quota		//定额
@@ -65,15 +66,14 @@ public class SocialAccountItem {
 			value = Math.floor(value);
 		}
 		return value;
-	}
-	private SocialAccountItem socialAccountItem;
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
+	}	
+//	public String getId() {
+//		return id;
+//	}
+//
+//	public void setId(String id) {
+//		this.id = id;
+//	}
 	public String getSocialItemId() {
 		return socialItemId;
 	}
@@ -82,13 +82,13 @@ public class SocialAccountItem {
 		this.socialItemId = socialItemId;
 	}
 
-	public String getSocialItemName() {
-		return socialItemName;
-	}
-
-	public void setSocialItemName(String socialItemName) {
-		this.socialItemName = socialItemName;
-	}
+//	public String getSocialItemName() {
+//		return socialItemName;
+//	}
+//
+//	public void setSocialItemName(String socialItemName) {
+//		this.socialItemName = socialItemName;
+//	}
 
 	public double getCardinality() {
 		return cardinality;
