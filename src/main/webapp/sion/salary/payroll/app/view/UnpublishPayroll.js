@@ -85,12 +85,12 @@ Ext.define('sion.salary.payroll.view.UnpublishPayroll', {
                         },
                         {
                             xtype: 'tbspacer',
-                            columnWidth: 0.05,
+                            columnWidth: 0.03,
                             height: 15
                         },
                         {
                             xtype: 'button',
-                            columnWidth: 0.07,
+                            columnWidth: 0.05,
                             text: '查询',
                             listeners: {
                                 click: {
@@ -101,12 +101,28 @@ Ext.define('sion.salary.payroll.view.UnpublishPayroll', {
                         },
                         {
                             xtype: 'tbspacer',
-                            columnWidth: 0.03,
+                            columnWidth: 0.02,
                             height: 20
                         },
                         {
                             xtype: 'button',
-                            columnWidth: 0.07,
+                            columnWidth: 0.05,
+                            text: '清空',
+                            listeners: {
+                                click: {
+                                    fn: me.onButtonClick21,
+                                    scope: me
+                                }
+                            }
+                        },
+                        {
+                            xtype: 'tbspacer',
+                            columnWidth: 0.02,
+                            height: 20
+                        },
+                        {
+                            xtype: 'button',
+                            columnWidth: 0.05,
                             text: '发放',
                             listeners: {
                                 click: {
@@ -117,12 +133,12 @@ Ext.define('sion.salary.payroll.view.UnpublishPayroll', {
                         },
                         {
                             xtype: 'tbspacer',
-                            columnWidth: 0.03,
+                            columnWidth: 0.02,
                             height: 20
                         },
                         {
                             xtype: 'button',
-                            columnWidth: 0.07,
+                            columnWidth: 0.05,
                             text: '新建',
                             listeners: {
                                 click: {
@@ -397,6 +413,22 @@ Ext.define('sion.salary.payroll.view.UnpublishPayroll', {
         });
     },
 
+    onButtonClick21: function(button, e, eOpts) {
+        var me = this,
+            store = me.down('gridpanel').getStore();
+        store.load({
+            params:{
+                state:'Unpublish',
+                start:'0',
+                page:'1'
+            }
+        });
+
+        month = me.down('#month').setValue('');
+        subject = me.down('#subject').setValue('');
+        socialCostMonth = me.down('#socialCostMonth').setValue('');
+    },
+
     onButtonClick: function(button, e, eOpts) {
         var me = this,
             grid = me.down('gridpanel'),
@@ -494,4 +526,4 @@ Ext.define('sion.salary.payroll.view.UnpublishPayroll', {
         });
     }
 
-});
+});	

@@ -20,12 +20,12 @@ import net.sion.boot.config.jackson.CustomJackson;
 import net.sion.boot.mongo.template.SessionMongoTemplate;
 import net.sion.company.salary.domain.Account;
 import net.sion.company.salary.domain.AccountItem;
+import net.sion.company.salary.domain.AccountItem.AccountItemType;
 import net.sion.company.salary.domain.Payroll;
 import net.sion.company.salary.domain.Payroll.PayrollStatus;
 import net.sion.company.salary.domain.PayrollItem;
 import net.sion.company.salary.domain.PersonAccountFile;
 import net.sion.company.salary.domain.PersonExtension;
-import net.sion.company.salary.domain.SalaryItem.SalaryItemType;
 import net.sion.company.salary.domain.SocialAccountItem;
 import net.sion.company.salary.domain.SocialItem;
 import net.sion.company.salary.domain.SocialItem.SocialItemType;
@@ -316,9 +316,9 @@ public class PayrollController {
 					}
 					
 					for (AccountItem item : account.getAccountItems()) {
-						if (item.getType() == SalaryItemType.Input) {
+						if (item.getType() == AccountItemType.Input) {
 							personMap.put(item.getSalaryItemId(), item.getValue());
-						}else if (item.getType() == SalaryItemType.System) {
+						}else if (item.getType() == AccountItemType.System) {
 							publisher.getValue(SystemSalaryItemEnum.valueOf(item.getSalaryItemId()),person.getId(),person.getDept());
 							personMap.put(item.getSalaryItemId(), item.getValue());
 						}
@@ -524,15 +524,16 @@ public class PayrollController {
 	}
 
 	private Map<String, Dept> findAllParentIntoMap(String deptId, String companyId) {
+		
+		Map<String, Dept> deptMap = new HashMap<String, Dept>();
+		
 		Dept dept = deptRepository.findOne(deptId);
-		if (companyId.equals(dept.getParentId())) {
-			Map<String, Dept> deptMap = new HashMap<String, Dept>();
-			deptMap.put(dept.getId(), dept);
+		deptMap.put(dept.getId(), dept);
+		
+		if (companyId.equals(dept.getParentId())) {		
 			return deptMap;
 		} else {
-			Map<String, Dept> returnDeptMap = this.findAllParentIntoMap(dept.getParentId(), companyId);
-			returnDeptMap.put(dept.getId(), dept);
-			return returnDeptMap;
+			return this.findAllParentIntoMap(dept.getParentId(), companyId);
 		}
 	}
 

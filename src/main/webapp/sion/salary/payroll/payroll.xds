@@ -13,7 +13,7 @@
             }
         },
         "urlPrefix": "",
-        "exportPath": "D:/SpringToolSuite/vfabric-tc-server-developer-2.9.5.SR1/test/wtpwebapps/salary/sion/salary/payroll",
+        "exportPath": "F:/spring-tool-suite-3.7.1.RELEASE-e4.5.1-win32-x86_64/sts-bundle/pivotal-tc-server-developer-3.1.2.RELEASE/base-instance/wtpwebapps/salary/sion/salary/payroll",
         "projectHasEnabledWebServer": false,
         "lockUrlPrefix": false,
         "buildShouldOverwriteIndex": false,
@@ -28,7 +28,7 @@
         "displayfield-ExtBox1-1131-inputEl": "a new version of the framework is available"
     },
     "xdsVersion": "3.2.0",
-    "xdsBuild": 75,
+    "xdsBuild": 339,
     "schemaVersion": 1,
     "upgradeVersion": 310000000001,
     "framework": "ext42",

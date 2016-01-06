@@ -7,6 +7,7 @@
     "codeClass": null,
     "userConfig": {
         "autoShow": true,
+        "designer|userAlias": "paidpayroll",
         "designer|userClassName": "PaidPayroll",
         "height": 487,
         "itemId": "getPaidPayroll",
@@ -193,6 +194,68 @@
                     "codeClass": null,
                     "userConfig": {
                         "layout|columnWidth": 0.07,
+                        "padding": null,
+                        "style": null,
+                        "text": "清空"
+                    },
+                    "name": "MyButton12",
+                    "designerId": "32f79b0f-b70a-485d-b559-a1cab4c10fdd",
+                    "cn": [
+                        {
+                            "type": "basiceventbinding",
+                            "reference": {
+                                "name": "listeners",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fn": "onButtonClick11",
+                                "implHandler": [
+                                    "var me = this,",
+                                    "    store = me.down('gridpanel').getStore();",
+                                    "store.load({",
+                                    "    params:{",
+                                    "        state:'Paid',",
+                                    "        start:'0',",
+                                    "        page:'1'",
+                                    "    }",
+                                    "});",
+                                    "",
+                                    "month = me.down('#month').setValue('');",
+                                    "subject = me.down('#subject').setValue('');",
+                                    "socialCostMonth = me.down('#socialCostMonth').setValue('');"
+                                ],
+                                "name": "click",
+                                "scope": "me"
+                            },
+                            "name": "onButtonClick11",
+                            "designerId": "a42c5cb2-3b4f-4ab5-8e25-a991f255723d"
+                        }
+                    ]
+                },
+                {
+                    "type": "Ext.toolbar.Spacer",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "height": 20,
+                        "layout|columnWidth": 0.03
+                    },
+                    "name": "MySpacer10",
+                    "designerId": "63983b1a-c06f-4aef-b6a5-2037701f6eb0"
+                },
+                {
+                    "type": "Ext.button.Button",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|columnWidth": 0.07,
                         "text": "撤回"
                     },
                     "name": "MyButton2",
@@ -221,45 +284,28 @@
                                     "}",
                                     "Ext.Msg.confirm({",
                                     "    title:\"提示\",",
-                                    "    msg:\"确定发放工资？\",",
+                                    "    msg:\"确定撤回工资条？\",",
                                     "    buttons:Ext.MessageBox.OKCANCEL,",
                                     "    width:200,",
                                     "    fn:function(buttonId){",
                                     "        if(buttonId==\"ok\"){",
+                                    "            Ext.each(records, function (item) {",
+                                    "                item.set('state','Unpublish');",
+                                    "                arrId.push(item.get('id'));",
+                                    "            });",
                                     "",
-                                    "            if(records.length>1){",
-                                    "                Ext.each(records, function (item) {",
-                                    "                    item.set('state','Unpublish');",
-                                    "                    arrId.push(item.get('id'));",
-                                    "                });",
-                                    "",
-                                    "                Ext.Ajax.request({",
-                                    "                    url: 'salary/payroll/batchWithdraw',",
-                                    "                    method: \"post\",",
-                                    "                    success: function (response, opts) {",
-                                    "                        store.reload();",
-                                    "                        Ext.Msg.alert('提示', '操作成功！');",
-                                    "                    },",
-                                    "                    failure: function () {",
-                                    "                        Ext.Msg.alert('提示', '操作失败，请检查网络');",
-                                    "                    },",
-                                    "                    params: {arrId:arrId}",
-                                    "                });",
-                                    "            }",
-                                    "            else",
-                                    "            {",
-                                    "                records[0].set('state','Paid');",
-                                    "                records[0].save({",
-                                    "                    success: function(response, opts){",
-                                    "                        store.remove(records[0]);",
-                                    "                        store.commitChanges();",
-                                    "                        Ext.Msg.alert(\"提示\", \"操作成功\");",
-                                    "                    },",
-                                    "                    failure: function(){",
-                                    "                        Ext.Msg.alert(\"提示\", \"操作失败\");",
-                                    "                    }",
-                                    "                });",
-                                    "            }",
+                                    "            Ext.Ajax.request({",
+                                    "                url: 'salary/payroll/batchWithdraw',",
+                                    "                method: \"post\",",
+                                    "                success: function (response, opts) {",
+                                    "                    store.reload();",
+                                    "                    Ext.Msg.alert('提示', '操作成功！');",
+                                    "                },",
+                                    "                failure: function () {",
+                                    "                    Ext.Msg.alert('提示', '操作失败，请检查网络');",
+                                    "                },",
+                                    "                params: {arrId:arrId}",
+                                    "            });",
                                     "        }",
                                     "    }",
                                     "});"
@@ -638,6 +684,71 @@
                                     },
                                     "name": "handler",
                                     "designerId": "e63dfdff-444f-4029-a6c9-5fa06209a9d1"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "type": "Ext.grid.column.Action",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "flex": 1,
+                        "menuDisabled": true,
+                        "text": "查看"
+                    },
+                    "name": "MyActionColumn4",
+                    "designerId": "97f6e6c8-45ae-4d2a-ad80-c7a28cab5bff",
+                    "cn": [
+                        {
+                            "type": "actioncolumnitem",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "iconCls": "s_icon_action_search"
+                            },
+                            "name": "MyActionColumnItem3",
+                            "designerId": "ac90409a-d350-4d63-9662-8fb5692fff4e",
+                            "cn": [
+                                {
+                                    "type": "fixedfunction",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "designer|params": [
+                                            "view",
+                                            "rowIndex",
+                                            "colIndex",
+                                            "item",
+                                            "e",
+                                            "record",
+                                            "row"
+                                        ],
+                                        "fn": "handler",
+                                        "implHandler": [
+                                            "var me = this.up('paidpayroll'),",
+                                            "    namespace = me.getNamespace();",
+                                            "",
+                                            "",
+                                            "Ext.create(namespace + '.view.DynamicGrid',{",
+                                            "    _id : record.get('id'),",
+                                            "    _accountId : record.get('accountId'),",
+                                            "    _record : record",
+                                            "}).show();"
+                                        ]
+                                    },
+                                    "name": "handler",
+                                    "designerId": "5700b96f-2956-4e87-b2d9-0b9f07dd80ec"
                                 }
                             ]
                         }

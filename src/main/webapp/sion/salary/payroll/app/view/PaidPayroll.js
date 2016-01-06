@@ -15,6 +15,7 @@
 
 Ext.define('sion.salary.payroll.view.PaidPayroll', {
     extend: 'Ext.panel.Panel',
+    alias: 'widget.paidpayroll',
 
     requires: [
         'Ext.form.Panel',
@@ -94,6 +95,22 @@ Ext.define('sion.salary.payroll.view.PaidPayroll', {
                             listeners: {
                                 click: {
                                     fn: me.onButtonClick1,
+                                    scope: me
+                                }
+                            }
+                        },
+                        {
+                            xtype: 'tbspacer',
+                            columnWidth: 0.03,
+                            height: 20
+                        },
+                        {
+                            xtype: 'button',
+                            columnWidth: 0.07,
+                            text: '清空',
+                            listeners: {
+                                click: {
+                                    fn: me.onButtonClick11,
                                     scope: me
                                 }
                             }
@@ -254,6 +271,28 @@ Ext.define('sion.salary.payroll.view.PaidPayroll', {
                                     iconCls: 's_icon_action_search'
                                 }
                             ]
+                        },
+                        {
+                            xtype: 'actioncolumn',
+                            menuDisabled: true,
+                            text: '查看',
+                            flex: 1,
+                            items: [
+                                {
+                                    handler: function(view, rowIndex, colIndex, item, e, record, row) {
+                                        var me = this.up('paidpayroll'),
+                                            namespace = me.getNamespace();
+
+
+                                        Ext.create(namespace + '.view.DynamicGrid',{
+                                            _id : record.get('id'),
+                                            _accountId : record.get('accountId'),
+                                            _record : record
+                                        }).show();
+                                    },
+                                    iconCls: 's_icon_action_search'
+                                }
+                            ]
                         }
                     ],
                     selModel: Ext.create('Ext.selection.CheckboxModel', {
@@ -315,6 +354,22 @@ Ext.define('sion.salary.payroll.view.PaidPayroll', {
         });
     },
 
+    onButtonClick11: function(button, e, eOpts) {
+        var me = this,
+            store = me.down('gridpanel').getStore();
+        store.load({
+            params:{
+                state:'Paid',
+                start:'0',
+                page:'1'
+            }
+        });
+
+        month = me.down('#month').setValue('');
+        subject = me.down('#subject').setValue('');
+        socialCostMonth = me.down('#socialCostMonth').setValue('');
+    },
+
     onButtonClick: function(button, e, eOpts) {
         var me = this,
             grid = me.down('gridpanel'),
@@ -329,45 +384,28 @@ Ext.define('sion.salary.payroll.view.PaidPayroll', {
         }
         Ext.Msg.confirm({
             title:"提示",
-            msg:"确定发放工资？",
+            msg:"确定撤回工资条？",
             buttons:Ext.MessageBox.OKCANCEL,
             width:200,
             fn:function(buttonId){
                 if(buttonId=="ok"){
+                    Ext.each(records, function (item) {
+                        item.set('state','Unpublish');
+                        arrId.push(item.get('id'));
+                    });
 
-                    if(records.length>1){
-                        Ext.each(records, function (item) {
-                            item.set('state','Unpublish');
-                            arrId.push(item.get('id'));
-                        });
-
-                        Ext.Ajax.request({
-                            url: 'salary/payroll/batchWithdraw',
-                            method: "post",
-                            success: function (response, opts) {
-                                store.reload();
-                                Ext.Msg.alert('提示', '操作成功！');
-                            },
-                            failure: function () {
-                                Ext.Msg.alert('提示', '操作失败，请检查网络');
-                            },
-                            params: {arrId:arrId}
-                        });
-                    }
-                    else
-                    {
-                        records[0].set('state','Paid');
-                        records[0].save({
-                            success: function(response, opts){
-                                store.remove(records[0]);
-                                store.commitChanges();
-                                Ext.Msg.alert("提示", "操作成功");
-                            },
-                            failure: function(){
-                                Ext.Msg.alert("提示", "操作失败");
-                            }
-                        });
-                    }
+                    Ext.Ajax.request({
+                        url: 'salary/payroll/batchWithdraw',
+                        method: "post",
+                        success: function (response, opts) {
+                            store.reload();
+                            Ext.Msg.alert('提示', '操作成功！');
+                        },
+                        failure: function () {
+                            Ext.Msg.alert('提示', '操作失败，请检查网络');
+                        },
+                        params: {arrId:arrId}
+                    });
                 }
             }
         });

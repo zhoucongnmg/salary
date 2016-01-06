@@ -114,7 +114,7 @@
                     "codeClass": null,
                     "userConfig": {
                         "height": 15,
-                        "layout|columnWidth": 0.05
+                        "layout|columnWidth": 0.03
                     },
                     "name": "MySpacer1",
                     "designerId": "6777a407-4cb9-4881-ac37-a69b3678be7b"
@@ -127,7 +127,7 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "layout|columnWidth": 0.07,
+                        "layout|columnWidth": 0.05,
                         "padding": null,
                         "style": null,
                         "text": "查询"
@@ -179,7 +179,7 @@
                     "codeClass": null,
                     "userConfig": {
                         "height": 20,
-                        "layout|columnWidth": 0.03
+                        "layout|columnWidth": 0.02
                     },
                     "name": "MySpacer4",
                     "designerId": "b84224c4-1edb-4f76-a51e-f16faaf2faf0"
@@ -192,7 +192,67 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "layout|columnWidth": 0.07,
+                        "layout|columnWidth": 0.05,
+                        "text": "清空"
+                    },
+                    "name": "MyButton11",
+                    "designerId": "e083f3c1-4be2-4309-b74e-bdcf33764b13",
+                    "cn": [
+                        {
+                            "type": "basiceventbinding",
+                            "reference": {
+                                "name": "listeners",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fn": "onButtonClick21",
+                                "implHandler": [
+                                    "var me = this,",
+                                    "    store = me.down('gridpanel').getStore();",
+                                    "store.load({",
+                                    "    params:{",
+                                    "        state:'Unpublish',",
+                                    "        start:'0',",
+                                    "        page:'1'",
+                                    "    }",
+                                    "});",
+                                    "",
+                                    "month = me.down('#month').setValue('');",
+                                    "subject = me.down('#subject').setValue('');",
+                                    "socialCostMonth = me.down('#socialCostMonth').setValue('');"
+                                ],
+                                "name": "click",
+                                "scope": "me"
+                            },
+                            "name": "onButtonClick21",
+                            "designerId": "1db9c8d9-0748-4b7f-a3da-a6d1e4219bf7"
+                        }
+                    ]
+                },
+                {
+                    "type": "Ext.toolbar.Spacer",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "height": 20,
+                        "layout|columnWidth": 0.02
+                    },
+                    "name": "MySpacer9",
+                    "designerId": "db0651fa-fec5-4cda-8354-13f6786f634c"
+                },
+                {
+                    "type": "Ext.button.Button",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|columnWidth": 0.05,
                         "text": "发放"
                     },
                     "name": "MyButton2",
@@ -281,7 +341,7 @@
                     "codeClass": null,
                     "userConfig": {
                         "height": 20,
-                        "layout|columnWidth": 0.03
+                        "layout|columnWidth": 0.02
                     },
                     "name": "MySpacer8",
                     "designerId": "b0d7207c-d3f9-43bd-b1f3-6bf8c62cb894"
@@ -294,7 +354,7 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "layout|columnWidth": 0.07,
+                        "layout|columnWidth": 0.05,
                         "text": "新建"
                     },
                     "name": "MyButton6",
