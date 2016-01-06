@@ -732,7 +732,37 @@
                                         "width": "15%"
                                     },
                                     "name": "MyColumn22",
-                                    "designerId": "a3a6cdb4-9009-4d37-bdd1-0354800eb578"
+                                    "designerId": "a3a6cdb4-9009-4d37-bdd1-0354800eb578",
+                                    "cn": [
+                                        {
+                                            "type": "fixedfunction",
+                                            "reference": {
+                                                "name": "items",
+                                                "type": "array"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "designer|params": [
+                                                    "value",
+                                                    "metaData",
+                                                    "record",
+                                                    "rowIndex",
+                                                    "colIndex",
+                                                    "store",
+                                                    "view"
+                                                ],
+                                                "fn": "renderer",
+                                                "implHandler": [
+                                                    "if(value||value===0)",
+                                                    "    return Ext.util.Format.currency(value);",
+                                                    "else",
+                                                    "    return value;"
+                                                ]
+                                            },
+                                            "name": "renderer",
+                                            "designerId": "c748278b-eb15-4362-a37d-afddd12f3805"
+                                        }
+                                    ]
                                 },
                                 {
                                     "type": "Ext.grid.column.Column",
@@ -746,8 +776,38 @@
                                         "text": "层级值",
                                         "width": "15%"
                                     },
-                                    "name": "MyColumn34",
-                                    "designerId": "e53e689f-8bf0-4741-a0cd-ce858a9cd95b"
+                                    "name": "MyColumn33",
+                                    "designerId": "e53e689f-8bf0-4741-a0cd-ce858a9cd95b",
+                                    "cn": [
+                                        {
+                                            "type": "fixedfunction",
+                                            "reference": {
+                                                "name": "items",
+                                                "type": "array"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "designer|params": [
+                                                    "value",
+                                                    "metaData",
+                                                    "record",
+                                                    "rowIndex",
+                                                    "colIndex",
+                                                    "store",
+                                                    "view"
+                                                ],
+                                                "fn": "renderer",
+                                                "implHandler": [
+                                                    "if(value||value===0)",
+                                                    "    return Ext.util.Format.currency(value);",
+                                                    "else",
+                                                    "    return value;"
+                                                ]
+                                            },
+                                            "name": "renderer",
+                                            "designerId": "ce267913-f612-44c4-b0f0-4975de8c31bb"
+                                        }
+                                    ]
                                 },
                                 {
                                     "type": "Ext.grid.column.Column",
@@ -773,6 +833,34 @@
                                             "codeClass": null,
                                             "name": "MyNumberField3",
                                             "designerId": "98b16eba-e8b6-4a63-abf8-47df5458d8d1"
+                                        },
+                                        {
+                                            "type": "fixedfunction",
+                                            "reference": {
+                                                "name": "items",
+                                                "type": "array"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "designer|params": [
+                                                    "value",
+                                                    "metaData",
+                                                    "record",
+                                                    "rowIndex",
+                                                    "colIndex",
+                                                    "store",
+                                                    "view"
+                                                ],
+                                                "fn": "renderer",
+                                                "implHandler": [
+                                                    "if(value||value===0)",
+                                                    "    return Ext.util.Format.currency(value);",
+                                                    "else",
+                                                    "    return value;"
+                                                ]
+                                            },
+                                            "name": "renderer",
+                                            "designerId": "7af1adc8-cd6a-452a-a784-98c9b0288582"
                                         }
                                     ]
                                 },
@@ -805,6 +893,41 @@
                                             },
                                             "name": "MyComboBox14",
                                             "designerId": "9149d8aa-3e21-462a-a0de-ba198c3fbb71"
+                                        },
+                                        {
+                                            "type": "fixedfunction",
+                                            "reference": {
+                                                "name": "items",
+                                                "type": "array"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "designer|params": [
+                                                    "value",
+                                                    "metaData",
+                                                    "record",
+                                                    "rowIndex",
+                                                    "colIndex",
+                                                    "store",
+                                                    "view"
+                                                ],
+                                                "fn": "renderer",
+                                                "implHandler": [
+                                                    "if(value===\"Solution\"){",
+                                                    "    return \"方案值\";",
+                                                    "}",
+                                                    "else if(value===\"Level\"){",
+                                                    "    return \"层级值\";",
+                                                    "}else if(value===\"Person\"){",
+                                                    "    return \"个人值\";",
+                                                    "}",
+                                                    "else {",
+                                                    "    return value;",
+                                                    "}"
+                                                ]
+                                            },
+                                            "name": "renderer",
+                                            "designerId": "19ec13f4-40fb-41d5-b6ed-998e7de5ef56"
                                         }
                                     ]
                                 },

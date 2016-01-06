@@ -290,18 +290,36 @@ Ext.define('sion.salary.social.view.PersonAccountForm', {
                                         },
                                         {
                                             xtype: 'gridcolumn',
+                                            renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
+                                                if(value||value===0)
+                                                return Ext.util.Format.currency(value);
+                                                else
+                                                return value;
+                                            },
                                             width: '15%',
                                             dataIndex: 'value',
                                             text: '方案值'
                                         },
                                         {
                                             xtype: 'gridcolumn',
+                                            renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
+                                                if(value||value===0)
+                                                return Ext.util.Format.currency(value);
+                                                else
+                                                return value;
+                                            },
                                             width: '15%',
                                             dataIndex: 'rankValue',
                                             text: '层级值'
                                         },
                                         {
                                             xtype: 'gridcolumn',
+                                            renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
+                                                if(value||value===0)
+                                                return Ext.util.Format.currency(value);
+                                                else
+                                                return value;
+                                            },
                                             width: '15%',
                                             dataIndex: 'personValue',
                                             text: '个人值',
@@ -311,6 +329,19 @@ Ext.define('sion.salary.social.view.PersonAccountForm', {
                                         },
                                         {
                                             xtype: 'gridcolumn',
+                                            renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
+                                                if(value==="Solution"){
+                                                    return "方案值";
+                                                }
+                                                else if(value==="Level"){
+                                                    return "层级值";
+                                                }else if(value==="Person"){
+                                                    return "个人值";
+                                                }
+                                                else {
+                                                    return value;
+                                                }
+                                            },
                                             width: '20%',
                                             dataIndex: 'choose',
                                             text: '取值设置',
