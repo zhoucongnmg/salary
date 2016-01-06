@@ -48,6 +48,9 @@ Ext.define('sion.salary.social.model.SocialItem', {
                 return v;
             },
             name: 'itemTypeName'
+        },
+        {
+            name: 'item'
         }
     ]
 });

@@ -290,7 +290,7 @@ Ext.define('sion.salary.accounts.view.AddSalaryItem', {
         }
         record.set('salaryItemId', select[0].data.id);
         record.set('name', select[0].data.name);
-        record.set('fieldName', select[0].data.field);
+        // record.set('fieldName', select[0].data.field);
         if(accountItem === null){
             store.add(record);
         }

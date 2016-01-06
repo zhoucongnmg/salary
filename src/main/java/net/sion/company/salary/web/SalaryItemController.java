@@ -15,6 +15,7 @@ import javax.servlet.http.HttpSession;
 
 import net.sion.boot.mongo.template.SessionMongoTemplate;
 import net.sion.company.salary.domain.SalaryItem;
+import net.sion.company.salary.domain.Item.ItemType;
 import net.sion.company.salary.domain.SalaryItem.SalaryItemType;
 import net.sion.company.salary.sessionrepository.SalaryItemRepository;
 import net.sion.util.mvc.Response;
@@ -50,6 +51,7 @@ public class SalaryItemController {
 */
 	@RequestMapping(value = "create")
 	public @ResponseBody Response create(@RequestBody SalaryItem item, HttpSession session) {
+//		item.setItem(ItemType.SalaryItem);
 		if(item.getId() == null || "".equals(item.getId())){
 			item.setId(new ObjectId().toString());
 		}
@@ -59,6 +61,7 @@ public class SalaryItemController {
 	
 	@RequestMapping(value = "update")
 	public @ResponseBody  Response update(@RequestBody SalaryItem salaryItem) {
+		salaryItem.setItem(ItemType.SalaryItem);
 		salaryItemRepository.save(salaryItem);
 		return new Response(true);
 	}
@@ -75,6 +78,7 @@ public class SalaryItemController {
 		if(StringUtils.isNotEmpty(type)){
 			query.addCriteria(Criteria.where("type").is(type));
 		}
+		query.addCriteria(Criteria.where("item").is(ItemType.SalaryItem));
 		List<SalaryItem> list = mongoTemplate.find(query, SalaryItem.class);
 		return new Response(list);
 	}

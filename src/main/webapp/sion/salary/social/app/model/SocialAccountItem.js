@@ -25,7 +25,7 @@ Ext.define('sion.salary.social.model.SocialAccountItem', {
             name: 'socialItemId'
         },
         {
-            name: 'socialItemName'
+            name: 'name'
         },
         {
             name: 'cardinality',
@@ -47,6 +47,16 @@ Ext.define('sion.salary.social.model.SocialAccountItem', {
         },
         {
             name: 'id'
+        },
+        {
+            name: 'carryType'
+        },
+        {
+            name: 'precision',
+            type: 'int'
+        },
+        {
+            name: 'item'
         }
     ]
 });

@@ -123,7 +123,7 @@ Ext.define('sion.salary.social.view.SocialAccountEdit', {
                     columns: [
                         {
                             xtype: 'gridcolumn',
-                            dataIndex: 'socialItemName',
+                            dataIndex: 'name',
                             text: '项目名称',
                             flex: 4
                         },

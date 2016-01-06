@@ -25,17 +25,10 @@ Ext.define('sion.salary.accounts.model.SalaryItem', {
             name: 'name'
         },
         {
-            name: 'field'
-        },
-        {
             name: 'type'
         },
         {
             name: 'note'
-        },
-        {
-            name: 'system',
-            type: 'boolean'
         },
         {
             name: 'id'
@@ -45,16 +38,18 @@ Ext.define('sion.salary.accounts.model.SalaryItem', {
             type: 'boolean'
         },
         {
-            name: 'decimalScale',
+            name: 'money',
+            type: 'float'
+        },
+        {
+            name: 'carryType'
+        },
+        {
+            name: 'precision',
             type: 'int'
         },
         {
-            name: 'show',
-            type: 'boolean'
-        },
-        {
-            name: 'money',
-            type: 'float'
+            name: 'item'
         }
     ]
 });

@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import net.sion.company.salary.domain.AccountItem.AccountItemType;
+import net.sion.company.salary.domain.SalaryItem.SalaryItemType;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.annotation.Id;
@@ -63,7 +63,7 @@ public class Account implements Cloneable{
 	public Set<String> getFormulaIds() {
 		Set<String> formulaIds = new HashSet<String>();
 		for (AccountItem item : accountItems) {
-			if (item.getType() == AccountItemType.Calculate&&StringUtils.isNotBlank(item.getFormulaId())) {
+			if (item.getType() == SalaryItemType.Calculate&&StringUtils.isNotBlank(item.getFormulaId())) {
 				formulaIds.add(item.getFormulaId());
 			}
 		}
@@ -74,7 +74,7 @@ public class Account implements Cloneable{
 	public Map<String,Double> getSalaryItemValues() {
 		Map<String,Double> salaryItemValues = new HashMap<String,Double>();
 		for (AccountItem item : accountItems) {
-			if (item.getType() == AccountItemType.Input) {
+			if (item.getType() == SalaryItemType.Input) {
 				if(StringUtils.isEmpty(item.getValue())){
 					salaryItemValues.put(item.getSalaryItemId(),Double.valueOf(0));
 				}else{

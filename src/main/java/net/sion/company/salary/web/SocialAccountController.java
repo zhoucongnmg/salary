@@ -2,26 +2,20 @@ package net.sion.company.salary.web;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import javax.servlet.http.HttpSession;
 
 import net.sion.boot.config.jackson.CustomJackson;
 import net.sion.boot.mongo.template.SessionMongoTemplate;
-import net.sion.company.salary.domain.PersonExtension;
 import net.sion.company.salary.domain.SocialAccount;
 import net.sion.company.salary.domain.SocialAccountItem;
-import net.sion.company.salary.domain.SocialAccountItem.PaymentType;
 import net.sion.company.salary.domain.SocialItem;
-import net.sion.company.salary.domain.SocialItem.DecimalCarryType;
 import net.sion.company.salary.domain.SocialItem.SocialItemType;
 import net.sion.company.salary.service.SocialService;
 import net.sion.company.salary.sessionrepository.SocialAccountRepository;

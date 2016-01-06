@@ -2,6 +2,7 @@ package net.sion.company.salary.sessionrepository;
 
 import java.util.List;
 
+import net.sion.company.salary.domain.Item.ItemType;
 import net.sion.company.salary.domain.SocialItem;
 import net.sion.company.salary.domain.SocialItem.SocialItemType;
 
@@ -19,4 +20,5 @@ public interface SocialItemRepository extends MongoRepository<SocialItem, String
 	List<SocialItem> getPages(Object query);
 	
 	List<SocialItem> findByItemType(SocialItemType itemType);
+	List<SocialItem> findByItem(ItemType item);
 }
