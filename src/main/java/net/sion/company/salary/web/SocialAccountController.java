@@ -94,7 +94,7 @@ public class SocialAccountController {
 		socialAccountRepository.save(account);
 		return new Response(true);
 	}
-	private SocialAccount sum(SocialAccount account){
+	private SocialAccount sum(SocialAccount account){ 
 		double accumulationCompanySum = 0;//单位缴费公积金
 		double accumulationPersonSum = 0;//个人缴费公积金
 		double socialCompanySum = 0;//单位缴费社保
