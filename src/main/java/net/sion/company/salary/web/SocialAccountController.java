@@ -117,7 +117,7 @@ public class SocialAccountController {
 		account.setAccumulationPersonSum(accumulationPersonSum);
 		account.setSocialCompanySum(socialCompanySum);
 		account.setSocialPersonSum(socialPersonSum);
-		return account;
+		return account; 
 	}
 	
 	@RequestMapping(value = "loadAll")
