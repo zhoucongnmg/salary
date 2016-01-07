@@ -581,16 +581,15 @@ public class PayrollController {
 			if (t_dept == null) {
 				it.remove();
 			} else {
-				if (dept.getChildren() == null || dept.getChildren().size() == 0) {
-					List<Object> userList = deptUserMap.get(dept.getId());
-					if (userList != null && userList.size() > 0) {
+				List<Object> userList = deptUserMap.get(dept.getId());
+				if (!notNull(dept.getChildren())) {
+					if (notNull(userList)) {
 						dept.setChildren(userList);
 					}
 				} else {
 					List<Object> childrenDeptList = this.filterTraverseDeptsByMap(dept.getChildren(), allParentDeptMap,
 							deptUserMap);
-					List<Object> userList = deptUserMap.get(dept.getId());
-					if (userList != null && userList.size() > 0) {
+					if (notNull(userList)) {
 						childrenDeptList.addAll(userList);
 					}
 					dept.setChildren(childrenDeptList);

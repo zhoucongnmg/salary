@@ -19,9 +19,9 @@ Ext.define('sion.salary.payroll.view.UnpublishPayroll', {
 
     requires: [
         'Ext.form.Panel',
+        'Ext.button.Button',
         'Ext.form.field.ComboBox',
         'Ext.toolbar.Spacer',
-        'Ext.button.Button',
         'Ext.grid.Panel',
         'Ext.grid.column.Date',
         'Ext.grid.column.Action',
@@ -47,103 +47,93 @@ Ext.define('sion.salary.payroll.view.UnpublishPayroll', {
                     layout: 'column',
                     bodyPadding: 10,
                     title: '',
-                    items: [
+                    dockedItems: [
                         {
-                            xtype: 'textfield',
-                            columnWidth: 0.25,
-                            itemId: 'subject',
-                            margin: '',
-                            fieldLabel: '薪资主题',
-                            labelWidth: 60
-                        },
-                        {
-                            xtype: 'combobox',
-                            columnWidth: 0.25,
-                            hidden: true,
-                            padding: '0 0 0 25',
-                            fieldLabel: '薪资套账',
-                            labelWidth: 60
-                        },
-                        me.processMonth({
-                            xtype: 'triggerfield',
-                            columnWidth: 0.2,
-                            itemId: 'month',
-                            fieldLabel: '薪资月份'
-                        }),
-                        me.processSocialCostMonth({
-                            xtype: 'triggerfield',
-                            columnWidth: 0.2,
-                            itemId: 'socialCostMonth',
-                            fieldLabel: '社保扣费月'
-                        }),
-                        {
-                            xtype: 'tbspacer',
-                            columnWidth: 0.03,
-                            height: 15
-                        },
-                        {
-                            xtype: 'button',
-                            columnWidth: 0.05,
-                            text: '查询',
-                            listeners: {
-                                click: {
-                                    fn: me.onButtonClick1,
-                                    scope: me
-                                }
-                            }
-                        },
-                        {
-                            xtype: 'tbspacer',
-                            columnWidth: 0.02,
-                            height: 20
-                        },
-                        {
-                            xtype: 'button',
-                            columnWidth: 0.05,
-                            text: '清空',
-                            listeners: {
-                                click: {
-                                    fn: me.onButtonClick21,
-                                    scope: me
-                                }
-                            }
-                        },
-                        {
-                            xtype: 'tbspacer',
-                            columnWidth: 0.02,
-                            height: 20
-                        },
-                        {
-                            xtype: 'button',
-                            columnWidth: 0.05,
-                            text: '发放',
-                            listeners: {
-                                click: {
-                                    fn: me.onButtonClick,
-                                    scope: me
-                                }
-                            }
-                        },
-                        {
-                            xtype: 'tbspacer',
-                            columnWidth: 0.02,
-                            height: 20
-                        },
-                        {
-                            xtype: 'button',
-                            columnWidth: 0.05,
-                            text: '新建',
-                            listeners: {
-                                click: {
-                                    fn: me.onButtonClick2,
-                                    scope: me
-                                }
-                            }
-                        },
-                        {
-                            xtype: 'tbspacer',
-                            columnWidth: 1.1,
-                            height: 20
+                            xtype: 'toolbar',
+                            dock: 'top',
+                            items: [
+                                {
+                                    xtype: 'button',
+                                    width: 70,
+                                    iconCls: 's_icon_action_add',
+                                    text: '<span style="font-size:14px;color:#3892D3;font-weight:bold;">新建</span>',
+                                    listeners: {
+                                        click: {
+                                            fn: me.onButtonClick2,
+                                            scope: me
+                                        }
+                                    }
+                                },
+                                {
+                                    xtype: 'button',
+                                    width: 70,
+                                    iconCls: 's_icon_action_accept',
+                                    text: '发放',
+                                    listeners: {
+                                        click: {
+                                            fn: me.onButtonClick,
+                                            scope: me
+                                        }
+                                    }
+                                },
+                                {
+                                    xtype: 'button',
+                                    width: 70,
+                                    iconCls: 's_icon_action_search',
+                                    text: '查询',
+                                    listeners: {
+                                        click: {
+                                            fn: me.onButtonClick1,
+                                            scope: me
+                                        }
+                                    }
+                                },
+                                {
+                                    xtype: 'button',
+                                    width: 70,
+                                    iconCls: 's_icon_action_clockwise',
+                                    text: '清空',
+                                    listeners: {
+                                        click: {
+                                            fn: me.onButtonClick21,
+                                            scope: me
+                                        }
+                                    }
+                                },
+                                {
+                                    xtype: 'combobox',
+                                    hidden: true,
+                                    padding: '0 0 0 25',
+                                    fieldLabel: '薪资套账',
+                                    labelWidth: 60
+                                },
+                                {
+                                    xtype: 'textfield',
+                                    itemId: 'subject',
+                                    margin: '',
+                                    width: 300,
+                                    fieldLabel: '薪资主题',
+                                    labelWidth: 60
+                                },
+                                {
+                                    xtype: 'tbspacer'
+                                },
+                                me.processMonth({
+                                    xtype: 'triggerfield',
+                                    itemId: 'month',
+                                    width: 200,
+                                    fieldLabel: '薪资月份'
+                                }),
+                                {
+                                    xtype: 'tbspacer'
+                                },
+                                me.processSocialCostMonth({
+                                    xtype: 'triggerfield',
+                                    itemId: 'socialCostMonth',
+                                    width: 200,
+                                    fieldLabel: '社保扣费月'
+                                })
+                            ]
                         }
                     ]
                 }
@@ -402,39 +392,22 @@ Ext.define('sion.salary.payroll.view.UnpublishPayroll', {
         return config;
     },
 
-    onButtonClick1: function(button, e, eOpts) {
+    onButtonClick2: function(button, e, eOpts) {
         var me = this,
-            store = me.down('#PayrollGrid').getStore(),
-            month = me.down('#month').getValue(),
-            subject = me.down('#subject').getValue(),
-            socialCostMonth = me.down('#socialCostMonth').getValue();
+            window,
+            grid = me.down('gridpanel'),
+            store = grid.getStore(),
+            record = Ext.create('sion.salary.payroll.model.Payroll');
 
-        store.load({
-            params:{
-                state:'Unpublish',
-                start:'0',
-                page:'1',
-                subject:subject,
-                month:month,
-                socialCostMonth:socialCostMonth
+        window = Ext.create('sion.salary.payroll.view.PayrollWindow',{
+            title:'新建工资条',
+            _link:{
+                record:record,
+                payrollStore:store,
+                state:'add'
             }
         });
-    },
-
-    onButtonClick21: function(button, e, eOpts) {
-        var me = this,
-            store = me.down('gridpanel').getStore();
-        store.load({
-            params:{
-                state:'Unpublish',
-                start:'0',
-                page:'1'
-            }
-        });
-
-        month = me.down('#month').setValue('');
-        subject = me.down('#subject').setValue('');
-        socialCostMonth = me.down('#socialCostMonth').setValue('');
+        window.show();
     },
 
     onButtonClick: function(button, e, eOpts) {
@@ -495,22 +468,39 @@ Ext.define('sion.salary.payroll.view.UnpublishPayroll', {
         });
     },
 
-    onButtonClick2: function(button, e, eOpts) {
+    onButtonClick1: function(button, e, eOpts) {
         var me = this,
-            window,
-            grid = me.down('gridpanel'),
-            store = grid.getStore(),
-            record = Ext.create('sion.salary.payroll.model.Payroll');
+            store = me.down('#PayrollGrid').getStore(),
+            month = me.down('#month').getValue(),
+            subject = me.down('#subject').getValue(),
+            socialCostMonth = me.down('#socialCostMonth').getValue();
 
-        window = Ext.create('sion.salary.payroll.view.PayrollWindow',{
-            title:'新建工资条',
-            _link:{
-                record:record,
-                payrollStore:store,
-                state:'add'
+        store.load({
+            params:{
+                state:'Unpublish',
+                start:'0',
+                page:'1',
+                subject:subject,
+                month:month,
+                socialCostMonth:socialCostMonth
             }
         });
-        window.show();
+    },
+
+    onButtonClick21: function(button, e, eOpts) {
+        var me = this,
+            store = me.down('gridpanel').getStore();
+        store.load({
+            params:{
+                state:'Unpublish',
+                start:'0',
+                page:'1'
+            }
+        });
+
+        month = me.down('#month').setValue('');
+        subject = me.down('#subject').setValue('');
+        socialCostMonth = me.down('#socialCostMonth').setValue('');
     },
 
     onPagingtoolbarBeforeChange: function(pagingtoolbar, page, eOpts) {
