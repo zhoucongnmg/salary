@@ -164,7 +164,9 @@ Ext.define('sion.salary.accounts.view.AddSalaryItem', {
         //     store = Ext.getStore('AccountItem'),
             store = me._store,
         //     items = [],
-            panel = me.down('#formulaPanel');
+            panel = me.down('#formulaPanel'),
+            grid = me.down('gridpanel');
+
 
         // if(record !== null && record.get('type') == 'Calculate' && record.get('formulaId') !== ''){
         //     Ext.Ajax.request({
@@ -196,10 +198,11 @@ Ext.define('sion.salary.accounts.view.AddSalaryItem', {
         me._formulaApi = Api;
         if(record === null){
             record = Ext.create(namespace + '.model.AccountItem', {
+                item: 'SalaryItem',
                 id : Ext.data.IdGenerator.get('uuid').generate()
             });
         }else{
-            me.getSalaryItem(record.get('type'));
+        //     me.getSalaryItem(record.get('type'));
         }
         form.loadRecord(record);
     },
@@ -290,6 +293,12 @@ Ext.define('sion.salary.accounts.view.AddSalaryItem', {
         }
         record.set('salaryItemId', select[0].data.id);
         record.set('name', select[0].data.name);
+        record.set('type', select[0].data.type);
+        record.set('taxItem', select[0].data.taxItem);
+        record.set('carryType', select[0].data.carryType);
+        record.set('precision', select[0].data.precision);
+        record.set('item', select[0].data.item);
+
         // record.set('fieldName', select[0].data.field);
         if(accountItem === null){
             store.add(record);
@@ -315,7 +324,9 @@ Ext.define('sion.salary.accounts.view.AddSalaryItem', {
             me.down('#inputPanel').hide();
             me.getSalaryItem(newValue);
         }else{
-            store.removeAll();
+        //     store.removeAll();
+            store.clearFilter(true);
+            store.filter("type", 'aaa');
         }
     },
 
@@ -323,26 +334,26 @@ Ext.define('sion.salary.accounts.view.AddSalaryItem', {
         var me = this,
             grid = me.down('gridpanel'),
             store = grid.getStore(),
-            accountItem = me._accountItem,
-            system = false;
+            accountItem = me._accountItem;
 
-        if(type === 'System'){
-            system = true;
-        }
+        //     system = false;
+        // if(type === 'System'){
+        //     system = true;
+        // }
         store.clearFilter(true);
-        Ext.apply(store.proxy.extraParams, {
-            system : system,
-            type : type
-        });
-        store.load({
-            scope: this,
-            callback: function(records, operation, success) {
-                if(accountItem !== null){
-                    var record = store.find('id', accountItem.get('salaryItemId'));
-                    grid.getSelectionModel().select(record);
-                }
-            }
-        });
+        store.filter("type", type);
+        // Ext.apply(store.proxy.extraParams, {
+        //     type : type
+        // });
+        // store.load({
+        //     scope: this,
+        //     callback: function(records, operation, success) {
+        if(accountItem !== null){
+            var record = store.findRecord('id', accountItem.get('salaryItemId'));
+            grid.getSelectionModel().select(record, false, true);
+        }
+        //     }
+        // });
     }
 
 });

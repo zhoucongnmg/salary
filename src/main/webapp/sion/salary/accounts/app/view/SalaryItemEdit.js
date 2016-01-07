@@ -19,8 +19,9 @@ Ext.define('sion.salary.accounts.view.SalaryItemEdit', {
     requires: [
         'Ext.form.Panel',
         'Ext.form.field.ComboBox',
-        'Ext.form.field.Checkbox',
         'Ext.form.field.Number',
+        'Ext.form.RadioGroup',
+        'Ext.form.field.Radio',
         'Ext.form.field.TextArea',
         'Ext.toolbar.Toolbar',
         'Ext.button.Button'
@@ -72,12 +73,38 @@ Ext.define('sion.salary.accounts.view.SalaryItemEdit', {
                         {
                             xtype: 'numberfield',
                             anchor: '100%',
-                            itemId: 'decimalScale',
+                            itemId: 'precision',
                             fieldLabel: '小数位数',
-                            name: 'decimalScale',
+                            name: 'precision',
                             allowBlank: false,
                             allowDecimals: false,
                             minValue: 0
+                        },
+                        {
+                            xtype: 'radiogroup',
+                            itemId: 'carryType',
+                            fieldLabel: '小数保留方式',
+                            allowBlank: false,
+                            items: [
+                                {
+                                    xtype: 'radiofield',
+                                    name: 'carryType',
+                                    boxLabel: '四舍五入',
+                                    inputValue: 'Round'
+                                },
+                                {
+                                    xtype: 'radiofield',
+                                    name: 'carryType',
+                                    boxLabel: '直接进位',
+                                    inputValue: 'Isopsephy'
+                                },
+                                {
+                                    xtype: 'radiofield',
+                                    name: 'carryType',
+                                    boxLabel: '直接舍去',
+                                    inputValue: 'Truncation'
+                                }
+                            ]
                         },
                         {
                             xtype: 'textareafield',
@@ -128,7 +155,7 @@ Ext.define('sion.salary.accounts.view.SalaryItemEdit', {
 
         record = form.getRecord();
         form.updateRecord(record);
-        if(!me.down('#name').isValid() || !me.down('#type').isValid() || !me.down('#decimalScale').isValid()){
+        if(!me.down('#name').isValid() || !me.down('#type').isValid() || !me.down('#precision').isValid()){
             Ext.Msg.alert("提示", "信息不完整，请继续填写！");
             return false;
         }
@@ -159,11 +186,14 @@ Ext.define('sion.salary.accounts.view.SalaryItemEdit', {
             form.loadRecord(salaryItem);
         }else{
             form.loadRecord(Ext.create(namespace + '.model.SalaryItem', {
+                item: 'SalaryItem',
                 id: '',
                 name: '',
         //         field: '',
                 type: '',
                 taxItem: false,
+                carryType: 'Round',
+                precision: '',
         //         decimalScale: 0,
         //         system: false,
         //         show: true,

@@ -57,6 +57,9 @@ Ext.define('sion.salary.social.model.SocialAccountItem', {
         },
         {
             name: 'item'
+        },
+        {
+            name: 'itemType'
         }
     ]
 });

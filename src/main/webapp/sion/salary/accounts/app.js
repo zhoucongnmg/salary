@@ -48,7 +48,6 @@ Ext.application({
     ],
     views: [
         'SalaryPlanGrid',
-        'SalaryItems',
         'SalaryItemGrid',
         'SalaryPlan',
         'SalaryItemEdit',

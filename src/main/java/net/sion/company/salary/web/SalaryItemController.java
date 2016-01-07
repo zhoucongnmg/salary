@@ -73,7 +73,7 @@ public class SalaryItemController {
 	}
 	
 	@RequestMapping(value="load")
-	public @ResponseBody Response load(@RequestParam String system, @RequestParam String type) throws UnsupportedEncodingException {
+	public @ResponseBody Response load(@RequestParam String type) throws UnsupportedEncodingException {
 		Query query = new Query();
 		if(StringUtils.isNotEmpty(type)){
 			query.addCriteria(Criteria.where("type").is(type));

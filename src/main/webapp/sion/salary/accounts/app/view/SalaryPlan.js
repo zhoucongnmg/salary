@@ -268,51 +268,21 @@ Ext.define('sion.salary.accounts.view.SalaryPlan', {
 
     onWindowBeforeRender: function(component, eOpts) {
         var me = this,
-            namespace = me.getNamespace(),
-            //     itemStore = Ext.getStore('AccountItem'),
-            grid = me.down('grid'),
-            itemStore = grid.getStore(),
-            form = me.down("form"),
-            account = me._account;
+            store = Ext.getStore('SalaryItem');
 
-        itemStore.removeAll();
-        if(account){
-            Ext.Array.each(account.get('accountItems'), function(item){
-                console.log(item);
-                if(item !== null && item.type == 'Calculate' && item.formulaId !== ''){
-                    //              var formula = me.getFormula(item.formulaId);
-                    Ext.Ajax.request({
-                        url: 'salary/formula/read',
-                        method: 'get',
-                        async: false,    //不使用异步
-                        params: {
-                            id: item.formulaId
-                        },
-                        success: function(response, opts){
-                            if(response.responseText !== ''){
-                                var data = Ext.JSON.decode(response.responseText);
-                                item.formula = data;
-                            }
-                        },
-                        failure: function(response, opts) {
-                            Ext.Msg.alert('提示信息','数据请求错误，请稍候重新尝试获取数据……');
-                        }
-                    });
-                }else{
-                    item.formula = null;
+        store.clearFilter(true);
+        Ext.apply(store.proxy.extraParams, {
+            type : ''
+        });
+        // if(store.getCount() === 0){
+            store.load({
+                callback: function(records, operation, success) {
+                    me.loadData(store);
                 }
-                //         var accountItem = Ext.create(namespace + '.model.AccountItem');
-                //         accountItem.set(item);
-                itemStore.add(item);
             });
-            //     itemStore.add(account.get('accountItems'));
-            form.loadRecord(account);
-        }else{
-            form.loadRecord(Ext.create(namespace + '.model.Account', {
-                id: '',
-                name: ''
-            }));
-        }
+        // }else{
+        //     me.loadData(store);
+        // }
     },
 
     detail: function(record) {
@@ -365,6 +335,51 @@ Ext.define('sion.salary.accounts.view.SalaryPlan', {
                 me.close();
             }
         });
+    },
+
+    loadData: function(store) {
+        var me = this,
+            namespace = me.getNamespace(),
+            grid = me.down('grid'),
+            itemStore = grid.getStore(),
+            form = me.down("form"),
+            account = me._account;
+
+        itemStore.removeAll();
+        if(account){
+            Ext.Array.each(account.get('accountItems'), function(item){
+                if(item !== null && item.type == 'Calculate' && item.formulaId !== ''){
+                    Ext.Ajax.request({
+                        url: 'salary/formula/read',
+                        method: 'get',
+                        async: false,    //不使用异步
+                        params: {
+                            id: item.formulaId
+                        },
+                        success: function(response, opts){
+                            if(response.responseText !== ''){
+                                var data = Ext.JSON.decode(response.responseText);
+                                item.formula = data;
+                            }
+                        },
+                        failure: function(response, opts) {
+                            Ext.Msg.alert('提示信息','数据请求错误，请稍候重新尝试获取数据……');
+                        }
+                    });
+                }else{
+                    item.formula = null;
+                }
+                var salaryItem = store.findRecord('id', item.salaryItemId);
+                item.name = salaryItem.get('name');
+                itemStore.add(item);
+            });
+            form.loadRecord(account);
+        }else{
+            form.loadRecord(Ext.create(namespace + '.model.Account', {
+                id: '',
+                name: ''
+            }));
+        }
     }
 
 });

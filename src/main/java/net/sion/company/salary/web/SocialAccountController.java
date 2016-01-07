@@ -101,13 +101,13 @@ public class SocialAccountController {
 		double socialPersonSum = 0;//个人缴费社保
 		
 		for(SocialAccountItem socialAccountItem : account.getSocialAccountItems()){
-			String socialItemId = socialAccountItem.getSocialItemId();
-			SocialItem socialItem = socialItemRepository.findOne(socialItemId);
-			socialAccountItem.generateDecimalFinalValue(socialItem.getCarryType(), socialItem.getPrecision());
-			if(socialItem.getItemType() == SocialItemType.SocialSecurity){
+//			String socialItemId = socialAccountItem.getSocialItemId();
+//			SocialItem socialItem = socialItemRepository.findOne(socialItemId);
+			socialAccountItem.generateDecimalFinalValue(socialAccountItem.getCarryType(), socialAccountItem.getPrecision());
+			if(socialAccountItem.getItemType() == SocialItemType.SocialSecurity){
 				socialCompanySum += socialAccountItem.getCompanyPaymentFinalValue();
 				socialPersonSum += socialAccountItem.getPersonalPaymentFinalValue();
-			}else if (socialItem.getItemType() == SocialItemType.AccumulationFunds){
+			}else if (socialAccountItem.getItemType() == SocialItemType.AccumulationFunds){
 				//公积金
 				accumulationCompanySum += socialAccountItem.getCompanyPaymentFinalValue();
 				accumulationPersonSum += socialAccountItem.getPersonalPaymentFinalValue();

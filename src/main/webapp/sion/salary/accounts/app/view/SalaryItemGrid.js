@@ -18,10 +18,13 @@ Ext.define('sion.salary.accounts.view.SalaryItemGrid', {
     alias: 'widget.salaryitemgrid',
 
     requires: [
+        'Ext.toolbar.Toolbar',
+        'Ext.button.Button',
         'Ext.grid.column.Action',
         'Ext.grid.View'
     ],
 
+    autoScroll: true,
     header: false,
     title: 'My Grid Panel',
     store: 'SalaryItem',
@@ -30,6 +33,25 @@ Ext.define('sion.salary.accounts.view.SalaryItemGrid', {
         var me = this;
 
         Ext.applyIf(me, {
+            dockedItems: [
+                {
+                    xtype: 'toolbar',
+                    dock: 'top',
+                    items: [
+                        {
+                            xtype: 'button',
+                            iconCls: 's_icon_action_add',
+                            text: '<span style="font-size:14px;color:#3892D3;font-weight:bold;">新建</span>',
+                            listeners: {
+                                click: {
+                                    fn: me.onNewSalaryItemClick,
+                                    scope: me
+                                }
+                            }
+                        }
+                    ]
+                }
+            ],
             columns: [
                 {
                     xtype: 'gridcolumn',
@@ -126,6 +148,13 @@ Ext.define('sion.salary.accounts.view.SalaryItemGrid', {
         });
 
         me.callParent(arguments);
+    },
+
+    onNewSalaryItemClick: function(button, e, eOpts) {
+        var me =this,
+            namespace=me.getNamespace();
+
+        Ext.create(namespace+".view.SalaryItemEdit").show();
     },
 
     onGridpanelRender: function(component, eOpts) {
