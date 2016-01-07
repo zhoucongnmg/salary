@@ -1,6 +1,10 @@
 package net.sion.company.salary.config;
 
+import java.util.List;
+
 import net.sion.company.salary.domain.SocialItem.SocialItemType;
+import net.sion.company.salary.domain.SystemSalaryItem.SystemSalaryItemType;
+import net.sion.company.salary.domain.SystemSalaryItem;
 import net.sion.company.salary.domain.SystemSalaryItemEnum;
 import net.sion.company.salary.event.SystemSalaryItemEvent;
 import net.sion.company.salary.listener.AbstractSystemSalaryItemListener;
@@ -21,5 +25,12 @@ public class PersonalSocialTotalRegister extends AbstractSystemSalaryItemListene
 	public SystemSalaryItemEnum hook() {
 		// TODO Auto-generated method stub
 		return SystemSalaryItemEnum.PersonalSocialTotal;
+	}
+	@Override
+	public List<SystemSalaryItem> regist(List<SystemSalaryItem> empty) {
+		// TODO Auto-generated method stub
+		SystemSalaryItem item = new SystemSalaryItem(SystemSalaryItemEnum.PersonalSocialTotal,"个人社保合计",SystemSalaryItemType.Personal);
+		empty.add(item);
+		return empty;
 	}
 }

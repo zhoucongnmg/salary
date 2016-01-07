@@ -46,6 +46,10 @@ public class PayrollItem {
 	
 	String dept;	//部门
 	
+	
+	
+
+	
 	Map<String,Double> values = new HashMap<String,Double>();	//薪资明细项
 	
 	public PayrollItem() {

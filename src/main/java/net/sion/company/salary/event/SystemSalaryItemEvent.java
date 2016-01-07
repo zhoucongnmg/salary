@@ -1,9 +1,10 @@
 package net.sion.company.salary.event;
 
 import java.util.Date;
+import java.util.List;
 
+import net.sion.company.salary.domain.SystemSalaryItem;
 import net.sion.company.salary.domain.SystemSalaryItemEnum;
-import net.sion.core.admin.domain.Company;
 
 import org.springframework.context.ApplicationEvent;
 import org.springframework.roo.addon.javabean.RooJavaBean;
@@ -13,7 +14,7 @@ public class SystemSalaryItemEvent extends ApplicationEvent{
 
 	private static final long serialVersionUID = 1L;
 
-	public SystemSalaryItemEnum itemType;
+	public SystemSalaryItem item;
 	
 	String userId;
 	
@@ -25,37 +26,53 @@ public class SystemSalaryItemEvent extends ApplicationEvent{
 	
 	Date date;
 	
+	List<SystemSalaryItem> registItems;
+	
+	SystemSalaryItemEventType type;
+	
+	public enum SystemSalaryItemEventType{
+		GetValue,
+		Regist
+	}
+
+	public SystemSalaryItemEvent(Object source,SystemSalaryItemEventType type) {
+		super(source);
+		this.type = type;
+	}
 			
 	
-	public SystemSalaryItemEvent(Object source,SystemSalaryItemEnum itemType) {
+	public SystemSalaryItemEvent(Object source,SystemSalaryItem item, SystemSalaryItemEventType type) {
 		super(source);
-		this.itemType = itemType;
+		this.item = item;
+		this.type = type;
 	}
 	
-	public SystemSalaryItemEvent(Object source, SystemSalaryItemEnum itemType, String userId) {
-		this(source,itemType);
+	public SystemSalaryItemEvent(Object source, SystemSalaryItem item, String userId, SystemSalaryItemEventType type) {
+		this(source,item,type);
 		this.userId = userId;
 	}
 	
-	public SystemSalaryItemEvent(Object source, SystemSalaryItemEnum itemType,
-			String personId, String deptId) {
+	public SystemSalaryItemEvent(Object source, SystemSalaryItem item,
+			String personId, String deptId, SystemSalaryItemEventType type) {
 		super(source);
-		this.itemType = itemType;
+		this.item = item;
 		this.personId = personId;
 		this.deptId = deptId;
+		this.type = type;
 	}
 	
 	
-	public SystemSalaryItemEvent(Object source, SystemSalaryItemEnum itemType,
+	public SystemSalaryItemEvent(Object source, SystemSalaryItem item,
 			String userId, String personId, String companyId, String deptId,
-			Date date) {
+			Date date, SystemSalaryItemEventType type) {
 		super(source);
-		this.itemType = itemType;
+		this.item = item;
 		this.userId = userId;
 		this.personId = personId;
 		this.companyId = companyId;
 		this.deptId = deptId;
 		this.date = date;
+		this.type = type;
 	}
 
 	public String getUserId() {
@@ -98,14 +115,38 @@ public class SystemSalaryItemEvent extends ApplicationEvent{
 		this.date = date;
 	}
 
-	public SystemSalaryItemEnum getItemType() {
-		return itemType;
+	public SystemSalaryItem getItem() {
+		return item;
 	}
 
-	public void setItemType(SystemSalaryItemEnum itemType) {
-		this.itemType = itemType;
+	public void setItem(SystemSalaryItem item) {
+		this.item = item;
 	}
 
+	public List<SystemSalaryItem> getRegistItems() {
+		return registItems;
+	}
+
+	public void setRegistItems(List<SystemSalaryItem> registItems) {
+		this.registItems = registItems;
+	}
+	
+	public void addRegistItems(List<SystemSalaryItem> addRegistItems) {
+		this.registItems.addAll(addRegistItems);
+	}
+
+
+	public SystemSalaryItemEventType getType() {
+		return type;
+	}
+
+
+	public void setType(SystemSalaryItemEventType type) {
+		this.type = type;
+	}
+	
+	
+	
 	
 	
 }
