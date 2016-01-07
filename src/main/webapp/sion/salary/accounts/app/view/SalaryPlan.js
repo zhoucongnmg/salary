@@ -135,8 +135,8 @@ Ext.define('sion.salary.accounts.view.SalaryPlan', {
                         {
                             xtype: 'booleancolumn',
                             dataIndex: 'show',
-                            text: '是否显示',
-                            flex: 2,
+                            text: '是否在工资条中显示',
+                            flex: 4,
                             falseText: '否',
                             trueText: '是'
                         },

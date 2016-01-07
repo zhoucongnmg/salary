@@ -22,6 +22,7 @@ Ext.define('sion.salary.accounts.view.SalaryItemEdit', {
         'Ext.form.field.Number',
         'Ext.form.RadioGroup',
         'Ext.form.field.Radio',
+        'Ext.form.field.Display',
         'Ext.form.field.TextArea',
         'Ext.toolbar.Toolbar',
         'Ext.button.Button'
@@ -105,6 +106,12 @@ Ext.define('sion.salary.accounts.view.SalaryItemEdit', {
                                     inputValue: 'Truncation'
                                 }
                             ]
+                        },
+                        {
+                            xtype: 'displayfield',
+                            fieldLabel: '温馨提示',
+                            labelStyle: 'color:red;',
+                            value: '小数保留方式默认为四舍五入方式；如需见分进角，则小数位数选1，保留方式选择直接进位即可。'
                         },
                         {
                             xtype: 'textareafield',

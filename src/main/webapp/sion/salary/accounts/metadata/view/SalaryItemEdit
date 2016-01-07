@@ -171,6 +171,22 @@
                     ]
                 },
                 {
+                    "type": "Ext.form.field.Display",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fieldLabel": "温馨提示",
+                        "labelStyle": "color:red;",
+                        "layout|anchor": null,
+                        "value": "小数保留方式默认为四舍五入方式；如需见分进角，则小数位数选1，保留方式选择直接进位即可。"
+                    },
+                    "name": "MyDisplayField1",
+                    "designerId": "a6e7a343-2f32-4459-9340-849b8a1b70f9"
+                },
+                {
                     "type": "Ext.form.field.TextArea",
                     "reference": {
                         "name": "items",

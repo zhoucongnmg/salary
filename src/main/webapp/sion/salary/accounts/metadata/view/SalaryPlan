@@ -286,8 +286,8 @@
                     "userConfig": {
                         "dataIndex": "show",
                         "falseText": "否",
-                        "flex": 2,
-                        "text": "是否显示",
+                        "flex": 4,
+                        "text": "是否在工资条中显示",
                         "trueText": "是"
                     },
                     "name": "MyBooleanColumn3",
