@@ -240,7 +240,8 @@ Ext.define('sion.salary.payroll.view.UnpublishPayroll', {
                                         var window = Ext.create('sion.salary.payroll.view.PayrollWindow',{
                                             title:'修改工资条',
                                             _link:{
-                                                record:record
+                                                record:record,
+                                                state:'update'
                                             }
                                         });
                                         window.show();
@@ -318,7 +319,7 @@ Ext.define('sion.salary.payroll.view.UnpublishPayroll', {
                                             }
                                         });
                                     },
-                                    iconCls: 's_icon_action_search'
+                                    iconCls: 's_icon_action_accept'
                                 }
                             ]
                         },
@@ -505,7 +506,8 @@ Ext.define('sion.salary.payroll.view.UnpublishPayroll', {
             title:'新建工资条',
             _link:{
                 record:record,
-                payrollStore:store
+                payrollStore:store,
+                state:'add'
             }
         });
         window.show();

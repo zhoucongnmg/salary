@@ -291,11 +291,12 @@ Ext.define('sion.salary.payroll.view.PayrollWindow', {
             tree = me.down('treepanel'),
             accountStore = me.down('combobox').getStore(),
             store = tree.getStore(),
+            state = me._link.state,
             record = me._link.record;
 
         me.down('form').loadRecord(record);
 
-        if(me.title=='修改工资条'){
+        if(state=='update'){
             store.load({
                 params:{
                     accountId:record.get('accountId'),

@@ -676,7 +676,7 @@
                             },
                             "codeClass": null,
                             "userConfig": {
-                                "iconCls": "s_icon_action_search"
+                                "iconCls": "s_icon_action_clockwise"
                             },
                             "name": "MyActionColumnItem1",
                             "designerId": "76f96f85-d52b-4bcf-b846-6c166ab3f842",

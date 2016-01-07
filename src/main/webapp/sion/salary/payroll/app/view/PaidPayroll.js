@@ -261,7 +261,7 @@ Ext.define('sion.salary.payroll.view.PaidPayroll', {
                                             }
                                         });
                                     },
-                                    iconCls: 's_icon_action_search'
+                                    iconCls: 's_icon_action_clockwise'
                                 }
                             ]
                         },

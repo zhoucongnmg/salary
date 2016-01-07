@@ -508,10 +508,10 @@ public class PayrollController {
 		String companyId = adminService.getCompany(session).getId();
 
 		Query query;
-		if (persons.length() != 0) {
+//		if (persons.length() != 0) {
 			Set<String> personsId = persons.keySet();
-			query = new Query(Criteria.where("accountId").is(accountId).and("id").in(personsId));
-		} else
+//			query = new Query(Criteria.where("accountId").is(accountId).and("id").in(personsId));
+//		} else
 			query = new Query(Criteria.where("accountId").is(accountId));
 		List<PersonAccountFile> personAccountFiles = mongoTemplate.find(query, PersonAccountFile.class);
 
@@ -527,6 +527,8 @@ public class PayrollController {
 				personName.put("name", personAccountFile.getName());
 				personName.put("leaf", true);
 				personName.put("id", personAccountFile.getId());
+				if(!personsId.contains(personAccountFile.getId()))
+					personName.put("checked",false);
 				userList.add(personName);
 				deptUserMap.put(personAccountFile.getDeptId(), userList);
 			} else {
@@ -534,6 +536,8 @@ public class PayrollController {
 				map.put("name", personAccountFile.getName());
 				map.put("leaf", true);
 				map.put("id", personAccountFile.getId());
+				if(!personsId.contains(personAccountFile.getId()))
+					map.put("checked",false);
 				personList.add(map);
 			}
 		}
