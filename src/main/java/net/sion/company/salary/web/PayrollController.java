@@ -495,71 +495,67 @@ public class PayrollController {
 	 * 
 	 * @return
 	 */
-	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "getAccountPersons")
-	public List<Dept> getAccountPersons(HttpSession session, @RequestParam(value = "accountId") String accountId,
+	public List<Object> getAccountPersons(HttpSession session, @RequestParam(value = "accountId") String accountId,
 			@RequestParam(value = "persons") JSONObject persons) {
 
 		Map<String, Object> allParentDeptMap = new HashMap<String, Object>();
 		Map<String, List<Object>> deptUserMap = new HashMap<String, List<Object>>();
-		List<Object> personList = new ArrayList<Object>();
-		Map<String, List<Object>> dontHaveDeptPerson = new HashMap<String, List<Object>>();
-
+		List<Object> personWithOutDept = new ArrayList<Object>();
 		String companyId = adminService.getCompany(session).getId();
 
 		Query query;
-//		if (persons.length() != 0) {
-			Set<String> personsId = persons.keySet();
-//			query = new Query(Criteria.where("accountId").is(accountId).and("id").in(personsId));
-//		} else
-			query = new Query(Criteria.where("accountId").is(accountId));
+		query = new Query(Criteria.where("accountId").is(accountId));
 		List<PersonAccountFile> personAccountFiles = mongoTemplate.find(query, PersonAccountFile.class);
 
 		for (PersonAccountFile personAccountFile : personAccountFiles) {
-			if (personAccountFile.getDeptId() != null && personAccountFile.getDeptId().length() > 0) {
+			if (notNull(personAccountFile.getDeptId())) {
 				Map<String, Dept> deptMap = findAllParentIntoMap(personAccountFile.getDeptId(), companyId);
 				allParentDeptMap.putAll(deptMap);
-				List<Object> userList = deptUserMap.get(personAccountFile.getDeptId());
-				if (userList == null) {
-					userList = new ArrayList<Object>();
+				List<Object> personHasDept = deptUserMap.get(personAccountFile.getDeptId());
+				if (personHasDept == null) {
+					personHasDept = new ArrayList<Object>();
 				}
-				Map<String, Object> personName = new HashMap<String, Object>();
-				personName.put("name", personAccountFile.getName());
-				personName.put("leaf", true);
-				personName.put("id", personAccountFile.getId());
-				if(!personsId.contains(personAccountFile.getId()))
-					personName.put("checked",false);
-				userList.add(personName);
-				deptUserMap.put(personAccountFile.getDeptId(), userList);
+				personHasDept.add(newPersonNode(personAccountFile,persons));
+				deptUserMap.put(personAccountFile.getDeptId(), personHasDept);
 			} else {
-				Map<String, Object> map = new HashMap<String, Object>();
-				map.put("name", personAccountFile.getName());
-				map.put("leaf", true);
-				map.put("id", personAccountFile.getId());
-				if(!personsId.contains(personAccountFile.getId()))
-					map.put("checked",false);
-				personList.add(map);
+				personWithOutDept.add(newPersonNode(personAccountFile,persons));
 			}
 		}
 
-		@SuppressWarnings("rawtypes")
-		List deptUserList = new ArrayList<Object>();
+		List<Object> deptUserList = new ArrayList<Object>();
 
-		@SuppressWarnings("rawtypes")
 		List deptList = adminService.traverseDepts(companyId);
 
-		if (deptList != null && deptList.size() > 0) {
+		if (notNull(deptList)) {
 			deptUserList = this.filterTraverseDeptsByMap(deptList, allParentDeptMap, deptUserMap);
 		}
 
-		if (personList.size() > 0) {
+		if (personWithOutDept.size() > 0) {
 			Dept dept = new Dept();
 			dept.setName("其他部门");
-			dept.setChildren(personList);
+			dept.setChildren(personWithOutDept);
 			deptUserList.add(dept);
 		}
-		
+
 		return deptUserList;
+	}
+	
+	private Map<String,Object> newPersonNode(PersonAccountFile personAccountFile,JSONObject persons){
+		Map<String, Object> node = new HashMap<String, Object>();
+		node.put("name", personAccountFile.getName());
+		node.put("leaf", true);
+		node.put("id", personAccountFile.getId());
+		if (!mapContains(persons,personAccountFile.getId()))
+			node.put("checked", false);
+		return node;
+	}
+	
+	private Boolean mapContains(JSONObject map,String key){
+		if(map.length()!=0)
+			return map.keySet().contains(key);
+		else
+			return true;
 	}
 
 	private Map<String, Dept> findAllParentIntoMap(String deptId, String companyId) {
@@ -668,12 +664,13 @@ public class PayrollController {
 			Pattern patternSubject = Pattern.compile("^.*" + subject.trim() + ".*$", Pattern.CASE_INSENSITIVE);
 			mapFilter.put("subject", patternSubject);
 		}
-		if (notNull(month)){
+		if (notNull(month)) {
 			Pattern patternMonth = Pattern.compile("^.*" + month.substring(0, 7) + ".*$", Pattern.CASE_INSENSITIVE);
-			mapFilter.put("month",patternMonth);
+			mapFilter.put("month", patternMonth);
 		}
-		if (notNull(socialCostMonth)){
-			Pattern patternSocialMonth = Pattern.compile("^.*" + socialCostMonth.substring(0, 7) + ".*$", Pattern.CASE_INSENSITIVE);
+		if (notNull(socialCostMonth)) {
+			Pattern patternSocialMonth = Pattern.compile("^.*" + socialCostMonth.substring(0, 7) + ".*$",
+					Pattern.CASE_INSENSITIVE);
 			mapFilter.put("socialCostMonth", patternSocialMonth);
 		}
 
@@ -690,6 +687,10 @@ public class PayrollController {
 
 	private Boolean notNull(String string) {
 		return string != null && string.length() != 0;
+	}
+	
+	private Boolean notNull(List<?> list){
+		return list !=null && list.size() > 0;
 	}
 
 	/**
