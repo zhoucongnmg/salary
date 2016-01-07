@@ -419,6 +419,12 @@ Ext.define('sion.salary.level.view.Level_win', {
             form=me.down('form');
 
         var model=Ext.create(me.itemModel);
+        model.set('rank','等级'+(store.getCount()+1));
+
+        var itemNames=Object.keys(me._record.get('salaryItemNames'));
+        Ext.Array.each(itemNames,function(item){
+            model.set(item,0);
+        });
 
         store.add(model);
     },
