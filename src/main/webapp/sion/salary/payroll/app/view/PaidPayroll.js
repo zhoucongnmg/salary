@@ -30,9 +30,9 @@ Ext.define('sion.salary.payroll.view.PaidPayroll', {
     ],
 
     autoShow: true,
-    height: 487,
+    height: 672,
     itemId: 'getPaidPayroll',
-    width: 670,
+    width: 1096,
     layout: 'border',
     title: '',
 

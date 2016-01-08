@@ -1,6 +1,7 @@
 package net.sion.company.salary.sessionrepository;
 
 import java.util.List;
+import java.util.Set;
 
 import net.sion.company.salary.domain.PersonAccountFile;
 
@@ -20,5 +21,8 @@ public interface PersonAccountFileRepository extends MongoRepository<PersonAccou
 	List<PersonAccountFile> findByPersonIdIn(List<String> personIds);
 	
 	List<PersonAccountFile> findByAccountId(String accountId);
+	
+	@Query(value = "{$or:[{accountId:?0},{_id:{$in:?1}}]}")
+	List<PersonAccountFile> findByAccountIdAndInId(String accountId,Set<String> ids);
 	
 }

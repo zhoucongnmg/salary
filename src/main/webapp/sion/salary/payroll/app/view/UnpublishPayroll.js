@@ -29,9 +29,9 @@ Ext.define('sion.salary.payroll.view.UnpublishPayroll', {
         'Ext.toolbar.Paging'
     ],
 
-    height: 487,
+    height: 631,
     itemId: 'getUnpublishPayroll',
-    width: 670,
+    width: 1081,
     layout: 'border',
     title: '',
 

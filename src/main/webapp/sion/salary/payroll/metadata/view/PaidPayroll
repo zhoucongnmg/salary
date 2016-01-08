@@ -9,11 +9,11 @@
         "autoShow": true,
         "designer|userAlias": "paidpayroll",
         "designer|userClassName": "PaidPayroll",
-        "height": 487,
+        "height": 672,
         "itemId": "getPaidPayroll",
         "layout": "border",
         "title": "",
-        "width": 670
+        "width": 1096
     },
     "designerId": "2bc9523b-b2ee-42ce-8c53-be649e5bb646",
     "cn": [

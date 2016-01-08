@@ -504,13 +504,7 @@ public class PayrollController {
 		List<Object> personWithOutDept = new ArrayList<Object>();
 		String companyId = adminService.getCompany(session).getId();
 
-		Query query = new Query();
-		Criteria cr = new Criteria();
-		query.addCriteria(cr.orOperator(
-			Criteria.where("accountId").is(accountId)
-		    ,Criteria.where("_id").in(persons.keySet())
-		));
-		List<PersonAccountFile> personAccountFiles = mongoTemplate.find(query, PersonAccountFile.class);
+		List<PersonAccountFile> personAccountFiles = personAcountFileRepsitory.findByAccountIdAndInId(accountId, persons.keySet());
 
 		for (PersonAccountFile personAccountFile : personAccountFiles) {
 			if (notNull(personAccountFile.getDeptId())) {
@@ -664,22 +658,22 @@ public class PayrollController {
 
 		mapFilter.put("state", state);
 		if (notNull(subject)) {
-			Pattern patternSubject = Pattern.compile("^.*" + subject.trim() + ".*$", Pattern.CASE_INSENSITIVE);
-			mapFilter.put("subject", patternSubject);
+			mapFilter.put("subject", getPattern(subject.trim()));
 		}
 		if (notNull(month)) {
-			Pattern patternMonth = Pattern.compile("^.*" + month.substring(0, 7) + ".*$", Pattern.CASE_INSENSITIVE);
-			mapFilter.put("month", patternMonth);
+			mapFilter.put("month", getPattern(month.substring(0, 7)));
 		}
 		if (notNull(socialCostMonth)) {
-			Pattern patternSocialMonth = Pattern.compile("^.*" + socialCostMonth.substring(0, 7) + ".*$",
-					Pattern.CASE_INSENSITIVE);
-			mapFilter.put("socialCostMonth", patternSocialMonth);
+			mapFilter.put("socialCostMonth", getPattern(socialCostMonth.substring(0, 7)));
 		}
 
 		Query q = getQueryWithFilter(mapFilter);
 		q.with(new Sort(Sort.Direction.ASC, "_id")).skip(start).limit(limit);
 		return q;
+	}
+	
+	private Pattern getPattern(String str){
+		return Pattern.compile("^.*" + str + ".*$", Pattern.CASE_INSENSITIVE);
 	}
 
 	private Query getQueryWithFilter(Map<String, Object> mapFilter) {

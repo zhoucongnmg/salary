@@ -8,11 +8,11 @@
     "userConfig": {
         "designer|userAlias": "unpublishpayroll",
         "designer|userClassName": "UnpublishPayroll",
-        "height": 487,
+        "height": 631,
         "itemId": "getUnpublishPayroll",
         "layout": "border",
         "title": "",
-        "width": 670
+        "width": 1081
     },
     "designerId": "02f3d5a0-98dc-4e83-be20-913355b92319",
     "cn": [
