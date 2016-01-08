@@ -93,7 +93,7 @@
                     "//     me.getSalaryItem(record.get('type'));",
                     "}",
                     "form.loadRecord(record);",
-                    "me.loadTax();"
+                    "me.loadTax(record);"
                 ],
                 "name": "afterrender",
                 "scope": "me"
@@ -187,12 +187,16 @@
                                     "    record.set('value', '');",
                                     "}",
                                     "if(me.down('#type').getValue() == 'Tax'){",
-                                    "    if(!me.down('#taxValue').getValue()){",
+                                    "    if(!me.down('#taxId').getValue()){",
                                     "        Ext.Msg.alert('提示', '请选择计费项目');",
                                     "        return false;",
                                     "    }",
-                                    "    record.set('taxId', select[0].data.id);",
-                                    "    record.set('parentId', me.down('#taxValue').getValue());",
+                                    "    if(!me.down('#parentId').getValue()){",
+                                    "        Ext.Msg.alert('提示', '请选择计费项目');",
+                                    "        return false;",
+                                    "    }",
+                                    "    record.set('taxId', me.down('#taxId').getValue());",
+                                    "    record.set('parentId', me.down('#parentId').getValue());",
                                     "    console.log(me.down('#taxValue'));",
                                     "}",
                                     "if(me.down('#type').getValue() == 'Calculate'){",
@@ -503,13 +507,13 @@
                             "codeClass": null,
                             "userConfig": {
                                 "displayField": "name",
-                                "emptyText": "请选择计费项目",
-                                "fieldLabel": "按该项目计税",
-                                "itemId": "taxValue",
+                                "emptyText": "请选择个税方案",
+                                "fieldLabel": "个税方案",
+                                "itemId": "taxId",
                                 "layout|anchor": "100%",
-                                "name": "type",
+                                "name": "taxId",
                                 "queryMode": "local",
-                                "store": "AccountItem",
+                                "store": null,
                                 "style": [
                                     "margin-top:10px;"
                                 ],
@@ -517,6 +521,30 @@
                             },
                             "name": "MyComboBox1",
                             "designerId": "121f204e-abbb-4cbe-b51f-f2ffcb63bd72"
+                        },
+                        {
+                            "type": "Ext.form.field.ComboBox",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "displayField": "name",
+                                "emptyText": "请选择计税项目",
+                                "fieldLabel": "按该项目计税",
+                                "itemId": "parentId",
+                                "layout|anchor": "100%",
+                                "name": "parentId",
+                                "queryMode": "local",
+                                "store": "AccountItem",
+                                "style": [
+                                    "margin-top:10px;"
+                                ],
+                                "valueField": "id"
+                            },
+                            "name": "MyComboBox3",
+                            "designerId": "fdf00f1e-8187-4834-8855-768f316f2982"
                         }
                     ]
                 }
@@ -530,28 +558,84 @@
             },
             "codeClass": null,
             "userConfig": {
+                "designer|params": [
+                    "record"
+                ],
                 "fn": "loadTax",
                 "implHandler": [
                     "var me = this,",
                     "    ns = me.getNamespace(),",
-                    "    store = me.down('#taxValue').getStore(),",
-                    "    data = me._store.data.items;",
+                    "    taxId = me.down('#taxId'),",
+                    "    parentStore = me.down('#parentId').getStore(),",
+                    "    data = me._store.data.items,",
+                    "    taxStore = me._taxStore;",
+                    "",
+                    "taxId.bindStore(taxStore);",
+                    "console.log(taxStore);",
+                    "if(record !== null){",
+                    "    taxId.setValue(record.get('taxId'));",
+                    "}",
                     "",
                     "if (me._data) {",
-                    "    store.removeAll();",
+                    "    taxStore.removeAll();",
                     "    Ext.Array.each(data,function(d,index){",
                     "        var record = Ext.create(ns + '.model.Item',{",
                     "            id: d.get('id'),",
                     "            name : d.get('name')",
                     "        });",
-                    "        store.add(record);",
+                    "        taxStore.add(record);",
                     "    });",
-                    "",
                     "}"
                 ]
             },
             "name": "loadTax",
             "designerId": "77c36462-bc80-4822-a700-535cd0e09792"
+        },
+        {
+            "type": "basiceventbinding",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "onWindowBeforeRender",
+                "implHandler": [
+                    "// var me = this,",
+                    "//     namespace = me.getNamespace(),",
+                    "//     form = me.down('form'),",
+                    "//     record = me._accountItem,",
+                    "// //     store = Ext.getStore('AccountItem'),",
+                    "//     store = me._store,",
+                    "// //     items = [],",
+                    "//     panel = me.down('#formulaPanel'),",
+                    "//     grid = me.down('gridpanel'),",
+                    "//     app = Ext.ClassManager.get('sion.salary.formula' + \".$application\").create(),",
+                    "//     Api = app.getController('Api');",
+                    "",
+                    "// Api.initFormula({",
+                    "//     _formulaId : 'AddSalaryItem',//窗口的ItemId",
+                    "//     _container :  panel,//需要将公式编辑器面板显示到哪一个Container中",
+                    "//     _data : store.data.items,//计算项store(Model必须包含id,text等field)",
+                    "//     _command : record !== null && record.get('formula') !== null ? record.get('formula').formula : ''",
+                    "// });",
+                    "// me._formulaApi = Api;",
+                    "// if(record === null){",
+                    "//     record = Ext.create(namespace + '.model.AccountItem', {",
+                    "//         item: 'SalaryItem',",
+                    "//         id : Ext.data.IdGenerator.get('uuid').generate()",
+                    "//     });",
+                    "// }else{",
+                    "// //     me.getSalaryItem(record.get('type'));",
+                    "// }",
+                    "// form.loadRecord(record);",
+                    "// me.loadTax(record);"
+                ],
+                "name": "beforerender",
+                "scope": "me"
+            },
+            "name": "onWindowBeforeRender",
+            "designerId": "3f11489e-5a12-4ea5-9faf-5eaec522cd86"
         }
     ]
 }

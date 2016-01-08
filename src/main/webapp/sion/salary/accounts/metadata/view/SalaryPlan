@@ -545,14 +545,22 @@
                 "implHandler": [
                     "var me = this,",
                     "    grid = me.down('grid'),",
-                    "    namespace = me.getNamespace();",
+                    "    namespace = me.getNamespace(),",
                     "//     accountItem = Ext.create(namespace + '.model.AccountItem');",
+                    "    taxStore = Ext.getStore('Tax');",
                     "",
-                    "Ext.create(namespace+\".view.AddSalaryItem\", {",
-                    "    //     _account : me._account,",
-                    "    _accountItem : record,",
-                    "    _store : grid.getStore()",
-                    "}).show();"
+                    "taxStore.load({",
+                    "    callback: function(records, operation, success) {",
+                    "        Ext.create(namespace+\".view.AddSalaryItem\", {",
+                    "            //     _account : me._account,",
+                    "            _accountItem : record,",
+                    "            _store : grid.getStore(),",
+                    "            _taxStore : taxStore",
+                    "        }).show();",
+                    "    }",
+                    "});",
+                    "",
+                    ""
                 ]
             },
             "name": "detail",
