@@ -7,7 +7,12 @@
     "codeClass": null,
     "userConfig": {
         "data": [
-            "[{id:'Input',name:'输入项'},{id:'Calculate',name:'计算项'},{id:'System',name:'系统提取项'}]"
+            "[",
+            "{id:'Input', name:'输入项'},",
+            "{id:'Calculate', name:'计算项'},",
+            "{id:'Tax', name:'计税项'},",
+            "{id:'System', name:'系统提取项'}",
+            "]"
         ],
         "designer|userClassName": "AccountItemType",
         "model": "AccountItemType",

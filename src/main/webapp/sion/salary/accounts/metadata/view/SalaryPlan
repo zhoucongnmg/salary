@@ -136,23 +136,6 @@
                     "designerId": "1454af2d-e58e-472d-bf1c-a139880d5584"
                 },
                 {
-                    "type": "Ext.form.field.Checkbox",
-                    "reference": {
-                        "name": "items",
-                        "type": "array"
-                    },
-                    "codeClass": null,
-                    "userConfig": {
-                        "boxLabel": "启用薪资体系",
-                        "fieldLabel": "&nbsp;",
-                        "labelSeparator": " ",
-                        "layout|anchor": "100%",
-                        "name": "enableLevel"
-                    },
-                    "name": "MyCheckbox",
-                    "designerId": "c550fb07-3346-48c9-895b-0a462f0abc46"
-                },
-                {
                     "type": "Ext.form.field.TextArea",
                     "reference": {
                         "name": "items",
@@ -532,11 +515,11 @@
                     "    type : ''",
                     "});",
                     "// if(store.getCount() === 0){",
-                    "    store.load({",
-                    "        callback: function(records, operation, success) {",
-                    "            me.loadData(store);",
-                    "        }",
-                    "    });",
+                    "store.load({",
+                    "    callback: function(records, operation, success) {",
+                    "        me.loadData(store);",
+                    "    }",
+                    "});",
                     "// }else{",
                     "//     me.loadData(store);",
                     "// }"

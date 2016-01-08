@@ -20,7 +20,6 @@ Ext.define('sion.salary.accounts.view.SalaryPlan', {
         'Ext.toolbar.Toolbar',
         'Ext.button.Button',
         'Ext.form.Panel',
-        'Ext.form.field.Checkbox',
         'Ext.form.field.TextArea',
         'Ext.grid.Panel',
         'Ext.grid.RowNumberer',
@@ -77,14 +76,6 @@ Ext.define('sion.salary.accounts.view.SalaryPlan', {
                             fieldLabel: '方案名称',
                             name: 'name',
                             allowBlank: false
-                        },
-                        {
-                            xtype: 'checkboxfield',
-                            anchor: '100%',
-                            fieldLabel: '&nbsp;',
-                            labelSeparator: ' ',
-                            name: 'enableLevel',
-                            boxLabel: '启用薪资体系'
                         },
                         {
                             xtype: 'textareafield',
@@ -275,11 +266,11 @@ Ext.define('sion.salary.accounts.view.SalaryPlan', {
             type : ''
         });
         // if(store.getCount() === 0){
-            store.load({
-                callback: function(records, operation, success) {
-                    me.loadData(store);
-                }
-            });
+        store.load({
+            callback: function(records, operation, success) {
+                me.loadData(store);
+            }
+        });
         // }else{
         //     me.loadData(store);
         // }

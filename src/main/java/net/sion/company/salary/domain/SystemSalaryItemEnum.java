@@ -8,8 +8,7 @@ public enum SystemSalaryItemEnum {
 	PersonalAccumulationFundsTotal ,
 	CompanySocialTotal,
 	CompanyAccumulationFundsTotal ,
-	PersonalAccountItem,
-	CompanyAccountItem;
+	AccountItem;
 	
 	SystemSalaryItemEnum(){
 		

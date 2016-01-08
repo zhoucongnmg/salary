@@ -40,7 +40,7 @@ public class Account implements Cloneable{
 
 	String name;// 套帐名称
 
-	boolean enableLevel;// 是否启用薪资体系
+//	boolean enableLevel;// 是否启用薪资体系
 
 	String danyGridBusinessId;// 动态表单ID
 
@@ -76,9 +76,9 @@ public class Account implements Cloneable{
 		for (AccountItem item : accountItems) {
 			if (item.getType() == SalaryItemType.Input) {
 				if(StringUtils.isEmpty(item.getValue())){
-					salaryItemValues.put(item.getSalaryItemId(),Double.valueOf(0));
+					salaryItemValues.put(item.getSalaryItemId(), null);
 				}else{
-					salaryItemValues.put(item.getSalaryItemId(),Double.valueOf(item.getValue()));
+					salaryItemValues.put(item.getSalaryItemId(), Double.valueOf(item.getValue()));
 				}
 			}
 		}
@@ -103,13 +103,13 @@ public class Account implements Cloneable{
 		this.name = name;
 	}
 
-	public boolean isEnableLevel() {
-		return enableLevel;
-	}
-
-	public void setEnableLevel(boolean enableLevel) {
-		this.enableLevel = enableLevel;
-	}
+//	public boolean isEnableLevel() {
+//		return enableLevel;
+//	}
+//
+//	public void setEnableLevel(boolean enableLevel) {
+//		this.enableLevel = enableLevel;
+//	}
 
 	public String getDanyGridBusinessId() {
 		return danyGridBusinessId;

@@ -69,24 +69,6 @@
                     "designerId": "4b4bf8af-290e-46ba-9fc8-f4bba32dd132"
                 },
                 {
-                    "type": "Ext.form.field.Checkbox",
-                    "reference": {
-                        "name": "items",
-                        "type": "array"
-                    },
-                    "codeClass": null,
-                    "userConfig": {
-                        "boxLabel": "个人所得税项目",
-                        "fieldLabel": null,
-                        "hideEmptyLabel": false,
-                        "itemId": "taxItem",
-                        "layout|anchor": "100%",
-                        "name": "taxItem"
-                    },
-                    "name": "MyCheckbox1",
-                    "designerId": "13471c83-4d61-4729-a3c7-3b8092dc68c7"
-                },
-                {
                     "type": "Ext.form.field.Number",
                     "reference": {
                         "name": "items",
@@ -305,7 +287,7 @@
                     "        name: '',",
                     "//         field: '',",
                     "        type: '',",
-                    "        taxItem: false,",
+                    "//         taxItem: false,",
                     "        carryType: 'Round',",
                     "        precision: '',",
                     "//         decimalScale: 0,",

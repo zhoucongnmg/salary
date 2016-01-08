@@ -105,24 +105,6 @@
                     "designerId": "ef0747f8-7e6c-49a9-a2ca-3431d154b877"
                 },
                 {
-                    "type": "Ext.grid.column.Boolean",
-                    "reference": {
-                        "name": "columns",
-                        "type": "array"
-                    },
-                    "codeClass": null,
-                    "userConfig": {
-                        "dataIndex": "enableLevel",
-                        "falseText": "×",
-                        "flex": 2,
-                        "text": "启用薪资体系",
-                        "trueText": "√",
-                        "width": null
-                    },
-                    "name": "MyBooleanColumn",
-                    "designerId": "5bc18616-71ca-4d15-84d8-cedcdafb6dbc"
-                },
-                {
                     "type": "Ext.grid.column.Column",
                     "reference": {
                         "name": "columns",

@@ -24,10 +24,10 @@ public class SocialAccount {
 	String createUserId;//
 	String createUserName;
 	List<SocialAccountItem> socialAccountItems;	//社保套账明细项目
-	double accumulationCompanySum;//单位缴费公积金总额
-	double accumulationPersonSum;//个人缴费公积金总额
-	double socialCompanySum;//单位缴费社保总额
-	double socialPersonSum;//个人缴费社保总额
+	Double accumulationCompanySum;//单位缴费公积金总额
+	Double accumulationPersonSum;//个人缴费公积金总额
+	Double socialCompanySum;//单位缴费社保总额
+	Double socialPersonSum;//个人缴费社保总额
 	
 	public String getId() {
 		return id;
@@ -65,28 +65,28 @@ public class SocialAccount {
 	public void setSocialAccountItems(List<SocialAccountItem> socialAccountItems) {
 		this.socialAccountItems = socialAccountItems;
 	}
-	public double getAccumulationCompanySum() {
+	public Double getAccumulationCompanySum() {
 		return accumulationCompanySum;
 	}
-	public void setAccumulationCompanySum(double accumulationCompanySum) {
+	public void setAccumulationCompanySum(Double accumulationCompanySum) {
 		this.accumulationCompanySum = accumulationCompanySum;
 	}
-	public double getAccumulationPersonSum() {
+	public Double getAccumulationPersonSum() {
 		return accumulationPersonSum;
 	}
-	public void setAccumulationPersonSum(double accumulationPersonSum) {
+	public void setAccumulationPersonSum(Double accumulationPersonSum) {
 		this.accumulationPersonSum = accumulationPersonSum;
 	}
-	public double getSocialCompanySum() {
+	public Double getSocialCompanySum() {
 		return socialCompanySum;
 	}
-	public void setSocialCompanySum(double socialCompanySum) {
+	public void setSocialCompanySum(Double socialCompanySum) {
 		this.socialCompanySum = socialCompanySum;
 	}
-	public double getSocialPersonSum() {
+	public Double getSocialPersonSum() {
 		return socialPersonSum;
 	}
-	public void setSocialPersonSum(double socialPersonSum) {
+	public void setSocialPersonSum(Double socialPersonSum) {
 		this.socialPersonSum = socialPersonSum;
 	}
 }

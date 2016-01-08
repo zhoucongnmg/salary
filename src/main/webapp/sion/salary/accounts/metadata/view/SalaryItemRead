@@ -82,25 +82,6 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "fieldLabel": "个人所得税项目",
-                        "itemId": "taxItem",
-                        "layout|anchor": "100%",
-                        "style": [
-                            "border-bottom:1px #f2f2f2 solid;"
-                        ],
-                        "value": null
-                    },
-                    "name": "MyDisplayField5",
-                    "designerId": "3b616fe4-0ef3-4068-8698-878837dd8120"
-                },
-                {
-                    "type": "Ext.form.field.Display",
-                    "reference": {
-                        "name": "items",
-                        "type": "array"
-                    },
-                    "codeClass": null,
-                    "userConfig": {
                         "fieldLabel": "小数位数",
                         "itemId": "decimalScale",
                         "layout|anchor": "100%",
@@ -151,11 +132,11 @@
                     "    rec = store.findRecord('id', salaryItem.get('type'));",
                     "",
                     "    form.loadRecord(salaryItem);",
-                    "if(salaryItem.get('taxItem')){",
-                    "    me.down('#taxItem').setValue('是');",
-                    "}else{",
-                    "    me.down('#taxItem').setValue('否');",
-                    "}",
+                    "// if(salaryItem.get('taxItem')){",
+                    "//     me.down('#taxItem').setValue('是');",
+                    "// }else{",
+                    "//     me.down('#taxItem').setValue('否');",
+                    "// }",
                     "me.down('#type').setValue(rec.get(\"name\"));"
                 ],
                 "name": "beforerender",

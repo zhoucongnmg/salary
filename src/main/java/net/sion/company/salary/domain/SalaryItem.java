@@ -15,7 +15,8 @@ public class SalaryItem extends Item {
 	public enum SalaryItemType {
 		Input,
 		Calculate,
-		System
+		System,
+		Tax
 	}
 	
 	public SalaryItem(String id, String name, SalaryItemType type) {
@@ -25,7 +26,7 @@ public class SalaryItem extends Item {
 	}
 	
 	public SalaryItem(String id, String name,  SalaryItemType type,
-			boolean taxItem, 
+//			boolean taxItem, 
 			String note) {
 		this.id = id;
 		this.name = name;

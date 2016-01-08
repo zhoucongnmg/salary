@@ -22,12 +22,30 @@ public class AccountItem extends SalaryItem {
 	Formula formula;
 	String salaryItemId;// 薪资项目ID
 	
+	String taxId;//个税方案id
+	String parentId;//按该方案项目计税
+	
 //	public enum AccountItemType {
 //		Input,
 //		Calculate,
 //		System
 //	}
+	public String getTaxId() {
+		return taxId;
+	}
 
+	public void setTaxId(String taxId) {
+		this.taxId = taxId;
+	}
+
+	public String getParentId() {
+		return parentId;
+	}
+
+	public void setParentId(String parentId) {
+		this.parentId = parentId;
+	}
+	
 	public String getSalaryItemId() {
 		return salaryItemId;
 	}

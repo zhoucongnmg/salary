@@ -19,7 +19,6 @@ Ext.define('sion.salary.accounts.view.SalaryPlanGrid', {
     requires: [
         'Ext.grid.Panel',
         'Ext.button.Button',
-        'Ext.grid.column.Boolean',
         'Ext.grid.column.Action',
         'Ext.grid.View',
         'Ext.toolbar.Paging'
@@ -70,14 +69,6 @@ Ext.define('sion.salary.accounts.view.SalaryPlanGrid', {
                             dataIndex: 'name',
                             text: '方案名称',
                             flex: 5
-                        },
-                        {
-                            xtype: 'booleancolumn',
-                            dataIndex: 'enableLevel',
-                            text: '启用薪资体系',
-                            flex: 2,
-                            falseText: '×',
-                            trueText: '√'
                         },
                         {
                             xtype: 'gridcolumn',

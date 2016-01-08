@@ -37,6 +37,10 @@ Ext.define('sion.salary.accounts.store.AccountItemType', {
                     name: '计算项'
                 },
                 {
+                    id: 'Tax',
+                    name: '计税项'
+                },
+                {
                     id: 'System',
                     name: '系统提取项'
                 }

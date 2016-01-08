@@ -64,14 +64,6 @@ Ext.define('sion.salary.accounts.view.SalaryItemEdit', {
                             valueField: 'id'
                         },
                         {
-                            xtype: 'checkboxfield',
-                            anchor: '100%',
-                            itemId: 'taxItem',
-                            hideEmptyLabel: false,
-                            name: 'taxItem',
-                            boxLabel: '个人所得税项目'
-                        },
-                        {
                             xtype: 'numberfield',
                             anchor: '100%',
                             itemId: 'precision',
@@ -198,7 +190,7 @@ Ext.define('sion.salary.accounts.view.SalaryItemEdit', {
                 name: '',
         //         field: '',
                 type: '',
-                taxItem: false,
+        //         taxItem: false,
                 carryType: 'Round',
                 precision: '',
         //         decimalScale: 0,

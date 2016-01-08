@@ -60,8 +60,8 @@ public class SocialService {
 	 * @param SocialItemType SocialSecurity:社保; AccumulationFunds:公积金
 	 * @return
 	 */
-	public double getSocialSum(String personId, boolean isPerson, SocialItemType itemType){
-		double pay = 0;
+	public Double getSocialSum(String personId, boolean isPerson, SocialItemType itemType){
+		Double pay = 0d;
 		PersonAccountFile personAccountFile = personAccountFileRepository.findOne(personId);
 		if(personAccountFile.getInsuredPerson() != null && !"".equals(personAccountFile.getInsuredPerson().getAccountId())){
 			SocialAccount socialAccount = socialAccountRepository.findOne(personAccountFile.getInsuredPerson().getAccountId());

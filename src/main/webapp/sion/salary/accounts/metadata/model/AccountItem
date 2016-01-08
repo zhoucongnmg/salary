@@ -168,6 +168,32 @@
             },
             "name": "MyField25",
             "designerId": "eab09b82-7f80-4cc8-8ec2-17f5a03343f8"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "taxId"
+            },
+            "name": "MyField57",
+            "designerId": "1f3410fe-6b69-45a2-87b4-e26a8b881837"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "parentId"
+            },
+            "name": "MyField58",
+            "designerId": "66258032-1b93-4dfe-a529-180177af5f37"
         }
     ]
 }

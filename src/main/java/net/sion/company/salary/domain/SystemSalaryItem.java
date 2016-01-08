@@ -57,6 +57,14 @@ public class SystemSalaryItem extends SalaryItem {
 	public void setCategory(SystemSalaryItemEnum category) {
 		this.category = category;
 	}
+
+	public SystemSalaryItemType getSystemType() {
+		return systemType;
+	}
+
+	public void setSystemType(SystemSalaryItemType systemType) {
+		this.systemType = systemType;
+	}
 	
 	
 	

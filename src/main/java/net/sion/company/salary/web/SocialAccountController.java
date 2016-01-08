@@ -95,10 +95,10 @@ public class SocialAccountController {
 		return new Response(true);
 	}
 	private SocialAccount sum(SocialAccount account){ 
-		double accumulationCompanySum = 0;//单位缴费公积金
-		double accumulationPersonSum = 0;//个人缴费公积金
-		double socialCompanySum = 0;//单位缴费社保
-		double socialPersonSum = 0;//个人缴费社保
+		Double accumulationCompanySum = 0d;//单位缴费公积金
+		Double accumulationPersonSum = 0d;//个人缴费公积金
+		Double socialCompanySum = 0d;//单位缴费社保
+		Double socialPersonSum = 0d;//个人缴费社保
 		
 		for(SocialAccountItem socialAccountItem : account.getSocialAccountItems()){
 //			String socialItemId = socialAccountItem.getSocialItemId();

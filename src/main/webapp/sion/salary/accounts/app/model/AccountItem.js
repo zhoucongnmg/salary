@@ -58,6 +58,12 @@ Ext.define('sion.salary.accounts.model.AccountItem', {
         },
         {
             name: 'item'
+        },
+        {
+            name: 'taxId'
+        },
+        {
+            name: 'parentId'
         }
     ]
 });
