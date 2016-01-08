@@ -9,39 +9,39 @@ package net.sion.company.salary.domain;
  */
 public class TaxItem {
 	String id;
+	Double start;
+	Double end;
+	Double rate;
+	Double fastNumber;
+	
 	public String getId() {
 		return id;
 	}
 	public void setId(String id) {
 		this.id = id;
 	}
-	public double getStart() {
+	public Double getStart() {
 		return start;
 	}
-	public void setStart(double start) {
+	public void setStart(Double start) {
 		this.start = start;
 	}
-	public double getEnd() {
+	public Double getEnd() {
 		return end;
 	}
-	public void setEnd(double end) {
+	public void setEnd(Double end) {
 		this.end = end;
 	}
-	public double getRate() {
+	public Double getRate() {
 		return rate;
 	}
-	public void setRate(double rate) {
+	public void setRate(Double rate) {
 		this.rate = rate;
 	}
-	public double getFastNumber() {
+	public Double getFastNumber() {
 		return fastNumber;
 	}
-	public void setFastNumber(double fastNumber) {
+	public void setFastNumber(Double fastNumber) {
 		this.fastNumber = fastNumber;
 	}
-	double start;
-	double end;
-	double rate;
-	double fastNumber;
-	
 }
