@@ -18,12 +18,13 @@ import net.sion.boot.mongo.template.SessionMongoTemplate;
 import net.sion.company.salary.domain.Account;
 import net.sion.company.salary.domain.AccountItem;
 import net.sion.company.salary.domain.Formula;
-import net.sion.company.salary.domain.FormulaItem;
+import net.sion.company.salary.domain.Payroll;
 import net.sion.company.salary.domain.PersonAccountFile;
 import net.sion.company.salary.domain.PersonAccountItem;
 import net.sion.company.salary.service.FormulaService;
 import net.sion.company.salary.sessionrepository.AccountRepository;
 import net.sion.company.salary.sessionrepository.FormulaRepository;
+import net.sion.company.salary.sessionrepository.PayrollRepository;
 import net.sion.company.salary.sessionrepository.PersonAccountFileRepository;
 import net.sion.core.admin.domain.User;
 import net.sion.core.admin.service.AdminService;
@@ -63,7 +64,18 @@ public class AccountController {
 	@Autowired PersonAccountFileRepository personAccountFileRepository;
 	@Autowired FormulaRepository formulaRepository;
 	@Autowired FormulaService formulaService;
+	@Autowired PayrollRepository payrollRepository;
 	
+	/**
+	 * 根据薪资方案id查询待发薪资
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "payrollList")
+	public @ResponseBody Response payrollList(String accountId) {
+		List<Payroll> list = payrollRepository.findByAccountId(accountId);
+		return new Response(list);
+	}
 	/**
 	 * 创建套帐
 	 * 
@@ -166,6 +178,7 @@ public class AccountController {
 		map.put("success", true);
 		return map;
 	}
+	
 	/**
 	 * 返回查询分页等信息
 	 * @param filter 筛选对象信息

@@ -216,8 +216,9 @@ Ext.define('sion.salary.accounts.view.SalaryPlan', {
             store = Ext.getStore("Account"),
             itemGrid = me.down('#itemGrid'),
             itemList = [],
-            account = me._account;
-            itemStore = itemGrid.getStore();
+            account = me._account,
+            itemStore = itemGrid.getStore(),
+            updatePayroll = false;
 
         record = form.getRecord();
         form.updateRecord(record);
@@ -236,11 +237,19 @@ Ext.define('sion.salary.accounts.view.SalaryPlan', {
         if(account){
             Ext.Msg.confirm('提示', '是否更新工资条？', function(text){
                 if(text == 'yes'){
-                    record.set('updatePayroll', true);
-                }else{
-                    record.set('updatePayroll', false);
+                    updatePayroll = true;
+                    var payroll = Ext.create(namespace + ".view.payroll");
+                    var payrollStore = payroll.down('gridpanel').getStore();
+                    Ext.apply(payrollStore.proxy.extraParams, {
+                        accountId : record.get('id')
+                    });
+                    payrollStore.load({
+                        callback: function(records, operation, success) {
+                            payroll.show();
+                        }
+                    });
                 }
-                me.save(store);
+                me.save(store, updatePayroll);
             });
         }else{
             store.add(record);
@@ -320,12 +329,14 @@ Ext.define('sion.salary.accounts.view.SalaryPlan', {
         // }
     },
 
-    save: function(store) {
+    save: function(store, updatePayroll) {
         var me = this;
 
         store.sync({
             success: function(response, opts){
-                Ext.Msg.alert("提示", "保存成功");
+                if(!updatePayroll){
+                    Ext.Msg.alert("提示", "保存成功");
+                }
                 store.load();
                 me.close();
             },
@@ -379,6 +390,21 @@ Ext.define('sion.salary.accounts.view.SalaryPlan', {
                 name: ''
             }));
         }
+    },
+
+    payroll: function() {
+        taxStore = Ext.getStore('Tax');
+
+        taxStore.load({
+            callback: function(records, operation, success) {
+                Ext.create(namespace+".view.AddSalaryItem", {
+                    //     _account : me._account,
+                    _accountItem : record,
+                    _store : grid.getStore(),
+                    _taxStore : taxStore
+                }).show();
+            }
+        });
     }
 
 });

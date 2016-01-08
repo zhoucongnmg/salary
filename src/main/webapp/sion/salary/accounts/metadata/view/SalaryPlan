@@ -61,8 +61,9 @@
                                     "    store = Ext.getStore(\"Account\"),",
                                     "    itemGrid = me.down('#itemGrid'),",
                                     "    itemList = [],",
-                                    "    account = me._account;",
-                                    "    itemStore = itemGrid.getStore();",
+                                    "    account = me._account,",
+                                    "    itemStore = itemGrid.getStore(),",
+                                    "    updatePayroll = false;",
                                     "",
                                     "record = form.getRecord();",
                                     "form.updateRecord(record);",
@@ -81,11 +82,19 @@
                                     "if(account){",
                                     "    Ext.Msg.confirm('提示', '是否更新工资条？', function(text){",
                                     "        if(text == 'yes'){",
-                                    "            record.set('updatePayroll', true);",
-                                    "        }else{",
-                                    "            record.set('updatePayroll', false);",
+                                    "            updatePayroll = true;",
+                                    "            var payroll = Ext.create(namespace + \".view.payroll\");",
+                                    "            var payrollStore = payroll.down('gridpanel').getStore();",
+                                    "            Ext.apply(payrollStore.proxy.extraParams, {",
+                                    "                accountId : record.get('id')",
+                                    "            });",
+                                    "            payrollStore.load({",
+                                    "                callback: function(records, operation, success) {",
+                                    "                    payroll.show();",
+                                    "                }",
+                                    "            });",
                                     "        }",
-                                    "        me.save(store);",
+                                    "        me.save(store, updatePayroll);",
                                     "    });",
                                     "}else{",
                                     "    store.add(record);",
@@ -613,7 +622,8 @@
             "codeClass": null,
             "userConfig": {
                 "designer|params": [
-                    "store"
+                    "store",
+                    "updatePayroll"
                 ],
                 "fn": "save",
                 "implHandler": [
@@ -621,7 +631,9 @@
                     "",
                     "store.sync({",
                     "    success: function(response, opts){",
-                    "        Ext.Msg.alert(\"提示\", \"保存成功\");",
+                    "        if(!updatePayroll){",
+                    "            Ext.Msg.alert(\"提示\", \"保存成功\");",
+                    "        }",
                     "        store.load();",
                     "        me.close();",
                     "    },",
@@ -694,6 +706,33 @@
             },
             "name": "loadData",
             "designerId": "2b18475e-230e-4a51-9c09-fa9931a98271"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "payroll",
+                "implHandler": [
+                    "taxStore = Ext.getStore('Tax');",
+                    "",
+                    "taxStore.load({",
+                    "    callback: function(records, operation, success) {",
+                    "        Ext.create(namespace+\".view.AddSalaryItem\", {",
+                    "            //     _account : me._account,",
+                    "            _accountItem : record,",
+                    "            _store : grid.getStore(),",
+                    "            _taxStore : taxStore",
+                    "        }).show();",
+                    "    }",
+                    "});"
+                ]
+            },
+            "name": "payroll",
+            "designerId": "c89943e8-6601-4db3-8f7b-1538550a9ee5"
         }
     ]
 }
