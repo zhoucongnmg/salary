@@ -504,8 +504,12 @@ public class PayrollController {
 		List<Object> personWithOutDept = new ArrayList<Object>();
 		String companyId = adminService.getCompany(session).getId();
 
-		Query query;
-		query = new Query(Criteria.where("accountId").is(accountId));
+		Query query = new Query();
+		Criteria cr = new Criteria();
+		query.addCriteria(cr.orOperator(
+			Criteria.where("accountId").is(accountId)
+		    ,Criteria.where("_id").in(persons.keySet())
+		));
 		List<PersonAccountFile> personAccountFiles = mongoTemplate.find(query, PersonAccountFile.class);
 
 		for (PersonAccountFile personAccountFile : personAccountFiles) {

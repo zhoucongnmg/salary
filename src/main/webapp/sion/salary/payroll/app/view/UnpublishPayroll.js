@@ -157,7 +157,7 @@ Ext.define('sion.salary.payroll.view.UnpublishPayroll', {
                             xtype: 'gridcolumn',
                             dataIndex: 'accountName',
                             menuDisabled: true,
-                            text: '套账名称',
+                            text: '薪资方案',
                             flex: 1
                         },
                         {

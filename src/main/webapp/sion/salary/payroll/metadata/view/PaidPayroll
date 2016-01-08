@@ -455,7 +455,7 @@
                         "dataIndex": "accountName",
                         "flex": 1,
                         "menuDisabled": true,
-                        "text": "套账名称"
+                        "text": "薪资方案"
                     },
                     "name": "MyColumn1",
                     "designerId": "2aeb6c45-cf25-4575-b4f5-e8525e8adb23"

@@ -477,7 +477,7 @@
                         "dataIndex": "accountName",
                         "flex": 1,
                         "menuDisabled": true,
-                        "text": "套账名称"
+                        "text": "薪资方案"
                     },
                     "name": "MyColumn1",
                     "designerId": "8b1fde1d-effc-422b-be8d-93af514b1937"
