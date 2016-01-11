@@ -66,33 +66,6 @@ Ext.define('sion.salary.accounts.view.AccountMember', {
                         {
                             xtype: 'actioncolumn',
                             hideable: false,
-                            text: '薪资设定',
-                            flex: 0.5,
-                            items: [
-                                {
-                                    handler: function(view, rowIndex, colIndex, item, e, record, row) {
-                                        var me = this.up('gridpanel').up(),
-                                            account = me._account,
-                                            //     store = Ext.getStore('PersonAccountItem');
-                                            namespace = me.getNamespace();
-
-                                        var config =  Ext.create(namespace + '.view.AccountMemberConfig',{
-                                            _account : account,
-                                            _member : record
-                                        });
-                                        var store = config.down('gridpanel').getStore();
-                                        store.removeAll();
-                                        store.add(record.get('accountItems'));
-                                        config.show();
-                                    },
-                                    iconCls: 's_icon_coins',
-                                    tooltip: '薪资设定'
-                                }
-                            ]
-                        },
-                        {
-                            xtype: 'actioncolumn',
-                            hideable: false,
                             text: '删除',
                             flex: 0.5,
                             items: [
@@ -198,7 +171,6 @@ Ext.define('sion.salary.accounts.view.AccountMember', {
                 personSelection.down('gridpanel').getSelectionModel().select(selectRecords);
             }
         });
-
     },
 
     onButtonClick1: function(button, e, eOpts) {

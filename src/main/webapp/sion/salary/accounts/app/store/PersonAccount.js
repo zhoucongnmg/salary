@@ -34,8 +34,8 @@ Ext.define('sion.salary.accounts.store.PersonAccount', {
                 api: {
                     create: 'salary/person/saveList',
                     read: 'salary/person/getPersonByAccountId',
-                    update: 'salary/person/saveList',
-                    destroy: 'salary/person/saveList'
+                    update: 'salary/person/updateList',
+                    destroy: 'salary/person/removeList'
                 },
                 writer: {
                     type: 'json',

@@ -261,9 +261,16 @@ Ext.define('sion.salary.accounts.view.SalaryPlanGrid', {
             account = me._account,
             store = Ext.getStore('PersonAccount');
 
+        // store.removeAll();
+        // record.set('accountId', '');
+        store.each(function(record){
+            record.set('accountId', '');
+        });
         store.removeAll();
         alert(person.length);
         for(var i = 0; i < person.length; i++){
+            var record = store.findRecord('id', person[i].data.id);
+            alert(record);
             if(store.find('id', person[i].data.id) === -1){
                 var model = Ext.create(namespace + '.model.PersonAccount');
                 model.data = person[i].data;
@@ -272,12 +279,17 @@ Ext.define('sion.salary.accounts.view.SalaryPlanGrid', {
                     model.set('insuredPerson', null);
                 }
                 store.add(model);
+            }else{
+                record.set('accountId', account.get('id'));
             }
         }
         alert('person');
         console.log(person);
         console.log(store);
         alert(store.getCount());
+        alert(store.getNewRecords().length);
+        alert(store.getUpdatedRecords().length);
+        alert(store.getRemovedRecords().length);
         store.sync({
             success: function(response, opts){
                 Ext.Msg.alert("提示", "保存成功");
