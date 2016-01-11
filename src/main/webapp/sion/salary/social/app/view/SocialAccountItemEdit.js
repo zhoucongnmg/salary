@@ -168,7 +168,8 @@ Ext.define('sion.salary.social.view.SocialAccountItemEdit', {
             uuid = Ext.create('Ext.data.UuidGenerator'),
             id = uuid.generate(),
             form = me.down("form"),
-            store = me._itemStore;
+            store = me._itemStore,
+            itemStore = me.down('#socialItemId').getStore();
 
         record = form.getRecord();
         form.updateRecord(record);
@@ -178,8 +179,16 @@ Ext.define('sion.salary.social.view.SocialAccountItemEdit', {
             Ext.Msg.alert("提示", "信息不完整，请继续填写！");
             return false;
         }
-        record.set('socialItemName', me.down('#socialItemId').getRawValue());
-        record.set('socialItemId', me.down('#socialItemId').getValue());
+        var item = itemStore.findRecord('id', me.down('#socialItemId').getValue());
+        // record.set('name', me.down('#socialItemId').getRawValue());
+        // record.set('socialItemId', me.down('#socialItemId').getValue());
+        record.set('name', item.get('name'));
+        record.set('socialItemId', item.get('id'));
+        record.set('itemType', item.get('itemType'));
+        record.set('carryType', item.get('carryType'));
+        record.set('precision', item.get('precision'));
+        record.set('item', item.get('item'));
+
         if(record.get('companyPaymentType') == 'Percent'){
             record.set('companyPaymentValue',Number(record.get('companyPaymentValue')) * 0.01);
         }
@@ -233,9 +242,10 @@ Ext.define('sion.salary.social.view.SocialAccountItemEdit', {
             }
         }else{
             form.loadRecord(Ext.create(namespace + '.model.SocialAccountItem', {
+                item: 'SocialItem',
                 id: '',
                 socialItemId: '',
-                socialItemName: '',
+                name: '',
                 companyPaymentValue: 0.00,
                 personalPaymentValue: 0.00,
                 cardinality: 0.00,

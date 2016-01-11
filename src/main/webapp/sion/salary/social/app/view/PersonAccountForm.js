@@ -116,14 +116,14 @@ Ext.define('sion.salary.social.view.PersonAccountForm', {
                                     columnWidth: 1.1,
                                     height: 20
                                 },
-                                {
-                                    xtype: 'textfield',
+                                me.processDeptId({
+                                    xtype: 'triggerfield',
                                     columnWidth: 0.45,
-                                    itemId: 'dept',
+                                    itemId: 'deptId',
                                     fieldLabel: '部门',
                                     labelWidth: 80,
-                                    name: 'dept'
-                                },
+                                    name: 'deptId'
+                                }),
                                 {
                                     xtype: 'tbspacer',
                                     columnWidth: 0.1,
@@ -284,18 +284,36 @@ Ext.define('sion.salary.social.view.PersonAccountForm', {
                                         },
                                         {
                                             xtype: 'gridcolumn',
+                                            renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
+                                                if(value||value===0)
+                                                return Ext.util.Format.currency(value);
+                                                else
+                                                return value;
+                                            },
                                             width: '15%',
                                             dataIndex: 'value',
                                             text: '方案值'
                                         },
                                         {
                                             xtype: 'gridcolumn',
+                                            renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
+                                                if(value||value===0)
+                                                return Ext.util.Format.currency(value);
+                                                else
+                                                return value;
+                                            },
                                             width: '15%',
                                             dataIndex: 'rankValue',
                                             text: '层级值'
                                         },
                                         {
                                             xtype: 'gridcolumn',
+                                            renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
+                                                if(value||value===0)
+                                                return Ext.util.Format.currency(value);
+                                                else
+                                                return value;
+                                            },
                                             width: '15%',
                                             dataIndex: 'personValue',
                                             text: '个人值',
@@ -305,6 +323,19 @@ Ext.define('sion.salary.social.view.PersonAccountForm', {
                                         },
                                         {
                                             xtype: 'gridcolumn',
+                                            renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
+                                                if(value==="Solution"){
+                                                    return "方案值";
+                                                }
+                                                else if(value==="Level"){
+                                                    return "层级值";
+                                                }else if(value==="Person"){
+                                                    return "个人值";
+                                                }
+                                                else {
+                                                    return value;
+                                                }
+                                            },
                                             width: '20%',
                                             dataIndex: 'choose',
                                             text: '取值设置',
@@ -580,6 +611,16 @@ Ext.define('sion.salary.social.view.PersonAccountForm', {
         me.callParent(arguments);
     },
 
+    processDeptId: function(config) {
+        config.xtype="treepicker";
+        config.valueField="id";
+        config.displayField='name';
+        config.rootVisible=false;
+        config.width=240;
+        config.store=Ext.StoreManager.lookup("DeptSetting");
+        return config;
+    },
+
     onSaveClick: function(button, e, eOpts) {
         var me =this,
             namespace=me.getNamespace(),
@@ -606,6 +647,8 @@ Ext.define('sion.salary.social.view.PersonAccountForm', {
         else{
             model=Ext.create(namespace+".model.PersonAccount",salaryForm.getValues());
         }
+
+        model.set('dept',salaryForm.down('#deptId').rawValue);
 
         //薪资项目个人值设置、取值设置
         var accountItemsSetting={};
@@ -701,79 +744,25 @@ Ext.define('sion.salary.social.view.PersonAccountForm', {
     },
 
     onWindowAfterRender: function(component, eOpts) {
-        var me=this,
-            namespace=me.getNamespace(),
-            salaryForm=me.down('#salaryForm'),
-            socialForm=me.down('#socialForm'),
-            salaryItemGrid=me.down('#SalaryItemGrid'),
-            salaryItemStore=salaryItemGrid.getStore(),
-            insuredGrid=me.down('#socialGrid'),
-            insuredItemStore=insuredGrid.getStore();
-
         //load combobox
-        var level=me.down('#level'),
+        var me=this,
+            level=me.down('#level'),
             accountId=me.down('#accountId'),
             socialAccount=me.down('#socialAccount');
 
-        level.getStore().load();
-        accountId.getStore().load();
-        socialAccount.getStore().load();
+        level.getStore().load({synchronous:true,callback: function(records, operation, success) {
+            accountId.getStore().load({synchronous:true,callback: function(records, operation, success) {
+                socialAccount.getStore().load({synchronous:true,callback: function(records, operation, success) {
+                    me.echo(me);
+                }});
 
-        if(me._record){
-            salaryForm.getForm().setValues(me._record.data);
-            socialForm.getForm().setValues(me._record.data.insuredPerson);
-            salaryItemStore.removeAll();
-            //回显
-            Ext.Array.each(me._record.data.accountItems,function(item){
-                salaryItemStore.add(Ext.create(namespace+".model.PersonSalaryItem",
-                                               {salaryItemId:item.accountItemId,
-                                                name:item.accountItemName,
-                                                personValue:item.value,
-                                                choose:me._record.data.accountItemsSetting[item.accountItemId]}));
-            });
-            insuredItemStore.removeAll();
-            Ext.Array.each(me._record.data.insuredItems,function(item){
-                insuredItemStore.add(Ext.create(namespace+".model.PersonSocialItem",item));
-            });
+            }});
+        }});
 
-            salaryForm.down('#personCode').setReadOnly(true);
-            salaryForm.down('#name').setReadOnly(true);
-            salaryForm.down('#search').disabled=true;
 
-            var echotask = new Ext.util.DelayedTask(function(){
 
-                accountId.getStore().each(function(account){
-                    if(account.data.id===me._record.data.accountId){
-                        var items=account.data.accountItems;
-                        me.fillSalaryItemValue(salaryItemStore,items);
-                    }
-                });
 
-                level.getStore().each(function(level){
 
-                    if(level.data.id===me._record.data.level){
-                        var levelItems=level.data.levelItems;
-                        Ext.Array.each(levelItems,function(item){
-                            if(item.rank===me._record.data.rank){
-
-                                me.fillRankValue(salaryItemStore,item.salaryItemValues);
-
-                            }
-                        });
-                    }
-                });
-
-            });
-
-            echotask.delay(500);
-        }
-
-        var task = new Ext.util.DelayedTask(function(){
-            accountId.on("change", me.salaryAccountChange, me);
-            socialAccount.on("change", me.socialAccountChange, me);
-        });
-
-        task.delay(1000);
     },
 
     onWindowBeforeClose: function(panel, eOpts) {
@@ -803,11 +792,11 @@ Ext.define('sion.salary.social.view.PersonAccountForm', {
 
                 salaryForm.down('#personCode').setValue(person.data.serialNum);
                 salaryForm.down('#name').setValue(person.data.name);
-                salaryForm.down('#dept').setValue(person.data.deptName);
+        //         salaryForm.down('#dept').setValue(person.data.deptName);
                 salaryForm.down('#duty').setValue(person.data.position);
                 salaryForm.down('#idCard').setValue(person.data.idCard);
                 salaryForm.down('#personId').setValue(person.data.id);
-
+                salaryForm.down('#deptId').setValue(person.data.deptId);
 
             },
             failure:function(form,action){
@@ -879,6 +868,75 @@ Ext.define('sion.salary.social.view.PersonAccountForm', {
 
 
         });
+    },
+
+    echo: function(scope) {
+        var me=scope,
+            namespace=me.getNamespace(),
+            salaryForm=me.down('#salaryForm'),
+            socialForm=me.down('#socialForm'),
+            salaryItemGrid=me.down('#SalaryItemGrid'),
+            salaryItemStore=salaryItemGrid.getStore(),
+            insuredGrid=me.down('#socialGrid'),
+            insuredItemStore=insuredGrid.getStore(),
+            level=me.down('#level'),
+            accountId=me.down('#accountId'),
+            socialAccount=me.down('#socialAccount');
+        if(me._record){
+            salaryForm.getForm().setValues(me._record.data);
+            socialForm.getForm().setValues(me._record.data.insuredPerson);
+            salaryItemStore.removeAll();
+            //回显
+            Ext.Array.each(me._record.data.accountItems,function(item){
+                salaryItemStore.add(Ext.create(namespace+".model.PersonSalaryItem",
+                                               {salaryItemId:item.accountItemId,
+                                                name:item.accountItemName,
+                                                personValue:item.value,
+                                                choose:me._record.data.accountItemsSetting[item.accountItemId]}));
+            });
+            insuredItemStore.removeAll();
+            Ext.Array.each(me._record.data.insuredItems,function(item){
+                insuredItemStore.add(Ext.create(namespace+".model.PersonSocialItem",item));
+            });
+
+            salaryForm.down('#personCode').setReadOnly(true);
+            salaryForm.down('#name').setReadOnly(true);
+            salaryForm.down('#search').disabled=true;
+
+            var echotask = new Ext.util.DelayedTask(function(){
+
+                accountId.getStore().each(function(account){
+                    if(account.data.id===me._record.data.accountId){
+                        var items=account.data.accountItems;
+                        me.fillSalaryItemValue(salaryItemStore,items);
+                    }
+                });
+
+                level.getStore().each(function(level){
+
+                    if(level.data.id===me._record.data.level){
+                        var levelItems=level.data.levelItems;
+                        Ext.Array.each(levelItems,function(item){
+                            if(item.rank===me._record.data.rank){
+
+                                me.fillRankValue(salaryItemStore,item.salaryItemValues);
+
+                            }
+                        });
+                    }
+                });
+
+            });
+
+            echotask.delay(500);
+        }
+
+        var task = new Ext.util.DelayedTask(function(){
+            accountId.on("change", me.salaryAccountChange, me);
+            socialAccount.on("change", me.socialAccountChange, me);
+        });
+
+        task.delay(1000);
     }
 
 });

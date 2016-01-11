@@ -8,9 +8,14 @@ import javax.servlet.http.HttpSession;
 
 import net.sion.boot.mongo.template.SessionMongoTemplate;
 import net.sion.company.salary.domain.InsuredPerson;
+import net.sion.company.salary.domain.Item.ItemType;
+import net.sion.company.salary.domain.SystemSalaryItem.SystemSalaryItemType;
 import net.sion.company.salary.domain.SocialAccount;
 import net.sion.company.salary.domain.SocialItem;
+import net.sion.company.salary.domain.SystemSalaryItem;
+import net.sion.company.salary.domain.SystemSalaryItemEnum;
 import net.sion.company.salary.sessionrepository.SocialItemRepository;
+import net.sion.company.salary.sessionrepository.SystemSalaryItemRepository;
 import net.sion.util.mvc.Response;
 
 import org.bson.types.ObjectId;
@@ -36,6 +41,7 @@ import com.mongodb.DBObject;
 public class SocialItemController {
 	@Autowired SocialItemRepository socialItemRepository;
 	@Autowired SessionMongoTemplate mongoTemplate; 
+	@Autowired SystemSalaryItemRepository systemSalaryItemRepository;
 	/**
 	 * 创建社保项目
 	 * 
@@ -44,9 +50,19 @@ public class SocialItemController {
 	 */
 	@RequestMapping(value = "/create")
 	public @ResponseBody Response create(@RequestBody SocialItem item, HttpSession session) {
+//		item.setItem(ItemType.SocialItem);
 		// TODO 保存投保人信息
 		if(item.getId() == null || "".equals(item.getId())){
 			item.setId(new ObjectId().toString());
+			//将项目添加到系统提取项中
+			String str = "公积金";
+			if(item.getItem() == ItemType.SocialItem){
+				str = "社保";
+			}
+			SystemSalaryItem itemp = new SystemSalaryItem(SystemSalaryItemEnum.AccountItem, "个人"+ str +"合计", item.getId(), SystemSalaryItemType.Personal);
+			SystemSalaryItem itemc = new SystemSalaryItem(SystemSalaryItemEnum.AccountItem, "公司"+ str +"合计", item.getId(), SystemSalaryItemType.Company);
+			systemSalaryItemRepository.save(itemp);
+			systemSalaryItemRepository.save(itemc);
 		}
 		socialItemRepository.save(item);
 		return new Response(true);
@@ -73,7 +89,8 @@ public class SocialItemController {
 	@RequestMapping(value = "load")
 	public @ResponseBody Response load() {
 		// TODO 读取未投保人员
-		List<SocialItem> list = socialItemRepository.findAll();
+//		List<SocialItem> list = socialItemRepository.findAll();
+		List<SocialItem> list = socialItemRepository.findByItem(ItemType.SocialItem);
 		return new Response(list);
 	}
 	

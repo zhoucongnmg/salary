@@ -69,24 +69,6 @@
                     "designerId": "4b4bf8af-290e-46ba-9fc8-f4bba32dd132"
                 },
                 {
-                    "type": "Ext.form.field.Checkbox",
-                    "reference": {
-                        "name": "items",
-                        "type": "array"
-                    },
-                    "codeClass": null,
-                    "userConfig": {
-                        "boxLabel": "个人所得税项目",
-                        "fieldLabel": null,
-                        "hideEmptyLabel": false,
-                        "itemId": "taxItem",
-                        "layout|anchor": "100%",
-                        "name": "taxItem"
-                    },
-                    "name": "MyCheckbox1",
-                    "designerId": "13471c83-4d61-4729-a3c7-3b8092dc68c7"
-                },
-                {
                     "type": "Ext.form.field.Number",
                     "reference": {
                         "name": "items",
@@ -97,13 +79,94 @@
                         "allowBlank": false,
                         "allowDecimals": false,
                         "fieldLabel": "小数位数",
-                        "itemId": "decimalScale",
+                        "itemId": "precision",
                         "layout|anchor": "100%",
                         "minValue": 0,
-                        "name": "decimalScale"
+                        "name": "precision"
                     },
                     "name": "MyNumberField",
                     "designerId": "ff627e4d-b52e-4b6d-bce1-530e1b849323"
+                },
+                {
+                    "type": "Ext.form.RadioGroup",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "allowBlank": false,
+                        "fieldLabel": "小数保留方式",
+                        "itemId": "carryType"
+                    },
+                    "name": "MyRadioGroup",
+                    "designerId": "a768a477-ba90-49e1-bcdf-560b3ca7e5be",
+                    "cn": [
+                        {
+                            "type": "Ext.form.field.Radio",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "boxLabel": "四舍五入",
+                                "fieldLabel": null,
+                                "inputValue": "Round",
+                                "name": "carryType"
+                            },
+                            "name": "MyRadio",
+                            "designerId": "6124ab79-2d5d-4811-a93f-7a94ffc0c8f5"
+                        },
+                        {
+                            "type": "Ext.form.field.Radio",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "boxLabel": "直接进位",
+                                "fieldLabel": null,
+                                "inputValue": "Isopsephy",
+                                "name": "carryType"
+                            },
+                            "name": "MyRadio2",
+                            "designerId": "369cd0c9-1b5a-44dc-8273-ab5c368a703e"
+                        },
+                        {
+                            "type": "Ext.form.field.Radio",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "boxLabel": "直接舍去",
+                                "fieldLabel": null,
+                                "inputValue": "Truncation",
+                                "name": "carryType"
+                            },
+                            "name": "MyRadio1",
+                            "designerId": "56a6ce09-a7ff-40b6-8a0f-be8017bbf6e4"
+                        }
+                    ]
+                },
+                {
+                    "type": "Ext.form.field.Display",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fieldLabel": "温馨提示",
+                        "labelStyle": "color:red;",
+                        "layout|anchor": null,
+                        "value": "小数保留方式默认为四舍五入方式；如需见分进角，则小数位数选1，保留方式选择直接进位即可。"
+                    },
+                    "name": "MyDisplayField1",
+                    "designerId": "a6e7a343-2f32-4459-9340-849b8a1b70f9"
                 },
                 {
                     "type": "Ext.form.field.TextArea",
@@ -170,11 +233,11 @@
                                     "",
                                     "record = form.getRecord();",
                                     "form.updateRecord(record);",
-                                    "if(!me.down('#name').isValid() || !me.down('#type').isValid() || !me.down('#decimalScale').isValid()){",
+                                    "if(!me.down('#name').isValid() || !me.down('#type').isValid() || !me.down('#precision').isValid()){",
                                     "    Ext.Msg.alert(\"提示\", \"信息不完整，请继续填写！\");",
                                     "    return false;",
                                     "}",
-                                    "record.set('show', true);",
+                                    "// record.set('show', true);",
                                     "if(record.get('id') === ''){",
                                     "    store.add(record);",
                                     "}",
@@ -219,14 +282,17 @@
                     "    form.loadRecord(salaryItem);",
                     "}else{",
                     "    form.loadRecord(Ext.create(namespace + '.model.SalaryItem', {",
+                    "        item: 'SalaryItem',",
                     "        id: '',",
                     "        name: '',",
-                    "        field: '',",
+                    "//         field: '',",
                     "        type: '',",
-                    "        taxItem: false,",
-                    "        decimalScale: 0,",
-                    "        system: false,",
-                    "        show: true,",
+                    "//         taxItem: false,",
+                    "        carryType: 'Round',",
+                    "        precision: '',",
+                    "//         decimalScale: 0,",
+                    "//         system: false,",
+                    "//         show: true,",
                     "        note: ''",
                     "    }));",
                     "}"

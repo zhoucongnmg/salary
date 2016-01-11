@@ -15,13 +15,13 @@
 
 Ext.define('sion.salary.payroll.view.PaidPayroll', {
     extend: 'Ext.panel.Panel',
+    alias: 'widget.paidpayroll',
 
     requires: [
         'Ext.form.Panel',
-        'Ext.form.field.ComboBox',
-        'Ext.form.field.Date',
-        'Ext.toolbar.Spacer',
         'Ext.button.Button',
+        'Ext.form.field.ComboBox',
+        'Ext.toolbar.Spacer',
         'Ext.grid.Panel',
         'Ext.grid.column.Date',
         'Ext.grid.column.Action',
@@ -30,9 +30,9 @@ Ext.define('sion.salary.payroll.view.PaidPayroll', {
     ],
 
     autoShow: true,
-    height: 487,
+    height: 672,
     itemId: 'getPaidPayroll',
-    width: 670,
+    width: 1096,
     layout: 'border',
     title: '',
 
@@ -47,94 +47,86 @@ Ext.define('sion.salary.payroll.view.PaidPayroll', {
                     width: 100,
                     layout: 'column',
                     bodyPadding: 10,
-                    items: [
+                    dockedItems: [
                         {
-                            xtype: 'textfield',
-                            columnWidth: 0.25,
-                            itemId: 'subject',
-                            margin: '',
-                            fieldLabel: '薪资主题',
-                            labelWidth: 60
-                        },
-                        {
-                            xtype: 'combobox',
-                            columnWidth: 0.25,
-                            hidden: true,
-                            padding: '0 0 0 25',
-                            fieldLabel: '薪资套账',
-                            labelWidth: 60
-                        },
-                        {
-                            xtype: 'datefield',
-                            columnWidth: 0.2,
-                            itemId: 'month',
-                            padding: '0 0 0 25',
-                            fieldLabel: '薪资月份',
-                            labelWidth: 60,
-                            format: 'Y-m'
-                        },
-                        {
-                            xtype: 'datefield',
-                            columnWidth: 0.22,
-                            itemId: 'socialCostMonth',
-                            padding: '0 0 0 25',
-                            fieldLabel: '社保扣费月',
-                            labelWidth: 80,
-                            format: 'Y-m'
-                        },
-                        {
-                            xtype: 'tbspacer',
-                            columnWidth: 0.05,
-                            height: 15
-                        },
-                        {
-                            xtype: 'button',
-                            columnWidth: 0.07,
-                            text: '查询',
-                            listeners: {
-                                click: {
-                                    fn: me.onButtonClick1,
-                                    scope: me
-                                }
-                            }
-                        },
-                        {
-                            xtype: 'tbspacer',
-                            columnWidth: 0.03,
-                            height: 20
-                        },
-                        {
-                            xtype: 'button',
-                            columnWidth: 0.07,
-                            text: '撤回',
-                            listeners: {
-                                click: {
-                                    fn: me.onButtonClick,
-                                    scope: me
-                                }
-                            }
-                        },
-                        {
-                            xtype: 'tbspacer',
-                            columnWidth: 0.03,
-                            height: 20
-                        },
-                        {
-                            xtype: 'button',
-                            columnWidth: 0.07,
-                            hidden: true,
-                            text: '新建',
-                            listeners: {
-                                click: {
-                                    fn: me.onButtonClick2,
-                                    scope: me
-                                }
-                            }
-                        },
-                        {
-                            xtype: 'tbspacer',
-                            columnWidth: 1.1,
-                            height: 20
+                            xtype: 'toolbar',
+                            dock: 'top',
+                            items: [
+                                {
+                                    xtype: 'button',
+                                    iconCls: 's_icon_action_clockwise',
+                                    text: '撤回',
+                                    listeners: {
+                                        click: {
+                                            fn: me.onButtonClick,
+                                            scope: me
+                                        }
+                                    }
+                                },
+                                {
+                                    xtype: 'button',
+                                    iconCls: 's_icon_action_search',
+                                    text: '查询',
+                                    listeners: {
+                                        click: {
+                                            fn: me.onButtonClick1,
+                                            scope: me
+                                        }
+                                    }
+                                },
+                                {
+                                    xtype: 'button',
+                                    iconCls: 's_icon_action_clockwise',
+                                    text: '清空',
+                                    listeners: {
+                                        click: {
+                                            fn: me.onButtonClick11,
+                                            scope: me
+                                        }
+                                    }
+                                },
+                                {
+                                    xtype: 'button',
+                                    hidden: true,
+                                    text: '新建',
+                                    listeners: {
+                                        click: {
+                                            fn: me.onButtonClick2,
+                                            scope: me
+                                        }
+                                    }
+                                },
+                                {
+                                    xtype: 'combobox',
+                                    hidden: true,
+                                    padding: '0 0 0 25',
+                                    fieldLabel: '薪资套账',
+                                    labelWidth: 60
+                                },
+                                {
+                                    xtype: 'textfield',
+                                    itemId: 'subject',
+                                    margin: '',
+                                    fieldLabel: '薪资主题',
+                                    labelWidth: 60
+                                },
+                                {
+                                    xtype: 'tbspacer'
+                                },
+                                me.processMonth({
+                                    xtype: 'triggerfield',
+                                    itemId: 'month',
+                                    fieldLabel: '薪资月份'
+                                }),
+                                {
+                                    xtype: 'tbspacer'
+                                },
+                                me.processSocialCostMonth({
+                                    xtype: 'triggerfield',
+                                    itemId: 'socialCostMonth',
+                                    fieldLabel: '社保扣费月'
+                                })
+                            ]
                         }
                     ]
                 }
@@ -157,7 +149,7 @@ Ext.define('sion.salary.payroll.view.PaidPayroll', {
                             xtype: 'gridcolumn',
                             dataIndex: 'accountName',
                             menuDisabled: true,
-                            text: '套账名称',
+                            text: '薪资方案',
                             flex: 1
                         },
                         {
@@ -251,6 +243,28 @@ Ext.define('sion.salary.payroll.view.PaidPayroll', {
                                             }
                                         });
                                     },
+                                    iconCls: 's_icon_action_clockwise'
+                                }
+                            ]
+                        },
+                        {
+                            xtype: 'actioncolumn',
+                            menuDisabled: true,
+                            text: '查看',
+                            flex: 1,
+                            items: [
+                                {
+                                    handler: function(view, rowIndex, colIndex, item, e, record, row) {
+                                        var me = this.up('paidpayroll'),
+                                            namespace = me.getNamespace();
+
+
+                                        Ext.create(namespace + '.view.DynamicGrid',{
+                                            _id : record.get('id'),
+                                            _accountId : record.get('accountId'),
+                                            _record : record
+                                        }).show();
+                                    },
                                     iconCls: 's_icon_action_search'
                                 }
                             ]
@@ -296,6 +310,63 @@ Ext.define('sion.salary.payroll.view.PaidPayroll', {
         me.callParent(arguments);
     },
 
+    processMonth: function(config) {
+        config.xtype=　'monthfield';
+        config.hiddenName = 'date';
+        config.format=　"Y-m";
+        return config;
+
+    },
+
+    processSocialCostMonth: function(config) {
+        config.xtype=　'monthfield';
+        config.hiddenName = 'date';
+        config.format=　"Y-m";
+        return config;
+
+    },
+
+    onButtonClick: function(button, e, eOpts) {
+        var me = this,
+            grid = me.down('gridpanel'),
+            store = grid.getStore(),
+            arrId = [],
+            records = grid.getSelectionModel().getSelection();
+
+        if(records.length==0)
+        {
+            Ext.Msg.alert('提示', '请选择工资条！');
+            return;
+        }
+        Ext.Msg.confirm({
+            title:"提示",
+            msg:"确定撤回工资条？",
+            buttons:Ext.MessageBox.OKCANCEL,
+            width:200,
+            fn:function(buttonId){
+                if(buttonId=="ok"){
+                    Ext.each(records, function (item) {
+                        item.set('state','Unpublish');
+                        arrId.push(item.get('id'));
+                    });
+
+                    Ext.Ajax.request({
+                        url: 'salary/payroll/batchWithdraw',
+                        method: "post",
+                        success: function (response, opts) {
+                            store.reload();
+                            Ext.Msg.alert('提示', '操作成功！');
+                        },
+                        failure: function () {
+                            Ext.Msg.alert('提示', '操作失败，请检查网络');
+                        },
+                        params: {arrId:arrId}
+                    });
+                }
+            }
+        });
+    },
+
     onButtonClick1: function(button, e, eOpts) {
         var me = this,
             store = me.down('#PayrollGrid').getStore(),
@@ -315,62 +386,20 @@ Ext.define('sion.salary.payroll.view.PaidPayroll', {
         });
     },
 
-    onButtonClick: function(button, e, eOpts) {
+    onButtonClick11: function(button, e, eOpts) {
         var me = this,
-            grid = me.down('gridpanel'),
-            store = grid.getStore(),
-            arrId = [],
-            records = grid.getSelectionModel().getSelection();
-
-        if(records.length==0)
-        {
-            Ext.Msg.alert('提示', '请选择工资条！');
-            return;
-        }
-        Ext.Msg.confirm({
-            title:"提示",
-            msg:"确定发放工资？",
-            buttons:Ext.MessageBox.OKCANCEL,
-            width:200,
-            fn:function(buttonId){
-                if(buttonId=="ok"){
-
-                    if(records.length>1){
-                        Ext.each(records, function (item) {
-                            item.set('state','Unpublish');
-                            arrId.push(item.get('id'));
-                        });
-
-                        Ext.Ajax.request({
-                            url: 'salary/payroll/batchWithdraw',
-                            method: "post",
-                            success: function (response, opts) {
-                                store.reload();
-                                Ext.Msg.alert('提示', '操作成功！');
-                            },
-                            failure: function () {
-                                Ext.Msg.alert('提示', '操作失败，请检查网络');
-                            },
-                            params: {arrId:arrId}
-                        });
-                    }
-                    else
-                    {
-                        records[0].set('state','Paid');
-                        records[0].save({
-                            success: function(response, opts){
-                                store.remove(records[0]);
-                                store.commitChanges();
-                                Ext.Msg.alert("提示", "操作成功");
-                            },
-                            failure: function(){
-                                Ext.Msg.alert("提示", "操作失败");
-                            }
-                        });
-                    }
-                }
+            store = me.down('gridpanel').getStore();
+        store.load({
+            params:{
+                state:'Paid',
+                start:'0',
+                page:'1'
             }
         });
+
+        month = me.down('#month').setValue('');
+        subject = me.down('#subject').setValue('');
+        socialCostMonth = me.down('#socialCostMonth').setValue('');
     },
 
     onButtonClick2: function(button, e, eOpts) {

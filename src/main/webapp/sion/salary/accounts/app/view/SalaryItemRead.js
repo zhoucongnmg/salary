@@ -55,13 +55,6 @@ Ext.define('sion.salary.accounts.view.SalaryItemRead', {
                         {
                             xtype: 'displayfield',
                             anchor: '100%',
-                            itemId: 'taxItem',
-                            style: 'border-bottom:1px #f2f2f2 solid;',
-                            fieldLabel: '个人所得税项目'
-                        },
-                        {
-                            xtype: 'displayfield',
-                            anchor: '100%',
                             itemId: 'decimalScale',
                             style: 'border-bottom:1px #f2f2f2 solid;',
                             fieldLabel: '小数位数',
@@ -98,11 +91,11 @@ Ext.define('sion.salary.accounts.view.SalaryItemRead', {
             rec = store.findRecord('id', salaryItem.get('type'));
 
             form.loadRecord(salaryItem);
-        if(salaryItem.get('taxItem')){
-            me.down('#taxItem').setValue('是');
-        }else{
-            me.down('#taxItem').setValue('否');
-        }
+        // if(salaryItem.get('taxItem')){
+        //     me.down('#taxItem').setValue('是');
+        // }else{
+        //     me.down('#taxItem').setValue('否');
+        // }
         me.down('#type').setValue(rec.get("name"));
     }
 

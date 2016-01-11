@@ -186,7 +186,7 @@ Ext.define('sion.salary.tax.view.TaxItem', {
             form = me.down("form"),
             store = me._itemStore,
             item = me._taxItem,
-            start = 1;
+            start = me._threshold;
 
         if(item){
             form.loadRecord(item);

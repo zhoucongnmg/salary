@@ -100,7 +100,7 @@ Ext.define('sion.salary.main.store.AutoMenuStore', {
                             iconCls: 's_icon_action_copy',
                             imgSrc: 'images/action_copy.png',
                             namespace: 'sion.salary.accounts',
-                            viewName: 'SalaryItems',
+                            viewName: 'SalaryItemGrid',
                             desc: '设置薪资构成的基本项目'
                         },
                         {

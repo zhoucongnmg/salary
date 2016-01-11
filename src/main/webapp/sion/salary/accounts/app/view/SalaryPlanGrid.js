@@ -19,7 +19,6 @@ Ext.define('sion.salary.accounts.view.SalaryPlanGrid', {
     requires: [
         'Ext.grid.Panel',
         'Ext.button.Button',
-        'Ext.grid.column.Boolean',
         'Ext.grid.column.Action',
         'Ext.grid.View',
         'Ext.toolbar.Paging'
@@ -72,14 +71,6 @@ Ext.define('sion.salary.accounts.view.SalaryPlanGrid', {
                             flex: 5
                         },
                         {
-                            xtype: 'booleancolumn',
-                            dataIndex: 'enableLevel',
-                            text: '启用薪资体系',
-                            flex: 2,
-                            falseText: '×',
-                            trueText: '√'
-                        },
-                        {
                             xtype: 'gridcolumn',
                             dataIndex: 'createUserName',
                             text: '创建人',
@@ -105,6 +96,35 @@ Ext.define('sion.salary.accounts.view.SalaryPlanGrid', {
                                             _account : record
                                         });
                                         accountMember.show();
+
+
+
+                                        // var me = this.up('gridpanel').up(),
+                                        //     store = Ext.getStore('PersonAccount'),
+                                        //     selectRecords = [],
+                                        //     personSelection = Ext.create("sion.salary.social.view.SearchPerson",
+                                        //                                  {_scope : me, _callback : me.selectedCallback}),
+                                        //     personGrid = personSelection.down('gridpanel'),
+                                        //     personStore = personGrid.getStore();
+
+                                        // me._account = record;
+                                        // store.clearFilter(true);
+                                        // Ext.apply(store.proxy.extraParams, {
+                                        //     id : record.get('id')
+                                        // });
+                                        // store.load({
+                                        //     callback: function(records, operation, success) {
+                                        //         personStore.load({
+                                        //             callback: function(records, operation, success) {
+                                        //                 personSelection.show();
+                                        //                 Ext.Array.each(store.data.items, function(item){
+                                        //                     selectRecords.push(personStore.findRecord('id', item.data.id));
+                                        //                 });
+                                        //                 personSelection.down('gridpanel').getSelectionModel().select(selectRecords);
+                                        //             }
+                                        //         });
+                                        //     }
+                                        // });
                                     },
                                     iconCls: 's_icon_org_gear',
                                     tooltip: '方案成员'
@@ -233,6 +253,42 @@ Ext.define('sion.salary.accounts.view.SalaryPlanGrid', {
         });
         salaryPlan.show();
         // me.resetGridSelect(record);
+    },
+
+    selectedCallback: function(person, scope) {
+        var me = scope,
+            namespace = me.getNamespace(),
+            account = me._account,
+            store = Ext.getStore('PersonAccount');
+
+        store.removeAll();
+        alert(person.length);
+        for(var i = 0; i < person.length; i++){
+            if(store.find('id', person[i].data.id) === -1){
+                var model = Ext.create(namespace + '.model.PersonAccount');
+                model.data = person[i].data;
+                model.set('accountId', account.get('id'));
+                if(model.get('insuredPerson') === ''){
+                    model.set('insuredPerson', null);
+                }
+                store.add(model);
+            }
+        }
+        alert('person');
+        console.log(person);
+        console.log(store);
+        alert(store.getCount());
+        store.sync({
+            success: function(response, opts){
+                Ext.Msg.alert("提示", "保存成功");
+        //         store.load();
+        //         me.close();
+            },
+            failure: function(){
+                Ext.Msg.alert("提示", "保存失败");
+        //         me.close();
+            }
+        });
     }
 
 });

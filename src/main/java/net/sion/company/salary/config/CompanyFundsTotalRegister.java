@@ -1,8 +1,14 @@
 package net.sion.company.salary.config;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
+import net.sion.company.salary.domain.SalaryItem.SalaryItemType;
 import net.sion.company.salary.domain.SocialItem.SocialItemType;
+import net.sion.company.salary.domain.SalaryItem;
+import net.sion.company.salary.domain.SystemSalaryItem;
+import net.sion.company.salary.domain.SystemSalaryItem.SystemSalaryItemType;
 import net.sion.company.salary.domain.SystemSalaryItemEnum;
 import net.sion.company.salary.event.SystemSalaryItemEvent;
 import net.sion.company.salary.listener.AbstractSystemSalaryItemListener;
@@ -21,5 +27,12 @@ public class CompanyFundsTotalRegister extends AbstractSystemSalaryItemListener{
 	public SystemSalaryItemEnum hook() {
 		// TODO Auto-generated method stub
 		return SystemSalaryItemEnum.CompanyAccumulationFundsTotal;
+	}
+	@Override
+	public List<SystemSalaryItem> regist(List<SystemSalaryItem> empty) {
+		// TODO Auto-generated method stub
+		SystemSalaryItem item = new SystemSalaryItem(SystemSalaryItemEnum.CompanyAccumulationFundsTotal,"公司公积金合计",SystemSalaryItemType.Company);
+		empty.add(item);
+		return empty;
 	}
 }

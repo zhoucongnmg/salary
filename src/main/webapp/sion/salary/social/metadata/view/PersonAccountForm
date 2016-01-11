@@ -79,6 +79,8 @@
                                     "    model=Ext.create(namespace+\".model.PersonAccount\",salaryForm.getValues());",
                                     "}",
                                     "",
+                                    "model.set('dept',salaryForm.down('#deptId').rawValue);",
+                                    "",
                                     "//薪资项目个人值设置、取值设置",
                                     "var accountItemsSetting={};",
                                     "salaryItemStore.each(function(item){",
@@ -279,7 +281,7 @@
                             "designerId": "18058090-02cc-43e6-9d7a-8d242d983170"
                         },
                         {
-                            "type": "Ext.form.field.Text",
+                            "type": "Ext.form.field.Trigger",
                             "reference": {
                                 "name": "items",
                                 "type": "array"
@@ -287,13 +289,40 @@
                             "codeClass": null,
                             "userConfig": {
                                 "fieldLabel": "部门",
-                                "itemId": "dept",
+                                "itemId": "deptId",
                                 "labelWidth": 80,
                                 "layout|columnWidth": 0.45,
-                                "name": "dept"
+                                "name": "deptId"
                             },
-                            "name": "MyTextField16",
-                            "designerId": "94a110a4-872e-45d2-bc77-6d55e2352cdd"
+                            "name": "MyTriggerField",
+                            "designerId": "94a110a4-872e-45d2-bc77-6d55e2352cdd",
+                            "cn": [
+                                {
+                                    "type": "processcfgfunction",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "designer|params": [
+                                            "config"
+                                        ],
+                                        "fn": "processDeptId",
+                                        "implHandler": [
+                                            "config.xtype=\"treepicker\";",
+                                            "config.valueField=\"id\";",
+                                            "config.displayField='name';",
+                                            "config.rootVisible=false;",
+                                            "config.width=240;",
+                                            "config.store=Ext.StoreManager.lookup(\"DeptSetting\");",
+                                            "return config;"
+                                        ]
+                                    },
+                                    "name": "processDeptId",
+                                    "designerId": "cbc62e39-697b-4efd-b198-4eae3a3aca62"
+                                }
+                            ]
                         },
                         {
                             "type": "Ext.toolbar.Spacer",
@@ -717,7 +746,37 @@
                                         "width": "15%"
                                     },
                                     "name": "MyColumn22",
-                                    "designerId": "a3a6cdb4-9009-4d37-bdd1-0354800eb578"
+                                    "designerId": "a3a6cdb4-9009-4d37-bdd1-0354800eb578",
+                                    "cn": [
+                                        {
+                                            "type": "fixedfunction",
+                                            "reference": {
+                                                "name": "items",
+                                                "type": "array"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "designer|params": [
+                                                    "value",
+                                                    "metaData",
+                                                    "record",
+                                                    "rowIndex",
+                                                    "colIndex",
+                                                    "store",
+                                                    "view"
+                                                ],
+                                                "fn": "renderer",
+                                                "implHandler": [
+                                                    "if(value||value===0)",
+                                                    "    return Ext.util.Format.currency(value);",
+                                                    "else",
+                                                    "    return value;"
+                                                ]
+                                            },
+                                            "name": "renderer",
+                                            "designerId": "c748278b-eb15-4362-a37d-afddd12f3805"
+                                        }
+                                    ]
                                 },
                                 {
                                     "type": "Ext.grid.column.Column",
@@ -731,8 +790,38 @@
                                         "text": "层级值",
                                         "width": "15%"
                                     },
-                                    "name": "MyColumn34",
-                                    "designerId": "e53e689f-8bf0-4741-a0cd-ce858a9cd95b"
+                                    "name": "MyColumn33",
+                                    "designerId": "e53e689f-8bf0-4741-a0cd-ce858a9cd95b",
+                                    "cn": [
+                                        {
+                                            "type": "fixedfunction",
+                                            "reference": {
+                                                "name": "items",
+                                                "type": "array"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "designer|params": [
+                                                    "value",
+                                                    "metaData",
+                                                    "record",
+                                                    "rowIndex",
+                                                    "colIndex",
+                                                    "store",
+                                                    "view"
+                                                ],
+                                                "fn": "renderer",
+                                                "implHandler": [
+                                                    "if(value||value===0)",
+                                                    "    return Ext.util.Format.currency(value);",
+                                                    "else",
+                                                    "    return value;"
+                                                ]
+                                            },
+                                            "name": "renderer",
+                                            "designerId": "ce267913-f612-44c4-b0f0-4975de8c31bb"
+                                        }
+                                    ]
                                 },
                                 {
                                     "type": "Ext.grid.column.Column",
@@ -758,6 +847,34 @@
                                             "codeClass": null,
                                             "name": "MyNumberField3",
                                             "designerId": "98b16eba-e8b6-4a63-abf8-47df5458d8d1"
+                                        },
+                                        {
+                                            "type": "fixedfunction",
+                                            "reference": {
+                                                "name": "items",
+                                                "type": "array"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "designer|params": [
+                                                    "value",
+                                                    "metaData",
+                                                    "record",
+                                                    "rowIndex",
+                                                    "colIndex",
+                                                    "store",
+                                                    "view"
+                                                ],
+                                                "fn": "renderer",
+                                                "implHandler": [
+                                                    "if(value||value===0)",
+                                                    "    return Ext.util.Format.currency(value);",
+                                                    "else",
+                                                    "    return value;"
+                                                ]
+                                            },
+                                            "name": "renderer",
+                                            "designerId": "7af1adc8-cd6a-452a-a784-98c9b0288582"
                                         }
                                     ]
                                 },
@@ -790,6 +907,41 @@
                                             },
                                             "name": "MyComboBox14",
                                             "designerId": "9149d8aa-3e21-462a-a0de-ba198c3fbb71"
+                                        },
+                                        {
+                                            "type": "fixedfunction",
+                                            "reference": {
+                                                "name": "items",
+                                                "type": "array"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "designer|params": [
+                                                    "value",
+                                                    "metaData",
+                                                    "record",
+                                                    "rowIndex",
+                                                    "colIndex",
+                                                    "store",
+                                                    "view"
+                                                ],
+                                                "fn": "renderer",
+                                                "implHandler": [
+                                                    "if(value===\"Solution\"){",
+                                                    "    return \"方案值\";",
+                                                    "}",
+                                                    "else if(value===\"Level\"){",
+                                                    "    return \"层级值\";",
+                                                    "}else if(value===\"Person\"){",
+                                                    "    return \"个人值\";",
+                                                    "}",
+                                                    "else {",
+                                                    "    return value;",
+                                                    "}"
+                                                ]
+                                            },
+                                            "name": "renderer",
+                                            "designerId": "19ec13f4-40fb-41d5-b6ed-998e7de5ef56"
                                         }
                                     ]
                                 },
@@ -1432,79 +1584,25 @@
             "userConfig": {
                 "fn": "onWindowAfterRender",
                 "implHandler": [
-                    "var me=this,",
-                    "    namespace=me.getNamespace(),",
-                    "    salaryForm=me.down('#salaryForm'),",
-                    "    socialForm=me.down('#socialForm'),",
-                    "    salaryItemGrid=me.down('#SalaryItemGrid'),",
-                    "    salaryItemStore=salaryItemGrid.getStore(),",
-                    "    insuredGrid=me.down('#socialGrid'),",
-                    "    insuredItemStore=insuredGrid.getStore();",
-                    "",
                     "//load combobox",
-                    "var level=me.down('#level'),",
+                    "var me=this,",
+                    "    level=me.down('#level'),",
                     "    accountId=me.down('#accountId'),",
                     "    socialAccount=me.down('#socialAccount');",
                     "",
-                    "level.getStore().load();",
-                    "accountId.getStore().load();",
-                    "socialAccount.getStore().load();",
+                    "level.getStore().load({synchronous:true,callback: function(records, operation, success) {",
+                    "    accountId.getStore().load({synchronous:true,callback: function(records, operation, success) {",
+                    "        socialAccount.getStore().load({synchronous:true,callback: function(records, operation, success) {",
+                    "            me.echo(me);",
+                    "        }});",
                     "",
-                    "if(me._record){",
-                    "    salaryForm.getForm().setValues(me._record.data);",
-                    "    socialForm.getForm().setValues(me._record.data.insuredPerson);",
-                    "    salaryItemStore.removeAll();",
-                    "    //回显",
-                    "    Ext.Array.each(me._record.data.accountItems,function(item){",
-                    "        salaryItemStore.add(Ext.create(namespace+\".model.PersonSalaryItem\",",
-                    "                                       {salaryItemId:item.accountItemId,",
-                    "                                        name:item.accountItemName,",
-                    "                                        personValue:item.value,",
-                    "                                        choose:me._record.data.accountItemsSetting[item.accountItemId]}));",
-                    "    });",
-                    "    insuredItemStore.removeAll();",
-                    "    Ext.Array.each(me._record.data.insuredItems,function(item){",
-                    "        insuredItemStore.add(Ext.create(namespace+\".model.PersonSocialItem\",item));",
-                    "    });",
+                    "    }});",
+                    "}});",
                     "",
-                    "    salaryForm.down('#personCode').setReadOnly(true);",
-                    "    salaryForm.down('#name').setReadOnly(true);",
-                    "    salaryForm.down('#search').disabled=true;",
                     "",
-                    "    var echotask = new Ext.util.DelayedTask(function(){",
                     "",
-                    "        accountId.getStore().each(function(account){",
-                    "            if(account.data.id===me._record.data.accountId){",
-                    "                var items=account.data.accountItems;",
-                    "                me.fillSalaryItemValue(salaryItemStore,items);",
-                    "            }",
-                    "        });",
                     "",
-                    "        level.getStore().each(function(level){",
-                    "",
-                    "            if(level.data.id===me._record.data.level){",
-                    "                var levelItems=level.data.levelItems;",
-                    "                Ext.Array.each(levelItems,function(item){",
-                    "                    if(item.rank===me._record.data.rank){",
-                    "",
-                    "                        me.fillRankValue(salaryItemStore,item.salaryItemValues);",
-                    "",
-                    "                    }",
-                    "                });",
-                    "            }",
-                    "        });",
-                    "",
-                    "    });",
-                    "",
-                    "    echotask.delay(500);",
-                    "}",
-                    "",
-                    "var task = new Ext.util.DelayedTask(function(){",
-                    "    accountId.on(\"change\", me.salaryAccountChange, me);",
-                    "    socialAccount.on(\"change\", me.socialAccountChange, me);",
-                    "});",
-                    "",
-                    "task.delay(1000);"
+                    ""
                 ],
                 "name": "afterrender",
                 "scope": "me"
@@ -1543,11 +1641,11 @@
                     "",
                     "        salaryForm.down('#personCode').setValue(person.data.serialNum);",
                     "        salaryForm.down('#name').setValue(person.data.name);",
-                    "        salaryForm.down('#dept').setValue(person.data.deptName);",
+                    "//         salaryForm.down('#dept').setValue(person.data.deptName);",
                     "        salaryForm.down('#duty').setValue(person.data.position);",
                     "        salaryForm.down('#idCard').setValue(person.data.idCard);",
                     "        salaryForm.down('#personId').setValue(person.data.id);",
-                    "",
+                    "        salaryForm.down('#deptId').setValue(person.data.deptId);",
                     "",
                     "    },",
                     "    failure:function(form,action){",
@@ -1714,6 +1812,90 @@
             },
             "name": "fillRankValue",
             "designerId": "f2c9b1fd-7006-4b3f-a902-6d28df37a70e"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|params": [
+                    "scope"
+                ],
+                "fn": "echo",
+                "implHandler": [
+                    "var me=scope,",
+                    "    namespace=me.getNamespace(),",
+                    "    salaryForm=me.down('#salaryForm'),",
+                    "    socialForm=me.down('#socialForm'),",
+                    "    salaryItemGrid=me.down('#SalaryItemGrid'),",
+                    "    salaryItemStore=salaryItemGrid.getStore(),",
+                    "    insuredGrid=me.down('#socialGrid'),",
+                    "    insuredItemStore=insuredGrid.getStore(),",
+                    "    level=me.down('#level'),",
+                    "    accountId=me.down('#accountId'),",
+                    "    socialAccount=me.down('#socialAccount');",
+                    "if(me._record){",
+                    "    salaryForm.getForm().setValues(me._record.data);",
+                    "    socialForm.getForm().setValues(me._record.data.insuredPerson);",
+                    "    salaryItemStore.removeAll();",
+                    "    //回显",
+                    "    Ext.Array.each(me._record.data.accountItems,function(item){",
+                    "        salaryItemStore.add(Ext.create(namespace+\".model.PersonSalaryItem\",",
+                    "                                       {salaryItemId:item.accountItemId,",
+                    "                                        name:item.accountItemName,",
+                    "                                        personValue:item.value,",
+                    "                                        choose:me._record.data.accountItemsSetting[item.accountItemId]}));",
+                    "    });",
+                    "    insuredItemStore.removeAll();",
+                    "    Ext.Array.each(me._record.data.insuredItems,function(item){",
+                    "        insuredItemStore.add(Ext.create(namespace+\".model.PersonSocialItem\",item));",
+                    "    });",
+                    "",
+                    "    salaryForm.down('#personCode').setReadOnly(true);",
+                    "    salaryForm.down('#name').setReadOnly(true);",
+                    "    salaryForm.down('#search').disabled=true;",
+                    "",
+                    "    var echotask = new Ext.util.DelayedTask(function(){",
+                    "",
+                    "        accountId.getStore().each(function(account){",
+                    "            if(account.data.id===me._record.data.accountId){",
+                    "                var items=account.data.accountItems;",
+                    "                me.fillSalaryItemValue(salaryItemStore,items);",
+                    "            }",
+                    "        });",
+                    "",
+                    "        level.getStore().each(function(level){",
+                    "",
+                    "            if(level.data.id===me._record.data.level){",
+                    "                var levelItems=level.data.levelItems;",
+                    "                Ext.Array.each(levelItems,function(item){",
+                    "                    if(item.rank===me._record.data.rank){",
+                    "",
+                    "                        me.fillRankValue(salaryItemStore,item.salaryItemValues);",
+                    "",
+                    "                    }",
+                    "                });",
+                    "            }",
+                    "        });",
+                    "",
+                    "    });",
+                    "",
+                    "    echotask.delay(500);",
+                    "}",
+                    "",
+                    "var task = new Ext.util.DelayedTask(function(){",
+                    "    accountId.on(\"change\", me.salaryAccountChange, me);",
+                    "    socialAccount.on(\"change\", me.socialAccountChange, me);",
+                    "});",
+                    "",
+                    "task.delay(1000);"
+                ]
+            },
+            "name": "echo",
+            "designerId": "31f720fd-44e3-4e29-8377-524f7bb6c8db"
         }
     ]
 }

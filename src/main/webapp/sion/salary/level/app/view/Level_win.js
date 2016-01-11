@@ -152,7 +152,6 @@ Ext.define('sion.salary.level.view.Level_win', {
                                 },
                                 {
                                     xtype: 'panel',
-                                    flex: 0.2,
                                     hidden: true,
                                     itemId: 'salaryItemNamePanel',
                                     frameHeader: false,
@@ -419,6 +418,12 @@ Ext.define('sion.salary.level.view.Level_win', {
             form=me.down('form');
 
         var model=Ext.create(me.itemModel);
+        model.set('rank','等级'+(store.getCount()+1));
+
+        var itemNames=Object.keys(me._record.get('salaryItemNames'));
+        Ext.Array.each(itemNames,function(item){
+            model.set(item,0);
+        });
 
         store.add(model);
     },
@@ -448,6 +453,7 @@ Ext.define('sion.salary.level.view.Level_win', {
                 myCheckboxItems.push({
                     boxLabel : salary.name,
                     name : salary.id,
+                    width:100,
                     checked:checked
                 });
             }
@@ -456,7 +462,7 @@ Ext.define('sion.salary.level.view.Level_win', {
 
         var myCheckboxGroup = new Ext.form.CheckboxGroup({
             itemCls : 'x-check-group-alt',
-            columns : 'auto',
+            columns : 8,
             items : myCheckboxItems
         });
         component.add(myCheckboxGroup);

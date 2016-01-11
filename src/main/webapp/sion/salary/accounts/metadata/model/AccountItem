@@ -71,19 +71,6 @@
             },
             "codeClass": null,
             "userConfig": {
-                "name": "fieldName"
-            },
-            "name": "MyField25",
-            "designerId": "ef8e8572-d63a-4f8a-9694-fc37cb9e9dc8"
-        },
-        {
-            "type": "Ext.data.Field",
-            "reference": {
-                "name": "fields",
-                "type": "array"
-            },
-            "codeClass": null,
-            "userConfig": {
                 "name": "value"
             },
             "name": "MyField26",
@@ -141,6 +128,72 @@
             },
             "name": "MyField54",
             "designerId": "ce5358a7-b3fa-4269-b46c-4c6c171e415c"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "carryType"
+            },
+            "name": "MyField10",
+            "designerId": "4a0f7ef2-9c6c-4497-8273-5ab7c8ba0e04"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "precision",
+                "type": "int"
+            },
+            "name": "MyField16",
+            "designerId": "ccaa17a9-ad4c-4607-9930-bd847115fbc1"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "item"
+            },
+            "name": "MyField25",
+            "designerId": "eab09b82-7f80-4cc8-8ec2-17f5a03343f8"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "taxId"
+            },
+            "name": "MyField57",
+            "designerId": "1f3410fe-6b69-45a2-87b4-e26a8b881837"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "parentId"
+            },
+            "name": "MyField58",
+            "designerId": "66258032-1b93-4dfe-a529-180177af5f37"
         }
     ]
 }

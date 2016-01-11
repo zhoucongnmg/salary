@@ -20,6 +20,10 @@ import org.springframework.roo.addon.layers.repository.mongo.RooMongoEntity;
 public class Tax {
 	@Id
 	String id;
+	String name;//名称
+	double threshold;//起征点
+	List<TaxItem> taxItems;//税率设置
+	
 	public String getId() {
 		return id;
 	}
@@ -44,8 +48,4 @@ public class Tax {
 	public void setTaxItems(List<TaxItem> taxItems) {
 		this.taxItems = taxItems;
 	}
-	
-	String name;//名称
-	double threshold;//起征点
-	List<TaxItem> taxItems;//税率设置
 }

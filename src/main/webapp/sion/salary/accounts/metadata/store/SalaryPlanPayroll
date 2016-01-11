@@ -1,0 +1,46 @@
+{
+    "type": "Ext.data.Store",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userClassName": "SalaryPlanPayroll",
+        "model": "SalaryPlanPayroll",
+        "storeId": "SalaryPlanPayroll"
+    },
+    "name": "MyStore",
+    "designerId": "37402d38-825b-4d73-b8ba-f3c973633032",
+    "cn": [
+        {
+            "type": "Ext.data.proxy.Ajax",
+            "reference": {
+                "name": "proxy",
+                "type": "object"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "api": null,
+                "url": "salary/account/payrollList"
+            },
+            "name": "MyAjaxProxy3",
+            "designerId": "f13517b0-0873-4dab-b790-26f83f97e212",
+            "cn": [
+                {
+                    "type": "Ext.data.reader.Json",
+                    "reference": {
+                        "name": "reader",
+                        "type": "object"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "root": "data"
+                    },
+                    "name": "MyJsonReader3",
+                    "designerId": "f79228d1-d787-4de6-87a2-be54000db2de"
+                }
+            ]
+        }
+    ]
+}

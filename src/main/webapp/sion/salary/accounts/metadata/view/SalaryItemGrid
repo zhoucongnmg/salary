@@ -6,6 +6,7 @@
     },
     "codeClass": null,
     "userConfig": {
+        "autoScroll": true,
         "designer|userAlias": "salaryitemgrid",
         "designer|userClassName": "SalaryItemGrid",
         "header": false,
@@ -17,6 +18,61 @@
     "name": "MyGridPanel1",
     "designerId": "0792004f-1834-444c-8300-a50243e0defc",
     "cn": [
+        {
+            "type": "Ext.toolbar.Toolbar",
+            "reference": {
+                "name": "dockedItems",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "dock": "top"
+            },
+            "name": "MyToolbar1",
+            "designerId": "76860a66-3bb6-4be3-b68d-121e1b03bd59",
+            "cn": [
+                {
+                    "type": "Ext.button.Button",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "iconCls": "s_icon_action_add",
+                        "layout|flex": null,
+                        "style": null,
+                        "text": "<span style=\"font-size:14px;color:#3892D3;font-weight:bold;\">新建</span>",
+                        "width": null
+                    },
+                    "name": "MyButton2",
+                    "designerId": "63904556-88cc-4b10-b3e7-e6a352e34831",
+                    "cn": [
+                        {
+                            "type": "basiceventbinding",
+                            "reference": {
+                                "name": "listeners",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fn": "onNewSalaryItemClick",
+                                "implHandler": [
+                                    "var me =this,",
+                                    "    namespace=me.getNamespace();",
+                                    "",
+                                    "Ext.create(namespace+\".view.SalaryItemEdit\").show();"
+                                ],
+                                "name": "click",
+                                "scope": "me"
+                            },
+                            "name": "onNewSalaryItemClick",
+                            "designerId": "b950f87d-900d-402c-832a-c520cc943d15"
+                        }
+                    ]
+                }
+            ]
+        },
         {
             "type": "Ext.grid.column.Column",
             "reference": {

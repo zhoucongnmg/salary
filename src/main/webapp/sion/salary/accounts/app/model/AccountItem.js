@@ -34,9 +34,6 @@ Ext.define('sion.salary.accounts.model.AccountItem', {
             name: 'type'
         },
         {
-            name: 'fieldName'
-        },
-        {
             name: 'value'
         },
         {
@@ -51,6 +48,22 @@ Ext.define('sion.salary.accounts.model.AccountItem', {
         },
         {
             name: 'formulaId'
+        },
+        {
+            name: 'carryType'
+        },
+        {
+            name: 'precision',
+            type: 'int'
+        },
+        {
+            name: 'item'
+        },
+        {
+            name: 'taxId'
+        },
+        {
+            name: 'parentId'
         }
     ]
 });

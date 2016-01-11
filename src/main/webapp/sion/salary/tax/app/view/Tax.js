@@ -242,10 +242,16 @@ Ext.define('sion.salary.tax.view.Tax', {
     onButtonClick1: function(button, e, eOpts) {
         var me = this,
             namespace = me.getNamespace(),
+            threshold = me.down('#threshold').getValue(),
             itemGrid = me.down('#itemGrid'),
             store = itemGrid.getStore();
 
+        if(threshold === 0){
+            Ext.Msg.alert('', '请输入起征点');
+            return false;
+        }
         panel =  Ext.create(namespace + '.view.TaxItem',{
+            _threshold : threshold,
             _itemStore : store
         });
         panel.show();

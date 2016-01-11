@@ -20,16 +20,17 @@ import net.sion.boot.config.jackson.CustomJackson;
 import net.sion.boot.mongo.template.SessionMongoTemplate;
 import net.sion.company.salary.domain.Account;
 import net.sion.company.salary.domain.AccountItem;
-import net.sion.company.salary.domain.AccountItem.AccountItemType;
+//import net.sion.company.salary.domain.AccountItem.AccountItemType;
 import net.sion.company.salary.domain.Payroll;
 import net.sion.company.salary.domain.Payroll.PayrollStatus;
 import net.sion.company.salary.domain.PayrollItem;
 import net.sion.company.salary.domain.PersonAccountFile;
 import net.sion.company.salary.domain.PersonExtension;
+import net.sion.company.salary.domain.SalaryItem.SalaryItemType;
 import net.sion.company.salary.domain.SocialAccountItem;
 import net.sion.company.salary.domain.SocialItem;
 import net.sion.company.salary.domain.SocialItem.SocialItemType;
-import net.sion.company.salary.domain.SystemSalaryItemEnum;
+import net.sion.company.salary.domain.SystemSalaryItem;
 import net.sion.company.salary.event.SystemSalaryItemPublisher;
 import net.sion.company.salary.service.FormulaService;
 import net.sion.company.salary.service.PayrollService;
@@ -40,6 +41,7 @@ import net.sion.company.salary.sessionrepository.PayrollRepository;
 import net.sion.company.salary.sessionrepository.PersonAccountFileRepository;
 import net.sion.company.salary.sessionrepository.PersonAccountRepository;
 import net.sion.company.salary.sessionrepository.SocialItemRepository;
+import net.sion.company.salary.sessionrepository.SystemSalaryItemRepository;
 import net.sion.core.admin.domain.Dept;
 import net.sion.core.admin.domain.User;
 import net.sion.core.admin.service.AdminService;
@@ -97,15 +99,20 @@ public class PayrollController {
 	@Autowired
 	SocialService socialService;
 	@Autowired
+	SystemSalaryItemRepository systemSalaryItemRepository;
+	@Autowired
 	SocialItemRepository socialItemRepository;
 	@Autowired
 	SystemSalaryItemPublisher publisher;
-	@Autowired PayrollService payrollService;
-	
-	@Autowired UserRepository userRepository;
-	@Autowired DeptRepository deptRepository;
-	@Autowired ApplicationContext ctx;
+	@Autowired
+	PayrollService payrollService;
 
+	@Autowired
+	UserRepository userRepository;
+	@Autowired
+	DeptRepository deptRepository;
+	@Autowired
+	ApplicationContext ctx;
 
 	public List<Map<String, Object>> fillSimpleFields(List<Map<String, Object>> fields, Map<String,String> opts) {
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -316,10 +323,11 @@ public class PayrollController {
 					}
 					
 					for (AccountItem item : account.getAccountItems()) {
-						if (item.getType() == AccountItemType.Input) {
+						if (item.getType() == SalaryItemType.Input) {
 							personMap.put(item.getSalaryItemId(), item.getValue());
-						}else if (item.getType() == AccountItemType.System) {
-							publisher.getValue(SystemSalaryItemEnum.valueOf(item.getSalaryItemId()),person.getId(),person.getDept());
+						}else if (item.getType() == SalaryItemType.System) {
+							SystemSalaryItem systemItem = systemSalaryItemRepository.findOne(item.getSalaryItemId());
+							publisher.getValue(systemItem,person.getId(),person.getDept());
 							personMap.put(item.getSalaryItemId(), item.getValue());
 						}
 						
@@ -368,53 +376,59 @@ public class PayrollController {
 		m.put("data", data);
 		return new Response(m);
 	}
+
 	/**
 	 * @author lil 导出工资条
-	 * @throws IOException 
+	 * @throws IOException
 	 */
 	@RequestMapping(value = "exportItemList")
-	public void exportItemList(HttpServletResponse response,@RequestParam String id, @RequestParam String  optsId) throws IOException {
+	public void exportItemList(HttpServletResponse response, @RequestParam String id, @RequestParam String optsId)
+			throws IOException {
 		createExcel("export", id, optsId, response);
 	}
+
 	/**
 	 * @author lil 生成工资条
-	 * @throws IOException 
+	 * @throws IOException
 	 */
 	@RequestMapping(value = "createPayrollExcel")
-	public void createPayrollExcel(HttpServletResponse response, @RequestParam String id, @RequestParam String  optsId) throws IOException {
+	public void createPayrollExcel(HttpServletResponse response, @RequestParam String id, @RequestParam String optsId)
+			throws IOException {
 		createExcel("create", id, optsId, response);
 	}
-	//保存opts临时文件
+
+	// 保存opts临时文件
 	@RequestMapping(value = "saveExcelTemp")
 	public Response saveExcelTemp(@RequestBody Map<String, Object> param) throws IOException {
 		Map<String, String> opts = (Map<String, String>) param.get("opts");
 		Date date = new Date();
 		String serverPath = ctx.getResource("/").getFile().getPath();
 		String folderPath = serverPath + "/temp/salary/export";
-		File fileFordel  = new File(folderPath);
-		if(!fileFordel.exists()){
+		File fileFordel = new File(folderPath);
+		if (!fileFordel.exists()) {
 			fileFordel.mkdirs();
 		}
-		String fileName = date.getTime()+"";
-		String filePath = folderPath + "/"+ fileName + ".json";
+		String fileName = date.getTime() + "";
+		String filePath = folderPath + "/" + fileName + ".json";
 		File file = new File(filePath);
-		if(file.exists()){
+		if (file.exists()) {
 			boolean boo = file.delete();
 		}
 		String josnStr = JSONObject.valueToString(opts);
 		FileUtil.writeAsString(file, josnStr);
 		return new Response(fileName, true);
 	}
-	
-	private void createExcel(String method, String id, String optsId, HttpServletResponse response) throws IOException{
+
+	private void createExcel(String method, String id, String optsId, HttpServletResponse response) throws IOException {
 		String serverPath = ctx.getResource("/").getFile().getPath();
 		String folderPath = serverPath + "/temp/salary/export";
-		String filePath = folderPath + "/"+ optsId + ".json";
+		String filePath = folderPath + "/" + optsId + ".json";
 		File file = new File(filePath);
 		String josnStr = FileUtil.readAsString(file);
-		Map<String, String> opts = jackson.readValue(josnStr, new TypeReference<Map<String, String>>(){});
+		Map<String, String> opts = jackson.readValue(josnStr, new TypeReference<Map<String, String>>() {
+		});
 		file.delete();
-		
+
 		Payroll payroll = payrollRepository.findOne(id);
 		Account account = accountRepository.findOne(payroll.getAccountId());
 		List<AccountItem> items = account.getAccountItems();
@@ -429,13 +443,13 @@ public class PayrollController {
 		}
 		List<PayrollItem> payrollItemList = payrollItemRepository.findByPayrollId(id);
 		data = fillData(payroll, payrollItemList, account);
-		if("create".equals(method)){
+		if ("create".equals(method)) {
 			payrollService.createExcel(columns, data, response);
-		}else if("export".equals(method)){
+		} else if ("export".equals(method)) {
 			payrollService.exportExcel(columns, data, response);
 		}
 	}
-	
+
 	private Map<String, Object> getFields(AccountItem item) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("name", item.getSalaryItemId());
@@ -482,61 +496,81 @@ public class PayrollController {
 	 * @return
 	 */
 	@RequestMapping(value = "getAccountPersons")
-	public List<Dept> getAccountPersons(HttpSession session, @RequestParam(value = "accountId") String accountId,
+	public List<Object> getAccountPersons(HttpSession session, @RequestParam(value = "accountId") String accountId,
 			@RequestParam(value = "persons") JSONObject persons) {
 
 		Map<String, Object> allParentDeptMap = new HashMap<String, Object>();
 		Map<String, List<Object>> deptUserMap = new HashMap<String, List<Object>>();
+		List<Object> personWithOutDept = new ArrayList<Object>();
+		String companyId = adminService.getCompany(session).getId();
 
-		Query query;
-		if (persons.length() != 0) {
-			Set<String> personsId = persons.keySet();
-			query = new Query(Criteria.where("accountId").is(accountId).and("personId").in(personsId));
-		} else
-			query = new Query(Criteria.where("accountId").is(accountId));
-		List<PersonAccountFile> personAccountFiles = mongoTemplate.find(query, PersonAccountFile.class);
+		List<PersonAccountFile> personAccountFiles = personAcountFileRepsitory.findByAccountIdAndInId(accountId, persons.keySet());
 
 		for (PersonAccountFile personAccountFile : personAccountFiles) {
-			if (personAccountFile.getPersonId() != null) {
-				User u = userRepository.findOne(personAccountFile.getPersonId());
-				if (u.getParentId() != null && u.getParentId().length() > 0) {
-					Map<String, Dept> deptMap = findAllParentIntoMap(u.getParentId(), u.getCompany());
-					allParentDeptMap.putAll(deptMap);
-					List<Object> userList = deptUserMap.get(u.getParentId());
-					if (userList == null) {
-						userList = new ArrayList<Object>();
-					}
-					userList.add(u);
-					deptUserMap.put(u.getParentId(), userList);
+			if (notNull(personAccountFile.getDeptId())) {
+				Map<String, Dept> deptMap = findAllParentIntoMap(personAccountFile.getDeptId(), companyId);
+				allParentDeptMap.putAll(deptMap);
+				List<Object> personHasDept = deptUserMap.get(personAccountFile.getDeptId());
+				if (personHasDept == null) {
+					personHasDept = new ArrayList<Object>();
 				}
+				personHasDept.add(newPersonNode(personAccountFile,persons));
+				deptUserMap.put(personAccountFile.getDeptId(), personHasDept);
+			} else {
+				personWithOutDept.add(newPersonNode(personAccountFile,persons));
 			}
 		}
 
-		List deptUserList = new ArrayList();
+		List<Object> deptUserList = new ArrayList<Object>();
 
-		String companyId = adminService.getCompany(session).getId();
 		List deptList = adminService.traverseDepts(companyId);
 
-		if (deptList != null && deptList.size() > 0) {
+		if (notNull(deptList)) {
 			deptUserList = this.filterTraverseDeptsByMap(deptList, allParentDeptMap, deptUserMap);
 		}
+
+		if (personWithOutDept.size() > 0) {
+			Dept dept = new Dept();
+			dept.setName("其他部门");
+			dept.setChildren(personWithOutDept);
+			deptUserList.add(dept);
+		}
+
 		return deptUserList;
+	}
+	
+	private Map<String,Object> newPersonNode(PersonAccountFile personAccountFile,JSONObject persons){
+		Map<String, Object> node = new HashMap<String, Object>();
+		node.put("name", personAccountFile.getName());
+		node.put("leaf", true);
+		node.put("id", personAccountFile.getId());
+		if (!mapContains(persons,personAccountFile.getId()))
+			node.put("checked", false);
+		return node;
+	}
+	
+	private Boolean mapContains(JSONObject map,String key){
+		if(map.length()!=0)
+			return map.keySet().contains(key);
+		else
+			return true;
 	}
 
 	private Map<String, Dept> findAllParentIntoMap(String deptId, String companyId) {
+
+		Map<String, Dept> deptMap = new HashMap<String, Dept>();
+
 		Dept dept = deptRepository.findOne(deptId);
+		deptMap.put(dept.getId(), dept);
+
 		if (companyId.equals(dept.getParentId())) {
-			Map<String, Dept> deptMap = new HashMap<String, Dept>();
-			deptMap.put(dept.getId(), dept);
 			return deptMap;
 		} else {
-			Map<String, Dept> returnDeptMap = this.findAllParentIntoMap(dept.getParentId(), companyId);
-			returnDeptMap.put(dept.getId(), dept);
-			return returnDeptMap;
+			return this.findAllParentIntoMap(dept.getParentId(), companyId);
 		}
 	}
 
-	private List<Object> filterTraverseDeptsByMap(List<Object> deptList, Map<String, Object> allParentDeptMap,
+	private List<Object> filterTraverseDeptsByMap(List deptList, Map<String, Object> allParentDeptMap,
 			Map<String, List<Object>> deptUserMap) {
 		Iterator<Object> it = deptList.iterator();
 		while (it.hasNext()) {
@@ -545,16 +579,15 @@ public class PayrollController {
 			if (t_dept == null) {
 				it.remove();
 			} else {
-				if (dept.getChildren() == null || dept.getChildren().size() == 0) {
-					List<Object> userList = deptUserMap.get(dept.getId());
-					if (userList != null && userList.size() > 0) {
+				List<Object> userList = deptUserMap.get(dept.getId());
+				if (!notNull(dept.getChildren())) {
+					if (notNull(userList)) {
 						dept.setChildren(userList);
 					}
 				} else {
 					List<Object> childrenDeptList = this.filterTraverseDeptsByMap(dept.getChildren(), allParentDeptMap,
 							deptUserMap);
-					List<Object> userList = deptUserMap.get(dept.getId());
-					if (userList != null && userList.size() > 0) {
+					if (notNull(userList)) {
 						childrenDeptList.addAll(userList);
 					}
 					dept.setChildren(childrenDeptList);
@@ -625,17 +658,22 @@ public class PayrollController {
 
 		mapFilter.put("state", state);
 		if (notNull(subject)) {
-			Pattern patternSubject = Pattern.compile("^.*" + subject.trim() + ".*$", Pattern.CASE_INSENSITIVE);
-			mapFilter.put("subject", patternSubject);
+			mapFilter.put("subject", getPattern(subject.trim()));
 		}
-		if (notNull(month))
-			mapFilter.put("month", month.substring(0, 7));
-		if (notNull(socialCostMonth))
-			mapFilter.put("socialCostMonth", socialCostMonth.substring(0, 7));
+		if (notNull(month)) {
+			mapFilter.put("month", getPattern(month.substring(0, 7)));
+		}
+		if (notNull(socialCostMonth)) {
+			mapFilter.put("socialCostMonth", getPattern(socialCostMonth.substring(0, 7)));
+		}
 
 		Query q = getQueryWithFilter(mapFilter);
 		q.with(new Sort(Sort.Direction.ASC, "_id")).skip(start).limit(limit);
 		return q;
+	}
+	
+	private Pattern getPattern(String str){
+		return Pattern.compile("^.*" + str + ".*$", Pattern.CASE_INSENSITIVE);
 	}
 
 	private Query getQueryWithFilter(Map<String, Object> mapFilter) {
@@ -646,6 +684,10 @@ public class PayrollController {
 
 	private Boolean notNull(String string) {
 		return string != null && string.length() != 0;
+	}
+	
+	private Boolean notNull(List<?> list){
+		return list !=null && list.size() > 0;
 	}
 
 	/**
@@ -708,7 +750,6 @@ public class PayrollController {
 		return new Response(true);
 	}
 
-
 	/**
 	 * 保存工资表条目
 	 * 
@@ -718,7 +759,7 @@ public class PayrollController {
 	@RequestMapping(value = "savePayrollItem")
 	public Response savePayrollItem(@RequestBody List<Map<String, Object>> items) {
 		List<PayrollItem> saveItems = new ArrayList<PayrollItem>();
-		for (Map<String,Object>  item : items) {
+		for (Map<String, Object> item : items) {
 			PayrollItem payrollItem = new PayrollItem();
 			payrollItem.convertDomain(item);
 			saveItems.add(payrollItem);
@@ -730,8 +771,10 @@ public class PayrollController {
 	/**
 	 * 查找条目Field中与改工资条对应的公式的其他关联Field，然后传入field参与计算
 	 * 
-	 * @param accountId	方案id
-	 * @param fieldId	薪资项目id
+	 * @param accountId
+	 *            方案id
+	 * @param fieldId
+	 *            薪资项目id
 	 * @return
 	 */
 	@RequestMapping("calculate")

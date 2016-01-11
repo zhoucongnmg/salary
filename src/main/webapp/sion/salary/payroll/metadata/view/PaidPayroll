@@ -7,12 +7,13 @@
     "codeClass": null,
     "userConfig": {
         "autoShow": true,
+        "designer|userAlias": "paidpayroll",
         "designer|userClassName": "PaidPayroll",
-        "height": 487,
+        "height": 672,
         "itemId": "getPaidPayroll",
         "layout": "border",
         "title": "",
-        "width": 670
+        "width": 1096
     },
     "designerId": "2bc9523b-b2ee-42ce-8c53-be649e5bb646",
     "cn": [
@@ -35,314 +36,379 @@
             "designerId": "51887946-a5de-4a18-8284-795634dfebd3",
             "cn": [
                 {
-                    "type": "Ext.form.field.Text",
+                    "type": "Ext.toolbar.Toolbar",
                     "reference": {
-                        "name": "items",
+                        "name": "dockedItems",
                         "type": "array"
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "fieldLabel": "薪资主题",
-                        "itemId": "subject",
-                        "labelWidth": 60,
-                        "layout|columnWidth": 0.25,
-                        "margin": "",
-                        "padding": null
+                        "dock": "top"
                     },
-                    "name": "MyTextField",
-                    "designerId": "0a3bddf2-f22b-4503-b302-b36172aeb4fa"
-                },
-                {
-                    "type": "Ext.form.field.ComboBox",
-                    "reference": {
-                        "name": "items",
-                        "type": "array"
-                    },
-                    "codeClass": null,
-                    "userConfig": {
-                        "fieldLabel": "薪资套账",
-                        "hidden": true,
-                        "labelWidth": 60,
-                        "layout|columnWidth": 0.25,
-                        "padding": "0 0 0 25"
-                    },
-                    "name": "MyComboBox2",
-                    "designerId": "a8d02982-1064-4ee0-be8b-6bb8c22b9d4f"
-                },
-                {
-                    "type": "Ext.form.field.Date",
-                    "reference": {
-                        "name": "items",
-                        "type": "array"
-                    },
-                    "codeClass": null,
-                    "userConfig": {
-                        "fieldLabel": "薪资月份",
-                        "format": "Y-m",
-                        "itemId": "month",
-                        "labelWidth": 60,
-                        "layout|columnWidth": 0.2,
-                        "padding": "0 0 0 25"
-                    },
-                    "name": "MyDateField",
-                    "designerId": "7b6d251e-46b0-4f99-a8b8-7d7523aea3a8"
-                },
-                {
-                    "type": "Ext.form.field.Date",
-                    "reference": {
-                        "name": "items",
-                        "type": "array"
-                    },
-                    "codeClass": null,
-                    "userConfig": {
-                        "fieldLabel": "社保扣费月",
-                        "format": "Y-m",
-                        "itemId": "socialCostMonth",
-                        "labelWidth": 80,
-                        "layout|columnWidth": 0.22,
-                        "padding": "0 0 0 25"
-                    },
-                    "name": "MyDateField1",
-                    "designerId": "ea5824df-ce87-4604-8ed5-18dacfa31417"
-                },
-                {
-                    "type": "Ext.toolbar.Spacer",
-                    "reference": {
-                        "name": "items",
-                        "type": "array"
-                    },
-                    "codeClass": null,
-                    "userConfig": {
-                        "height": 15,
-                        "layout|columnWidth": 0.05
-                    },
-                    "name": "MySpacer1",
-                    "designerId": "176b7de4-ed21-43b3-99e5-f76d94cd8800"
-                },
-                {
-                    "type": "Ext.button.Button",
-                    "reference": {
-                        "name": "items",
-                        "type": "array"
-                    },
-                    "codeClass": null,
-                    "userConfig": {
-                        "layout|columnWidth": 0.07,
-                        "padding": null,
-                        "style": null,
-                        "text": "查询"
-                    },
-                    "name": "MyButton",
-                    "designerId": "26f213d8-d7b3-4f5f-8199-4d6e6ea28809",
+                    "name": "MyToolbar4",
+                    "designerId": "77841126-ee8d-47a9-b088-1ebea241ed2d",
                     "cn": [
                         {
-                            "type": "basiceventbinding",
+                            "type": "Ext.button.Button",
                             "reference": {
-                                "name": "listeners",
+                                "name": "items",
                                 "type": "array"
                             },
                             "codeClass": null,
                             "userConfig": {
-                                "fn": "onButtonClick1",
-                                "implHandler": [
-                                    "var me = this,",
-                                    "    store = me.down('#PayrollGrid').getStore(),",
-                                    "    month = me.down('#month').getValue(),",
-                                    "    subject = me.down('#subject').getValue(),",
-                                    "    socialCostMonth = me.down('#socialCostMonth').getValue();",
-                                    "",
-                                    "store.load({",
-                                    "    params:{",
-                                    "        state:'Paid',",
-                                    "        start:'0',",
-                                    "        page:'1',",
-                                    "        subject:subject,",
-                                    "        month:month,",
-                                    "        socialCostMonth:socialCostMonth",
-                                    "    }",
-                                    "});"
-                                ],
-                                "name": "click",
-                                "scope": "me"
+                                "iconCls": "s_icon_action_clockwise",
+                                "layout|flex": null,
+                                "text": "撤回"
                             },
-                            "name": "onButtonClick1",
-                            "designerId": "b25398c9-3adc-441f-bb5c-cb957be0c056"
-                        }
-                    ]
-                },
-                {
-                    "type": "Ext.toolbar.Spacer",
-                    "reference": {
-                        "name": "items",
-                        "type": "array"
-                    },
-                    "codeClass": null,
-                    "userConfig": {
-                        "height": 20,
-                        "layout|columnWidth": 0.03
-                    },
-                    "name": "MySpacer4",
-                    "designerId": "b31913eb-f8ef-48e8-bd21-50df5b15a405"
-                },
-                {
-                    "type": "Ext.button.Button",
-                    "reference": {
-                        "name": "items",
-                        "type": "array"
-                    },
-                    "codeClass": null,
-                    "userConfig": {
-                        "layout|columnWidth": 0.07,
-                        "text": "撤回"
-                    },
-                    "name": "MyButton2",
-                    "designerId": "2aa04fc1-3aac-4f30-a08e-c9e7ad6addde",
-                    "cn": [
+                            "name": "MyButton2",
+                            "designerId": "2aa04fc1-3aac-4f30-a08e-c9e7ad6addde",
+                            "cn": [
+                                {
+                                    "type": "basiceventbinding",
+                                    "reference": {
+                                        "name": "listeners",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fn": "onButtonClick",
+                                        "implHandler": [
+                                            "var me = this,",
+                                            "    grid = me.down('gridpanel'),",
+                                            "    store = grid.getStore(),",
+                                            "    arrId = [],",
+                                            "    records = grid.getSelectionModel().getSelection();",
+                                            "",
+                                            "if(records.length==0)",
+                                            "{",
+                                            "    Ext.Msg.alert('提示', '请选择工资条！');",
+                                            "    return;",
+                                            "}",
+                                            "Ext.Msg.confirm({",
+                                            "    title:\"提示\",",
+                                            "    msg:\"确定撤回工资条？\",",
+                                            "    buttons:Ext.MessageBox.OKCANCEL,",
+                                            "    width:200,",
+                                            "    fn:function(buttonId){",
+                                            "        if(buttonId==\"ok\"){",
+                                            "            Ext.each(records, function (item) {",
+                                            "                item.set('state','Unpublish');",
+                                            "                arrId.push(item.get('id'));",
+                                            "            });",
+                                            "",
+                                            "            Ext.Ajax.request({",
+                                            "                url: 'salary/payroll/batchWithdraw',",
+                                            "                method: \"post\",",
+                                            "                success: function (response, opts) {",
+                                            "                    store.reload();",
+                                            "                    Ext.Msg.alert('提示', '操作成功！');",
+                                            "                },",
+                                            "                failure: function () {",
+                                            "                    Ext.Msg.alert('提示', '操作失败，请检查网络');",
+                                            "                },",
+                                            "                params: {arrId:arrId}",
+                                            "            });",
+                                            "        }",
+                                            "    }",
+                                            "});"
+                                        ],
+                                        "name": "click",
+                                        "scope": "me"
+                                    },
+                                    "name": "onButtonClick",
+                                    "designerId": "8e65b1d6-a549-4cbf-a8b8-46fb41cb2488"
+                                }
+                            ]
+                        },
                         {
-                            "type": "basiceventbinding",
+                            "type": "Ext.button.Button",
                             "reference": {
-                                "name": "listeners",
+                                "name": "items",
                                 "type": "array"
                             },
                             "codeClass": null,
                             "userConfig": {
-                                "fn": "onButtonClick",
-                                "implHandler": [
-                                    "var me = this,",
-                                    "    grid = me.down('gridpanel'),",
-                                    "    store = grid.getStore(),",
-                                    "    arrId = [],",
-                                    "    records = grid.getSelectionModel().getSelection();",
-                                    "",
-                                    "if(records.length==0)",
-                                    "{",
-                                    "    Ext.Msg.alert('提示', '请选择工资条！');",
-                                    "    return;",
-                                    "}",
-                                    "Ext.Msg.confirm({",
-                                    "    title:\"提示\",",
-                                    "    msg:\"确定发放工资？\",",
-                                    "    buttons:Ext.MessageBox.OKCANCEL,",
-                                    "    width:200,",
-                                    "    fn:function(buttonId){",
-                                    "        if(buttonId==\"ok\"){",
-                                    "",
-                                    "            if(records.length>1){",
-                                    "                Ext.each(records, function (item) {",
-                                    "                    item.set('state','Unpublish');",
-                                    "                    arrId.push(item.get('id'));",
-                                    "                });",
-                                    "",
-                                    "                Ext.Ajax.request({",
-                                    "                    url: 'salary/payroll/batchWithdraw',",
-                                    "                    method: \"post\",",
-                                    "                    success: function (response, opts) {",
-                                    "                        store.reload();",
-                                    "                        Ext.Msg.alert('提示', '操作成功！');",
-                                    "                    },",
-                                    "                    failure: function () {",
-                                    "                        Ext.Msg.alert('提示', '操作失败，请检查网络');",
-                                    "                    },",
-                                    "                    params: {arrId:arrId}",
-                                    "                });",
-                                    "            }",
-                                    "            else",
-                                    "            {",
-                                    "                records[0].set('state','Paid');",
-                                    "                records[0].save({",
-                                    "                    success: function(response, opts){",
-                                    "                        store.remove(records[0]);",
-                                    "                        store.commitChanges();",
-                                    "                        Ext.Msg.alert(\"提示\", \"操作成功\");",
-                                    "                    },",
-                                    "                    failure: function(){",
-                                    "                        Ext.Msg.alert(\"提示\", \"操作失败\");",
-                                    "                    }",
-                                    "                });",
-                                    "            }",
-                                    "        }",
-                                    "    }",
-                                    "});"
-                                ],
-                                "name": "click",
-                                "scope": "me"
+                                "iconCls": "s_icon_action_search",
+                                "layout|flex": null,
+                                "padding": null,
+                                "style": null,
+                                "text": "查询"
                             },
-                            "name": "onButtonClick",
-                            "designerId": "8e65b1d6-a549-4cbf-a8b8-46fb41cb2488"
-                        }
-                    ]
-                },
-                {
-                    "type": "Ext.toolbar.Spacer",
-                    "reference": {
-                        "name": "items",
-                        "type": "array"
-                    },
-                    "codeClass": null,
-                    "userConfig": {
-                        "height": 20,
-                        "layout|columnWidth": 0.03
-                    },
-                    "name": "MySpacer8",
-                    "designerId": "f675a4c7-cf09-4b7d-a9b6-1d36d27aaf6f"
-                },
-                {
-                    "type": "Ext.button.Button",
-                    "reference": {
-                        "name": "items",
-                        "type": "array"
-                    },
-                    "codeClass": null,
-                    "userConfig": {
-                        "hidden": true,
-                        "layout|columnWidth": 0.07,
-                        "text": "新建"
-                    },
-                    "name": "MyButton6",
-                    "designerId": "bedab468-e259-4940-8905-c1e1ec4bf276",
-                    "cn": [
+                            "name": "MyButton",
+                            "designerId": "26f213d8-d7b3-4f5f-8199-4d6e6ea28809",
+                            "cn": [
+                                {
+                                    "type": "basiceventbinding",
+                                    "reference": {
+                                        "name": "listeners",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fn": "onButtonClick1",
+                                        "implHandler": [
+                                            "var me = this,",
+                                            "    store = me.down('#PayrollGrid').getStore(),",
+                                            "    month = me.down('#month').getValue(),",
+                                            "    subject = me.down('#subject').getValue(),",
+                                            "    socialCostMonth = me.down('#socialCostMonth').getValue();",
+                                            "",
+                                            "store.load({",
+                                            "    params:{",
+                                            "        state:'Paid',",
+                                            "        start:'0',",
+                                            "        page:'1',",
+                                            "        subject:subject,",
+                                            "        month:month,",
+                                            "        socialCostMonth:socialCostMonth",
+                                            "    }",
+                                            "});"
+                                        ],
+                                        "name": "click",
+                                        "scope": "me"
+                                    },
+                                    "name": "onButtonClick1",
+                                    "designerId": "b25398c9-3adc-441f-bb5c-cb957be0c056"
+                                }
+                            ]
+                        },
                         {
-                            "type": "basiceventbinding",
+                            "type": "Ext.button.Button",
                             "reference": {
-                                "name": "listeners",
+                                "name": "items",
                                 "type": "array"
                             },
                             "codeClass": null,
                             "userConfig": {
-                                "fn": "onButtonClick2",
-                                "implHandler": [
-                                    "var window,",
-                                    "    record = Ext.create('sion.salary.payroll.model.Payroll');",
-                                    "",
-                                    "window = Ext.create('sion.salary.payroll.view.PayrollWindow',{",
-                                    "    title:'新建工资条',",
-                                    "    _link:{",
-                                    "        record:record",
-                                    "    }",
-                                    "});",
-                                    "window.show();"
-                                ],
-                                "name": "click",
-                                "scope": "me"
+                                "iconCls": "s_icon_action_clockwise",
+                                "layout|flex": null,
+                                "padding": null,
+                                "style": null,
+                                "text": "清空"
                             },
-                            "name": "onButtonClick2",
-                            "designerId": "8cc0c660-b4f8-4ae4-8880-a6bc5ec55b81"
+                            "name": "MyButton12",
+                            "designerId": "32f79b0f-b70a-485d-b559-a1cab4c10fdd",
+                            "cn": [
+                                {
+                                    "type": "basiceventbinding",
+                                    "reference": {
+                                        "name": "listeners",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fn": "onButtonClick11",
+                                        "implHandler": [
+                                            "var me = this,",
+                                            "    store = me.down('gridpanel').getStore();",
+                                            "store.load({",
+                                            "    params:{",
+                                            "        state:'Paid',",
+                                            "        start:'0',",
+                                            "        page:'1'",
+                                            "    }",
+                                            "});",
+                                            "",
+                                            "month = me.down('#month').setValue('');",
+                                            "subject = me.down('#subject').setValue('');",
+                                            "socialCostMonth = me.down('#socialCostMonth').setValue('');"
+                                        ],
+                                        "name": "click",
+                                        "scope": "me"
+                                    },
+                                    "name": "onButtonClick11",
+                                    "designerId": "a42c5cb2-3b4f-4ab5-8e25-a991f255723d"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "Ext.button.Button",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "hidden": true,
+                                "layout|flex": null,
+                                "text": "新建"
+                            },
+                            "name": "MyButton6",
+                            "designerId": "bedab468-e259-4940-8905-c1e1ec4bf276",
+                            "cn": [
+                                {
+                                    "type": "basiceventbinding",
+                                    "reference": {
+                                        "name": "listeners",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fn": "onButtonClick2",
+                                        "implHandler": [
+                                            "var window,",
+                                            "    record = Ext.create('sion.salary.payroll.model.Payroll');",
+                                            "",
+                                            "window = Ext.create('sion.salary.payroll.view.PayrollWindow',{",
+                                            "    title:'新建工资条',",
+                                            "    _link:{",
+                                            "        record:record",
+                                            "    }",
+                                            "});",
+                                            "window.show();"
+                                        ],
+                                        "name": "click",
+                                        "scope": "me"
+                                    },
+                                    "name": "onButtonClick2",
+                                    "designerId": "8cc0c660-b4f8-4ae4-8880-a6bc5ec55b81"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "Ext.form.field.ComboBox",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fieldLabel": "薪资套账",
+                                "hidden": true,
+                                "labelWidth": 60,
+                                "layout|flex": null,
+                                "padding": "0 0 0 25"
+                            },
+                            "name": "MyComboBox2",
+                            "designerId": "a8d02982-1064-4ee0-be8b-6bb8c22b9d4f"
+                        },
+                        {
+                            "type": "Ext.form.field.Text",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fieldLabel": "薪资主题",
+                                "itemId": "subject",
+                                "labelWidth": 60,
+                                "layout|flex": null,
+                                "margin": "",
+                                "padding": null
+                            },
+                            "name": "MyTextField",
+                            "designerId": "0a3bddf2-f22b-4503-b302-b36172aeb4fa"
+                        },
+                        {
+                            "type": "Ext.toolbar.Spacer",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "layout|flex": null
+                            },
+                            "name": "MySpacer4",
+                            "designerId": "5ad2d7d0-31c2-4a1a-b6e9-e4478b91496d"
+                        },
+                        {
+                            "type": "Ext.form.field.Trigger",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fieldLabel": "薪资月份",
+                                "itemId": "month",
+                                "layout|flex": null,
+                                "width": null
+                            },
+                            "name": "MyTriggerField2",
+                            "designerId": "973c8284-504b-4f8a-a8ba-e8ee5aa3cb49",
+                            "cn": [
+                                {
+                                    "type": "processcfgfunction",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "designer|params": [
+                                            "config"
+                                        ],
+                                        "fn": "processMonth",
+                                        "implHandler": [
+                                            "config.xtype=　'monthfield';",
+                                            "config.hiddenName = 'date';",
+                                            "config.format=　\"Y-m\";",
+                                            "return config;",
+                                            ""
+                                        ]
+                                    },
+                                    "name": "processMonth",
+                                    "designerId": "cd720800-6309-4fc4-8c4e-688cf2302104"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "Ext.toolbar.Spacer",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "layout|flex": null
+                            },
+                            "name": "MySpacer8",
+                            "designerId": "0bf85419-7601-40d2-80a7-c946746269dd"
+                        },
+                        {
+                            "type": "Ext.form.field.Trigger",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fieldLabel": "社保扣费月",
+                                "itemId": "socialCostMonth",
+                                "layout|flex": null,
+                                "width": null
+                            },
+                            "name": "MyTriggerField3",
+                            "designerId": "82955317-21e1-456f-93ab-fffe1e5353d3",
+                            "cn": [
+                                {
+                                    "type": "processcfgfunction",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "designer|params": [
+                                            "config"
+                                        ],
+                                        "fn": "processSocialCostMonth",
+                                        "implHandler": [
+                                            "config.xtype=　'monthfield';",
+                                            "config.hiddenName = 'date';",
+                                            "config.format=　\"Y-m\";",
+                                            "return config;",
+                                            ""
+                                        ]
+                                    },
+                                    "name": "processSocialCostMonth",
+                                    "designerId": "76feceb2-0fa6-4df3-8064-dea7c09882dc"
+                                }
+                            ]
                         }
                     ]
-                },
-                {
-                    "type": "Ext.toolbar.Spacer",
-                    "reference": {
-                        "name": "items",
-                        "type": "array"
-                    },
-                    "codeClass": null,
-                    "userConfig": {
-                        "height": 20,
-                        "layout|columnWidth": 1.1
-                    },
-                    "name": "MySpacer",
-                    "designerId": "827112fe-da2f-48ea-8d54-7e8ddfa2b725"
                 }
             ]
         },
@@ -389,7 +455,7 @@
                         "dataIndex": "accountName",
                         "flex": 1,
                         "menuDisabled": true,
-                        "text": "套账名称"
+                        "text": "薪资方案"
                     },
                     "name": "MyColumn1",
                     "designerId": "2aeb6c45-cf25-4575-b4f5-e8525e8adb23"
@@ -586,7 +652,7 @@
                             },
                             "codeClass": null,
                             "userConfig": {
-                                "iconCls": "s_icon_action_search"
+                                "iconCls": "s_icon_action_clockwise"
                             },
                             "name": "MyActionColumnItem1",
                             "designerId": "76f96f85-d52b-4bcf-b846-6c166ab3f842",
@@ -638,6 +704,71 @@
                                     },
                                     "name": "handler",
                                     "designerId": "e63dfdff-444f-4029-a6c9-5fa06209a9d1"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "type": "Ext.grid.column.Action",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "flex": 1,
+                        "menuDisabled": true,
+                        "text": "查看"
+                    },
+                    "name": "MyActionColumn4",
+                    "designerId": "97f6e6c8-45ae-4d2a-ad80-c7a28cab5bff",
+                    "cn": [
+                        {
+                            "type": "actioncolumnitem",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "iconCls": "s_icon_action_search"
+                            },
+                            "name": "MyActionColumnItem3",
+                            "designerId": "ac90409a-d350-4d63-9662-8fb5692fff4e",
+                            "cn": [
+                                {
+                                    "type": "fixedfunction",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "designer|params": [
+                                            "view",
+                                            "rowIndex",
+                                            "colIndex",
+                                            "item",
+                                            "e",
+                                            "record",
+                                            "row"
+                                        ],
+                                        "fn": "handler",
+                                        "implHandler": [
+                                            "var me = this.up('paidpayroll'),",
+                                            "    namespace = me.getNamespace();",
+                                            "",
+                                            "",
+                                            "Ext.create(namespace + '.view.DynamicGrid',{",
+                                            "    _id : record.get('id'),",
+                                            "    _accountId : record.get('accountId'),",
+                                            "    _record : record",
+                                            "}).show();"
+                                        ]
+                                    },
+                                    "name": "handler",
+                                    "designerId": "5700b96f-2956-4e87-b2d9-0b9f07dd80ec"
                                 }
                             ]
                         }

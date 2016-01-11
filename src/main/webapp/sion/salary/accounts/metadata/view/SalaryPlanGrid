@@ -105,24 +105,6 @@
                     "designerId": "ef0747f8-7e6c-49a9-a2ca-3431d154b877"
                 },
                 {
-                    "type": "Ext.grid.column.Boolean",
-                    "reference": {
-                        "name": "columns",
-                        "type": "array"
-                    },
-                    "codeClass": null,
-                    "userConfig": {
-                        "dataIndex": "enableLevel",
-                        "falseText": "×",
-                        "flex": 2,
-                        "text": "启用薪资体系",
-                        "trueText": "√",
-                        "width": null
-                    },
-                    "name": "MyBooleanColumn",
-                    "designerId": "5bc18616-71ca-4d15-84d8-cedcdafb6dbc"
-                },
-                {
                     "type": "Ext.grid.column.Column",
                     "reference": {
                         "name": "columns",
@@ -208,7 +190,36 @@
                                             "var accountMember =  Ext.create(namespace + '.view.AccountMember',{",
                                             "    _account : record",
                                             "});",
-                                            "accountMember.show();"
+                                            "accountMember.show();",
+                                            "",
+                                            "",
+                                            "",
+                                            "// var me = this.up('gridpanel').up(),",
+                                            "//     store = Ext.getStore('PersonAccount'),",
+                                            "//     selectRecords = [],",
+                                            "//     personSelection = Ext.create(\"sion.salary.social.view.SearchPerson\",",
+                                            "//                                  {_scope : me, _callback : me.selectedCallback}),",
+                                            "//     personGrid = personSelection.down('gridpanel'),",
+                                            "//     personStore = personGrid.getStore();",
+                                            "",
+                                            "// me._account = record;",
+                                            "// store.clearFilter(true);",
+                                            "// Ext.apply(store.proxy.extraParams, {",
+                                            "//     id : record.get('id')",
+                                            "// });",
+                                            "// store.load({",
+                                            "//     callback: function(records, operation, success) {",
+                                            "//         personStore.load({",
+                                            "//             callback: function(records, operation, success) {",
+                                            "//                 personSelection.show();",
+                                            "//                 Ext.Array.each(store.data.items, function(item){",
+                                            "//                     selectRecords.push(personStore.findRecord('id', item.data.id));",
+                                            "//                 });",
+                                            "//                 personSelection.down('gridpanel').getSelectionModel().select(selectRecords);",
+                                            "//             }",
+                                            "//         });",
+                                            "//     }",
+                                            "// });"
                                         ]
                                     },
                                     "name": "handler",
@@ -522,6 +533,58 @@
             },
             "name": "detail",
             "designerId": "2718a5b1-a927-4f3e-9530-c7920c91bd45"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|params": [
+                    "person",
+                    "scope"
+                ],
+                "fn": "selectedCallback",
+                "implHandler": [
+                    "var me = scope,",
+                    "    namespace = me.getNamespace(),",
+                    "    account = me._account,",
+                    "    store = Ext.getStore('PersonAccount');",
+                    "",
+                    "store.removeAll();",
+                    "alert(person.length);",
+                    "for(var i = 0; i < person.length; i++){",
+                    "    if(store.find('id', person[i].data.id) === -1){",
+                    "        var model = Ext.create(namespace + '.model.PersonAccount');",
+                    "        model.data = person[i].data;",
+                    "        model.set('accountId', account.get('id'));",
+                    "        if(model.get('insuredPerson') === ''){",
+                    "            model.set('insuredPerson', null);",
+                    "        }",
+                    "        store.add(model);",
+                    "    }",
+                    "}",
+                    "alert('person');",
+                    "console.log(person);",
+                    "console.log(store);",
+                    "alert(store.getCount());",
+                    "store.sync({",
+                    "    success: function(response, opts){",
+                    "        Ext.Msg.alert(\"提示\", \"保存成功\");",
+                    "//         store.load();",
+                    "//         me.close();",
+                    "    },",
+                    "    failure: function(){",
+                    "        Ext.Msg.alert(\"提示\", \"保存失败\");",
+                    "//         me.close();",
+                    "    }",
+                    "});"
+                ]
+            },
+            "name": "selectedCallback",
+            "designerId": "910f249a-7d1a-4d01-9def-a7b8d5db55e3"
         }
     ]
 }

@@ -4,7 +4,6 @@ import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 
-import net.sion.company.salary.domain.SocialItem.DecimalCarryType;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.roo.addon.javabean.RooJavaBean;
@@ -17,17 +16,19 @@ import org.springframework.roo.addon.layers.repository.mongo.RooMongoEntity;
  */
 @RooJavaBean
 @RooMongoEntity
-public class SocialAccountItem {
-	String id;
+public class SocialAccountItem extends SocialItem{
+//	String id;
 	String socialItemId;	//社保项目
-	String socialItemName;	//社保项目名称
-	double cardinality;	//基数
-	double companyPaymentValue;	//单位缴费
-	double personalPaymentValue;	//个人缴费
-	double companyPaymentFinalValue;	//单位缴费(用于工资条)
-	double personalPaymentFinalValue;	//个人缴费(用于工资条)
+//	String socialItemName;	//社保项目名称
+	Double cardinality;	//基数
+	Double companyPaymentValue;	//单位缴费
+	Double personalPaymentValue;	//个人缴费
+	Double companyPaymentFinalValue;	//单位缴费(用于工资条)
+	Double personalPaymentFinalValue;	//个人缴费(用于工资条)
 	PaymentType companyPaymentType;	//单位缴费类型
 	PaymentType personalPaymentType;	//个人缴费类型
+//	private SocialAccountItem socialAccountItem;
+	
 	public enum PaymentType {
 		Percent,	//百分比
 		Quota		//定额
@@ -52,7 +53,7 @@ public class SocialAccountItem {
 				break;
 		}
 	}
-	private double decimal(DecimalCarryType type, int precision, double value){
+	private Double decimal(DecimalCarryType type, int precision, Double value){
 		if(type == DecimalCarryType.Round){
 			//四舍五入
 			BigDecimal b = new BigDecimal(value);  
@@ -65,15 +66,14 @@ public class SocialAccountItem {
 			value = Math.floor(value);
 		}
 		return value;
-	}
-	private SocialAccountItem socialAccountItem;
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
+	}	
+//	public String getId() {
+//		return id;
+//	}
+//
+//	public void setId(String id) {
+//		this.id = id;
+//	}
 	public String getSocialItemId() {
 		return socialItemId;
 	}
@@ -82,35 +82,35 @@ public class SocialAccountItem {
 		this.socialItemId = socialItemId;
 	}
 
-	public String getSocialItemName() {
-		return socialItemName;
-	}
+//	public String getSocialItemName() {
+//		return socialItemName;
+//	}
+//
+//	public void setSocialItemName(String socialItemName) {
+//		this.socialItemName = socialItemName;
+//	}
 
-	public void setSocialItemName(String socialItemName) {
-		this.socialItemName = socialItemName;
-	}
-
-	public double getCardinality() {
+	public Double getCardinality() {
 		return cardinality;
 	}
 
-	public void setCardinality(double cardinality) {
+	public void setCardinality(Double cardinality) {
 		this.cardinality = cardinality;
 	}
 
-	public double getCompanyPaymentValue() {
+	public Double getCompanyPaymentValue() {
 		return companyPaymentValue;
 	}
 
-	public void setCompanyPaymentValue(double companyPaymentValue) {
+	public void setCompanyPaymentValue(Double companyPaymentValue) {
 		this.companyPaymentValue = companyPaymentValue;
 	}
 
-	public double getPersonalPaymentValue() {
+	public Double getPersonalPaymentValue() {
 		return personalPaymentValue;
 	}
 
-	public void setPersonalPaymentValue(double personalPaymentValue) {
+	public void setPersonalPaymentValue(Double personalPaymentValue) {
 		this.personalPaymentValue = personalPaymentValue;
 	}
 
@@ -129,19 +129,19 @@ public class SocialAccountItem {
 	public void setPersonalPaymentType(PaymentType personalPaymentType) {
 		this.personalPaymentType = personalPaymentType;
 	}
-	public double getCompanyPaymentFinalValue() {
+	public Double getCompanyPaymentFinalValue() {
 		return companyPaymentFinalValue;
 	}
 
-	public void setCompanyPaymentFinalValue(double companyPaymentFinalValue) {
+	public void setCompanyPaymentFinalValue(Double companyPaymentFinalValue) {
 		this.companyPaymentFinalValue = companyPaymentFinalValue;
 	}
 
-	public double getPersonalPaymentFinalValue() {
+	public Double getPersonalPaymentFinalValue() {
 		return personalPaymentFinalValue;
 	}
 
-	public void setPersonalPaymentFinalValue(double personalPaymentFinalValue) {
+	public void setPersonalPaymentFinalValue(Double personalPaymentFinalValue) {
 		this.personalPaymentFinalValue = personalPaymentFinalValue;
 	}
 }

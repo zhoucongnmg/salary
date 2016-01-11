@@ -35,6 +35,10 @@ Ext.define('sion.salary.accounts.store.AccountItemTypeExcludeSystem', {
                 {
                     id: 'Calculate',
                     name: '计算项'
+                },
+                {
+                    id: 'Tax',
+                    name: '计税项'
                 }
             ],
             proxy: {

@@ -8,35 +8,44 @@ import org.springframework.data.annotation.Transient;
 /**
  * @author zhangligang 薪资管理：套帐子项目
  */
-public class AccountItem {
+public class AccountItem extends SalaryItem {
 
-	String id;
-	
+//	String id;
 	String sortIndex;// 排序序号
-	
-	String name;// 项目名称
-	
-	AccountItemType type;// 项目类型
-	
-	String fieldName;// 字段名c
-	
+//	String name;// 项目名称
+//	AccountItemType type;// 项目类型
+//	String fieldName;// 字段名c
 	String value;// 值或公式
-	
 	boolean show;// 是否显示
-	
 	String formulaId; 
-	
 	@Transient
 	Formula formula;
-	
 	String salaryItemId;// 薪资项目ID
 	
-	public enum AccountItemType {
-		Input,
-		Calculate,
-		System
+	String taxId;//个税方案id
+	String parentId;//按该方案项目计税
+	
+//	public enum AccountItemType {
+//		Input,
+//		Calculate,
+//		System
+//	}
+	public String getTaxId() {
+		return taxId;
 	}
 
+	public void setTaxId(String taxId) {
+		this.taxId = taxId;
+	}
+
+	public String getParentId() {
+		return parentId;
+	}
+
+	public void setParentId(String parentId) {
+		this.parentId = parentId;
+	}
+	
 	public String getSalaryItemId() {
 		return salaryItemId;
 	}
@@ -53,29 +62,29 @@ public class AccountItem {
 		this.sortIndex = sortIndex;
 	}
 
-	public String getName() {
-		return name;
-	}
+//	public String getName() {
+//		return name;
+//	}
+//
+//	public void setName(String name) {
+//		this.name = name;
+//	}
 
-	public void setName(String name) {
-		this.name = name;
-	}
+//	public AccountItemType getType() {
+//		return type;
+//	}
+//
+//	public void setType(AccountItemType type) {
+//		this.type = type;
+//	}
 
-	public AccountItemType getType() {
-		return type;
-	}
-
-	public void setType(AccountItemType type) {
-		this.type = type;
-	}
-
-	public String getFieldName() {
-		return fieldName;
-	}
-
-	public void setFieldName(String fieldName) {
-		this.fieldName = fieldName;
-	}
+//	public String getFieldName() {
+//		return fieldName;
+//	}
+//
+//	public void setFieldName(String fieldName) {
+//		this.fieldName = fieldName;
+//	}
 
 	public String getValue() {
 		return value;
@@ -93,13 +102,13 @@ public class AccountItem {
 		this.show = show;
 	}
 
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
+//	public String getId() {
+//		return id;
+//	}
+//
+//	public void setId(String id) {
+//		this.id = id;
+//	}
 
 	public Formula getFormula() {
 		return formula;
@@ -116,6 +125,4 @@ public class AccountItem {
 	public void setFormulaId(String formulaId) {
 		this.formulaId = formulaId;
 	}
-	
-	
 }

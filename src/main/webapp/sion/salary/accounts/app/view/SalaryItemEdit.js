@@ -19,8 +19,10 @@ Ext.define('sion.salary.accounts.view.SalaryItemEdit', {
     requires: [
         'Ext.form.Panel',
         'Ext.form.field.ComboBox',
-        'Ext.form.field.Checkbox',
         'Ext.form.field.Number',
+        'Ext.form.RadioGroup',
+        'Ext.form.field.Radio',
+        'Ext.form.field.Display',
         'Ext.form.field.TextArea',
         'Ext.toolbar.Toolbar',
         'Ext.button.Button'
@@ -62,22 +64,46 @@ Ext.define('sion.salary.accounts.view.SalaryItemEdit', {
                             valueField: 'id'
                         },
                         {
-                            xtype: 'checkboxfield',
-                            anchor: '100%',
-                            itemId: 'taxItem',
-                            hideEmptyLabel: false,
-                            name: 'taxItem',
-                            boxLabel: '个人所得税项目'
-                        },
-                        {
                             xtype: 'numberfield',
                             anchor: '100%',
-                            itemId: 'decimalScale',
+                            itemId: 'precision',
                             fieldLabel: '小数位数',
-                            name: 'decimalScale',
+                            name: 'precision',
                             allowBlank: false,
                             allowDecimals: false,
                             minValue: 0
+                        },
+                        {
+                            xtype: 'radiogroup',
+                            itemId: 'carryType',
+                            fieldLabel: '小数保留方式',
+                            allowBlank: false,
+                            items: [
+                                {
+                                    xtype: 'radiofield',
+                                    name: 'carryType',
+                                    boxLabel: '四舍五入',
+                                    inputValue: 'Round'
+                                },
+                                {
+                                    xtype: 'radiofield',
+                                    name: 'carryType',
+                                    boxLabel: '直接进位',
+                                    inputValue: 'Isopsephy'
+                                },
+                                {
+                                    xtype: 'radiofield',
+                                    name: 'carryType',
+                                    boxLabel: '直接舍去',
+                                    inputValue: 'Truncation'
+                                }
+                            ]
+                        },
+                        {
+                            xtype: 'displayfield',
+                            fieldLabel: '温馨提示',
+                            labelStyle: 'color:red;',
+                            value: '小数保留方式默认为四舍五入方式；如需见分进角，则小数位数选1，保留方式选择直接进位即可。'
                         },
                         {
                             xtype: 'textareafield',
@@ -128,11 +154,11 @@ Ext.define('sion.salary.accounts.view.SalaryItemEdit', {
 
         record = form.getRecord();
         form.updateRecord(record);
-        if(!me.down('#name').isValid() || !me.down('#type').isValid() || !me.down('#decimalScale').isValid()){
+        if(!me.down('#name').isValid() || !me.down('#type').isValid() || !me.down('#precision').isValid()){
             Ext.Msg.alert("提示", "信息不完整，请继续填写！");
             return false;
         }
-        record.set('show', true);
+        // record.set('show', true);
         if(record.get('id') === ''){
             store.add(record);
         }
@@ -159,14 +185,17 @@ Ext.define('sion.salary.accounts.view.SalaryItemEdit', {
             form.loadRecord(salaryItem);
         }else{
             form.loadRecord(Ext.create(namespace + '.model.SalaryItem', {
+                item: 'SalaryItem',
                 id: '',
                 name: '',
-                field: '',
+        //         field: '',
                 type: '',
-                taxItem: false,
-                decimalScale: 0,
-                system: false,
-                show: true,
+        //         taxItem: false,
+                carryType: 'Round',
+                precision: '',
+        //         decimalScale: 0,
+        //         system: false,
+        //         show: true,
                 note: ''
             }));
         }

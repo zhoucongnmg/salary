@@ -21,6 +21,7 @@ public class PersonAccountFile {
 	private String personCode;//员工编号
 	private String name;//员工姓名
 	private String dept;//部门
+	private String deptId;
 	private String duty;//职务
 	private String idCard;//身份证号
 	private String bank;//银行
@@ -149,6 +150,12 @@ public class PersonAccountFile {
 	}
 	public void setAccountItemsSetting(Map<String,ItemSetting> accountItemsSetting) {
 		this.accountItemsSetting = accountItemsSetting;
+	}
+	public String getDeptId() {
+		return deptId;
+	}
+	public void setDeptId(String deptId) {
+		this.deptId = deptId;
 	}
 
 }

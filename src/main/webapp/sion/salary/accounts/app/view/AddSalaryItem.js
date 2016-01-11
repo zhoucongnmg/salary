@@ -41,6 +41,10 @@ Ext.define('sion.salary.accounts.view.AddSalaryItem', {
                 afterrender: {
                     fn: me.onWindowAfterRender,
                     scope: me
+                },
+                beforerender: {
+                    fn: me.onWindowBeforeRender,
+                    scope: me
                 }
             },
             dockedItems: [
@@ -147,6 +151,40 @@ Ext.define('sion.salary.accounts.view.AddSalaryItem', {
                             width: 100,
                             layout: 'fit',
                             title: '公式'
+                        },
+                        {
+                            xtype: 'fieldset',
+                            flex: 1,
+                            margins: '0 10 0 20',
+                            hidden: true,
+                            itemId: 'taxPanel',
+                            items: [
+                                {
+                                    xtype: 'combobox',
+                                    anchor: '100%',
+                                    itemId: 'taxId',
+                                    style: 'margin-top:10px;',
+                                    fieldLabel: '个税方案',
+                                    name: 'taxId',
+                                    emptyText: '请选择个税方案',
+                                    displayField: 'name',
+                                    queryMode: 'local',
+                                    valueField: 'id'
+                                },
+                                {
+                                    xtype: 'combobox',
+                                    anchor: '100%',
+                                    itemId: 'parentId',
+                                    style: 'margin-top:10px;',
+                                    fieldLabel: '按该项目计税',
+                                    name: 'parentId',
+                                    emptyText: '请选择计税项目',
+                                    displayField: 'name',
+                                    queryMode: 'local',
+                                    store: 'AccountItem',
+                                    valueField: 'id'
+                                }
+                            ]
                         }
                     ]
                 }
@@ -164,44 +202,28 @@ Ext.define('sion.salary.accounts.view.AddSalaryItem', {
         //     store = Ext.getStore('AccountItem'),
             store = me._store,
         //     items = [],
-            panel = me.down('#formulaPanel');
-
-        // if(record !== null && record.get('type') == 'Calculate' && record.get('formulaId') !== ''){
-        //     Ext.Ajax.request({
-        //         url: 'salary/formula/read',
-        //         method: 'get',
-        //         async: false,    //不使用异步
-        //         params: {
-        //             id: record.get('formulaId')
-        //         },
-        //         success: function(response, opts){
-        //             var data = Ext.JSON.decode(response.responseText);
-        //             record.set('formula', data);
-        //         },
-        //         failure: function(response, opts) {
-        //             Ext.Msg.alert('提示信息','数据请求错误，请稍候重新尝试获取数据……');
-        //         }
-        //     });
-        // }
-        var app = Ext.ClassManager.get('sion.salary.formula' + ".$application").create();
-        var Api = app.getController('Api');
+            panel = me.down('#formulaPanel'),
+            grid = me.down('gridpanel'),
+            app = Ext.ClassManager.get('sion.salary.formula' + ".$application").create(),
+            Api = app.getController('Api');
 
         Api.initFormula({
             _formulaId : 'AddSalaryItem',//窗口的ItemId
             _container :  panel,//需要将公式编辑器面板显示到哪一个Container中
             _data : store.data.items,//计算项store(Model必须包含id,text等field)
-        //     _data : store.getUpdatedRecords(),
             _command : record !== null && record.get('formula') !== null ? record.get('formula').formula : ''
         });
         me._formulaApi = Api;
         if(record === null){
             record = Ext.create(namespace + '.model.AccountItem', {
+                item: 'SalaryItem',
                 id : Ext.data.IdGenerator.get('uuid').generate()
             });
         }else{
-            me.getSalaryItem(record.get('type'));
+        //     me.getSalaryItem(record.get('type'));
         }
         form.loadRecord(record);
+        me.loadTax(record);
     },
 
     onButtonClick: function(button, e, eOpts) {
@@ -235,13 +257,13 @@ Ext.define('sion.salary.accounts.view.AddSalaryItem', {
             }
         }
         if(me.down('#type').getValue() == 'Input' ){
-            if(me.down('#inputValue').getValue() === ''){
-                 Ext.Msg.alert('提示', '请输入值');
-                 return false;
-            }
+            //     if(me.down('#inputValue').getValue() === ''){
+            //          Ext.Msg.alert('提示', '请输入值');
+            //          return false;
+            //     }
 
-        //     if(!/^[0-9]+$/.test(me.down('#inputValue').getValue())){
-            if(!/^(([0-9]+\.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*\.[0-9]+)|([0-9]*[1-9][0-9]*))$/.test(me.down('#inputValue').getValue())){
+            //     if(!/^[0-9]+$/.test(me.down('#inputValue').getValue())){
+            if(me.down('#inputValue').getValue() !== '' && !/^(([0-9]+\.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*\.[0-9]+)|([0-9]*[1-9][0-9]*))$/.test(me.down('#inputValue').getValue())){
                 Ext.Msg.alert('提示', '值只能为数字，请重新输入');
                 return false;
             }
@@ -251,7 +273,20 @@ Ext.define('sion.salary.accounts.view.AddSalaryItem', {
         if(record.get('type') == 'System'){
             record.set('value', '');
         }
-        if(record.get('type') == 'Calculate'){
+        if(me.down('#type').getValue() == 'Tax'){
+            if(!me.down('#taxId').getValue()){
+                Ext.Msg.alert('提示', '请选择计费项目');
+                return false;
+            }
+            if(!me.down('#parentId').getValue()){
+                Ext.Msg.alert('提示', '请选择计费项目');
+                return false;
+            }
+            record.set('taxId', me.down('#taxId').getValue());
+            record.set('parentId', me.down('#parentId').getValue());
+            console.log(me.down('#taxValue'));
+        }
+        if(me.down('#type').getValue() == 'Calculate'){
             var formulaDatas = formulaApi.getFormula();
             if(!formulaDatas){
                 Ext.Msg.alert('', '公式未完成，不能保存');
@@ -290,7 +325,13 @@ Ext.define('sion.salary.accounts.view.AddSalaryItem', {
         }
         record.set('salaryItemId', select[0].data.id);
         record.set('name', select[0].data.name);
-        record.set('fieldName', select[0].data.field);
+        record.set('type', select[0].data.type);
+        // record.set('taxItem', select[0].data.taxItem);
+        record.set('carryType', select[0].data.carryType);
+        record.set('precision', select[0].data.precision);
+        record.set('item', select[0].data.item);
+        console.log(record);
+        // record.set('fieldName', select[0].data.field);
         if(accountItem === null){
             store.add(record);
         }
@@ -305,44 +346,112 @@ Ext.define('sion.salary.accounts.view.AddSalaryItem', {
         if('Calculate' == newValue){
             me.down('#formulaPanel').show();
             me.down('#inputPanel').hide();
+            me.down('#taxPanel').hide();
             me.getSalaryItem(newValue);
         }else if('Input' == newValue){
             me.down('#formulaPanel').hide();
             me.down('#inputPanel').show();
+            me.down('#taxPanel').hide();
             me.getSalaryItem(newValue);
         }else if('System' == newValue){
             me.down('#formulaPanel').hide();
             me.down('#inputPanel').hide();
+            me.down('#taxPanel').hide();
+            me.getSalaryItem(newValue);
+        }else if('Tax' == newValue){
+            me.down('#formulaPanel').hide();
+            me.down('#inputPanel').hide();
+            me.down('#taxPanel').show();
             me.getSalaryItem(newValue);
         }else{
-            store.removeAll();
+        //     store.removeAll();
+            store.clearFilter(true);
+            store.filter("type", 'aaa');
         }
+    },
+
+    onWindowBeforeRender: function(component, eOpts) {
+        // var me = this,
+        //     namespace = me.getNamespace(),
+        //     form = me.down('form'),
+        //     record = me._accountItem,
+        // //     store = Ext.getStore('AccountItem'),
+        //     store = me._store,
+        // //     items = [],
+        //     panel = me.down('#formulaPanel'),
+        //     grid = me.down('gridpanel'),
+        //     app = Ext.ClassManager.get('sion.salary.formula' + ".$application").create(),
+        //     Api = app.getController('Api');
+
+        // Api.initFormula({
+        //     _formulaId : 'AddSalaryItem',//窗口的ItemId
+        //     _container :  panel,//需要将公式编辑器面板显示到哪一个Container中
+        //     _data : store.data.items,//计算项store(Model必须包含id,text等field)
+        //     _command : record !== null && record.get('formula') !== null ? record.get('formula').formula : ''
+        // });
+        // me._formulaApi = Api;
+        // if(record === null){
+        //     record = Ext.create(namespace + '.model.AccountItem', {
+        //         item: 'SalaryItem',
+        //         id : Ext.data.IdGenerator.get('uuid').generate()
+        //     });
+        // }else{
+        // //     me.getSalaryItem(record.get('type'));
+        // }
+        // form.loadRecord(record);
+        // me.loadTax(record);
     },
 
     getSalaryItem: function(type) {
         var me = this,
             grid = me.down('gridpanel'),
             store = grid.getStore(),
-            accountItem = me._accountItem,
-            system = false;
+            accountItem = me._accountItem;
 
-        if(type === 'System'){
-            system = true;
-        }
+        //     system = false;
+        // if(type === 'System'){
+        //     system = true;
+        // }
         store.clearFilter(true);
-        Ext.apply(store.proxy.extraParams, {
-            system : system,
-            type : type
-        });
-        store.load({
-            scope: this,
-            callback: function(records, operation, success) {
-                if(accountItem !== null){
-                    var record = store.find('id', accountItem.get('salaryItemId'));
-                    grid.getSelectionModel().select(record);
-                }
-            }
-        });
+        store.filter("type", type);
+        // Ext.apply(store.proxy.extraParams, {
+        //     type : type
+        // });
+        // store.load({
+        //     scope: this,
+        //     callback: function(records, operation, success) {
+        if(accountItem !== null){
+            var record = store.findRecord('id', accountItem.get('salaryItemId'));
+            grid.getSelectionModel().select(record, false, true);
+        }
+        //     }
+        // });
+    },
+
+    loadTax: function(record) {
+        var me = this,
+            ns = me.getNamespace(),
+            taxId = me.down('#taxId'),
+            parentStore = me.down('#parentId').getStore(),
+            data = me._store.data.items,
+            taxStore = me._taxStore;
+
+        taxId.bindStore(taxStore);
+        console.log(taxStore);
+        if(record !== null){
+            taxId.setValue(record.get('taxId'));
+        }
+
+        if (me._data) {
+            taxStore.removeAll();
+            Ext.Array.each(data,function(d,index){
+                var record = Ext.create(ns + '.model.Item',{
+                    id: d.get('id'),
+                    name : d.get('name')
+                });
+                taxStore.add(record);
+            });
+        }
     }
 
 });

@@ -2,26 +2,20 @@ package net.sion.company.salary.web;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import javax.servlet.http.HttpSession;
 
 import net.sion.boot.config.jackson.CustomJackson;
 import net.sion.boot.mongo.template.SessionMongoTemplate;
-import net.sion.company.salary.domain.PersonExtension;
 import net.sion.company.salary.domain.SocialAccount;
 import net.sion.company.salary.domain.SocialAccountItem;
-import net.sion.company.salary.domain.SocialAccountItem.PaymentType;
 import net.sion.company.salary.domain.SocialItem;
-import net.sion.company.salary.domain.SocialItem.DecimalCarryType;
 import net.sion.company.salary.domain.SocialItem.SocialItemType;
 import net.sion.company.salary.service.SocialService;
 import net.sion.company.salary.sessionrepository.SocialAccountRepository;
@@ -100,20 +94,20 @@ public class SocialAccountController {
 		socialAccountRepository.save(account);
 		return new Response(true);
 	}
-	private SocialAccount sum(SocialAccount account){
-		double accumulationCompanySum = 0;//单位缴费公积金
-		double accumulationPersonSum = 0;//个人缴费公积金
-		double socialCompanySum = 0;//单位缴费社保
-		double socialPersonSum = 0;//个人缴费社保
+	private SocialAccount sum(SocialAccount account){ 
+		Double accumulationCompanySum = 0d;//单位缴费公积金
+		Double accumulationPersonSum = 0d;//个人缴费公积金
+		Double socialCompanySum = 0d;//单位缴费社保
+		Double socialPersonSum = 0d;//个人缴费社保
 		
 		for(SocialAccountItem socialAccountItem : account.getSocialAccountItems()){
-			String socialItemId = socialAccountItem.getSocialItemId();
-			SocialItem socialItem = socialItemRepository.findOne(socialItemId);
-			socialAccountItem.generateDecimalFinalValue(socialItem.getCarryType(), socialItem.getPrecision());
-			if(socialItem.getItemType() == SocialItemType.SocialSecurity){
+//			String socialItemId = socialAccountItem.getSocialItemId();
+//			SocialItem socialItem = socialItemRepository.findOne(socialItemId);
+			socialAccountItem.generateDecimalFinalValue(socialAccountItem.getCarryType(), socialAccountItem.getPrecision());
+			if(socialAccountItem.getItemType() == SocialItemType.SocialSecurity){
 				socialCompanySum += socialAccountItem.getCompanyPaymentFinalValue();
 				socialPersonSum += socialAccountItem.getPersonalPaymentFinalValue();
-			}else if (socialItem.getItemType() == SocialItemType.AccumulationFunds){
+			}else if (socialAccountItem.getItemType() == SocialItemType.AccumulationFunds){
 				//公积金
 				accumulationCompanySum += socialAccountItem.getCompanyPaymentFinalValue();
 				accumulationPersonSum += socialAccountItem.getPersonalPaymentFinalValue();
@@ -123,7 +117,7 @@ public class SocialAccountController {
 		account.setAccumulationPersonSum(accumulationPersonSum);
 		account.setSocialCompanySum(socialCompanySum);
 		account.setSocialPersonSum(socialPersonSum);
-		return account;
+		return account; 
 	}
 	
 	@RequestMapping(value = "loadAll")
