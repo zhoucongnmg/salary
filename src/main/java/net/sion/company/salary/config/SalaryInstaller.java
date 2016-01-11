@@ -1,8 +1,6 @@
 package net.sion.company.salary.config;
 
-import java.util.List;
 
-import net.sion.company.salary.domain.SystemSalaryItem;
 import net.sion.company.salary.event.SystemSalaryItemPublisher;
 import net.sion.company.salary.sessionrepository.SystemSalaryItemRepository;
 import net.sion.core.admin.domain.Company;
@@ -29,8 +27,8 @@ public class SalaryInstaller extends AbstractAppInstallListener{
 
 	@Override
 	public void install(App app, Company company) {
-		List<SystemSalaryItem> items = publisher.regist();
-		ssir.save(items);
+		//List<SystemSalaryItem> items = publisher.regist();
+		//ssir.save(items);
 	}
 
 	@Override
