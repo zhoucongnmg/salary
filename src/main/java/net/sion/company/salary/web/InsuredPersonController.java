@@ -60,10 +60,24 @@ public class InsuredPersonController {
 	@RequestMapping(value = "saveList")
 	public Response createList(@RequestBody List<PersonAccountFile> persons) {
 		System.out.println(persons.size());
+//		if(persons!=null && persons.size()>0){
+//			removePersons(persons.get(0).getAccountId());
+//		}
 		for (PersonAccountFile person : persons) {
 			personAccountRepo.save(person);
 		}
 		return new Response("操作成功",	true);
+	}
+	/***
+	 * add by lil 
+	 * 修改薪资方案时，先将方案以前绑定的人员置空
+	 */
+	private void removePersons(String accountId){
+		List<PersonAccountFile> persons = personAccountRepo.findByAccountId(accountId);
+		for(PersonAccountFile person : persons){
+			person.setAccountId("");
+			personAccountRepo.save(person);
+		}
 	}
 	@RequestMapping(value = "getPersonByAccountId")
 	public Response getPersonByAccountId(@RequestParam String id) {
