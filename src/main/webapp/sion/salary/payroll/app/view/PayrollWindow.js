@@ -225,6 +225,7 @@ Ext.define('sion.salary.payroll.view.PayrollWindow', {
 
     onButtonClick: function(button, e, eOpts) {
         var me = this,
+            state = me._link.state,
             form = me.down('form').getForm(),
             record = form.getRecord(),
             comboBox = me.down('combobox'),
@@ -258,10 +259,9 @@ Ext.define('sion.salary.payroll.view.PayrollWindow', {
         record.save({
             success: function(response, opts){
                 record.commit();
-                if(me.title=='新建工资条'){
+                if(state=='add'){
                     payrollStore = me._link.payrollStore;
-                    payrollStore.insert(payrollStore.getCount(),response.data);
-                    payrollStore.commitChanges();
+                    payrollStore.reload();
                 }
                 me.close();
                 Ext.Msg.alert("提示", "保存成功");

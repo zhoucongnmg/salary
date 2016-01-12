@@ -247,6 +247,8 @@ Ext.define('sion.salary.payroll.view.UnpublishPayroll', {
                             items: [
                                 {
                                     handler: function(view, rowIndex, colIndex, item, e, record, row) {
+                                        var grid = view.up('grid'),
+                                            store = grid.getStore();
                                         Ext.Msg.confirm({
                                             title:"提示",
                                             msg:"确定删除工资条？",
@@ -258,7 +260,7 @@ Ext.define('sion.salary.payroll.view.UnpublishPayroll', {
                                                     //5.0以后使用erase，5.0以前为destroy
                                                     record.destroy({
                                                         success: function(){
-                                                            record.commit();
+                                                            store.reload();
                                                             Ext.Msg.alert('提示','删除成功');
                                                         },
                                                         failure: function(record){
@@ -297,8 +299,7 @@ Ext.define('sion.salary.payroll.view.UnpublishPayroll', {
                                                     record.set('state','Paid');
                                                     record.save({
                                                         success: function(response, opts){
-                                                            store.removeAt(rowIndex);
-                                                            store.commitChanges();
+                                                            store.reload();
                                                             Ext.Msg.alert("提示", "操作成功");
                                                         },
                                                         failure: function(){

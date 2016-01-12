@@ -827,11 +827,11 @@
         ]
     },
     "canvasState": {
-        "topInstance": "02f3d5a0-98dc-4e83-be20-913355b92319"
+        "topInstance": null
     },
     "inspectorState": {
-        "topInstance": "c2c9c26d-c541-4ace-9fda-ef406f617ba8",
-        "selectedInstance": "c2c9c26d-c541-4ace-9fda-ef406f617ba8"
+        "topInstance": "2bc9523b-b2ee-42ce-8c53-be649e5bb646",
+        "selectedInstance": "e63dfdff-444f-4029-a6c9-5fa06209a9d1"
     },
     "editMode": "code",
     "userSettings": {
