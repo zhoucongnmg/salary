@@ -8,6 +8,7 @@
     "userConfig": {
         "designer|userClassName": "AddSalaryItem",
         "height": 480,
+        "itemId": "AddSalaryItem",
         "title": "新增方案项目",
         "width": 860
     },

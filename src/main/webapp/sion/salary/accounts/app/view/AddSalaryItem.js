@@ -30,6 +30,7 @@ Ext.define('sion.salary.accounts.view.AddSalaryItem', {
     ],
 
     height: 480,
+    itemId: 'AddSalaryItem',
     width: 860,
     title: '新增方案项目',
 

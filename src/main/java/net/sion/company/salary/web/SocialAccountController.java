@@ -2,6 +2,8 @@ package net.sion.company.salary.web;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -132,23 +134,23 @@ public class SocialAccountController {
 	 * @throws UnsupportedEncodingException 
 	 */
 	@RequestMapping(value = "load")
-	public @ResponseBody Map<String, Object> load(HttpSession session, int page, int start, int limit, String name, String creater, String startDate, String endDate) throws UnsupportedEncodingException{
-//		socialAccountRepository.findAll();
+//	public @ResponseBody Map<String, Object> load(HttpSession session, int page, int start, int limit,@RequestParam String name, String creater, String startDate, String endDate) throws UnsupportedEncodingException{
+	public @ResponseBody Map<String, Object> load(HttpSession session, @RequestParam Map<String,String> queryBy) throws UnsupportedEncodingException{
 		Map filter = new HashMap();
-		filter.put("page", page);
-		filter.put("start", start);
-		filter.put("limit", limit);
-		filter.put("name", name);
-		filter.put("creater", creater);
-		filter.put("startDate", startDate);
-		filter.put("endDate", endDate);
+		filter.put("page", queryBy.get("page"));
+		filter.put("start", queryBy.get("start"));
+		filter.put("limit", queryBy.get("limit"));
+		filter.put("name", URLDecoder.decode(URLDecoder.decode(queryBy.get("name"), "UTF-8")));
+		filter.put("creater", URLDecoder.decode(URLDecoder.decode(queryBy.get("creater"), "UTF-8")));
+		filter.put("startDate", queryBy.get("startDate"));
+		filter.put("endDate", queryBy.get("endDate"));
 		User user = adminService.getUser(session);
 		return find(filter, user, true);
 	}
 	@SuppressWarnings("unchecked")
 	private Map<String, Object> find(Map filter, User user, boolean self) throws UnsupportedEncodingException {
-		String name = filter.get("name")==null ? "" : new String(filter.get("name").toString().getBytes("ISO-8859-1"),"UTF-8");
-		String creater = filter.get("creater")==null ? "" : new String(filter.get("creater").toString().getBytes("ISO-8859-1"),"UTF-8");
+		String name = filter.get("name")==null ? "" : filter.get("name").toString();
+		String creater = filter.get("creater")==null ? "" : filter.get("creater").toString();
 		String startDate = filter.get("startDate") == null ? "" : filter.get("startDate").toString();
 		String endDate = filter.get("endDate") == null ? "" : filter.get("endDate").toString();
 		

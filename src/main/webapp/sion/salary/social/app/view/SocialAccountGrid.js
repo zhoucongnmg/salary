@@ -316,7 +316,8 @@ Ext.define('sion.salary.social.view.SocialAccountGrid', {
                 }
             });
         }
-
+        name = encodeURI(encodeURI(name));
+        creater = encodeURI(encodeURI(creater));
         Ext.apply(store.proxy.extraParams, {
             name : name,
             creater : creater,
