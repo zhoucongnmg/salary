@@ -17,5 +17,4 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 public interface LevelRepository extends MongoRepository<Level, String>,
 		PagingAndSortingRepository<Level, String> {
 
-
 }
