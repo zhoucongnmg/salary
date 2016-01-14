@@ -134,7 +134,6 @@ public class SocialAccountController {
 	 * @throws UnsupportedEncodingException 
 	 */
 	@RequestMapping(value = "load")
-//	public @ResponseBody Map<String, Object> load(HttpSession session, int page, int start, int limit,@RequestParam String name, String creater, String startDate, String endDate) throws UnsupportedEncodingException{
 	public @ResponseBody Map<String, Object> load(HttpSession session, @RequestParam Map<String,String> queryBy) throws UnsupportedEncodingException{
 		Map filter = new HashMap();
 		filter.put("page", queryBy.get("page"));
