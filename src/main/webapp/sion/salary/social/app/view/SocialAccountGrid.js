@@ -154,13 +154,41 @@ Ext.define('sion.salary.social.view.SocialAccountGrid', {
                     items: [
                         {
                             handler: function(view, rowIndex, colIndex, item, e, record, row) {
-                                var me = this.up('gridpanel'),
-                                    namespace = me.getNamespace();
+                                // var me = this.up('gridpanel'),
+                                //     namespace = me.getNamespace();
 
-                                var accountMember =  Ext.create(namespace + '.view.AccountMember',{
-                                    _account : record
+                                // var accountMember =  Ext.create(namespace + '.view.AccountMember',{
+                                //     _account : record
+                                // });
+                                // accountMember.show();
+
+                                var me = this.up('gridpanel').up(),
+                                    store = Ext.getStore('InsuredPersonAccount'),
+                                    selectRecords = [],
+                                    personSelection = Ext.create("sion.salary.social.view.SearchPerson",
+                                    {_scope : me, _callback : this.up('gridpanel').selectedCallback}),
+                                    personGrid = personSelection.down('gridpanel'),
+                                    personStore = personGrid.getStore();
+
+                                me._account = record;
+                                store.clearFilter(true);
+                                Ext.apply(store.proxy.extraParams, {
+                                    id : record.get('id')
                                 });
-                                accountMember.show();
+                                store.load({
+                                    callback: function(records, operation, success) {
+                                        personStore.getProxy().setExtraParam("insuredPersonExists", 'true');
+                                        personStore.load({
+                                            callback: function(records, operation, success) {
+                                                personSelection.show();
+                                                Ext.Array.each(store.data.items, function(item){
+                                                    selectRecords.push(personStore.findRecord('id', item.data.id));
+                                                });
+                                                personSelection.down('gridpanel').getSelectionModel().select(selectRecords);
+                                            }
+                                        });
+                                    }
+                                });
                             },
                             iconCls: 's_icon_org_gear',
                             tooltip: '方案成员'
@@ -356,6 +384,67 @@ Ext.define('sion.salary.social.view.SocialAccountGrid', {
     getFullDate: function(day) {
         day = day > 9 ? day : '0' + day;
         return day;
+    },
+
+    selectedCallback: function(person, scope) {
+        // var me = scope,
+        //     namespace = me.getNamespace(),
+        //     account = me._account,
+        //     store = Ext.getStore('InsuredPersonAccount');
+
+        // for(var i = 0; i < person.length; i++){
+        //     if(store.find('id', person[i].data.id) === -1){
+        //         var model = Ext.create(namespace + '.model.InsuredPersonAccount');
+        //         model.data = person[i].data;
+        //         if(model.get('insuredPerson') === ''){
+        //             model.set('insuredPerson', null);
+        //         }else{
+        //             model.get('insuredPerson').accountId = account.get('id');
+        //         }
+        //         store.add(model);
+        //     }
+        // }
+        var me = scope,
+            namespace = me.getNamespace(),
+            account = me._account,
+            store = Ext.getStore('InsuredPersonAccount');
+
+        store.each(function(record){
+            record.phantom = true;
+            if(record.get('insuredPerson') === ''){
+                record.set('insuredPerson', null);
+            }else{
+                record.get('insuredPerson').accountId = '';
+            }
+        });
+        for(var i = 0; i < person.length; i++){
+            var record = store.findRecord('id', person[i].data.id);
+        //     if(store.find('id', person[i].data.id) === -1){
+            if(!record){
+                var model = Ext.create(namespace + '.model.InsuredPersonAccount');
+                model.data = person[i].data;
+                if(model.get('insuredPerson') === ''){
+                    model.set('insuredPerson', null);
+                }else{
+                    model.get('insuredPerson').accountId = account.get('id');
+                }
+                store.add(model);
+            }else{
+                if(record.get('insuredPerson') === ''){
+                    record.set('insuredPerson', null);
+                }else{
+                    record.get('insuredPerson').accountId = account.get('id');
+                }
+            }
+        }
+        store.sync({
+            success: function(response, opts){
+                Ext.Msg.alert("提示", "保存成功");
+            },
+            failure: function(){
+                Ext.Msg.alert("提示", "保存失败");
+            }
+        });
     }
 
 });

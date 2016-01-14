@@ -321,6 +321,7 @@ Ext.define('sion.salary.social.view.PersonAccountGrid', {
             dateUtil = Ext.create(me.getNamespace() + '.controller.DateUtil'),
             startDate=me.down('#from').getValue(),
             endDate=me.down('#to').getValue();
+        store.getProxy().setExtraParam("insuredPersonExists", '');
         store.getProxy().setExtraParam("from",startDate===null?"":dateUtil.format(new Date(startDate),'yyyy-MM-dd'));
         store.getProxy().setExtraParam("to",endDate===null?"":dateUtil.format(new Date(endDate),'yyyy-MM-dd'));
         store.getProxy().setExtraParam("status",me.down('#status').getValue());
@@ -364,7 +365,9 @@ Ext.define('sion.salary.social.view.PersonAccountGrid', {
     onGridpanelAfterRender: function(component, eOpts) {
 
 
-        component.getStore().load();
+        var store = component.getStore();
+        store.getProxy().setExtraParam("insuredPersonExists", '');
+        store.load();
     },
 
     onGridpanelItemDblClick: function(dataview, record, item, index, e, eOpts) {

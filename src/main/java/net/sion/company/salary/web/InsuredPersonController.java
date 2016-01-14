@@ -109,48 +109,12 @@ public class InsuredPersonController {
 	 */
 	@RequestMapping(value = "saveList")
 	public Response saveList(@RequestBody List<PersonAccountFile> persons) {
-		System.out.println(persons.size());
-//		if(persons!=null && persons.size()>0){
-//			removePersons(persons.get(0).getAccountId());
-//		}
 		for (PersonAccountFile person : persons) {
 			personAccountRepo.save(person);
 		}
 		return new Response("操作成功",	true);
 	}
-	@RequestMapping(value = "updateList")
-	public Response updateList(@RequestBody List<PersonAccountFile> persons) {
-		System.out.println(persons.size());
-//		if(persons!=null && persons.size()>0){
-//			removePersons(persons.get(0).getAccountId());
-//		}
-		for (PersonAccountFile person : persons) {
-			personAccountRepo.save(person);
-		}
-		return new Response("操作成功",	true);
-	}
-	@RequestMapping(value = "removeList")
-	public Response removeList(@RequestBody List<PersonAccountFile> persons) {
-		System.out.println(persons.size());
-//		if(persons!=null && persons.size()>0){
-//			removePersons(persons.get(0).getAccountId());
-//		}
-		for (PersonAccountFile person : persons) {
-			personAccountRepo.save(person);
-		}
-		return new Response("操作成功",	true);
-	}
-//	/***
-//	 * add by lil 
-//	 * 修改薪资方案时，先将方案以前绑定的人员置空
-//	 */
-//	private void removePersons(String accountId){
-//		List<PersonAccountFile> persons = personAccountRepo.findByAccountId(accountId);
-//		for(PersonAccountFile person : persons){
-//			person.setAccountId("");
-//			personAccountRepo.save(person);
-//		}
-//	}
+
 	@RequestMapping(value = "getPersonByAccountId")
 	public Response getPersonByAccountId(@RequestParam String id) {
 		List<PersonAccountFile> list = personAccountRepo.findByAccountId(id);
@@ -217,7 +181,10 @@ public class InsuredPersonController {
 	public Response loadInsuredPerson(@RequestBody Map<String,String> paramMap) {
 		return new Response(true);
 	}
-
+//	@RequestMapping(value="load")
+//	public Map<String, Object> load(@RequestParam Map<String,String> queryBy,@RequestParam int  limit,@RequestParam int  start,@RequestParam int  page, HttpSession session) {
+//		return loadSocial(queryBy, limit, start, page, session, false);
+//	}
 	@RequestMapping(value="load")
 	public Map<String, Object> load(@RequestParam Map<String,String> queryBy,@RequestParam int  limit,@RequestParam int  start,@RequestParam int  page, HttpSession session) {
 //		List<PersonAccountFile> personAccountFiles=personAccountRepo.findAll();
@@ -252,6 +219,9 @@ public class InsuredPersonController {
 		}
 		if (StringUtils.isNotEmpty(queryBy.get("to"))) {
 			andCriteria.add(Criteria.where("insuredPerson.insuredDate").lte(queryBy.get("to")));
+		}
+		if (StringUtils.isNotEmpty(queryBy.get("insuredPersonExists"))) {
+			andCriteria.add(Criteria.where("insuredPerson").exists(true));
 		}
 		if (andCriteria.size() > 0) {
 			Criteria[] cs = new Criteria[andCriteria.size()];

@@ -23,7 +23,8 @@
         "genTimestamps": false,
         "cacheBust": false,
         "installStatus": "Not Installed",
-        "displayfield-ExtBox1-1136-inputEl": "a new version of the framework is available"
+        "displayfield-ExtBox1-1136-inputEl": "a new version of the framework is available",
+        "displayfield-ExtBox1-1127-inputEl": "a new version of the framework is available"
     },
     "xdsVersion": "3.2.0",
     "xdsBuild": 239,
