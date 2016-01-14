@@ -135,12 +135,17 @@ public class SocialAccountController {
 	 */
 	@RequestMapping(value = "load")
 	public @ResponseBody Map<String, Object> load(HttpSession session, @RequestParam Map<String,String> queryBy) throws UnsupportedEncodingException{
+		System.out.println("===========================");
 		Map filter = new HashMap();
 		filter.put("page", queryBy.get("page"));
 		filter.put("start", queryBy.get("start"));
 		filter.put("limit", queryBy.get("limit"));
-		filter.put("name", URLDecoder.decode(URLDecoder.decode(queryBy.get("name"), "UTF-8")));
-		filter.put("creater", URLDecoder.decode(URLDecoder.decode(queryBy.get("creater"), "UTF-8")));
+		if(queryBy.get("name")!=null){
+			filter.put("name", URLDecoder.decode(URLDecoder.decode(queryBy.get("name"), "UTF-8")));
+		}
+		if(queryBy.get("creater")!=null){
+			filter.put("creater", URLDecoder.decode(URLDecoder.decode(queryBy.get("creater"), "UTF-8")));
+		}
 		filter.put("startDate", queryBy.get("startDate"));
 		filter.put("endDate", queryBy.get("endDate"));
 		User user = adminService.getUser(session);
