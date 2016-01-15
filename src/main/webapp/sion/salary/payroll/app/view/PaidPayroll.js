@@ -261,7 +261,8 @@ Ext.define('sion.salary.payroll.view.PaidPayroll', {
                                         Ext.create(namespace + '.view.DynamicGrid',{
                                             _id : record.get('id'),
                                             _accountId : record.get('accountId'),
-                                            _record : record
+                                            _record : record,
+                                            _canEdit : false
                                         }).show();
                                     },
                                     iconCls: 's_icon_action_search'

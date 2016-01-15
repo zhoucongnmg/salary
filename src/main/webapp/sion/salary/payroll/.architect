@@ -133,6 +133,9 @@
                             "cn": [
                                 {
                                     "id": "fddb8e60-2298-40f4-b585-ddae13a00659"
+                                },
+                                {
+                                    "id": "9b6c1624-7cb5-4376-a9bf-d28447930ae8"
                                 }
                             ]
                         }
@@ -830,8 +833,8 @@
         "topInstance": null
     },
     "inspectorState": {
-        "topInstance": "2bc9523b-b2ee-42ce-8c53-be649e5bb646",
-        "selectedInstance": "e63dfdff-444f-4029-a6c9-5fa06209a9d1"
+        "topInstance": "88cf984a-a976-4126-b677-6ef701d8331b",
+        "selectedInstance": "9b6c1624-7cb5-4376-a9bf-d28447930ae8"
     },
     "editMode": "code",
     "userSettings": {

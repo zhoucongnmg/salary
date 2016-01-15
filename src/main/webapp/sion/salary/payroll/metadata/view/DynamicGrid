@@ -39,6 +39,7 @@
                     },
                     "codeClass": null,
                     "userConfig": {
+                        "itemId": "saveBtn",
                         "layout|flex": null,
                         "text": "保存"
                     },
@@ -631,6 +632,26 @@
                             },
                             "name": "onRowEditingEdit",
                             "designerId": "fddb8e60-2298-40f4-b585-ddae13a00659"
+                        },
+                        {
+                            "type": "basiceventbinding",
+                            "reference": {
+                                "name": "listeners",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fn": "onRowEditingBeforeEdit",
+                                "implHandler": [
+                                    "var me = this;",
+                                    "return me._canEdit;",
+                                    ""
+                                ],
+                                "name": "beforeedit",
+                                "scope": "me"
+                            },
+                            "name": "onRowEditingBeforeEdit",
+                            "designerId": "9b6c1624-7cb5-4376-a9bf-d28447930ae8"
                         }
                     ]
                 }
@@ -652,8 +673,10 @@
                     "    ns = me.getNamespace(),",
                     "    grid = me.down('grid'),",
                     "    form = me.down('form'),",
+                    "    saveBtn = me.down('#saveBtn'),",
                     "    store = Ext.create(ns+'.store.PayrollItem');",
                     "",
+                    "saveBtn.setVisible(me._canEdit);",
                     "me.setTitle(record.get('subject'));",
                     "form.loadRecord(record);",
                     "me.loadData(id,grid,store);"

@@ -53,6 +53,7 @@ Ext.define('sion.salary.payroll.view.DynamicGrid', {
                     items: [
                         {
                             xtype: 'button',
+                            itemId: 'saveBtn',
                             text: '保存',
                             listeners: {
                                 click: {
@@ -252,6 +253,10 @@ Ext.define('sion.salary.payroll.view.DynamicGrid', {
                                 edit: {
                                     fn: me.onRowEditingEdit,
                                     scope: me
+                                },
+                                beforeedit: {
+                                    fn: me.onRowEditingBeforeEdit,
+                                    scope: me
                                 }
                             }
                         })
@@ -368,6 +373,12 @@ Ext.define('sion.salary.payroll.view.DynamicGrid', {
 
     },
 
+    onRowEditingBeforeEdit: function(editor, context, eOpts) {
+        var me = this;
+        return me._canEdit;
+
+    },
+
     onWindowBeforeRender: function(component, eOpts) {
         var me = this,
             id = me._id,
@@ -375,8 +386,10 @@ Ext.define('sion.salary.payroll.view.DynamicGrid', {
             ns = me.getNamespace(),
             grid = me.down('grid'),
             form = me.down('form'),
+            saveBtn = me.down('#saveBtn'),
             store = Ext.create(ns+'.store.PayrollItem');
 
+        saveBtn.setVisible(me._canEdit);
         me.setTitle(record.get('subject'));
         form.loadRecord(record);
         me.loadData(id,grid,store);
