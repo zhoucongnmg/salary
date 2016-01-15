@@ -318,7 +318,13 @@ Ext.define('sion.salary.social.view.PersonAccountForm', {
                                             dataIndex: 'personValue',
                                             text: '个人值',
                                             editor: {
-                                                xtype: 'numberfield'
+                                                xtype: 'numberfield',
+                                                listeners: {
+                                                    change: {
+                                                        fn: me.onNumberfieldChange,
+                                                        scope: me
+                                                    }
+                                                }
                                             }
                                         },
                                         {
@@ -350,7 +356,13 @@ Ext.define('sion.salary.social.view.PersonAccountForm', {
                                     plugins: [
                                         Ext.create('Ext.grid.plugin.RowEditing', {
                                             cancelBtnText: '取消',
-                                            saveBtnText: '保存'
+                                            saveBtnText: '保存',
+                                            listeners: {
+                                                edit: {
+                                                    fn: me.onRowEditingEdit,
+                                                    scope: me
+                                                }
+                                            }
                                         })
                                     ]
                                 },
@@ -618,6 +630,7 @@ Ext.define('sion.salary.social.view.PersonAccountForm', {
         config.rootVisible=false;
         config.width=240;
         config.store=Ext.StoreManager.lookup("DeptSetting");
+        console.log("deptId");
         return config;
     },
 
@@ -743,19 +756,32 @@ Ext.define('sion.salary.social.view.PersonAccountForm', {
 
     },
 
+    onNumberfieldChange: function(field, newValue, oldValue, eOpts) {
+
+    },
+
+    onRowEditingEdit: function(editor, context, eOpts) {
+
+    },
+
     onWindowAfterRender: function(component, eOpts) {
         //load combobox
         var me=this,
             level=me.down('#level'),
             accountId=me.down('#accountId'),
-            socialAccount=me.down('#socialAccount');
+            socialAccount=me.down('#socialAccount'),
+            deptStore=Ext.StoreManager.lookup("DeptSetting");
+        // level.getStore().load();
+        // accountId.getStore().load();
+        // socialAccount.getStore().load();
+        deptStore.load({synchronous:true,callback: function(records, operation, success) {
+            level.getStore().load({synchronous:true,callback: function(records, operation, success) {
+                accountId.getStore().load({synchronous:true,callback: function(records, operation, success) {
+                    socialAccount.getStore().load({synchronous:true,callback: function(records, operation, success) {
+                        me.echo(me);
+                    }});
 
-        level.getStore().load({synchronous:true,callback: function(records, operation, success) {
-            accountId.getStore().load({synchronous:true,callback: function(records, operation, success) {
-                socialAccount.getStore().load({synchronous:true,callback: function(records, operation, success) {
-                    me.echo(me);
                 }});
-
             }});
         }});
 
@@ -882,7 +908,7 @@ Ext.define('sion.salary.social.view.PersonAccountForm', {
             level=me.down('#level'),
             accountId=me.down('#accountId'),
             socialAccount=me.down('#socialAccount');
-        if(me._record){
+        if(me._record){console.log("echo");
             salaryForm.getForm().setValues(me._record.data);
             socialForm.getForm().setValues(me._record.data.insuredPerson);
             salaryItemStore.removeAll();

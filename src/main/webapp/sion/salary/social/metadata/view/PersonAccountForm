@@ -316,6 +316,7 @@
                                             "config.rootVisible=false;",
                                             "config.width=240;",
                                             "config.store=Ext.StoreManager.lookup(\"DeptSetting\");",
+                                            "console.log(\"deptId\");",
                                             "return config;"
                                         ]
                                     },
@@ -846,7 +847,24 @@
                                             },
                                             "codeClass": null,
                                             "name": "MyNumberField3",
-                                            "designerId": "98b16eba-e8b6-4a63-abf8-47df5458d8d1"
+                                            "designerId": "98b16eba-e8b6-4a63-abf8-47df5458d8d1",
+                                            "cn": [
+                                                {
+                                                    "type": "basiceventbinding",
+                                                    "reference": {
+                                                        "name": "listeners",
+                                                        "type": "array"
+                                                    },
+                                                    "codeClass": null,
+                                                    "userConfig": {
+                                                        "fn": "onNumberfieldChange",
+                                                        "name": "change",
+                                                        "scope": "me"
+                                                    },
+                                                    "name": "onNumberfieldChange",
+                                                    "designerId": "f03ed120-57f3-4b66-96f9-05cf29fd964a"
+                                                }
+                                            ]
                                         },
                                         {
                                             "type": "fixedfunction",
@@ -978,6 +996,23 @@
                                             "group": "(Custom Properties)",
                                             "name": "saveBtnText",
                                             "type": "string"
+                                        }
+                                    ],
+                                    "cn": [
+                                        {
+                                            "type": "basiceventbinding",
+                                            "reference": {
+                                                "name": "listeners",
+                                                "type": "array"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "fn": "onRowEditingEdit",
+                                                "name": "edit",
+                                                "scope": "me"
+                                            },
+                                            "name": "onRowEditingEdit",
+                                            "designerId": "d1531052-8ac2-4b9c-b700-cb10dbafb9f0"
                                         }
                                     ]
                                 }
@@ -1588,14 +1623,19 @@
                     "var me=this,",
                     "    level=me.down('#level'),",
                     "    accountId=me.down('#accountId'),",
-                    "    socialAccount=me.down('#socialAccount');",
+                    "    socialAccount=me.down('#socialAccount'),",
+                    "    deptStore=Ext.StoreManager.lookup(\"DeptSetting\");",
+                    "// level.getStore().load();",
+                    "// accountId.getStore().load();",
+                    "// socialAccount.getStore().load();",
+                    "deptStore.load({synchronous:true,callback: function(records, operation, success) {",
+                    "    level.getStore().load({synchronous:true,callback: function(records, operation, success) {",
+                    "        accountId.getStore().load({synchronous:true,callback: function(records, operation, success) {",
+                    "            socialAccount.getStore().load({synchronous:true,callback: function(records, operation, success) {",
+                    "                me.echo(me);",
+                    "            }});",
                     "",
-                    "level.getStore().load({synchronous:true,callback: function(records, operation, success) {",
-                    "    accountId.getStore().load({synchronous:true,callback: function(records, operation, success) {",
-                    "        socialAccount.getStore().load({synchronous:true,callback: function(records, operation, success) {",
-                    "            me.echo(me);",
                     "        }});",
-                    "",
                     "    }});",
                     "}});",
                     "",
@@ -1837,7 +1877,7 @@
                     "    level=me.down('#level'),",
                     "    accountId=me.down('#accountId'),",
                     "    socialAccount=me.down('#socialAccount');",
-                    "if(me._record){",
+                    "if(me._record){console.log(\"echo\");",
                     "    salaryForm.getForm().setValues(me._record.data);",
                     "    socialForm.getForm().setValues(me._record.data.insuredPerson);",
                     "    salaryItemStore.removeAll();",
