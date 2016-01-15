@@ -83,20 +83,27 @@ Ext.define('sion.salary.accounts.view.AddSalaryItem', {
                             xtype: 'fieldset',
                             height: 381,
                             width: 300,
+                            autoScroll: true,
                             title: '项目',
+                            layout: {
+                                type: 'vbox',
+                                align: 'stretch'
+                            },
                             items: [
                                 {
                                     xtype: 'checkboxfield',
-                                    anchor: '100%',
+                                    width: 150,
                                     hideEmptyLabel: false,
+                                    labelWidth: 50,
                                     name: 'show',
                                     boxLabel: '在工资条中显示'
                                 },
                                 {
                                     xtype: 'combobox',
-                                    anchor: '100%',
                                     itemId: 'type',
+                                    width: 150,
                                     fieldLabel: '类型',
+                                    labelWidth: 50,
                                     name: 'type',
                                     displayField: 'name',
                                     store: 'AccountItemType',
@@ -110,6 +117,7 @@ Ext.define('sion.salary.accounts.view.AddSalaryItem', {
                                 },
                                 {
                                     xtype: 'gridpanel',
+                                    flex: 1,
                                     header: false,
                                     store: 'SalaryItem',
                                     columns: [

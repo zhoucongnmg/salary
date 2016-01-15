@@ -287,7 +287,10 @@
                     },
                     "codeClass": null,
                     "userConfig": {
+                        "autoScroll": true,
+                        "container|align": "stretch",
                         "height": 381,
+                        "layout": "vbox",
                         "title": "项目",
                         "width": 300
                     },
@@ -305,8 +308,9 @@
                                 "boxLabel": "在工资条中显示",
                                 "fieldLabel": null,
                                 "hideEmptyLabel": false,
-                                "layout|anchor": "100%",
-                                "name": "show"
+                                "labelWidth": 50,
+                                "name": "show",
+                                "width": 150
                             },
                             "name": "MyCheckbox2",
                             "designerId": "fc142102-069d-461e-b34f-c066c988f4cf"
@@ -322,10 +326,11 @@
                                 "displayField": "name",
                                 "fieldLabel": "类型",
                                 "itemId": "type",
-                                "layout|anchor": "100%",
+                                "labelWidth": 50,
                                 "name": "type",
                                 "store": "AccountItemType",
-                                "valueField": "id"
+                                "valueField": "id",
+                                "width": 150
                             },
                             "name": "MyComboBox2",
                             "designerId": "598a0e7e-ad90-4f71-8804-a96f7e773386",
@@ -386,7 +391,9 @@
                             },
                             "codeClass": null,
                             "userConfig": {
+                                "autoScroll": null,
                                 "header": false,
+                                "layout|flex": 1,
                                 "store": "SalaryItem",
                                 "title": null
                             },

@@ -295,9 +295,9 @@ Ext.define('sion.salary.accounts.view.SalaryPlan', {
         taxStore.load({
             callback: function(records, operation, success) {
                 win = Ext.ComponentQuery.query('#AddSalaryItem')[0];
-        //         if(win){
-        //             win.close();
-        //         }
+                //         if(win){
+                //             win.close();
+                //         }
                 if(!win){
                     win = Ext.create(namespace + ".view.AddSalaryItem", {
                         _accountItem : record,
