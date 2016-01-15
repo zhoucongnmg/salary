@@ -246,12 +246,12 @@ Ext.define('sion.salary.tax.view.Tax', {
             itemGrid = me.down('#itemGrid'),
             store = itemGrid.getStore();
 
-        if(threshold === 0){
-            Ext.Msg.alert('', '请输入起征点');
-            return false;
-        }
+        // if(threshold === 0){
+        //     Ext.Msg.alert('', '请输入起征点');
+        //     return false;
+        // }
         panel =  Ext.create(namespace + '.view.TaxItem',{
-            _threshold : threshold,
+            _threshold : 0,
             _itemStore : store
         });
         panel.show();

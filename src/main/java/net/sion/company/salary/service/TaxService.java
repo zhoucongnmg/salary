@@ -15,9 +15,12 @@ public class TaxService {
 	
 	public Double getFastNumber(String taxId, Double value){
 		Tax tax = taxRepository.findOne(taxId);
+		value = tax.getThreshold();
 		List<TaxItem> list = tax.getTaxItems();
 		for(TaxItem item : list){
 			if(item.getStart() <= value && item.getEnd() >= value){
+				value = value * item.getRate() * 0.01;
+				value = value - item.getFastNumber();
 				return item.getFastNumber();
 			}
 		}
