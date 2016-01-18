@@ -139,6 +139,10 @@ public class PayrollController {
 		map.put("name", "dept");
 		map.put("type", "string");
 		fields.add(map);
+		map = new HashMap<String, Object>();
+		map.put("name", "personCode");
+		map.put("type", "string");
+		fields.add(map);
 		
 		if (opts!=null) {
 			if ("on".equals(opts.get("showCompanySocial"))||"on".equals(opts.get("showPersonalSocial"))) {
@@ -180,6 +184,12 @@ public class PayrollController {
 
 	public List<Map<String, Object>> fillSimpleColumns(List<Map<String, Object>> columns,Map<String,String> opts) {
 		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("header", "员工编号");
+		map.put("dataIndex", "personCode");
+		map.put("coltype", "readonly");
+		map.put("dataType", "simple");
+		columns.add(map);
+		map = new HashMap<String, Object>();
 		map.put("header", "姓名");
 		map.put("dataIndex", "name");
 		map.put("coltype", "readonly");
@@ -308,6 +318,7 @@ public class PayrollController {
 					personMap.put("name", person.getName());
 					personMap.put("duty", person.getDuty());
 					personMap.put("dept", person.getDept());
+					personMap.put("personCode", person.getPersonCode());
 					
 					PersonExtension<SocialAccountItem> personExtension = personSocialMap.get(person.getId());
 					if (personExtension!=null) {
