@@ -121,29 +121,38 @@ Ext.define('sion.salary.payroll.view.DynamicGrid', {
                         },
                         {
                             xtype: 'displayfield',
+                            renderer: function(value, displayField) {
+                                return Ext.util.Format.date(value, 'Y年m月');
+                            },
                             columnWidth: 0.17,
                             padding: '0 0 0 20',
                             fieldLabel: '薪资月份',
                             labelWidth: 60,
-                            name: 'monthFmt',
+                            name: 'month',
                             value: ''
                         },
                         {
                             xtype: 'displayfield',
+                            renderer: function(value, displayField) {
+                                return Ext.util.Format.date(value, 'Y年m月');
+                            },
                             columnWidth: 0.17,
                             padding: '0 0 0 20',
                             fieldLabel: '社保扣费月',
                             labelWidth: 70,
-                            name: 'socialCostMonthFmt',
+                            name: 'socialCostMonth',
                             value: ''
                         },
                         {
                             xtype: 'displayfield',
+                            renderer: function(value, displayField) {
+                                return Ext.Object.getSize(value);
+                            },
                             columnWidth: 0.16,
                             padding: '0 0 0 20',
                             fieldLabel: '人员总数',
                             labelWidth: 60,
-                            name: 'personSize',
+                            name: 'persons',
                             value: ''
                         }
                     ]

@@ -285,12 +285,34 @@
                         "fieldLabel": "薪资月份",
                         "labelWidth": 60,
                         "layout|columnWidth": 0.17,
-                        "name": "monthFmt",
+                        "name": "month",
                         "padding": "0 0 0 20",
                         "value": ""
                     },
                     "name": "MyDisplayField2",
-                    "designerId": "c16d64d8-611f-4569-99b2-a4c31b86c444"
+                    "designerId": "c16d64d8-611f-4569-99b2-a4c31b86c444",
+                    "cn": [
+                        {
+                            "type": "fixedfunction",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "designer|params": [
+                                    "value",
+                                    "displayField"
+                                ],
+                                "fn": "renderer",
+                                "implHandler": [
+                                    "return Ext.util.Format.date(value, 'Y年m月');"
+                                ]
+                            },
+                            "name": "renderer",
+                            "designerId": "2efe3dc8-006b-4a15-9595-d1eeea08c664"
+                        }
+                    ]
                 },
                 {
                     "type": "Ext.form.field.Display",
@@ -303,12 +325,34 @@
                         "fieldLabel": "社保扣费月",
                         "labelWidth": 70,
                         "layout|columnWidth": 0.17,
-                        "name": "socialCostMonthFmt",
+                        "name": "socialCostMonth",
                         "padding": "0 0 0 20",
                         "value": ""
                     },
                     "name": "MyDisplayField3",
-                    "designerId": "22cb8338-c1eb-42d6-b789-15f697d30872"
+                    "designerId": "22cb8338-c1eb-42d6-b789-15f697d30872",
+                    "cn": [
+                        {
+                            "type": "fixedfunction",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "designer|params": [
+                                    "value",
+                                    "displayField"
+                                ],
+                                "fn": "renderer",
+                                "implHandler": [
+                                    "return Ext.util.Format.date(value, 'Y年m月');"
+                                ]
+                            },
+                            "name": "renderer",
+                            "designerId": "1e43bf32-986b-4b65-9449-896d44dc56bd"
+                        }
+                    ]
                 },
                 {
                     "type": "Ext.form.field.Display",
@@ -321,12 +365,34 @@
                         "fieldLabel": "人员总数",
                         "labelWidth": 60,
                         "layout|columnWidth": 0.16,
-                        "name": "personSize",
+                        "name": "persons",
                         "padding": "0 0 0 20",
                         "value": ""
                     },
                     "name": "MyDisplayField4",
-                    "designerId": "e5f932f8-12be-48d3-b657-c74bb3343800"
+                    "designerId": "e5f932f8-12be-48d3-b657-c74bb3343800",
+                    "cn": [
+                        {
+                            "type": "fixedfunction",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "designer|params": [
+                                    "value",
+                                    "displayField"
+                                ],
+                                "fn": "renderer",
+                                "implHandler": [
+                                    "return Ext.Object.getSize(value);"
+                                ]
+                            },
+                            "name": "renderer",
+                            "designerId": "d6747d1c-d67b-4d2b-870f-ff902545cc86"
+                        }
+                    ]
                 }
             ]
         },
