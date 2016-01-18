@@ -40,8 +40,7 @@ Ext.define('sion.salary.social.view.SearchPerson', {
                 {
                     xtype: 'gridpanel',
                     header: false,
-                    title: 'My Grid Panel',
-                    store: 'PersonAccountStore',
+                    store: 'PersonAccountSearch',
                     columns: [
                         {
                             xtype: 'gridcolumn',
@@ -130,9 +129,9 @@ Ext.define('sion.salary.social.view.SearchPerson', {
     },
 
     onWindowAfterRender: function(component, eOpts) {
-        var me=this,
-            grid=me.down('gridpanel');
-        grid.getStore().load();
+        // var me=this,
+        //     grid=me.down('gridpanel');
+        // grid.getStore().load();
     }
 
 });

@@ -54,7 +54,8 @@ Ext.application({
         'PersonSocialItem',
         'InsuredPersonAccount',
         'SocialAccountAll',
-        'ChooseStore'
+        'ChooseStore',
+        'PersonAccountSearch'
     ],
     views: [
         'PersonAccountGrid',

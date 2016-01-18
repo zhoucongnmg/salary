@@ -177,7 +177,8 @@ Ext.define('sion.salary.social.view.SocialAccountGrid', {
                                 });
                                 store.load({
                                     callback: function(records, operation, success) {
-                                        personStore.getProxy().setExtraParam("insuredPersonExists", 'true');
+                                        personStore.getProxy().extraParams = {insuredPersonExists : 'true',
+                                        loadAll : 'true'};
                                         personStore.load({
                                             callback: function(records, operation, success) {
                                                 personSelection.show();

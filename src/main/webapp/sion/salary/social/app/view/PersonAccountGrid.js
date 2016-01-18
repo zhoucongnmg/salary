@@ -327,7 +327,7 @@ Ext.define('sion.salary.social.view.PersonAccountGrid', {
         store.getProxy().setExtraParam("status",me.down('#status').getValue());
         store.getProxy().setExtraParam("salaryAccount",me.down('#salaryAccount').getValue());
         store.getProxy().setExtraParam("socialAccount",me.down('#socialAccount').getValue());
-
+        store.getProxy().setExtraParam("loadAll", '');
         store.reload();
     },
 
@@ -367,6 +367,7 @@ Ext.define('sion.salary.social.view.PersonAccountGrid', {
 
         var store = component.getStore();
         store.getProxy().setExtraParam("insuredPersonExists", '');
+        store.getProxy().setExtraParam("loadAll", '');
         store.load();
     },
 

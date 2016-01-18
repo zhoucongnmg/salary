@@ -189,7 +189,7 @@ public class InsuredPersonController {
 	public Map<String, Object> load(@RequestParam Map<String,String> queryBy,@RequestParam int  limit,@RequestParam int  start,@RequestParam int  page, HttpSession session) {
 //		List<PersonAccountFile> personAccountFiles=personAccountRepo.findAll();
 //		return new Response("操作成功", personAccountFiles, true);
-		
+		boolean loadAll = false;
 		Map<String, Object> mapResult = new HashMap<String, Object>();
 		long count=0;
 		page = page - 1;
@@ -223,6 +223,10 @@ public class InsuredPersonController {
 		if (StringUtils.isNotEmpty(queryBy.get("insuredPersonExists"))) {
 			andCriteria.add(Criteria.where("insuredPerson").exists(true));
 		}
+		if (StringUtils.isNotEmpty(queryBy.get("loadAll"))) {
+			loadAll = true;
+		}
+		
 		if (andCriteria.size() > 0) {
 			Criteria[] cs = new Criteria[andCriteria.size()];
 			criteria.andOperator(andCriteria.toArray(cs));
@@ -230,8 +234,10 @@ public class InsuredPersonController {
 		query.addCriteria(criteria);
 		
 		count = dmt.count(query, PersonAccountFile.class);
-		query.skip(pageable.getOffset());// skip相当于从那条记录开始
-		query.limit(pageable.getPageSize());// 从skip开始,取多少条记录
+		if(!loadAll){
+			query.skip(pageable.getOffset());// skip相当于从那条记录开始
+			query.limit(pageable.getPageSize());// 从skip开始,取多少条记录
+		}
 		query.with(sort);
 		
 		List<PersonAccountFile> list = dmt.find(query, PersonAccountFile.class, "Company_Salary_PersonAccountFile");

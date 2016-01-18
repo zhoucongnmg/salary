@@ -119,7 +119,7 @@ Ext.define('sion.salary.accounts.view.AddSalaryItem', {
                                     xtype: 'gridpanel',
                                     flex: 1,
                                     header: false,
-                                    store: 'SalaryItem',
+                                    store: 'SalaryItemAccount',
                                     columns: [
                                         {
                                             xtype: 'gridcolumn',
@@ -349,7 +349,7 @@ Ext.define('sion.salary.accounts.view.AddSalaryItem', {
 
     onTypeChange: function(field, newValue, oldValue, eOpts) {
         var me = this,
-            store = Ext.getStore('SalaryItem'),
+            store = Ext.getStore('SalaryItemAccount'),
             window = field.up("window");
 
         if('Calculate' == newValue){

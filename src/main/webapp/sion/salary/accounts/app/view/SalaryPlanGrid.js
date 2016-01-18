@@ -115,6 +115,7 @@ Ext.define('sion.salary.accounts.view.SalaryPlanGrid', {
                                         store.load({
                                             callback: function(records, operation, success) {
                                                 personStore.getProxy().setExtraParam("insuredPersonExists", '');
+                                                personStore.getProxy().setExtraParam("loadAll", 'true');
                                                 personStore.load({
                                                     callback: function(records, operation, success) {
                                                         personSelection.show();

@@ -268,7 +268,7 @@ Ext.define('sion.salary.accounts.view.SalaryPlan', {
 
     onWindowBeforeRender: function(component, eOpts) {
         var me = this,
-            store = Ext.getStore('SalaryItem');
+            store = Ext.getStore('SalaryItemAccount');
 
         store.clearFilter(true);
         Ext.apply(store.proxy.extraParams, {

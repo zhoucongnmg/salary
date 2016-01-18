@@ -517,7 +517,7 @@
                 "fn": "onWindowBeforeRender",
                 "implHandler": [
                     "var me = this,",
-                    "    store = Ext.getStore('SalaryItem');",
+                    "    store = Ext.getStore('SalaryItemAccount');",
                     "",
                     "store.clearFilter(true);",
                     "Ext.apply(store.proxy.extraParams, {",

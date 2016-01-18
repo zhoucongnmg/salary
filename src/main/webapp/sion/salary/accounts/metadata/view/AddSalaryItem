@@ -346,7 +346,7 @@
                                         "fn": "onTypeChange",
                                         "implHandler": [
                                             "var me = this,",
-                                            "    store = Ext.getStore('SalaryItem'),",
+                                            "    store = Ext.getStore('SalaryItemAccount'),",
                                             "    window = field.up(\"window\");",
                                             "",
                                             "if('Calculate' == newValue){",
@@ -394,7 +394,7 @@
                                 "autoScroll": null,
                                 "header": false,
                                 "layout|flex": 1,
-                                "store": "SalaryItem",
+                                "store": "SalaryItemAccount",
                                 "title": null
                             },
                             "name": "MyGridPanel3",
