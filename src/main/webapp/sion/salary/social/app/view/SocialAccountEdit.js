@@ -137,7 +137,7 @@ Ext.define('sion.salary.social.view.SocialAccountEdit', {
                             xtype: 'gridcolumn',
                             renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
                                 if(record.get('companyPaymentType') == 'Percent'){
-                                    return parseFloat(value)  * 100 + '%';
+                                    return (Number(value)  * 100).toFixed(2) + '%';
                                 }
                                 return value;
                             },
@@ -149,7 +149,7 @@ Ext.define('sion.salary.social.view.SocialAccountEdit', {
                             xtype: 'gridcolumn',
                             renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
                                 if(record.get('personalPaymentType') == 'Percent'){
-                                    return parseFloat(value)  * 100 + '%';
+                                    return (Number(value)  * 100).toFixed(2) + '%';
                                 }
                                 return value;
                             },

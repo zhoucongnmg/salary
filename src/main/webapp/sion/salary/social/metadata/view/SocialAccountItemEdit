@@ -82,10 +82,12 @@
                                     "record.set('item', item.get('item'));",
                                     "",
                                     "if(record.get('companyPaymentType') == 'Percent'){",
-                                    "    record.set('companyPaymentValue',Number(record.get('companyPaymentValue')) * 0.01);",
+                                    "     record.set('companyPaymentValue',Number(Number(record.get('companyPaymentValue')) * 0.01).toFixed(4));",
+                                    "//     record.set('companyPaymentValue',parseFloat(record.get('companyPaymentValue')) * 0.01);",
                                     "}",
                                     "if(record.get('personalPaymentType') == 'Percent'){",
-                                    "    record.set('personalPaymentValue',Number((Number(record.get('personalPaymentValue')) * 0.01)).toFixed(2));",
+                                    "     record.set('personalPaymentValue',Number(Number(record.get('personalPaymentValue')) * 0.01).toFixed(4));",
+                                    "//     record.set('personalPaymentValue',parseFloat(record.get('personalPaymentValue')) * 0.01);",
                                     "}",
                                     "",
                                     "if(record.get('id') === ''){",
@@ -376,6 +378,27 @@
             },
             "name": "onWindowBeforeRender",
             "designerId": "7f4fa6b5-5165-4776-aabf-6c5134dd7ea5"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|params": [
+                    "f",
+                    "digit"
+                ],
+                "fn": "accMul",
+                "implHandler": [
+                    "var m = Math.pow(10, digit);",
+                    "return parseFloat(f * m, 10) / m;"
+                ]
+            },
+            "name": "accMul",
+            "designerId": "48a7e2ad-8258-4bb2-91cd-d1d963bb27a2"
         }
     ]
 }

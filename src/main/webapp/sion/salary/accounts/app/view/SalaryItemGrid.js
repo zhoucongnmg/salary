@@ -20,6 +20,7 @@ Ext.define('sion.salary.accounts.view.SalaryItemGrid', {
     requires: [
         'Ext.toolbar.Toolbar',
         'Ext.button.Button',
+        'Ext.grid.RowNumberer',
         'Ext.grid.column.Action',
         'Ext.grid.View'
     ],
@@ -53,6 +54,11 @@ Ext.define('sion.salary.accounts.view.SalaryItemGrid', {
                 }
             ],
             columns: [
+                {
+                    xtype: 'rownumberer',
+                    text: '序号',
+                    flex: 0.5
+                },
                 {
                     xtype: 'gridcolumn',
                     dataIndex: 'name',

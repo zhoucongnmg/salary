@@ -354,7 +354,7 @@
                                 "fn": "renderer",
                                 "implHandler": [
                                     "if(record.get('companyPaymentType') == 'Percent'){",
-                                    "    return parseFloat(value)  * 100 + '%';",
+                                    "    return (Number(value)  * 100).toFixed(2) + '%';",
                                     "}",
                                     "return value;"
                                 ]
@@ -399,7 +399,7 @@
                                 "fn": "renderer",
                                 "implHandler": [
                                     "if(record.get('personalPaymentType') == 'Percent'){",
-                                    "    return parseFloat(value)  * 100 + '%';",
+                                    "    return (Number(value)  * 100).toFixed(2) + '%';",
                                     "}",
                                     "return value;"
                                 ]

@@ -190,10 +190,12 @@ Ext.define('sion.salary.social.view.SocialAccountItemEdit', {
         record.set('item', item.get('item'));
 
         if(record.get('companyPaymentType') == 'Percent'){
-            record.set('companyPaymentValue',Number(record.get('companyPaymentValue')) * 0.01);
+             record.set('companyPaymentValue',Number(Number(record.get('companyPaymentValue')) * 0.01).toFixed(4));
+        //     record.set('companyPaymentValue',parseFloat(record.get('companyPaymentValue')) * 0.01);
         }
         if(record.get('personalPaymentType') == 'Percent'){
-            record.set('personalPaymentValue',Number((Number(record.get('personalPaymentValue')) * 0.01)).toFixed(2));
+             record.set('personalPaymentValue',Number(Number(record.get('personalPaymentValue')) * 0.01).toFixed(4));
+        //     record.set('personalPaymentValue',parseFloat(record.get('personalPaymentValue')) * 0.01);
         }
 
         if(record.get('id') === ''){
@@ -258,6 +260,11 @@ Ext.define('sion.salary.social.view.SocialAccountItemEdit', {
                 component.setValue('0.00');
             });
         }
+    },
+
+    accMul: function(f, digit) {
+        var m = Math.pow(10, digit);
+        return parseFloat(f * m, 10) / m;
     }
 
 });
