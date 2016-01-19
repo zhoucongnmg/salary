@@ -845,7 +845,9 @@ Ext.define('sion.salary.social.view.PersonAccountForm', {
             if(account.data.id===newValue){
                 var items=account.data.socialAccountItems;
                 Ext.Array.each(items,function(item){
-                    gridStore.add(Ext.create(namespace+".model.PersonSocialItem",item));
+                    var rowData=Ext.create(namespace+".model.PersonSocialItem",item);
+                    rowData.set("socialItemName",item.name);
+                    gridStore.add(rowData);
                 });
             }
         });
