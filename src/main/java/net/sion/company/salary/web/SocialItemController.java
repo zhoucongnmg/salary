@@ -55,12 +55,12 @@ public class SocialItemController {
 		if(item.getId() == null || "".equals(item.getId())){
 			item.setId(new ObjectId().toString());
 			//将项目添加到系统提取项中
-			String str = "公积金";
-			if(item.getItem() == ItemType.SocialItem){
-				str = "社保";
-			}
-			SystemSalaryItem itemp = new SystemSalaryItem(SystemSalaryItemEnum.AccountItem, "个人"+ str +"合计", item.getId(), SystemSalaryItemType.Personal);
-			SystemSalaryItem itemc = new SystemSalaryItem(SystemSalaryItemEnum.AccountItem, "公司"+ str +"合计", item.getId(), SystemSalaryItemType.Company);
+//			String str = "公积金";
+//			if(item.getItem() == ItemType.SocialItem){
+//				str = "社保";
+//			}
+			SystemSalaryItem itemp = new SystemSalaryItem(SystemSalaryItemEnum.AccountItem, item.getName() + " - 个人缴纳", item.getId(), SystemSalaryItemType.Personal);
+			SystemSalaryItem itemc = new SystemSalaryItem(SystemSalaryItemEnum.AccountItem, item.getName() + " - 单位缴纳", item.getId(), SystemSalaryItemType.Company);
 			systemSalaryItemRepository.save(itemp);
 			systemSalaryItemRepository.save(itemc);
 		}

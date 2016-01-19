@@ -35,6 +35,7 @@ public class SystemSalaryItem extends SalaryItem {
 		super.type = SalaryItemType.System;
 		this.category = category;
 		this.systemType = systemType;
+		this.item = ItemType.SalaryItem;
 	}
 	
 	public SystemSalaryItem(SystemSalaryItemEnum category, String name,String itemId,SystemSalaryItemType systemType) {
