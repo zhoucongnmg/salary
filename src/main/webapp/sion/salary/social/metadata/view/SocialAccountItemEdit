@@ -378,27 +378,6 @@
             },
             "name": "onWindowBeforeRender",
             "designerId": "7f4fa6b5-5165-4776-aabf-6c5134dd7ea5"
-        },
-        {
-            "type": "basicfunction",
-            "reference": {
-                "name": "items",
-                "type": "array"
-            },
-            "codeClass": null,
-            "userConfig": {
-                "designer|params": [
-                    "f",
-                    "digit"
-                ],
-                "fn": "accMul",
-                "implHandler": [
-                    "var m = Math.pow(10, digit);",
-                    "return parseFloat(f * m, 10) / m;"
-                ]
-            },
-            "name": "accMul",
-            "designerId": "48a7e2ad-8258-4bb2-91cd-d1d963bb27a2"
         }
     ]
 }

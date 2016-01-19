@@ -137,7 +137,10 @@ Ext.define('sion.salary.social.view.SocialAccountEdit', {
                             xtype: 'gridcolumn',
                             renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
                                 if(record.get('companyPaymentType') == 'Percent'){
-                                    return (Number(value)  * 100).toFixed(2) + '%';
+                                    var str = value + '';
+                                    if(str.split(".").length > 1){
+                                        return (Number(value)  * 100).toFixed(str.split(".")[1].length - 2 > 0 ? str.split(".")[1].length - 2 : 0) + '%';
+                                    }
                                 }
                                 return value;
                             },
@@ -149,7 +152,10 @@ Ext.define('sion.salary.social.view.SocialAccountEdit', {
                             xtype: 'gridcolumn',
                             renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
                                 if(record.get('personalPaymentType') == 'Percent'){
-                                    return (Number(value)  * 100).toFixed(2) + '%';
+                                    var str = value + '';
+                                    if(str.split(".").length > 1){
+                                        return (Number(value)  * 100).toFixed(str.split(".")[1].length - 2 > 0 ? str.split(".")[1].length - 2 : 0) + '%';
+                                    }
                                 }
                                 return value;
                             },

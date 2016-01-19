@@ -260,11 +260,6 @@ Ext.define('sion.salary.social.view.SocialAccountItemEdit', {
                 component.setValue('0.00');
             });
         }
-    },
-
-    accMul: function(f, digit) {
-        var m = Math.pow(10, digit);
-        return parseFloat(f * m, 10) / m;
     }
 
 });
