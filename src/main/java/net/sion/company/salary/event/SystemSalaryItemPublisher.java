@@ -14,31 +14,26 @@ import net.sion.company.salary.domain.SystemSalaryItem;
 import net.sion.company.salary.event.SystemSalaryItemEvent.SystemSalaryItemEventType;
 
 @Service
-public class SystemSalaryItemPublisher implements ApplicationEventPublisherAware,ApplicationContextAware {
+public class SystemSalaryItemPublisher implements ApplicationContextAware {
 	
 
-	private ApplicationEventPublisher publisher;
 	private ApplicationContext context;
 
 	
-	@Override
-	public void setApplicationEventPublisher(ApplicationEventPublisher applicationEventPublisher) {
-		publisher = applicationEventPublisher;
-	}
 	
 	public void getValue(SystemSalaryItem item, String personId) {
 		SystemSalaryItemEvent e = new SystemSalaryItemEvent(this,item,personId,SystemSalaryItemEventType.GetValue);
-		publisher.publishEvent(e);
+		this.context.publishEvent(e);
 	}
 	
 	public void getValue(SystemSalaryItem item, String personId, String deptId) {
 		SystemSalaryItemEvent e = new SystemSalaryItemEvent(this,item,personId,deptId,SystemSalaryItemEventType.GetValue);
-		publisher.publishEvent(e);
+		this.context.publishEvent(e);
 	}
 	
 	public void getValue(SystemSalaryItem item, String userId, String personId, String companyId, String deptId, Date date) {
 		SystemSalaryItemEvent e = new SystemSalaryItemEvent(this,item,userId,personId,companyId,deptId,date,SystemSalaryItemEventType.GetValue);
-		publisher.publishEvent(e);
+		this.context.publishEvent(e);
 	}
 	
 	public List<SystemSalaryItem> regist() {
