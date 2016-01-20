@@ -30,6 +30,7 @@ import net.sion.core.admin.domain.User;
 import net.sion.core.admin.service.AdminService;
 import net.sion.util.mvc.Response;
 
+import org.apache.commons.lang3.StringUtils;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -108,6 +109,23 @@ public class AccountController {
 		}
 		accountRepository.save(account);
 		return new Response(true);
+	}
+	@RequestMapping(value = "validateName")
+	public @ResponseBody Response validateName(HttpSession session, @RequestParam Map<String, String> map) {
+		List<Account> list = accountRepository.findByName(map.get("name"));
+		if(list.size()>1){
+			return new Response(false); 
+		}
+		if(StringUtils.isEmpty(map.get("id"))){
+			if(list.size()>0){
+				return new Response(false); 
+			}
+		}else{
+			if(list.size() == 1 && !list.get(0).getId().equals(map.get("id"))){
+				return new Response(false); 
+			}
+		}
+		return new Response(true); 
 	}
 	/**
 	 * 复制套帐

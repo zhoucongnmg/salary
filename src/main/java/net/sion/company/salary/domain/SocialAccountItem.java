@@ -36,7 +36,6 @@ public class SocialAccountItem extends SocialItem{
 	public void generateDecimalFinalValue(DecimalCarryType type, int precision){
 		switch(this.companyPaymentType) {
 			case Percent:
-//				this.companyPaymentValue = companyPaymentValue * 0.01;
 				this.companyPaymentFinalValue = decimal(type, precision, Double.valueOf(cardinality * companyPaymentValue));
 				break;
 			case Quota:
@@ -45,7 +44,6 @@ public class SocialAccountItem extends SocialItem{
 		}
 		switch(this.personalPaymentType) {
 			case Percent: 
-//				this.personalPaymentValue = personalPaymentValue * 0.01;
 				this.personalPaymentFinalValue = decimal(type, precision, Double.valueOf(cardinality * personalPaymentValue));
 				break;
 			case Quota:
@@ -53,20 +51,7 @@ public class SocialAccountItem extends SocialItem{
 				break;
 		}
 	}
-	private Double decimal(DecimalCarryType type, int precision, Double value){
-		if(type == DecimalCarryType.Round){
-			//四舍五入
-			BigDecimal b = new BigDecimal(value);  
-			value = b.setScale(precision, BigDecimal.ROUND_HALF_UP).doubleValue();  
-		}else if(type == DecimalCarryType.Isopsephy){
-			//数值进位
-			value = Math.ceil(value);
-		}else{
-			//数值舍位
-			value = Math.floor(value);
-		}
-		return value;
-	}	
+	
 //	public String getId() {
 //		return id;
 //	}

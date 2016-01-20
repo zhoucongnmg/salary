@@ -1,6 +1,8 @@
 package net.sion.company.salary.domain;
 
 
+import java.math.BigDecimal;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection="Company_Salary_Item")
@@ -20,6 +22,21 @@ public class Item {
 		SalaryItem, //薪资项目
 		SocialItem	//社保项目
 	}
+	public Double decimal(DecimalCarryType type, int precision, Double value){
+		if(type == DecimalCarryType.Round){
+			//四舍五入
+			BigDecimal b = new BigDecimal(value);  
+			value = b.setScale(precision, BigDecimal.ROUND_HALF_UP).doubleValue();  
+		}else if(type == DecimalCarryType.Isopsephy){
+			//数值进位
+			value = Math.ceil(value);
+		}else{
+			//数值舍位
+			value = Math.floor(value);
+		}
+		return value;
+	}	
+	
 	public ItemType getItem() {
 		return item;
 	}
