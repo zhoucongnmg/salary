@@ -29,10 +29,14 @@ public class Item {
 			value = b.setScale(precision, BigDecimal.ROUND_HALF_UP).doubleValue();  
 		}else if(type == DecimalCarryType.Isopsephy){
 			//数值进位
-			value = Math.ceil(value);
+//			value = Math.ceil(value);
+			BigDecimal b = new BigDecimal(value);  
+			value = b.setScale(precision, BigDecimal.ROUND_UP).doubleValue();  
 		}else{
 			//数值舍位
-			value = Math.floor(value);
+//			value = Math.floor(value);
+			BigDecimal b = new BigDecimal(value);  
+			value = b.setScale(precision, BigDecimal.ROUND_DOWN).doubleValue();  
 		}
 		return value;
 	}	

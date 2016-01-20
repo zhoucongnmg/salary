@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
  *	薪资初始化
  */
 @RestController
-@RequestMapping("salary/init/") 
+@RequestMapping("/salary/init/") 
 public class SalaryController {
 	
 	@Autowired
