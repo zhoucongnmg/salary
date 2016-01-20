@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 public class SystemSalaryItemPublisher implements ApplicationEventPublisherAware {
 	
 
-	private static ApplicationEventPublisher publisher;
+	private ApplicationEventPublisher publisher;
 
 	
 	@Override

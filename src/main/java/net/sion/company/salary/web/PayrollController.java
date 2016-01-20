@@ -35,6 +35,7 @@ import net.sion.company.salary.event.SystemSalaryItemPublisher;
 import net.sion.company.salary.service.FormulaService;
 import net.sion.company.salary.service.PayrollService;
 import net.sion.company.salary.service.SocialService;
+import net.sion.company.salary.service.TaxService;
 import net.sion.company.salary.sessionrepository.AccountRepository;
 import net.sion.company.salary.sessionrepository.PayrollItemRepository;
 import net.sion.company.salary.sessionrepository.PayrollRepository;
@@ -49,6 +50,7 @@ import net.sion.core.admin.sessionrepository.DeptRepository;
 import net.sion.core.admin.sessionrepository.UserRepository;
 import net.sion.util.mvc.Response;
 
+import org.apache.commons.lang3.StringUtils;
 import org.aspectj.util.FileUtil;
 import org.bson.types.ObjectId;
 import org.json.JSONObject;
@@ -113,6 +115,9 @@ public class PayrollController {
 	DeptRepository deptRepository;
 	@Autowired
 	ApplicationContext ctx;
+	
+	@Autowired
+	TaxService taxService;
 
 	public List<Map<String, Object>> fillSimpleFields(List<Map<String, Object>> fields, Map<String,String> opts) {
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -303,22 +308,22 @@ public class PayrollController {
 
 		}
 		if (newPersonIds.size() > 0) {
-			Set<String> formulaIds = account.getFormulaIds();
-			Map<String, Double> salaryItemValues = account.getSalaryItemValues();
-			Map<String, String> result;
 			try {
-				result = formulaService.caculateFormulas(formulaIds, salaryItemValues);
+				
 				Iterable<PersonAccountFile> personList = personAccountFileRepository.findAll(newPersonIds);
 				Map<String, PersonExtension<SocialAccountItem>> personSocialMap = socialService.getSocialAccountByPersons(newPersonIds);
 				
 				for (PersonAccountFile person : personList) {
+					
 					Map<String, Object> personMap = new HashMap<String, Object>();
-					personMap.put("personId", person.getId());
-					personMap.put("payrollId", payroll.getId());
-					personMap.put("name", person.getName());
-					personMap.put("duty", person.getDuty());
-					personMap.put("dept", person.getDept());
-					personMap.put("personCode", person.getPersonCode());
+					Map<String, String> simplePersonMap = new HashMap<String, String>();
+					Map<String, Double> dataPersonMap = new HashMap<String, Double>();
+					simplePersonMap.put("personId", person.getId());
+					simplePersonMap.put("payrollId", payroll.getId());
+					simplePersonMap.put("name", person.getName());
+					simplePersonMap.put("duty", person.getDuty());
+					simplePersonMap.put("dept", person.getDept());
+					simplePersonMap.put("personCode", person.getPersonCode());
 					
 					PersonExtension<SocialAccountItem> personExtension = personSocialMap.get(person.getId());
 					if (personExtension!=null) {
@@ -333,17 +338,38 @@ public class PayrollController {
 						}
 					}
 					
+					Map<String,AccountItem> personAccountItemMap = new HashMap<String,AccountItem>();
+					Set<String> formulaIds = new HashSet<String>();
 					for (AccountItem item : account.getAccountItems()) {
+						personAccountItemMap.put(item.getId(), item);
+						
 						if (item.getType() == SalaryItemType.Input) {
 							personMap.put(item.getSalaryItemId(), item.getValue());
+							//TODO 通过personId查找该人在薪资档案中该项设置的值
 						}else if (item.getType() == SalaryItemType.System) {
 							SystemSalaryItem systemItem = systemSalaryItemRepository.findOne(item.getSalaryItemId());
 							publisher.getValue(systemItem,person.getId(),person.getDept());
 							personMap.put(item.getSalaryItemId(), item.getValue());
+						}else if (item.getType() == SalaryItemType.Calculate) {
+							formulaIds.add(item.getFormulaId());
+							Map<String,Double> result = formulaService.caculateFormulas(formulaIds, dataPersonMap);
+							//TODO 将返回的数值putAll dataPersonMap
+							dataPersonMap.putAll(result);
+						}else if (item.getType() == SalaryItemType.Tax) {
+							String parentId = item.getParentId();
+							if(StringUtils.isNotBlank(parentId)&&personAccountItemMap.get(parentId)!=null) {
+								AccountItem parent = personAccountItemMap.get(parentId);
+								String parentSalaryItemId = parent.getSalaryItemId();
+								Double value = dataPersonMap.get(parentSalaryItemId);
+								dataPersonMap.put(item.getSalaryItemId(), taxService.getFastNumber(item.getTaxId(),value));
+							}
 						}
 						
 					}
-					personMap.putAll(result);
+					
+					
+					personMap.putAll(simplePersonMap);
+					personMap.putAll(dataPersonMap);
 					data.add(personMap);
 				}
 			} catch (Exception e) {
@@ -831,7 +857,7 @@ public class PayrollController {
 		 * id : fieldIds) { String value = recordMap.get(id); values.put(id,
 		 * value); }
 		 **/
-		Map<String, String> changeFields = new HashMap<String, String>();
+		Map<String, Double> changeFields = new HashMap<String, Double>();
 		try {
 			PayrollItem payrollItem = new PayrollItem();
 			payrollItem.convertDomain(recordMap);
