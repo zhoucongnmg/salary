@@ -3,18 +3,22 @@ package net.sion.company.salary.event;
 import java.util.Date;
 import java.util.List;
 
-import net.sion.company.salary.domain.SystemSalaryItem;
-import net.sion.company.salary.event.SystemSalaryItemEvent.SystemSalaryItemEventType;
-
+import org.springframework.beans.BeansException;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.ApplicationEventPublisherAware;
 import org.springframework.stereotype.Service;
 
+import net.sion.company.salary.domain.SystemSalaryItem;
+import net.sion.company.salary.event.SystemSalaryItemEvent.SystemSalaryItemEventType;
+
 @Service
-public class SystemSalaryItemPublisher implements ApplicationEventPublisherAware {
+public class SystemSalaryItemPublisher implements ApplicationEventPublisherAware,ApplicationContextAware {
 	
 
 	private ApplicationEventPublisher publisher;
+	private ApplicationContext context;
 
 	
 	@Override
@@ -39,8 +43,14 @@ public class SystemSalaryItemPublisher implements ApplicationEventPublisherAware
 	
 	public List<SystemSalaryItem> regist() {
 		SystemSalaryItemEvent e = new SystemSalaryItemEvent(this,SystemSalaryItemEventType.Regist);
-		publisher.publishEvent(e);
+//		publisher.publishEvent(e);
+		this.context.publishEvent(e);
 		return e.getRegistItems();
+	}
+
+	@Override
+	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+		this.context=applicationContext;
 	}
 	
 }

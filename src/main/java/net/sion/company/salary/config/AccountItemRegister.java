@@ -19,7 +19,9 @@ import net.sion.company.salary.sessionrepository.PersonAccountFileRepository;
 import net.sion.company.salary.sessionrepository.SocialAccountRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class AccountItemRegister extends AbstractSystemSalaryItemListener{
 	@Autowired SocialService socialService;
 	@Autowired PersonAccountFileRepository personAccountFileRepository;
