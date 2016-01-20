@@ -55,10 +55,18 @@ Ext.define('sion.salary.accounts.view.SalaryItemRead', {
                         {
                             xtype: 'displayfield',
                             anchor: '100%',
-                            itemId: 'decimalScale',
+                            itemId: 'precision',
                             style: 'border-bottom:1px #f2f2f2 solid;',
                             fieldLabel: '小数位数',
-                            name: 'decimalScale'
+                            name: 'precision'
+                        },
+                        {
+                            xtype: 'displayfield',
+                            anchor: '100%',
+                            itemId: 'carryType',
+                            style: 'border-bottom:1px #f2f2f2 solid;',
+                            fieldLabel: '小数保留方式',
+                            name: 'carryType'
                         },
                         {
                             xtype: 'displayfield',
