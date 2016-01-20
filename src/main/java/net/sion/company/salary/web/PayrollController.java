@@ -364,6 +364,9 @@ public class PayrollController {
 		String id = (String)param.get("id");
 		Map<String,String> opts = (Map<String,String>)param.get("opts");
 		Payroll payroll = payrollRepository.findOne(id);
+		
+		//1.20周聪添加 工资条明细中按姓名筛选
+		filterByName(payroll,opts);
 
 		Account account = accountRepository.findOne(payroll.getAccountId());
 		List<AccountItem> items = account.getAccountItems();
@@ -386,6 +389,27 @@ public class PayrollController {
 		m.put("columns", columns);
 		m.put("data", data);
 		return new Response(m);
+	}
+	
+	private void filterByName(Payroll payroll,Map<String,String> opts){
+		if(opts ==null||opts.get("name")==null)
+			return;
+		else{
+			Map<String,String> person = payroll.getPersons();
+	/*		for (Map.Entry<String, String> entry : person.entrySet()) {
+				if(!entry.getValue().contains(opts.get("name")))
+					person.remove(entry.getKey());
+			}*/
+		/*	for (String key : person.keySet()) {
+				if(!person.get(key).contains(opts.get("name")))
+					person.remove(key);
+			}*/
+			Iterator<Map.Entry<String, String>> it = person.entrySet().iterator();
+			while(it.hasNext()){
+				if(!it.next().getValue().contains(opts.get("name")))
+					it.remove();
+			}
+		}
 	}
 
 	/**
