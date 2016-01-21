@@ -1,6 +1,5 @@
 package net.sion.company.salary.config;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,7 +30,6 @@ public class AccountItemRegister extends AbstractSystemSalaryItemListener{
 		//查询社保方案
 		//查询社保项
 		PersonAccountFile personAccountFile = personAccountFileRepository.findOne(event.getPersonId());
-		List<SocialAccountItem> items = new ArrayList<SocialAccountItem>();
 		InsuredPerson InsuredPerson = personAccountFile.getInsuredPerson();
 		String accountId = InsuredPerson.getAccountId();
 		SocialAccount socialAccount = socialAccountRepository.findOne(accountId);
@@ -42,7 +40,6 @@ public class AccountItemRegister extends AbstractSystemSalaryItemListener{
 			map.put(item.getId(), item);
 		}
 		if(personAccountFile.getInsuredItems() != null && personAccountFile.getInsuredItems().size()>0){
-//			items = personAccountFile.getInsuredItems();
 			//如果薪资档案中对社保项目设置了值，则以薪资档案的为主
 			for(SocialAccountItem item : personAccountFile.getInsuredItems()){
 				if(map.get(item.getId()) != null){
@@ -50,10 +47,6 @@ public class AccountItemRegister extends AbstractSystemSalaryItemListener{
 				}
 			}
 		}
-//		else{
-//			items = socialAccount.getSocialAccountItems();
-//		}
-//		for(SocialAccountItem item : items){
 		for (SocialAccountItem item : map.values()) {  
 			if(item.getId().equals(event.getItem().getItemId())){
 				if (event.getItem().getSystemType() == SystemSalaryItemType.Company) {

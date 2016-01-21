@@ -30,11 +30,13 @@ public class SystemSalaryItemEvent extends ApplicationEvent{
 	
 	SystemSalaryItemEventType type;
 	
+	Double value;
+	
 	public enum SystemSalaryItemEventType{
 		GetValue,
 		Regist
 	}
-	
+		
 	public SystemSalaryItemEvent(Object source) {
 		super(source);
 		registItems = new ArrayList<SystemSalaryItem>();

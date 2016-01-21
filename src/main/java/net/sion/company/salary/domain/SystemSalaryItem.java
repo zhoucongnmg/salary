@@ -38,12 +38,20 @@ public class SystemSalaryItem extends SalaryItem {
 		this.category = category;
 		this.systemType = systemType;
 		this.item = ItemType.SalaryItem;
-		
-		super.carryType = DecimalCarryType.Round;//暂时将系统提取项的小数保留方式设为四舍五入
+	}
+	public SystemSalaryItem(SystemSalaryItemEnum category,String name,SystemSalaryItemType systemType, DecimalCarryType carryType, int precision) {
+		super.id = new ObjectId().toString();
+		super.name = name;
+		super.type = SalaryItemType.System;
+		this.category = category;
+		this.systemType = systemType;
+		this.item = ItemType.SalaryItem;
+		super.carryType = carryType;
+		super.precision = precision;
 	}
 	
-	public SystemSalaryItem(SystemSalaryItemEnum category, String name,String itemId,SystemSalaryItemType systemType) {
-		this(category,name,systemType);
+	public SystemSalaryItem(SystemSalaryItemEnum category, String name,String itemId,SystemSalaryItemType systemType, DecimalCarryType carryType, int precision) {
+		this(category,name,systemType,carryType,precision);
 		this.itemId = itemId;
 	}
 	

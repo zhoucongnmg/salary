@@ -34,6 +34,7 @@ import net.sion.company.salary.domain.SystemSalaryItem;
 import net.sion.company.salary.event.SystemSalaryItemPublisher;
 import net.sion.company.salary.service.FormulaService;
 import net.sion.company.salary.service.PayrollService;
+import net.sion.company.salary.service.PersonAccountFileService;
 import net.sion.company.salary.service.SocialService;
 import net.sion.company.salary.service.TaxService;
 import net.sion.company.salary.sessionrepository.AccountRepository;
@@ -58,7 +59,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.query.BasicQuery;
-import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -118,6 +118,9 @@ public class PayrollController {
 	
 	@Autowired
 	TaxService taxService;
+	
+	@Autowired
+	PersonAccountFileService personService;
 
 	public List<Map<String, Object>> fillSimpleFields(List<Map<String, Object>> fields, Map<String,String> opts) {
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -346,10 +349,12 @@ public class PayrollController {
 						if (item.getType() == SalaryItemType.Input) {
 							personMap.put(item.getSalaryItemId(), item.getValue());
 							//TODO 通过personId查找该人在薪资档案中该项设置的值
+							Double value = personService.getOneItemValue(person.getId(), item.getSalaryItemId());
+							dataPersonMap.put(item.getSalaryItemId(), value);
 						}else if (item.getType() == SalaryItemType.System) {
 							SystemSalaryItem systemItem = systemSalaryItemRepository.findOne(item.getSalaryItemId());
-							publisher.getValue(systemItem,person.getId(),person.getDept());
-							personMap.put(item.getSalaryItemId(), item.getValue());
+							Double value = publisher.getValue(systemItem,person.getId(),person.getDept());
+							dataPersonMap.put(item.getSalaryItemId(), value);
 						}else if (item.getType() == SalaryItemType.Calculate) {
 							formulaIds.add(item.getFormulaId());
 							Map<String,Double> result = formulaService.caculateFormulas(formulaIds, dataPersonMap);

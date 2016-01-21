@@ -74,4 +74,12 @@ privileged aspect SystemSalaryItemEvent_Roo_JavaBean {
         this.type = type;
     }
     
+    public Double SystemSalaryItemEvent.getValue() {
+        return this.value;
+    }
+    
+    public void SystemSalaryItemEvent.setValue(Double value) {
+        this.value = value;
+    }
+    
 }

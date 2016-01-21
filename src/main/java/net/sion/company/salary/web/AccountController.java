@@ -110,6 +110,7 @@ public class AccountController {
 		accountRepository.save(account);
 		return new Response(true);
 	}
+	//校验方案名称是否重复
 	@RequestMapping(value = "validateName")
 	public @ResponseBody Response validateName(HttpSession session, @RequestParam Map<String, String> map) {
 		List<Account> list = accountRepository.findByName(map.get("name"));
@@ -127,6 +128,16 @@ public class AccountController {
 		}
 		return new Response(true); 
 	}
+	//校验薪资方案是否应用于工资条
+	@RequestMapping(value = "validatePayroll")
+	public @ResponseBody Response validatePayroll(HttpSession session, @RequestParam Map<String, String> map) {
+		List<Payroll> payrolls = payrollRepository.findByAccountId(map.get("id"));
+		if(payrolls != null && payrolls.size() > 0){
+			return new Response(false); 
+		}
+		return new Response(true); 
+	}
+	
 	/**
 	 * 复制套帐
 	 * 
