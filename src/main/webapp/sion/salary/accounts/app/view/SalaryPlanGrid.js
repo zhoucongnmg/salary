@@ -187,21 +187,41 @@ Ext.define('sion.salary.accounts.view.SalaryPlanGrid', {
                                     handler: function(view, rowIndex, colIndex, item, e, record, row) {
                                         var store = Ext.getStore("Account");
 
-                                        Ext.Msg.confirm('提示', '确定要删除吗？', function(text){
-                                            if (text == 'yes'){
-                                                Ext.Ajax.request({
-                                                    url :'salary/account/remove',//请求的服务器地址
-                                                    params : {
-                                                        id : record.get('id')
-                                                    },//发送json对象
-                                                    success:function(response,action){
-                                                        store.load();
-                                                        Ext.Msg.alert("提示", "删除成功");
-                                                    },failure: function(){
-                                                        store.load();
-                                                        Ext.Msg.alert("提示", "删除失败");
-                                                    }
-                                                });
+                                        Ext.Ajax.request({
+                                            url: 'salary/account/validatePayroll',
+                                            method: 'post',
+                                            async: true,    //不使用异步
+                                            params: {
+                                                id: record.get('id')
+                                            },
+                                            success: function(response, opts){
+                                                var data = Ext.JSON.decode(response.responseText);
+                                                if(!data.success){
+                                                    Ext.Msg.alert('提示', '方案已经应用于工资条，不可删除！');
+                                                    return false;
+                                                }else{
+                                                    Ext.Msg.confirm('提示', '确定要删除吗？', function(text){
+                                                        if (text == 'yes'){
+                                                            Ext.Ajax.request({
+                                                                url :'salary/account/remove',//请求的服务器地址
+                                                                params : {
+                                                                    id : record.get('id')
+                                                                },//发送json对象
+                                                                success:function(response,action){
+                                                                    store.load();
+                                                                    Ext.Msg.alert("提示", "删除成功");
+                                                                },failure: function(){
+                                                                    store.load();
+                                                                    Ext.Msg.alert("提示", "删除失败");
+                                                                }
+                                                            });
+                                                        }
+                                                    });
+                                                }
+                                            },
+                                            failure: function(response, opts) {
+                                                Ext.Msg.alert('提示','数据请求错误，请稍候重新尝试获取数据……');
+                                                return false;
                                             }
                                         });
                                     },
