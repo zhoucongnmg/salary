@@ -85,22 +85,27 @@ public class PersonAccountFileService {
 		Double levelValue = new Double(0);
 
 		PersonAccountFile person = pafRepository.findOne(personId);
+
 		if (person.getAccountId() != null) {
 			Account account = accountRepository.findOne(person.getAccountId());
-			List<AccountItem> items = account.getAccountItems();
-			for (AccountItem accountItem : items) {
-				if (accountItem.getId().equals(itemId)) {
-					accountValue = new Double(accountItem.getValue());
-					break;
+			if (account != null) {
+				List<AccountItem> items = account.getAccountItems();
+				for (AccountItem accountItem : items) {
+					if (accountItem.getId().equals(itemId)) {
+						accountValue = new Double(accountItem.getValue());
+						break;
+					}
 				}
 			}
 		}
 		if (person.getLevel() != null && person.getRank() != null) {
 			Level level = levelRepository.findOne(person.getLevel());
-			for (LevelItem levelItem : level.getLevelItems()) {
-				if (person.getRank() != null && person.getRank().equals(levelItem.getRank())) {
-					levelValue = levelItem.getSalaryItemValues().get(itemId);
-					break;
+			if (level != null) {
+				for (LevelItem levelItem : level.getLevelItems()) {
+					if (person.getRank() != null && person.getRank().equals(levelItem.getRank())) {
+						levelValue = levelItem.getSalaryItemValues().get(itemId);
+						break;
+					}
 				}
 			}
 		}
