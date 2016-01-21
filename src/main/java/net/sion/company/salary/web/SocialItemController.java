@@ -59,8 +59,8 @@ public class SocialItemController {
 //			if(item.getItem() == ItemType.SocialItem){
 //				str = "社保";
 //			}
-			SystemSalaryItem itemp = new SystemSalaryItem(SystemSalaryItemEnum.AccountItem, item.getName() + " - 个人缴纳", item.getId(), SystemSalaryItemType.Personal);
-			SystemSalaryItem itemc = new SystemSalaryItem(SystemSalaryItemEnum.AccountItem, item.getName() + " - 单位缴纳", item.getId(), SystemSalaryItemType.Company);
+			SystemSalaryItem itemp = new SystemSalaryItem(SystemSalaryItemEnum.AccountItem, item.getName() + " - 个人缴纳", item.getId(), SystemSalaryItemType.Personal, item.getCarryType(), item.getPrecision());
+			SystemSalaryItem itemc = new SystemSalaryItem(SystemSalaryItemEnum.AccountItem, item.getName() + " - 单位缴纳", item.getId(), SystemSalaryItemType.Company, item.getCarryType(), item.getPrecision());
 			systemSalaryItemRepository.save(itemp);
 			systemSalaryItemRepository.save(itemc);
 		}
