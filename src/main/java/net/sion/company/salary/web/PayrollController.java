@@ -121,6 +121,78 @@ public class PayrollController {
 	
 	@Autowired
 	PersonAccountFileService personService;
+	
+	
+	public List<PayrollItem> generatePayrollItem(Payroll payroll,Set<String> personIds) {
+		List<PayrollItem> datas = new ArrayList<PayrollItem>();
+		try {
+			Account account = accountRepository.findOne(payroll.getAccountId()); 
+			Iterable<PersonAccountFile> personList = personAccountFileRepository.findAll(personIds);
+			
+			for (PersonAccountFile person : personList) {
+				
+				Map<String, Object> personMap = new HashMap<String, Object>();
+				Map<String, String> simplePersonMap = new HashMap<String, String>();
+				Map<String, Double> dataPersonMap = new HashMap<String, Double>();
+				simplePersonMap.put("personId", person.getId());
+				simplePersonMap.put("payrollId", payroll.getId());
+				simplePersonMap.put("name", person.getName());
+				simplePersonMap.put("duty", person.getDuty());
+				simplePersonMap.put("dept", person.getDept());
+				simplePersonMap.put("personCode", person.getPersonCode());
+				simplePersonMap.put("idCard", person.getIdCard());
+				simplePersonMap.put("bankAccount", person.getBankAccount());
+				
+				Map<String,AccountItem> personAccountItemMap = new HashMap<String,AccountItem>();
+				Set<String> formulaIds = new HashSet<String>();
+				for (AccountItem item : account.getAccountItems()) {
+					personAccountItemMap.put(item.getId(), item);
+					
+					if (item.getType() == SalaryItemType.Input) {
+						personMap.put(item.getSalaryItemId(), item.getValue());
+						//TODO 通过personId查找该人在薪资档案中该项设置的值
+						Double value = personService.getOneItemValue(person.getId(), item.getSalaryItemId());
+						if (value!=null) {
+							dataPersonMap.put(item.getSalaryItemId(), value);
+						}else {
+							dataPersonMap.put(item.getSalaryItemId(), Double.valueOf(item.getValue()));
+						}
+					}else if (item.getType() == SalaryItemType.System) {
+						SystemSalaryItem systemItem = systemSalaryItemRepository.findOne(item.getSalaryItemId());
+						Double value = publisher.getValue(systemItem,person.getId(),person.getDept());
+						dataPersonMap.put(item.getSalaryItemId(), value);
+					}else if (item.getType() == SalaryItemType.Calculate) {
+						formulaIds.add(item.getFormulaId());
+						Map<String,Double> result = formulaService.caculateFormulas(formulaIds, dataPersonMap);
+						//TODO 将返回的数值putAll dataPersonMap
+						dataPersonMap.putAll(result);
+					}else if (item.getType() == SalaryItemType.Tax) {
+						String parentId = item.getParentId();
+						if(StringUtils.isNotBlank(parentId)&&personAccountItemMap.get(parentId)!=null) {
+							AccountItem parent = personAccountItemMap.get(parentId);
+							String parentSalaryItemId = parent.getSalaryItemId();
+							Double value = dataPersonMap.get(parentSalaryItemId);
+							dataPersonMap.put(item.getSalaryItemId(), taxService.getFastNumber(item.getTaxId(),value));
+						}
+					}
+					
+				}
+				
+				personMap.putAll(simplePersonMap);
+				personMap.putAll(dataPersonMap);
+				
+				//TODO convert to PayrollItem
+				PayrollItem item = new PayrollItem();
+				item.convertDomain(personMap);
+				datas.add(item);
+			} 
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return datas;
+	}
 
 	public List<Map<String, Object>> fillSimpleFields(List<Map<String, Object>> fields, Map<String,String> opts) {
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -292,97 +364,32 @@ public class PayrollController {
 	}
 
 	public List<Map<String, Object>> fillData(Payroll payroll, List<PayrollItem> items, Account account) {
+		
 		List<Map<String, Object>> data = new ArrayList<Map<String, Object>>();
-
-		Map<String, PayrollItem> payrollItemMap = new HashMap<String, PayrollItem>();
-		for (PayrollItem item : items) {
-			payrollItemMap.put(item.getPersonId(), item);
-		}
-		Set<String> newPersonIds = new HashSet<String>();
-		for (Map.Entry<String, String> entry : payroll.getPersons().entrySet()) {
-			String personId = entry.getKey();
-			if (payrollItemMap.get(personId) != null) {
-				PayrollItem item = payrollItemMap.get(personId);
-				Map<String, Object> itemMap = item.parseMap();
-				data.add(itemMap);
-			} else {
-				newPersonIds.add(personId);
-			}
-
-		}
-		if (newPersonIds.size() > 0) {
-			try {
-				
-				Iterable<PersonAccountFile> personList = personAccountFileRepository.findAll(newPersonIds);
-				Map<String, PersonExtension<SocialAccountItem>> personSocialMap = socialService.getSocialAccountByPersons(newPersonIds);
-				
-				for (PersonAccountFile person : personList) {
-					
-					Map<String, Object> personMap = new HashMap<String, Object>();
-					Map<String, String> simplePersonMap = new HashMap<String, String>();
-					Map<String, Double> dataPersonMap = new HashMap<String, Double>();
-					simplePersonMap.put("personId", person.getId());
-					simplePersonMap.put("payrollId", payroll.getId());
-					simplePersonMap.put("name", person.getName());
-					simplePersonMap.put("duty", person.getDuty());
-					simplePersonMap.put("dept", person.getDept());
-					simplePersonMap.put("personCode", person.getPersonCode());
-					
-					PersonExtension<SocialAccountItem> personExtension = personSocialMap.get(person.getId());
-					if (personExtension!=null) {
-						Map<String,SocialAccountItem> socialAccountItemMap = personExtension.getItems();
-						for (Map.Entry<String, SocialAccountItem> entry : socialAccountItemMap.entrySet()) {
-							SocialAccountItem item = entry.getValue();
-							personMap.put(item.getSocialItemId()+"-cardinality", item.getCardinality());
-							personMap.put(item.getSocialItemId()+"-companyPaymentValue", item.getCompanyPaymentValue());
-							personMap.put(item.getSocialItemId()+"-companyPaymentFinalValue", item.getCompanyPaymentFinalValue());
-							personMap.put(item.getSocialItemId()+"-personalPaymentValue", item.getPersonalPaymentValue());
-							personMap.put(item.getSocialItemId()+"-personalPaymentFinalValue", item.getCompanyPaymentValue());
-						}
+		
+		Set<String> personIds = payroll.getPersons().keySet();
+		if (personIds.size()>0) {
+			Map<String, PersonExtension<SocialAccountItem>> personSocialMap = socialService.getSocialAccountByPersons(personIds);
+			
+			for (PayrollItem item : items) {
+				Map<String,Object> itemMap = item.parseMap();
+				PersonExtension<SocialAccountItem> personExtension = personSocialMap.get(item.getPersonId());
+				if (personExtension!=null) {
+					Map<String,SocialAccountItem> socialAccountItemMap = personExtension.getItems();
+					for (Map.Entry<String, SocialAccountItem> entry : socialAccountItemMap.entrySet()) {
+						SocialAccountItem socialItem = entry.getValue();
+						itemMap.put(socialItem.getSocialItemId()+"-cardinality", socialItem.getCardinality());
+						itemMap.put(socialItem.getSocialItemId()+"-companyPaymentValue", socialItem.getCompanyPaymentValue());
+						itemMap.put(socialItem.getSocialItemId()+"-companyPaymentFinalValue", socialItem.getCompanyPaymentFinalValue());
+						itemMap.put(socialItem.getSocialItemId()+"-personalPaymentValue", socialItem.getPersonalPaymentValue());
+						itemMap.put(socialItem.getSocialItemId()+"-personalPaymentFinalValue", socialItem.getPersonalPaymentFinalValue());
 					}
-					
-					Map<String,AccountItem> personAccountItemMap = new HashMap<String,AccountItem>();
-					Set<String> formulaIds = new HashSet<String>();
-					for (AccountItem item : account.getAccountItems()) {
-						personAccountItemMap.put(item.getId(), item);
-						
-						if (item.getType() == SalaryItemType.Input) {
-							personMap.put(item.getSalaryItemId(), item.getValue());
-							//TODO 通过personId查找该人在薪资档案中该项设置的值
-							Double value = personService.getOneItemValue(person.getId(), item.getSalaryItemId());
-							dataPersonMap.put(item.getSalaryItemId(), value);
-						}else if (item.getType() == SalaryItemType.System) {
-							SystemSalaryItem systemItem = systemSalaryItemRepository.findOne(item.getSalaryItemId());
-							Double value = publisher.getValue(systemItem,person.getId(),person.getDept());
-							dataPersonMap.put(item.getSalaryItemId(), value);
-						}else if (item.getType() == SalaryItemType.Calculate) {
-							formulaIds.add(item.getFormulaId());
-							Map<String,Double> result = formulaService.caculateFormulas(formulaIds, dataPersonMap);
-							//TODO 将返回的数值putAll dataPersonMap
-							dataPersonMap.putAll(result);
-						}else if (item.getType() == SalaryItemType.Tax) {
-							String parentId = item.getParentId();
-							if(StringUtils.isNotBlank(parentId)&&personAccountItemMap.get(parentId)!=null) {
-								AccountItem parent = personAccountItemMap.get(parentId);
-								String parentSalaryItemId = parent.getSalaryItemId();
-								Double value = dataPersonMap.get(parentSalaryItemId);
-								dataPersonMap.put(item.getSalaryItemId(), taxService.getFastNumber(item.getTaxId(),value));
-							}
-						}
-						
-					}
-					
-					
-					personMap.putAll(simplePersonMap);
-					personMap.putAll(dataPersonMap);
-					data.add(personMap);
 				}
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				
+				data.add(itemMap);
 			}
-
 		}
+		
 
 		return data;
 	}
@@ -408,8 +415,10 @@ public class PayrollController {
 		fillSimpleFields(fields,opts);
 		fillSimpleColumns(columns,opts);
 		for (AccountItem item : items) {
-			fields.add(getFields(item));
-			columns.add(getColumns(item));
+			if (item.isShow()) {
+				fields.add(getFields(item));
+				columns.add(getColumns(item));
+			}
 		}
 		List<PayrollItem> payrollItemList = payrollItemRepository.findByPayrollId(id);
 
@@ -683,7 +692,10 @@ public class PayrollController {
 		payroll.setSocialCostMonth(payroll.getSocialCostMonth().substring(0, 7));
 
 		Payroll roll = payrollRepository.save(payroll);
-
+		
+		
+		List<PayrollItem> items = generatePayrollItem(roll,roll.getPersons().keySet());
+		payrollItemRepository.save(items);
 		return new Response("sucess", roll, true);
 	}
 
@@ -796,9 +808,18 @@ public class PayrollController {
 	 */
 	@RequestMapping(value = "update")
 	public Response update(@RequestBody Payroll payroll) {
-
-		mongoTemplate.save(payroll);
-
+		
+		
+		Payroll old = payrollRepository.findOne(payroll.getId());
+		Set<String> oldPersonIds =  old.getPersons().keySet();
+		
+		Set<String> newPersonIds = payroll.getPersons().keySet();
+		newPersonIds.remove(oldPersonIds);
+		payrollRepository.save(payroll);
+		if (newPersonIds.size()>0) {
+			List<PayrollItem> items = generatePayrollItem(payroll, newPersonIds);
+			payrollItemRepository.save(items);
+		}
 		return new Response(true);
 	}
 
@@ -924,5 +945,22 @@ public class PayrollController {
 	public Response withdraw(@RequestParam Payroll pay) {
 		return new Response(true);
 	}
-
+	
+	
+	public static void main(String[] args) {
+		Set<String> old = new HashSet<String>();
+		Set<String> new1 = new HashSet<String>();
+		old.add("1");
+		old.add("2");
+		old.add("3");
+		
+		new1.add("1");
+		new1.add("2");
+		new1.add("3");
+		new1.add("4");
+		new1.removeAll(old);
+		System.out.println(new1);
+		
+	}
+	
 }
