@@ -34,12 +34,12 @@ public class PersonAccountFileService {
 	 * @param paf
 	 * @return
 	 */
-	public Map<String, Double> getItemsValue(String personId) {
+	public Map<String, Double> getItemsValue(String id) {
 		Map<String, Double> result = new HashMap<>();
 		Map<String, Double> accountMap = new HashMap<>();
 		Map<String, Double> levelMap = new HashMap<>();
 
-		PersonAccountFile person = pafRepository.findOne(personId);
+		PersonAccountFile person = pafRepository.findOne(id);
 		if (person.getAccountId() != null) {
 			Account account = accountRepository.findOne(person.getAccountId());
 			List<AccountItem> items = account.getAccountItems();
@@ -79,12 +79,12 @@ public class PersonAccountFileService {
 	 * @param itemId
 	 * @return
 	 */
-	public Double getOneItemValue(String personId, String itemId) {
+	public Double getOneItemValue(String id, String itemId) {
 		Double result = new Double(0);
 		Double accountValue = new Double(0);
 		Double levelValue = new Double(0);
 
-		PersonAccountFile person = pafRepository.findOne(personId);
+		PersonAccountFile person = pafRepository.findOne(id);
 		if (person.getAccountId() != null) {
 			Account account = accountRepository.findOne(person.getAccountId());
 			List<AccountItem> items = account.getAccountItems();
