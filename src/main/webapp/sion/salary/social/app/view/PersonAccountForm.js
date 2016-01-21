@@ -512,7 +512,7 @@ Ext.define('sion.salary.social.view.PersonAccountForm', {
                                     columns: [
                                         {
                                             xtype: 'gridcolumn',
-                                            dataIndex: 'socialItemName',
+                                            dataIndex: 'name',
                                             text: '项目名称',
                                             flex: 1
                                         },
@@ -855,7 +855,7 @@ Ext.define('sion.salary.social.view.PersonAccountForm', {
                 var items=account.data.socialAccountItems;
                 Ext.Array.each(items,function(item){
                     var rowData=Ext.create(namespace+".model.PersonSocialItem",item);
-                    rowData.set("socialItemName",item.name);
+        //             rowData.set("socialItemName",item.name);
                     gridStore.add(rowData);
                 });
             }

@@ -1358,7 +1358,7 @@
                                     },
                                     "codeClass": null,
                                     "userConfig": {
-                                        "dataIndex": "socialItemName",
+                                        "dataIndex": "name",
                                         "flex": 1,
                                         "text": "项目名称"
                                     },
@@ -1759,7 +1759,7 @@
                     "        var items=account.data.socialAccountItems;",
                     "        Ext.Array.each(items,function(item){",
                     "            var rowData=Ext.create(namespace+\".model.PersonSocialItem\",item);",
-                    "            rowData.set(\"socialItemName\",item.name);",
+                    "//             rowData.set(\"socialItemName\",item.name);",
                     "            gridStore.add(rowData);",
                     "        });",
                     "    }",
