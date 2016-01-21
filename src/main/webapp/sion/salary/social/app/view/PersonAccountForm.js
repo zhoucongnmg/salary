@@ -720,7 +720,8 @@ Ext.define('sion.salary.social.view.PersonAccountForm', {
             store=field.getStore(),
             rank=me.down('#rank'),
             namespace=me.getNamespace(),
-            rankstore=rank.getStore();
+            rankstore=rank.getStore(),
+            salaryItemStore=me.down('#SalaryItemGrid').getStore();
         rankstore.removeAll();
         store.each(function(level){
             if(level.data.id===newValue){
@@ -728,6 +729,14 @@ Ext.define('sion.salary.social.view.PersonAccountForm', {
                 Ext.Array.each(levelItems,function(item){
                     rankstore.add(Ext.create(namespace+".model.Rank",item));
                 });
+
+                rank.setValue();
+                salaryItemStore.each(function(salaryItem){
+                    salaryItem.set('rankValue','');
+                    if(salaryItem.get('choose')==='Level')
+                        salaryItem.set('choose','Solution');
+                });
+
             }
         });
 
