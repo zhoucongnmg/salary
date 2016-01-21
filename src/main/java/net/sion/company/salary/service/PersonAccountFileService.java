@@ -34,12 +34,12 @@ public class PersonAccountFileService {
 	 * @param paf
 	 * @return
 	 */
-	public Map<String, Double> getItemValue(PersonAccountFile paf) {
+	public Map<String, Double> getItemsValue(String personId) {
 		Map<String, Double> result = new HashMap<>();
 		Map<String, Double> accountMap = new HashMap<>();
 		Map<String, Double> levelMap = new HashMap<>();
 
-		PersonAccountFile person = pafRepository.findOne(paf.getId());
+		PersonAccountFile person = pafRepository.findOne(personId);
 		if (person.getAccountId() != null) {
 			Account account = accountRepository.findOne(person.getAccountId());
 			List<AccountItem> items = account.getAccountItems();
@@ -67,6 +67,55 @@ public class PersonAccountFileService {
 				result.put(pai.getAccountItemId(), levelMap.get(pai.getAccountItemId()));
 			} else {
 				result.put(pai.getAccountItemId(), accountMap.get(pai.getAccountItemId()));
+			}
+		}
+		return result;
+	}
+
+	/**
+	 * 输入一个人员档案，返回指定输入项的键值对
+	 * 
+	 * @param personId
+	 * @param itemId
+	 * @return
+	 */
+	public Double getOneItemValue(String personId, String itemId) {
+		Double result = new Double(0);
+		Double accountValue = new Double(0);
+		Double levelValue = new Double(0);
+
+		PersonAccountFile person = pafRepository.findOne(personId);
+		if (person.getAccountId() != null) {
+			Account account = accountRepository.findOne(person.getAccountId());
+			List<AccountItem> items = account.getAccountItems();
+			for (AccountItem accountItem : items) {
+				if (accountItem.getId().equals(itemId)) {
+					accountValue = new Double(accountItem.getValue());
+					break;
+				}
+			}
+		}
+		if (person.getLevel() != null && person.getRank() != null) {
+			Level level = levelRepository.findOne(person.getLevel());
+			for (LevelItem levelItem : level.getLevelItems()) {
+				if (person.getRank() != null && person.getRank().equals(levelItem.getRank())) {
+					levelValue = levelItem.getSalaryItemValues().get(itemId);
+					break;
+				}
+			}
+		}
+
+		List<PersonAccountItem> accountItems = person.getAccountItems();
+		for (PersonAccountItem pai : accountItems) {
+			if (pai.getAccountItemId().equals(itemId)) {
+				ItemSetting setting = person.getAccountItemsSetting().get(pai.getAccountItemId());
+				if (ItemSetting.Person.equals(setting)) {
+					result = pai.getValue();
+				} else if (ItemSetting.Level.equals(setting)) {
+					result = levelValue;
+				} else {
+					result = accountValue;
+				}
 			}
 		}
 		return result;
