@@ -6,6 +6,7 @@ import java.util.List;
 import net.sion.company.salary.domain.Item.DecimalCarryType;
 import net.sion.company.salary.domain.PersonAccountFile;
 import net.sion.company.salary.domain.SocialAccountItem;
+import net.sion.company.salary.domain.SocialItem;
 import net.sion.company.salary.domain.SystemSalaryItem;
 import net.sion.company.salary.domain.SystemSalaryItem.SystemSalaryItemType;
 import net.sion.company.salary.domain.SystemSalaryItemEnum;
@@ -14,6 +15,7 @@ import net.sion.company.salary.listener.AbstractSystemSalaryItemListener;
 import net.sion.company.salary.service.SocialService;
 import net.sion.company.salary.sessionrepository.PersonAccountFileRepository;
 import net.sion.company.salary.sessionrepository.SocialAccountRepository;
+import net.sion.company.salary.sessionrepository.SocialItemRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -23,7 +25,9 @@ public class AccountItemRegister extends AbstractSystemSalaryItemListener{
 	@Autowired SocialService socialService;
 	@Autowired PersonAccountFileRepository personAccountFileRepository;
 	@Autowired SocialAccountRepository socialAccountRepository;
-	@Override
+	@Autowired SocialItemRepository socialItemRepository;
+	
+	@Override 
 	public Double getValue(SystemSalaryItemEvent event) {
 		Double value = null;
 		//查询社保方案
@@ -31,11 +35,12 @@ public class AccountItemRegister extends AbstractSystemSalaryItemListener{
 		PersonAccountFile personAccountFile = personAccountFileRepository.findOne(event.getPersonId());
 		for (SocialAccountItem item : personAccountFile.getInsuredItems()) {  
 			if(item.getSocialItemId().equals(event.getItem().getItemId())){
+				SocialItem socialItem = socialItemRepository.findOne(item.getSocialItemId());
 				if (event.getItem().getSystemType() == SystemSalaryItemType.Company) {
-					value = decimal(item.getCarryType(), item.getPrecision(), item.getCardinality() * item.getCompanyPaymentValue());
+					value = decimal(socialItem.getCarryType(), item.getPrecision(), item.getCardinality() * item.getCompanyPaymentValue());
 					break;
 				}else if (event.getItem().getSystemType() == SystemSalaryItemType.Personal) {
-					value = decimal(item.getCarryType(), item.getPrecision(), item.getCardinality() * item.getPersonalPaymentValue());
+					value = decimal(socialItem.getCarryType(), item.getPrecision(), item.getCardinality() * item.getPersonalPaymentValue());
 					break;
 				}
 			}
