@@ -237,10 +237,10 @@ Ext.define('sion.salary.social.view.SocialAccountItemEdit', {
         if(item){
             form.loadRecord(item);
             if(item.get('companyPaymentType') == 'Percent'){
-                me.down('#companyPaymentValue').setValue(parseFloat(item.get('companyPaymentValue'))  * 100 + '%');
+                me.down('#companyPaymentValue').setValue(parseFloat(item.get('companyPaymentValue'))  * 100);
             }
             if(item.get('personalPaymentType') == 'Percent'){
-                me.down('#personalPaymentValue').setValue(parseFloat(item.get('personalPaymentValue'))  * 100 + '%');
+                me.down('#personalPaymentValue').setValue(parseFloat(item.get('personalPaymentValue'))  * 100);
             }
         }else{
             form.loadRecord(Ext.create(namespace + '.model.SocialAccountItem', {

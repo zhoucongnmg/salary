@@ -149,7 +149,6 @@ public class PayrollController {
 					personAccountItemMap.put(item.getId(), item);
 					
 					if (item.getType() == SalaryItemType.Input) {
-						personMap.put(item.getSalaryItemId(), item.getValue());
 						//TODO 通过personId查找该人在薪资档案中该项设置的值
 						Double value = personService.getOneItemValue(person.getId(), item.getSalaryItemId());
 						if (value!=null) {
@@ -808,19 +807,36 @@ public class PayrollController {
 	 */
 	@RequestMapping(value = "update")
 	public Response update(@RequestBody Payroll payroll) {
+		Set<String> savePersonIds = new HashSet<String>();
+		Set<String> removePersonIds = new HashSet<String>();
 		
 		
 		Payroll old = payrollRepository.findOne(payroll.getId());
-		Set<String> oldPersonIds =  old.getPersons().keySet();
+		Set<String> oldPersonIds =  new HashSet<String>(old.getPersons().keySet());
 		
-		Set<String> newPersonIds = payroll.getPersons().keySet();
-		for (String oldPersonId : oldPersonIds) {
-			newPersonIds.remove(oldPersonId);
+		Set<String> newPersonIds = new HashSet<String>(payroll.getPersons().keySet());
+		
+		for (String newPersonId : newPersonIds) {
+			if (!oldPersonIds.contains(newPersonId)) {
+				savePersonIds.add(newPersonId);
+			}
 		}
+		
+		for (String oldPersonId : oldPersonIds) {
+			if (!newPersonIds.contains(oldPersonId)) {
+				removePersonIds.add(oldPersonId);
+			}
+		}
+		
 		payrollRepository.save(payroll);
-		if (newPersonIds.size()>0) {
-			List<PayrollItem> items = generatePayrollItem(payroll, newPersonIds);
+		if (savePersonIds.size()>0) {
+			List<PayrollItem> items = generatePayrollItem(payroll, savePersonIds);
 			payrollItemRepository.save(items);
+		}
+		
+		if (removePersonIds.size()>0) {
+			Iterable<PayrollItem> removePayrollItems = payrollItemRepository.findByPersonIdIn(new ArrayList(removePersonIds));
+			payrollItemRepository.delete(removePayrollItems);
 		}
 		return new Response(true);
 	}

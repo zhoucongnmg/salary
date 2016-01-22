@@ -70,9 +70,9 @@
                     "    namespace = me.getNamespace(),",
                     "    form = me.down('form'),",
                     "    record = me._accountItem,",
-                    "//     store = Ext.getStore('AccountItem'),",
+                    "    //     store = Ext.getStore('AccountItem'),",
                     "    store = me._store,",
-                    "//     items = [],",
+                    "    //     items = [],",
                     "    panel = me.down('#formulaPanel'),",
                     "    grid = me.down('gridpanel'),",
                     "    app = Ext.ClassManager.get('sion.salary.formula' + \".$application\").create(),",
@@ -88,10 +88,11 @@
                     "if(record === null){",
                     "    record = Ext.create(namespace + '.model.AccountItem', {",
                     "        item: 'SalaryItem',",
-                    "        id : Ext.data.IdGenerator.get('uuid').generate()",
+                    "        id : Ext.data.IdGenerator.get('uuid').generate(),",
+                    "        show : true",
                     "    });",
                     "}else{",
-                    "//     me.getSalaryItem(record.get('type'));",
+                    "    //     me.getSalaryItem(record.get('type'));",
                     "}",
                     "form.loadRecord(record);",
                     "me.loadTax(record);"
@@ -598,52 +599,6 @@
             },
             "name": "loadTax",
             "designerId": "77c36462-bc80-4822-a700-535cd0e09792"
-        },
-        {
-            "type": "basiceventbinding",
-            "reference": {
-                "name": "listeners",
-                "type": "array"
-            },
-            "codeClass": null,
-            "userConfig": {
-                "fn": "onWindowBeforeRender",
-                "implHandler": [
-                    "// var me = this,",
-                    "//     namespace = me.getNamespace(),",
-                    "//     form = me.down('form'),",
-                    "//     record = me._accountItem,",
-                    "// //     store = Ext.getStore('AccountItem'),",
-                    "//     store = me._store,",
-                    "// //     items = [],",
-                    "//     panel = me.down('#formulaPanel'),",
-                    "//     grid = me.down('gridpanel'),",
-                    "//     app = Ext.ClassManager.get('sion.salary.formula' + \".$application\").create(),",
-                    "//     Api = app.getController('Api');",
-                    "",
-                    "// Api.initFormula({",
-                    "//     _formulaId : 'AddSalaryItem',//窗口的ItemId",
-                    "//     _container :  panel,//需要将公式编辑器面板显示到哪一个Container中",
-                    "//     _data : store.data.items,//计算项store(Model必须包含id,text等field)",
-                    "//     _command : record !== null && record.get('formula') !== null ? record.get('formula').formula : ''",
-                    "// });",
-                    "// me._formulaApi = Api;",
-                    "// if(record === null){",
-                    "//     record = Ext.create(namespace + '.model.AccountItem', {",
-                    "//         item: 'SalaryItem',",
-                    "//         id : Ext.data.IdGenerator.get('uuid').generate()",
-                    "//     });",
-                    "// }else{",
-                    "// //     me.getSalaryItem(record.get('type'));",
-                    "// }",
-                    "// form.loadRecord(record);",
-                    "// me.loadTax(record);"
-                ],
-                "name": "beforerender",
-                "scope": "me"
-            },
-            "name": "onWindowBeforeRender",
-            "designerId": "3f11489e-5a12-4ea5-9faf-5eaec522cd86"
         }
     ]
 }

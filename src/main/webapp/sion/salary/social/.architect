@@ -1802,8 +1802,13 @@
         "topInstance": null
     },
     "inspectorState": {
+<<<<<<< HEAD
         "topInstance": "ab191b14-fffd-4c4d-be41-8dbf0d999859",
         "selectedInstance": "d1531052-8ac2-4b9c-b700-cb10dbafb9f0"
+=======
+        "topInstance": "67f56a2a-24ab-4092-8e30-7f91a7e3560a",
+        "selectedInstance": "7f4fa6b5-5165-4776-aabf-6c5134dd7ea5"
+>>>>>>> branch 'develop' of http://mysionccsvn.f3322.org:10080/enterprise/salary.git
     },
     "editMode": "code",
     "userSettings": {
