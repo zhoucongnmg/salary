@@ -814,7 +814,9 @@ public class PayrollController {
 		Set<String> oldPersonIds =  old.getPersons().keySet();
 		
 		Set<String> newPersonIds = payroll.getPersons().keySet();
-		newPersonIds.remove(oldPersonIds);
+		for (String oldPersonId : oldPersonIds) {
+			newPersonIds.remove(oldPersonId);
+		}
 		payrollRepository.save(payroll);
 		if (newPersonIds.size()>0) {
 			List<PayrollItem> items = generatePayrollItem(payroll, newPersonIds);
