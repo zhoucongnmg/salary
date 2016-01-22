@@ -42,10 +42,6 @@ Ext.define('sion.salary.accounts.view.AddSalaryItem', {
                 afterrender: {
                     fn: me.onWindowAfterRender,
                     scope: me
-                },
-                beforerender: {
-                    fn: me.onWindowBeforeRender,
-                    scope: me
                 }
             },
             dockedItems: [
@@ -208,9 +204,9 @@ Ext.define('sion.salary.accounts.view.AddSalaryItem', {
             namespace = me.getNamespace(),
             form = me.down('form'),
             record = me._accountItem,
-        //     store = Ext.getStore('AccountItem'),
+            //     store = Ext.getStore('AccountItem'),
             store = me._store,
-        //     items = [],
+            //     items = [],
             panel = me.down('#formulaPanel'),
             grid = me.down('gridpanel'),
             app = Ext.ClassManager.get('sion.salary.formula' + ".$application").create(),
@@ -226,10 +222,11 @@ Ext.define('sion.salary.accounts.view.AddSalaryItem', {
         if(record === null){
             record = Ext.create(namespace + '.model.AccountItem', {
                 item: 'SalaryItem',
-                id : Ext.data.IdGenerator.get('uuid').generate()
+                id : Ext.data.IdGenerator.get('uuid').generate(),
+                show : true
             });
         }else{
-        //     me.getSalaryItem(record.get('type'));
+            //     me.getSalaryItem(record.get('type'));
         }
         form.loadRecord(record);
         me.loadTax(record);
@@ -377,38 +374,6 @@ Ext.define('sion.salary.accounts.view.AddSalaryItem', {
             store.clearFilter(true);
             store.filter("type", 'aaa');
         }
-    },
-
-    onWindowBeforeRender: function(component, eOpts) {
-        // var me = this,
-        //     namespace = me.getNamespace(),
-        //     form = me.down('form'),
-        //     record = me._accountItem,
-        // //     store = Ext.getStore('AccountItem'),
-        //     store = me._store,
-        // //     items = [],
-        //     panel = me.down('#formulaPanel'),
-        //     grid = me.down('gridpanel'),
-        //     app = Ext.ClassManager.get('sion.salary.formula' + ".$application").create(),
-        //     Api = app.getController('Api');
-
-        // Api.initFormula({
-        //     _formulaId : 'AddSalaryItem',//窗口的ItemId
-        //     _container :  panel,//需要将公式编辑器面板显示到哪一个Container中
-        //     _data : store.data.items,//计算项store(Model必须包含id,text等field)
-        //     _command : record !== null && record.get('formula') !== null ? record.get('formula').formula : ''
-        // });
-        // me._formulaApi = Api;
-        // if(record === null){
-        //     record = Ext.create(namespace + '.model.AccountItem', {
-        //         item: 'SalaryItem',
-        //         id : Ext.data.IdGenerator.get('uuid').generate()
-        //     });
-        // }else{
-        // //     me.getSalaryItem(record.get('type'));
-        // }
-        // form.loadRecord(record);
-        // me.loadTax(record);
     },
 
     getSalaryItem: function(type) {
