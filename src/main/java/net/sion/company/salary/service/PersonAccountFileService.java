@@ -140,10 +140,11 @@ public class PersonAccountFileService {
 			List<PersonAccountItem> pAccountItems = personAccountFile.getAccountItems();
 			boolean exist = false;
 			// 先删除档案里有，方案里没有的
-			for (int i=pAccountItems.size()-1;i>=0;i--) {
+			for (int i = pAccountItems.size() - 1; i >= 0; i--) {
 				PersonAccountItem pAccountItem = pAccountItems.get(i);
 				for (AccountItem item : accountItems) {
-					if (item.getSalaryItemId().equals(pAccountItem.getAccountItemId())) {
+					if (item.getSalaryItemId().equals(pAccountItem.getAccountItemId())
+							&& SalaryItemType.Input.equals(item.getType())) {
 						exist = true;
 						break;
 					}
@@ -166,12 +167,15 @@ public class PersonAccountFileService {
 						break;
 					}
 				}
-				if (exist == false) {
+				if (exist == false && SalaryItemType.Input.equals(accountItem.getType())) {
 					PersonAccountItem paItem = new PersonAccountItem();
 					paItem.setAccountItemId(accountItem.getSalaryItemId());
 					paItem.setAccountItemName(accountItem.getName());
 					pAccountItems.add(paItem);
 
+					if (personAccountFile.getAccountItemsSetting() == null) {
+						personAccountFile.setAccountItemsSetting(new HashMap<String, ItemSetting>());
+					}
 					personAccountFile.getAccountItemsSetting().put(accountItem.getSalaryItemId(), ItemSetting.Solution);
 				} else {
 					exist = false;
