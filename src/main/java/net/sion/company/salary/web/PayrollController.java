@@ -149,7 +149,6 @@ public class PayrollController {
 					personAccountItemMap.put(item.getId(), item);
 					
 					if (item.getType() == SalaryItemType.Input) {
-						personMap.put(item.getSalaryItemId(), item.getValue());
 						//TODO 通过personId查找该人在薪资档案中该项设置的值
 						Double value = personService.getOneItemValue(person.getId(), item.getSalaryItemId());
 						if (value!=null) {
@@ -811,12 +810,10 @@ public class PayrollController {
 		
 		
 		Payroll old = payrollRepository.findOne(payroll.getId());
-		Set<String> oldPersonIds =  old.getPersons().keySet();
+		Set<String> oldPersonIds =  new HashSet<String>(old.getPersons().keySet());
 		
-		Set<String> newPersonIds = payroll.getPersons().keySet();
-		for (String oldPersonId : oldPersonIds) {
-			newPersonIds.remove(oldPersonId);
-		}
+		Set<String> newPersonIds = new HashSet<String>(payroll.getPersons().keySet());
+		newPersonIds.remove(oldPersonIds);
 		payrollRepository.save(payroll);
 		if (newPersonIds.size()>0) {
 			List<PayrollItem> items = generatePayrollItem(payroll, newPersonIds);
