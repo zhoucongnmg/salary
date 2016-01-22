@@ -19,6 +19,9 @@ public class SalaryRegister extends AbstractAppRegisterListener {
 	@Override
 	public List<Module> registModule(List<Module> empty) {
 		List<Module> salaryList=AppEnum.Salary.getModules();
+		empty.addAll(AppEnum.Salary.getModules());
+		salaryList.get(1).addDepends(formula);
+		salaryList.get(1).addDepends(AppEnum.HR.getModules().get(0));
 		
 		Module m0 = AppEnum.Salary.getModules().get(0);
 		m0.addDepends(salaryList.get(1));
@@ -26,9 +29,9 @@ public class SalaryRegister extends AbstractAppRegisterListener {
 		m0.addDepends(salaryList.get(3));
 		m0.addDepends(salaryList.get(4));
 		m0.addDepends(salaryList.get(5));
-		m0.addDepends(formula);
 		
 		empty.add(m0);
+		empty.add(formula);
 		return empty;
 	}
 	
@@ -41,7 +44,8 @@ public class SalaryRegister extends AbstractAppRegisterListener {
 	@Override
 	public List<Permission> registPermission(List<Permission> empty) {
 		Permission permission = new Permission(AppEnum.Salary.getApp(),"Salary","薪资管理员","薪资管理角色可以维护管理本公司人员的薪资信息");
-		permission.addModule(AppEnum.Salary.getModules().get(0));
+		permission.addModules(AppEnum.Salary.getModules());
+		permission.addModule(formula);
 		
 		Roles.HR.addPermission(permission);
 		
