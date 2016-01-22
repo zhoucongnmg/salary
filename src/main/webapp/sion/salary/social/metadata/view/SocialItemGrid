@@ -8,14 +8,28 @@
     "userConfig": {
         "designer|userAlias": "socialitemgrid",
         "designer|userClassName": "SocialItemGrid",
-        "height": 515,
+        "height": null,
         "store": "SocialItem",
         "title": null,
-        "width": 1006
+        "width": null
     },
     "name": "UninsuredGrid1",
     "designerId": "46cfaa88-d0c1-4a49-99f4-47d684a59b29",
     "cn": [
+        {
+            "type": "Ext.grid.RowNumberer",
+            "reference": {
+                "name": "columns",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "flex": 0.06,
+                "text": "序号"
+            },
+            "name": "MyRowNumberer",
+            "designerId": "70f26541-8ce0-4eb0-8212-c678ce8c9bdf"
+        },
         {
             "type": "Ext.grid.column.Column",
             "reference": {

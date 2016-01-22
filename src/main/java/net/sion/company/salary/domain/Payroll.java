@@ -32,7 +32,6 @@ public class Payroll {
 	
 	String accountId;	//套账Id
 	
-	@Transient
 	String accountName;  //套帐Name
 	
 	Map<String,String> persons;	//发放人员 
@@ -41,7 +40,6 @@ public class Payroll {
 	
 //	String processId;	//流程实例id
 	
-	@Transient
 	String createPersonName;//创建人name
 	
 	String createPersonId;  //创建人id

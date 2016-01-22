@@ -18,12 +18,11 @@ Ext.define('sion.salary.social.view.SocialItemGrid', {
     alias: 'widget.socialitemgrid',
 
     requires: [
+        'Ext.grid.RowNumberer',
         'Ext.grid.View',
         'Ext.grid.column.Action'
     ],
 
-    height: 515,
-    width: 1006,
     store: 'SocialItem',
 
     initComponent: function() {
@@ -31,6 +30,11 @@ Ext.define('sion.salary.social.view.SocialItemGrid', {
 
         Ext.applyIf(me, {
             columns: [
+                {
+                    xtype: 'rownumberer',
+                    text: '序号',
+                    flex: 0.06
+                },
                 {
                     xtype: 'gridcolumn',
                     dataIndex: 'name',

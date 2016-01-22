@@ -74,6 +74,20 @@
             ]
         },
         {
+            "type": "Ext.grid.RowNumberer",
+            "reference": {
+                "name": "columns",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "flex": 0.5,
+                "text": "序号"
+            },
+            "name": "MyRowNumberer1",
+            "designerId": "7657d283-c41d-4a94-a1e7-da1c710744cf"
+        },
+        {
             "type": "Ext.grid.column.Column",
             "reference": {
                 "name": "columns",

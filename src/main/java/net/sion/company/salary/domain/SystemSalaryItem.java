@@ -3,6 +3,8 @@
  */
 package net.sion.company.salary.domain;
 
+import net.sion.company.salary.domain.Item.DecimalCarryType;
+
 import org.bson.types.ObjectId;
 
 
@@ -35,10 +37,21 @@ public class SystemSalaryItem extends SalaryItem {
 		super.type = SalaryItemType.System;
 		this.category = category;
 		this.systemType = systemType;
+		this.item = ItemType.SalaryItem;
+	}
+	public SystemSalaryItem(SystemSalaryItemEnum category,String name,SystemSalaryItemType systemType, DecimalCarryType carryType, int precision) {
+		super.id = new ObjectId().toString();
+		super.name = name;
+		super.type = SalaryItemType.System;
+		this.category = category;
+		this.systemType = systemType;
+		this.item = ItemType.SalaryItem;
+		super.carryType = carryType;
+		super.precision = precision;
 	}
 	
-	public SystemSalaryItem(SystemSalaryItemEnum category, String name,String itemId,SystemSalaryItemType systemType) {
-		this(category,name,systemType);
+	public SystemSalaryItem(SystemSalaryItemEnum category, String name,String itemId,SystemSalaryItemType systemType, DecimalCarryType carryType, int precision) {
+		this(category,name,systemType,carryType,precision);
 		this.itemId = itemId;
 	}
 	

@@ -14,7 +14,9 @@ import javax.script.ScriptException;
 import net.sion.company.salary.domain.Formula;
 import net.sion.company.salary.domain.FormulaItem;
 import net.sion.company.salary.domain.FormulaItem.FormulaType;
+import net.sion.company.salary.domain.SalaryItem;
 import net.sion.company.salary.sessionrepository.FormulaRepository;
+import net.sion.company.salary.sessionrepository.SalaryItemRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,6 +26,8 @@ public class FormulaService {
 
 	@Autowired
 	private FormulaRepository formulaRepository;
+	@Autowired
+	private SalaryItemRepository salaryItemRepository;
 
 	private ScriptEngine jsEngine;
 
@@ -74,8 +78,8 @@ public class FormulaService {
 	 * @return fieldId和Value键值对
 	 * @throws Exception
 	 */
-	public Map<String, String> caculateFormulas(Set<String> formulaIds, Map<String, Double> params) throws Exception {
-		Map<String, String> result = new HashMap<String, String>();
+	public Map<String, Double> caculateFormulas(Set<String> formulaIds, Map<String, Double> params) throws Exception {
+		Map<String, Double> result = new HashMap<String, Double>();
 		List<Formula> formulas = (List<Formula>) formulaRepository.findAll(formulaIds);
 		// 先过滤掉Params中计算项的值，防止“修改”时旧值干扰
 		for (Formula formula : formulas) {
@@ -83,7 +87,10 @@ public class FormulaService {
 		}
 		
 		for (Formula formula : formulas) {
-			result.put(formula.getResultFieldId(), String.valueOf(this.calculate(formula, formulas, params)));
+			Double value=this.calculate(formula, formulas, params);
+			SalaryItem sItem=salaryItemRepository.findOne(formula.getResultFieldId());
+			
+			result.put(formula.getResultFieldId(), sItem.decimal(sItem.getCarryType(), sItem.getPrecision(), value));
 		}
 
 		return result;

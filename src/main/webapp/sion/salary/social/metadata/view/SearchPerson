@@ -28,8 +28,8 @@
             "codeClass": null,
             "userConfig": {
                 "header": false,
-                "store": "PersonAccountStore",
-                "title": "My Grid Panel"
+                "store": "PersonAccountSearch",
+                "title": null
             },
             "name": "MyGridPanel2",
             "designerId": "ff53c3b2-0e4c-4563-8ec5-25eb55e990bd",
@@ -176,10 +176,10 @@
                                             "    grid=me.down('gridpanel');",
                                             "persons = grid.getSelectionModel().getSelection();",
                                             "",
-                                            "if(persons === null||persons.length===0){",
-                                            "    Ext.Msg.alert(\"提示\",\"请至少选中表格中的一条记录!\");",
-                                            "    return;",
-                                            "}",
+                                            "// if(persons === null||persons.length===0){",
+                                            "//     Ext.Msg.alert(\"提示\",\"请至少选中表格中的一条记录!\");",
+                                            "//     return;",
+                                            "// }",
                                             "if(this._callback){",
                                             "    this._callback(persons,this._scope);",
                                             "    me.close();",
@@ -207,9 +207,9 @@
             "userConfig": {
                 "fn": "onWindowAfterRender",
                 "implHandler": [
-                    "var me=this,",
-                    "    grid=me.down('gridpanel');",
-                    "grid.getStore().load();"
+                    "// var me=this,",
+                    "//     grid=me.down('gridpanel');",
+                    "// grid.getStore().load();"
                 ],
                 "name": "afterrender",
                 "scope": "me"

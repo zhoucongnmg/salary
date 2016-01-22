@@ -316,6 +316,7 @@
                                             "config.rootVisible=false;",
                                             "config.width=240;",
                                             "config.store=Ext.StoreManager.lookup(\"DeptSetting\");",
+                                            "console.log(\"deptId\");",
                                             "return config;"
                                         ]
                                     },
@@ -559,7 +560,8 @@
                                             "    store=field.getStore(),",
                                             "    rank=me.down('#rank'),",
                                             "    namespace=me.getNamespace(),",
-                                            "    rankstore=rank.getStore();",
+                                            "    rankstore=rank.getStore(),",
+                                            "    salaryItemStore=me.down('#SalaryItemGrid').getStore();",
                                             "rankstore.removeAll();",
                                             "store.each(function(level){",
                                             "    if(level.data.id===newValue){",
@@ -567,6 +569,14 @@
                                             "        Ext.Array.each(levelItems,function(item){",
                                             "            rankstore.add(Ext.create(namespace+\".model.Rank\",item));",
                                             "        });",
+                                            "",
+                                            "        rank.setValue();",
+                                            "        salaryItemStore.each(function(salaryItem){",
+                                            "            salaryItem.set('rankValue','');",
+                                            "            if(salaryItem.get('choose')==='Level')",
+                                            "                salaryItem.set('choose','Solution');",
+                                            "        });",
+                                            "",
                                             "    }",
                                             "});",
                                             ""
@@ -636,7 +646,10 @@
                                             "",
                                             "                salaryItemStore.each(function(salaryItem){",
                                             "                    salaryItem.set('rankValue',item.salaryItemValues[salaryItem.data.salaryItemId]);",
-                                            "                    salaryItem.set('choose','Level');",
+                                            "                    if(salaryItem.get('choose')!=='Person'&&(",
+                                            "                        item.salaryItemValues[salaryItem.data.salaryItemId]||",
+                                            "                        item.salaryItemValues[salaryItem.data.salaryItemId]===0))",
+                                            "                        salaryItem.set('choose','Level');",
                                             "                });",
                                             "",
                                             "            }",
@@ -846,7 +859,24 @@
                                             },
                                             "codeClass": null,
                                             "name": "MyNumberField3",
-                                            "designerId": "98b16eba-e8b6-4a63-abf8-47df5458d8d1"
+                                            "designerId": "98b16eba-e8b6-4a63-abf8-47df5458d8d1",
+                                            "cn": [
+                                                {
+                                                    "type": "basiceventbinding",
+                                                    "reference": {
+                                                        "name": "listeners",
+                                                        "type": "array"
+                                                    },
+                                                    "codeClass": null,
+                                                    "userConfig": {
+                                                        "fn": "onNumberfieldChange",
+                                                        "name": "change",
+                                                        "scope": "me"
+                                                    },
+                                                    "name": "onNumberfieldChange",
+                                                    "designerId": "f03ed120-57f3-4b66-96f9-05cf29fd964a"
+                                                }
+                                            ]
                                         },
                                         {
                                             "type": "fixedfunction",
@@ -978,6 +1008,34 @@
                                             "group": "(Custom Properties)",
                                             "name": "saveBtnText",
                                             "type": "string"
+                                        }
+                                    ],
+                                    "cn": [
+                                        {
+                                            "type": "basiceventbinding",
+                                            "reference": {
+                                                "name": "listeners",
+                                                "type": "array"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "fn": "onRowEditingEdit",
+                                                "implHandler": [
+                                                    "if(context.newValues.personValue!=null &&context.newValues.personValue>=0){",
+                                                    "    context.record.set('choose','Person');",
+                                                    "}else if(context.record.get('rankValue')!=null && context.record.get('rankValue')>=0){",
+                                                    "    context.record.set('choose','Level');",
+                                                    "}",
+                                                    "else{",
+                                                    "    context.record.set('choose','Solution');",
+                                                    "}",
+                                                    "context.record.commit();"
+                                                ],
+                                                "name": "edit",
+                                                "scope": "me"
+                                            },
+                                            "name": "onRowEditingEdit",
+                                            "designerId": "d1531052-8ac2-4b9c-b700-cb10dbafb9f0"
                                         }
                                     ]
                                 }
@@ -1314,7 +1372,7 @@
                                     },
                                     "codeClass": null,
                                     "userConfig": {
-                                        "dataIndex": "socialItemName",
+                                        "dataIndex": "name",
                                         "flex": 1,
                                         "text": "项目名称"
                                     },
@@ -1372,6 +1430,36 @@
                                             "codeClass": null,
                                             "name": "MyNumberField5",
                                             "designerId": "a66f07f0-2e90-48d0-8663-7921822bd4a0"
+                                        },
+                                        {
+                                            "type": "fixedfunction",
+                                            "reference": {
+                                                "name": "items",
+                                                "type": "array"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "designer|params": [
+                                                    "value",
+                                                    "metaData",
+                                                    "record",
+                                                    "rowIndex",
+                                                    "colIndex",
+                                                    "store",
+                                                    "view"
+                                                ],
+                                                "fn": "renderer",
+                                                "implHandler": [
+                                                    "if(record.get('companyPaymentType')==='Percent'){",
+                                                    "    return value*100 +'%';",
+                                                    "}",
+                                                    "else{",
+                                                    "    return value;",
+                                                    "}"
+                                                ]
+                                            },
+                                            "name": "renderer",
+                                            "designerId": "2c318002-94a5-449e-afdb-36ec10d0e55e"
                                         }
                                     ]
                                 },
@@ -1464,6 +1552,36 @@
                                             "codeClass": null,
                                             "name": "MyNumberField6",
                                             "designerId": "15ab58d3-9ba6-49de-bf65-44b1fc6adc65"
+                                        },
+                                        {
+                                            "type": "fixedfunction",
+                                            "reference": {
+                                                "name": "items",
+                                                "type": "array"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "designer|params": [
+                                                    "value",
+                                                    "metaData",
+                                                    "record",
+                                                    "rowIndex",
+                                                    "colIndex",
+                                                    "store",
+                                                    "view"
+                                                ],
+                                                "fn": "renderer",
+                                                "implHandler": [
+                                                    "if(record.get('personalPaymentType')==='Percent'){",
+                                                    "    return value*100 +'%';",
+                                                    "}",
+                                                    "else{",
+                                                    "    return value;",
+                                                    "}"
+                                                ]
+                                            },
+                                            "name": "renderer",
+                                            "designerId": "73b93d5c-088a-4130-b65e-68ffc128375a"
                                         }
                                     ]
                                 },
@@ -1588,14 +1706,19 @@
                     "var me=this,",
                     "    level=me.down('#level'),",
                     "    accountId=me.down('#accountId'),",
-                    "    socialAccount=me.down('#socialAccount');",
+                    "    socialAccount=me.down('#socialAccount'),",
+                    "    deptStore=Ext.StoreManager.lookup(\"DeptSetting\");",
+                    "// level.getStore().load();",
+                    "// accountId.getStore().load();",
+                    "// socialAccount.getStore().load();",
+                    "deptStore.load({synchronous:true,callback: function(records, operation, success) {",
+                    "    level.getStore().load({synchronous:true,callback: function(records, operation, success) {",
+                    "        accountId.getStore().load({synchronous:true,callback: function(records, operation, success) {",
+                    "            socialAccount.getStore().load({synchronous:true,callback: function(records, operation, success) {",
+                    "                me.echo(me);",
+                    "            }});",
                     "",
-                    "level.getStore().load({synchronous:true,callback: function(records, operation, success) {",
-                    "    accountId.getStore().load({synchronous:true,callback: function(records, operation, success) {",
-                    "        socialAccount.getStore().load({synchronous:true,callback: function(records, operation, success) {",
-                    "            me.echo(me);",
                     "        }});",
-                    "",
                     "    }});",
                     "}});",
                     "",
@@ -1709,7 +1832,9 @@
                     "    if(account.data.id===newValue){",
                     "        var items=account.data.socialAccountItems;",
                     "        Ext.Array.each(items,function(item){",
-                    "            gridStore.add(Ext.create(namespace+\".model.PersonSocialItem\",item));",
+                    "            var rowData=Ext.create(namespace+\".model.PersonSocialItem\",item);",
+                    "//             rowData.set(\"socialItemName\",item.name);",
+                    "            gridStore.add(rowData);",
                     "        });",
                     "    }",
                     "});",
@@ -1837,7 +1962,7 @@
                     "    level=me.down('#level'),",
                     "    accountId=me.down('#accountId'),",
                     "    socialAccount=me.down('#socialAccount');",
-                    "if(me._record){",
+                    "if(me._record){console.log(\"echo\");",
                     "    salaryForm.getForm().setValues(me._record.data);",
                     "    socialForm.getForm().setValues(me._record.data.insuredPerson);",
                     "    salaryItemStore.removeAll();",

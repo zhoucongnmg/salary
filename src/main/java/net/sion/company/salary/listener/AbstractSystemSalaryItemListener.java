@@ -18,7 +18,8 @@ public abstract class AbstractSystemSalaryItemListener implements ApplicationLis
 		switch(event.getType()) {
 			case GetValue:
 				if (event.getItem().getCategory() == hook()) {
-					this.getValue(event);
+					Double value = this.getValue(event);
+					event.setValue(value);
 				}
 				break;
 			case Regist : 

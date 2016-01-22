@@ -217,45 +217,69 @@ Ext.define('sion.salary.accounts.view.SalaryPlan', {
             itemGrid = me.down('#itemGrid'),
             itemList = [],
             account = me._account,
-            itemStore = itemGrid.getStore(),
-            updatePayroll = false;
+            itemStore = itemGrid.getStore();
 
         record = form.getRecord();
-        form.updateRecord(record);
-        if(!me.down('#name').isValid()){
-            Ext.Msg.alert("提示", "信息不完整，请继续填写！");
-            return false;
-        }
-        itemStore.each(function(item){
-            itemList.push(item.data);
-        });
-        record.set('accountItems', itemList);
-        record.set('persons', null);
-        // if(record.get('id') === ''){
-        //     store.add(record);
-        // }
-        if(account){
-            Ext.Msg.confirm('提示', '是否更新工资条？', function(text){
-                if(text == 'yes'){
-                    updatePayroll = true;
-                    var payroll = Ext.create(namespace + ".view.payroll");
-                    var payrollStore = payroll.down('gridpanel').getStore();
-                    Ext.apply(payrollStore.proxy.extraParams, {
-                        accountId : record.get('id')
+        Ext.Ajax.request({
+            url: 'salary/account/validateName',
+            method: 'post',
+            async: false,    //不使用异步
+            params: {
+                id: record.get('id'),
+                name: me.down('#name').getValue(),
+            },
+            success: function(response, opts){
+                var data = Ext.JSON.decode(response.responseText);
+                if(!data.success){
+                    Ext.Msg.alert('提示', '方案名称已经存在，请重新输入！');
+                    return false;
+                }else{
+                    form.updateRecord(record);
+                    if(!me.down('#name').isValid()){
+                        Ext.Msg.alert("提示", "信息不完整，请继续填写！");
+                        return false;
+                    }
+                    itemStore.each(function(item){
+                        itemList.push(item.data);
                     });
-                    payrollStore.load({
-                        callback: function(records, operation, success) {
-                            payroll.show();
-                        }
-                    });
+                    record.set('accountItems', itemList);
+                    record.set('persons', null);
+                    if(account){
+                        store.sync({
+                            success: function(response, opts){
+                                Ext.Msg.confirm('提示', '保存成功，是否更新工资条？', function(text){
+                                    if(text == 'yes'){
+                                        var payroll = Ext.create(namespace + ".view.payroll");
+                                        var payrollStore = payroll.down('gridpanel').getStore();
+                                        Ext.apply(payrollStore.proxy.extraParams, {
+                                            accountId : record.get('id')
+                                        });
+                                        payrollStore.load({
+                                            callback: function(records, operation, success) {
+                                                payroll.show();
+                                            }
+                                        });
+                                    }
+                                });
+                                store.load();
+                                me.close();
+                            },
+                            failure: function(){
+                                Ext.Msg.alert("提示", "保存失败");
+                                me.close();
+                            }
+                        });
+                    }else{
+                        store.add(record);
+                        me.save(store);
+                    }
                 }
-                me.save(store, updatePayroll);
-            });
-        }else{
-            store.add(record);
-            me.save(store);
-        }
-
+            },
+            failure: function(response, opts) {
+                Ext.Msg.alert('提示','数据请求错误，请稍候重新尝试获取数据……');
+                return false;
+            }
+        });
     },
 
     onItemGridItemDblClick: function(dataview, record, item, index, e, eOpts) {
@@ -268,7 +292,7 @@ Ext.define('sion.salary.accounts.view.SalaryPlan', {
 
     onWindowBeforeRender: function(component, eOpts) {
         var me = this,
-            store = Ext.getStore('SalaryItem');
+            store = Ext.getStore('SalaryItemAccount');
 
         store.clearFilter(true);
         Ext.apply(store.proxy.extraParams, {
@@ -289,21 +313,25 @@ Ext.define('sion.salary.accounts.view.SalaryPlan', {
         var me = this,
             grid = me.down('grid'),
             namespace = me.getNamespace(),
-        //     accountItem = Ext.create(namespace + '.model.AccountItem');
-            taxStore = Ext.getStore('Tax');
+            taxStore = Ext.getStore('Tax'),
+            win;
 
         taxStore.load({
             callback: function(records, operation, success) {
-                Ext.create(namespace+".view.AddSalaryItem", {
-                    //     _account : me._account,
-                    _accountItem : record,
-                    _store : grid.getStore(),
-                    _taxStore : taxStore
-                }).show();
+                win = Ext.ComponentQuery.query('#AddSalaryItem')[0];
+                //         if(win){
+                //             win.close();
+                //         }
+                if(!win){
+                    win = Ext.create(namespace + ".view.AddSalaryItem", {
+                        _accountItem : record,
+                        _store : grid.getStore(),
+                        _taxStore : taxStore
+                    });
+                }
+                win.show();
             }
         });
-
-
     },
 
     getFormula: function(id) {
@@ -329,14 +357,12 @@ Ext.define('sion.salary.accounts.view.SalaryPlan', {
         // }
     },
 
-    save: function(store, updatePayroll) {
+    save: function(store) {
         var me = this;
 
         store.sync({
             success: function(response, opts){
-                if(!updatePayroll){
-                    Ext.Msg.alert("提示", "保存成功");
-                }
+                Ext.Msg.alert("提示", "保存成功");
                 store.load();
                 me.close();
             },

@@ -22,7 +22,7 @@ Ext.define('sion.salary.social.model.PersonSocialItem', {
 
     fields: [
         {
-            name: 'socialItemName'
+            name: 'name'
         },
         {
             name: 'cardinality'

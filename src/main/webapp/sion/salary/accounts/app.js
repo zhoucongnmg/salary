@@ -46,7 +46,8 @@ Ext.application({
         'PersonAccountItem',
         'AccountItemType',
         'AccountItemTypeExcludeSystem',
-        'SalaryPlanPayroll'
+        'SalaryPlanPayroll',
+        'SalaryItemAccount'
     ],
     views: [
         'SalaryPlanGrid',

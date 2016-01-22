@@ -102,12 +102,13 @@
                                     "    dateUtil = Ext.create(me.getNamespace() + '.controller.DateUtil'),",
                                     "    startDate=me.down('#from').getValue(),",
                                     "    endDate=me.down('#to').getValue();",
+                                    "store.getProxy().setExtraParam(\"insuredPersonExists\", '');",
                                     "store.getProxy().setExtraParam(\"from\",startDate===null?\"\":dateUtil.format(new Date(startDate),'yyyy-MM-dd'));",
                                     "store.getProxy().setExtraParam(\"to\",endDate===null?\"\":dateUtil.format(new Date(endDate),'yyyy-MM-dd'));",
                                     "store.getProxy().setExtraParam(\"status\",me.down('#status').getValue());",
                                     "store.getProxy().setExtraParam(\"salaryAccount\",me.down('#salaryAccount').getValue());",
                                     "store.getProxy().setExtraParam(\"socialAccount\",me.down('#socialAccount').getValue());",
-                                    "",
+                                    "store.getProxy().setExtraParam(\"loadAll\", '');",
                                     "store.reload();"
                                 ],
                                 "name": "click",
@@ -164,6 +165,51 @@
                             },
                             "name": "onResetClick1",
                             "designerId": "fe40fc98-7a46-4ab5-b58a-8db4527a7d02"
+                        }
+                    ]
+                },
+                {
+                    "type": "Ext.button.Button",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|flex": null,
+                        "margin": "0 0 0 10",
+                        "text": "导出"
+                    },
+                    "name": "MyButton13",
+                    "designerId": "25654684-bb3b-4996-8ed3-5e059fd93cd9",
+                    "cn": [
+                        {
+                            "type": "basiceventbinding",
+                            "reference": {
+                                "name": "listeners",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fn": "onButtonClick1",
+                                "implHandler": [
+                                    "var me=this,",
+                                    "    dateUtil = Ext.create(me.getNamespace() + '.controller.DateUtil');",
+                                    "var startDate=me.down('#from').getValue();",
+                                    "var endDate=me.down('#to').getValue();",
+                                    "var queryString=\"&from=\"+(me.down('#from').getValue()===null?\"\":dateUtil.format(new Date(startDate),'yyyy-MM-dd'));",
+                                    "queryString+=(\"&to=\"+(me.down('#to').getValue()===null?\"\":dateUtil.format(new Date(endDate),'yyyy-MM-dd')));",
+                                    "queryString+=(\"&status=\"+(me.down('#status').getValue()===null?\"\":me.down('#status').getValue()));",
+                                    "queryString+=(\"&salaryAccount=\"+(me.down('#salaryAccount').getValue()===null?\"\":me.down('#salaryAccount').getValue()));",
+                                    "queryString+=(\"&socialAccount=\"+(me.down('#socialAccount').getValue()===null?\"\":me.down('#socialAccount').getValue()));",
+                                    "",
+                                    "window.location.href = \"salary/person//export?\"+queryString;"
+                                ],
+                                "name": "click",
+                                "scope": "me"
+                            },
+                            "name": "onButtonClick1",
+                            "designerId": "211f44c6-a266-47e6-9657-b6775e4c90c4"
                         }
                     ]
                 }
@@ -683,7 +729,10 @@
                 "implHandler": [
                     "",
                     "",
-                    "component.getStore().load();"
+                    "var store = component.getStore();",
+                    "store.getProxy().setExtraParam(\"insuredPersonExists\", '');",
+                    "store.getProxy().setExtraParam(\"loadAll\", '');",
+                    "store.load();"
                 ],
                 "name": "afterrender",
                 "scope": "me"
