@@ -835,7 +835,7 @@ public class PayrollController {
 		}
 		
 		if (removePersonIds.size()>0) {
-			Iterable<PayrollItem> removePayrollItems = payrollItemRepository.findAll(removePersonIds);
+			Iterable<PayrollItem> removePayrollItems = payrollItemRepository.findByPersonIdIn(new ArrayList(removePersonIds));
 			payrollItemRepository.delete(removePayrollItems);
 		}
 		return new Response(true);
