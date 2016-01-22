@@ -83,32 +83,8 @@ public class PersonAccountFileService {
 		Double result = new Double(0);
 		Double accountValue = new Double(0);
 		Double levelValue = new Double(0);
-
 		PersonAccountFile person = pafRepository.findOne(id);
-		if (person.getAccountId() != null) {
-			Account account = accountRepository.findOne(person.getAccountId());
-			if (account != null) {
-				List<AccountItem> items = account.getAccountItems();
-				for (AccountItem accountItem : items) {
-					if (accountItem.getId().equals(itemId)) {
-						accountValue = new Double(accountItem.getValue());
-						break;
-					}
-				}
-			}
-		}
-		if (person.getLevel() != null && person.getRank() != null) {
-			Level level = levelRepository.findOne(person.getLevel());
-			if (level != null) {
-				for (LevelItem levelItem : level.getLevelItems()) {
-					if (person.getRank() != null && person.getRank().equals(levelItem.getRank())) {
-						levelValue = levelItem.getSalaryItemValues().get(itemId);
-						break;
-					}
-				}
-			}
-		}
-
+		
 		List<PersonAccountItem> accountItems = person.getAccountItems();
 		for (PersonAccountItem pai : accountItems) {
 			if (pai.getAccountItemId().equals(itemId)) {
@@ -116,12 +92,78 @@ public class PersonAccountFileService {
 				if (ItemSetting.Person.equals(setting)) {
 					result = pai.getValue();
 				} else if (ItemSetting.Level.equals(setting)) {
+					if (person.getLevel() != null && person.getRank() != null) {
+						Level level = levelRepository.findOne(person.getLevel());
+						if (level != null) {
+							for (LevelItem levelItem : level.getLevelItems()) {
+								if (person.getRank() != null && person.getRank().equals(levelItem.getRank())) {
+									levelValue = levelItem.getSalaryItemValues().get(itemId);
+									break;
+								}
+							}
+						}
+					}
 					result = levelValue;
 				} else {
+					if (person.getAccountId() != null) {
+						Account account = accountRepository.findOne(person.getAccountId());
+						if (account != null) {
+							List<AccountItem> items = account.getAccountItems();
+							for (AccountItem accountItem : items) {
+								if (accountItem.getSalaryItemId().equals(itemId)) {
+									accountValue = new Double(accountItem.getValue());
+									break;
+								}
+							}
+						}
+					}
 					result = accountValue;
 				}
 			}
 		}
+		
 		return result;
+	}
+	
+	/**
+	 * 更新指定薪资方案的所有档案
+	 * @param salaryAccountId
+	 */
+	public void updateSalaryItems(String salaryAccountId){
+		Account account = accountRepository.findOne(salaryAccountId);
+		List<AccountItem> accountItems=account.getAccountItems();
+		List<PersonAccountFile> persons = pafRepository.findByAccountId(salaryAccountId);
+		for (PersonAccountFile personAccountFile : persons) {
+			
+			List<PersonAccountItem> pAccountItems=personAccountFile.getAccountItems();
+			boolean exist=false;
+			for (PersonAccountItem pAccountItem : pAccountItems) {
+				for (AccountItem item : accountItems) {
+					if(item.getId().equals(pAccountItem.getAccountItemId())){
+						exist=true;
+						break;
+					}
+				}
+				
+				if(exist==false){
+					pAccountItems.remove(pAccountItem);
+					personAccountFile.getAccountItemsSetting().remove(pAccountItem.getAccountItemId());
+				}
+				else{
+					exist=false;
+				}
+			}
+			
+			for(AccountItem accountItem:accountItems){
+				
+			}
+		}
+	}
+	
+	/**
+	 * 更新指定社保方案的所有档案
+	 * @param socialAccountId
+	 */
+	public void updateSocialItems(String socialAccountId){
 	}
 }
