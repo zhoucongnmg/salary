@@ -103,78 +103,6 @@
                     "userConfig": {
                         "flex": 0.5,
                         "hideable": false,
-                        "text": "薪资设定",
-                        "width": null
-                    },
-                    "name": "MyActionColumn3",
-                    "designerId": "82a8c400-0123-449d-928c-5caca9035e62",
-                    "cn": [
-                        {
-                            "type": "actioncolumnitem",
-                            "reference": {
-                                "name": "items",
-                                "type": "array"
-                            },
-                            "codeClass": null,
-                            "userConfig": {
-                                "designer|displayName": "薪资设定",
-                                "iconCls": "s_icon_coins",
-                                "tooltip": "薪资设定"
-                            },
-                            "name": "MyActionColumnItem6",
-                            "designerId": "0ba331b9-d110-44f2-b067-e3206e9f64b0",
-                            "cn": [
-                                {
-                                    "type": "fixedfunction",
-                                    "reference": {
-                                        "name": "items",
-                                        "type": "array"
-                                    },
-                                    "codeClass": null,
-                                    "userConfig": {
-                                        "designer|params": [
-                                            "view",
-                                            "rowIndex",
-                                            "colIndex",
-                                            "item",
-                                            "e",
-                                            "record",
-                                            "row"
-                                        ],
-                                        "fn": "handler",
-                                        "implHandler": [
-                                            "var me = this.up('gridpanel').up(),",
-                                            "    account = me._account,",
-                                            "//     store = Ext.getStore('PersonAccountItem');",
-                                            "    namespace = me.getNamespace();",
-                                            "",
-                                            "var config =  Ext.create(namespace + '.view.AccountMemberConfig',{",
-                                            "    _account : account,",
-                                            "    _member : record",
-                                            "});",
-                                            "var store = config.down('gridpanel').getStore();",
-                                            "store.removeAll();",
-                                            "store.add(record.get('accountItems'));",
-                                            "config.show();"
-                                        ]
-                                    },
-                                    "name": "handler",
-                                    "designerId": "99ed665e-b586-4b50-9deb-98698e0a434a"
-                                }
-                            ]
-                        }
-                    ]
-                },
-                {
-                    "type": "Ext.grid.column.Action",
-                    "reference": {
-                        "name": "columns",
-                        "type": "array"
-                    },
-                    "codeClass": null,
-                    "userConfig": {
-                        "flex": 0.5,
-                        "hideable": false,
                         "text": "删除"
                     },
                     "name": "MyActionColumn6",
@@ -323,8 +251,7 @@
                                             "        });",
                                             "        personSelection.down('gridpanel').getSelectionModel().select(selectRecords);",
                                             "    }",
-                                            "});",
-                                            ""
+                                            "});"
                                         ],
                                         "name": "click",
                                         "scope": "me"

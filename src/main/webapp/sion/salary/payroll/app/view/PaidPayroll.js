@@ -231,8 +231,7 @@ Ext.define('sion.salary.payroll.view.PaidPayroll', {
                                                     record.set('state','Unpublish');
                                                     record.save({
                                                         success: function(response, opts){
-                                                            store.removeAt(rowIndex);
-                                                            store.commitChanges();
+                                                            store.reload();
                                                             Ext.Msg.alert("提示", "操作成功");
                                                         },
                                                         failure: function(){
@@ -262,7 +261,8 @@ Ext.define('sion.salary.payroll.view.PaidPayroll', {
                                         Ext.create(namespace + '.view.DynamicGrid',{
                                             _id : record.get('id'),
                                             _accountId : record.get('accountId'),
-                                            _record : record
+                                            _record : record,
+                                            _canEdit : false
                                         }).show();
                                     },
                                     iconCls: 's_icon_action_search'

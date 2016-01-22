@@ -143,10 +143,25 @@ Ext.define('sion.salary.social.view.AccountMember', {
     },
 
     onButtonClick: function(button, e, eOpts) {
-        var personSelection = Ext.create("sion.salary.social.view.SearchPerson",
-                                         {_scope : this, _callback : this.selectedCallback});
 
-        personSelection.show();
+        var me = this,
+            grid = me.down('gridpanel'),
+            store = grid.getStore(),
+            selectRecords = [],
+            personSelection = Ext.create("sion.salary.social.view.SearchPerson",
+                                         {_scope : me, _callback : me.selectedCallback}),
+            personGrid = personSelection.down('gridpanel'),
+            personStore = personGrid.getStore();
+
+        personStore.load({
+            callback: function(records, operation, success) {
+                personSelection.show();
+                Ext.Array.each(store.data.items, function(item){
+                    selectRecords.push(personStore.findRecord('id', item.data.id));
+                });
+                personSelection.down('gridpanel').getSelectionModel().select(selectRecords);
+            }
+        });
     },
 
     onButtonClick1: function(button, e, eOpts) {

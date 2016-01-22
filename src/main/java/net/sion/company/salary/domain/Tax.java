@@ -21,7 +21,7 @@ public class Tax {
 	@Id
 	String id;
 	String name;//名称
-	double threshold;//起征点
+	Double threshold;//起征点
 	List<TaxItem> taxItems;//税率设置
 	
 	public String getId() {
@@ -36,10 +36,10 @@ public class Tax {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public double getThreshold() {
+	public Double getThreshold() {
 		return threshold;
 	}
-	public void setThreshold(double threshold) {
+	public void setThreshold(Double threshold) {
 		this.threshold = threshold;
 	}
 	public List<TaxItem> getTaxItems() {

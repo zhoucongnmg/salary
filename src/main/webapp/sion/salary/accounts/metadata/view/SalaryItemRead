@@ -83,15 +83,34 @@
                     "codeClass": null,
                     "userConfig": {
                         "fieldLabel": "小数位数",
-                        "itemId": "decimalScale",
+                        "itemId": "precision",
                         "layout|anchor": "100%",
-                        "name": "decimalScale",
+                        "name": "precision",
                         "style": [
                             "border-bottom:1px #f2f2f2 solid;"
                         ]
                     },
                     "name": "MyDisplayField3",
                     "designerId": "e77b571d-1a7c-4853-b436-29d4e9c82ba0"
+                },
+                {
+                    "type": "Ext.form.field.Display",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fieldLabel": "小数保留方式",
+                        "itemId": "carryType",
+                        "layout|anchor": "100%",
+                        "name": "carryType",
+                        "style": [
+                            "border-bottom:1px #f2f2f2 solid;"
+                        ]
+                    },
+                    "name": "MyDisplayField5",
+                    "designerId": "38f7b9af-c194-494d-8d5c-0f24a698e306"
                 },
                 {
                     "type": "Ext.form.field.Display",

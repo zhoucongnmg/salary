@@ -8,6 +8,7 @@
     "userConfig": {
         "designer|userClassName": "AddSalaryItem",
         "height": 480,
+        "itemId": "AddSalaryItem",
         "title": "新增方案项目",
         "width": 860
     },
@@ -69,9 +70,9 @@
                     "    namespace = me.getNamespace(),",
                     "    form = me.down('form'),",
                     "    record = me._accountItem,",
-                    "//     store = Ext.getStore('AccountItem'),",
+                    "    //     store = Ext.getStore('AccountItem'),",
                     "    store = me._store,",
-                    "//     items = [],",
+                    "    //     items = [],",
                     "    panel = me.down('#formulaPanel'),",
                     "    grid = me.down('gridpanel'),",
                     "    app = Ext.ClassManager.get('sion.salary.formula' + \".$application\").create(),",
@@ -87,10 +88,11 @@
                     "if(record === null){",
                     "    record = Ext.create(namespace + '.model.AccountItem', {",
                     "        item: 'SalaryItem',",
-                    "        id : Ext.data.IdGenerator.get('uuid').generate()",
+                    "        id : Ext.data.IdGenerator.get('uuid').generate(),",
+                    "        show : true",
                     "    });",
                     "}else{",
-                    "//     me.getSalaryItem(record.get('type'));",
+                    "    //     me.getSalaryItem(record.get('type'));",
                     "}",
                     "form.loadRecord(record);",
                     "me.loadTax(record);"
@@ -286,7 +288,10 @@
                     },
                     "codeClass": null,
                     "userConfig": {
+                        "autoScroll": true,
+                        "container|align": "stretch",
                         "height": 381,
+                        "layout": "vbox",
                         "title": "项目",
                         "width": 300
                     },
@@ -304,8 +309,9 @@
                                 "boxLabel": "在工资条中显示",
                                 "fieldLabel": null,
                                 "hideEmptyLabel": false,
-                                "layout|anchor": "100%",
-                                "name": "show"
+                                "labelWidth": 50,
+                                "name": "show",
+                                "width": 150
                             },
                             "name": "MyCheckbox2",
                             "designerId": "fc142102-069d-461e-b34f-c066c988f4cf"
@@ -321,10 +327,11 @@
                                 "displayField": "name",
                                 "fieldLabel": "类型",
                                 "itemId": "type",
-                                "layout|anchor": "100%",
+                                "labelWidth": 50,
                                 "name": "type",
                                 "store": "AccountItemType",
-                                "valueField": "id"
+                                "valueField": "id",
+                                "width": 150
                             },
                             "name": "MyComboBox2",
                             "designerId": "598a0e7e-ad90-4f71-8804-a96f7e773386",
@@ -340,7 +347,7 @@
                                         "fn": "onTypeChange",
                                         "implHandler": [
                                             "var me = this,",
-                                            "    store = Ext.getStore('SalaryItem'),",
+                                            "    store = Ext.getStore('SalaryItemAccount'),",
                                             "    window = field.up(\"window\");",
                                             "",
                                             "if('Calculate' == newValue){",
@@ -385,8 +392,10 @@
                             },
                             "codeClass": null,
                             "userConfig": {
+                                "autoScroll": null,
                                 "header": false,
-                                "store": "SalaryItem",
+                                "layout|flex": 1,
+                                "store": "SalaryItemAccount",
                                 "title": null
                             },
                             "name": "MyGridPanel3",
@@ -590,52 +599,6 @@
             },
             "name": "loadTax",
             "designerId": "77c36462-bc80-4822-a700-535cd0e09792"
-        },
-        {
-            "type": "basiceventbinding",
-            "reference": {
-                "name": "listeners",
-                "type": "array"
-            },
-            "codeClass": null,
-            "userConfig": {
-                "fn": "onWindowBeforeRender",
-                "implHandler": [
-                    "// var me = this,",
-                    "//     namespace = me.getNamespace(),",
-                    "//     form = me.down('form'),",
-                    "//     record = me._accountItem,",
-                    "// //     store = Ext.getStore('AccountItem'),",
-                    "//     store = me._store,",
-                    "// //     items = [],",
-                    "//     panel = me.down('#formulaPanel'),",
-                    "//     grid = me.down('gridpanel'),",
-                    "//     app = Ext.ClassManager.get('sion.salary.formula' + \".$application\").create(),",
-                    "//     Api = app.getController('Api');",
-                    "",
-                    "// Api.initFormula({",
-                    "//     _formulaId : 'AddSalaryItem',//窗口的ItemId",
-                    "//     _container :  panel,//需要将公式编辑器面板显示到哪一个Container中",
-                    "//     _data : store.data.items,//计算项store(Model必须包含id,text等field)",
-                    "//     _command : record !== null && record.get('formula') !== null ? record.get('formula').formula : ''",
-                    "// });",
-                    "// me._formulaApi = Api;",
-                    "// if(record === null){",
-                    "//     record = Ext.create(namespace + '.model.AccountItem', {",
-                    "//         item: 'SalaryItem',",
-                    "//         id : Ext.data.IdGenerator.get('uuid').generate()",
-                    "//     });",
-                    "// }else{",
-                    "// //     me.getSalaryItem(record.get('type'));",
-                    "// }",
-                    "// form.loadRecord(record);",
-                    "// me.loadTax(record);"
-                ],
-                "name": "beforerender",
-                "scope": "me"
-            },
-            "name": "onWindowBeforeRender",
-            "designerId": "3f11489e-5a12-4ea5-9faf-5eaec522cd86"
         }
     ]
 }

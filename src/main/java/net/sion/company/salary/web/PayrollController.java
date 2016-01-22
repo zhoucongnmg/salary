@@ -34,7 +34,9 @@ import net.sion.company.salary.domain.SystemSalaryItem;
 import net.sion.company.salary.event.SystemSalaryItemPublisher;
 import net.sion.company.salary.service.FormulaService;
 import net.sion.company.salary.service.PayrollService;
+import net.sion.company.salary.service.PersonAccountFileService;
 import net.sion.company.salary.service.SocialService;
+import net.sion.company.salary.service.TaxService;
 import net.sion.company.salary.sessionrepository.AccountRepository;
 import net.sion.company.salary.sessionrepository.PayrollItemRepository;
 import net.sion.company.salary.sessionrepository.PayrollRepository;
@@ -49,6 +51,7 @@ import net.sion.core.admin.sessionrepository.DeptRepository;
 import net.sion.core.admin.sessionrepository.UserRepository;
 import net.sion.util.mvc.Response;
 
+import org.apache.commons.lang3.StringUtils;
 import org.aspectj.util.FileUtil;
 import org.bson.types.ObjectId;
 import org.json.JSONObject;
@@ -56,7 +59,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.query.BasicQuery;
-import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -113,6 +115,83 @@ public class PayrollController {
 	DeptRepository deptRepository;
 	@Autowired
 	ApplicationContext ctx;
+	
+	@Autowired
+	TaxService taxService;
+	
+	@Autowired
+	PersonAccountFileService personService;
+	
+	
+	public List<PayrollItem> generatePayrollItem(Payroll payroll,Set<String> personIds) {
+		List<PayrollItem> datas = new ArrayList<PayrollItem>();
+		try {
+			Account account = accountRepository.findOne(payroll.getAccountId()); 
+			Iterable<PersonAccountFile> personList = personAccountFileRepository.findAll(personIds);
+			
+			for (PersonAccountFile person : personList) {
+				
+				Map<String, Object> personMap = new HashMap<String, Object>();
+				Map<String, String> simplePersonMap = new HashMap<String, String>();
+				Map<String, Double> dataPersonMap = new HashMap<String, Double>();
+				simplePersonMap.put("personId", person.getId());
+				simplePersonMap.put("payrollId", payroll.getId());
+				simplePersonMap.put("name", person.getName());
+				simplePersonMap.put("duty", person.getDuty());
+				simplePersonMap.put("dept", person.getDept());
+				simplePersonMap.put("personCode", person.getPersonCode());
+				simplePersonMap.put("idCard", person.getIdCard());
+				simplePersonMap.put("bankAccount", person.getBankAccount());
+				
+				Map<String,AccountItem> personAccountItemMap = new HashMap<String,AccountItem>();
+				Set<String> formulaIds = new HashSet<String>();
+				for (AccountItem item : account.getAccountItems()) {
+					personAccountItemMap.put(item.getId(), item);
+					
+					if (item.getType() == SalaryItemType.Input) {
+						//TODO 通过personId查找该人在薪资档案中该项设置的值
+						Double value = personService.getOneItemValue(person.getId(), item.getSalaryItemId());
+						if (value!=null) {
+							dataPersonMap.put(item.getSalaryItemId(), value);
+						}else {
+							dataPersonMap.put(item.getSalaryItemId(), Double.valueOf(item.getValue()));
+						}
+					}else if (item.getType() == SalaryItemType.System) {
+						SystemSalaryItem systemItem = systemSalaryItemRepository.findOne(item.getSalaryItemId());
+						Double value = publisher.getValue(systemItem,person.getId(),person.getDept());
+						dataPersonMap.put(item.getSalaryItemId(), value);
+					}else if (item.getType() == SalaryItemType.Calculate) {
+						formulaIds.add(item.getFormulaId());
+						Map<String,Double> result = formulaService.caculateFormulas(formulaIds, dataPersonMap);
+						//TODO 将返回的数值putAll dataPersonMap
+						dataPersonMap.putAll(result);
+					}else if (item.getType() == SalaryItemType.Tax) {
+						String parentId = item.getParentId();
+						if(StringUtils.isNotBlank(parentId)&&personAccountItemMap.get(parentId)!=null) {
+							AccountItem parent = personAccountItemMap.get(parentId);
+							String parentSalaryItemId = parent.getSalaryItemId();
+							Double value = dataPersonMap.get(parentSalaryItemId);
+							dataPersonMap.put(item.getSalaryItemId(), taxService.getFastNumber(item.getTaxId(),value));
+						}
+					}
+					
+				}
+				
+				personMap.putAll(simplePersonMap);
+				personMap.putAll(dataPersonMap);
+				
+				//TODO convert to PayrollItem
+				PayrollItem item = new PayrollItem();
+				item.convertDomain(personMap);
+				datas.add(item);
+			} 
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return datas;
+	}
 
 	public List<Map<String, Object>> fillSimpleFields(List<Map<String, Object>> fields, Map<String,String> opts) {
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -137,6 +216,10 @@ public class PayrollController {
 		fields.add(map);
 		map = new HashMap<String, Object>();
 		map.put("name", "dept");
+		map.put("type", "string");
+		fields.add(map);
+		map = new HashMap<String, Object>();
+		map.put("name", "personCode");
 		map.put("type", "string");
 		fields.add(map);
 		
@@ -180,6 +263,12 @@ public class PayrollController {
 
 	public List<Map<String, Object>> fillSimpleColumns(List<Map<String, Object>> columns,Map<String,String> opts) {
 		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("header", "员工编号");
+		map.put("dataIndex", "personCode");
+		map.put("coltype", "readonly");
+		map.put("dataType", "simple");
+		columns.add(map);
+		map = new HashMap<String, Object>();
 		map.put("header", "姓名");
 		map.put("dataIndex", "name");
 		map.put("coltype", "readonly");
@@ -274,73 +363,32 @@ public class PayrollController {
 	}
 
 	public List<Map<String, Object>> fillData(Payroll payroll, List<PayrollItem> items, Account account) {
+		
 		List<Map<String, Object>> data = new ArrayList<Map<String, Object>>();
-
-		Map<String, PayrollItem> payrollItemMap = new HashMap<String, PayrollItem>();
-		for (PayrollItem item : items) {
-			payrollItemMap.put(item.getPersonId(), item);
-		}
-		Set<String> newPersonIds = new HashSet<String>();
-		for (Map.Entry<String, String> entry : payroll.getPersons().entrySet()) {
-			String personId = entry.getKey();
-			if (payrollItemMap.get(personId) != null) {
-				PayrollItem item = payrollItemMap.get(personId);
-				Map<String, Object> itemMap = item.parseMap();
-				data.add(itemMap);
-			} else {
-				newPersonIds.add(personId);
-			}
-
-		}
-		if (newPersonIds.size() > 0) {
-			Set<String> formulaIds = account.getFormulaIds();
-			Map<String, Double> salaryItemValues = account.getSalaryItemValues();
-			Map<String, String> result;
-			try {
-				result = formulaService.caculateFormulas(formulaIds, salaryItemValues);
-				Iterable<PersonAccountFile> personList = personAccountFileRepository.findAll(newPersonIds);
-				Map<String, PersonExtension<SocialAccountItem>> personSocialMap = socialService.getSocialAccountByPersons(newPersonIds);
-				
-				for (PersonAccountFile person : personList) {
-					Map<String, Object> personMap = new HashMap<String, Object>();
-					personMap.put("personId", person.getId());
-					personMap.put("payrollId", payroll.getId());
-					personMap.put("name", person.getName());
-					personMap.put("duty", person.getDuty());
-					personMap.put("dept", person.getDept());
-					
-					PersonExtension<SocialAccountItem> personExtension = personSocialMap.get(person.getId());
-					if (personExtension!=null) {
-						Map<String,SocialAccountItem> socialAccountItemMap = personExtension.getItems();
-						for (Map.Entry<String, SocialAccountItem> entry : socialAccountItemMap.entrySet()) {
-							SocialAccountItem item = entry.getValue();
-							personMap.put(item.getSocialItemId()+"-cardinality", item.getCardinality());
-							personMap.put(item.getSocialItemId()+"-companyPaymentValue", item.getCompanyPaymentValue());
-							personMap.put(item.getSocialItemId()+"-companyPaymentFinalValue", item.getCompanyPaymentFinalValue());
-							personMap.put(item.getSocialItemId()+"-personalPaymentValue", item.getPersonalPaymentValue());
-							personMap.put(item.getSocialItemId()+"-personalPaymentFinalValue", item.getCompanyPaymentValue());
-						}
+		
+		Set<String> personIds = payroll.getPersons().keySet();
+		if (personIds.size()>0) {
+			Map<String, PersonExtension<SocialAccountItem>> personSocialMap = socialService.getSocialAccountByPersons(personIds);
+			
+			for (PayrollItem item : items) {
+				Map<String,Object> itemMap = item.parseMap();
+				PersonExtension<SocialAccountItem> personExtension = personSocialMap.get(item.getPersonId());
+				if (personExtension!=null) {
+					Map<String,SocialAccountItem> socialAccountItemMap = personExtension.getItems();
+					for (Map.Entry<String, SocialAccountItem> entry : socialAccountItemMap.entrySet()) {
+						SocialAccountItem socialItem = entry.getValue();
+						itemMap.put(socialItem.getSocialItemId()+"-cardinality", socialItem.getCardinality());
+						itemMap.put(socialItem.getSocialItemId()+"-companyPaymentValue", socialItem.getCompanyPaymentValue());
+						itemMap.put(socialItem.getSocialItemId()+"-companyPaymentFinalValue", socialItem.getCompanyPaymentFinalValue());
+						itemMap.put(socialItem.getSocialItemId()+"-personalPaymentValue", socialItem.getPersonalPaymentValue());
+						itemMap.put(socialItem.getSocialItemId()+"-personalPaymentFinalValue", socialItem.getPersonalPaymentFinalValue());
 					}
-					
-					for (AccountItem item : account.getAccountItems()) {
-						if (item.getType() == SalaryItemType.Input) {
-							personMap.put(item.getSalaryItemId(), item.getValue());
-						}else if (item.getType() == SalaryItemType.System) {
-							SystemSalaryItem systemItem = systemSalaryItemRepository.findOne(item.getSalaryItemId());
-							publisher.getValue(systemItem,person.getId(),person.getDept());
-							personMap.put(item.getSalaryItemId(), item.getValue());
-						}
-						
-					}
-					personMap.putAll(result);
-					data.add(personMap);
 				}
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				
+				data.add(itemMap);
 			}
-
 		}
+		
 
 		return data;
 	}
@@ -353,6 +401,9 @@ public class PayrollController {
 		String id = (String)param.get("id");
 		Map<String,String> opts = (Map<String,String>)param.get("opts");
 		Payroll payroll = payrollRepository.findOne(id);
+		
+		//1.20周聪添加 工资条明细中按姓名筛选
+		filterByName(payroll,opts);
 
 		Account account = accountRepository.findOne(payroll.getAccountId());
 		List<AccountItem> items = account.getAccountItems();
@@ -363,8 +414,10 @@ public class PayrollController {
 		fillSimpleFields(fields,opts);
 		fillSimpleColumns(columns,opts);
 		for (AccountItem item : items) {
-			fields.add(getFields(item));
-			columns.add(getColumns(item));
+			if (item.isShow()) {
+				fields.add(getFields(item));
+				columns.add(getColumns(item));
+			}
 		}
 		List<PayrollItem> payrollItemList = payrollItemRepository.findByPayrollId(id);
 
@@ -375,6 +428,27 @@ public class PayrollController {
 		m.put("columns", columns);
 		m.put("data", data);
 		return new Response(m);
+	}
+	
+	private void filterByName(Payroll payroll,Map<String,String> opts){
+		if(opts ==null||opts.get("name")==null)
+			return;
+		else{
+			Map<String,String> person = payroll.getPersons();
+	/*		for (Map.Entry<String, String> entry : person.entrySet()) {
+				if(!entry.getValue().contains(opts.get("name")))
+					person.remove(entry.getKey());
+			}*/
+		/*	for (String key : person.keySet()) {
+				if(!person.get(key).contains(opts.get("name")))
+					person.remove(key);
+			}*/
+			Iterator<Map.Entry<String, String>> it = person.entrySet().iterator();
+			while(it.hasNext()){
+				if(!it.next().getValue().contains(opts.get("name")))
+					it.remove();
+			}
+		}
 	}
 
 	/**
@@ -617,7 +691,10 @@ public class PayrollController {
 		payroll.setSocialCostMonth(payroll.getSocialCostMonth().substring(0, 7));
 
 		Payroll roll = payrollRepository.save(payroll);
-
+		
+		
+		List<PayrollItem> items = generatePayrollItem(roll,roll.getPersons().keySet());
+		payrollItemRepository.save(items);
 		return new Response("sucess", roll, true);
 	}
 
@@ -730,9 +807,37 @@ public class PayrollController {
 	 */
 	@RequestMapping(value = "update")
 	public Response update(@RequestBody Payroll payroll) {
-
-		mongoTemplate.save(payroll);
-
+		Set<String> savePersonIds = new HashSet<String>();
+		Set<String> removePersonIds = new HashSet<String>();
+		
+		
+		Payroll old = payrollRepository.findOne(payroll.getId());
+		Set<String> oldPersonIds =  new HashSet<String>(old.getPersons().keySet());
+		
+		Set<String> newPersonIds = new HashSet<String>(payroll.getPersons().keySet());
+		
+		for (String newPersonId : newPersonIds) {
+			if (!oldPersonIds.contains(newPersonId)) {
+				savePersonIds.add(newPersonId);
+			}
+		}
+		
+		for (String oldPersonId : oldPersonIds) {
+			if (!newPersonIds.contains(oldPersonId)) {
+				removePersonIds.add(oldPersonId);
+			}
+		}
+		
+		payrollRepository.save(payroll);
+		if (savePersonIds.size()>0) {
+			List<PayrollItem> items = generatePayrollItem(payroll, savePersonIds);
+			payrollItemRepository.save(items);
+		}
+		
+		if (removePersonIds.size()>0) {
+			Iterable<PayrollItem> removePayrollItems = payrollItemRepository.findByPersonIdIn(new ArrayList(removePersonIds));
+			payrollItemRepository.delete(removePayrollItems);
+		}
 		return new Response(true);
 	}
 
@@ -796,7 +901,7 @@ public class PayrollController {
 		 * id : fieldIds) { String value = recordMap.get(id); values.put(id,
 		 * value); }
 		 **/
-		Map<String, String> changeFields = new HashMap<String, String>();
+		Map<String, Double> changeFields = new HashMap<String, Double>();
 		try {
 			PayrollItem payrollItem = new PayrollItem();
 			payrollItem.convertDomain(recordMap);
@@ -858,5 +963,22 @@ public class PayrollController {
 	public Response withdraw(@RequestParam Payroll pay) {
 		return new Response(true);
 	}
-
+	
+	
+	public static void main(String[] args) {
+		Set<String> old = new HashSet<String>();
+		Set<String> new1 = new HashSet<String>();
+		old.add("1");
+		old.add("2");
+		old.add("3");
+		
+		new1.add("1");
+		new1.add("2");
+		new1.add("3");
+		new1.add("4");
+		new1.removeAll(old);
+		System.out.println(new1);
+		
+	}
+	
 }

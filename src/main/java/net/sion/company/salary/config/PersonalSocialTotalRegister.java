@@ -11,7 +11,8 @@ import net.sion.company.salary.listener.AbstractSystemSalaryItemListener;
 import net.sion.company.salary.service.SocialService;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.stereotype.Component;
+@Component
 public class PersonalSocialTotalRegister extends AbstractSystemSalaryItemListener{
 	@Autowired SocialService socialService;
 	@Override

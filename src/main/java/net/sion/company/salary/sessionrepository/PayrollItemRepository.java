@@ -19,5 +19,8 @@ public interface PayrollItemRepository extends MongoRepository<PayrollItem, Stri
 		PagingAndSortingRepository<PayrollItem, String> {
 	public List<PayrollItem> findByPersonId(String personId);
 	
+	public List<PayrollItem> findByPersonIdIn(List<String> personIds);
+	
 	public List<PayrollItem> findByPayrollId(String payrollId);
+	
 }

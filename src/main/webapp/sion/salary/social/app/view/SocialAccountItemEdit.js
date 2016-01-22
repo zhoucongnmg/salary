@@ -190,10 +190,12 @@ Ext.define('sion.salary.social.view.SocialAccountItemEdit', {
         record.set('item', item.get('item'));
 
         if(record.get('companyPaymentType') == 'Percent'){
-            record.set('companyPaymentValue',Number(record.get('companyPaymentValue')) * 0.01);
+             record.set('companyPaymentValue',Number(Number(record.get('companyPaymentValue')) * 0.01).toFixed(4));
+        //     record.set('companyPaymentValue',parseFloat(record.get('companyPaymentValue')) * 0.01);
         }
         if(record.get('personalPaymentType') == 'Percent'){
-            record.set('personalPaymentValue',Number((Number(record.get('personalPaymentValue')) * 0.01)).toFixed(2));
+             record.set('personalPaymentValue',Number(Number(record.get('personalPaymentValue')) * 0.01).toFixed(4));
+        //     record.set('personalPaymentValue',parseFloat(record.get('personalPaymentValue')) * 0.01);
         }
 
         if(record.get('id') === ''){
@@ -235,10 +237,10 @@ Ext.define('sion.salary.social.view.SocialAccountItemEdit', {
         if(item){
             form.loadRecord(item);
             if(item.get('companyPaymentType') == 'Percent'){
-                me.down('#companyPaymentValue').setValue(parseFloat(item.get('companyPaymentValue'))  * 100 + '%');
+                me.down('#companyPaymentValue').setValue(parseFloat(item.get('companyPaymentValue'))  * 100);
             }
             if(item.get('personalPaymentType') == 'Percent'){
-                me.down('#personalPaymentValue').setValue(parseFloat(item.get('personalPaymentValue'))  * 100 + '%');
+                me.down('#personalPaymentValue').setValue(parseFloat(item.get('personalPaymentValue'))  * 100);
             }
         }else{
             form.loadRecord(Ext.create(namespace + '.model.SocialAccountItem', {

@@ -110,6 +110,7 @@
                 },
                 {
                     "id": "0e3eff45-256c-4490-a1bd-05d1fe14803a",
+                    "expanded": false,
                     "cn": [
                         {
                             "id": "b0a19be8-a027-483e-8939-b0b7fed09f55"
@@ -266,6 +267,9 @@
                 },
                 {
                     "id": "767b1041-540b-43ad-9dee-b092a2683745"
+                },
+                {
+                    "id": "cb9dc4b6-5ad8-44c2-949c-c874344ee2d5"
                 }
             ]
         },
@@ -314,8 +318,8 @@
         "topInstance": null
     },
     "inspectorState": {
-        "topInstance": "c159c817-e7dd-45e3-bd31-15e2aa5365b1",
-        "selectedInstance": "f60ffac0-3a04-401c-94f0-8c9a91f0d802"
+        "topInstance": "7b9262ee-3e83-4f56-9c25-9344d9509b14",
+        "selectedInstance": "34f96d45-3d1e-4404-935a-51a75d566573"
     },
     "editMode": "code",
     "userSettings": {

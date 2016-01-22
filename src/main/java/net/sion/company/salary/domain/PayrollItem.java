@@ -46,7 +46,11 @@ public class PayrollItem {
 	
 	String dept;	//部门
 	
+	String personCode; //人员编号
 	
+	String idCard;	//身份证号
+	
+	String bankAccount;	//银行账号
 	
 
 	
@@ -184,6 +188,31 @@ public class PayrollItem {
 	public void setPayrollId(String payrollId) {
 		this.payrollId = payrollId;
 	}
+
+	public String getPersonCode() {
+		return personCode;
+	}
+
+	public void setPersonCode(String personCode) {
+		this.personCode = personCode;
+	}
+
+	public String getIdCard() {
+		return idCard;
+	}
+
+	public void setIdCard(String idCard) {
+		this.idCard = idCard;
+	}
+
+	public String getBankAccount() {
+		return bankAccount;
+	}
+
+	public void setBankAccount(String bankAccount) {
+		this.bankAccount = bankAccount;
+	}
+	
 	
 	
 }

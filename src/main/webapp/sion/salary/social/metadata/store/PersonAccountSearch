@@ -1,0 +1,46 @@
+{
+    "type": "jsonstore",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userClassName": "PersonAccountSearch",
+        "model": "PersonAccount",
+        "pageSize": null,
+        "storeId": "PersonAccountSearch"
+    },
+    "name": "PersonAccountStore1",
+    "designerId": "5c951fd9-30bd-4a41-9306-df5f4df3fb8a",
+    "cn": [
+        {
+            "type": "Ext.data.proxy.Ajax",
+            "reference": {
+                "name": "proxy",
+                "type": "object"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "url": "salary/person/load"
+            },
+            "name": "MyAjaxProxy2",
+            "designerId": "eb246528-15b9-4e16-968b-be0d295bd9d6",
+            "cn": [
+                {
+                    "type": "Ext.data.reader.Json",
+                    "reference": {
+                        "name": "reader",
+                        "type": "object"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "root": "data"
+                    },
+                    "name": "MyJsonReader2",
+                    "designerId": "887d8f3c-ab15-483a-9a33-5f213178f711"
+                }
+            ]
+        }
+    ]
+}

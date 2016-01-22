@@ -33,6 +33,9 @@ Ext.define('sion.salary.tax.model.Tax', {
         },
         {
             name: 'id'
+        },
+        {
+            name: 'exemption'
         }
     ]
 });

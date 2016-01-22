@@ -72,6 +72,17 @@ Ext.define('sion.salary.social.view.PersonAccountGrid', {
                                     scope: me
                                 }
                             }
+                        },
+                        {
+                            xtype: 'button',
+                            margin: '0 0 0 10',
+                            text: '导出',
+                            listeners: {
+                                click: {
+                                    fn: me.onButtonClick1,
+                                    scope: me
+                                }
+                            }
                         }
                     ]
                 },
@@ -310,12 +321,13 @@ Ext.define('sion.salary.social.view.PersonAccountGrid', {
             dateUtil = Ext.create(me.getNamespace() + '.controller.DateUtil'),
             startDate=me.down('#from').getValue(),
             endDate=me.down('#to').getValue();
+        store.getProxy().setExtraParam("insuredPersonExists", '');
         store.getProxy().setExtraParam("from",startDate===null?"":dateUtil.format(new Date(startDate),'yyyy-MM-dd'));
         store.getProxy().setExtraParam("to",endDate===null?"":dateUtil.format(new Date(endDate),'yyyy-MM-dd'));
         store.getProxy().setExtraParam("status",me.down('#status').getValue());
         store.getProxy().setExtraParam("salaryAccount",me.down('#salaryAccount').getValue());
         store.getProxy().setExtraParam("socialAccount",me.down('#socialAccount').getValue());
-
+        store.getProxy().setExtraParam("loadAll", '');
         store.reload();
     },
 
@@ -336,10 +348,27 @@ Ext.define('sion.salary.social.view.PersonAccountGrid', {
         me.down('#socialAccount').setValue("");
     },
 
+    onButtonClick1: function(button, e, eOpts) {
+        var me=this,
+            dateUtil = Ext.create(me.getNamespace() + '.controller.DateUtil');
+        var startDate=me.down('#from').getValue();
+        var endDate=me.down('#to').getValue();
+        var queryString="&from="+(me.down('#from').getValue()===null?"":dateUtil.format(new Date(startDate),'yyyy-MM-dd'));
+        queryString+=("&to="+(me.down('#to').getValue()===null?"":dateUtil.format(new Date(endDate),'yyyy-MM-dd')));
+        queryString+=("&status="+(me.down('#status').getValue()===null?"":me.down('#status').getValue()));
+        queryString+=("&salaryAccount="+(me.down('#salaryAccount').getValue()===null?"":me.down('#salaryAccount').getValue()));
+        queryString+=("&socialAccount="+(me.down('#socialAccount').getValue()===null?"":me.down('#socialAccount').getValue()));
+
+        window.location.href = "salary/person//export?"+queryString;
+    },
+
     onGridpanelAfterRender: function(component, eOpts) {
 
 
-        component.getStore().load();
+        var store = component.getStore();
+        store.getProxy().setExtraParam("insuredPersonExists", '');
+        store.getProxy().setExtraParam("loadAll", '');
+        store.load();
     },
 
     onGridpanelItemDblClick: function(dataview, record, item, index, e, eOpts) {

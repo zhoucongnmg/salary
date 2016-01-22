@@ -22,6 +22,7 @@ import net.sion.company.salary.domain.Payroll;
 import net.sion.company.salary.domain.PersonAccountFile;
 import net.sion.company.salary.domain.PersonAccountItem;
 import net.sion.company.salary.service.FormulaService;
+import net.sion.company.salary.service.PersonAccountFileService;
 import net.sion.company.salary.sessionrepository.AccountRepository;
 import net.sion.company.salary.sessionrepository.FormulaRepository;
 import net.sion.company.salary.sessionrepository.PayrollRepository;
@@ -30,6 +31,7 @@ import net.sion.core.admin.domain.User;
 import net.sion.core.admin.service.AdminService;
 import net.sion.util.mvc.Response;
 
+import org.apache.commons.lang3.StringUtils;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -65,6 +67,7 @@ public class AccountController {
 	@Autowired FormulaRepository formulaRepository;
 	@Autowired FormulaService formulaService;
 	@Autowired PayrollRepository payrollRepository;
+	@Autowired PersonAccountFileService personAccountFileService;
 	
 	/**
 	 * 根据薪资方案id查询待发薪资
@@ -107,8 +110,37 @@ public class AccountController {
 			}
 		}
 		accountRepository.save(account);
+		personAccountFileService.updateSalaryItems(account.getId());
 		return new Response(true);
 	}
+	//校验方案名称是否重复
+	@RequestMapping(value = "validateName")
+	public @ResponseBody Response validateName(HttpSession session, @RequestParam Map<String, String> map) {
+		List<Account> list = accountRepository.findByName(map.get("name"));
+		if(list.size()>1){
+			return new Response(false); 
+		}
+		if(StringUtils.isEmpty(map.get("id"))){
+			if(list.size()>0){
+				return new Response(false); 
+			}
+		}else{
+			if(list.size() == 1 && !list.get(0).getId().equals(map.get("id"))){
+				return new Response(false); 
+			}
+		}
+		return new Response(true); 
+	}
+	//校验薪资方案是否应用于工资条
+	@RequestMapping(value = "validatePayroll")
+	public @ResponseBody Response validatePayroll(HttpSession session, @RequestParam Map<String, String> map) {
+		List<Payroll> payrolls = payrollRepository.findByAccountId(map.get("id"));
+		if(payrolls != null && payrolls.size() > 0){
+			return new Response(false); 
+		}
+		return new Response(true); 
+	}
+	
 	/**
 	 * 复制套帐
 	 * 

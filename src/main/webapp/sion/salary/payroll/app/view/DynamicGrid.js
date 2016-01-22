@@ -53,6 +53,7 @@ Ext.define('sion.salary.payroll.view.DynamicGrid', {
                     items: [
                         {
                             xtype: 'button',
+                            itemId: 'saveBtn',
                             text: '保存',
                             listeners: {
                                 click: {
@@ -120,29 +121,38 @@ Ext.define('sion.salary.payroll.view.DynamicGrid', {
                         },
                         {
                             xtype: 'displayfield',
+                            renderer: function(value, displayField) {
+                                return Ext.util.Format.date(value, 'Y年m月');
+                            },
                             columnWidth: 0.17,
                             padding: '0 0 0 20',
                             fieldLabel: '薪资月份',
                             labelWidth: 60,
-                            name: 'monthFmt',
+                            name: 'month',
                             value: ''
                         },
                         {
                             xtype: 'displayfield',
+                            renderer: function(value, displayField) {
+                                return Ext.util.Format.date(value, 'Y年m月');
+                            },
                             columnWidth: 0.17,
                             padding: '0 0 0 20',
                             fieldLabel: '社保扣费月',
                             labelWidth: 70,
-                            name: 'socialCostMonthFmt',
+                            name: 'socialCostMonth',
                             value: ''
                         },
                         {
                             xtype: 'displayfield',
+                            renderer: function(value, displayField) {
+                                return Ext.Object.getSize(value);
+                            },
                             columnWidth: 0.16,
                             padding: '0 0 0 20',
                             fieldLabel: '人员总数',
                             labelWidth: 60,
-                            name: 'personSize',
+                            name: 'persons',
                             value: ''
                         }
                     ]
@@ -251,6 +261,10 @@ Ext.define('sion.salary.payroll.view.DynamicGrid', {
                             listeners: {
                                 edit: {
                                     fn: me.onRowEditingEdit,
+                                    scope: me
+                                },
+                                beforeedit: {
+                                    fn: me.onRowEditingBeforeEdit,
                                     scope: me
                                 }
                             }
@@ -368,6 +382,12 @@ Ext.define('sion.salary.payroll.view.DynamicGrid', {
 
     },
 
+    onRowEditingBeforeEdit: function(editor, context, eOpts) {
+        var me = this;
+        return me._canEdit;
+
+    },
+
     onWindowBeforeRender: function(component, eOpts) {
         var me = this,
             id = me._id,
@@ -375,8 +395,10 @@ Ext.define('sion.salary.payroll.view.DynamicGrid', {
             ns = me.getNamespace(),
             grid = me.down('grid'),
             form = me.down('form'),
+            saveBtn = me.down('#saveBtn'),
             store = Ext.create(ns+'.store.PayrollItem');
 
+        saveBtn.setVisible(me._canEdit);
         me.setTitle(record.get('subject'));
         form.loadRecord(record);
         me.loadData(id,grid,store);

@@ -3,6 +3,7 @@ package net.sion.company.salary.config;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import net.sion.company.salary.domain.SocialItem.SocialItemType;
 import net.sion.company.salary.domain.SystemSalaryItem.SystemSalaryItemType;
@@ -11,7 +12,7 @@ import net.sion.company.salary.domain.SystemSalaryItemEnum;
 import net.sion.company.salary.event.SystemSalaryItemEvent;
 import net.sion.company.salary.listener.AbstractSystemSalaryItemListener;
 import net.sion.company.salary.service.SocialService;
-
+@Component
 public class PersonalFundsTotalRegister extends AbstractSystemSalaryItemListener{
 	@Autowired SocialService socialService;
 	@Override

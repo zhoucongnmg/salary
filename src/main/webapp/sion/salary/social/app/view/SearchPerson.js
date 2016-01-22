@@ -40,8 +40,7 @@ Ext.define('sion.salary.social.view.SearchPerson', {
                 {
                     xtype: 'gridpanel',
                     header: false,
-                    title: 'My Grid Panel',
-                    store: 'PersonAccountStore',
+                    store: 'PersonAccountSearch',
                     columns: [
                         {
                             xtype: 'gridcolumn',
@@ -119,10 +118,10 @@ Ext.define('sion.salary.social.view.SearchPerson', {
             grid=me.down('gridpanel');
         persons = grid.getSelectionModel().getSelection();
 
-        if(persons === null||persons.length===0){
-            Ext.Msg.alert("提示","请至少选中表格中的一条记录!");
-            return;
-        }
+        // if(persons === null||persons.length===0){
+        //     Ext.Msg.alert("提示","请至少选中表格中的一条记录!");
+        //     return;
+        // }
         if(this._callback){
             this._callback(persons,this._scope);
             me.close();
@@ -130,9 +129,9 @@ Ext.define('sion.salary.social.view.SearchPerson', {
     },
 
     onWindowAfterRender: function(component, eOpts) {
-        var me=this,
-            grid=me.down('gridpanel');
-        grid.getStore().load();
+        // var me=this,
+        //     grid=me.down('gridpanel');
+        // grid.getStore().load();
     }
 
 });

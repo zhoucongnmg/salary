@@ -1,11 +1,12 @@
 package net.sion.company.salary.config;
 
+import java.math.BigDecimal;
 import java.util.List;
 
-import net.sion.company.salary.domain.InsuredPerson;
+import net.sion.company.salary.domain.Item.DecimalCarryType;
 import net.sion.company.salary.domain.PersonAccountFile;
-import net.sion.company.salary.domain.SocialAccount;
 import net.sion.company.salary.domain.SocialAccountItem;
+import net.sion.company.salary.domain.SocialItem;
 import net.sion.company.salary.domain.SystemSalaryItem;
 import net.sion.company.salary.domain.SystemSalaryItem.SystemSalaryItemType;
 import net.sion.company.salary.domain.SystemSalaryItemEnum;
@@ -14,33 +15,56 @@ import net.sion.company.salary.listener.AbstractSystemSalaryItemListener;
 import net.sion.company.salary.service.SocialService;
 import net.sion.company.salary.sessionrepository.PersonAccountFileRepository;
 import net.sion.company.salary.sessionrepository.SocialAccountRepository;
+import net.sion.company.salary.sessionrepository.SocialItemRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
-public class AccountItemRegister extends AbstractSystemSalaryItemListener{ 
+@Component
+public class AccountItemRegister extends AbstractSystemSalaryItemListener{
 	@Autowired SocialService socialService;
 	@Autowired PersonAccountFileRepository personAccountFileRepository;
 	@Autowired SocialAccountRepository socialAccountRepository;
-	@Override
+	@Autowired SocialItemRepository socialItemRepository;
+	
+	@Override 
 	public Double getValue(SystemSalaryItemEvent event) {
+		Double value = null;
 		//查询社保方案
 		//查询社保项
 		PersonAccountFile personAccountFile = personAccountFileRepository.findOne(event.getPersonId());
-		InsuredPerson InsuredPerson = personAccountFile.getInsuredPerson();
-		String accountId = InsuredPerson.getAccountId();
-		SocialAccount socialAccount = socialAccountRepository.findOne(accountId);
-		List<SocialAccountItem> items = socialAccount.getSocialAccountItems();
-		for(SocialAccountItem item : items){
-			if(item.getId().equals(event.getItem().getItemId())){
+		for (SocialAccountItem item : personAccountFile.getInsuredItems()) {  
+			if(item.getSocialItemId().equals(event.getItem().getItemId())){
+				SocialItem socialItem = socialItemRepository.findOne(item.getSocialItemId());
 				if (event.getItem().getSystemType() == SystemSalaryItemType.Company) {
-					return item.getCompanyPaymentFinalValue();
+					value = decimal(socialItem.getCarryType(), item.getPrecision(), item.getCardinality() * item.getCompanyPaymentValue());
+					break;
 				}else if (event.getItem().getSystemType() == SystemSalaryItemType.Personal) {
-					return item.getPersonalPaymentFinalValue();
+					value = decimal(socialItem.getCarryType(), item.getPrecision(), item.getCardinality() * item.getPersonalPaymentValue());
+					break;
 				}
 			}
 		}
-		return Double.valueOf(0);
+		return value;
 	}
+	
+	private Double decimal(DecimalCarryType type, int precision, Double value){
+		if(type == DecimalCarryType.Round){
+			//四舍五入
+			BigDecimal b = new BigDecimal(value);  
+			value = b.setScale(precision, BigDecimal.ROUND_HALF_UP).doubleValue();  
+		}else if(type == DecimalCarryType.Isopsephy){
+			//数值进位
+			BigDecimal b = new BigDecimal(value);  
+			value = b.setScale(precision, BigDecimal.ROUND_UP).doubleValue();  
+		}else{
+			//数值舍位
+			BigDecimal b = new BigDecimal(value);  
+			value = b.setScale(precision, BigDecimal.ROUND_DOWN).doubleValue();  
+		}
+		return value;
+	}	
+	
 	@Override
 	public SystemSalaryItemEnum hook() {
 		// TODO Auto-generated method stub

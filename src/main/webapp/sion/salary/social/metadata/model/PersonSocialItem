@@ -19,7 +19,7 @@
             },
             "codeClass": null,
             "userConfig": {
-                "name": "socialItemName"
+                "name": "name"
             },
             "name": "MyField64",
             "designerId": "e305ca10-e62a-48fd-b2d7-662e529f7f67"
