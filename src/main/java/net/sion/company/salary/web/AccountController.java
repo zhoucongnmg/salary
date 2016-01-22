@@ -22,6 +22,7 @@ import net.sion.company.salary.domain.Payroll;
 import net.sion.company.salary.domain.PersonAccountFile;
 import net.sion.company.salary.domain.PersonAccountItem;
 import net.sion.company.salary.service.FormulaService;
+import net.sion.company.salary.service.PersonAccountFileService;
 import net.sion.company.salary.sessionrepository.AccountRepository;
 import net.sion.company.salary.sessionrepository.FormulaRepository;
 import net.sion.company.salary.sessionrepository.PayrollRepository;
@@ -66,6 +67,7 @@ public class AccountController {
 	@Autowired FormulaRepository formulaRepository;
 	@Autowired FormulaService formulaService;
 	@Autowired PayrollRepository payrollRepository;
+	@Autowired PersonAccountFileService personAccountFileService;
 	
 	/**
 	 * 根据薪资方案id查询待发薪资
@@ -108,6 +110,7 @@ public class AccountController {
 			}
 		}
 		accountRepository.save(account);
+		personAccountFileService.updateSalaryItems(account.getId());
 		return new Response(true);
 	}
 	//校验方案名称是否重复

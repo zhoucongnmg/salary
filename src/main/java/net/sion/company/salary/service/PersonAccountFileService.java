@@ -85,7 +85,7 @@ public class PersonAccountFileService {
 		Double accountValue = new Double(0);
 		Double levelValue = new Double(0);
 		PersonAccountFile person = pafRepository.findOne(id);
-		
+
 		List<PersonAccountItem> accountItems = person.getAccountItems();
 		for (PersonAccountItem pai : accountItems) {
 			if (pai.getAccountItemId().equals(itemId)) {
@@ -122,49 +122,72 @@ public class PersonAccountFileService {
 				}
 			}
 		}
-		
+
 		return result;
 	}
-	
+
 	/**
 	 * 更新指定薪资方案的所有档案
+	 * 
 	 * @param salaryAccountId
 	 */
-	public void updateSalaryItems(String salaryAccountId){
+	public void updateSalaryItems(String salaryAccountId) {
 		Account account = accountRepository.findOne(salaryAccountId);
-		List<AccountItem> accountItems=account.getAccountItems();
+		List<AccountItem> accountItems = account.getAccountItems();
 		List<PersonAccountFile> persons = pafRepository.findByAccountId(salaryAccountId);
 		for (PersonAccountFile personAccountFile : persons) {
-			
-			List<PersonAccountItem> pAccountItems=personAccountFile.getAccountItems();
-			boolean exist=false;
-			for (PersonAccountItem pAccountItem : pAccountItems) {
+
+			List<PersonAccountItem> pAccountItems = personAccountFile.getAccountItems();
+			boolean exist = false;
+			// 先删除档案里有，方案里没有的
+			for (int i=pAccountItems.size()-1;i>=0;i--) {
+				PersonAccountItem pAccountItem = pAccountItems.get(i);
 				for (AccountItem item : accountItems) {
-					if(item.getId().equals(pAccountItem.getAccountItemId())){
-						exist=true;
+					if (item.getSalaryItemId().equals(pAccountItem.getAccountItemId())) {
+						exist = true;
 						break;
 					}
 				}
-				
-				if(exist==false){
-					pAccountItems.remove(pAccountItem);
+
+				if (exist == false) {
+					pAccountItems.remove(i);
 					personAccountFile.getAccountItemsSetting().remove(pAccountItem.getAccountItemId());
-				}
-				else{
-					exist=false;
+				} else {
+					exist = false;
 				}
 			}
-			
-			for(AccountItem accountItem:accountItems){
-				
+
+			exist = false;
+			// 再添加方案里有，档案里没有的
+			for (AccountItem accountItem : accountItems) {
+				for (PersonAccountItem pAccountItem : pAccountItems) {
+					if (accountItem.getSalaryItemId().equals(pAccountItem.getAccountItemId())) {
+						exist = true;
+						break;
+					}
+				}
+				if (exist == false) {
+					PersonAccountItem paItem = new PersonAccountItem();
+					paItem.setAccountItemId(accountItem.getSalaryItemId());
+					paItem.setAccountItemName(accountItem.getName());
+					pAccountItems.add(paItem);
+
+					personAccountFile.getAccountItemsSetting().put(accountItem.getSalaryItemId(), ItemSetting.Solution);
+				} else {
+					exist = false;
+				}
 			}
+
+			// 保存
+			pafRepository.save(personAccountFile);
 		}
 	}
-	
+
 	/**
 	 * 更新指定社保方案的所有档案
+	 * 
 	 * @param socialAccountId
 	 */
-	public void updateSocialItems(String socialAccountId){
+	public void updateSocialItems(String socialAccountId) {
 	}
 }
