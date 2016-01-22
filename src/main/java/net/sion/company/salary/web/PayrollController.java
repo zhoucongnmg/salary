@@ -807,17 +807,36 @@ public class PayrollController {
 	 */
 	@RequestMapping(value = "update")
 	public Response update(@RequestBody Payroll payroll) {
+		Set<String> savePersonIds = new HashSet<String>();
+		Set<String> removePersonIds = new HashSet<String>();
 		
 		
 		Payroll old = payrollRepository.findOne(payroll.getId());
 		Set<String> oldPersonIds =  new HashSet<String>(old.getPersons().keySet());
 		
 		Set<String> newPersonIds = new HashSet<String>(payroll.getPersons().keySet());
-		newPersonIds.remove(oldPersonIds);
+		
+		for (String newPersonId : newPersonIds) {
+			if (!oldPersonIds.contains(newPersonId)) {
+				savePersonIds.add(newPersonId);
+			}
+		}
+		
+		for (String oldPersonId : oldPersonIds) {
+			if (!newPersonIds.contains(oldPersonId)) {
+				removePersonIds.add(oldPersonId);
+			}
+		}
+		
 		payrollRepository.save(payroll);
-		if (newPersonIds.size()>0) {
-			List<PayrollItem> items = generatePayrollItem(payroll, newPersonIds);
+		if (savePersonIds.size()>0) {
+			List<PayrollItem> items = generatePayrollItem(payroll, savePersonIds);
 			payrollItemRepository.save(items);
+		}
+		
+		if (removePersonIds.size()>0) {
+			Iterable<PayrollItem> removePayrollItems = payrollItemRepository.findAll(removePersonIds);
+			payrollItemRepository.delete(removePayrollItems);
 		}
 		return new Response(true);
 	}
