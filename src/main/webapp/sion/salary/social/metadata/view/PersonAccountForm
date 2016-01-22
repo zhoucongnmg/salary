@@ -646,7 +646,10 @@
                                             "",
                                             "                salaryItemStore.each(function(salaryItem){",
                                             "                    salaryItem.set('rankValue',item.salaryItemValues[salaryItem.data.salaryItemId]);",
-                                            "                    salaryItem.set('choose','Level');",
+                                            "                    if(salaryItem.get('choose')!=='Person'&&(",
+                                            "                        item.salaryItemValues[salaryItem.data.salaryItemId]||",
+                                            "                        item.salaryItemValues[salaryItem.data.salaryItemId]===0))",
+                                            "                        salaryItem.set('choose','Level');",
                                             "                });",
                                             "",
                                             "            }",
@@ -1017,6 +1020,17 @@
                                             "codeClass": null,
                                             "userConfig": {
                                                 "fn": "onRowEditingEdit",
+                                                "implHandler": [
+                                                    "if(context.newValues.personValue!=null &&context.newValues.personValue>=0){",
+                                                    "    context.record.set('choose','Person');",
+                                                    "}else if(context.record.get('rankValue')!=null && context.record.get('rankValue')>=0){",
+                                                    "    context.record.set('choose','Level');",
+                                                    "}",
+                                                    "else{",
+                                                    "    context.record.set('choose','Solution');",
+                                                    "}",
+                                                    "context.record.commit();"
+                                                ],
                                                 "name": "edit",
                                                 "scope": "me"
                                             },
@@ -1416,6 +1430,36 @@
                                             "codeClass": null,
                                             "name": "MyNumberField5",
                                             "designerId": "a66f07f0-2e90-48d0-8663-7921822bd4a0"
+                                        },
+                                        {
+                                            "type": "fixedfunction",
+                                            "reference": {
+                                                "name": "items",
+                                                "type": "array"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "designer|params": [
+                                                    "value",
+                                                    "metaData",
+                                                    "record",
+                                                    "rowIndex",
+                                                    "colIndex",
+                                                    "store",
+                                                    "view"
+                                                ],
+                                                "fn": "renderer",
+                                                "implHandler": [
+                                                    "if(record.get('companyPaymentType')==='Percent'){",
+                                                    "    return value*100 +'%';",
+                                                    "}",
+                                                    "else{",
+                                                    "    return value;",
+                                                    "}"
+                                                ]
+                                            },
+                                            "name": "renderer",
+                                            "designerId": "2c318002-94a5-449e-afdb-36ec10d0e55e"
                                         }
                                     ]
                                 },
@@ -1508,6 +1552,36 @@
                                             "codeClass": null,
                                             "name": "MyNumberField6",
                                             "designerId": "15ab58d3-9ba6-49de-bf65-44b1fc6adc65"
+                                        },
+                                        {
+                                            "type": "fixedfunction",
+                                            "reference": {
+                                                "name": "items",
+                                                "type": "array"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "designer|params": [
+                                                    "value",
+                                                    "metaData",
+                                                    "record",
+                                                    "rowIndex",
+                                                    "colIndex",
+                                                    "store",
+                                                    "view"
+                                                ],
+                                                "fn": "renderer",
+                                                "implHandler": [
+                                                    "if(record.get('personalPaymentType')==='Percent'){",
+                                                    "    return value*100 +'%';",
+                                                    "}",
+                                                    "else{",
+                                                    "    return value;",
+                                                    "}"
+                                                ]
+                                            },
+                                            "name": "renderer",
+                                            "designerId": "73b93d5c-088a-4130-b65e-68ffc128375a"
                                         }
                                     ]
                                 },
