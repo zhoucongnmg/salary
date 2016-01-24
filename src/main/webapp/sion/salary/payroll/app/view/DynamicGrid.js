@@ -21,8 +21,8 @@ Ext.define('sion.salary.payroll.view.DynamicGrid', {
         'Ext.button.Button',
         'Ext.form.Panel',
         'Ext.form.field.Display',
+        'Ext.form.field.Text',
         'Ext.form.field.Checkbox',
-        'Ext.form.field.ComboBox',
         'Ext.grid.Panel',
         'Ext.grid.column.Column',
         'Ext.grid.View',
@@ -173,13 +173,13 @@ Ext.define('sion.salary.payroll.view.DynamicGrid', {
                             xtype: 'checkboxfield',
                             padding: '0 0 0 20',
                             name: 'showCompanySocial',
-                            boxLabel: '显示单位社保'
+                            boxLabel: '显示单位社保/公积金'
                         },
                         {
                             xtype: 'checkboxfield',
                             padding: '0 0 0 10',
                             name: 'showPersonalSocial',
-                            boxLabel: '显示个人社保'
+                            boxLabel: '显示个人社保/公积金'
                         },
                         {
                             xtype: 'checkboxfield',
@@ -200,29 +200,8 @@ Ext.define('sion.salary.payroll.view.DynamicGrid', {
                             boxLabel: '显示开户行/工资卡号'
                         },
                         {
-                            xtype: 'combobox',
-                            padding: '0 0 0 10',
-                            width: 150,
-                            fieldLabel: '排序方式',
-                            labelWidth: 60,
-                            name: 'sortBy',
-                            store: [
-                                [
-                                    'bydept',
-                                    '按组织机构'
-                                ],
-                                [
-                                    'byusercode',
-                                    '按员工编号'
-                                ],
-                                [
-                                    'byusername',
-                                    '按员工姓名'
-                                ]
-                            ]
-                        },
-                        {
                             xtype: 'button',
+                            margin: '0 0 0 20',
                             text: '查询',
                             listeners: {
                                 click: {
@@ -363,7 +342,6 @@ Ext.define('sion.salary.payroll.view.DynamicGrid', {
             store = grid.getStore(),
             opts = searchForm.getForm().getValues();
 
-        console.log(opts);
         me.loadData(id,grid,store,opts);
     },
 

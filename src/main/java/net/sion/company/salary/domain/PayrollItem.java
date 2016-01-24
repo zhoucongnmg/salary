@@ -11,6 +11,7 @@ import java.util.Map;
 
 
 
+
 import net.sion.boot.config.jackson.CustomJackson;
 
 import org.apache.commons.lang3.StringUtils;
@@ -52,7 +53,9 @@ public class PayrollItem {
 	
 	String bankAccount;	//银行账号
 	
-
+	String bank;//银行
+	
+	String bankOfDeposit;//开户网点
 	
 	Map<String,Double> values = new HashMap<String,Double>();	//薪资明细项
 	
@@ -212,6 +215,24 @@ public class PayrollItem {
 	public void setBankAccount(String bankAccount) {
 		this.bankAccount = bankAccount;
 	}
+
+	public String getBank() {
+		return bank;
+	}
+
+	public void setBank(String bank) {
+		this.bank = bank;
+	}
+
+	public String getBankOfDeposit() {
+		return bankOfDeposit;
+	}
+
+	public void setBankOfDeposit(String bankOfDeposit) {
+		this.bankOfDeposit = bankOfDeposit;
+	}
+	
+	
 	
 	
 	

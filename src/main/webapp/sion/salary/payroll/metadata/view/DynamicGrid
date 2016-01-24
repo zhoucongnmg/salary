@@ -435,7 +435,7 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "boxLabel": "显示单位社保",
+                        "boxLabel": "显示单位社保/公积金",
                         "fieldLabel": null,
                         "name": "showCompanySocial",
                         "padding": "0 0 0 20"
@@ -451,7 +451,7 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "boxLabel": "显示个人社保",
+                        "boxLabel": "显示个人社保/公积金",
                         "fieldLabel": null,
                         "name": "showPersonalSocial",
                         "padding": "0 0 0 10"
@@ -508,29 +508,6 @@
                     "designerId": "a140a534-e87f-49f2-a8c2-450fb06e28f5"
                 },
                 {
-                    "type": "Ext.form.field.ComboBox",
-                    "reference": {
-                        "name": "items",
-                        "type": "array"
-                    },
-                    "codeClass": null,
-                    "userConfig": {
-                        "fieldLabel": "排序方式",
-                        "labelWidth": 60,
-                        "name": "sortBy",
-                        "padding": "0 0 0 10",
-                        "store": [
-                            "[['bydept','按组织机构'],['byusercode','按员工编号'],['byusername','按员工姓名']]"
-                        ],
-                        "width": 150
-                    },
-                    "name": "MyComboBox1",
-                    "configAlternates": {
-                        "store": "array"
-                    },
-                    "designerId": "e5fef85a-f90e-436e-bf96-7382b4aa1864"
-                },
-                {
                     "type": "Ext.button.Button",
                     "reference": {
                         "name": "items",
@@ -538,6 +515,8 @@
                     },
                     "codeClass": null,
                     "userConfig": {
+                        "margin": "0 0 0 20",
+                        "padding": null,
                         "text": "查询"
                     },
                     "name": "MyButton10",
@@ -563,7 +542,6 @@
                                     "    store = grid.getStore(),",
                                     "    opts = searchForm.getForm().getValues();",
                                     "",
-                                    "console.log(opts);",
                                     "me.loadData(id,grid,store,opts);"
                                 ],
                                 "name": "click",

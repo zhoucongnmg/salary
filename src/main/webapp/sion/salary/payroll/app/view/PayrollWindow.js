@@ -264,7 +264,7 @@ Ext.define('sion.salary.payroll.view.PayrollWindow', {
                     payrollStore = me._link.payrollStore;
                     payrollStore.reload();
                 }
-        //         button.setDisabled(false);
+                //         button.setDisabled(false);
                 me.close();
                 Ext.Msg.alert("提示", "保存成功");
             },
