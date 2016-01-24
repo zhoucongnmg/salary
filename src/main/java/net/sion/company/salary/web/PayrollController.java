@@ -452,16 +452,17 @@ public class PayrollController {
 	 * @return
 	 */
 	@RequestMapping(value = "generatePayrollItem")
-	public Response generatePayrollItem(@RequestParam String id) {
-		
-		Payroll payroll = payrollRepository.findOne(id);
-		
-		List<PayrollItem> oldPayrollItemList = payrollItemRepository.findByPayrollId(id);
-		
-		List<PayrollItem> newPayrollItemList = this.generatePayrollItem(payroll, payroll.getPersons().keySet());
-		
-		payrollItemRepository.delete(oldPayrollItemList);
-		payrollItemRepository.save(newPayrollItemList);
+	public Response generatePayrollItem(@RequestParam List<String> ids) {
+		for (String id : ids) {
+			Payroll payroll = payrollRepository.findOne(id);
+			
+			List<PayrollItem> oldPayrollItemList = payrollItemRepository.findByPayrollId(id);
+			
+			List<PayrollItem> newPayrollItemList = this.generatePayrollItem(payroll, payroll.getPersons().keySet());
+			
+			payrollItemRepository.delete(oldPayrollItemList);
+			payrollItemRepository.save(newPayrollItemList);
+		}
 		return new Response(true);
 	}
 
