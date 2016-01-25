@@ -1021,21 +1021,48 @@
                                             "userConfig": {
                                                 "fn": "onRowEditingEdit",
                                                 "implHandler": [
-                                                    "if(context.newValues.personValue!=null &&context.newValues.personValue>=0){",
-                                                    "    context.record.set('choose','Person');",
-                                                    "}else if(context.record.get('rankValue')!=null && context.record.get('rankValue')>=0){",
-                                                    "    context.record.set('choose','Level');",
-                                                    "}",
-                                                    "else{",
-                                                    "    context.record.set('choose','Solution');",
-                                                    "}",
-                                                    "context.record.commit();"
+                                                    "if(context.field=='personValue'){",
+                                                    "",
+                                                    "    if(context.newValues.personValue!=null &&context.newValues.personValue>=0){",
+                                                    "        context.record.set('choose','Person');",
+                                                    "    }else if(context.record.get('rankValue')!=null && context.record.get('rankValue')>=0){",
+                                                    "        context.record.set('choose','Level');",
+                                                    "    }",
+                                                    "    else{",
+                                                    "        context.record.set('choose','Solution');",
+                                                    "    }",
+                                                    "    context.record.commit();",
+                                                    "}"
                                                 ],
                                                 "name": "edit",
                                                 "scope": "me"
                                             },
                                             "name": "onRowEditingEdit",
                                             "designerId": "d1531052-8ac2-4b9c-b700-cb10dbafb9f0"
+                                        },
+                                        {
+                                            "type": "basiceventbinding",
+                                            "reference": {
+                                                "name": "listeners",
+                                                "type": "array"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "fn": "onRowEditingValidateedit",
+                                                "implHandler": [
+                                                    "if(context.field=='choose'){",
+                                                    "    if(context.newValues.choose==='Level' &&",
+                                                    "      context.record.get('rankValue')==null){",
+                                                    "        Ext.Msg.alert(\"提示\",\"此项目的层级值数量未设置\");",
+                                                    "        return false;",
+                                                    "    }",
+                                                    "}"
+                                                ],
+                                                "name": "validateedit",
+                                                "scope": "me"
+                                            },
+                                            "name": "onRowEditingValidateedit",
+                                            "designerId": "1535c91e-4a9b-439f-9ab8-28e9a5dd67c9"
                                         }
                                     ]
                                 }

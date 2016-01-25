@@ -361,6 +361,10 @@ Ext.define('sion.salary.social.view.PersonAccountForm', {
                                                 edit: {
                                                     fn: me.onRowEditingEdit,
                                                     scope: me
+                                                },
+                                                validateedit: {
+                                                    fn: me.onRowEditingValidateedit,
+                                                    scope: me
                                                 }
                                             }
                                         })
@@ -789,15 +793,28 @@ Ext.define('sion.salary.social.view.PersonAccountForm', {
     },
 
     onRowEditingEdit: function(editor, context, eOpts) {
-        if(context.newValues.personValue!=null &&context.newValues.personValue>=0){
-            context.record.set('choose','Person');
-        }else if(context.record.get('rankValue')!=null && context.record.get('rankValue')>=0){
-            context.record.set('choose','Level');
+        if(context.field=='personValue'){
+
+            if(context.newValues.personValue!=null &&context.newValues.personValue>=0){
+                context.record.set('choose','Person');
+            }else if(context.record.get('rankValue')!=null && context.record.get('rankValue')>=0){
+                context.record.set('choose','Level');
+            }
+            else{
+                context.record.set('choose','Solution');
+            }
+            context.record.commit();
         }
-        else{
-            context.record.set('choose','Solution');
+    },
+
+    onRowEditingValidateedit: function(editor, context, eOpts) {
+        if(context.field=='choose'){
+            if(context.newValues.choose==='Level' &&
+              context.record.get('rankValue')==null){
+                Ext.Msg.alert("提示","此项目的层级值数量未设置");
+                return false;
+            }
         }
-        context.record.commit();
     },
 
     onWindowAfterRender: function(component, eOpts) {

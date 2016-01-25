@@ -252,6 +252,7 @@ public class SocialAccountController {
 	@RequestMapping(value = "remove")
 	public @ResponseBody Response remove(@RequestParam String id) {
 		socialAccountRepository.delete(id);
+		pafService.deleteSocialItems(id);
 		return new Response(true);
 	}
 	

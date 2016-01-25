@@ -200,18 +200,119 @@ public class PersonAccountFileService {
 	 */
 	public void updateSocialItems(String socialAccountId) {
 		SocialAccount account = socialRepository.findOne(socialAccountId);
-
-		List<SocialAccountItem> accountItems = account.getSocialAccountItems();
 		List<PersonAccountFile> persons = pafRepository.findByInsuredPersonAccountId(socialAccountId);
+		if (persons != null)
+			for (PersonAccountFile personAccountFile : persons) {
+				personAccountFile.getInsuredPerson().setAccountId(socialAccountId);
+				personAccountFile.setInsuredItems(account.getSocialAccountItems());
+				// 保存
+				pafRepository.save(personAccountFile);
+			}
+	}
+
+	/**
+	 * 更新指定层次的所有档案
+	 * 
+	 * @param levelId
+	 */
+	public void updateLevel(String levelId) {
+		Level level = levelRepository.findOne(levelId);
+
+		List<PersonAccountFile> persons = pafRepository.findByLevel(levelId);
 		for (PersonAccountFile personAccountFile : persons) {
-			personAccountFile.getInsuredPerson().setAccountId(socialAccountId);
-			personAccountFile.setInsuredItems(account.getSocialAccountItems());
+			List<PersonAccountItem> items = personAccountFile.getAccountItems();
+			Map<String, ItemSetting> setting = personAccountFile.getAccountItemsSetting();
+			LevelItem levelItem = null;
+			// 循环对比，找到薪资档案中层级值
+			for (LevelItem item : level.getLevelItems()) {
+				if (item.getRank().equals(personAccountFile.getRank())) {
+					levelItem = item;
+					if (personAccountFile.getAccountItems() != null)
+						for (PersonAccountItem paItem : personAccountFile.getAccountItems()) {
+							// 如果原有薪资项目取值设置为“层级值”，则在取不到层级值的情况下设置为“方案值”
+							if (ItemSetting.Level.equals(setting.get(paItem.getAccountItemId()))) {
+								if (item.getSalaryItemValues().get(paItem.getAccountItemId()) == null) {
+									setting.put(paItem.getAccountItemId(), ItemSetting.Solution);
+								}
+							}
+						}
+				}
+			}
+			// 如果原薪资档案中的层级已经不存在，应该修改薪资档案
+			if (levelItem == null && personAccountFile.getAccountItems() != null) {
+				for (PersonAccountItem paItem : personAccountFile.getAccountItems()) {
+					// 如果原有薪资项目取值设置为“层级值”，设置为“方案值”
+					if (ItemSetting.Level.equals(setting.get(paItem.getAccountItemId()))) {
+						setting.put(paItem.getAccountItemId(), ItemSetting.Solution);
+					}
+				}
+			}
+
 			// 保存
 			pafRepository.save(personAccountFile);
 		}
 	}
-	
-	public void updateLevel(String levelId){
-		
+
+	/**
+	 * 删除薪资方案，修改相关记录
+	 * 
+	 * @param salaryAccountId
+	 */
+	public void deleteSalaryItems(String salaryAccountId) {
+		List<PersonAccountFile> persons = pafRepository.findByAccountId(salaryAccountId);
+		if (persons != null) {
+			for (PersonAccountFile personAccountFile : persons) {
+				personAccountFile.setAccountId(null);
+				personAccountFile.setAccountItems(null);
+				personAccountFile.setAccountItemsSetting(null);
+
+				// 保存
+				pafRepository.save(personAccountFile);
+			}
+		}
+	}
+
+	/**
+	 * 删除社保方案，修改相关记录
+	 * 
+	 * @param socialAccountId
+	 */
+	public void deleteSocialItems(String socialAccountId) {
+
+		List<PersonAccountFile> persons = pafRepository.findByInsuredPersonAccountId(socialAccountId);
+		if (persons != null) {
+			for (PersonAccountFile personAccountFile : persons) {
+				personAccountFile.getInsuredPerson().setAccountId(null);
+				personAccountFile.setInsuredItems(null);
+				// 保存
+				pafRepository.save(personAccountFile);
+			}
+		}
+	}
+
+	/**
+	 * 删除层级，修改相关记录
+	 * 
+	 * @param levelId
+	 */
+	public void deleteLevel(String levelId) {
+		List<PersonAccountFile> persons = pafRepository.findByLevel(levelId);
+		for (PersonAccountFile personAccountFile : persons) {
+			Map<String, ItemSetting> setting = personAccountFile.getAccountItemsSetting();
+			personAccountFile.setLevel(null);
+			personAccountFile.setRank(null);
+
+			if (personAccountFile.getAccountItems() != null) {
+				for (PersonAccountItem paItem : personAccountFile.getAccountItems()) {
+					// 如果原有薪资项目取值设置为“层级值”，设置为“方案值”
+					if (ItemSetting.Level.equals(setting.get(paItem.getAccountItemId()))) {
+						setting.put(paItem.getAccountItemId(), ItemSetting.Solution);
+					}
+				}
+			}
+
+			// 保存
+			pafRepository.save(personAccountFile);
+		}
 	}
 }

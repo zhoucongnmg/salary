@@ -195,6 +195,7 @@ public class AccountController {
 	public @ResponseBody Response remove(@RequestParam String id) {
 		deleteFormula(id);
 		accountRepository.delete(id);
+		personAccountFileService.deleteSalaryItems(id);
 		return new Response(true);
 	}
 

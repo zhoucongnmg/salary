@@ -27,4 +27,6 @@ public interface PersonAccountFileRepository extends MongoRepository<PersonAccou
 	
 	@Query(value = "{'insuredPerson.accountId':?0}")
 	List<PersonAccountFile> findByInsuredPersonAccountId(String accountId);
+
+	List<PersonAccountFile> findByLevel(String levelId);
 }
