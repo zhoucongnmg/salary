@@ -25,4 +25,6 @@ public interface PersonAccountFileRepository extends MongoRepository<PersonAccou
 	@Query(value = "{$or:[{accountId:?0},{_id:{$in:?1}}]}")
 	List<PersonAccountFile> findByAccountIdAndInId(String accountId,Set<String> ids);
 	
+	@Query(value = "{'insuredPerson.accountId':?0}")
+	List<PersonAccountFile> findByInsuredPersonAccountId(String accountId);
 }

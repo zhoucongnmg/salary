@@ -9,15 +9,19 @@ import org.springframework.stereotype.Service;
 
 import net.sion.company.salary.domain.Account;
 import net.sion.company.salary.domain.AccountItem;
+import net.sion.company.salary.domain.InsuredPerson;
 import net.sion.company.salary.domain.Level;
 import net.sion.company.salary.domain.LevelItem;
 import net.sion.company.salary.domain.PersonAccountFile;
 import net.sion.company.salary.domain.PersonAccountFile.ItemSetting;
-import net.sion.company.salary.domain.SalaryItem.SalaryItemType;
 import net.sion.company.salary.domain.PersonAccountItem;
+import net.sion.company.salary.domain.SalaryItem.SalaryItemType;
+import net.sion.company.salary.domain.SocialAccount;
+import net.sion.company.salary.domain.SocialAccountItem;
 import net.sion.company.salary.sessionrepository.AccountRepository;
 import net.sion.company.salary.sessionrepository.LevelRepository;
 import net.sion.company.salary.sessionrepository.PersonAccountFileRepository;
+import net.sion.company.salary.sessionrepository.SocialAccountRepository;
 
 @Service
 public class PersonAccountFileService {
@@ -27,6 +31,8 @@ public class PersonAccountFileService {
 	private AccountRepository accountRepository;
 	@Autowired
 	private LevelRepository levelRepository;
+	@Autowired
+	private SocialAccountRepository socialRepository;
 
 	/**
 	 * 输入一个人员档案，返回所有输入项的键值对
@@ -193,5 +199,19 @@ public class PersonAccountFileService {
 	 * @param socialAccountId
 	 */
 	public void updateSocialItems(String socialAccountId) {
+		SocialAccount account = socialRepository.findOne(socialAccountId);
+
+		List<SocialAccountItem> accountItems = account.getSocialAccountItems();
+		List<PersonAccountFile> persons = pafRepository.findByInsuredPersonAccountId(socialAccountId);
+		for (PersonAccountFile personAccountFile : persons) {
+			personAccountFile.getInsuredPerson().setAccountId(socialAccountId);
+			personAccountFile.setInsuredItems(account.getSocialAccountItems());
+			// 保存
+			pafRepository.save(personAccountFile);
+		}
+	}
+	
+	public void updateLevel(String levelId){
+		
 	}
 }

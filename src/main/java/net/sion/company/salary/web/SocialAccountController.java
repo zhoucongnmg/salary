@@ -19,6 +19,7 @@ import net.sion.company.salary.domain.SocialAccount;
 import net.sion.company.salary.domain.SocialAccountItem;
 import net.sion.company.salary.domain.SocialItem;
 import net.sion.company.salary.domain.SocialItem.SocialItemType;
+import net.sion.company.salary.service.PersonAccountFileService;
 import net.sion.company.salary.service.SocialService;
 import net.sion.company.salary.sessionrepository.SocialAccountRepository;
 import net.sion.company.salary.sessionrepository.SocialItemRepository;
@@ -60,6 +61,7 @@ public class SocialAccountController {
 	@Autowired SessionMongoTemplate mongoTemplate; 
 	@Autowired SocialItemRepository socialItemRepository;
 	@Autowired SocialService socialService;
+	@Autowired PersonAccountFileService pafService;
 	/**
 	 * 创建社保方案
 	 * 
@@ -80,6 +82,7 @@ public class SocialAccountController {
 		}
 		account = sum(account);
 		socialAccountRepository.save(account);
+		pafService.updateSocialItems(account.getId());
 		return new Response(true);
 	}
 	private SocialAccount sum(SocialAccount account){ 
