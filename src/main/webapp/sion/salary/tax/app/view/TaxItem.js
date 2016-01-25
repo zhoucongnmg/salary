@@ -170,7 +170,7 @@ Ext.define('sion.salary.tax.view.TaxItem', {
                 for(var i = 1; i < store.getCount(); i++){
                     var prev = store.getAt(i - 1);
                     var current = store.getAt(i);
-                    var fastNumber = me.countFastNumber(prev.get('end'), prev.get('rate'), prev.get('fastNumber'), current.get('rate'));
+                    var fastNumber = me.countFastNumber(prev.get('end'), prev.get('rate'), prev.get('fastNumber'), parseFloat(current.get('rate'))  * 100);
                     current.set('fastNumber', fastNumber);
                 }
             }

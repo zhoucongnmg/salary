@@ -79,20 +79,6 @@ public class SocialAccountController {
 			account.setCreateUserName(user.getName());
 		}
 		account = sum(account);
-		
-//		Set set = new HashSet();
-//		set.add("564d828a464b57c56a844c7f");
-//		set.add("564ec925464b57c56a8450d1");
-//		set.add("5679ffda9929e8ed6767159f");
-//		set.add("564d75e7464bb8da6db35fe4");
-//		set.add("567a500599291ff5ac53bdea");
-//		set.add("567a500d99291ff5ac53bdeb");
-//		Map<String, PersonExtension<SocialAccountItem>> map = socialService.getSocialAccountByPsersons(set);
-//		double d1 = socialService.getSocialSum("5679ffda9929e8ed6767159f", true, SocialItemType.SocialSecurity);
-//		double d2 = socialService.getSocialSum("5679ffda9929e8ed6767159f", true, SocialItemType.AccumulationFunds);
-//		double d3 = socialService.getSocialSum("5679ffda9929e8ed6767159f", false, SocialItemType.SocialSecurity);
-//		double d4 = socialService.getSocialSum("5679ffda9929e8ed6767159f", false, SocialItemType.AccumulationFunds);
-		
 		socialAccountRepository.save(account);
 		return new Response(true);
 	}
