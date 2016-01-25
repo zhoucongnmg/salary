@@ -90,6 +90,7 @@ Ext.define('sion.salary.tax.view.TaxItem', {
                             name: 'rate',
                             allowBlank: false,
                             decimalPrecision: 0,
+                            maxValue: 100,
                             minValue: 0,
                             listeners: {
                                 change: {
@@ -160,6 +161,7 @@ Ext.define('sion.salary.tax.view.TaxItem', {
             }
         }
 
+        record.set('rate',Number(Number(record.get('rate')) * 0.01).toFixed(4));
         if(record.get('id') === ''){
             record.set('id', id);
             store.add(record);
@@ -190,6 +192,7 @@ Ext.define('sion.salary.tax.view.TaxItem', {
 
         if(item){
             form.loadRecord(item);
+            me.down('#rate').setValue(parseFloat(item.get('rate'))  * 100);
         }else{
             if(store.getCount() > 0){
                 prev = store.last();
@@ -206,10 +209,15 @@ Ext.define('sion.salary.tax.view.TaxItem', {
         me.down('#end').setMinValue(me.down('#start').getValue() + 1);
         var record = form.getRecord();
         if(store.getCount() > 0){
-            if(store.indexOf(record) - 1 >= 0){
+            if(store.indexOf(record) > 0){
+                //修改，该记录不是第一条记录，所以税率最小值为上一条记录的税率+1
                 me.down('#rate').setMinValue(store.getAt(store.indexOf(record) - 1).get('rate') + 1);
-            }else{
+            }else if(store.indexOf(record) === 0){
+                //修改，该记录是第一条记录，所以税率最小值为0
                 me.down('#rate').setMinValue(0);
+            }else{
+                //新增，税率最后一条记录的税率+1
+                me.down('#rate').setMinValue(parseFloat(store.getAt(store.getCount() - 1).get('rate'))  * 100 + 1);
             }
         }
     },
@@ -238,91 +246,11 @@ Ext.define('sion.salary.tax.view.TaxItem', {
     },
 
     countFastNumber: function(prevEnd, prevRate, prevFastNumber, rate) {
-        // var me = this,
-        //     form = me.down("form"),
-        //     record = form.getRecord(),
-        //     store = me._itemStore,
-        //     lastRecord = null,
-        var    value = 0;
+        var value = 0;
 
-        // if(store.getCount() > 0){
-        //     Number.prototype.mul = function (arg){
-        //         return me.accMul(arg, this);
-        //     };
-        //     Number.prototype.add = function (arg){
-        //         return me.accAdd(arg, this);
-        //     };
-        //     Number.prototype.sub = function (arg){
-        //         return me.accSub(arg, this);
-        //     };
-
-        //     if(store.indexOf(record) == -1){
-        //         lastRecord = store.last();
-        //     }else{
-        //         if(store.indexOf(record) > 0){
-        //             lastRecord = store.getAt(store.indexOf(record) - 1);
-        //         }
-        //     }
-        //     if(lastRecord !== null){
-        //         value = (lastRecord.get('end')).mul((me.down('#rate').getValue()).sub(lastRecord.get('rate'))).add(lastRecord.get('fastNumber'));
-                value = prevEnd * (rate - prevRate) ;
-        //         value = (lastRecord.get('end').mul(lastRecord.get('rate').sub(me.down('#rate').getValue()))).add(lastRecord.get('fastNumber'));
-                value = (value * 0.01).toFixed(2);
-        //         value = (value).add(lastRecord.get('fastNumber'));
-                value = parseFloat(value) + parseFloat(prevFastNumber);
-                return value;
-        //     }
-        // }
-    },
-
-    accMul: function(arg1, arg2) {
-        // var m = 0, s1 = arg1.toString(), s2 = arg2.toString();
-        // try{
-        //     m += s1.split(".")[1].length;
-        // }catch(e){
-
-        // }
-        // try{
-        //     m += s2.split(".")[1].length;
-        // }catch(e){
-
-        // }
-        // return Number(s1.replace(".", "")) * Number(s2.replace(".", "")) / Math.pow(10, m);
-    },
-
-    accAdd: function(arg1, arg2) {
-        // var r1, r2, m;
-        // try{
-        //     r1 = arg1.toString().split(".")[1].length;
-        // }catch(e){
-        //     r1 = 0;
-        // }
-        // try{
-        //     r2 = arg2.toString().split(".")[1].length;
-        // }catch(e){
-        //     r2 = 0;
-        // }
-        // m = Math.pow(10, Math.max(r1, r2)) ;
-        // return (arg1 * m + arg2 * m) / m ;
-    },
-
-    accSub: function(arg1, arg2) {
-        //  var r1, r2, m, n;
-        //      try{
-        //          r1 = arg1.toString().split(".")[1].length;
-        //      }catch(e){
-        //          r1 = 0;
-        //      }
-        //      try{
-        //          r2 = arg2.toString().split(".")[1].length;
-        //      }catch(e){
-        //          r2 = 0;
-        //      }
-        //      m = Math.pow(10, Math.max(r1, r2));
-        //      //last modify by deeka
-        //      //动态控制精度长度
-        //      n = (r1 >= r2) ? r1 : r2;
-        //      return ((arg1 * m - arg2 * m) / m).toFixed( n );
+        value = prevEnd * ((rate * 0.01).toFixed(2) - prevRate);
+        value = parseFloat(value) + parseFloat(prevFastNumber);
+        return value;
     }
 
 });

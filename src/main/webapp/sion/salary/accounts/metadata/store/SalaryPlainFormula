@@ -1,0 +1,27 @@
+{
+    "type": "Ext.data.Store",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userClassName": "SalaryPlainFormula",
+        "model": "SalaryPlainFormula",
+        "storeId": "SalaryPlainFormula"
+    },
+    "name": "MyStore",
+    "designerId": "6889aeaa-5086-453e-acbe-3632f674d6d7",
+    "cn": [
+        {
+            "type": "Ext.data.proxy.Memory",
+            "reference": {
+                "name": "proxy",
+                "type": "object"
+            },
+            "codeClass": null,
+            "name": "MyMemoryProxy1",
+            "designerId": "dd27ab73-d9dc-4147-b7f5-6bf663f7c43b"
+        }
+    ]
+}

@@ -125,7 +125,14 @@ Ext.define('sion.salary.tax.view.Tax', {
                             flex: 2
                         },
                         {
-                            xtype: 'numbercolumn',
+                            xtype: 'gridcolumn',
+                            renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
+                                var str = value + '';
+                                if(str.split(".").length > 1){
+                                    return (Number(value)  * 100).toFixed(str.split(".")[1].length - 2 > 0 ? str.split(".")[1].length - 2 : 0);
+                                }
+                                return value;
+                            },
                             dataIndex: 'rate',
                             text: '税率(%)',
                             flex: 2

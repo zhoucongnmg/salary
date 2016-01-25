@@ -264,7 +264,7 @@
                     "designerId": "13dc4b27-2bd4-4abb-aee2-6b91b5fd2f4f"
                 },
                 {
-                    "type": "Ext.grid.column.Number",
+                    "type": "Ext.grid.column.Column",
                     "reference": {
                         "name": "columns",
                         "type": "array"
@@ -275,8 +275,39 @@
                         "flex": 2,
                         "text": "税率(%)"
                     },
-                    "name": "MyNumberColumn3",
-                    "designerId": "96b0c0cb-432a-421d-9514-538efa6646d9"
+                    "name": "MyColumn3",
+                    "designerId": "96b0c0cb-432a-421d-9514-538efa6646d9",
+                    "cn": [
+                        {
+                            "type": "fixedfunction",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "designer|params": [
+                                    "value",
+                                    "metaData",
+                                    "record",
+                                    "rowIndex",
+                                    "colIndex",
+                                    "store",
+                                    "view"
+                                ],
+                                "fn": "renderer",
+                                "implHandler": [
+                                    "var str = value + '';",
+                                    "if(str.split(\".\").length > 1){",
+                                    "    return (Number(value)  * 100).toFixed(str.split(\".\")[1].length - 2 > 0 ? str.split(\".\")[1].length - 2 : 0);",
+                                    "}",
+                                    "return value;"
+                                ]
+                            },
+                            "name": "renderer",
+                            "designerId": "6c378d96-9af1-48e3-97d7-8c09a5bd3776"
+                        }
+                    ]
                 },
                 {
                     "type": "Ext.grid.column.Number",

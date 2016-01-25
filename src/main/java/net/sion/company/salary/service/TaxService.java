@@ -27,7 +27,7 @@ public class TaxService {
 		List<TaxItem> list = tax.getTaxItems();
 		for(TaxItem item : list){
 			if(item.getStart() <= value && item.getEnd() >= value){
-				d = (value * item.getRate() * 0.01) - item.getFastNumber();
+				d = (value * item.getRate()) - item.getFastNumber();
 				break;
 			}
 		}

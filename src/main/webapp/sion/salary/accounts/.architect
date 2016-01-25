@@ -298,6 +298,9 @@
                 },
                 {
                     "id": "c89943e8-6601-4db3-8f7b-1538550a9ee5"
+                },
+                {
+                    "id": "dc3065f8-0286-464e-bd83-caabec1a9742"
                 }
             ]
         },
@@ -760,6 +763,14 @@
                 }
             ]
         },
+        "6889aeaa-5086-453e-acbe-3632f674d6d7": {
+            "id": "6889aeaa-5086-453e-acbe-3632f674d6d7",
+            "cn": [
+                {
+                    "id": "dd27ab73-d9dc-4147-b7f5-6bf663f7c43b"
+                }
+            ]
+        },
         "model": true,
         "b00d9212-02a0-4f7a-b909-a78b3b102457": {
             "id": "b00d9212-02a0-4f7a-b909-a78b3b102457",
@@ -1011,6 +1022,23 @@
                 }
             ]
         },
+        "db458ad1-604d-4c08-862d-c9630a8b031b": {
+            "id": "db458ad1-604d-4c08-862d-c9630a8b031b",
+            "cn": [
+                {
+                    "id": "1dd37631-ff7a-46f2-9cf7-45d7afffafbf"
+                },
+                {
+                    "id": "0488a127-57b8-4013-835a-949908b16276"
+                },
+                {
+                    "id": "c147b0e7-ffc5-4dcb-96a3-28fd9545b7b3"
+                },
+                {
+                    "id": "42efe33e-0a45-4ad7-8737-2dc39e96c7ea"
+                }
+            ]
+        },
         "controller": true,
         "resource": true,
         "7235cbde-4646-409a-b99c-fa44c5c49499": {
@@ -1045,15 +1073,18 @@
             "cd582d38-5ec4-4c34-a475-316acb53c35f",
             "ded8f455-4e2c-4d3d-a409-2be377f73c8b",
             "7e322a18-6086-4a79-889e-804435e95071",
-            "1c8b7abc-3ba9-4820-b839-9bd44d0610b7"
+            "1c8b7abc-3ba9-4820-b839-9bd44d0610b7",
+            "6889aeaa-5086-453e-acbe-3632f674d6d7",
+            "db458ad1-604d-4c08-862d-c9630a8b031b",
+            "33b1d024-ba84-4ae2-838c-2cd08fbe16c2"
         ]
     },
     "canvasState": {
         "topInstance": null
     },
     "inspectorState": {
-        "topInstance": "cd582d38-5ec4-4c34-a475-316acb53c35f",
-        "selectedInstance": "357383a3-fd31-429c-a930-178a9fb7174e"
+        "topInstance": "33b1d024-ba84-4ae2-838c-2cd08fbe16c2",
+        "selectedInstance": "296f8deb-8474-4be7-af24-de411452800a"
     },
     "editMode": "code",
     "userSettings": {

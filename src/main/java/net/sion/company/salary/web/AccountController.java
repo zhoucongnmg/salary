@@ -10,6 +10,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpSession;
 
@@ -76,7 +77,7 @@ public class AccountController {
 	 */
 	@RequestMapping(value = "payrollList")
 	public @ResponseBody Response payrollList(String accountId) {
-		List<Payroll> list = payrollRepository.findByAccountId(accountId);
+		List<Payroll> list = payrollRepository.findByAccountIdAndState(accountId, "Unpublish");
 		return new Response(list);
 	}
 	/**
@@ -113,6 +114,17 @@ public class AccountController {
 		personAccountFileService.updateSalaryItems(account.getId());
 		return new Response(true);
 	}
+	
+	@RequestMapping(value="readFormulaByAccountId")
+	public @ResponseBody Response readFormulaByAccountId(@RequestParam String accountId) {
+//		String accountId = (String) map.get("accountId");
+		Account account = accountRepository.findOne(accountId);
+		Set<String> formulaIds = account.getFormulaIds();
+		List ids = new ArrayList(formulaIds);
+		List<Formula> list = formulaRepository.findByIdIn(ids);
+		return new Response("操作成功", list, true);
+	}
+	
 	//校验方案名称是否重复
 	@RequestMapping(value = "validateName")
 	public @ResponseBody Response validateName(HttpSession session, @RequestParam Map<String, String> map) {
