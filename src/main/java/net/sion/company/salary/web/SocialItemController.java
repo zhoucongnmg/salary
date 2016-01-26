@@ -67,6 +67,8 @@ public class SocialItemController {
 				}else if(SystemSalaryItemType.Company == systemSalaryItem.getSystemType()){
 					systemSalaryItem.setName(item.getName() + "单位部分");
 				}
+				systemSalaryItem.setCarryType(item.getCarryType());
+				systemSalaryItem.setPrecision(item.getPrecision());
 				systemSalaryItemRepository.save(systemSalaryItem);
 			}
 		}
