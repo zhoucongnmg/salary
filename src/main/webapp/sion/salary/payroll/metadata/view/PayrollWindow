@@ -85,7 +85,7 @@
                                             "    return false;",
                                             "}",
                                             "",
-                                            "if(!selectedRows[0]){",
+                                            "if(!this.hasLeaf(selectedRows)){",
                                             "    Ext.Msg.alert(\"提示\", \"请选择人员！\");",
                                             "    return false;",
                                             "}",
@@ -512,9 +512,12 @@
                             "userConfig": {
                                 "fn": "onTreepanelCheckChange",
                                 "implHandler": [
+                                    "var me = this;",
                                     "node.cascadeBy(function (n) { n.set('checked', checked); });",
                                     "",
-                                    "this.checkParent(node);"
+                                    "me.checkParent(node);",
+                                    "me.down('form').down('button').setDisabled(false);",
+                                    ""
                                 ],
                                 "name": "checkchange",
                                 "scope": "me"
@@ -601,6 +604,31 @@
             },
             "name": "removeTree",
             "designerId": "6e080b49-f28b-4c18-8fb9-9086b4a3a476"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|params": [
+                    "rows"
+                ],
+                "fn": "hasLeaf",
+                "implHandler": [
+                    "var flag = false;",
+                    "Ext.each(rows, function (item) {",
+                    "    if(item.isLeaf()){",
+                    "        flag = true;",
+                    "    }",
+                    "});",
+                    "return flag;"
+                ]
+            },
+            "name": "hasLeaf",
+            "designerId": "bc3a064e-66c6-4ac6-ada2-6bf16af517bf"
         }
     ]
 }

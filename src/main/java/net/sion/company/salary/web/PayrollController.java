@@ -149,7 +149,9 @@ public class PayrollController {
 				columns.add(getColumns(item));
 			}
 		}
-		List<PayrollItem> payrollItemList = payrollItemRepository.findByPayrollId(id);
+		
+		String name = getRegexName(opts);
+		List<PayrollItem> payrollItemList = payrollItemRepository.findByPayrollIdAndRegexName(id,name);
 
 		data = fillData(payroll, payrollItemList, account);
 
@@ -158,6 +160,13 @@ public class PayrollController {
 		m.put("columns", columns);
 		m.put("data", data);
 		return new Response(m);
+	}
+	
+	private String getRegexName(Map<String,String> opts){
+		if(opts ==null||opts.get("name")==null)
+			return "";
+		else
+			return opts.get("name");
 	}
 	
 	
@@ -406,7 +415,7 @@ public class PayrollController {
 		}
 		
 		if (removePersonIds.size()>0) {
-			Iterable<PayrollItem> removePayrollItems = payrollItemRepository.findByPersonIdIn(new ArrayList(removePersonIds));
+			Iterable<PayrollItem> removePayrollItems = payrollItemRepository.findByPayrollIdAndPersonIdIn(payroll.getId(),new ArrayList(removePersonIds));
 			payrollItemRepository.delete(removePayrollItems);
 		}
 		return new Response(true);
@@ -422,6 +431,10 @@ public class PayrollController {
 	public Response remove(@RequestBody Payroll payroll) {
 
 		mongoTemplate.remove(payroll);
+		
+		List<PayrollItem> payrollItems = payrollItemRepository.findByPayrollId(payroll.getId());
+		
+		payrollItemRepository.delete(payrollItems);
 
 		return new Response(true);
 	}

@@ -241,7 +241,7 @@ Ext.define('sion.salary.payroll.view.PayrollWindow', {
             return false;
         }
 
-        if(!selectedRows[0]){
+        if(!this.hasLeaf(selectedRows)){
             Ext.Msg.alert("提示", "请选择人员！");
             return false;
         }
@@ -311,9 +311,12 @@ Ext.define('sion.salary.payroll.view.PayrollWindow', {
     },
 
     onTreepanelCheckChange: function(node, checked, eOpts) {
+        var me = this;
         node.cascadeBy(function (n) { n.set('checked', checked); });
 
-        this.checkParent(node);
+        me.checkParent(node);
+        me.down('form').down('button').setDisabled(false);
+
     },
 
     onWindowBeforeClose: function(panel, eOpts) {
@@ -346,6 +349,16 @@ Ext.define('sion.salary.payroll.view.PayrollWindow', {
             this.removeTree(node.firstChild);
             node.removeChild(node.firstChild);
         }
+    },
+
+    hasLeaf: function(rows) {
+        var flag = false;
+        Ext.each(rows, function (item) {
+            if(item.isLeaf()){
+                flag = true;
+            }
+        });
+        return flag;
     }
 
 });
