@@ -46,6 +46,8 @@ public class Payroll {
 
 	String state;//状态
 		
+	@Transient
+	Double sum;
 	
 	public enum PayrollStatus{
 		Unpublish,
@@ -161,6 +163,16 @@ public class Payroll {
 
 	public void setState(String state) {
 		this.state = state;
+	}
+
+
+	public Double getSum() {
+		return sum;
+	}
+
+
+	public void setSum(Double sum) {
+		this.sum = sum;
 	}
 
 	

@@ -199,6 +199,7 @@ Ext.define('sion.salary.payroll.view.UnpublishPayroll', {
                         },
                         {
                             xtype: 'gridcolumn',
+                            dataIndex: 'sum',
                             menuDisabled: true,
                             text: '薪资总额',
                             flex: 1
@@ -227,11 +228,14 @@ Ext.define('sion.salary.payroll.view.UnpublishPayroll', {
                             items: [
                                 {
                                     handler: function(view, rowIndex, colIndex, item, e, record, row) {
+                                        var grid = view.up('grid'),
+                                            store = grid.getStore();
                                         var window = Ext.create('sion.salary.payroll.view.PayrollWindow',{
                                             title:'修改工资条',
                                             _link:{
                                                 record:record,
-                                                state:'update'
+                                                state:'update',
+                                                payrollStore:store
                                             }
                                         });
                                         window.show();

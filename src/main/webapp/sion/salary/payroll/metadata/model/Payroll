@@ -193,6 +193,19 @@
                     "designerId": "a6243325-d6c7-4ce7-9037-defc4898ba86"
                 }
             ]
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "sum"
+            },
+            "name": "MyField17",
+            "designerId": "c4a3491f-98f3-4c2c-a107-561c4e23de51"
         }
     ]
 }

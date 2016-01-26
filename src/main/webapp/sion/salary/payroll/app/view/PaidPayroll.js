@@ -191,6 +191,7 @@ Ext.define('sion.salary.payroll.view.PaidPayroll', {
                         },
                         {
                             xtype: 'gridcolumn',
+                            dataIndex: 'sum',
                             menuDisabled: true,
                             text: '薪资总额',
                             flex: 1

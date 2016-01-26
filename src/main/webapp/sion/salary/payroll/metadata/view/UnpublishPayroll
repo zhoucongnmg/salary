@@ -611,6 +611,7 @@
                     },
                     "codeClass": null,
                     "userConfig": {
+                        "dataIndex": "sum",
                         "flex": 1,
                         "menuDisabled": true,
                         "text": "薪资总额"
@@ -700,11 +701,14 @@
                                         ],
                                         "fn": "handler",
                                         "implHandler": [
+                                            "var grid = view.up('grid'),",
+                                            "    store = grid.getStore();",
                                             "var window = Ext.create('sion.salary.payroll.view.PayrollWindow',{",
                                             "    title:'修改工资条',",
                                             "    _link:{",
                                             "        record:record,",
-                                            "        state:'update'",
+                                            "        state:'update',",
+                                            "        payrollStore:store",
                                             "    }",
                                             "});",
                                             "window.show();"

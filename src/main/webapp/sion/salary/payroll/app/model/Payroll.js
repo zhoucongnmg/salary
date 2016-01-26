@@ -57,6 +57,9 @@ Ext.define('sion.salary.payroll.model.Payroll', {
         },
         {
             name: 'accountName'
+        },
+        {
+            name: 'sum'
         }
     ],
 

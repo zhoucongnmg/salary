@@ -589,6 +589,7 @@
                     },
                     "codeClass": null,
                     "userConfig": {
+                        "dataIndex": "sum",
                         "flex": 1,
                         "menuDisabled": true,
                         "text": "薪资总额"

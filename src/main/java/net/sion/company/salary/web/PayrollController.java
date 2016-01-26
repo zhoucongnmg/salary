@@ -213,6 +213,25 @@ public class PayrollController {
 		Query q = getPageQuery(start, limit, page, state, subject, month, socialCostMonth);
 		List<Payroll> payrolls = mongoTemplate.find(q, Payroll.class);
 		Long total = mongoTemplate.count(q, Payroll.class);
+		
+		for (Payroll payroll : payrolls) {
+			String salaryItemId = null;
+			Double sum = 0.0;
+			Account account = accountRepository.findById(payroll.getAccountId());
+			List<AccountItem> accountItems = account.getAccountItems();
+			for (AccountItem accountItem : accountItems) {
+				if("实发工资".equals(accountItem.getName()))
+					salaryItemId = accountItem.getSalaryItemId();
+			}
+			
+			List<PayrollItem> payrollItems = payrollItemRepository.findByPayrollId(payroll.getId());
+			for (PayrollItem payrollItem : payrollItems) {
+				Map<String,Double> values = payrollItem.getValues();
+				if(salaryItemId!=null)
+					sum += values.get(salaryItemId);
+			}
+			payroll.setSum(sum);
+		}
 
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("total", total);

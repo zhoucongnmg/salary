@@ -260,10 +260,10 @@ Ext.define('sion.salary.payroll.view.PayrollWindow', {
         record.save({
             success: function(response, opts){
                 record.commit();
-                if(state=='add'){
+        //         if(state=='add'){
                     payrollStore = me._link.payrollStore;
                     payrollStore.reload();
-                }
+        //         }
                 //         button.setDisabled(false);
                 me.close();
                 Ext.Msg.alert("提示", "保存成功");

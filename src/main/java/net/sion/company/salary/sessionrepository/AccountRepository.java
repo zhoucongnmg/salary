@@ -22,4 +22,6 @@ public interface AccountRepository extends MongoRepository<Account, String>,
 //	@Query(value = "{$or:[{_id:?0},{name:?1}]}")
 //	List<Account> findByIdAndName(String id,String name);
 	List<Account> findByName(String name);
+	
+	Account findById(String id);
 }
