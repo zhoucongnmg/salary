@@ -151,7 +151,7 @@ public class PayrollController {
 		}
 		
 		String name = getRegexName(opts);
-		List<PayrollItem> payrollItemList = payrollItemRepository.findByPayrollIdAndRegexName(id,name);
+		List<PayrollItem> payrollItemList = payrollItemRepository.findByPayrollIdAndNameRegex(id,name);
 
 		data = fillData(payroll, payrollItemList, account);
 
@@ -291,7 +291,7 @@ public class PayrollController {
 		List<Object> personWithOutDept = new ArrayList<Object>();
 		String companyId = adminService.getCompany(session).getId();
 
-		List<PersonAccountFile> personAccountFiles = personAcountFileRepsitory.findByAccountIdAndInId(accountId, persons.keySet());
+		List<PersonAccountFile> personAccountFiles = personAcountFileRepsitory.findByAccountIdOrIdIn(accountId, persons.keySet());
 
 		for (PersonAccountFile personAccountFile : personAccountFiles) {
 			if (notNull(personAccountFile.getDeptId())) {
