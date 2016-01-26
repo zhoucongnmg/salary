@@ -67,14 +67,6 @@ Ext.define('sion.salary.accounts.view.SalaryItemRead', {
                             style: 'border-bottom:1px #f2f2f2 solid;',
                             fieldLabel: '小数保留方式',
                             name: 'carryType'
-                        },
-                        {
-                            xtype: 'displayfield',
-                            anchor: '100%',
-                            itemId: 'note',
-                            style: 'border-bottom:1px #f2f2f2 solid;',
-                            fieldLabel: '备注',
-                            name: 'note'
                         }
                     ]
                 }
@@ -98,13 +90,15 @@ Ext.define('sion.salary.accounts.view.SalaryItemRead', {
             store = Ext.getStore("AccountItemType"),
             rec = store.findRecord('id', salaryItem.get('type'));
 
-            form.loadRecord(salaryItem);
-        // if(salaryItem.get('taxItem')){
-        //     me.down('#taxItem').setValue('是');
-        // }else{
-        //     me.down('#taxItem').setValue('否');
-        // }
+        form.loadRecord(salaryItem);
         me.down('#type').setValue(rec.get("name"));
+        if('Round' == salaryItem.get('carryType')){
+            me.down('#carryType').setValue('四舍五入');
+        }else if('Isopsephy' == salaryItem.get('carryType')){
+            me.down('#carryType').setValue('直接进位');
+        }else if('Truncation' == salaryItem.get('carryType')){
+            me.down('#carryType').setValue('直接舍去');
+        }
     }
 
 });

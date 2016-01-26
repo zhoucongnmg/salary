@@ -188,14 +188,14 @@ Ext.define('sion.salary.accounts.view.SalaryItemEdit', {
                 item: 'SalaryItem',
                 id: '',
                 name: '',
-        //         field: '',
+                //         field: '',
                 type: '',
-        //         taxItem: false,
+                //         taxItem: false,
                 carryType: 'Round',
                 precision: '',
-        //         decimalScale: 0,
-        //         system: false,
-        //         show: true,
+                //         decimalScale: 0,
+                //         system: false,
+                //         show: true,
                 note: ''
             }));
         }

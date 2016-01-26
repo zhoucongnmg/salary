@@ -15,8 +15,8 @@ public class Item {
 	ItemType item;
 	public enum DecimalCarryType {
 		Round, //四舍五入
-		Isopsephy,	//数值进位
-		Truncation	//数值舍位
+		Isopsephy,	//直接进位
+		Truncation	//直接舍去
 	}
 	public enum ItemType {
 		SalaryItem, //薪资项目
