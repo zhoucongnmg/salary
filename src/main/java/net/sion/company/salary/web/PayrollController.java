@@ -215,21 +215,8 @@ public class PayrollController {
 		Long total = mongoTemplate.count(q, Payroll.class);
 		
 		for (Payroll payroll : payrolls) {
-			String salaryItemId = null;
-			Double sum = 0.0;
-			Account account = accountRepository.findById(payroll.getAccountId());
-			List<AccountItem> accountItems = account.getAccountItems();
-			for (AccountItem accountItem : accountItems) {
-				if("实发工资".equals(accountItem.getName()))
-					salaryItemId = accountItem.getSalaryItemId();
-			}
-			
-			List<PayrollItem> payrollItems = payrollItemRepository.findByPayrollId(payroll.getId());
-			for (PayrollItem payrollItem : payrollItems) {
-				Map<String,Double> values = payrollItem.getValues();
-				if(salaryItemId!=null)
-					sum += values.get(salaryItemId);
-			}
+			String salaryItemId = getSalaryItemId(payroll);
+			Double sum = getPayrollSum(payroll,salaryItemId);		
 			payroll.setSum(sum);
 		}
 
@@ -238,6 +225,29 @@ public class PayrollController {
 		map.put("data", payrolls);
 		map.put("success", true);
 		return map;
+	}
+	
+	private String getSalaryItemId(Payroll payroll){
+		
+		Account account = accountRepository.findById(payroll.getAccountId());
+		List<AccountItem> accountItems = account.getAccountItems();
+		for (AccountItem accountItem : accountItems) {
+			if("实发工资".equals(accountItem.getName()))
+				return accountItem.getSalaryItemId();
+		}
+		return null;
+	}
+	
+	private Double getPayrollSum(Payroll payroll,String salaryItemId){
+		Double sum = 0.0;
+		
+		List<PayrollItem> payrollItems = payrollItemRepository.findByPayrollId(payroll.getId());
+		for (PayrollItem payrollItem : payrollItems) {
+			Map<String,Double> values = payrollItem.getValues();
+			if(salaryItemId!=null)
+				sum += values.get(salaryItemId);
+		}
+		return sum;
 	}
 	
 	/**
