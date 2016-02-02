@@ -214,11 +214,11 @@ public class PayrollController {
 		List<Payroll> payrolls = mongoTemplate.find(q, Payroll.class);
 		Long total = mongoTemplate.count(q, Payroll.class);
 		
-		for (Payroll payroll : payrolls) {
+		/*for (Payroll payroll : payrolls) {
 			String salaryItemId = getSalaryItemId(payroll);
 			Double sum = getPayrollSum(payroll,salaryItemId);		
 			payroll.setSum(sum);
-		}
+		}*/
 
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("total", total);
