@@ -218,7 +218,44 @@
                                 "text": "删除发放"
                             },
                             "name": "MyButton14",
-                            "designerId": "3029d392-5a07-4df6-bf94-8dd8291b564f"
+                            "designerId": "3029d392-5a07-4df6-bf94-8dd8291b564f",
+                            "cn": [
+                                {
+                                    "type": "basiceventbinding",
+                                    "reference": {
+                                        "name": "listeners",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fn": "onButtonClick1",
+                                        "implHandler": [
+                                            "var me = this,",
+                                            "    grid = me.down('grid'),",
+                                            "    store = grid.getStore(),",
+                                            "    payroll = me._payroll,",
+                                            "    records = grid.getSelectionModel().getSelection();",
+                                            "",
+                                            "if(records.length==0)",
+                                            "{",
+                                            "    Ext.Msg.alert('提示', '请选一条分次发放！');",
+                                            "    return;",
+                                            "}",
+                                            "",
+                                            "records[0].destroy({",
+                                            "    params : {",
+                                            "        id : records[0].getId()",
+                                            "    }",
+                                            "});",
+                                            "store.remove(records[0]);"
+                                        ],
+                                        "name": "click",
+                                        "scope": "me"
+                                    },
+                                    "name": "onButtonClick1",
+                                    "designerId": "89b26370-2ee3-4723-83e8-6d84306630f1"
+                                }
+                            ]
                         }
                     ]
                 },

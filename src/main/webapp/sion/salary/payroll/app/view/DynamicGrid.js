@@ -232,22 +232,6 @@ Ext.define('sion.salary.payroll.view.DynamicGrid', {
                                     xtype: 'gridcolumn',
                                     dataIndex: 'string'
                                 }
-                            ],
-                            plugins: [
-                                Ext.create('Ext.grid.plugin.RowEditing', {
-                                    saveBtnText: '保存',
-                                    cancelBtnText: '取消',
-                                    listeners: {
-                                        edit: {
-                                            fn: me.onRowEditingEdit11,
-                                            scope: me
-                                        },
-                                        beforeedit: {
-                                            fn: me.onRowEditingBeforeEdit11,
-                                            scope: me
-                                        }
-                                    }
-                                })
                             ]
                         },
                         {
@@ -384,27 +368,6 @@ Ext.define('sion.salary.payroll.view.DynamicGrid', {
             values = searchForm.getForm().getValues();
 
         me.loadData(id,grid,store,values);
-    },
-
-    onRowEditingEdit11: function(editor, context, eOpts) {
-
-
-        var me = this,
-            record = context.record;
-
-
-        me.calculate(record,function(values){
-            for (var key in values) {
-                record.set(key,values[key]);
-            }
-        });
-
-    },
-
-    onRowEditingBeforeEdit11: function(editor, context, eOpts) {
-        var me = this;
-        return me._canEdit;
-
     },
 
     onRowEditingEdit1: function(editor, context, eOpts) {

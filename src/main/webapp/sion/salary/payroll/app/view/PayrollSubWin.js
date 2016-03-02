@@ -95,7 +95,13 @@ Ext.define('sion.salary.payroll.view.PayrollSubWin', {
                                 },
                                 {
                                     xtype: 'button',
-                                    text: '删除发放'
+                                    text: '删除发放',
+                                    listeners: {
+                                        click: {
+                                            fn: me.onButtonClick1,
+                                            scope: me
+                                        }
+                                    }
                                 }
                             ]
                         }
@@ -123,6 +129,27 @@ Ext.define('sion.salary.payroll.view.PayrollSubWin', {
             _store : store,
             _payroll : payroll
         }).show();
+    },
+
+    onButtonClick1: function(button, e, eOpts) {
+        var me = this,
+            grid = me.down('grid'),
+            store = grid.getStore(),
+            payroll = me._payroll,
+            records = grid.getSelectionModel().getSelection();
+
+        if(records.length==0)
+        {
+            Ext.Msg.alert('提示', '请选一条分次发放！');
+            return;
+        }
+
+        records[0].destroy({
+            params : {
+                id : records[0].getId()
+            }
+        });
+        store.remove(records[0]);
     },
 
     onWindowAfterRender: function(component, eOpts) {
