@@ -447,10 +447,12 @@ Ext.define('sion.salary.payroll.view.DynamicGrid', {
         var me = this,
             grid = me.down('grid'),
             id = me._id,
+            type = me._opts.type,
+            url = type=='Payroll'?'salary/payroll/calculate':'salary/payroll/calculateSub',
             accountId = me._accountId;
 
         Ext.Ajax.request({
-            url:'salary/payroll/calculate',
+            url:url,
             async : false,
             jsonData : {
                 accountId : accountId,
@@ -488,10 +490,12 @@ Ext.define('sion.salary.payroll.view.DynamicGrid', {
 
     insertGrid: function(payrollSub) {
         var me = this,
+            mainGrid = me.down('#mainGrid'),
             panel = me.down('#gridPanel'),
             grid = Ext.create(me.getNs()+'.view.PayrollSubGrid',{
                 itemId : payrollSub.getId(),
-                width : payrollSub.get('items').length * 100
+                width : payrollSub.get('items').length * 100,
+                _mainGrid : mainGrid
             });
 
         panel.insert(1,grid);

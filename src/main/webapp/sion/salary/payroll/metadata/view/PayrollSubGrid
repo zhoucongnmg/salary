@@ -79,12 +79,15 @@
                             "",
                             "",
                             "var me = this,",
-                            "    record = context.record;",
+                            "    mainGrid = me._mainGrid,",
+                            "    store = mainGrid.getStore(),",
+                            "    record = context.record,",
+                            "    mainRecord = store.findRecord('personId',record.get('personId'));;",
                             "",
                             "",
                             "me.calculate(record,function(values){",
                             "    for (var key in values) {",
-                            "        record.set(key,values[key]);",
+                            "        mainRecord.set(key,values[key]);",
                             "    }",
                             "});",
                             ""
@@ -116,6 +119,44 @@
                     "designerId": "ffde90c8-f0eb-474f-91e5-b7f77239d1d8"
                 }
             ]
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|params": [
+                    "record",
+                    "cb"
+                ],
+                "fn": "calculate",
+                "implHandler": [
+                    "var me = this,",
+                    "    grid = me.down('grid'),",
+                    "    id = me._id,",
+                    "    accountId = me._accountId;",
+                    "",
+                    "Ext.Ajax.request({",
+                    "    url:'salary/payroll/calculateSub',",
+                    "    async : false,",
+                    "    jsonData : {",
+                    "        accountId : accountId,",
+                    "        record : record.data",
+                    "    },",
+                    "    success: function(response){",
+                    "        var json = Ext.JSON.decode(response.responseText);",
+                    "        Ext.callback(cb,me,[json.data]);",
+                    "    },failure: function(){",
+                    "        Ext.Msg.alert(\"提示\", \"加载失败\");",
+                    "    }",
+                    "});"
+                ]
+            },
+            "name": "calculate",
+            "designerId": "a657ce83-2546-4ee3-ab16-bfd11da160ed"
         }
     ]
 }

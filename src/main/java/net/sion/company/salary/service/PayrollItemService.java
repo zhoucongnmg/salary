@@ -149,8 +149,7 @@ public class PayrollItemService {
 		
 	}
 	
-
-	public List<Map<String, Object>> fillSimpleFields(List<Map<String, Object>> fields, Map<String,String> opts) {
+	public List<Map<String, Object>> fillBaseFields(List<Map<String, Object>> fields) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("name", "id");
 		map.put("type", "string");
@@ -163,6 +162,14 @@ public class PayrollItemService {
 		map.put("name", "personId");
 		map.put("type", "string");
 		fields.add(map);
+		
+		return fields;
+	}
+
+	public List<Map<String, Object>> fillSimpleFields(List<Map<String, Object>> fields, Map<String,String> opts) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		fillBaseFields(fields);
+		
 		map = new HashMap<String, Object>();
 		map.put("name", "name");
 		map.put("type", "string");
