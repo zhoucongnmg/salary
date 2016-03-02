@@ -8,6 +8,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -22,6 +23,7 @@ import net.sion.company.salary.domain.Formula;
 import net.sion.company.salary.domain.Payroll;
 import net.sion.company.salary.domain.PersonAccountFile;
 import net.sion.company.salary.domain.PersonAccountItem;
+import net.sion.company.salary.domain.SalaryItem.SalaryItemType;
 import net.sion.company.salary.service.FormulaService;
 import net.sion.company.salary.service.PersonAccountFileService;
 import net.sion.company.salary.sessionrepository.AccountRepository;
@@ -342,9 +344,21 @@ public class AccountController {
 	}
 	
 	@RequestMapping(value = "findAccountItem")
-	public Response findAccountItem(@RequestParam String id) {
+	public @ResponseBody Response findAccountItem(@RequestParam String id, @RequestParam SalaryItemType type) {
+		Account account = accountRepository.findOne(id);
+		List<AccountItem> accountItems = new ArrayList<AccountItem>();
+		if (account!=null) {
+			accountItems = account.getAccountItems();
+			Iterator<AccountItem> it = accountItems.iterator();
+			while (it.hasNext()) {
+				AccountItem item = it.next();
+				if (item.getType()!=type) {
+					it.remove();
+				}
+			}
+		}
 		// TODO 保存套帐关联的人员ID
-		return new Response(true);
+		return new Response(accountItems);
 	}
 
 	/**

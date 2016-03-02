@@ -44,8 +44,7 @@ public class SalaryRegister extends AbstractAppRegisterListener {
 	@Override
 	public List<Permission> registPermission(List<Permission> empty) {
 		Permission permission = new Permission(AppEnum.Salary.getApp(),"Salary","薪资管理员","薪资管理角色可以维护管理本公司人员的薪资信息");
-		permission.addModules(AppEnum.Salary.getModules());
-		permission.addModule(formula);
+		permission.addModule(AppEnum.Salary.getModules().get(0));
 		
 		Roles.HR.addPermission(permission);
 		

@@ -537,12 +537,12 @@
                                     "    id = me._id,",
                                     "    record = me._record,",
                                     "    ns = me.getNamespace(),",
-                                    "    grid = me.down('grid'),",
+                                    "    grid = me.down('#simpleGrid'),",
                                     "    form = me.down('form'),",
                                     "    store = grid.getStore(),",
-                                    "    opts = searchForm.getForm().getValues();",
+                                    "    values = searchForm.getForm().getValues();",
                                     "",
-                                    "me.loadData(id,grid,store,opts);"
+                                    "me.loadData(id,grid,store,values);"
                                 ],
                                 "name": "click",
                                 "scope": "me"
@@ -555,34 +555,39 @@
             ]
         },
         {
-            "type": "Ext.grid.Panel",
+            "type": "Ext.panel.Panel",
             "reference": {
                 "name": "items",
                 "type": "array"
             },
             "codeClass": null,
             "userConfig": {
-                "autoScroll": true,
-                "emptyText": "无工资条数据",
+                "container|align": "stretchmax",
+                "itemId": "gridPanel",
+                "layout": "hbox",
                 "layout|flex": 1,
-                "title": null
+                "title": null,
+                "width": null
             },
-            "name": "MyGridPanel2",
-            "designerId": "f0e6906a-93f4-4c00-a1a8-bf7718223157",
+            "name": "MyPanel",
+            "designerId": "59dbc6a3-f2d3-4a78-aac4-90bd97e7481e",
             "cn": [
                 {
-                    "type": "Ext.grid.column.Column",
+                    "type": "Ext.grid.Panel",
                     "reference": {
-                        "name": "columns",
+                        "name": "items",
                         "type": "array"
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "dataIndex": "string",
-                        "text": null
+                        "autoScroll": true,
+                        "emptyText": "无工资条数据",
+                        "itemId": "simpleGrid",
+                        "title": null,
+                        "width": 200
                     },
-                    "name": "MyColumn12",
-                    "designerId": "d4262980-dac4-4d34-9f08-670fe7728bf0",
+                    "name": "MyGridPanel5",
+                    "designerId": "b414e37e-3621-4b84-bf92-7d907e06e831",
                     "cn": [
                         {
                             "type": "Ext.grid.column.Column",
@@ -592,110 +597,246 @@
                             },
                             "codeClass": null,
                             "userConfig": {
-                                "text": "MyColumn3"
+                                "dataIndex": "string",
+                                "text": null
                             },
-                            "name": "MyColumn3",
-                            "designerId": "7821116a-8f95-4eb2-b86a-208e2bae63f0"
+                            "name": "MyColumn12",
+                            "designerId": "21fda949-dd3c-42e0-be5e-8c21e22b91d8"
                         },
                         {
-                            "type": "Ext.grid.column.Column",
+                            "type": "Ext.grid.View",
                             "reference": {
-                                "name": "columns",
-                                "type": "array"
+                                "name": "viewConfig",
+                                "type": "object"
                             },
                             "codeClass": null,
-                            "userConfig": {
-                                "text": "MyColumn16"
+                            "name": "MyGridView3",
+                            "designerId": "b7d74b6c-6c27-4513-96d1-ea7feb104aa2"
+                        },
+                        {
+                            "type": "Ext.grid.plugin.RowEditing",
+                            "reference": {
+                                "name": "plugins",
+                                "type": "array"
                             },
-                            "name": "MyColumn16",
-                            "designerId": "af11747f-4fc8-4917-89e5-9416be9ddc70"
+                            "codeClass": "Ext.grid.plugin.RowEditing",
+                            "userConfig": {
+                                "cancelBtnText": "取消",
+                                "saveBtnText": "保存"
+                            },
+                            "name": "MyRowEditingPlugin",
+                            "designerId": "73e4626e-c632-4ba3-bb11-9f79fce9df66",
+                            "customConfigs": [
+                                {
+                                    "group": "(Custom Properties)",
+                                    "name": "saveBtnText",
+                                    "type": "string"
+                                },
+                                {
+                                    "group": "(Custom Properties)",
+                                    "name": "cancelBtnText",
+                                    "type": "string"
+                                }
+                            ],
+                            "cn": [
+                                {
+                                    "type": "basiceventbinding",
+                                    "reference": {
+                                        "name": "listeners",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fn": "onRowEditingEdit11",
+                                        "implHandler": [
+                                            "",
+                                            "",
+                                            "var me = this,",
+                                            "    record = context.record;",
+                                            "",
+                                            "",
+                                            "me.calculate(record,function(values){",
+                                            "    for (var key in values) {",
+                                            "        record.set(key,values[key]);",
+                                            "    }",
+                                            "});",
+                                            ""
+                                        ],
+                                        "name": "edit",
+                                        "scope": "me"
+                                    },
+                                    "name": "onRowEditingEdit11",
+                                    "designerId": "764de9eb-39ed-4c68-b376-55570f406921"
+                                },
+                                {
+                                    "type": "basiceventbinding",
+                                    "reference": {
+                                        "name": "listeners",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fn": "onRowEditingBeforeEdit11",
+                                        "implHandler": [
+                                            "var me = this;",
+                                            "return me._canEdit;",
+                                            ""
+                                        ],
+                                        "name": "beforeedit",
+                                        "scope": "me"
+                                    },
+                                    "name": "onRowEditingBeforeEdit11",
+                                    "designerId": "9d6fd77d-762f-43c3-8258-d707f722c427"
+                                }
+                            ]
                         }
                     ]
                 },
                 {
-                    "type": "Ext.grid.View",
+                    "type": "Ext.grid.Panel",
                     "reference": {
-                        "name": "viewConfig",
-                        "type": "object"
-                    },
-                    "codeClass": null,
-                    "name": "MyGridView3",
-                    "designerId": "6a6b0dd2-0a8c-47c5-8ec0-0ba9345c8eb4"
-                },
-                {
-                    "type": "Ext.grid.plugin.RowEditing",
-                    "reference": {
-                        "name": "plugins",
+                        "name": "items",
                         "type": "array"
                     },
-                    "codeClass": "Ext.grid.plugin.RowEditing",
+                    "codeClass": null,
                     "userConfig": {
-                        "cancelBtnText": "取消",
-                        "saveBtnText": "保存"
+                        "autoScroll": true,
+                        "emptyText": "无工资条数据",
+                        "itemId": "mainGrid",
+                        "title": null,
+                        "width": 1050
                     },
-                    "name": "MyRowEditingPlugin",
-                    "designerId": "3161bf5a-cb63-4742-a342-6aa643ea3a61",
-                    "customConfigs": [
-                        {
-                            "group": "(Custom Properties)",
-                            "name": "saveBtnText",
-                            "type": "string"
-                        },
-                        {
-                            "group": "(Custom Properties)",
-                            "name": "cancelBtnText",
-                            "type": "string"
-                        }
-                    ],
+                    "name": "MyGridPanel4",
+                    "designerId": "d797542b-63e0-440e-9eae-e4ce7b0ea693",
                     "cn": [
                         {
-                            "type": "basiceventbinding",
+                            "type": "Ext.grid.column.Column",
                             "reference": {
-                                "name": "listeners",
+                                "name": "columns",
                                 "type": "array"
                             },
                             "codeClass": null,
                             "userConfig": {
-                                "fn": "onRowEditingEdit",
-                                "implHandler": [
-                                    "",
-                                    "",
-                                    "var me = this,",
-                                    "    record = context.record;",
-                                    "",
-                                    "",
-                                    "me.calculate(record,function(values){",
-                                    "    for (var key in values) {",
-                                    "        record.set(key,values[key]);",
-                                    "    }",
-                                    "});",
-                                    ""
-                                ],
-                                "name": "edit",
-                                "scope": "me"
+                                "dataIndex": "string",
+                                "text": null
                             },
-                            "name": "onRowEditingEdit",
-                            "designerId": "fddb8e60-2298-40f4-b585-ddae13a00659"
+                            "name": "MyColumn12",
+                            "designerId": "0d7fb256-86ed-4a22-944b-c85d59b23bdd",
+                            "cn": [
+                                {
+                                    "type": "Ext.grid.column.Column",
+                                    "reference": {
+                                        "name": "columns",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "text": "MyColumn3"
+                                    },
+                                    "name": "MyColumn3",
+                                    "designerId": "031315f6-a2ee-4691-a6b2-d1ba24a2f983"
+                                },
+                                {
+                                    "type": "Ext.grid.column.Column",
+                                    "reference": {
+                                        "name": "columns",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "text": "MyColumn16"
+                                    },
+                                    "name": "MyColumn16",
+                                    "designerId": "9c7b9f6a-0fec-4892-99bf-56b274b38e5e"
+                                }
+                            ]
                         },
                         {
-                            "type": "basiceventbinding",
+                            "type": "Ext.grid.View",
                             "reference": {
-                                "name": "listeners",
-                                "type": "array"
+                                "name": "viewConfig",
+                                "type": "object"
                             },
                             "codeClass": null,
-                            "userConfig": {
-                                "fn": "onRowEditingBeforeEdit",
-                                "implHandler": [
-                                    "var me = this;",
-                                    "return me._canEdit;",
-                                    ""
-                                ],
-                                "name": "beforeedit",
-                                "scope": "me"
+                            "name": "MyGridView3",
+                            "designerId": "89eb3b83-9a44-4542-9492-c73a741d1fa6"
+                        },
+                        {
+                            "type": "Ext.grid.plugin.RowEditing",
+                            "reference": {
+                                "name": "plugins",
+                                "type": "array"
                             },
-                            "name": "onRowEditingBeforeEdit",
-                            "designerId": "9b6c1624-7cb5-4376-a9bf-d28447930ae8"
+                            "codeClass": "Ext.grid.plugin.RowEditing",
+                            "userConfig": {
+                                "cancelBtnText": "取消",
+                                "saveBtnText": "保存"
+                            },
+                            "name": "MyRowEditingPlugin",
+                            "designerId": "4bedaba5-cfa1-49af-b723-0108952a6c4e",
+                            "customConfigs": [
+                                {
+                                    "group": "(Custom Properties)",
+                                    "name": "saveBtnText",
+                                    "type": "string"
+                                },
+                                {
+                                    "group": "(Custom Properties)",
+                                    "name": "cancelBtnText",
+                                    "type": "string"
+                                }
+                            ],
+                            "cn": [
+                                {
+                                    "type": "basiceventbinding",
+                                    "reference": {
+                                        "name": "listeners",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fn": "onRowEditingEdit1",
+                                        "implHandler": [
+                                            "",
+                                            "",
+                                            "var me = this,",
+                                            "    record = context.record;",
+                                            "",
+                                            "",
+                                            "me.calculate(record,function(values){",
+                                            "    for (var key in values) {",
+                                            "        record.set(key,values[key]);",
+                                            "    }",
+                                            "});",
+                                            ""
+                                        ],
+                                        "name": "edit",
+                                        "scope": "me"
+                                    },
+                                    "name": "onRowEditingEdit1",
+                                    "designerId": "91ebabfb-e905-4a85-8680-d77fb32441df"
+                                },
+                                {
+                                    "type": "basiceventbinding",
+                                    "reference": {
+                                        "name": "listeners",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fn": "onRowEditingBeforeEdit1",
+                                        "implHandler": [
+                                            "var me = this;",
+                                            "return me._canEdit;",
+                                            ""
+                                        ],
+                                        "name": "beforeedit",
+                                        "scope": "me"
+                                    },
+                                    "name": "onRowEditingBeforeEdit1",
+                                    "designerId": "c946741f-7178-4ad5-a201-3dd73549afd0"
+                                }
+                            ]
                         }
                     ]
                 }
@@ -714,16 +855,52 @@
                     "var me = this,",
                     "    id = me._id,",
                     "    record = me._record,",
+                    "    type = me._type,",
                     "    ns = me.getNamespace(),",
-                    "    grid = me.down('grid'),",
+                    "    simpleGrid = me.down('#simpleGrid'),",
+                    "    mainGrid = me.down('#mainGrid'),",
                     "    form = me.down('form'),",
                     "    saveBtn = me.down('#saveBtn'),",
+                    "    simpleStore = Ext.create(ns+'.store.PayrollItem',{",
+                    "        storeId : 'simplePayrollItem'",
+                    "    }),",
+                    "    opts = me._opts,",
                     "    store = Ext.create(ns+'.store.PayrollItem');",
                     "",
                     "saveBtn.setVisible(me._canEdit);",
                     "me.setTitle(record.get('subject'));",
                     "form.loadRecord(record);",
-                    "me.loadData(id,grid,store);"
+                    "if (type == 'Payroll') {",
+                    "    var subStore = Ext.create(ns+'.store.PayrollSubStore',{",
+                    "        storeId : 'dynamicPayrollSubStore'",
+                    "    });",
+                    "",
+                    "    subStore.load({",
+                    "        params : {",
+                    "            payrollId : id,",
+                    "        },",
+                    "        callback: function(records, operation, success) {",
+                    "            Ext.Array.each(records,function(r,index){",
+                    "                var store = Ext.create(ns+'.store.PayrollItem',{",
+                    "                    storeId : 'payrollItem-' + r.getId()",
+                    "                });",
+                    "                var subGrid = me.insertGrid(r);",
+                    "                me.loadData(id,subGrid,store,{",
+                    "                    payrollSubId : r.getId(),",
+                    "                    type : 'PayrollSub'",
+                    "                });",
+                    "            });",
+                    "",
+                    "        }",
+                    "",
+                    "    });",
+                    "}",
+                    "",
+                    "me.loadData(id,mainGrid,store,opts);",
+                    "opts.query = 'Simple';",
+                    "me.loadData(id,simpleGrid,simpleStore,opts);",
+                    "",
+                    ""
                 ],
                 "name": "beforerender",
                 "scope": "me"
@@ -807,6 +984,34 @@
             },
             "name": "loadData",
             "designerId": "b6c20fda-6a89-402d-9f36-8dada5199e10"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|params": [
+                    "payrollSub"
+                ],
+                "fn": "insertGrid",
+                "implHandler": [
+                    "var me = this,",
+                    "    panel = me.down('#gridPanel'),",
+                    "    grid = Ext.create(me.getNs()+'.view.PayrollSubGrid',{",
+                    "        itemId : payrollSub.getId(),",
+                    "        width : payrollSub.get('items').length * 100",
+                    "    });",
+                    "",
+                    "panel.insert(1,grid);",
+                    "",
+                    "return grid;"
+                ]
+            },
+            "name": "insertGrid",
+            "designerId": "92e00ad4-1b35-4fc4-b658-d1516661b7a6"
         }
     ]
 }

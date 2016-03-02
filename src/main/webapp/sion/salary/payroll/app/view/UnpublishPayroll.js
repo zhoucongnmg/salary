@@ -78,6 +78,18 @@ Ext.define('sion.salary.payroll.view.UnpublishPayroll', {
                                 },
                                 {
                                     xtype: 'button',
+                                    width: 90,
+                                    iconCls: 's_icon_action_accept',
+                                    text: '多次发放',
+                                    listeners: {
+                                        click: {
+                                            fn: me.onButtonClick3,
+                                            scope: me
+                                        }
+                                    }
+                                },
+                                {
+                                    xtype: 'button',
                                     width: 70,
                                     iconCls: 's_icon_action_search',
                                     text: '查询',
@@ -333,9 +345,13 @@ Ext.define('sion.salary.payroll.view.UnpublishPayroll', {
 
                                         Ext.create(namespace + '.view.DynamicGrid',{
                                             _id : record.get('id'),
+                                            _type : 'Payroll',
                                             _accountId : record.get('accountId'),
                                             _record : record,
-                                            _canEdit : true
+                                            _canEdit : true,
+                                            _opts : {
+                                                type : 'Payroll'
+                                            }
                                         }).show();
 
                                     },
@@ -472,6 +488,23 @@ Ext.define('sion.salary.payroll.view.UnpublishPayroll', {
                 }
             }
         });
+    },
+
+    onButtonClick3: function(button, e, eOpts) {
+        var me = this,
+            grid = me.down('gridpanel'),
+            store = grid.getStore(),
+            arrId = [],
+            records = grid.getSelectionModel().getSelection();
+
+        if(records.length==0)
+        {
+            Ext.Msg.alert('提示', '请选择工资条！');
+            return;
+        }
+        Ext.create(me.getNs() + '.view.PayrollSubWin',{
+            _payroll: records[0]
+        }).show();
     },
 
     onButtonClick1: function(button, e, eOpts) {
