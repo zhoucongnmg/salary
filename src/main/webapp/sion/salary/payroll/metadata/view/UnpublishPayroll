@@ -195,6 +195,55 @@
                             },
                             "codeClass": null,
                             "userConfig": {
+                                "iconCls": "s_icon_action_accept",
+                                "layout|flex": null,
+                                "text": "多次发放",
+                                "width": 90
+                            },
+                            "name": "MyButton15",
+                            "designerId": "5a7c28a8-ad0e-46a7-8444-c32e6af57b7a",
+                            "cn": [
+                                {
+                                    "type": "basiceventbinding",
+                                    "reference": {
+                                        "name": "listeners",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fn": "onButtonClick3",
+                                        "implHandler": [
+                                            "var me = this,",
+                                            "    grid = me.down('gridpanel'),",
+                                            "    store = grid.getStore(),",
+                                            "    arrId = [],",
+                                            "    records = grid.getSelectionModel().getSelection();",
+                                            "",
+                                            "if(records.length==0)",
+                                            "{",
+                                            "    Ext.Msg.alert('提示', '请选择工资条！');",
+                                            "    return;",
+                                            "}",
+                                            "Ext.create(me.getNs() + '.view.PayrollSubWin',{",
+                                            "    _payroll: records[0]",
+                                            "}).show();"
+                                        ],
+                                        "name": "click",
+                                        "scope": "me"
+                                    },
+                                    "name": "onButtonClick3",
+                                    "designerId": "f4f5b7f4-7f79-4195-b141-519bcc9a634b"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "Ext.button.Button",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
                                 "iconCls": "s_icon_action_search",
                                 "layout|flex": null,
                                 "padding": null,
@@ -935,9 +984,13 @@
                                             "",
                                             "Ext.create(namespace + '.view.DynamicGrid',{",
                                             "    _id : record.get('id'),",
+                                            "    _type : 'Payroll',",
                                             "    _accountId : record.get('accountId'),",
                                             "    _record : record,",
-                                            "    _canEdit : true",
+                                            "    _canEdit : true,",
+                                            "    _opts : {",
+                                            "        type : 'Payroll'",
+                                            "    }",
                                             "}).show();",
                                             ""
                                         ]

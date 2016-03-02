@@ -88,9 +88,10 @@ public class FormulaService {
 		
 		for (Formula formula : formulas) {
 			Double value=this.calculate(formula, formulas, params);
-			SalaryItem sItem=salaryItemRepository.findOne(formula.getResultFieldId());
-			
-			result.put(formula.getResultFieldId(), sItem.decimal(sItem.getCarryType(), sItem.getPrecision(), value));
+			if (value!=null) {
+				SalaryItem sItem=salaryItemRepository.findOne(formula.getResultFieldId());
+				result.put(formula.getResultFieldId(), sItem.decimal(sItem.getCarryType(), sItem.getPrecision(), value));
+			}
 		}
 
 		return result;

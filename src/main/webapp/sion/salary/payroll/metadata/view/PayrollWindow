@@ -7,7 +7,8 @@
     "codeClass": null,
     "userConfig": {
         "designer|userClassName": "PayrollWindow",
-        "height": 430,
+        "height": 630,
+        "layout": "fit",
         "title": "My Window",
         "width": 642
     },
@@ -23,8 +24,9 @@
             "codeClass": null,
             "userConfig": {
                 "bodyPadding": 10,
+                "container|align": "stretch",
                 "itemId": "PayrollForm",
-                "layout": "fit",
+                "layout": "vbox",
                 "title": ""
             },
             "name": "MyForm1",
@@ -138,6 +140,7 @@
                         "dock": null,
                         "height": 100,
                         "layout": "column",
+                        "layout|flex": 2,
                         "title": "薪资信息",
                         "width": 605
                     },
@@ -176,63 +179,6 @@
                             },
                             "name": "MySpacer5",
                             "designerId": "6976db0f-31a4-42a1-832a-e84326d8270f"
-                        },
-                        {
-                            "type": "Ext.form.field.Trigger",
-                            "reference": {
-                                "name": "items",
-                                "type": "array"
-                            },
-                            "codeClass": null,
-                            "userConfig": {
-                                "allowBlank": false,
-                                "blankText": "薪资月份不能为空",
-                                "fieldLabel": "薪资月份",
-                                "layout|columnWidth": 0.35,
-                                "name": "month",
-                                "validateBlank": true
-                            },
-                            "name": "MyTriggerField4",
-                            "designerId": "081f896d-1903-425c-b8b7-6d699c508642",
-                            "cn": [
-                                {
-                                    "type": "processcfgfunction",
-                                    "reference": {
-                                        "name": "items",
-                                        "type": "array"
-                                    },
-                                    "codeClass": null,
-                                    "userConfig": {
-                                        "designer|params": [
-                                            "config"
-                                        ],
-                                        "fn": "processMonth",
-                                        "implHandler": [
-                                            "config.xtype=　'monthfield';",
-                                            "config.hiddenName = 'date';",
-                                            "config.format=　\"Y-m\";",
-                                            "return config;",
-                                            ""
-                                        ]
-                                    },
-                                    "name": "processMonth",
-                                    "designerId": "a4f7ddf3-ef20-4c61-a538-71928ceb7856"
-                                }
-                            ]
-                        },
-                        {
-                            "type": "Ext.toolbar.Spacer",
-                            "reference": {
-                                "name": "items",
-                                "type": "array"
-                            },
-                            "codeClass": null,
-                            "userConfig": {
-                                "height": 20,
-                                "layout|columnWidth": 1
-                            },
-                            "name": "MySpacer6",
-                            "designerId": "e58c2a26-addc-4823-b58f-4880d02f126c"
                         },
                         {
                             "type": "Ext.form.field.ComboBox",
@@ -297,6 +243,64 @@
                             "codeClass": null,
                             "userConfig": {
                                 "height": 20,
+                                "layout|columnWidth": 1
+                            },
+                            "name": "MySpacer6",
+                            "designerId": "e58c2a26-addc-4823-b58f-4880d02f126c"
+                        },
+                        {
+                            "type": "Ext.form.field.Trigger",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "allowBlank": false,
+                                "blankText": "薪资月份不能为空",
+                                "fieldLabel": "薪资月份",
+                                "labelWidth": 80,
+                                "layout|columnWidth": 0.35,
+                                "name": "month",
+                                "validateBlank": true
+                            },
+                            "name": "MyTriggerField4",
+                            "designerId": "081f896d-1903-425c-b8b7-6d699c508642",
+                            "cn": [
+                                {
+                                    "type": "processcfgfunction",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "designer|params": [
+                                            "config"
+                                        ],
+                                        "fn": "processMonth",
+                                        "implHandler": [
+                                            "config.xtype=　'monthfield';",
+                                            "config.hiddenName = 'date';",
+                                            "config.format=　\"Y-m\";",
+                                            "return config;",
+                                            ""
+                                        ]
+                                    },
+                                    "name": "processMonth",
+                                    "designerId": "a4f7ddf3-ef20-4c61-a538-71928ceb7856"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "Ext.toolbar.Spacer",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "height": 20,
                                 "layout|columnWidth": 0.2
                             },
                             "name": "MySpacer7",
@@ -313,6 +317,7 @@
                                 "allowBlank": false,
                                 "blankText": "社保月份不能为空",
                                 "fieldLabel": "社保扣费月",
+                                "labelWidth": 80,
                                 "layout|columnWidth": 0.35,
                                 "name": "socialCostMonth",
                                 "validateBlank": true
@@ -478,7 +483,8 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "height": 300,
+                        "height": null,
+                        "layout|flex": 8,
                         "rootVisible": false,
                         "store": "PersonStore",
                         "title": null,
@@ -496,7 +502,7 @@
                             "codeClass": null,
                             "userConfig": {
                                 "dataIndex": "name",
-                                "flex": 1,
+                                "flex": 5,
                                 "text": "人员信息"
                             },
                             "name": "MyTreeColumn",

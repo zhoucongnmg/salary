@@ -1,0 +1,495 @@
+{
+    "type": "Ext.window.Window",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "container|align": "stretch",
+        "designer|userClassName": "PayrollSubForm",
+        "height": 630,
+        "layout": "vbox",
+        "modal": true,
+        "title": "新增分次发放",
+        "width": 642
+    },
+    "name": "PayrollWindow1",
+    "designerId": "20f4e116-954d-4692-b902-b59a41e23cb9",
+    "cn": [
+        {
+            "type": "Ext.form.Panel",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "bodyPadding": 10,
+                "layout": "fit",
+                "layout|flex": 3.5,
+                "title": null
+            },
+            "name": "MyForm3",
+            "designerId": "2ca98076-553c-42b1-93e9-1bf147b8fc6c",
+            "cn": [
+                {
+                    "type": "Ext.form.FieldSet",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout": "column",
+                        "margin": "",
+                        "padding": null,
+                        "title": "发放详情"
+                    },
+                    "name": "MyFieldSet3",
+                    "designerId": "2ea33998-ef7e-43d1-9d2d-f70511ba16f5",
+                    "cn": [
+                        {
+                            "type": "Ext.form.field.Display",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fieldLabel": "薪资主题",
+                                "labelWidth": 80,
+                                "layout|columnWidth": 0.35,
+                                "name": "subject"
+                            },
+                            "name": "MyDisplayField5",
+                            "designerId": "82af1a53-1e72-4fa6-9809-9d9ea38022d4"
+                        },
+                        {
+                            "type": "Ext.toolbar.Spacer",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "height": 20,
+                                "layout|columnWidth": 0.2
+                            },
+                            "name": "MySpacer9",
+                            "designerId": "861942af-1e60-4ccb-9362-952de9ff5010"
+                        },
+                        {
+                            "type": "Ext.form.field.Display",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fieldLabel": "薪资月份",
+                                "labelWidth": 80,
+                                "layout|columnWidth": 0.35,
+                                "name": "month"
+                            },
+                            "name": "MyDisplayField6",
+                            "designerId": "d3550356-fedc-49c2-85c8-d0b9cdbb44c3",
+                            "cn": [
+                                {
+                                    "type": "basiceventbinding",
+                                    "reference": {
+                                        "name": "listeners",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fn": "onDisplayfieldChange",
+                                        "implHandler": [
+                                            "field.setValue(Ext.util.Format.date(newValue,'Y-m'));",
+                                            "return false;"
+                                        ],
+                                        "name": "change",
+                                        "scope": "me"
+                                    },
+                                    "name": "onDisplayfieldChange",
+                                    "designerId": "e8fe15bb-8231-4fbb-875e-68d6e2ac495b"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "Ext.toolbar.Spacer",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "height": 20,
+                                "layout|columnWidth": 1
+                            },
+                            "name": "MySpacer10",
+                            "designerId": "3644332a-05b9-4e84-b480-2e117f64d0d1"
+                        },
+                        {
+                            "type": "Ext.form.field.Text",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "allowBlank": false,
+                                "fieldLabel": "薪资内容",
+                                "labelWidth": 80,
+                                "layout|columnWidth": 0.9,
+                                "name": "content"
+                            },
+                            "name": "MyTextField5",
+                            "designerId": "d11a564c-10a8-4a06-b8fb-4aface292045"
+                        },
+                        {
+                            "type": "Ext.toolbar.Spacer",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "height": 20,
+                                "layout|columnWidth": 1
+                            },
+                            "name": "MySpacer11",
+                            "designerId": "22fa3500-8dbc-4f41-b50c-97903fd59ac3"
+                        },
+                        {
+                            "type": "Ext.form.field.Date",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "allowBlank": false,
+                                "fieldLabel": "发放日期",
+                                "labelWidth": 80,
+                                "layout|columnWidth": 0.35,
+                                "name": "date"
+                            },
+                            "name": "MyDateField",
+                            "designerId": "3b70f072-3a6b-4555-8166-eeb3677afae1"
+                        },
+                        {
+                            "type": "Ext.form.field.Hidden",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fieldLabel": "Label",
+                                "name": "items"
+                            },
+                            "name": "MyHiddenField5",
+                            "designerId": "2416f1c4-efe5-495e-a995-5d93cda0e00e"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|params": [
+                    "node"
+                ],
+                "fn": "checkParent",
+                "implHandler": [
+                    "node = node.parentNode;",
+                    "if(!node) return;",
+                    "var checkP=false;",
+                    "node.cascadeBy(function (n)",
+                    "               {",
+                    "                   if (n != node) {",
+                    "                       if (n.get('checked') == true) {",
+                    "                           checkP = true;",
+                    "                       }",
+                    "                   }",
+                    "               });",
+                    "node.set('checked', checkP);",
+                    "this.checkParent(node);",
+                    ""
+                ]
+            },
+            "name": "checkParent",
+            "designerId": "4a3a0d59-6ea5-4fb3-80c4-7fc09461bc85"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|params": [
+                    "node"
+                ],
+                "fn": "removeTree",
+                "implHandler": [
+                    "if (!node) return;  ",
+                    "while (node.hasChildNodes()) {  ",
+                    "    this.removeTree(node.firstChild);  ",
+                    "    node.removeChild(node.firstChild);  ",
+                    "}  "
+                ]
+            },
+            "name": "removeTree",
+            "designerId": "0fc4a8fb-738e-4f90-a1fb-12efd4ffe307"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|params": [
+                    "rows"
+                ],
+                "fn": "hasLeaf",
+                "implHandler": [
+                    "var flag = false;",
+                    "Ext.each(rows, function (item) {",
+                    "    if(item.isLeaf()){",
+                    "        flag = true;",
+                    "    }",
+                    "});",
+                    "return flag;"
+                ]
+            },
+            "name": "hasLeaf",
+            "designerId": "500bada3-6d4d-453e-8805-4e250e39b816"
+        },
+        {
+            "type": "Ext.grid.Panel",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "itemId": "subGrid",
+                "layout|flex": 6.5,
+                "store": "AccountItemStore",
+                "title": null
+            },
+            "name": "MyGridPanel3",
+            "designerId": "ac1e4f8c-4da1-4a3e-a1e5-11cb197b67db",
+            "cn": [
+                {
+                    "type": "Ext.grid.column.Column",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dataIndex": "name",
+                        "flex": 8,
+                        "text": "薪资项名称"
+                    },
+                    "name": "MyColumn11",
+                    "designerId": "6576e688-7567-41fa-9c17-df5e6bb27a8c"
+                },
+                {
+                    "type": "Ext.grid.View",
+                    "reference": {
+                        "name": "viewConfig",
+                        "type": "object"
+                    },
+                    "codeClass": null,
+                    "name": "MyGridView",
+                    "designerId": "855a9deb-9c00-42d8-a102-24132caab895"
+                },
+                {
+                    "type": "Ext.selection.CheckboxModel",
+                    "reference": {
+                        "name": "selModel",
+                        "type": "object"
+                    },
+                    "codeClass": "Ext.selection.CheckboxModel",
+                    "name": "MyCheckboxSelectionModel",
+                    "designerId": "9be80cce-aaab-4200-ba61-812e0ef7f75a"
+                }
+            ]
+        },
+        {
+            "type": "Ext.toolbar.Toolbar",
+            "reference": {
+                "name": "dockedItems",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|uiInterfaceName": "footer",
+                "dock": "top",
+                "layout|flex": 1,
+                "ui": "footer"
+            },
+            "name": "MyToolbar5",
+            "designerId": "628c5f63-80a5-489b-8dd7-31b94545efef",
+            "cn": [
+                {
+                    "type": "Ext.button.Button",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|flex": null,
+                        "text": "保存",
+                        "width": 80
+                    },
+                    "name": "MyButton16",
+                    "designerId": "725f00c2-a1d0-4d61-8b3e-3c0f691fc7c0",
+                    "cn": [
+                        {
+                            "type": "basiceventbinding",
+                            "reference": {
+                                "name": "listeners",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fn": "onButtonClick",
+                                "implHandler": [
+                                    "var me = this,",
+                                    "    form = me.down('form'),",
+                                    "    payroll = me._payroll,",
+                                    "    payrollId = payroll.get('id'),",
+                                    "    grid = me.down('grid'),",
+                                    "    items = [],",
+                                    "    store = me._store,",
+                                    "    record = Ext.create(me.getNs() + '.model.PayrollSub',{",
+                                    "        payrollId : payrollId",
+                                    "    }),",
+                                    "    records = grid.getSelectionModel().getSelection();",
+                                    "",
+                                    "if(!form.isValid()){",
+                                    "    Ext.Msg.alert(\"提示\", \"信息不完整，请继续填写！\");",
+                                    "    return false;",
+                                    "}",
+                                    "",
+                                    "if(records.length==0)",
+                                    "{",
+                                    "    Ext.Msg.alert('提示', '请选择薪资项！');",
+                                    "    return;",
+                                    "}",
+                                    "",
+                                    "",
+                                    "Ext.Array.each(records,function(record,index){",
+                                    "    items.push(record.get('id'));",
+                                    "});",
+                                    "form.updateRecord(record);",
+                                    "record.set('items',items);",
+                                    "record.save({",
+                                    "    success: function(response, opts){",
+                                    "        store.add(record);",
+                                    "        record.commit();",
+                                    "        me.close();",
+                                    "        Ext.Msg.alert(\"提示\", \"保存成功\");",
+                                    "    },",
+                                    "    failure: function(){",
+                                    "        Ext.Msg.alert(\"提示\", \"保存失败\");",
+                                    "    }",
+                                    "});",
+                                    ""
+                                ],
+                                "name": "click",
+                                "scope": "me"
+                            },
+                            "name": "onButtonClick",
+                            "designerId": "675ff3ec-21d9-4cea-ab3e-6745679fc2fa"
+                        }
+                    ]
+                },
+                {
+                    "type": "Ext.button.Button",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|flex": null,
+                        "text": "取消",
+                        "width": 80
+                    },
+                    "name": "MyButton17",
+                    "designerId": "258ab876-cf3d-40c3-bd03-361cd2a34871",
+                    "cn": [
+                        {
+                            "type": "basiceventbinding",
+                            "reference": {
+                                "name": "listeners",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fn": "onButtonClick1",
+                                "implHandler": [
+                                    "var me = this;",
+                                    "",
+                                    "me.close();",
+                                    "    "
+                                ],
+                                "name": "click",
+                                "scope": "me"
+                            },
+                            "name": "onButtonClick1",
+                            "designerId": "27eb5c6b-2072-48e5-8879-ab5fb510b167"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "type": "basiceventbinding",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "onWindowAfterRender",
+                "implHandler": [
+                    "var me = this,",
+                    "    form = me.down('form'),",
+                    "    grid = me.down('grid'),",
+                    "    store = grid.getStore(),",
+                    "    ",
+                    "    payroll = me._payroll;",
+                    "",
+                    "form.loadRecord(payroll);",
+                    "store.load({",
+                    "    params : {",
+                    "        id : payroll.get('accountId'),",
+                    "        type: 'Input'",
+                    "    }",
+                    "});"
+                ],
+                "name": "afterrender",
+                "scope": "me"
+            },
+            "name": "onWindowAfterRender",
+            "designerId": "62bc7464-5aa2-4975-908c-ea9ad3b81ca1"
+        }
+    ]
+}

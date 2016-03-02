@@ -1,0 +1,361 @@
+{
+    "type": "Ext.window.Window",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userClassName": "PayrollSubWin",
+        "height": 630,
+        "layout": "fit",
+        "title": "薪资分次发放",
+        "width": 642
+    },
+    "name": "PayrollSubWin1",
+    "designerId": "26a09120-88f1-46d8-b020-bdd666cc9e0a",
+    "cn": [
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|params": [
+                    "node"
+                ],
+                "fn": "checkParent",
+                "implHandler": [
+                    "node = node.parentNode;",
+                    "if(!node) return;",
+                    "var checkP=false;",
+                    "node.cascadeBy(function (n)",
+                    "               {",
+                    "                   if (n != node) {",
+                    "                       if (n.get('checked') == true) {",
+                    "                           checkP = true;",
+                    "                       }",
+                    "                   }",
+                    "               });",
+                    "node.set('checked', checkP);",
+                    "this.checkParent(node);",
+                    ""
+                ]
+            },
+            "name": "checkParent",
+            "designerId": "9009656f-6f9c-409a-8287-5039daf31b33"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|params": [
+                    "node"
+                ],
+                "fn": "removeTree",
+                "implHandler": [
+                    "if (!node) return;  ",
+                    "while (node.hasChildNodes()) {  ",
+                    "    this.removeTree(node.firstChild);  ",
+                    "    node.removeChild(node.firstChild);  ",
+                    "}  "
+                ]
+            },
+            "name": "removeTree",
+            "designerId": "b5e016b9-e719-4260-9c25-04d592cd4e26"
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|params": [
+                    "rows"
+                ],
+                "fn": "hasLeaf",
+                "implHandler": [
+                    "var flag = false;",
+                    "Ext.each(rows, function (item) {",
+                    "    if(item.isLeaf()){",
+                    "        flag = true;",
+                    "    }",
+                    "});",
+                    "return flag;"
+                ]
+            },
+            "name": "hasLeaf",
+            "designerId": "494702c2-dbe6-4ca8-9171-73387394afa1"
+        },
+        {
+            "type": "Ext.grid.Panel",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "itemId": "subGrid",
+                "store": "PayrollSubStore",
+                "title": null
+            },
+            "name": "MyGridPanel3",
+            "designerId": "04d19924-4523-4031-98b1-ad9f94e62dac",
+            "cn": [
+                {
+                    "type": "Ext.grid.column.Column",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dataIndex": "content",
+                        "flex": 8,
+                        "text": "内容"
+                    },
+                    "name": "MyColumn11",
+                    "designerId": "9e311b8b-fbcc-4af9-9303-c87e0ec7b92c"
+                },
+                {
+                    "type": "Ext.grid.column.Date",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dataIndex": "date",
+                        "text": "发放日期"
+                    },
+                    "name": "MyDateColumn2",
+                    "designerId": "bf8bd085-54cd-4116-bbfc-24aab632de4d"
+                },
+                {
+                    "type": "Ext.grid.View",
+                    "reference": {
+                        "name": "viewConfig",
+                        "type": "object"
+                    },
+                    "codeClass": null,
+                    "name": "MyGridView",
+                    "designerId": "5b9bcacb-02ee-4a97-9787-6795916374de"
+                },
+                {
+                    "type": "Ext.toolbar.Toolbar",
+                    "reference": {
+                        "name": "dockedItems",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "designer|uiInterfaceName": "footer",
+                        "dock": "top",
+                        "ui": "footer"
+                    },
+                    "name": "MyToolbar3",
+                    "designerId": "06074357-1991-4169-bdd6-d0d70e18d285",
+                    "cn": [
+                        {
+                            "type": "Ext.button.Button",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "layout|flex": null,
+                                "text": "添加发放"
+                            },
+                            "name": "MyButton13",
+                            "designerId": "6c8a03d2-2739-4491-b968-29c78f6f60c4",
+                            "cn": [
+                                {
+                                    "type": "basiceventbinding",
+                                    "reference": {
+                                        "name": "listeners",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fn": "onButtonClick",
+                                        "implHandler": [
+                                            "var me = this,",
+                                            "    grid = me.down('grid'),",
+                                            "    store = grid.getStore(),",
+                                            "    payroll = me._payroll;",
+                                            "",
+                                            "Ext.create(me.getNs() + '.view.PayrollSubForm',{",
+                                            "    _store : store,",
+                                            "    _payroll : payroll",
+                                            "}).show();"
+                                        ],
+                                        "name": "click",
+                                        "scope": "me"
+                                    },
+                                    "name": "onButtonClick",
+                                    "designerId": "af118235-532a-4726-9f3b-473a75bcb871"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "Ext.button.Button",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "layout|flex": null,
+                                "text": "删除发放"
+                            },
+                            "name": "MyButton14",
+                            "designerId": "3029d392-5a07-4df6-bf94-8dd8291b564f",
+                            "cn": [
+                                {
+                                    "type": "basiceventbinding",
+                                    "reference": {
+                                        "name": "listeners",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "fn": "onButtonClick1",
+                                        "implHandler": [
+                                            "var me = this,",
+                                            "    grid = me.down('grid'),",
+                                            "    store = grid.getStore(),",
+                                            "    payroll = me._payroll,",
+                                            "    records = grid.getSelectionModel().getSelection();",
+                                            "",
+                                            "if(records.length==0)",
+                                            "{",
+                                            "    Ext.Msg.alert('提示', '请选一条分次发放！');",
+                                            "    return;",
+                                            "}",
+                                            "",
+                                            "records[0].destroy({",
+                                            "    params : {",
+                                            "        id : records[0].getId()",
+                                            "    }",
+                                            "});",
+                                            "store.remove(records[0]);"
+                                        ],
+                                        "name": "click",
+                                        "scope": "me"
+                                    },
+                                    "name": "onButtonClick1",
+                                    "designerId": "89b26370-2ee3-4723-83e8-6d84306630f1"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "type": "Ext.grid.column.Action",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "text": "详情"
+                    },
+                    "name": "MyActionColumn5",
+                    "designerId": "0c48bd99-0e9c-4a9d-a9ac-5fd8ddb32dac",
+                    "cn": [
+                        {
+                            "type": "actioncolumnitem",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "iconCls": "s_icon_action_search"
+                            },
+                            "name": "MyActionColumnItem4",
+                            "designerId": "b62a24d8-a391-4b38-a106-c93ac226bae1",
+                            "cn": [
+                                {
+                                    "type": "fixedfunction",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "designer|params": [
+                                            "view",
+                                            "rowIndex",
+                                            "colIndex",
+                                            "item",
+                                            "e",
+                                            "record",
+                                            "row"
+                                        ],
+                                        "fn": "handler",
+                                        "implHandler": [
+                                            "var me = view.up('window'),",
+                                            "    payroll = me._payroll;",
+                                            "",
+                                            "Ext.create(me.getNs() + '.view.DynamicGrid',{",
+                                            "    _id : payroll.get('id'),",
+                                            "    _type : 'PayrollSub',",
+                                            "    _accountId : payroll.get('accountId'),",
+                                            "    _record : payroll,",
+                                            "    _canEdit : true,",
+                                            "    _opts : {",
+                                            "        type : 'PayrollSub',",
+                                            "        payrollSubId : record.getId()",
+                                            "    }",
+                                            "}).show();"
+                                        ]
+                                    },
+                                    "name": "handler",
+                                    "designerId": "359b0fda-e181-4fa6-b3be-8e718033e97f"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "type": "basiceventbinding",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "onWindowAfterRender",
+                "implHandler": [
+                    "var me = this,",
+                    "    payroll = me._payroll,",
+                    "    payrollId = payroll.get('id'),",
+                    "    grid = me.down('grid'),",
+                    "    store = grid.getStore();",
+                    "",
+                    "store.load({",
+                    "    params : {",
+                    "        payrollId : payrollId",
+                    "    }",
+                    "});"
+                ],
+                "name": "afterrender",
+                "scope": "me"
+            },
+            "name": "onWindowAfterRender",
+            "designerId": "4f23e541-f02f-4d17-b70f-8dc29edc101e"
+        }
+    ]
+}

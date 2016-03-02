@@ -39,6 +39,8 @@ public class PayrollItem {
 	
 	String payrollId;
 	
+	String payrollSubId;
+	
 	String personId;	//人事档案id
 	
 	String name;	//姓名

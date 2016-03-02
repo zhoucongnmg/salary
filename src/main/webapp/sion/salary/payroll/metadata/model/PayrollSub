@@ -1,0 +1,135 @@
+{
+    "type": "Ext.data.Model",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userClassName": "PayrollSub"
+    },
+    "name": "Payroll1",
+    "designerId": "55e284c6-9c44-4e9c-b157-b6607d2fe00b",
+    "cn": [
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "id"
+            },
+            "name": "MyField7",
+            "designerId": "5a8f42b5-c271-492f-adb9-c2e8b1ee44ce"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "payrollId"
+            },
+            "name": "MyField20",
+            "designerId": "a8236c11-d39d-4020-b585-559b69c005ca"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "content"
+            },
+            "name": "MyField8",
+            "designerId": "e273ec8c-a7d0-4397-989c-9e5c0b4909e8"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "dateFormat": null,
+                "name": "date",
+                "type": "date"
+            },
+            "name": "MyField9",
+            "designerId": "c222556c-30c1-41fd-8676-30f71f637af8"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "dateFormat": null,
+                "defaultValue": [
+                    "[]"
+                ],
+                "name": "items",
+                "type": null
+            },
+            "name": "MyField10",
+            "designerId": "008ff6c8-aa46-42cc-84ac-117b77b7ae7a"
+        },
+        {
+            "type": "Ext.data.proxy.Ajax",
+            "reference": {
+                "name": "proxy",
+                "type": "object"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "api": [
+                    "{",
+                    "create: 'salary/payrollsub/create',",
+                    "read:'salary/payrollsub/findByPayrollId',",
+                    "destroy: 'salary/payrollsub/remove'",
+                    "}"
+                ]
+            },
+            "name": "MyAjaxProxy2",
+            "designerId": "f8427781-e113-4660-9c8d-7da3b41976c7",
+            "cn": [
+                {
+                    "type": "Ext.data.reader.Json",
+                    "reference": {
+                        "name": "reader",
+                        "type": "object"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "messageProperty": "message",
+                        "root": "data"
+                    },
+                    "name": "MyJsonReader2",
+                    "designerId": "8384a6c3-f893-4908-8cea-65e3a3e8ef9f"
+                },
+                {
+                    "type": "Ext.data.writer.Json",
+                    "reference": {
+                        "name": "writer",
+                        "type": "object"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "writeAllFields": false
+                    },
+                    "name": "MyJsonWriter3",
+                    "designerId": "4dce845c-6a07-4c67-b484-8b25cf725039"
+                }
+            ]
+        }
+    ]
+}
