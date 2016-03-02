@@ -216,6 +216,7 @@ public class PayrollController {
 			payrollItemService.fillSimpleFields(fields,opts);
 			payrollItemService.fillSimpleColumns(columns,opts);
 		}else {
+			payrollItemService.fillBaseFields(fields);
 			for (AccountItem item : items) {
 				if (item.isShow()) {
 					fields.add(payrollItemService.getFields(item));
@@ -594,11 +595,10 @@ public class PayrollController {
 	 */
 	@RequestMapping("calculateSub")
 	public Response calculateSub(@RequestBody Map<String, Object> map) {
-
-		String accountId = (String) map.get("accountId");
+		Map<String, Double> changeFields = new HashMap<String,Double>();
 		Map<String, String> recordMap = (Map<String, String>) map.get("record");
 
-		Account account = accountRepository.findOne(accountId);
+		
 		PayrollItem payrollItem = new PayrollItem();
 		payrollItem.convertDomain(recordMap);
 		payrollItemRepository.save(payrollItem);
@@ -608,36 +608,63 @@ public class PayrollController {
 		PayrollSub payrollSub = payrollSubRepository.findOne(payrollSubId);
 		String payrollId = payrollSub.getPayrollId();
 		Payroll payroll = payrollRepository.findOne(payrollId);
-		
-		List<PayrollSub> payrollSubs = payrollSubRepository.findByPayrollId(payrollId);
-		Map<String,Double> values = payrollItem.getValues();
-		
-		List<AccountItem> items =  account.getAccountItems();
-		Map<String,AccountItem> salaryItemsMap = new HashMap<String,AccountItem>();
-		for (AccountItem item : items) {
-			salaryItemsMap.put(item.getSalaryItemId(), item);
-		}
-		
-		
-		for (Map.Entry<String, Double> entry : values.entrySet()) {  
-			String itemId = entry.getKey();
-			AccountItem item = salaryItemsMap.get(itemId);
-			if (item!=null) {
-				for (PayrollSub sub : payrollSubs) {
-					if (sub.getItems().contains(item.getId())) {
-						List<PayrollItem> payrollItems = payrollItemRepository.findByPayrollIdAndPersonIdIn(payrollId, Arrays.asList(new String[]{personId}));
-						PayrollItem subPayrollItem = payrollItems.get(0);
-						Map<String,Object> itemValues = subPayrollItem.parseMap();
+		List<PayrollItem> parentPayrollItems = payrollItemRepository.findByPayrollIdAndPersonIdIn(payrollId, Arrays.asList(new String[]{personId}));
+		PayrollItem parentPayrollItem = parentPayrollItems.get(0);
+		if (parentPayrollItem!=null) {
+			
+			Account account = accountRepository.findOne(payroll.getAccountId());
+			Set<String> formulaIds = account.getFormulaIds();
+			Map<String,Double> parentValues = parentPayrollItem.getValues();
+			List<PayrollSub> payrollSubs = payrollSubRepository.findByPayrollId(payrollId);
+			Map<String,Double> values = payrollItem.getValues();
+			
+			List<AccountItem> items =  account.getAccountItems();
+			Map<String,AccountItem> salaryItemsMap = new HashMap<String,AccountItem>();
+			for (AccountItem item : items) {
+				salaryItemsMap.put(item.getSalaryItemId(), item);
+			}
+			
+			
+			for (Map.Entry<String, Double> entry : values.entrySet()) {
+				Double sum = 0.0d;
+				String itemId = entry.getKey();
+				AccountItem item = salaryItemsMap.get(itemId);
+				Double itemValue = entry.getValue();
+				sum+=itemValue;
+				if (item!=null) {
+					for (PayrollSub sub : payrollSubs) {
+						if (!sub.getId().equals(payrollSubId)) {
+							if (sub.getItems().contains(item.getId())) {
+								List<PayrollItem> payrollItems = payrollItemRepository.findByPayrollIdAndPersonIdIn(payrollId, Arrays.asList(new String[]{personId}));
+								PayrollItem subPayrollItem = payrollItems.get(0);
+								Map<String,Double> itemValues = subPayrollItem.getValues();
+								Double value = itemValues.get(itemId);
+								sum+=value;
+							}
+						}
 						
 					}
 					
 				}
+				parentValues.put(itemId, sum);
+				
 			}
+			
+			
+			try {
+				parentPayrollItem.convertDomain(parentValues);
+				changeFields = formulaService.caculateFormulas(formulaIds, parentValues);
+				parentPayrollItem.convertDomain(changeFields);
+				payrollItemRepository.save(parentPayrollItem);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		
 		}
-		
-		
 
-		return new Response(true);
+		return new Response(parentPayrollItem.getValues());
 	}
 
 	/**

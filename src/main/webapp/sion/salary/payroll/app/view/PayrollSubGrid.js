@@ -62,12 +62,15 @@ Ext.define('sion.salary.payroll.view.PayrollSubGrid', {
 
 
         var me = this,
-            record = context.record;
+            mainGrid = me._mainGrid,
+            store = mainGrid.getStore(),
+            record = context.record,
+            mainRecord = store.findRecord('personId',record.get('personId'));;
 
 
         me.calculate(record,function(values){
             for (var key in values) {
-                record.set(key,values[key]);
+                mainRecord.set(key,values[key]);
             }
         });
 
@@ -77,6 +80,28 @@ Ext.define('sion.salary.payroll.view.PayrollSubGrid', {
         var me = this;
         return me._canEdit;
 
+    },
+
+    calculate: function(record, cb) {
+        var me = this,
+            grid = me.down('grid'),
+            id = me._id,
+            accountId = me._accountId;
+
+        Ext.Ajax.request({
+            url:'salary/payroll/calculateSub',
+            async : false,
+            jsonData : {
+                accountId : accountId,
+                record : record.data
+            },
+            success: function(response){
+                var json = Ext.JSON.decode(response.responseText);
+                Ext.callback(cb,me,[json.data]);
+            },failure: function(){
+                Ext.Msg.alert("提示", "加载失败");
+            }
+        });
     }
 
 });
