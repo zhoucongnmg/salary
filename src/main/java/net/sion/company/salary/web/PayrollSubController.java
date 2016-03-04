@@ -44,7 +44,7 @@ public class PayrollSubController {
 		Payroll payroll = payrollRepository.findOne(payrollSub.getPayrollId());
 		List<PayrollItem> items = payrollItemService.generatePayrollItem(payroll,payrollSub,payroll.getPersons().keySet());
 		payrollItemRepository.save(items);
-		return new Response("操作成功",	true);
+		return new Response(payrollSub);
 	}
 	
 	

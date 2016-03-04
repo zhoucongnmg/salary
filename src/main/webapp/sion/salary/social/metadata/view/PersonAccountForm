@@ -66,7 +66,7 @@
                                     "    insuredPerson,",
                                     "    model;",
                                     "",
-                                    "if(!salaryForm.isValid()){",
+                                    "if(!salaryForm.isValid()||!socialForm.isValid()){",
                                     "    Ext.Msg.alert(\"提示\",\"请填写必填项目\");",
                                     "    return;",
                                     "}",
@@ -288,6 +288,7 @@
                             },
                             "codeClass": null,
                             "userConfig": {
+                                "allowBlank": false,
                                 "fieldLabel": "部门",
                                 "itemId": "deptId",
                                 "labelWidth": 80,
@@ -499,6 +500,7 @@
                             },
                             "codeClass": null,
                             "userConfig": {
+                                "allowBlank": false,
                                 "displayField": "name",
                                 "editable": false,
                                 "fieldLabel": "薪资方案",
@@ -1282,6 +1284,7 @@
                             },
                             "codeClass": null,
                             "userConfig": {
+                                "allowBlank": false,
                                 "displayField": "name",
                                 "editable": false,
                                 "fieldLabel": "社保方案",

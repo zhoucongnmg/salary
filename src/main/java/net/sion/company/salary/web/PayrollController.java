@@ -227,9 +227,9 @@ public class PayrollController {
 		String name = getRegexName(opts);
 		List<PayrollItem> payrollItemList = new ArrayList<PayrollItem>();
 		if ("Payroll".equals(type)) {
-			payrollItemList = payrollItemRepository.findByPayrollIdAndNameRegex(id,name);
+			payrollItemList = payrollItemRepository.findByPayrollIdAndNameRegexOrderByPersonIdAsc(id,name);
 		}else if ("PayrollSub".equals(type)) {
-			payrollItemList = payrollItemRepository.findByPayrollIdAndNameRegex(opts.get("payrollSubId"),name);
+			payrollItemList = payrollItemRepository.findByPayrollIdAndNameRegexOrderByPersonIdAsc(opts.get("payrollSubId"),name);
 		}
 		data = payrollItemService.fillData(payroll, payrollItemList, account);
 
@@ -468,16 +468,29 @@ public class PayrollController {
 				removePersonIds.add(oldPersonId);
 			}
 		}
+		List<PayrollSub> payrollSubs = payrollSubRepository.findByPayrollId(payroll.getId());
 		
 		payrollRepository.save(payroll);
 		if (savePersonIds.size()>0) {
 			List<PayrollItem> items = payrollItemService.generatePayrollItem(payroll, savePersonIds);
 			payrollItemRepository.save(items);
+			if (payrollSubs!=null) {
+				for (PayrollSub sub : payrollSubs) {
+					List<PayrollItem> subItems = payrollItemService.generatePayrollItem(payroll, sub, savePersonIds);
+					payrollItemRepository.save(subItems);
+				}
+			}
 		}
 		
 		if (removePersonIds.size()>0) {
 			Iterable<PayrollItem> removePayrollItems = payrollItemRepository.findByPayrollIdAndPersonIdIn(payroll.getId(),new ArrayList(removePersonIds));
 			payrollItemRepository.delete(removePayrollItems);
+			if (payrollSubs!=null) {
+				for (PayrollSub sub : payrollSubs) {
+					List<PayrollItem> items = payrollItemRepository.findByPayrollIdAndPersonIdIn(sub.getId(), new ArrayList(removePersonIds));
+					payrollItemRepository.delete(items);
+				}
+			}
 		}
 		return new Response(true);
 	}
@@ -510,7 +523,8 @@ public class PayrollController {
 	public Response savePayrollItem(@RequestBody List<Map<String, Object>> items) {
 		List<PayrollItem> saveItems = new ArrayList<PayrollItem>();
 		for (Map<String, Object> item : items) {
-			PayrollItem payrollItem = new PayrollItem();
+			String id = (String)item.get("id");
+			PayrollItem payrollItem = payrollItemRepository.findOne(id);
 			payrollItem.convertDomain(item);
 			saveItems.add(payrollItem);
 		}
@@ -573,8 +587,8 @@ public class PayrollController {
 			PayrollItem payrollItem = new PayrollItem();
 			payrollItem.convertDomain(recordMap);
 			changeFields = formulaService.caculateFormulas(formulaIds, payrollItem.getValues());
-			payrollItem.convertDomain(changeFields);
-			payrollItemRepository.save(payrollItem);
+			//payrollItem.convertDomain(changeFields);
+			//payrollItemRepository.save(payrollItem);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -597,11 +611,12 @@ public class PayrollController {
 	public Response calculateSub(@RequestBody Map<String, Object> map) {
 		Map<String, Double> changeFields = new HashMap<String,Double>();
 		Map<String, String> recordMap = (Map<String, String>) map.get("record");
+		List<Map<String,String>> subRecordMapList =(List<Map<String,String>>) map.get("subRecords");
 
 		
 		PayrollItem payrollItem = new PayrollItem();
 		payrollItem.convertDomain(recordMap);
-		payrollItemRepository.save(payrollItem);
+		//payrollItemRepository.save(payrollItem);
 		
 		String personId = payrollItem.getPersonId();
 		String payrollSubId = payrollItem.getPayrollId();
@@ -615,7 +630,6 @@ public class PayrollController {
 			Account account = accountRepository.findOne(payroll.getAccountId());
 			Set<String> formulaIds = account.getFormulaIds();
 			Map<String,Double> parentValues = parentPayrollItem.getValues();
-			List<PayrollSub> payrollSubs = payrollSubRepository.findByPayrollId(payrollId);
 			Map<String,Double> values = payrollItem.getValues();
 			
 			List<AccountItem> items =  account.getAccountItems();
@@ -632,6 +646,7 @@ public class PayrollController {
 				Double itemValue = entry.getValue();
 				sum+=itemValue;
 				if (item!=null) {
+					/*
 					for (PayrollSub sub : payrollSubs) {
 						if (!sub.getId().equals(payrollSubId)) {
 							if (sub.getItems().contains(item.getId())) {
@@ -644,6 +659,16 @@ public class PayrollController {
 						}
 						
 					}
+					*/
+					if (subRecordMapList!=null) {
+						for (Map<String,String> subRecordMap : subRecordMapList) {
+							PayrollItem subPayrollItem = new PayrollItem();
+							subPayrollItem.convertDomain(subRecordMap);
+							Map<String,Double> itemValues = subPayrollItem.getValues();
+							Double value = itemValues.get(itemId);
+							sum+=value;
+						}
+					}
 					
 				}
 				parentValues.put(itemId, sum);
@@ -654,8 +679,8 @@ public class PayrollController {
 			try {
 				parentPayrollItem.convertDomain(parentValues);
 				changeFields = formulaService.caculateFormulas(formulaIds, parentValues);
-				parentPayrollItem.convertDomain(changeFields);
-				payrollItemRepository.save(parentPayrollItem);
+				//parentPayrollItem.convertDomain(changeFields);
+				//payrollItemRepository.save(parentPayrollItem);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

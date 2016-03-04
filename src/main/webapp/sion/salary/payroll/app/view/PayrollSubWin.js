@@ -65,7 +65,7 @@ Ext.define('sion.salary.payroll.view.PayrollSubWin', {
                                             _type : 'PayrollSub',
                                             _accountId : payroll.get('accountId'),
                                             _record : payroll,
-                                            _canEdit : true,
+                                            _canEdit : false,
                                             _opts : {
                                                 type : 'PayrollSub',
                                                 payrollSubId : record.getId()
@@ -144,12 +144,22 @@ Ext.define('sion.salary.payroll.view.PayrollSubWin', {
             return;
         }
 
-        records[0].destroy({
-            params : {
-                id : records[0].getId()
+        Ext.Msg.confirm({
+            title:"提示",
+            msg:"确定本次分次发放？",
+            buttons:Ext.MessageBox.OKCANCEL,
+            width:200,
+            fn:function(buttonId){
+                if(buttonId=="ok"){
+                    records[0].destroy({
+                        params : {
+                            id : records[0].getId()
+                        }
+                    });
+                    store.remove(records[0]);
+                }
             }
         });
-        store.remove(records[0]);
     },
 
     onWindowAfterRender: function(component, eOpts) {

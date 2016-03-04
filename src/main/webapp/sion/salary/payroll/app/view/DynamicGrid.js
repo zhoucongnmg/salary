@@ -216,9 +216,10 @@ Ext.define('sion.salary.payroll.view.DynamicGrid', {
                     xtype: 'panel',
                     flex: 1,
                     itemId: 'gridPanel',
+                    overflowX: 'auto',
                     layout: {
                         type: 'hbox',
-                        align: 'stretchmax'
+                        align: 'stretch'
                     },
                     items: [
                         {
@@ -260,6 +261,7 @@ Ext.define('sion.salary.payroll.view.DynamicGrid', {
                                 Ext.create('Ext.grid.plugin.RowEditing', {
                                     saveBtnText: '保存',
                                     cancelBtnText: '取消',
+                                    hideMode: 'display',
                                     listeners: {
                                         edit: {
                                             fn: me.onRowEditingEdit1,
@@ -293,10 +295,15 @@ Ext.define('sion.salary.payroll.view.DynamicGrid', {
             accountId = me._accountId,
             namespace = me.getNamespace(),
             mainModel = Ext.create(namespace + '.model.Main'),
-            grid = me.down('grid'),
+            subGrids = me.query('grid[_subGrid=true]')||[],
+            grid = me.down('#mainGrid'),
             store = grid.getStore(),
             data = [];
 
+        Ext.Array.each(subGrids,function(subGrid,index){
+            var subStore = subGrid.getStore();
+            subStore.sync();
+        });
 
         store.sync({
             success: function(response, options){
@@ -387,6 +394,7 @@ Ext.define('sion.salary.payroll.view.DynamicGrid', {
 
     onRowEditingBeforeEdit1: function(editor, context, eOpts) {
         var me = this;
+        editor.editor.hideToolTip();
         return me._canEdit;
 
     },
@@ -397,6 +405,7 @@ Ext.define('sion.salary.payroll.view.DynamicGrid', {
             record = me._record,
             type = me._type,
             ns = me.getNamespace(),
+            searchForm = me.down('#searchForm'),
             simpleGrid = me.down('#simpleGrid'),
             mainGrid = me.down('#mainGrid'),
             form = me.down('form'),
@@ -422,7 +431,7 @@ Ext.define('sion.salary.payroll.view.DynamicGrid', {
                 callback: function(records, operation, success) {
                     Ext.Array.each(records,function(r,index){
                         var store = Ext.create(ns+'.store.PayrollItem',{
-                            storeId : 'payrollItem-' + r.getId()
+                            storeId : 'payrollItem-' + r.get('id')
                         });
                         var subGrid = me.insertGrid(r);
                         me.loadData(id,subGrid,store,{
@@ -434,12 +443,13 @@ Ext.define('sion.salary.payroll.view.DynamicGrid', {
                 }
 
             });
+        }else {
+            searchForm.hide();
         }
 
         me.loadData(id,mainGrid,store,opts);
         opts.query = 'Simple';
         me.loadData(id,simpleGrid,simpleStore,opts);
-
 
     },
 
@@ -471,6 +481,7 @@ Ext.define('sion.salary.payroll.view.DynamicGrid', {
         var me = this;
         Ext.Ajax.request({
             url:'salary/payroll/findItemList',
+            async : false,
             jsonData : {
                 id : id,
                 opts : opts
@@ -482,6 +493,7 @@ Ext.define('sion.salary.payroll.view.DynamicGrid', {
                 store.add(json.data.data);
                 grid.reconfigure(store, json.data.columns);
                 me._columns = json.data.columns;
+                grid.setWidth(json.data.columns.length*100);
             },failure: function(){
                 Ext.Msg.alert("提示", "加载失败");
             }
@@ -490,12 +502,15 @@ Ext.define('sion.salary.payroll.view.DynamicGrid', {
 
     insertGrid: function(payrollSub) {
         var me = this,
+            canEdit = me._canEdit,
             mainGrid = me.down('#mainGrid'),
             panel = me.down('#gridPanel'),
             grid = Ext.create(me.getNs()+'.view.PayrollSubGrid',{
                 itemId : payrollSub.getId(),
-                width : payrollSub.get('items').length * 100,
-                _mainGrid : mainGrid
+                _mainGrid : mainGrid,
+                _canEdit : canEdit,
+                _dynamicGrid : me,
+                _subGrid : true
             });
 
         panel.insert(1,grid);
