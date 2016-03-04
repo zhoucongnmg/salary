@@ -84,16 +84,23 @@ Ext.define('sion.salary.payroll.view.PayrollSubGrid', {
 
     calculate: function(record, cb) {
         var me = this,
-            grid = me.down('grid'),
-            id = me._id,
-            accountId = me._accountId;
+            dynamicGrid = me._dynamicGrid,
+            subRecords = [],
+            subGrids = dynamicGrid.query('grid[_subGrid=true]')||[];
+
+        Ext.Array.each(subGrids,function(subGrid,index){
+            if (subGrid.itemId!=me.itemId) {
+                var subRecord = subGrid.getStore().findRecord('personId',record.get('personId'));
+                subRecords.push(subRecord.data);
+            }
+        });
+
 
         Ext.Ajax.request({
             url:'salary/payroll/calculateSub',
-            async : false,
             jsonData : {
-                accountId : accountId,
-                record : record.data
+                record : record.data,
+                subRecords : subRecords
             },
             success: function(response){
                 var json = Ext.JSON.decode(response.responseText);

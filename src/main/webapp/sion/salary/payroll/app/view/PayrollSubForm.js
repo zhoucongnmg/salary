@@ -199,7 +199,7 @@ Ext.define('sion.salary.payroll.view.PayrollSubForm', {
 
         if(!form.isValid()){
             Ext.Msg.alert("提示", "信息不完整，请继续填写！");
-            return false;
+            return;
         }
 
         if(records.length==0)
@@ -216,7 +216,7 @@ Ext.define('sion.salary.payroll.view.PayrollSubForm', {
         record.set('items',items);
         record.save({
             success: function(response, opts){
-                store.add(record);
+                store.add(response);
                 record.commit();
                 me.close();
                 Ext.Msg.alert("提示", "保存成功");

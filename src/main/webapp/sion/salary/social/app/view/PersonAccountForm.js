@@ -122,7 +122,8 @@ Ext.define('sion.salary.social.view.PersonAccountForm', {
                                     itemId: 'deptId',
                                     fieldLabel: '部门',
                                     labelWidth: 80,
-                                    name: 'deptId'
+                                    name: 'deptId',
+                                    allowBlank: false
                                 }),
                                 {
                                     xtype: 'tbspacer',
@@ -198,6 +199,7 @@ Ext.define('sion.salary.social.view.PersonAccountForm', {
                                     fieldLabel: '薪资方案',
                                     labelWidth: 80,
                                     name: 'accountId',
+                                    allowBlank: false,
                                     editable: false,
                                     displayField: 'name',
                                     store: 'SalaryAccount',
@@ -469,6 +471,7 @@ Ext.define('sion.salary.social.view.PersonAccountForm', {
                                     fieldLabel: '社保方案',
                                     labelWidth: 80,
                                     name: 'accountId',
+                                    allowBlank: false,
                                     editable: false,
                                     displayField: 'name',
                                     store: 'SocialAccountAll',
@@ -668,7 +671,7 @@ Ext.define('sion.salary.social.view.PersonAccountForm', {
             insuredPerson,
             model;
 
-        if(!salaryForm.isValid()){
+        if(!salaryForm.isValid()||!socialForm.isValid()){
             Ext.Msg.alert("提示","请填写必填项目");
             return;
         }

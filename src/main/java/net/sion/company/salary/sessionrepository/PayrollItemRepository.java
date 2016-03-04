@@ -20,7 +20,7 @@ public interface PayrollItemRepository extends MongoRepository<PayrollItem, Stri
 	
 	public List<PayrollItem> findByPayrollIdAndPersonIdIn(String payrollId,List<String> personIds);
 	
-	public List<PayrollItem> findByPayrollIdAndNameRegex(String payrollId,String name);
+	public List<PayrollItem> findByPayrollIdAndNameRegexOrderByPersonIdAsc(String payrollId,String name);
 	
 	public List<PayrollItem> findByPayrollId(String payrollId);
 	

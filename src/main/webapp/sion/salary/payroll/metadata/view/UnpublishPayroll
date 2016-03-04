@@ -237,6 +237,150 @@
                             ]
                         },
                         {
+                            "type": "Ext.form.field.ComboBox",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fieldLabel": "薪资套账",
+                                "hidden": true,
+                                "labelWidth": 60,
+                                "layout|flex": null,
+                                "padding": "0 0 0 25"
+                            },
+                            "name": "MyComboBox2",
+                            "designerId": "a98db989-539d-4e38-b945-1866b06259f8"
+                        },
+                        {
+                            "type": "Ext.form.field.Text",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fieldLabel": "薪资主题",
+                                "itemId": "subject",
+                                "labelWidth": 60,
+                                "layout|flex": null,
+                                "margin": "",
+                                "padding": null,
+                                "width": 200
+                            },
+                            "name": "MyTextField",
+                            "designerId": "dbeb7a61-3e27-4cbb-9553-58e55ffc85ce"
+                        },
+                        {
+                            "type": "Ext.toolbar.Spacer",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "layout|flex": null
+                            },
+                            "name": "MySpacer",
+                            "designerId": "386a8a51-bb52-4183-8c08-2210859acc4a"
+                        },
+                        {
+                            "type": "Ext.form.field.Trigger",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fieldLabel": "薪资月份",
+                                "itemId": "month",
+                                "labelWidth": 80,
+                                "layout|flex": null,
+                                "width": 200
+                            },
+                            "name": "MyTriggerField",
+                            "designerId": "7f5a2bec-bcce-4a9b-8e78-7d008c97fbed",
+                            "cn": [
+                                {
+                                    "type": "processcfgfunction",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "designer|params": [
+                                            "config"
+                                        ],
+                                        "fn": "processMonth",
+                                        "implHandler": [
+                                            "config.xtype=　'monthfield';",
+                                            "config.hiddenName = 'date';",
+                                            "config.format=　\"Y-m\";",
+                                            "return config;"
+                                        ]
+                                    },
+                                    "name": "processMonth",
+                                    "designerId": "ab481c67-2f19-4437-889f-4bc78817520b"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "Ext.toolbar.Spacer",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "layout|flex": null
+                            },
+                            "name": "MySpacer1",
+                            "designerId": "e3cadf7c-4bd8-48fa-9105-423f5c056613"
+                        },
+                        {
+                            "type": "Ext.form.field.Trigger",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fieldLabel": "社保扣费月",
+                                "itemId": "socialCostMonth",
+                                "labelWidth": 80,
+                                "layout|flex": null,
+                                "width": 200
+                            },
+                            "name": "MyTriggerField1",
+                            "designerId": "13587f54-e7a4-44ba-b450-4d66c2cea5f9",
+                            "cn": [
+                                {
+                                    "type": "processcfgfunction",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "designer|params": [
+                                            "config"
+                                        ],
+                                        "fn": "processSocialCostMonth",
+                                        "implHandler": [
+                                            "config.xtype=　'monthfield';",
+                                            "config.hiddenName = 'date';",
+                                            "config.format=　\"Y-m\";",
+                                            "return config;"
+                                        ]
+                                    },
+                                    "name": "processSocialCostMonth",
+                                    "designerId": "55696d55-5465-4e59-9d06-4721331b828a"
+                                }
+                            ]
+                        },
+                        {
                             "type": "Ext.button.Button",
                             "reference": {
                                 "name": "items",
@@ -334,148 +478,6 @@
                                     },
                                     "name": "onButtonClick21",
                                     "designerId": "1db9c8d9-0748-4b7f-a3da-a6d1e4219bf7"
-                                }
-                            ]
-                        },
-                        {
-                            "type": "Ext.form.field.ComboBox",
-                            "reference": {
-                                "name": "items",
-                                "type": "array"
-                            },
-                            "codeClass": null,
-                            "userConfig": {
-                                "fieldLabel": "薪资套账",
-                                "hidden": true,
-                                "labelWidth": 60,
-                                "layout|flex": null,
-                                "padding": "0 0 0 25"
-                            },
-                            "name": "MyComboBox2",
-                            "designerId": "a98db989-539d-4e38-b945-1866b06259f8"
-                        },
-                        {
-                            "type": "Ext.form.field.Text",
-                            "reference": {
-                                "name": "items",
-                                "type": "array"
-                            },
-                            "codeClass": null,
-                            "userConfig": {
-                                "fieldLabel": "薪资主题",
-                                "itemId": "subject",
-                                "labelWidth": 60,
-                                "layout|flex": null,
-                                "margin": "",
-                                "padding": null,
-                                "width": 300
-                            },
-                            "name": "MyTextField",
-                            "designerId": "dbeb7a61-3e27-4cbb-9553-58e55ffc85ce"
-                        },
-                        {
-                            "type": "Ext.toolbar.Spacer",
-                            "reference": {
-                                "name": "items",
-                                "type": "array"
-                            },
-                            "codeClass": null,
-                            "userConfig": {
-                                "layout|flex": null
-                            },
-                            "name": "MySpacer",
-                            "designerId": "386a8a51-bb52-4183-8c08-2210859acc4a"
-                        },
-                        {
-                            "type": "Ext.form.field.Trigger",
-                            "reference": {
-                                "name": "items",
-                                "type": "array"
-                            },
-                            "codeClass": null,
-                            "userConfig": {
-                                "fieldLabel": "薪资月份",
-                                "itemId": "month",
-                                "layout|flex": null,
-                                "width": 200
-                            },
-                            "name": "MyTriggerField",
-                            "designerId": "7f5a2bec-bcce-4a9b-8e78-7d008c97fbed",
-                            "cn": [
-                                {
-                                    "type": "processcfgfunction",
-                                    "reference": {
-                                        "name": "items",
-                                        "type": "array"
-                                    },
-                                    "codeClass": null,
-                                    "userConfig": {
-                                        "designer|params": [
-                                            "config"
-                                        ],
-                                        "fn": "processMonth",
-                                        "implHandler": [
-                                            "config.xtype=　'monthfield';",
-                                            "config.hiddenName = 'date';",
-                                            "config.format=　\"Y-m\";",
-                                            "return config;"
-                                        ]
-                                    },
-                                    "name": "processMonth",
-                                    "designerId": "ab481c67-2f19-4437-889f-4bc78817520b"
-                                }
-                            ]
-                        },
-                        {
-                            "type": "Ext.toolbar.Spacer",
-                            "reference": {
-                                "name": "items",
-                                "type": "array"
-                            },
-                            "codeClass": null,
-                            "userConfig": {
-                                "layout|flex": null
-                            },
-                            "name": "MySpacer1",
-                            "designerId": "e3cadf7c-4bd8-48fa-9105-423f5c056613"
-                        },
-                        {
-                            "type": "Ext.form.field.Trigger",
-                            "reference": {
-                                "name": "items",
-                                "type": "array"
-                            },
-                            "codeClass": null,
-                            "userConfig": {
-                                "fieldLabel": "社保扣费月",
-                                "itemId": "socialCostMonth",
-                                "layout|flex": null,
-                                "width": 200
-                            },
-                            "name": "MyTriggerField1",
-                            "designerId": "13587f54-e7a4-44ba-b450-4d66c2cea5f9",
-                            "cn": [
-                                {
-                                    "type": "processcfgfunction",
-                                    "reference": {
-                                        "name": "items",
-                                        "type": "array"
-                                    },
-                                    "codeClass": null,
-                                    "userConfig": {
-                                        "designer|params": [
-                                            "config"
-                                        ],
-                                        "fn": "processSocialCostMonth",
-                                        "implHandler": [
-                                            "config.xtype=　'monthfield';",
-                                            "config.hiddenName = 'date';",
-                                            "config.format=　\"Y-m\";",
-                                            "return config;"
-                                        ]
-                                    },
-                                    "name": "processSocialCostMonth",
-                                    "designerId": "55696d55-5465-4e59-9d06-4721331b828a"
                                 }
                             ]
                         }
