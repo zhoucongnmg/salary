@@ -8,6 +8,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -102,7 +103,6 @@ public class AccountController {
 			account.setCreateUserName(user.getName());
 		}else{
 			deleteFormula(account.getId());
-			System.out.println(account.isUpdatePayroll());
 			//TODO 更新工资条
 		}
 		
@@ -174,9 +174,51 @@ public class AccountController {
 		User user = adminService.getUser(session);
 		copy.setCreateUserId(user.getId());
 		copy.setCreateUserName(user.getName());
+		
+		copy.setAccountItems(copyFormula(id));
+		
 		accountRepository.save(copy);
 		return new Response(true);
 	}
+	
+	//拷贝方案中的公式
+	private List<AccountItem> copyFormula(String accountId){
+		Account account = accountRepository.findOne(accountId);
+		Set<String> formulaIds = new HashSet<String>();
+		List<Formula> saveFormulas = new ArrayList<Formula>();
+		
+		for(AccountItem accountItem : account.getAccountItems()){
+			if(accountItem.getType() == SalaryItemType.Calculate){
+				formulaIds.add(accountItem.getFormulaId());
+			}
+		}
+		
+		Iterable<Formula> formulas = formulaRepository.findAll(formulaIds);
+		Map<String,Formula> formulaMap = new HashMap<String,Formula>();
+		for (Formula formula : formulas) {
+			formulaMap.put(formula.getId(), formula);
+		}
+		
+		for(AccountItem accountItem : account.getAccountItems()){
+			if(accountItem.getType() == SalaryItemType.Calculate){
+				Formula formula = formulaMap.get(accountItem.getFormulaId());
+				if (formula!=null) {
+					Formula clone = (Formula)formula.clone();
+					clone.setId(new ObjectId().toString());
+					saveFormulas.add(clone);
+					accountItem.setFormulaId(clone.getId());
+				}
+						
+			}
+		}
+		
+		formulaRepository.save(saveFormulas);
+		
+		return account.getAccountItems();
+		
+	}
+	
+	
 	//删除方案中的公式
 	private void deleteFormula(String accountId){
 		Account account = accountRepository.findOne(accountId);

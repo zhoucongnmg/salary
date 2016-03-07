@@ -226,7 +226,7 @@ Ext.define('sion.salary.accounts.view.SalaryPlan', {
             async: false,    //不使用异步
             params: {
                 id: record.get('id'),
-                name: me.down('#name').getValue(),
+                name: me.down('#name').getValue()
             },
             success: function(response, opts){
                 var data = Ext.JSON.decode(response.responseText);
@@ -249,16 +249,10 @@ Ext.define('sion.salary.accounts.view.SalaryPlan', {
                             success: function(response, opts){
                                 Ext.Msg.confirm('提示', '保存成功，是否更新工资条？', function(text){
                                     if(text == 'yes'){
-                                        var payroll = Ext.create(namespace + ".view.Payroll");
-                                        var payrollStore = payroll.down('gridpanel').getStore();
-                                        Ext.apply(payrollStore.proxy.extraParams, {
-                                            accountId : record.get('id')
-                                        });
-                                        payrollStore.load({
-                                            callback: function(records, operation, success) {
-                                                payroll.show();
-                                            }
-                                        });
+                                        Ext.create(namespace + ".view.Payroll",{
+                                            _accountId : record.get('id')
+                                        }).show();
+
                                     }
                                 });
                                 store.load();

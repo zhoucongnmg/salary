@@ -699,7 +699,7 @@
                             "codeClass": "Ext.grid.plugin.RowEditing",
                             "userConfig": {
                                 "cancelBtnText": "取消",
-                                "hideMode": "display",
+                                "pluginId": "mainRowEditor",
                                 "saveBtnText": "保存"
                             },
                             "name": "MyRowEditingPlugin",
@@ -713,11 +713,6 @@
                                 {
                                     "group": "(Custom Properties)",
                                     "name": "cancelBtnText",
-                                    "type": "string"
-                                },
-                                {
-                                    "group": "(Custom Properties)",
-                                    "name": "hideMode",
                                     "type": "string"
                                 }
                             ],
@@ -762,9 +757,7 @@
                                         "fn": "onRowEditingBeforeEdit1",
                                         "implHandler": [
                                             "var me = this;",
-                                            "editor.editor.hideToolTip();",
-                                            "return me._canEdit;",
-                                            ""
+                                            "return me._canEdit;"
                                         ],
                                         "name": "beforeedit",
                                         "scope": "me"
@@ -837,8 +830,7 @@
                     "",
                     "me.loadData(id,mainGrid,store,opts);",
                     "opts.query = 'Simple';",
-                    "me.loadData(id,simpleGrid,simpleStore,opts);",
-                    ""
+                    "me.loadData(id,simpleGrid,simpleStore,opts);"
                 ],
                 "name": "beforerender",
                 "scope": "me"

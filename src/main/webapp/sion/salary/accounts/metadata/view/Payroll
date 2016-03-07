@@ -260,6 +260,35 @@
                     ]
                 }
             ]
+        },
+        {
+            "type": "basiceventbinding",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "onWindowAfterRender",
+                "implHandler": [
+                    "var me = this,",
+                    "    grid = me.down('grid'),",
+                    "    store = grid.getStore(),",
+                    "    accountId = me._accountId;",
+                    "",
+                    "store.load({",
+                    "    params : {",
+                    "        accountId : accountId",
+                    "    }",
+                    "});",
+                    "    ",
+                    ""
+                ],
+                "name": "afterrender",
+                "scope": "me"
+            },
+            "name": "onWindowAfterRender",
+            "designerId": "b1115ecd-bd32-4b7e-9202-7560a5189e85"
         }
     ]
 }
