@@ -107,7 +107,13 @@ Ext.define('sion.salary.accounts.view.Payroll', {
                         }
                     ]
                 }
-            ]
+            ],
+            listeners: {
+                afterrender: {
+                    fn: me.onWindowAfterRender,
+                    scope: me
+                }
+            }
         });
 
         me.callParent(arguments);
@@ -139,6 +145,21 @@ Ext.define('sion.salary.accounts.view.Payroll', {
         }else{
             me.close();
         }
+
+
+    },
+
+    onWindowAfterRender: function(component, eOpts) {
+        var me = this,
+            grid = me.down('grid'),
+            store = grid.getStore(),
+            accountId = me._accountId;
+
+        store.load({
+            params : {
+                accountId : accountId
+            }
+        });
 
 
     }

@@ -12,7 +12,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
  *	公式
  */
 @Document(collection="Company_Salary_Formula")
-public class Formula {
+public class Formula implements Cloneable{
 	@Id
 	String id;
 	//公式中变量（公式项）列表
@@ -31,6 +31,17 @@ public class Formula {
 		this.items = items;
 		this.resultFieldId = resultFieldId;
 	}
+	
+	@Override  
+    public Object clone() {  
+		Formula a = null;  
+        try{  
+            a = (Formula)super.clone();  
+        }catch(CloneNotSupportedException e) {  
+            e.printStackTrace();  
+        }  
+        return a;  
+    }
 	
 	public String getId() {
 		return id;
