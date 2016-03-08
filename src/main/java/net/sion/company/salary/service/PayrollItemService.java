@@ -102,7 +102,31 @@ public class PayrollItemService {
 				
 				Map<String,AccountItem> personAccountItemMap = new HashMap<String,AccountItem>();
 				Set<String> formulaIds = new HashSet<String>();
+				
+				List<AccountItem> inputItems = new ArrayList<AccountItem>();
+				List<AccountItem> systemItems = new ArrayList<AccountItem>();
+				List<AccountItem> calculateItems = new ArrayList<AccountItem>();
+				List<AccountItem> taxItems = new ArrayList<AccountItem>();
+				List<AccountItem> allItems = new ArrayList<AccountItem>();
 				for (AccountItem item : items) {
+					if (item.getType() == SalaryItemType.Input) {
+						inputItems.add(item);
+					}else if (item.getType() == SalaryItemType.System) {
+						systemItems.add(item);
+					}else if (item.getType() == SalaryItemType.Calculate) {
+						calculateItems.add(item);
+					}else if (item.getType() == SalaryItemType.Tax) {
+						taxItems.add(item);
+					}
+				}
+				
+				allItems.addAll(inputItems);
+				allItems.addAll(systemItems);
+				allItems.addAll(taxItems);
+				allItems.addAll(calculateItems);
+				
+				
+				for (AccountItem item : allItems) {
 					personAccountItemMap.put(item.getId(), item);
 					
 					if (item.getType() == SalaryItemType.Input) {
@@ -128,7 +152,8 @@ public class PayrollItemService {
 							AccountItem parent = personAccountItemMap.get(parentId);
 							String parentSalaryItemId = parent.getSalaryItemId();
 							Double value = dataPersonMap.get(parentSalaryItemId);
-							dataPersonMap.put(item.getSalaryItemId(), taxService.getFastNumber(item.getTaxId(),value));
+							Double taxValue = taxService.getFastNumber(item.getTaxId(),value);
+							dataPersonMap.put(item.getSalaryItemId(), item.decimal(item.getCarryType(), item.getPrecision(), taxValue));
 						}
 					}
 					

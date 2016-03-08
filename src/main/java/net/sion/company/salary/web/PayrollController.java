@@ -414,8 +414,8 @@ public class PayrollController {
 		String folderPath = serverPath + "/temp/salary/export";
 		String filePath = folderPath + "/" + optsId + ".json";
 		File file = new File(filePath);
-		String josnStr = FileUtil.readAsString(file);
-		Map<String, String> opts = jackson.readValue(josnStr, new TypeReference<Map<String, String>>() {
+		String jsonStr = FileUtil.readAsString(file);
+		Map<String, String> opts = jackson.readValue(jsonStr, new TypeReference<Map<String, String>>() {
 		});
 		file.delete();
 
@@ -679,7 +679,7 @@ public class PayrollController {
 			try {
 				parentPayrollItem.convertDomain(parentValues);
 				changeFields = formulaService.caculateFormulas(formulaIds, parentValues);
-				//parentPayrollItem.convertDomain(changeFields);
+				parentPayrollItem.convertDomain(changeFields);
 				//payrollItemRepository.save(parentPayrollItem);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block

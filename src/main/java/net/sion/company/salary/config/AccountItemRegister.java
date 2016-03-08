@@ -6,6 +6,7 @@ import java.util.List;
 import net.sion.company.salary.domain.Item.DecimalCarryType;
 import net.sion.company.salary.domain.PersonAccountFile;
 import net.sion.company.salary.domain.SocialAccountItem;
+import net.sion.company.salary.domain.SocialAccountItem.PaymentType;
 import net.sion.company.salary.domain.SocialItem;
 import net.sion.company.salary.domain.SystemSalaryItem;
 import net.sion.company.salary.domain.SystemSalaryItem.SystemSalaryItemType;
@@ -35,12 +36,23 @@ public class AccountItemRegister extends AbstractSystemSalaryItemListener{
 		PersonAccountFile personAccountFile = personAccountFileRepository.findOne(event.getPersonId());
 		for (SocialAccountItem item : personAccountFile.getInsuredItems()) {  
 			if(item.getSocialItemId().equals(event.getItem().getItemId())){
+				Double itemValue = 0.0d;
 				SocialItem socialItem = socialItemRepository.findOne(item.getSocialItemId());
 				if (event.getItem().getSystemType() == SystemSalaryItemType.Company) {
-					value = decimal(socialItem.getCarryType(), item.getPrecision(), item.getCardinality() * item.getCompanyPaymentValue());
+					if (item.getCompanyPaymentType() == PaymentType.Percent) {
+						itemValue = item.getCardinality() * item.getCompanyPaymentValue();
+					}else if (item.getCompanyPaymentType() == PaymentType.Quota) {
+						itemValue = item.getCompanyPaymentValue();
+					}
+					value = decimal(socialItem.getCarryType(), item.getPrecision(), itemValue);
 					break;
 				}else if (event.getItem().getSystemType() == SystemSalaryItemType.Personal) {
-					value = decimal(socialItem.getCarryType(), item.getPrecision(), item.getCardinality() * item.getPersonalPaymentValue());
+					if (item.getPersonalPaymentType() == PaymentType.Percent) {
+						itemValue = item.getCardinality() * item.getPersonalPaymentValue();
+					}else if (item.getPersonalPaymentType() == PaymentType.Quota) {
+						itemValue = item.getPersonalPaymentValue();
+					}
+					value = decimal(socialItem.getCarryType(), item.getPrecision(), itemValue);
 					break;
 				}
 			}

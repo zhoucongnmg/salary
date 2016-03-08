@@ -266,10 +266,6 @@ Ext.define('sion.salary.payroll.view.DynamicGrid', {
                                         edit: {
                                             fn: me.onRowEditingEdit1,
                                             scope: me
-                                        },
-                                        beforeedit: {
-                                            fn: me.onRowEditingBeforeEdit1,
-                                            scope: me
                                         }
                                     }
                                 })
@@ -369,12 +365,23 @@ Ext.define('sion.salary.payroll.view.DynamicGrid', {
             id = me._id,
             record = me._record,
             ns = me.getNamespace(),
-            grid = me.down('#simpleGrid'),
+            simpleGrid = me.down('#simpleGrid'),
+            simpleStore = simpleGrid.getStore(),
+            mainGrid = me.down('#mainGrid'),
+            mainStore = mainGrid.getStore(),
             form = me.down('form'),
-            store = grid.getStore(),
-            values = searchForm.getForm().getValues();
+            values = searchForm.getForm().getValues(),
+            subGrids = me.query('grid[_subGrid=true]')||[];
 
-        me.loadData(id,grid,store,values);
+        values.type = 'Payroll';
+        me.loadData(id,mainGrid,mainStore,values);
+        values.query = 'Simple';
+        me.loadData(id,simpleGrid,simpleStore,values);
+        Ext.Array.each(subGrids,function(subGrid,index){
+            var subStore = subGrid.getStore();
+            values.type = 'PayrollSub';
+            me.loadData(id,subGrid,subStore,values);
+        });
     },
 
     onRowEditingEdit1: function(editor, context, eOpts) {
@@ -390,11 +397,6 @@ Ext.define('sion.salary.payroll.view.DynamicGrid', {
             }
         });
 
-    },
-
-    onRowEditingBeforeEdit1: function(editor, context, eOpts) {
-        var me = this;
-        return me._canEdit;
     },
 
     onWindowBeforeRender: function(component, eOpts) {
