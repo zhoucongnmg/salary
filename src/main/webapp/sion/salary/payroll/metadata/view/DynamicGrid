@@ -542,12 +542,23 @@
                                     "    id = me._id,",
                                     "    record = me._record,",
                                     "    ns = me.getNamespace(),",
-                                    "    grid = me.down('#simpleGrid'),",
+                                    "    simpleGrid = me.down('#simpleGrid'),",
+                                    "    simpleStore = simpleGrid.getStore(),",
+                                    "    mainGrid = me.down('#mainGrid'),",
+                                    "    mainStore = mainGrid.getStore(),",
                                     "    form = me.down('form'),",
-                                    "    store = grid.getStore(),",
-                                    "    values = searchForm.getForm().getValues();",
+                                    "    values = searchForm.getForm().getValues(),",
+                                    "    subGrids = me.query('grid[_subGrid=true]')||[];",
                                     "",
-                                    "me.loadData(id,grid,store,values);"
+                                    "values.type = 'Payroll';",
+                                    "me.loadData(id,mainGrid,mainStore,values);",
+                                    "values.query = 'Simple';",
+                                    "me.loadData(id,simpleGrid,simpleStore,values);",
+                                    "Ext.Array.each(subGrids,function(subGrid,index){",
+                                    "    var subStore = subGrid.getStore();",
+                                    "    values.type = 'PayrollSub';",
+                                    "    me.loadData(id,subGrid,subStore,values);",
+                                    "});"
                                 ],
                                 "name": "click",
                                 "scope": "me"
@@ -745,25 +756,6 @@
                                     },
                                     "name": "onRowEditingEdit1",
                                     "designerId": "91ebabfb-e905-4a85-8680-d77fb32441df"
-                                },
-                                {
-                                    "type": "basiceventbinding",
-                                    "reference": {
-                                        "name": "listeners",
-                                        "type": "array"
-                                    },
-                                    "codeClass": null,
-                                    "userConfig": {
-                                        "fn": "onRowEditingBeforeEdit1",
-                                        "implHandler": [
-                                            "var me = this;",
-                                            "return me._canEdit;"
-                                        ],
-                                        "name": "beforeedit",
-                                        "scope": "me"
-                                    },
-                                    "name": "onRowEditingBeforeEdit1",
-                                    "designerId": "c946741f-7178-4ad5-a201-3dd73549afd0"
                                 }
                             ]
                         }
