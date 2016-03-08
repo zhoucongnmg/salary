@@ -3,12 +3,14 @@ package net.sion.company.salary.service;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import net.sion.company.salary.domain.Account;
 import net.sion.company.salary.domain.AccountItem;
+import net.sion.company.salary.domain.Item.ItemType;
 import net.sion.company.salary.domain.Payroll;
 import net.sion.company.salary.domain.PayrollItem;
 import net.sion.company.salary.domain.PayrollSub;
@@ -25,6 +27,7 @@ import net.sion.company.salary.sessionrepository.PersonAccountFileRepository;
 import net.sion.company.salary.sessionrepository.SocialItemRepository;
 import net.sion.company.salary.sessionrepository.SystemSalaryItemRepository;
 
+import org.apache.commons.collections.map.LinkedMap;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -100,35 +103,13 @@ public class PayrollItemService {
 				simplePersonMap.put("bankOfDeposit", person.getBankOfDeposit());
 				simplePersonMap.put("bankAccount", person.getBankAccount());
 				
-				Map<String,AccountItem> personAccountItemMap = new HashMap<String,AccountItem>();
+				Map<String,AccountItem> personAccountItemMap = new LinkedHashMap<String,AccountItem>();
 				Set<String> formulaIds = new HashSet<String>();
-				
-				List<AccountItem> inputItems = new ArrayList<AccountItem>();
-				List<AccountItem> systemItems = new ArrayList<AccountItem>();
-				List<AccountItem> calculateItems = new ArrayList<AccountItem>();
-				List<AccountItem> taxItems = new ArrayList<AccountItem>();
-				List<AccountItem> allItems = new ArrayList<AccountItem>();
 				for (AccountItem item : items) {
-					if (item.getType() == SalaryItemType.Input) {
-						inputItems.add(item);
-					}else if (item.getType() == SalaryItemType.System) {
-						systemItems.add(item);
-					}else if (item.getType() == SalaryItemType.Calculate) {
-						calculateItems.add(item);
-					}else if (item.getType() == SalaryItemType.Tax) {
-						taxItems.add(item);
-					}
+					personAccountItemMap.put(item.getId(), item);
 				}
 				
-				allItems.addAll(inputItems);
-				allItems.addAll(systemItems);
-				allItems.addAll(taxItems);
-				allItems.addAll(calculateItems);
-				
-				
-				for (AccountItem item : allItems) {
-					personAccountItemMap.put(item.getId(), item);
-					
+				for (AccountItem item : items) {
 					if (item.getType() == SalaryItemType.Input) {
 						//TODO 通过personId查找该人在薪资档案中该项设置的值
 						Double value = personService.getOneItemValue(person.getId(), item.getSalaryItemId());
@@ -207,7 +188,7 @@ public class PayrollItemService {
 		
 		if (opts!=null) {
 			if ("on".equals(opts.get("showCompanySocial"))||"on".equals(opts.get("showPersonalSocial"))) {
-				List<SocialItem> socialItems = socialItemRepository.findByItemType(SocialItemType.SocialSecurity);
+				List<SocialItem> socialItems = socialItemRepository.findByItem(ItemType.SocialItem);
 				for (SocialItem item : socialItems) {
 					map = new HashMap<String, Object>();
 					map.put("name", item.getId() + "-cardinality");
@@ -292,7 +273,7 @@ public class PayrollItemService {
 		
 		if (opts!=null) {
 			if ("on".equals(opts.get("showCompanySocial"))||"on".equals(opts.get("showPersonalSocial"))) {
-				List<SocialItem> socialItems = socialItemRepository.findByItemType(SocialItemType.SocialSecurity);
+				List<SocialItem> socialItems = socialItemRepository.findByItem(ItemType.SocialItem);
 				for (SocialItem item : socialItems) {
 					map = new HashMap<String, Object>();
 					map.put("header", item.getName());
