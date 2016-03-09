@@ -25,13 +25,12 @@ Ext.define('sion.salary.social.model.PersonSocialItem', {
             name: 'name'
         },
         {
-            name: 'cardinality'
+            name: 'companyPaymentValue',
+            type: 'float'
         },
         {
-            name: 'companyPaymentValue'
-        },
-        {
-            name: 'personalPaymentValue'
+            name: 'personalPaymentValue',
+            type: 'float'
         },
         {
             name: 'companyPaymentType'
@@ -41,6 +40,24 @@ Ext.define('sion.salary.social.model.PersonSocialItem', {
         },
         {
             name: 'socialItemId'
+        },
+        {
+            name: 'companyCardinality'
+        },
+        {
+            name: 'personalCardinality'
+        },
+        {
+            convert: function(v, rec) {
+                return v;
+            },
+            name: 'displayCompanyPaymentValue'
+        },
+        {
+            convert: function(v, rec) {
+                return v;
+            },
+            name: 'displayPersonalPaymentValue'
         }
     ]
 });

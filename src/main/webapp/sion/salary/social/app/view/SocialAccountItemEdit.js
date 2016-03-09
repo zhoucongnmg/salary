@@ -21,6 +21,7 @@ Ext.define('sion.salary.social.view.SocialAccountItemEdit', {
         'Ext.button.Button',
         'Ext.form.Panel',
         'Ext.form.field.ComboBox',
+        'Ext.toolbar.Spacer',
         'Ext.form.field.Number'
     ],
 
@@ -73,7 +74,6 @@ Ext.define('sion.salary.social.view.SocialAccountItemEdit', {
                                     flex: 1,
                                     itemId: 'socialItemId',
                                     fieldLabel: '名称',
-                                    labelWidth: 60,
                                     name: 'socialItemId',
                                     allowBlank: false,
                                     editable: false,
@@ -82,13 +82,35 @@ Ext.define('sion.salary.social.view.SocialAccountItemEdit', {
                                     valueField: 'id'
                                 },
                                 {
+                                    xtype: 'tbspacer',
+                                    flex: 1
+                                }
+                            ]
+                        },
+                        {
+                            xtype: 'panel',
+                            style: 'margin-top:20px;',
+                            layout: {
+                                type: 'hbox',
+                                align: 'stretch'
+                            },
+                            items: [
+                                {
                                     xtype: 'numberfield',
                                     flex: 1,
-                                    itemId: 'cardinality',
+                                    itemId: 'companyCardinality',
+                                    fieldLabel: '单位缴费基数',
+                                    name: 'companyCardinality',
+                                    value: 0.00,
+                                    allowBlank: false
+                                },
+                                {
+                                    xtype: 'numberfield',
+                                    flex: 1,
+                                    itemId: 'personalCardinality',
                                     style: 'margin-left:10px;',
-                                    fieldLabel: '基数',
-                                    labelWidth: 60,
-                                    name: 'cardinality',
+                                    fieldLabel: '个人缴费基数',
+                                    name: 'personalCardinality',
                                     value: 0.00,
                                     allowBlank: false
                                 }
@@ -107,7 +129,6 @@ Ext.define('sion.salary.social.view.SocialAccountItemEdit', {
                                     flex: 1,
                                     itemId: 'companyPaymentValue',
                                     fieldLabel: '单位缴费',
-                                    labelWidth: 60,
                                     name: 'companyPaymentValue',
                                     value: 0.00,
                                     allowBlank: false
@@ -129,7 +150,6 @@ Ext.define('sion.salary.social.view.SocialAccountItemEdit', {
                                     itemId: 'personalPaymentValue',
                                     style: 'margin-left:10px;',
                                     fieldLabel: '个人缴费',
-                                    labelWidth: 60,
                                     name: 'personalPaymentValue',
                                     value: 0.00,
                                     allowBlank: false,
@@ -173,7 +193,8 @@ Ext.define('sion.salary.social.view.SocialAccountItemEdit', {
 
         record = form.getRecord();
         form.updateRecord(record);
-        if(!me.down('#socialItemId').isValid() || !me.down('#cardinality').isValid() ||
+        if(!me.down('#socialItemId').isValid() ||
+           !me.down('#companyCardinality').isValid() || !me.down('#personalCardinality').isValid() ||
            !me.down('#companyPaymentType').isValid() || !me.down('#personalPaymentType').isValid() ||
            !me.down('#companyPaymentValue').isValid()|| !me.down('#personalPaymentValue').isValid()){
             Ext.Msg.alert("提示", "信息不完整，请继续填写！");
@@ -250,7 +271,8 @@ Ext.define('sion.salary.social.view.SocialAccountItemEdit', {
                 name: '',
                 companyPaymentValue: 0.00,
                 personalPaymentValue: 0.00,
-                cardinality: 0.00,
+                personalCardinality: 0.00,
+                companyCardinality: 0.00,
                 companyPaymentType: '',
                 personalPaymentType: ''
             }));

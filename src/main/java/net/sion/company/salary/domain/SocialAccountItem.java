@@ -20,7 +20,10 @@ public class SocialAccountItem extends SocialItem{
 //	String id;
 	String socialItemId;	//社保项目
 //	String socialItemName;	//社保项目名称
-	Double cardinality;	//基数
+	
+	Double personalCardinality;	//个人缴费基数
+	Double companyCardinality;	//公司缴费基数
+	
 	Double companyPaymentValue;	//单位缴费
 	Double personalPaymentValue;	//个人缴费
 	Double companyPaymentFinalValue;	//单位缴费(用于工资条)
@@ -36,7 +39,7 @@ public class SocialAccountItem extends SocialItem{
 	public void generateDecimalFinalValue(DecimalCarryType type, int precision){
 		switch(this.companyPaymentType) {
 			case Percent:
-				this.companyPaymentFinalValue = decimal(type, precision, Double.valueOf(cardinality * companyPaymentValue));
+				this.companyPaymentFinalValue = decimal(type, precision, Double.valueOf(companyCardinality * companyPaymentValue));
 				break;
 			case Quota:
 				this.companyPaymentFinalValue = decimal(type, precision, companyPaymentValue);
@@ -44,14 +47,28 @@ public class SocialAccountItem extends SocialItem{
 		}
 		switch(this.personalPaymentType) {
 			case Percent: 
-				this.personalPaymentFinalValue = decimal(type, precision, Double.valueOf(cardinality * personalPaymentValue));
+				this.personalPaymentFinalValue = decimal(type, precision, Double.valueOf(personalCardinality * personalPaymentValue));
 				break;
 			case Quota:
 				this.personalPaymentFinalValue = decimal(type, precision, personalPaymentValue);
 				break;
 		}
 	}
-	
+	public Double getPersonalCardinality() {
+		return personalCardinality;
+	}
+
+	public void setPersonalCardinality(Double personalCardinality) {
+		this.personalCardinality = personalCardinality;
+	}
+
+	public Double getCompanyCardinality() {
+		return companyCardinality;
+	}
+
+	public void setCompanyCardinality(Double companyCardinality) {
+		this.companyCardinality = companyCardinality;
+	}
 //	public String getId() {
 //		return id;
 //	}
@@ -75,13 +92,7 @@ public class SocialAccountItem extends SocialItem{
 //		this.socialItemName = socialItemName;
 //	}
 
-	public Double getCardinality() {
-		return cardinality;
-	}
-
-	public void setCardinality(Double cardinality) {
-		this.cardinality = cardinality;
-	}
+	
 
 	public Double getCompanyPaymentValue() {
 		return companyPaymentValue;

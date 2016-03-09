@@ -410,7 +410,10 @@ public class PayrollItemService {
 					Map<String,SocialAccountItem> socialAccountItemMap = personExtension.getItems();
 					for (Map.Entry<String, SocialAccountItem> entry : socialAccountItemMap.entrySet()) {
 						SocialAccountItem socialItem = entry.getValue();
-						itemMap.put(socialItem.getSocialItemId()+"-cardinality", socialItem.getCardinality());
+//						itemMap.put(socialItem.getSocialItemId()+"-cardinality", socialItem.getCardinality());
+						itemMap.put(socialItem.getSocialItemId()+"-personalCardinality", socialItem.getPersonalCardinality());
+						itemMap.put(socialItem.getSocialItemId()+"-companyCardinality", socialItem.getCompanyCardinality());
+						
 						itemMap.put(socialItem.getSocialItemId()+"-companyPaymentValue", socialItem.getCompanyPaymentValue());
 						itemMap.put(socialItem.getSocialItemId()+"-companyPaymentFinalValue", socialItem.getCompanyPaymentFinalValue());
 						itemMap.put(socialItem.getSocialItemId()+"-personalPaymentValue", socialItem.getPersonalPaymentValue());
