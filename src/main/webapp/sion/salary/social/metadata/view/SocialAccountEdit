@@ -312,9 +312,9 @@
                     },
                     "codeClass": null,
                     "userConfig": {
-                        "dataIndex": "cardinality",
+                        "dataIndex": "companyCardinality",
                         "flex": 2,
-                        "text": "缴费基数"
+                        "text": "单位缴费基数"
                     },
                     "name": "MyColumn13",
                     "designerId": "07f996d3-47a4-41e6-b312-3b7f4bd0d598"
@@ -366,6 +366,21 @@
                             "designerId": "4ea482d9-0b16-4673-a2a2-23b933f213fe"
                         }
                     ]
+                },
+                {
+                    "type": "Ext.grid.column.Column",
+                    "reference": {
+                        "name": "columns",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "dataIndex": "personalCardinality",
+                        "flex": 2,
+                        "text": "个人缴费基数"
+                    },
+                    "name": "MyColumn36",
+                    "designerId": "fb62ea1f-b970-4f2e-89fb-1009e370fede"
                 },
                 {
                     "type": "Ext.grid.column.Column",

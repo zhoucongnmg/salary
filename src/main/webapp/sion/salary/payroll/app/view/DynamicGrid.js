@@ -239,7 +239,6 @@ Ext.define('sion.salary.payroll.view.DynamicGrid', {
                             xtype: 'gridpanel',
                             itemId: 'mainGrid',
                             width: 1050,
-                            autoScroll: true,
                             emptyText: '无工资条数据',
                             columns: [
                                 {
@@ -248,11 +247,16 @@ Ext.define('sion.salary.payroll.view.DynamicGrid', {
                                     columns: [
                                         {
                                             xtype: 'gridcolumn',
-                                            text: 'MyColumn3'
+                                            dataIndex: 'name',
+                                            text: 'MyColumn3',
+                                            editor: {
+                                                xtype: 'textfield'
+                                            }
                                         },
                                         {
                                             xtype: 'gridcolumn',
-                                            text: 'MyColumn16'
+                                            dataIndex: 'age',
+                                            text: 'MyColumn13'
                                         }
                                     ]
                                 }
@@ -265,6 +269,10 @@ Ext.define('sion.salary.payroll.view.DynamicGrid', {
                                     listeners: {
                                         edit: {
                                             fn: me.onRowEditingEdit1,
+                                            scope: me
+                                        },
+                                        beforeedit: {
+                                            fn: me.onRowEditingBeforeEdit,
                                             scope: me
                                         }
                                     }
@@ -376,11 +384,14 @@ Ext.define('sion.salary.payroll.view.DynamicGrid', {
         values.type = 'Payroll';
         me.loadData(id,mainGrid,mainStore,values);
         values.query = 'Simple';
-        me.loadData(id,simpleGrid,simpleStore,values);
+        var levelCount = me.loadData(id,simpleGrid,simpleStore,values);
+        mainGrid.headerCt.setHeight(levelCount*30);
         Ext.Array.each(subGrids,function(subGrid,index){
             var subStore = subGrid.getStore();
-            values.type = 'PayrollSub';
-            me.loadData(id,subGrid,subStore,values);
+            me.loadData(id,subGrid,subStore,{
+                type : 'PayrollSub'
+            });
+            subGrid.headerCt.setHeight(levelCount*30);
         });
     },
 
@@ -397,6 +408,11 @@ Ext.define('sion.salary.payroll.view.DynamicGrid', {
             }
         });
 
+    },
+
+    onRowEditingBeforeEdit: function(editor, context, eOpts) {
+        var me = this;
+        return me._canEdit;
     },
 
     onWindowBeforeRender: function(component, eOpts) {
@@ -450,6 +466,7 @@ Ext.define('sion.salary.payroll.view.DynamicGrid', {
         me.loadData(id,mainGrid,store,opts);
         opts.query = 'Simple';
         me.loadData(id,simpleGrid,simpleStore,opts);
+
     },
 
     calculate: function(record, cb) {
@@ -477,7 +494,9 @@ Ext.define('sion.salary.payroll.view.DynamicGrid', {
     },
 
     loadData: function(id, grid, store, opts) {
-        var me = this;
+        var me = this,
+            gridWidth = 0,
+            levelCount = 1;
         Ext.Ajax.request({
             url:'salary/payroll/findItemList',
             async : false,
@@ -492,11 +511,30 @@ Ext.define('sion.salary.payroll.view.DynamicGrid', {
                 store.add(json.data.data);
                 grid.reconfigure(store, json.data.columns);
                 me._columns = json.data.columns;
-                grid.setWidth(json.data.columns.length*100);
+                Ext.Array.each(me._columns,function(column,index){
+                    if (column.columns) {
+                        var columnWidth = 0;
+                          if (levelCount<2) levelCount=2;
+                          Ext.Array.each(column.columns,function(c_column,index){
+                              if (c_column.columns) {
+                                  if (levelCount<3) levelCount=3;
+                                  columnWidth+=c_column.columns.length*66-2;
+                              }else {
+                                  columnWidth+=100;
+                              }
+                          });
+                        gridWidth+=columnWidth;
+                    }else {
+                        gridWidth+=100;
+                    }
+                });
+                grid.setWidth(gridWidth);
             },failure: function(){
                 Ext.Msg.alert("提示", "加载失败");
             }
         });
+
+        return levelCount;
     },
 
     insertGrid: function(payrollSub) {

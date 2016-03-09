@@ -35,7 +35,8 @@ Ext.application({
         'PayrollStore',
         'PersonStore',
         'PayrollSubStore',
-        'AccountItemStore'
+        'AccountItemStore',
+        'MyJsonStore'
     ],
     views: [
         'SelectPerson_win',

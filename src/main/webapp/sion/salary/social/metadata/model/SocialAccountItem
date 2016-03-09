@@ -45,20 +45,6 @@
             },
             "codeClass": null,
             "userConfig": {
-                "name": "cardinality",
-                "type": "float"
-            },
-            "name": "MyField16",
-            "designerId": "3462e7bf-833e-4c56-bfd9-072195cdb6b1"
-        },
-        {
-            "type": "Ext.data.Field",
-            "reference": {
-                "name": "fields",
-                "type": "array"
-            },
-            "codeClass": null,
-            "userConfig": {
                 "name": "companyPaymentType"
             },
             "name": "MyField19",
@@ -170,6 +156,34 @@
             },
             "name": "MyField86",
             "designerId": "c8b806e3-3a08-4e93-8c0a-c81a9c3c61f3"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "personalCardinality",
+                "type": "float"
+            },
+            "name": "MyField16",
+            "designerId": "3462e7bf-833e-4c56-bfd9-072195cdb6b1"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "companyCardinality",
+                "type": "float"
+            },
+            "name": "MyField7",
+            "designerId": "10ab3f71-c966-4ee7-abcb-f4edfb638896"
         }
     ]
 }

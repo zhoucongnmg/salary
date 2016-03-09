@@ -129,8 +129,8 @@ Ext.define('sion.salary.social.view.SocialAccountEdit', {
                         },
                         {
                             xtype: 'gridcolumn',
-                            dataIndex: 'cardinality',
-                            text: '缴费基数',
+                            dataIndex: 'companyCardinality',
+                            text: '单位缴费基数',
                             flex: 2
                         },
                         {
@@ -146,6 +146,12 @@ Ext.define('sion.salary.social.view.SocialAccountEdit', {
                             },
                             dataIndex: 'companyPaymentValue',
                             text: '单位缴费',
+                            flex: 2
+                        },
+                        {
+                            xtype: 'gridcolumn',
+                            dataIndex: 'personalCardinality',
+                            text: '个人缴费基数',
                             flex: 2
                         },
                         {

@@ -40,7 +40,7 @@ public class AccountItemRegister extends AbstractSystemSalaryItemListener{
 				SocialItem socialItem = socialItemRepository.findOne(item.getSocialItemId());
 				if (event.getItem().getSystemType() == SystemSalaryItemType.Company) {
 					if (item.getCompanyPaymentType() == PaymentType.Percent) {
-						itemValue = item.getCardinality() * item.getCompanyPaymentValue();
+						itemValue = item.getCompanyCardinality() * item.getCompanyPaymentValue();
 					}else if (item.getCompanyPaymentType() == PaymentType.Quota) {
 						itemValue = item.getCompanyPaymentValue();
 					}
@@ -48,7 +48,7 @@ public class AccountItemRegister extends AbstractSystemSalaryItemListener{
 					break;
 				}else if (event.getItem().getSystemType() == SystemSalaryItemType.Personal) {
 					if (item.getPersonalPaymentType() == PaymentType.Percent) {
-						itemValue = item.getCardinality() * item.getPersonalPaymentValue();
+						itemValue = item.getPersonalCardinality() * item.getPersonalPaymentValue();
 					}else if (item.getPersonalPaymentType() == PaymentType.Quota) {
 						itemValue = item.getPersonalPaymentValue();
 					}

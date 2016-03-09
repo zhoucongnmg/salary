@@ -1417,9 +1417,9 @@
                                     },
                                     "codeClass": null,
                                     "userConfig": {
-                                        "dataIndex": "cardinality",
-                                        "flex": 0.6,
-                                        "text": "基数"
+                                        "dataIndex": "companyCardinality",
+                                        "flex": 1,
+                                        "text": "单位缴费基数"
                                     },
                                     "name": "MyColumn13",
                                     "designerId": "5a5f74cc-092a-42c4-80e4-fbc71e4f6302",
@@ -1444,7 +1444,7 @@
                                     },
                                     "codeClass": null,
                                     "userConfig": {
-                                        "dataIndex": "companyPaymentValue",
+                                        "dataIndex": "displayCompanyPaymentValue",
                                         "flex": 1.25,
                                         "text": "单位缴费"
                                     },
@@ -1480,16 +1480,17 @@
                                                 ],
                                                 "fn": "renderer",
                                                 "implHandler": [
-                                                    "if(record.get('companyPaymentType')==='Percent'){",
-                                                    "    return value*100 +'%';",
+                                                    "if(record.get('companyPaymentType') == 'Percent'){",
+                                                    "    value = record.get('companyPaymentValue') * 100;",
+                                                    "}else if(record.get('companyPaymentType') == 'Quota'){",
+                                                    "    value = record.get('companyPaymentValue');",
                                                     "}",
-                                                    "else{",
-                                                    "    return value;",
-                                                    "}"
+                                                    "record.set('displayCompanyPaymentValue', value);",
+                                                    "return value;"
                                                 ]
                                             },
                                             "name": "renderer",
-                                            "designerId": "2c318002-94a5-449e-afdb-36ec10d0e55e"
+                                            "designerId": "9ce47c2f-6c29-437e-8899-1c3454a60eef"
                                         }
                                     ]
                                 },
@@ -1566,7 +1567,34 @@
                                     },
                                     "codeClass": null,
                                     "userConfig": {
-                                        "dataIndex": "personalPaymentValue",
+                                        "dataIndex": "personalCardinality",
+                                        "flex": 1,
+                                        "text": "个人缴费基数"
+                                    },
+                                    "name": "MyColumn34",
+                                    "designerId": "ec8214a9-7d8d-4835-bdff-3661591e38ff",
+                                    "cn": [
+                                        {
+                                            "type": "Ext.form.field.Number",
+                                            "reference": {
+                                                "name": "editor",
+                                                "type": "object"
+                                            },
+                                            "codeClass": null,
+                                            "name": "MyNumberField7",
+                                            "designerId": "7738d350-167f-4be0-871c-57c367683b4c"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "Ext.grid.column.Column",
+                                    "reference": {
+                                        "name": "columns",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "dataIndex": "displayPersonalPaymentValue",
                                         "flex": 1.25,
                                         "text": "个人缴费"
                                     },
@@ -1602,16 +1630,17 @@
                                                 ],
                                                 "fn": "renderer",
                                                 "implHandler": [
-                                                    "if(record.get('personalPaymentType')==='Percent'){",
-                                                    "    return value*100 +'%';",
+                                                    "if(record.get('personalPaymentType') == 'Percent'){",
+                                                    "    value = record.get('personalPaymentValue') * 100;",
+                                                    "}else if(record.get('personalPaymentType') == 'Quota'){",
+                                                    "    value = record.get('personalPaymentValue');",
                                                     "}",
-                                                    "else{",
-                                                    "    return value;",
-                                                    "}"
+                                                    "record.set('displayPersonalPaymentValue', value);",
+                                                    "return value;"
                                                 ]
                                             },
                                             "name": "renderer",
-                                            "designerId": "73b93d5c-088a-4130-b65e-68ffc128375a"
+                                            "designerId": "ed9d9ac3-6973-4f84-9513-9c893ee33b01"
                                         }
                                     ]
                                 },
@@ -1713,6 +1742,118 @@
                                             "group": "(Custom Properties)",
                                             "name": "cancelBtnText",
                                             "type": "string"
+                                        }
+                                    ],
+                                    "cn": [
+                                        {
+                                            "type": "basiceventbinding",
+                                            "reference": {
+                                                "name": "listeners",
+                                                "type": "array"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "fn": "onRowEditingBeforeEdit",
+                                                "implHandler": [
+                                                    "// if(context.record.get('companyPaymentType') == 'Percent'){",
+                                                    "//     context.record.set('companyPaymentValue', (Number(context.record.get('companyPaymentValue'))  * 100).toFixed(2));",
+                                                    "// //     var str = context.record.get('companyPaymentValue') + '';",
+                                                    "// //     if(str.split(\".\").length > 1){",
+                                                    "// //         return (Number(context.record.get('companyPaymentValue'))  * 100).toFixed(str.split(\".\")[1].length - 2 > 0 ? str.split(\".\")[1].length - 2 : 0) + '%';",
+                                                    "// //     }",
+                                                    "// //     context.record.set('companyPaymentValue', (Number(context.record.get('companyPaymentValue'))  * 100).toFixed(2));",
+                                                    "// }",
+                                                    "// //return (Number(value)  * 100).toFixed(str.split(\".\")[1].length - 2 > 0 ? str.split(\".\")[1].length - 2 : 0) + '%';",
+                                                    "// if(context.record.get('personalPaymentType') == 'Percent'){",
+                                                    "//     context.record.set('personalPaymentValue', (Number(context.record.get('personalPaymentValue'))  * 100).toFixed(2));",
+                                                    "// }"
+                                                ],
+                                                "name": "beforeedit",
+                                                "scope": "me"
+                                            },
+                                            "name": "onRowEditingBeforeEdit",
+                                            "designerId": "72638cb0-3fc7-4025-831e-569e0392b8da"
+                                        },
+                                        {
+                                            "type": "basiceventbinding",
+                                            "reference": {
+                                                "name": "listeners",
+                                                "type": "array"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "fn": "onRowEditingCanceledit",
+                                                "implHandler": [
+                                                    "// if(context.record.get('companyPaymentType') == 'Percent'){",
+                                                    "//     context.record.set('companyPaymentValue', (Number(context.record.get('companyPaymentValue'))  * 0.01).toFixed(2));",
+                                                    "// }",
+                                                    "// if(context.record.get('personalPaymentType') == 'Percent'){",
+                                                    "//     context.record.set('personalPaymentValue', (Number(context.record.get('personalPaymentValue'))  * 0.01).toFixed(2));",
+                                                    "// }"
+                                                ],
+                                                "name": "canceledit",
+                                                "scope": "me"
+                                            },
+                                            "name": "onRowEditingCanceledit",
+                                            "designerId": "55e43271-b0f2-46cb-86a9-b30595a5c242"
+                                        },
+                                        {
+                                            "type": "basiceventbinding",
+                                            "reference": {
+                                                "name": "listeners",
+                                                "type": "array"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "fn": "onRowEditingEdit1",
+                                                "implHandler": [
+                                                    "// if(context.record.get('companyPaymentType') == 'Percent'){",
+                                                    "//     context.record.set('companyPaymentValue', (Number(context.record.get('companyPaymentValue'))  * 0.01).toFixed(2));",
+                                                    "// }",
+                                                    "// //return (Number(value)  * 100).toFixed(str.split(\".\")[1].length - 2 > 0 ? str.split(\".\")[1].length - 2 : 0) + '%';",
+                                                    "// if(context.record.get('personalPaymentType') == 'Percent'){",
+                                                    "//     context.record.set('personalPaymentValue', (Number(context.record.get('personalPaymentValue'))  * 0.01).toFixed(2));",
+                                                    "// }",
+                                                    "",
+                                                    "",
+                                                    "var grid = editor.grid,",
+                                                    "    store = grid.getStore(),",
+                                                    "    record = store.findRecord('id',context.record.get('id'));",
+                                                    "if(context.record.get('companyPaymentType') == 'Percent'){",
+                                                    "    record.set('companyPaymentValue', parseFloat(context.record.get('displayCompanyPaymentValue')) * 0.01);",
+                                                    "}else if(context.record.get('companyPaymentType') == 'Quota'){",
+                                                    "    record.set('companyPaymentValue', parseFloat(context.record.get('displayCompanyPaymentValue')));",
+                                                    "}",
+                                                    "",
+                                                    "if(context.record.get('personalPaymentType') == 'Percent'){",
+                                                    "    record.set('personalPaymentValue', parseFloat(context.record.get('displayPersonalPaymentValue')) * 0.01);",
+                                                    "}else if(context.record.get('personalPaymentType') == 'Quota'){",
+                                                    "    record.set('personalPaymentValue', parseFloat(context.record.get('displayPersonalPaymentValue')));",
+                                                    "}"
+                                                ],
+                                                "name": "edit",
+                                                "scope": "me"
+                                            },
+                                            "name": "onRowEditingEdit1",
+                                            "designerId": "88ffcd21-66e2-43cd-9e92-e0ef24de8267"
+                                        },
+                                        {
+                                            "type": "basiceventbinding",
+                                            "reference": {
+                                                "name": "listeners",
+                                                "type": "array"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "fn": "onRowEditingValidateedit1",
+                                                "implHandler": [
+                                                    ""
+                                                ],
+                                                "name": "validateedit",
+                                                "scope": "me"
+                                            },
+                                            "name": "onRowEditingValidateedit1",
+                                            "designerId": "8fd24f40-ab6f-45e8-8e65-b13d2bf12bdd"
                                         }
                                     ]
                                 }
