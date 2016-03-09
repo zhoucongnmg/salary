@@ -339,6 +339,7 @@ public class InsuredPersonController {
 			List<Object> dataList = new ArrayList<Object>();
 			Map<String, Object> meta = new HashMap<String, Object>();
 			try {
+				meta.put("personCode", Class.forName("java.lang.String"));
 				meta.put("name", Class.forName("java.lang.String"));
 				meta.put("dept", Class.forName("java.lang.String"));
 				meta.put("duty", Class.forName("java.lang.String"));
@@ -355,6 +356,7 @@ public class InsuredPersonController {
 			}
 			for (PersonAccountFile personAccountFile : list) {
 				ExportBean export = new ExportBean(meta);
+				export.setValue("personCode", personAccountFile.getPersonCode());
 				export.setValue("name", personAccountFile.getName());
 				export.setValue("dept", personAccountFile.getDept());
 				export.setValue("duty", personAccountFile.getDuty());
