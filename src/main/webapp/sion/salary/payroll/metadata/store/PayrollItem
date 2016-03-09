@@ -7,7 +7,7 @@
     "codeClass": null,
     "userConfig": {
         "designer|userClassName": "PayrollItem",
-        "model": "PayrollItem",
+        "model": null,
         "storeId": "PayrollItem"
     },
     "name": "MyStore",

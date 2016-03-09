@@ -382,15 +382,15 @@ Ext.define('sion.salary.payroll.view.DynamicGrid', {
             subGrids = me.query('grid[_subGrid=true]')||[];
 
         values.type = 'Payroll';
-        me.loadData(id,mainGrid,mainStore,values);
+        me.loadData(id,mainGrid,values,mainStore,null);
         values.query = 'Simple';
-        var levelCount = me.loadData(id,simpleGrid,simpleStore,values);
+        var levelCount = me.loadData(id,simpleGrid,values,simpleStore,null);
         mainGrid.headerCt.setHeight(levelCount*30);
         Ext.Array.each(subGrids,function(subGrid,index){
             var subStore = subGrid.getStore();
-            me.loadData(id,subGrid,subStore,{
+            me.loadData(id,subGrid,{
                 type : 'PayrollSub'
-            });
+            },store,null);
             subGrid.headerCt.setHeight(levelCount*30);
         });
     },
@@ -426,11 +426,8 @@ Ext.define('sion.salary.payroll.view.DynamicGrid', {
             mainGrid = me.down('#mainGrid'),
             form = me.down('form'),
             saveBtn = me.down('#saveBtn'),
-            simpleStore = Ext.create(ns+'.store.PayrollItem',{
-                storeId : 'simplePayrollItem'
-            }),
-            opts = me._opts,
-            store = Ext.create(ns+'.store.PayrollItem');
+            opts = me._opts;
+
 
         saveBtn.setVisible(me._canEdit);
         me.setTitle(record.get('subject'));
@@ -446,14 +443,11 @@ Ext.define('sion.salary.payroll.view.DynamicGrid', {
                 },
                 callback: function(records, operation, success) {
                     Ext.Array.each(records,function(r,index){
-                        var store = Ext.create(ns+'.store.PayrollItem',{
-                            storeId : 'payrollItem-' + r.get('id')
-                        });
                         var subGrid = me.insertGrid(r);
-                        me.loadData(id,subGrid,store,{
+                        me.loadData(id,subGrid,{
                             payrollSubId : r.getId(),
                             type : 'PayrollSub'
-                        });
+                        },null,'PayrollItem-' + r.get('id'));
                     });
 
                 }
@@ -463,9 +457,9 @@ Ext.define('sion.salary.payroll.view.DynamicGrid', {
             searchForm.hide();
         }
 
-        me.loadData(id,mainGrid,store,opts);
+        me.loadData(id,mainGrid,opts,null,'MainPayrollItem');
         opts.query = 'Simple';
-        me.loadData(id,simpleGrid,simpleStore,opts);
+        me.loadData(id,simpleGrid,opts,null,'SimplePayrollItem');
 
     },
 
@@ -493,7 +487,7 @@ Ext.define('sion.salary.payroll.view.DynamicGrid', {
         });
     },
 
-    loadData: function(id, grid, store, opts) {
+    loadData: function(id, grid, opts, store, storeId) {
         var me = this,
             gridWidth = 0,
             levelCount = 1;
@@ -505,9 +499,16 @@ Ext.define('sion.salary.payroll.view.DynamicGrid', {
                 opts : opts
             },
             success: function(response){
-                store.removeAll();
+
                 var json = Ext.JSON.decode(response.responseText);
-                store.model.setFields(json.data.fields);
+                if (store==null) {
+                    store = Ext.create(me.getNs()+'.store.PayrollItem',{
+                        storeId : storeId,
+                        fields : json.data.fields
+                    });
+                }else {
+                    store.removeAll();
+                }
                 store.add(json.data.data);
                 grid.reconfigure(store, json.data.columns);
                 me._columns = json.data.columns;
@@ -535,6 +536,7 @@ Ext.define('sion.salary.payroll.view.DynamicGrid', {
         });
 
         return levelCount;
+
     },
 
     insertGrid: function(payrollSub) {

@@ -534,15 +534,6 @@ Ext.define('sion.salary.social.view.PersonAccountForm', {
                                         },
                                         {
                                             xtype: 'gridcolumn',
-                                            renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
-                                                if(record.get('companyPaymentType') == 'Percent'){
-                                                    value = record.get('companyPaymentValue') * 100;
-                                                }else if(record.get('companyPaymentType') == 'Quota'){
-                                                    value = record.get('companyPaymentValue');
-                                                }
-                                                record.set('displayCompanyPaymentValue', value);
-                                                return value;
-                                            },
                                             dataIndex: 'displayCompanyPaymentValue',
                                             text: '单位缴费',
                                             flex: 1.25,
@@ -587,15 +578,6 @@ Ext.define('sion.salary.social.view.PersonAccountForm', {
                                         },
                                         {
                                             xtype: 'gridcolumn',
-                                            renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
-                                                if(record.get('personalPaymentType') == 'Percent'){
-                                                    value = record.get('personalPaymentValue') * 100;
-                                                }else if(record.get('personalPaymentType') == 'Quota'){
-                                                    value = record.get('personalPaymentValue');
-                                                }
-                                                record.set('displayPersonalPaymentValue', value);
-                                                return value;
-                                            },
                                             dataIndex: 'displayPersonalPaymentValue',
                                             text: '个人缴费',
                                             flex: 1.25,
@@ -635,20 +617,8 @@ Ext.define('sion.salary.social.view.PersonAccountForm', {
                                             saveBtnText: '保存',
                                             cancelBtnText: '取消',
                                             listeners: {
-                                                beforeedit: {
-                                                    fn: me.onRowEditingBeforeEdit,
-                                                    scope: me
-                                                },
-                                                canceledit: {
-                                                    fn: me.onRowEditingCanceledit,
-                                                    scope: me
-                                                },
                                                 edit: {
                                                     fn: me.onRowEditingEdit1,
-                                                    scope: me
-                                                },
-                                                validateedit: {
-                                                    fn: me.onRowEditingValidateedit1,
                                                     scope: me
                                                 }
                                             }
@@ -849,40 +819,7 @@ Ext.define('sion.salary.social.view.PersonAccountForm', {
         }
     },
 
-    onRowEditingBeforeEdit: function(editor, context, eOpts) {
-        // if(context.record.get('companyPaymentType') == 'Percent'){
-        //     context.record.set('companyPaymentValue', (Number(context.record.get('companyPaymentValue'))  * 100).toFixed(2));
-        // //     var str = context.record.get('companyPaymentValue') + '';
-        // //     if(str.split(".").length > 1){
-        // //         return (Number(context.record.get('companyPaymentValue'))  * 100).toFixed(str.split(".")[1].length - 2 > 0 ? str.split(".")[1].length - 2 : 0) + '%';
-        // //     }
-        // //     context.record.set('companyPaymentValue', (Number(context.record.get('companyPaymentValue'))  * 100).toFixed(2));
-        // }
-        // //return (Number(value)  * 100).toFixed(str.split(".")[1].length - 2 > 0 ? str.split(".")[1].length - 2 : 0) + '%';
-        // if(context.record.get('personalPaymentType') == 'Percent'){
-        //     context.record.set('personalPaymentValue', (Number(context.record.get('personalPaymentValue'))  * 100).toFixed(2));
-        // }
-    },
-
-    onRowEditingCanceledit: function(editor, context, eOpts) {
-        // if(context.record.get('companyPaymentType') == 'Percent'){
-        //     context.record.set('companyPaymentValue', (Number(context.record.get('companyPaymentValue'))  * 0.01).toFixed(2));
-        // }
-        // if(context.record.get('personalPaymentType') == 'Percent'){
-        //     context.record.set('personalPaymentValue', (Number(context.record.get('personalPaymentValue'))  * 0.01).toFixed(2));
-        // }
-    },
-
     onRowEditingEdit1: function(editor, context, eOpts) {
-        // if(context.record.get('companyPaymentType') == 'Percent'){
-        //     context.record.set('companyPaymentValue', (Number(context.record.get('companyPaymentValue'))  * 0.01).toFixed(2));
-        // }
-        // //return (Number(value)  * 100).toFixed(str.split(".")[1].length - 2 > 0 ? str.split(".")[1].length - 2 : 0) + '%';
-        // if(context.record.get('personalPaymentType') == 'Percent'){
-        //     context.record.set('personalPaymentValue', (Number(context.record.get('personalPaymentValue'))  * 0.01).toFixed(2));
-        // }
-
-
         var grid = editor.grid,
             store = grid.getStore(),
             record = store.findRecord('id',context.record.get('id'));
@@ -897,10 +834,6 @@ Ext.define('sion.salary.social.view.PersonAccountForm', {
         }else if(context.record.get('personalPaymentType') == 'Quota'){
             record.set('personalPaymentValue', parseFloat(context.record.get('displayPersonalPaymentValue')));
         }
-    },
-
-    onRowEditingValidateedit1: function(editor, context, eOpts) {
-
     },
 
     onWindowAfterRender: function(component, eOpts) {

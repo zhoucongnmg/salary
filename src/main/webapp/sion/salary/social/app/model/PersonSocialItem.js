@@ -49,12 +49,26 @@ Ext.define('sion.salary.social.model.PersonSocialItem', {
         },
         {
             convert: function(v, rec) {
+                if (v=='') {
+                    if(rec.get('companyPaymentType') == 'Percent'){
+                        v = rec.get('companyPaymentValue') * 100;
+                    }else if(rec.get('companyPaymentType') == 'Quota'){
+                        v = rec.get('companyPaymentValue');
+                    }
+                }
                 return v;
             },
             name: 'displayCompanyPaymentValue'
         },
         {
             convert: function(v, rec) {
+                if (v=='') {
+                    if(rec.get('personalPaymentType') == 'Percent'){
+                        v = rec.get('personalPaymentValue') * 100;
+                    }else if(rec.get('personalPaymentType') == 'Quota'){
+                        v = rec.get('personalPaymentValue');
+                    }
+                }
                 return v;
             },
             name: 'displayPersonalPaymentValue'

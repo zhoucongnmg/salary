@@ -422,21 +422,27 @@ public class PayrollController {
 		Payroll payroll = payrollRepository.findOne(id);
 		Account account = accountRepository.findOne(payroll.getAccountId());
 		List<AccountItem> items = account.getAccountItems();
-		List<Map<String, Object>> fields = new ArrayList<Map<String, Object>>();
 		List<Map<String, Object>> columns = new ArrayList<Map<String, Object>>();
 		List<Map<String, Object>> data = new ArrayList<Map<String, Object>>();
-		payrollItemService.fillSimpleFields(fields, opts);
 		payrollItemService.fillSimpleColumns(columns, opts);
+		
+		List<PayrollSub> payrollSubs = payrollSubRepository.findByPayrollId(id);
+		for (PayrollSub sub : payrollSubs) {
+			List<AccountItem> subAccountItems = filterAccountItems(items, sub.getItems());
+			for (AccountItem item : subAccountItems) {
+				columns.add(payrollItemService.getSubColumns(sub.getId(), item));
+			}
+		}
+		
 		for (AccountItem item : items) {
-			fields.add(payrollItemService.getFields(item));
 			columns.add(payrollItemService.getColumns(item));
 		}
 		List<PayrollItem> payrollItemList = payrollItemRepository.findByPayrollId(id);
-		data = payrollItemService.fillData(payroll, payrollItemList, account);
+		data = payrollItemService.fillData(payroll, payrollItemList, account,payrollSubs);
 		if ("create".equals(method)) {
-			payrollService.createExcel(columns, data, response);
+			payrollService.createExcel(payroll.getSubject(), columns, data, response);
 		} else if ("export".equals(method)) {
-			payrollService.exportExcel(columns, data, response);
+			payrollService.exportExcel(payroll.getSubject(), columns, data, response);
 		}
 	}
 	
