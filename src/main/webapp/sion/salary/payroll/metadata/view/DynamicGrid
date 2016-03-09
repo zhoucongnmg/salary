@@ -554,13 +554,13 @@
                                     "me.loadData(id,mainGrid,mainStore,values);",
                                     "values.query = 'Simple';",
                                     "var levelCount = me.loadData(id,simpleGrid,simpleStore,values);",
-                                    "mainGrid.getHeader().setHeight(levelCount*30);",
+                                    "mainGrid.headerCt.setHeight(levelCount*30);",
                                     "Ext.Array.each(subGrids,function(subGrid,index){",
                                     "    var subStore = subGrid.getStore();",
                                     "    me.loadData(id,subGrid,subStore,{",
                                     "        type : 'PayrollSub'",
                                     "    });",
-                                    "    subGrid.getHeader().setHeight(levelCount*30);",
+                                    "    subGrid.headerCt.setHeight(levelCount*30);",
                                     "});"
                                 ],
                                 "name": "click",
@@ -646,6 +646,7 @@
                         "autoScroll": null,
                         "emptyText": "无工资条数据",
                         "itemId": "mainGrid",
+                        "store": null,
                         "title": null,
                         "width": 1050
                     },
@@ -665,7 +666,49 @@
                                 "text": null
                             },
                             "name": "MyColumn12",
-                            "designerId": "0d7fb256-86ed-4a22-944b-c85d59b23bdd"
+                            "designerId": "0d7fb256-86ed-4a22-944b-c85d59b23bdd",
+                            "cn": [
+                                {
+                                    "type": "Ext.grid.column.Column",
+                                    "reference": {
+                                        "name": "columns",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "dataIndex": "name",
+                                        "text": "MyColumn3"
+                                    },
+                                    "name": "MyColumn3",
+                                    "designerId": "d3991079-b0ec-4bf6-97a9-4ff28d2c9a4e",
+                                    "cn": [
+                                        {
+                                            "type": "Ext.form.field.Text",
+                                            "reference": {
+                                                "name": "editor",
+                                                "type": "object"
+                                            },
+                                            "codeClass": null,
+                                            "name": "MyTextField4",
+                                            "designerId": "0292173d-7d95-47c4-8cfd-ca4144cf9ca1"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "Ext.grid.column.Column",
+                                    "reference": {
+                                        "name": "columns",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "dataIndex": "age",
+                                        "text": "MyColumn13"
+                                    },
+                                    "name": "MyColumn13",
+                                    "designerId": "24ee5d28-345d-46ee-95db-c3a8b44aa990"
+                                }
+                            ]
                         },
                         {
                             "type": "Ext.grid.View",
@@ -817,7 +860,8 @@
                     "",
                     "me.loadData(id,mainGrid,store,opts);",
                     "opts.query = 'Simple';",
-                    "me.loadData(id,simpleGrid,simpleStore,opts);"
+                    "me.loadData(id,simpleGrid,simpleStore,opts);",
+                    ""
                 ],
                 "name": "beforerender",
                 "scope": "me"
@@ -901,11 +945,11 @@
                     "        Ext.Array.each(me._columns,function(column,index){",
                     "            if (column.columns) {",
                     "                var columnWidth = 0;",
-                    "                  if (levelCount!=2) levelCount=2;",
+                    "                  if (levelCount<2) levelCount=2;",
                     "                  Ext.Array.each(column.columns,function(c_column,index){",
                     "                      if (c_column.columns) {",
-                    "                          if (levelCount!=3) levelCount=3;",
-                    "                          columnWidth+=c_column.columns*66;",
+                    "                          if (levelCount<3) levelCount=3;",
+                    "                          columnWidth+=c_column.columns.length*66-2;",
                     "                      }else {",
                     "                          columnWidth+=100;",
                     "                      }",

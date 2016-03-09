@@ -190,30 +190,39 @@ public class PayrollItemService {
 			if ("on".equals(opts.get("showCompanySocial"))||"on".equals(opts.get("showPersonalSocial"))) {
 				List<SocialItem> socialItems = socialItemRepository.findByItem(ItemType.SocialItem);
 				for (SocialItem item : socialItems) {
+					/*
 					map = new HashMap<String, Object>();
 					map.put("name", item.getId() + "-cardinality");
 					map.put("type", "double");
 					fields.add(map);
-					
+					*/
 					if ("on".equals(opts.get("showCompanySocial"))) {
 						map = new HashMap<String, Object>();
+						map.put("name", item.getId() + "-companyCardinality");
+						map.put("type", "float");
+						fields.add(map);
+						map = new HashMap<String, Object>();
 						map.put("name", item.getId() + "-companyPaymentValue");
-						map.put("type", "double");
+						map.put("type", "float");
 						fields.add(map);
 						map = new HashMap<String, Object>();
 						map.put("name", item.getId() + "-companyPaymentFinalValue");
-						map.put("type", "double");
+						map.put("type", "float");
 						fields.add(map);
 					}
 					
 					if ("on".equals(opts.get("showPersonalSocial"))) {
 						map = new HashMap<String, Object>();
+						map.put("name", item.getId() + "-personalCardinality");
+						map.put("type", "float");
+						fields.add(map);
+						map = new HashMap<String, Object>();
 						map.put("name", item.getId() + "-personalPaymentValue");
-						map.put("type", "double");
+						map.put("type", "float");
 						fields.add(map);
 						map = new HashMap<String, Object>();
 						map.put("name", item.getId() + "-personalPaymentFinalValue");
-						map.put("type", "double");
+						map.put("type", "float");
 						fields.add(map);
 					}
 				}
@@ -259,16 +268,14 @@ public class PayrollItemService {
 
 	public List<Map<String, Object>> fillSimpleColumns(List<Map<String, Object>> columns,Map<String,String> opts) {
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("header", "员工编号");
+		map.put("text", "员工编号");
 		map.put("dataIndex", "personCode");
 		map.put("coltype", "readonly");
-		map.put("dataType", "simple");
 		columns.add(map);
 		map = new HashMap<String, Object>();
-		map.put("header", "姓名");
+		map.put("text", "姓名");
 		map.put("dataIndex", "name");
 		map.put("coltype", "readonly");
-		map.put("dataType", "simple");
 		columns.add(map);
 		
 		if (opts!=null) {
@@ -276,35 +283,39 @@ public class PayrollItemService {
 				List<SocialItem> socialItems = socialItemRepository.findByItem(ItemType.SocialItem);
 				for (SocialItem item : socialItems) {
 					map = new HashMap<String, Object>();
-					map.put("header", item.getName());
+					map.put("text", item.getName());
 					map.put("dataIndex", "string");
 					
 					List<Map<String,Object>> socialColumns = new ArrayList<Map<String,Object>>();
 					
 					Map<String,Object> socialColumn = new HashMap<String, Object>();
-					socialColumn.put("header", "基数");
-					socialColumn.put("dataIndex", item.getId() +"-cardinality");
-					socialColumns.add(socialColumn);
+//					socialColumn.put("text", "基数");
+//					socialColumn.put("dataIndex", item.getId() +"-cardinality");
+//					socialColumns.add(socialColumn);
 					if ("on".equals(opts.get("showCompanySocial"))) {
 						socialColumn = new HashMap<String, Object>();
-						socialColumn.put("header", "单位");
+						socialColumn.put("text", "单位");
 						socialColumn.put("dataIndex", "string");
 						
 						List<Map<String,Object>> companySocialColumns = new ArrayList<Map<String,Object>>();
 						
 						Map<String,Object> companySocialColumn = new HashMap<String, Object>();
-						companySocialColumn.put("header", "比例");
+						companySocialColumn.put("text", "基数");
+						companySocialColumn.put("dataIndex", item.getId() +"-companyCardinality");
+						companySocialColumn.put("flex", 1);
+						companySocialColumn.put("coltype", "readonly");
+						companySocialColumns.add(companySocialColumn);
+						companySocialColumn = new HashMap<String, Object>();
+						companySocialColumn.put("text", "比例");
 						companySocialColumn.put("dataIndex", item.getId() +"-companyPaymentValue");
 						companySocialColumn.put("flex", 1);
 						companySocialColumn.put("coltype", "readonly");
-						companySocialColumn.put("dataType", "simple");
 						companySocialColumns.add(companySocialColumn);
 						companySocialColumn = new HashMap<String, Object>();
-						companySocialColumn.put("header", "金额");
+						companySocialColumn.put("text", "金额");
 						companySocialColumn.put("dataIndex", item.getId() +"-companyPaymentFinalValue");
 						companySocialColumn.put("flex", 1);
 						companySocialColumn.put("coltype", "readonly");
-						companySocialColumn.put("dataType", "simple");
 						companySocialColumns.add(companySocialColumn);
 						
 						socialColumn.put("columns", companySocialColumns);
@@ -313,24 +324,28 @@ public class PayrollItemService {
 					
 					if ("on".equals(opts.get("showPersonalSocial"))) {
 						socialColumn = new HashMap<String, Object>();
-						socialColumn.put("header", "个人");
+						socialColumn.put("text", "个人");
 						socialColumn.put("dataIndex", "string");
 						
 						List<Map<String,Object>> personalSocialColumns = new ArrayList<Map<String,Object>>();
 						
 						Map<String,Object> personalSocialColumn = new HashMap<String, Object>();
-						personalSocialColumn.put("header", "比例");
+						personalSocialColumn.put("text", "基数");
+						personalSocialColumn.put("dataIndex", item.getId() +"-personalCardinality");
+						personalSocialColumn.put("flex", 1);
+						personalSocialColumn.put("coltype", "readonly");
+						personalSocialColumns.add(personalSocialColumn);
+						personalSocialColumn = new HashMap<String, Object>();
+						personalSocialColumn.put("text", "比例");
 						personalSocialColumn.put("dataIndex", item.getId() +"-personalPaymentValue");
 						personalSocialColumn.put("flex", 1);
 						personalSocialColumn.put("coltype", "readonly");
-						personalSocialColumn.put("dataType", "simple");
 						personalSocialColumns.add(personalSocialColumn);
 						personalSocialColumn = new HashMap<String, Object>();
-						personalSocialColumn.put("header", "金额");
+						personalSocialColumn.put("text", "金额");
 						personalSocialColumn.put("dataIndex", item.getId() +"-personalPaymentFinalValue");
 						personalSocialColumn.put("flex", 1);
 						personalSocialColumn.put("coltype", "readonly");
-						personalSocialColumn.put("dataType", "simple");
 						personalSocialColumns.add(personalSocialColumn);
 						
 						socialColumn.put("columns", personalSocialColumns);
@@ -345,49 +360,43 @@ public class PayrollItemService {
 			
 			if ("on".equals(opts.get("showDept"))) {
 				map = new HashMap<String, Object>();
-				map.put("header", "职务");
+				map.put("text", "职务");
 				map.put("dataIndex", "duty");
 				map.put("coltype", "readonly");
-				map.put("dataType", "simple");
 				columns.add(map);
 				map = new HashMap<String, Object>();
-				map.put("header", "部门");
+				map.put("name", "部门");
 				map.put("dataIndex", "dept");
 				map.put("coltype", "readonly");
-				map.put("dataType", "simple");
 				columns.add(map);
 			}
 			
 			if ("on".equals(opts.get("showIdCard"))) {
 				map = new HashMap<String, Object>();
-				map.put("header", "身份证号");
+				map.put("text", "身份证号");
 				map.put("dataIndex", "idCard");
 				map.put("coltype", "readonly");
-				map.put("dataType", "simple");
 				columns.add(map);
 			}
 			
 			if ("on".equals(opts.get("showBank"))) {
 				
 				map = new HashMap<String, Object>();
-				map.put("header", "银行");
+				map.put("text", "银行");
 				map.put("dataIndex", "bank");
 				map.put("coltype", "readonly");
-				map.put("dataType", "simple");
 				columns.add(map);
 				
 				map = new HashMap<String, Object>();
-				map.put("header", "开户行");
+				map.put("text", "开户行");
 				map.put("dataIndex", "bankOfDeposit");
 				map.put("coltype", "readonly");
-				map.put("dataType", "simple");
 				columns.add(map);
 				
 				map = new HashMap<String, Object>();
-				map.put("header", "银行账号");
+				map.put("text", "银行账号");
 				map.put("dataIndex", "bankAccount");
 				map.put("coltype", "readonly");
-				map.put("dataType", "simple");
 				columns.add(map);
 			}
 		}
@@ -397,7 +406,7 @@ public class PayrollItemService {
 
 	public List<Map<String, Object>> fillData(Payroll payroll, List<PayrollItem> items, Account account) {
 		
-		List<Map<String, Object>> data = new ArrayList<Map<String, Object>>(); 
+		List<Map<String, Object>> data = new ArrayList<Map<String, Object>>();
 		
 		Set<String> personIds = payroll.getPersons().keySet();
 		if (personIds.size()>0) {
@@ -410,12 +419,10 @@ public class PayrollItemService {
 					Map<String,SocialAccountItem> socialAccountItemMap = personExtension.getItems();
 					for (Map.Entry<String, SocialAccountItem> entry : socialAccountItemMap.entrySet()) {
 						SocialAccountItem socialItem = entry.getValue();
-//						itemMap.put(socialItem.getSocialItemId()+"-cardinality", socialItem.getCardinality());
-						itemMap.put(socialItem.getSocialItemId()+"-personalCardinality", socialItem.getPersonalCardinality());
 						itemMap.put(socialItem.getSocialItemId()+"-companyCardinality", socialItem.getCompanyCardinality());
-						
 						itemMap.put(socialItem.getSocialItemId()+"-companyPaymentValue", socialItem.getCompanyPaymentValue());
 						itemMap.put(socialItem.getSocialItemId()+"-companyPaymentFinalValue", socialItem.getCompanyPaymentFinalValue());
+						itemMap.put(socialItem.getSocialItemId()+"-personalCardinality", socialItem.getPersonalCardinality());
 						itemMap.put(socialItem.getSocialItemId()+"-personalPaymentValue", socialItem.getPersonalPaymentValue());
 						itemMap.put(socialItem.getSocialItemId()+"-personalPaymentFinalValue", socialItem.getPersonalPaymentFinalValue());
 					}
@@ -441,9 +448,8 @@ public class PayrollItemService {
 		switch (item.getType()) {
 		case Input:
 			Map<String, String> editor = new HashMap<String, String>();
-			editor.put("xtype", "textfield");
+			editor.put("xtype", "numberfield");
 			editor.put("name", item.getSalaryItemId());
-			editor.put("allowBlank", "false");
 			map.put("editor", editor);
 			map.put("coltype", "input");
 			break;
@@ -453,7 +459,7 @@ public class PayrollItemService {
 			map.put("coltype", "readonly");
 		}
 
-		map.put("header", item.getName());
+		map.put("text", item.getName());
 		map.put("dataIndex", item.getSalaryItemId());
 		return map;
 	}
