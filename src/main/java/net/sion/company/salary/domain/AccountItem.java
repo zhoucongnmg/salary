@@ -30,6 +30,10 @@ public class AccountItem extends SalaryItem {
 //		Calculate,
 //		System
 //	}
+	public boolean existSalaryItemId(){
+		
+		return false;
+	}
 	public String getTaxId() {
 		return taxId;
 	}

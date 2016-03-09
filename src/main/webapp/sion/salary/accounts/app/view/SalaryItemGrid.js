@@ -123,9 +123,15 @@ Ext.define('sion.salary.accounts.view.SalaryItemGrid', {
                                                 id : record.get('id')
                                             },//发送json对象
                                             success:function(response,action){
-                                                store.load();
+                                                var text = JSON.parse(response.responseText);
+                                                if(!text.success){
+                                                    Ext.Msg.alert("提示", text.message);
+                                                }else{
+                                                    Ext.Msg.alert("提示", "删除成功");
+                                                    store.load();
+                                                }
                                                 //                 me.resetGridSelect(record);
-                                                Ext.Msg.alert("提示", "删除成功");
+
                                             },failure: function(){
                                                 store.load();
                                                 //                 me.resetGridSelect(record);
