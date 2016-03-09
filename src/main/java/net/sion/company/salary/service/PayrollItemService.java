@@ -397,7 +397,7 @@ public class PayrollItemService {
 
 	public List<Map<String, Object>> fillData(Payroll payroll, List<PayrollItem> items, Account account) {
 		
-		List<Map<String, Object>> data = new ArrayList<Map<String, Object>>();
+		List<Map<String, Object>> data = new ArrayList<Map<String, Object>>(); 
 		
 		Set<String> personIds = payroll.getPersons().keySet();
 		if (personIds.size()>0) {
