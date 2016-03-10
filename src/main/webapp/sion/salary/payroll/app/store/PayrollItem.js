@@ -17,7 +17,6 @@ Ext.define('sion.salary.payroll.store.PayrollItem', {
     extend: 'Ext.data.Store',
 
     requires: [
-        'sion.salary.payroll.model.PayrollItem',
         'Ext.data.proxy.Ajax',
         'Ext.data.writer.Json',
         'Ext.data.reader.Json'
@@ -27,7 +26,6 @@ Ext.define('sion.salary.payroll.store.PayrollItem', {
         var me = this;
         cfg = cfg || {};
         me.callParent([Ext.apply({
-            model: 'sion.salary.payroll.model.PayrollItem',
             storeId: 'PayrollItem',
             proxy: {
                 type: 'ajax',

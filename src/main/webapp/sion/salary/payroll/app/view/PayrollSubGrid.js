@@ -25,7 +25,6 @@ Ext.define('sion.salary.payroll.view.PayrollSubGrid', {
     itemId: 'mainGrid1',
     autoScroll: true,
     emptyText: '无工资条数据',
-    store: 'PayrollItem',
 
     initComponent: function() {
         var me = this;

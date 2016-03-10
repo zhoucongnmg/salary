@@ -10,7 +10,7 @@
         "designer|userClassName": "PayrollSubGrid",
         "emptyText": "无工资条数据",
         "itemId": "mainGrid1",
-        "store": "PayrollItem",
+        "store": null,
         "title": null
     },
     "name": "MyGridPanel2",

@@ -226,7 +226,7 @@ Ext.define('sion.salary.accounts.view.SalaryPlan', {
             async: false,    //不使用异步
             params: {
                 id: record.get('id'),
-                name: me.down('#name').getValue()
+                name: me.down('#name').getValue(),
             },
             success: function(response, opts){
                 var data = Ext.JSON.decode(response.responseText);

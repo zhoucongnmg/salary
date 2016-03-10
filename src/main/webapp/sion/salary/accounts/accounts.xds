@@ -27,7 +27,7 @@
         "displayfield-ExtBox1-1127-inputEl": "a new version of the framework is available"
     },
     "xdsVersion": "3.2.0",
-    "xdsBuild": 75,
+    "xdsBuild": 239,
     "schemaVersion": 1,
     "upgradeVersion": 310000000001,
     "framework": "ext42",

@@ -1460,37 +1460,6 @@
                                             "codeClass": null,
                                             "name": "MyNumberField5",
                                             "designerId": "a66f07f0-2e90-48d0-8663-7921822bd4a0"
-                                        },
-                                        {
-                                            "type": "fixedfunction",
-                                            "reference": {
-                                                "name": "items",
-                                                "type": "array"
-                                            },
-                                            "codeClass": null,
-                                            "userConfig": {
-                                                "designer|params": [
-                                                    "value",
-                                                    "metaData",
-                                                    "record",
-                                                    "rowIndex",
-                                                    "colIndex",
-                                                    "store",
-                                                    "view"
-                                                ],
-                                                "fn": "renderer",
-                                                "implHandler": [
-                                                    "if(record.get('companyPaymentType') == 'Percent'){",
-                                                    "    value = record.get('companyPaymentValue') * 100;",
-                                                    "}else if(record.get('companyPaymentType') == 'Quota'){",
-                                                    "    value = record.get('companyPaymentValue');",
-                                                    "}",
-                                                    "record.set('displayCompanyPaymentValue', value);",
-                                                    "return value;"
-                                                ]
-                                            },
-                                            "name": "renderer",
-                                            "designerId": "9ce47c2f-6c29-437e-8899-1c3454a60eef"
                                         }
                                     ]
                                 },
@@ -1610,37 +1579,6 @@
                                             "codeClass": null,
                                             "name": "MyNumberField6",
                                             "designerId": "15ab58d3-9ba6-49de-bf65-44b1fc6adc65"
-                                        },
-                                        {
-                                            "type": "fixedfunction",
-                                            "reference": {
-                                                "name": "items",
-                                                "type": "array"
-                                            },
-                                            "codeClass": null,
-                                            "userConfig": {
-                                                "designer|params": [
-                                                    "value",
-                                                    "metaData",
-                                                    "record",
-                                                    "rowIndex",
-                                                    "colIndex",
-                                                    "store",
-                                                    "view"
-                                                ],
-                                                "fn": "renderer",
-                                                "implHandler": [
-                                                    "if(record.get('personalPaymentType') == 'Percent'){",
-                                                    "    value = record.get('personalPaymentValue') * 100;",
-                                                    "}else if(record.get('personalPaymentType') == 'Quota'){",
-                                                    "    value = record.get('personalPaymentValue');",
-                                                    "}",
-                                                    "record.set('displayPersonalPaymentValue', value);",
-                                                    "return value;"
-                                                ]
-                                            },
-                                            "name": "renderer",
-                                            "designerId": "ed9d9ac3-6973-4f84-9513-9c893ee33b01"
                                         }
                                     ]
                                 },
@@ -1753,69 +1691,8 @@
                                             },
                                             "codeClass": null,
                                             "userConfig": {
-                                                "fn": "onRowEditingBeforeEdit",
-                                                "implHandler": [
-                                                    "// if(context.record.get('companyPaymentType') == 'Percent'){",
-                                                    "//     context.record.set('companyPaymentValue', (Number(context.record.get('companyPaymentValue'))  * 100).toFixed(2));",
-                                                    "// //     var str = context.record.get('companyPaymentValue') + '';",
-                                                    "// //     if(str.split(\".\").length > 1){",
-                                                    "// //         return (Number(context.record.get('companyPaymentValue'))  * 100).toFixed(str.split(\".\")[1].length - 2 > 0 ? str.split(\".\")[1].length - 2 : 0) + '%';",
-                                                    "// //     }",
-                                                    "// //     context.record.set('companyPaymentValue', (Number(context.record.get('companyPaymentValue'))  * 100).toFixed(2));",
-                                                    "// }",
-                                                    "// //return (Number(value)  * 100).toFixed(str.split(\".\")[1].length - 2 > 0 ? str.split(\".\")[1].length - 2 : 0) + '%';",
-                                                    "// if(context.record.get('personalPaymentType') == 'Percent'){",
-                                                    "//     context.record.set('personalPaymentValue', (Number(context.record.get('personalPaymentValue'))  * 100).toFixed(2));",
-                                                    "// }"
-                                                ],
-                                                "name": "beforeedit",
-                                                "scope": "me"
-                                            },
-                                            "name": "onRowEditingBeforeEdit",
-                                            "designerId": "72638cb0-3fc7-4025-831e-569e0392b8da"
-                                        },
-                                        {
-                                            "type": "basiceventbinding",
-                                            "reference": {
-                                                "name": "listeners",
-                                                "type": "array"
-                                            },
-                                            "codeClass": null,
-                                            "userConfig": {
-                                                "fn": "onRowEditingCanceledit",
-                                                "implHandler": [
-                                                    "// if(context.record.get('companyPaymentType') == 'Percent'){",
-                                                    "//     context.record.set('companyPaymentValue', (Number(context.record.get('companyPaymentValue'))  * 0.01).toFixed(2));",
-                                                    "// }",
-                                                    "// if(context.record.get('personalPaymentType') == 'Percent'){",
-                                                    "//     context.record.set('personalPaymentValue', (Number(context.record.get('personalPaymentValue'))  * 0.01).toFixed(2));",
-                                                    "// }"
-                                                ],
-                                                "name": "canceledit",
-                                                "scope": "me"
-                                            },
-                                            "name": "onRowEditingCanceledit",
-                                            "designerId": "55e43271-b0f2-46cb-86a9-b30595a5c242"
-                                        },
-                                        {
-                                            "type": "basiceventbinding",
-                                            "reference": {
-                                                "name": "listeners",
-                                                "type": "array"
-                                            },
-                                            "codeClass": null,
-                                            "userConfig": {
                                                 "fn": "onRowEditingEdit1",
                                                 "implHandler": [
-                                                    "// if(context.record.get('companyPaymentType') == 'Percent'){",
-                                                    "//     context.record.set('companyPaymentValue', (Number(context.record.get('companyPaymentValue'))  * 0.01).toFixed(2));",
-                                                    "// }",
-                                                    "// //return (Number(value)  * 100).toFixed(str.split(\".\")[1].length - 2 > 0 ? str.split(\".\")[1].length - 2 : 0) + '%';",
-                                                    "// if(context.record.get('personalPaymentType') == 'Percent'){",
-                                                    "//     context.record.set('personalPaymentValue', (Number(context.record.get('personalPaymentValue'))  * 0.01).toFixed(2));",
-                                                    "// }",
-                                                    "",
-                                                    "",
                                                     "var grid = editor.grid,",
                                                     "    store = grid.getStore(),",
                                                     "    record = store.findRecord('id',context.record.get('id'));",
@@ -1836,24 +1713,6 @@
                                             },
                                             "name": "onRowEditingEdit1",
                                             "designerId": "88ffcd21-66e2-43cd-9e92-e0ef24de8267"
-                                        },
-                                        {
-                                            "type": "basiceventbinding",
-                                            "reference": {
-                                                "name": "listeners",
-                                                "type": "array"
-                                            },
-                                            "codeClass": null,
-                                            "userConfig": {
-                                                "fn": "onRowEditingValidateedit1",
-                                                "implHandler": [
-                                                    ""
-                                                ],
-                                                "name": "validateedit",
-                                                "scope": "me"
-                                            },
-                                            "name": "onRowEditingValidateedit1",
-                                            "designerId": "8fd24f40-ab6f-45e8-8e65-b13d2bf12bdd"
                                         }
                                     ]
                                 }

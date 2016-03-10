@@ -19,15 +19,14 @@ import net.sion.company.salary.domain.PersonExtension;
 import net.sion.company.salary.domain.SalaryItem.SalaryItemType;
 import net.sion.company.salary.domain.SocialAccountItem;
 import net.sion.company.salary.domain.SocialItem;
-import net.sion.company.salary.domain.SocialItem.SocialItemType;
 import net.sion.company.salary.domain.SystemSalaryItem;
 import net.sion.company.salary.event.SystemSalaryItemPublisher;
 import net.sion.company.salary.sessionrepository.AccountRepository;
+import net.sion.company.salary.sessionrepository.PayrollItemRepository;
 import net.sion.company.salary.sessionrepository.PersonAccountFileRepository;
 import net.sion.company.salary.sessionrepository.SocialItemRepository;
 import net.sion.company.salary.sessionrepository.SystemSalaryItemRepository;
 
-import org.apache.commons.collections.map.LinkedMap;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -61,6 +60,9 @@ public class PayrollItemService {
 	
 	@Autowired
 	SystemSalaryItemPublisher publisher;
+	
+	@Autowired
+	PayrollItemRepository payrollItemRepository;
 	
 	
 	public List<PayrollItem> generatePayrollItem(Payroll payroll,Set<String> personIds) {
@@ -435,6 +437,65 @@ public class PayrollItemService {
 
 		return data;
 	}
+	
+	public List<Map<String, Object>> fillData(Payroll payroll, List<PayrollItem> items, Account account, List<PayrollSub> subs) {
+		
+		List<Map<String, Object>> data = new ArrayList<Map<String, Object>>();
+		
+		Set<String> personIds = payroll.getPersons().keySet();
+		if (personIds.size()>0) {
+			Map<String, PersonExtension<SocialAccountItem>> personSocialMap = socialService.getSocialAccountByPersons(personIds);
+			
+			Map<String,List<PayrollItem>> personSubItemsMap = new HashMap<String,List<PayrollItem>>();
+			if (subs!=null) {
+				for (PayrollSub sub : subs) {
+					List<PayrollItem> subItems = payrollItemRepository.findByPayrollId(sub.getId());
+					for (PayrollItem item :  subItems) {
+						List<PayrollItem> personSubItems = personSubItemsMap.get(item.getPersonId());
+						if (personSubItems==null) {
+							personSubItems = new ArrayList<PayrollItem>(); 
+						}
+						personSubItems.add(item);
+						personSubItemsMap.put(item.getPersonId(),personSubItems);
+					}
+				}
+			}	
+			
+			
+			for (PayrollItem item : items) {
+				Map<String,Object> itemMap = item.parseMap();
+				PersonExtension<SocialAccountItem> personExtension = personSocialMap.get(item.getPersonId());
+				if (personExtension!=null) {
+					Map<String,SocialAccountItem> socialAccountItemMap = personExtension.getItems();
+					for (Map.Entry<String, SocialAccountItem> entry : socialAccountItemMap.entrySet()) {
+						SocialAccountItem socialItem = entry.getValue();
+						itemMap.put(socialItem.getSocialItemId()+"-companyCardinality", socialItem.getCompanyCardinality());
+						itemMap.put(socialItem.getSocialItemId()+"-companyPaymentValue", socialItem.getCompanyPaymentValue());
+						itemMap.put(socialItem.getSocialItemId()+"-companyPaymentFinalValue", socialItem.getCompanyPaymentFinalValue());
+						itemMap.put(socialItem.getSocialItemId()+"-personalCardinality", socialItem.getPersonalCardinality());
+						itemMap.put(socialItem.getSocialItemId()+"-personalPaymentValue", socialItem.getPersonalPaymentValue());
+						itemMap.put(socialItem.getSocialItemId()+"-personalPaymentFinalValue", socialItem.getPersonalPaymentFinalValue());
+					}
+				}
+				
+				List<PayrollItem> personSubItems = personSubItemsMap.get(item.getPersonId());
+				if (personSubItems!=null) {
+					for (PayrollItem subItem : personSubItems) {
+						Map<String,Double> values = subItem.getValues();
+						for (Map.Entry<String, Double> entry : values.entrySet()) {
+							String key = entry.getKey();
+							Double value = entry.getValue();
+							itemMap.put(subItem.getPayrollId() + "-" + key, value);
+						}
+					}
+				}
+				data.add(itemMap);
+			}
+		}
+		
+
+		return data;
+	}
 
 	public Map<String, Object> getFields(AccountItem item) {
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -442,7 +503,7 @@ public class PayrollItemService {
 		map.put("type", "float");
 		return map;
 	}
-
+	
 	public Map<String, Object> getColumns(AccountItem item) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		switch (item.getType()) {
@@ -450,6 +511,7 @@ public class PayrollItemService {
 			Map<String, String> editor = new HashMap<String, String>();
 			editor.put("xtype", "numberfield");
 			editor.put("name", item.getSalaryItemId());
+			editor.put("allowBlank", "false");
 			map.put("editor", editor);
 			map.put("coltype", "input");
 			break;
@@ -463,4 +525,13 @@ public class PayrollItemService {
 		map.put("dataIndex", item.getSalaryItemId());
 		return map;
 	}
+	
+	public Map<String, Object> getSubColumns(String payrollSubId, AccountItem item) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("text", item.getName());
+		map.put("dataIndex", payrollSubId + "-" + item.getSalaryItemId());
+		return map;
+	}
+	
 }

@@ -1,10 +1,9 @@
 package net.sion.company.salary.service;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -22,13 +21,13 @@ public class PayrollService {
 	@Autowired ApplicationContext ctx;
 	@Autowired AsposeUtil asposeUtil;
 	
-	public  String exportExcel(List<Map<String, Object>> columns, List<Map<String, Object>> datas, HttpServletResponse response) throws IOException{
+	public  String exportExcel(String fileName, List<Map<String, Object>> columns, List<Map<String, Object>> datas, HttpServletResponse response) throws IOException{
 		String serverPath = ctx.getResource("/").getFile().getPath();
 		List<List<Object>> list = new ArrayList<List<Object>>();
 		List<String> columnDataIndex = new ArrayList<String>();
 		List<Object> columnHeader = new ArrayList<Object>();
 		for(Map<String, Object> column : columns){
-			columnHeader.add(column.get("header").toString());
+			columnHeader.add(column.get("text").toString());
 			columnDataIndex.add(column.get("dataIndex").toString());
 		}
 		list.add(columnHeader);
@@ -45,16 +44,16 @@ public class PayrollService {
 		}
 		String filePath = asposeUtil.createExcelSimple(list, "Sheet1", serverPath, "xls");
 		File file = new File(filePath);
-		FileUtil.download(file, false, response);
+		FileUtil.download(fileName, new FileInputStream(file), response);
 		return filePath;
 	}
-	public  String createExcel(List<Map<String, Object>> columns, List<Map<String, Object>> datas, HttpServletResponse response) throws IOException{
+	public  String createExcel(String fileName,List<Map<String, Object>> columns, List<Map<String, Object>> datas, HttpServletResponse response) throws IOException{
 		String serverPath = ctx.getResource("/").getFile().getPath();
 		List<List<Object>> list = new ArrayList<List<Object>>();
 		List<String> columnDataIndex = new ArrayList<String>();
 		List<Object> columnHeader = new ArrayList<Object>();
 		for(Map<String, Object> column : columns){
-			columnHeader.add(column.get("header").toString());
+			columnHeader.add(column.get("text").toString());
 			columnDataIndex.add(column.get("dataIndex").toString());
 		}
 		
@@ -73,7 +72,8 @@ public class PayrollService {
 		}
 		String filePath = asposeUtil.createExcelSimple(list, "Sheet1", serverPath, "xls");
 		File file = new File(filePath);
-		FileUtil.download(file, false, response);
+		
+		FileUtil.download(fileName, new FileInputStream(file), response);
 		return filePath;
 	}
 }

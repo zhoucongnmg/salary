@@ -4,19 +4,16 @@
 package net.sion.company.salary.web;
 
 import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.EnumSet;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
 import net.sion.boot.mongo.template.SessionMongoTemplate;
-import net.sion.company.salary.domain.SalaryItem;
+import net.sion.company.salary.domain.Account;
 import net.sion.company.salary.domain.Item.ItemType;
-import net.sion.company.salary.domain.SalaryItem.SalaryItemType;
+import net.sion.company.salary.domain.Level;
+import net.sion.company.salary.domain.SalaryItem;
+import net.sion.company.salary.sessionrepository.LevelRepository;
 import net.sion.company.salary.sessionrepository.SalaryItemRepository;
 import net.sion.util.mvc.Response;
 
@@ -40,6 +37,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class SalaryItemController {
 	@Autowired SalaryItemRepository salaryItemRepository;
 	@Autowired SessionMongoTemplate mongoTemplate; 
+	@Autowired LevelRepository levelRepository;
 	/*
 	private List<SalaryItem> getSalaryItemSystem(){
 		List<SalaryItem> list = new ArrayList();
@@ -49,6 +47,24 @@ public class SalaryItemController {
 		return list;
 	}
 */
+	//判断薪资方案中是否有该薪资项目
+	public boolean existSalaryItemAccount(@RequestBody String id){
+		Query query = new Query(Criteria.where("accountItems.salaryItemId").is(id));
+		List <Account> pagelist = mongoTemplate.find(query, Account.class);
+		return pagelist.size() > 0 ? true : false;
+	}
+	//判断薪资层次中是否有该薪资项目
+	public boolean existSalaryItemLevel(@RequestBody String id){
+		boolean value = false;
+		List<Level> list = levelRepository.findAll();
+		for(Level level : list){
+			if(level.existSalaryItemId(id)){
+				value = true;
+				break;
+			}
+		}
+		return value;
+	}
 	@RequestMapping(value = "create")
 	public @ResponseBody Response create(@RequestBody SalaryItem item, HttpSession session) {
 //		item.setItem(ItemType.SalaryItem);
@@ -68,6 +84,14 @@ public class SalaryItemController {
 	
 	@RequestMapping(value="remove")
 	public @ResponseBody  Response remove(@RequestParam String id) {
+		boolean existAccount = existSalaryItemAccount(id);
+		if(existAccount){
+			return new Response("薪资方案中使用了该项目，不可删除", false);
+		}
+		boolean existLevel = existSalaryItemLevel(id);
+		if(existLevel){
+			return new Response("薪资层次中使用了该项目，不可删除", false);
+		}
 		salaryItemRepository.delete(id);
 		return new Response(true);
 	}
