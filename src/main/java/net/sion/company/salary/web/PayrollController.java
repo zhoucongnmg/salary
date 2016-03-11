@@ -311,9 +311,10 @@ public class PayrollController {
 	 * @throws IOException
 	 */
 	@RequestMapping(value = "exportItemList")
-	public void exportItemList(HttpServletResponse response, @RequestParam String id, @RequestParam String optsId)
+	public Response exportItemList(HttpServletResponse response, @RequestParam String id, @RequestParam String optsId)
 			throws IOException {
 		createExcel("export", id, optsId, response);
+		return new Response(true);
 	}
 
 	/**
@@ -321,9 +322,10 @@ public class PayrollController {
 	 * @throws IOException
 	 */
 	@RequestMapping(value = "createPayrollExcel")
-	public void createPayrollExcel(HttpServletResponse response, @RequestParam String id, @RequestParam String optsId)
+	public Response createPayrollExcel(HttpServletResponse response, @RequestParam String id, @RequestParam String optsId)
 			throws IOException {
 		createExcel("create", id, optsId, response);
+		return new Response(true);
 	}
 	
 

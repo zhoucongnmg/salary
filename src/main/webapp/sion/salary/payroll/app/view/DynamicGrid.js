@@ -385,13 +385,13 @@ Ext.define('sion.salary.payroll.view.DynamicGrid', {
         me.loadData(id,mainGrid,values,mainStore,null);
         values.query = 'Simple';
         var levelCount = me.loadData(id,simpleGrid,values,simpleStore,null);
-        mainGrid.headerCt.setHeight(levelCount*30);
+        mainGrid.headerCt.setHeight(levelCount*30-2);
         Ext.Array.each(subGrids,function(subGrid,index){
             var subStore = subGrid.getStore();
             me.loadData(id,subGrid,{
                 type : 'PayrollSub'
             },store,null);
-            subGrid.headerCt.setHeight(levelCount*30);
+            subGrid.headerCt.setHeight(levelCount*30-2);
         });
     },
 
@@ -519,7 +519,7 @@ Ext.define('sion.salary.payroll.view.DynamicGrid', {
                           Ext.Array.each(column.columns,function(c_column,index){
                               if (c_column.columns) {
                                   if (levelCount<3) levelCount=3;
-                                  columnWidth+=c_column.columns.length*66-2;
+                                  columnWidth+=c_column.columns.length*66;
                               }else {
                                   columnWidth+=100;
                               }
