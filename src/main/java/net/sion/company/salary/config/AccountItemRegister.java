@@ -44,7 +44,7 @@ public class AccountItemRegister extends AbstractSystemSalaryItemListener{
 					}else if (item.getCompanyPaymentType() == PaymentType.Quota) {
 						itemValue = item.getCompanyPaymentValue();
 					}
-					value = decimal(socialItem.getCarryType(), item.getPrecision(), itemValue);
+					value = decimal(socialItem.getCarryType(), socialItem.getPrecision(), itemValue);
 					break;
 				}else if (event.getItem().getSystemType() == SystemSalaryItemType.Personal) {
 					if (item.getPersonalPaymentType() == PaymentType.Percent) {
@@ -52,7 +52,7 @@ public class AccountItemRegister extends AbstractSystemSalaryItemListener{
 					}else if (item.getPersonalPaymentType() == PaymentType.Quota) {
 						itemValue = item.getPersonalPaymentValue();
 					}
-					value = decimal(socialItem.getCarryType(), item.getPrecision(), itemValue);
+					value = decimal(socialItem.getCarryType(), socialItem.getPrecision(), itemValue);
 					break;
 				}
 			}

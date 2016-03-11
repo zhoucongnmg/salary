@@ -44,7 +44,7 @@ public class PayrollService {
 		}
 		String filePath = asposeUtil.createExcelSimple(list, "Sheet1", serverPath, "xls");
 		File file = new File(filePath);
-		FileUtil.download(fileName, new FileInputStream(file), response);
+		FileUtil.download(fileName + ".xls", new FileInputStream(file), response);
 		return filePath;
 	}
 	public  String createExcel(String fileName,List<Map<String, Object>> columns, List<Map<String, Object>> datas, HttpServletResponse response) throws IOException{
@@ -73,7 +73,7 @@ public class PayrollService {
 		String filePath = asposeUtil.createExcelSimple(list, "Sheet1", serverPath, "xls");
 		File file = new File(filePath);
 		
-		FileUtil.download(fileName, new FileInputStream(file), response);
+		FileUtil.download(fileName + ".xls", new FileInputStream(file), response);
 		return filePath;
 	}
 }

@@ -31,24 +31,11 @@ public class SocialService {
 		Map<String, List<String>> accountPerson = new HashMap<String, List<String>>();
 		for(PersonAccountFile personAccountFile : personList){
 			if(personAccountFile.getInsuredPerson() != null && !"".equals(personAccountFile.getInsuredPerson().getAccountId())){
-				accountIds.add(personAccountFile.getInsuredPerson().getAccountId());
-				List<String> persons = accountPerson.get(personAccountFile.getInsuredPerson().getAccountId());
-				if(persons == null){
-					persons = new ArrayList<String>();
-				}
-				persons.add(personAccountFile.getId());
-				accountPerson.put(personAccountFile.getInsuredPerson().getAccountId(), persons);
-			}
-		}
-		Iterable<SocialAccount> socialAccountList =  socialAccountRepository.findAll(accountIds);
-		for(SocialAccount socialAccount : socialAccountList){
-			List<String> personIds = accountPerson.get(socialAccount.getId());
-			for(String personId : personIds){
-				PersonExtension<SocialAccountItem> personExtension = new PersonExtension<SocialAccountItem>(personId);
-				for(SocialAccountItem item : socialAccount.getSocialAccountItems()){
+				PersonExtension<SocialAccountItem> personExtension = new PersonExtension<SocialAccountItem>(personAccountFile.getId());
+				for(SocialAccountItem item : personAccountFile.getInsuredItems()){
 					personExtension.putItem(item.getSocialItemId(), item);
 				}
-				map.put(personId, personExtension);
+				map.put(personAccountFile.getId(), personExtension);
 			}
 		}
 		return map;
