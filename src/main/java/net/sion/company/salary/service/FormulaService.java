@@ -117,6 +117,44 @@ public class FormulaService {
 		}
 		return items;
 	}
+	
+	/**
+	 * 取得要计算某字段值时公式中所有需要的变量字段 （向下递归）
+	 * 
+	 * @param formulaId
+	 *            待计算的字段ID
+	 * @return
+	 */
+	public Set<String> getFormulaItemsAndResult(Set<String> formulaIds) {
+		Set<String> formulaItemsAndResultIds = new HashSet<String>();
+		Iterable<Formula> formulas = formulaRepository.findAll(formulaIds);
+		for (Formula formula : formulas) {
+			List<FormulaItem> items = formula.getItems();
+			for (FormulaItem item : items) {
+				formulaItemsAndResultIds.add(item.getFieldId());
+			}
+			formulaItemsAndResultIds.add(formula.getResultFieldId());
+		}
+		
+		return formulaItemsAndResultIds;
+	}
+	
+	/**
+	 * 取得要计算某字段值时公式中所有需要的变量字段 （向下递归）
+	 * 
+	 * @param formulaId
+	 *            待计算的字段ID
+	 * @return
+	 */
+	public Map<String,Formula> getFormulasMap(Set<String> formulaIds) {
+		Map<String,Formula> formulaMap = new HashMap<String,Formula>();
+		Iterable<Formula> formulas = formulaRepository.findAll(formulaIds);
+		for (Formula formula : formulas) {
+			formulaMap.put(formula.getId(), formula);
+		}
+		
+		return formulaMap;
+	}
 
 	/**
 	 * 从集合中找到指定FieldId做为Result的公式

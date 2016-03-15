@@ -382,9 +382,9 @@ Ext.define('sion.salary.payroll.view.DynamicGrid', {
             subGrids = me.query('grid[_subGrid=true]')||[];
 
         values.type = 'Payroll';
-        me.loadData(id,mainGrid,values,mainStore,null);
+        me.loadData(id,mainGrid,values,null,'MainPayrollItem');
         values.query = 'Simple';
-        var levelCount = me.loadData(id,simpleGrid,values,simpleStore,null);
+        var levelCount = me.loadData(id,simpleGrid,values,null,'SimplePayrollItem');
         mainGrid.headerCt.setHeight(levelCount*30-2);
         Ext.Array.each(subGrids,function(subGrid,index){
             var subStore = subGrid.getStore();
