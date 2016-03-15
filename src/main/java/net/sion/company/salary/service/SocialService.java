@@ -27,8 +27,6 @@ public class SocialService {
 	public Map<String, PersonExtension<SocialAccountItem>> getSocialAccountByPersons(Set<String> ids){
 		Map<String, PersonExtension<SocialAccountItem>> map = new HashMap<String, PersonExtension<SocialAccountItem>>();
 		Iterable<PersonAccountFile> personList = personAccountFileRepository.findAll(ids);
-		List<String> accountIds = new ArrayList<String>();
-		Map<String, List<String>> accountPerson = new HashMap<String, List<String>>();
 		for(PersonAccountFile personAccountFile : personList){
 			if(personAccountFile.getInsuredPerson() != null && !"".equals(personAccountFile.getInsuredPerson().getAccountId())){
 				PersonExtension<SocialAccountItem> personExtension = new PersonExtension<SocialAccountItem>(personAccountFile.getId());

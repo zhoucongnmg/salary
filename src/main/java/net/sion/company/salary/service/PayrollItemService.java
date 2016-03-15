@@ -10,6 +10,8 @@ import java.util.Set;
 
 import net.sion.company.salary.domain.Account;
 import net.sion.company.salary.domain.AccountItem;
+import net.sion.company.salary.domain.Formula;
+import net.sion.company.salary.domain.FormulaItem;
 import net.sion.company.salary.domain.Item.ItemType;
 import net.sion.company.salary.domain.Payroll;
 import net.sion.company.salary.domain.PayrollItem;
@@ -111,7 +113,9 @@ public class PayrollItemService {
 					personAccountItemMap.put(item.getId(), item);
 				}
 				
-				for (AccountItem item : items) {
+				
+				Iterable<AccountItem> sortItems = sortAccountItem(items);
+				for (AccountItem item : sortItems) {
 					if (item.getType() == SalaryItemType.Input) {
 						//TODO 通过personId查找该人在薪资档案中该项设置的值
 						Double value = personService.getOneItemValue(person.getId(), item.getSalaryItemId());
@@ -131,13 +135,11 @@ public class PayrollItemService {
 						dataPersonMap.putAll(result);
 					}else if (item.getType() == SalaryItemType.Tax) {
 						String parentId = item.getParentId();
-						if(StringUtils.isNotBlank(parentId)&&personAccountItemMap.get(parentId)!=null) {
-							AccountItem parent = personAccountItemMap.get(parentId);
-							String parentSalaryItemId = parent.getSalaryItemId();
-							Double value = dataPersonMap.get(parentSalaryItemId);
-							Double taxValue = taxService.getFastNumber(item.getTaxId(),value);
-							dataPersonMap.put(item.getSalaryItemId(), item.decimal(item.getCarryType(), item.getPrecision(), taxValue));
-						}
+						AccountItem parent = personAccountItemMap.get(parentId);
+						String parentSalaryItemId = parent.getSalaryItemId();
+						Double value = dataPersonMap.get(parentSalaryItemId);
+						Double taxValue = taxService.getFastNumber(item.getTaxId(),value);
+						dataPersonMap.put(item.getSalaryItemId(), item.decimal(item.getCarryType(), item.getPrecision(), taxValue));
 					}
 					
 				}
@@ -155,6 +157,98 @@ public class PayrollItemService {
 		}
 		return datas;
 		
+	}
+	
+	
+	private List<AccountItem> sortAccountItem(List<AccountItem> items) {
+		Map<String,AccountItem> personAccountItemMap = new LinkedHashMap<String,AccountItem>();
+		Set<String> knownItemIds = new HashSet<String>();
+		Set<String> unknownItemIds = new HashSet<String>();
+		List<AccountItem> taxCalculateItem = new ArrayList<AccountItem>();
+		Map<String,AccountItem> sortItemsMap = new LinkedHashMap<String,AccountItem>();
+		List<AccountItem> sortItems = new ArrayList<AccountItem>();
+		Set<String> formulaIds = new HashSet<String>();
+				
+		for (AccountItem item : items) {
+			personAccountItemMap.put(item.getId(), item);
+		}
+		
+		for (AccountItem item : items) {
+			if (item.getType() == SalaryItemType.Input||item.getType() == SalaryItemType.System) {
+				knownItemIds.add(item.getSalaryItemId());
+				personAccountItemMap.put(item.getId(), item);
+				sortItemsMap.put(item.getId(),item);
+			}else if (item.getType() == SalaryItemType.Tax) {
+				String parentId = item.getParentId();
+				AccountItem parentItem = personAccountItemMap.get(parentId);
+				if (parentItem.getType() == SalaryItemType.Tax || parentItem.getType() == SalaryItemType.Calculate) {
+					unknownItemIds.add(parentItem.getSalaryItemId());
+					unknownItemIds.add(item.getSalaryItemId());
+					taxCalculateItem.add(item);
+				}else {
+					knownItemIds.add(item.getSalaryItemId());
+					knownItemIds.add(parentItem.getSalaryItemId());
+					sortItemsMap.put(item.getId(),item);
+				}
+			}else if (item.getType() == SalaryItemType.Calculate) {
+				formulaIds.add(item.getFormulaId());
+				taxCalculateItem.add(item);
+			}
+		}
+		
+		unknownItemIds.addAll(formulaService.getFormulaItemsAndResult(formulaIds));
+		Map<String,Formula> formulaMap = formulaService.getFormulasMap(formulaIds);
+		while (unknownItemIds.size()>0) {
+			for (AccountItem item: taxCalculateItem) {
+				if (sortItemsMap.get(item.getId())==null) {
+					if (item.getType() == SalaryItemType.Tax) {
+						String parentId = item.getParentId();
+						AccountItem parentItem = personAccountItemMap.get(parentId);
+						if (knownItemIds.contains(parentItem.getSalaryItemId())) {
+							knownItemIds.add(item.getSalaryItemId());
+							unknownItemIds.remove(item.getSalaryItemId());
+							unknownItemIds.remove(parentItem.getSalaryItemId());
+							sortItemsMap.put(parentItem.getId(),parentItem);
+							sortItemsMap.put(item.getId(),item);
+						}
+					}else if (item.getType() == SalaryItemType.Calculate) {
+						Formula formula = formulaMap.get(item.getFormulaId());
+						Boolean allContains = true;
+						Set<String> formulaItemIds = new HashSet<String>();
+						for (FormulaItem formulaItem : formula.getItems()) {
+							if (!knownItemIds.contains(formulaItem.getFieldId())) {
+								allContains = false;
+								break;
+							}else {
+								formulaItemIds.add(formulaItem.getFieldId());
+							}
+						}
+						if (allContains) {
+							knownItemIds.addAll(formulaItemIds);
+							knownItemIds.add(formula.getResultFieldId());
+							unknownItemIds.removeAll(formulaItemIds);
+							unknownItemIds.remove(formula.getResultFieldId());
+							sortItemsMap.put(item.getId(),item);
+						}
+					}
+				}
+			}
+		}
+		
+		
+		
+		for (Map.Entry<String, AccountItem> entry : sortItemsMap.entrySet()) {  
+			sortItems.add(entry.getValue());  
+		}  
+		
+		List<AccountItem> different = new ArrayList<AccountItem>();
+		for (AccountItem item : items) {
+			if (sortItemsMap.get(item.getId())==null) {
+				different.add(item);
+			}
+		}
+		
+		return sortItems;
 	}
 	
 	public List<Map<String, Object>> fillBaseFields(List<Map<String, Object>> fields) {
