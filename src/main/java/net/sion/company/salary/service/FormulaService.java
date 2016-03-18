@@ -1,5 +1,7 @@
 package net.sion.company.salary.service;
 
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -180,8 +182,8 @@ public class FormulaService {
 	 * @return
 	 */
 	public Double calculate(Formula formula, List<Formula> formulas, Map<String, Double> params) {
-		Double result = new Double(0);
-
+		Double result = new Double(0.0);
+		DecimalFormat df = new DecimalFormat("0.000");
 		List<FormulaItem> items = formula.getItems();
 		String formulaString = formula.getFormula();
 
@@ -191,8 +193,13 @@ public class FormulaService {
 				Formula tmpFormula = this.findFormulaInList(formulas, item.getFieldId());
 				Double value = params.get(item.getFieldId());
 				// 这不是个公式，应该从Param中取值。或者这是个公式，但Param已经存在之前计算出来的结果，也是从param中取值。
-				if (tmpFormula == null || value != null) {
-					formulaString = formulaString.replaceAll(("\\[".concat(item.getText()).concat("\\]")), value+"");
+				if (tmpFormula == null) {
+					if (value != null) {
+						formulaString = formulaString.replaceAll(("\\[".concat(item.getText()).concat("\\]")), value+"");
+					}else {
+						formulaString = formulaString.replaceAll(("\\[".concat(item.getText()).concat("\\]")), 0.00+"");
+					}
+						
 				} else {
 					// 这是个公式，递归计算结果，并把结果加入到Params中以便于后续运算可能会被用到
 					Double temp = calculate(this.findFormulaInList(formulas, item.getFieldId()), formulas, params);
@@ -207,7 +214,7 @@ public class FormulaService {
 		} catch (ScriptException e) {
 			e.printStackTrace();
 		}
-		return result;
+		return Double.valueOf(df.format(result));
 	}
 
 	/**

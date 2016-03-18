@@ -1,5 +1,6 @@
 package net.sion.company.salary.service;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -30,7 +31,6 @@ import net.sion.company.salary.sessionrepository.PersonAccountFileRepository;
 import net.sion.company.salary.sessionrepository.SocialItemRepository;
 import net.sion.company.salary.sessionrepository.SystemSalaryItemRepository;
 
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -109,9 +109,11 @@ public class PayrollItemService {
 				simplePersonMap.put("bankAccount", person.getBankAccount());
 				
 				Map<String,AccountItem> personAccountItemMap = new LinkedHashMap<String,AccountItem>();
+				Map<String,AccountItem> personSalaryItemMap = new LinkedHashMap<String,AccountItem>();
 				Set<String> formulaIds = new HashSet<String>();
 				for (AccountItem item : items) {
 					personAccountItemMap.put(item.getId(), item);
+					personSalaryItemMap.put(item.getSalaryItemId(), item);
 				}
 				
 				
@@ -161,7 +163,18 @@ public class PayrollItemService {
 	}
 	
 	
-	private List<AccountItem> sortAccountItem(List<AccountItem> items) {
+	private String parsePrecision(double value, int precision) {
+		String formatStr = "0";
+		
+		for (int i=0;i<precision;i++) {
+			if (i==0) formatStr = formatStr+".";
+			formatStr = formatStr+"0";
+		}
+		DecimalFormat df = new DecimalFormat(formatStr);
+		return df.format(value);
+	}
+	
+	public List<AccountItem> sortAccountItem(List<AccountItem> items) {
 		Map<String,AccountItem> personAccountItemMap = new LinkedHashMap<String,AccountItem>();
 		Set<String> knownItemIds = new HashSet<String>();
 		Set<String> unknownItemIds = new HashSet<String>();
@@ -462,7 +475,7 @@ public class PayrollItemService {
 				map.put("coltype", "readonly");
 				columns.add(map);
 				map = new HashMap<String, Object>();
-				map.put("text", "部门");
+				map.put("name", "部门");
 				map.put("dataIndex", "dept");
 				map.put("coltype", "readonly");
 				columns.add(map);
@@ -504,6 +517,12 @@ public class PayrollItemService {
 	public List<Map<String, Object>> fillData(Payroll payroll, List<PayrollItem> items, Account account) {
 		
 		List<Map<String, Object>> data = new ArrayList<Map<String, Object>>();
+		Map<String,AccountItem> accountItemsMap = new HashMap<String,AccountItem>();
+		List<AccountItem> accountItems = account.getAccountItems();
+		for (AccountItem item : accountItems) {
+			accountItemsMap.put(item.getSalaryItemId(), item);
+		}
+		
 		
 		Set<String> personIds = payroll.getPersons().keySet();
 		if (personIds.size()>0) {
@@ -533,6 +552,15 @@ public class PayrollItemService {
 						itemMap.put(socialItem.getSocialItemId()+"-personalPaymentFinalValue", socialItem.getPersonalPaymentFinalValue());
 					}
 				}
+				
+				for (Map.Entry<String, Double> entry : item.getValues().entrySet()) {  
+					String itemId = entry.getKey();
+					AccountItem accountitem = accountItemsMap.get(itemId);
+					if (accountitem!=null) {
+						itemMap.put(itemId, parsePrecision(entry.getValue(),accountitem.getPrecision()));
+					}
+				}
+				
 				
 				data.add(itemMap);
 			}
@@ -604,7 +632,6 @@ public class PayrollItemService {
 	public Map<String, Object> getFields(AccountItem item) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("name", item.getSalaryItemId());
-		map.put("type", "float");
 		return map;
 	}
 	

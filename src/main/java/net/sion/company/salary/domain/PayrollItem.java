@@ -106,6 +106,8 @@ public class PayrollItem {
 					values.put(key,(Double)value);
 				}else if (value instanceof Integer) {
 					values.put(key,Double.valueOf(((Integer) value).intValue()));
+				}else if (value instanceof String) {
+					values.put(key, Double.valueOf((String)value));
 				}
 				
 			} catch (SecurityException e) {

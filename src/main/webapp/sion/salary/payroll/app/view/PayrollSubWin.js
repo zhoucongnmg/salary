@@ -146,7 +146,7 @@ Ext.define('sion.salary.payroll.view.PayrollSubWin', {
 
         Ext.Msg.confirm({
             title:"提示",
-            msg:"确定本次分次发放？",
+            msg:"确定删除本次分次发放？",
             buttons:Ext.MessageBox.OKCANCEL,
             width:200,
             fn:function(buttonId){
