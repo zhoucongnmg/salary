@@ -14,7 +14,8 @@
             "PersonAccount",
             "PersonAccountItem",
             "AccountItemType",
-            "SalaryPlanPayroll"
+            "SalaryPlanPayroll",
+            "SalaryPlainFormula"
         ],
         "name": "sion.salary.accounts",
         "paths": [
@@ -35,7 +36,8 @@
             "AccountItemType",
             "AccountItemTypeExcludeSystem",
             "SalaryPlanPayroll",
-            "SalaryItemAccount"
+            "SalaryItemAccount",
+            "SalaryPlainFormula"
         ],
         "views": [
             "SalaryPlanGrid",
@@ -46,7 +48,7 @@
             "AccountMemberConfig",
             "SalaryItemRead",
             "AddSalaryItem",
-            "payroll"
+            "Payroll"
         ]
     },
     "name": "Application",

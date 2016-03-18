@@ -32,20 +32,8 @@
             },
             "codeClass": null,
             "userConfig": {
-                "name": "cardinality"
-            },
-            "name": "MyField65",
-            "designerId": "3ae2ab2d-790e-4910-bfb5-2b9e4983b89f"
-        },
-        {
-            "type": "Ext.data.Field",
-            "reference": {
-                "name": "fields",
-                "type": "array"
-            },
-            "codeClass": null,
-            "userConfig": {
-                "name": "companyPaymentValue"
+                "name": "companyPaymentValue",
+                "type": "float"
             },
             "name": "MyField66",
             "designerId": "b6adb4ad-a096-4d4c-8366-400c9fb42cce"
@@ -58,7 +46,8 @@
             },
             "codeClass": null,
             "userConfig": {
-                "name": "personalPaymentValue"
+                "name": "personalPaymentValue",
+                "type": "float"
             },
             "name": "MyField67",
             "designerId": "6d468788-9a4e-47fd-a214-158dddffac0d"
@@ -101,6 +90,116 @@
             },
             "name": "MyField71",
             "designerId": "312314b5-647a-42cb-b903-d01e86a7cda1"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "companyCardinality"
+            },
+            "name": "MyField65",
+            "designerId": "3ae2ab2d-790e-4910-bfb5-2b9e4983b89f"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "personalCardinality"
+            },
+            "name": "MyField87",
+            "designerId": "c1b30bfc-5182-4153-8b49-8b3d06a3f019"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "displayCompanyPaymentValue"
+            },
+            "name": "MyField88",
+            "designerId": "8491eaa8-0751-458f-ac73-a94efefe116c",
+            "cn": [
+                {
+                    "type": "fixedfunction",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "designer|params": [
+                            "v",
+                            "rec"
+                        ],
+                        "fn": "convert",
+                        "implHandler": [
+                            "if (v=='') {",
+                            "    if(rec.get('companyPaymentType') == 'Percent'){",
+                            "        v = rec.get('companyPaymentValue') * 100;",
+                            "    }else if(rec.get('companyPaymentType') == 'Quota'){",
+                            "        v = rec.get('companyPaymentValue');",
+                            "    }",
+                            "}",
+                            "return v;"
+                        ]
+                    },
+                    "name": "convert",
+                    "designerId": "296e1856-0f21-4984-aeae-69448660a71e"
+                }
+            ]
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "displayPersonalPaymentValue"
+            },
+            "name": "MyField89",
+            "designerId": "1162ea99-44d3-4e91-9cc6-bfb174bfbbc8",
+            "cn": [
+                {
+                    "type": "fixedfunction",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "designer|params": [
+                            "v",
+                            "rec"
+                        ],
+                        "fn": "convert",
+                        "implHandler": [
+                            "if (v=='') {",
+                            "    if(rec.get('personalPaymentType') == 'Percent'){",
+                            "        v = rec.get('personalPaymentValue') * 100;",
+                            "    }else if(rec.get('personalPaymentType') == 'Quota'){",
+                            "        v = rec.get('personalPaymentValue');",
+                            "    }",
+                            "}",
+                            "return v;"
+                        ]
+                    },
+                    "name": "convert",
+                    "designerId": "c09a7e08-6e2b-4821-9799-eafb1ed522d4"
+                }
+            ]
         }
     ]
 }

@@ -157,6 +157,69 @@
             },
             "codeClass": null,
             "userConfig": {
+                "dataIndex": "precision",
+                "flex": 1,
+                "text": "小数位数"
+            },
+            "name": "MyColumn20",
+            "designerId": "5a8724a5-5e0c-4e33-be66-d8d76a0fd70a"
+        },
+        {
+            "type": "Ext.grid.column.Column",
+            "reference": {
+                "name": "columns",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "dataIndex": "carryType",
+                "flex": 1,
+                "text": "小数保留方式"
+            },
+            "name": "MyColumn17",
+            "designerId": "37bafa5e-fe8d-42de-b5ce-9698fc456589",
+            "cn": [
+                {
+                    "type": "fixedfunction",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "designer|params": [
+                            "value",
+                            "metaData",
+                            "record",
+                            "rowIndex",
+                            "colIndex",
+                            "store",
+                            "view"
+                        ],
+                        "fn": "renderer",
+                        "implHandler": [
+                            "if('Round' == value){",
+                            "    return '四舍五入';",
+                            "}else if('Isopsephy' == value){",
+                            "    return '直接进位';",
+                            "}else if('Truncation' == value){",
+                            "    return '直接舍去';",
+                            "}"
+                        ]
+                    },
+                    "name": "renderer",
+                    "designerId": "25225137-af8e-4a53-b74d-fb58dc8f635c"
+                }
+            ]
+        },
+        {
+            "type": "Ext.grid.column.Column",
+            "reference": {
+                "name": "columns",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
                 "dataIndex": "note",
                 "flex": 3,
                 "text": "备注",
@@ -292,12 +355,17 @@
                                     "                id : record.get('id')",
                                     "            },//发送json对象",
                                     "            success:function(response,action){",
-                                    "                store.load();",
-                                    "//                 me.resetGridSelect(record);",
-                                    "                Ext.Msg.alert(\"提示\", \"删除成功\");",
+                                    "                var text = JSON.parse(response.responseText);",
+                                    "                if(!text.success){",
+                                    "                    Ext.Msg.alert(\"提示\", text.message);",
+                                    "                }else{",
+                                    "                    Ext.Msg.alert(\"提示\", \"删除成功\");",
+                                    "                    store.load();",
+                                    "                }",
+                                    "                //                 me.resetGridSelect(record);",
                                     "            },failure: function(){",
                                     "                store.load();",
-                                    "//                 me.resetGridSelect(record);",
+                                    "                //                 me.resetGridSelect(record);",
                                     "                Ext.Msg.alert(\"提示\", \"删除失败\");",
                                     "            }",
                                     "        });",

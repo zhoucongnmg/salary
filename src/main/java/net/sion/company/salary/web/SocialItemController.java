@@ -9,10 +9,10 @@ import javax.servlet.http.HttpSession;
 import net.sion.boot.mongo.template.SessionMongoTemplate;
 import net.sion.company.salary.domain.InsuredPerson;
 import net.sion.company.salary.domain.Item.ItemType;
-import net.sion.company.salary.domain.SystemSalaryItem.SystemSalaryItemType;
 import net.sion.company.salary.domain.SocialAccount;
 import net.sion.company.salary.domain.SocialItem;
 import net.sion.company.salary.domain.SystemSalaryItem;
+import net.sion.company.salary.domain.SystemSalaryItem.SystemSalaryItemType;
 import net.sion.company.salary.domain.SystemSalaryItemEnum;
 import net.sion.company.salary.sessionrepository.SocialItemRepository;
 import net.sion.company.salary.sessionrepository.SystemSalaryItemRepository;
@@ -27,7 +27,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
@@ -55,14 +54,23 @@ public class SocialItemController {
 		if(item.getId() == null || "".equals(item.getId())){
 			item.setId(new ObjectId().toString());
 			//将项目添加到系统提取项中
-//			String str = "公积金";
-//			if(item.getItem() == ItemType.SocialItem){
-//				str = "社保";
-//			}
 			SystemSalaryItem itemp = new SystemSalaryItem(SystemSalaryItemEnum.AccountItem, item.getName() + "个人部分", item.getId(), SystemSalaryItemType.Personal, item.getCarryType(), item.getPrecision());
 			SystemSalaryItem itemc = new SystemSalaryItem(SystemSalaryItemEnum.AccountItem, item.getName() + "单位部分", item.getId(), SystemSalaryItemType.Company, item.getCarryType(), item.getPrecision());
 			systemSalaryItemRepository.save(itemp);
 			systemSalaryItemRepository.save(itemc);
+		}else{
+			//修改社保项目时，修改系统提取项的名字
+			List<SystemSalaryItem> list = systemSalaryItemRepository.findByItemId(item.getId());
+			for(SystemSalaryItem systemSalaryItem : list){
+				if(SystemSalaryItemType.Personal == systemSalaryItem.getSystemType()){
+					systemSalaryItem.setName(item.getName() + "个人部分");
+				}else if(SystemSalaryItemType.Company == systemSalaryItem.getSystemType()){
+					systemSalaryItem.setName(item.getName() + "单位部分");
+				}
+				systemSalaryItem.setCarryType(item.getCarryType());
+				systemSalaryItem.setPrecision(item.getPrecision());
+				systemSalaryItemRepository.save(systemSalaryItem);
+			}
 		}
 		socialItemRepository.save(item);
 		return new Response(true);

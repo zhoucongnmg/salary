@@ -26,18 +26,25 @@ Ext.application({
     models: [
         'Person',
         'Payroll',
-        'Account'
+        'Account',
+        'PayrollSub',
+        'AccountItem'
     ],
     stores: [
         'AccountStore',
         'PayrollStore',
-        'PersonStore'
+        'PersonStore',
+        'PayrollSubStore',
+        'AccountItemStore'
     ],
     views: [
         'SelectPerson_win',
         'UnpublishPayroll',
         'PaidPayroll',
-        'PayrollWindow'
+        'PayrollWindow',
+        'PayrollSubForm',
+        'PayrollSubWin',
+        'PayrollSubGrid'
     ],
     name: 'sion.salary.payroll'
 });

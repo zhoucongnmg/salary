@@ -55,7 +55,7 @@
             "userConfig": {
                 "dataIndex": "itemTypeName",
                 "flex": 0.2,
-                "text": "项目类型"
+                "text": "类型"
             },
             "name": "MyColumn1",
             "designerId": "401298f1-ef18-4453-8040-c39a7d3a0a58"
@@ -84,6 +84,54 @@
             },
             "name": "MyColumn2",
             "designerId": "e5430dd4-93a7-4f20-8e24-e95cece6d30d"
+        },
+        {
+            "type": "Ext.grid.column.Column",
+            "reference": {
+                "name": "columns",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "dataIndex": "carryType",
+                "flex": 0.2,
+                "text": "小数保留方式"
+            },
+            "name": "MyColumn3",
+            "designerId": "2458a028-3ff3-4cb2-8f20-de852d2a24ef",
+            "cn": [
+                {
+                    "type": "fixedfunction",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "designer|params": [
+                            "value",
+                            "metaData",
+                            "record",
+                            "rowIndex",
+                            "colIndex",
+                            "store",
+                            "view"
+                        ],
+                        "fn": "renderer",
+                        "implHandler": [
+                            "if('Round' == value){",
+                            "    return '四舍五入';",
+                            "}else if('Isopsephy' == value){",
+                            "    return '直接进位';",
+                            "}else if('Truncation' == value){",
+                            "    return '直接舍去';",
+                            "}"
+                        ]
+                    },
+                    "name": "renderer",
+                    "designerId": "fe57b613-6610-4ad2-a7ed-9639102fa70e"
+                }
+            ]
         },
         {
             "type": "Ext.grid.column.Action",

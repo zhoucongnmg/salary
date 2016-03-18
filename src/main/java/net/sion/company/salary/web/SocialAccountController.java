@@ -19,6 +19,7 @@ import net.sion.company.salary.domain.SocialAccount;
 import net.sion.company.salary.domain.SocialAccountItem;
 import net.sion.company.salary.domain.SocialItem;
 import net.sion.company.salary.domain.SocialItem.SocialItemType;
+import net.sion.company.salary.service.PersonAccountFileService;
 import net.sion.company.salary.service.SocialService;
 import net.sion.company.salary.sessionrepository.SocialAccountRepository;
 import net.sion.company.salary.sessionrepository.SocialItemRepository;
@@ -60,6 +61,7 @@ public class SocialAccountController {
 	@Autowired SessionMongoTemplate mongoTemplate; 
 	@Autowired SocialItemRepository socialItemRepository;
 	@Autowired SocialService socialService;
+	@Autowired PersonAccountFileService pafService;
 	/**
 	 * 创建社保方案
 	 * 
@@ -79,21 +81,8 @@ public class SocialAccountController {
 			account.setCreateUserName(user.getName());
 		}
 		account = sum(account);
-		
-//		Set set = new HashSet();
-//		set.add("564d828a464b57c56a844c7f");
-//		set.add("564ec925464b57c56a8450d1");
-//		set.add("5679ffda9929e8ed6767159f");
-//		set.add("564d75e7464bb8da6db35fe4");
-//		set.add("567a500599291ff5ac53bdea");
-//		set.add("567a500d99291ff5ac53bdeb");
-//		Map<String, PersonExtension<SocialAccountItem>> map = socialService.getSocialAccountByPsersons(set);
-//		double d1 = socialService.getSocialSum("5679ffda9929e8ed6767159f", true, SocialItemType.SocialSecurity);
-//		double d2 = socialService.getSocialSum("5679ffda9929e8ed6767159f", true, SocialItemType.AccumulationFunds);
-//		double d3 = socialService.getSocialSum("5679ffda9929e8ed6767159f", false, SocialItemType.SocialSecurity);
-//		double d4 = socialService.getSocialSum("5679ffda9929e8ed6767159f", false, SocialItemType.AccumulationFunds);
-		
 		socialAccountRepository.save(account);
+		pafService.updateSocialItems(account.getId());
 		return new Response(true);
 	}
 	private SocialAccount sum(SocialAccount account){ 
@@ -263,6 +252,7 @@ public class SocialAccountController {
 	@RequestMapping(value = "remove")
 	public @ResponseBody Response remove(@RequestParam String id) {
 		socialAccountRepository.delete(id);
+		pafService.deleteSocialItems(id);
 		return new Response(true);
 	}
 	

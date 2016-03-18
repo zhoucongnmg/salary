@@ -78,6 +78,53 @@ Ext.define('sion.salary.payroll.view.UnpublishPayroll', {
                                 },
                                 {
                                     xtype: 'button',
+                                    width: 90,
+                                    iconCls: 's_icon_action_accept',
+                                    text: '多次发放',
+                                    listeners: {
+                                        click: {
+                                            fn: me.onButtonClick3,
+                                            scope: me
+                                        }
+                                    }
+                                },
+                                {
+                                    xtype: 'combobox',
+                                    hidden: true,
+                                    padding: '0 0 0 25',
+                                    fieldLabel: '薪资套账',
+                                    labelWidth: 60
+                                },
+                                {
+                                    xtype: 'textfield',
+                                    itemId: 'subject',
+                                    margin: '',
+                                    width: 200,
+                                    fieldLabel: '薪资主题',
+                                    labelWidth: 60
+                                },
+                                {
+                                    xtype: 'tbspacer'
+                                },
+                                me.processMonth({
+                                    xtype: 'triggerfield',
+                                    itemId: 'month',
+                                    width: 200,
+                                    fieldLabel: '薪资月份',
+                                    labelWidth: 80
+                                }),
+                                {
+                                    xtype: 'tbspacer'
+                                },
+                                me.processSocialCostMonth({
+                                    xtype: 'triggerfield',
+                                    itemId: 'socialCostMonth',
+                                    width: 200,
+                                    fieldLabel: '社保扣费月',
+                                    labelWidth: 80
+                                }),
+                                {
+                                    xtype: 'button',
                                     width: 70,
                                     iconCls: 's_icon_action_search',
                                     text: '查询',
@@ -99,40 +146,7 @@ Ext.define('sion.salary.payroll.view.UnpublishPayroll', {
                                             scope: me
                                         }
                                     }
-                                },
-                                {
-                                    xtype: 'combobox',
-                                    hidden: true,
-                                    padding: '0 0 0 25',
-                                    fieldLabel: '薪资套账',
-                                    labelWidth: 60
-                                },
-                                {
-                                    xtype: 'textfield',
-                                    itemId: 'subject',
-                                    margin: '',
-                                    width: 300,
-                                    fieldLabel: '薪资主题',
-                                    labelWidth: 60
-                                },
-                                {
-                                    xtype: 'tbspacer'
-                                },
-                                me.processMonth({
-                                    xtype: 'triggerfield',
-                                    itemId: 'month',
-                                    width: 200,
-                                    fieldLabel: '薪资月份'
-                                }),
-                                {
-                                    xtype: 'tbspacer'
-                                },
-                                me.processSocialCostMonth({
-                                    xtype: 'triggerfield',
-                                    itemId: 'socialCostMonth',
-                                    width: 200,
-                                    fieldLabel: '社保扣费月'
-                                })
+                                }
                             ]
                         }
                     ]
@@ -199,6 +213,7 @@ Ext.define('sion.salary.payroll.view.UnpublishPayroll', {
                         },
                         {
                             xtype: 'gridcolumn',
+                            dataIndex: 'sum',
                             menuDisabled: true,
                             text: '薪资总额',
                             flex: 1
@@ -227,11 +242,14 @@ Ext.define('sion.salary.payroll.view.UnpublishPayroll', {
                             items: [
                                 {
                                     handler: function(view, rowIndex, colIndex, item, e, record, row) {
+                                        var grid = view.up('grid'),
+                                            store = grid.getStore();
                                         var window = Ext.create('sion.salary.payroll.view.PayrollWindow',{
                                             title:'修改工资条',
                                             _link:{
                                                 record:record,
-                                                state:'update'
+                                                state:'update',
+                                                payrollStore:store
                                             }
                                         });
                                         window.show();
@@ -329,9 +347,13 @@ Ext.define('sion.salary.payroll.view.UnpublishPayroll', {
 
                                         Ext.create(namespace + '.view.DynamicGrid',{
                                             _id : record.get('id'),
+                                            _type : 'Payroll',
                                             _accountId : record.get('accountId'),
                                             _record : record,
-                                            _canEdit : true
+                                            _canEdit : true,
+                                            _opts : {
+                                                type : 'Payroll'
+                                            }
                                         }).show();
 
                                     },
@@ -468,6 +490,23 @@ Ext.define('sion.salary.payroll.view.UnpublishPayroll', {
                 }
             }
         });
+    },
+
+    onButtonClick3: function(button, e, eOpts) {
+        var me = this,
+            grid = me.down('gridpanel'),
+            store = grid.getStore(),
+            arrId = [],
+            records = grid.getSelectionModel().getSelection();
+
+        if(records.length==0)
+        {
+            Ext.Msg.alert('提示', '请选择工资条！');
+            return;
+        }
+        Ext.create(me.getNs() + '.view.PayrollSubWin',{
+            _payroll: records[0]
+        }).show();
     },
 
     onButtonClick1: function(button, e, eOpts) {

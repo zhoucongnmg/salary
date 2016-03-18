@@ -9,7 +9,9 @@
         "models": [
             "Person",
             "Payroll",
-            "Account"
+            "Account",
+            "PayrollSub",
+            "AccountItem"
         ],
         "name": "sion.salary.payroll",
         "paths": [
@@ -18,13 +20,18 @@
         "stores": [
             "AccountStore",
             "PayrollStore",
-            "PersonStore"
+            "PersonStore",
+            "PayrollSubStore",
+            "AccountItemStore"
         ],
         "views": [
             "SelectPerson_win",
             "UnpublishPayroll",
             "PaidPayroll",
-            "PayrollWindow"
+            "PayrollWindow",
+            "PayrollSubForm",
+            "PayrollSubWin",
+            "PayrollSubGrid"
         ]
     },
     "name": "Application",

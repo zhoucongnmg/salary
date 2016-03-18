@@ -8,8 +8,11 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpSession;
 
@@ -21,6 +24,7 @@ import net.sion.company.salary.domain.Formula;
 import net.sion.company.salary.domain.Payroll;
 import net.sion.company.salary.domain.PersonAccountFile;
 import net.sion.company.salary.domain.PersonAccountItem;
+import net.sion.company.salary.domain.SalaryItem.SalaryItemType;
 import net.sion.company.salary.service.FormulaService;
 import net.sion.company.salary.service.PersonAccountFileService;
 import net.sion.company.salary.sessionrepository.AccountRepository;
@@ -76,7 +80,7 @@ public class AccountController {
 	 */
 	@RequestMapping(value = "payrollList")
 	public @ResponseBody Response payrollList(String accountId) {
-		List<Payroll> list = payrollRepository.findByAccountId(accountId);
+		List<Payroll> list = payrollRepository.findByAccountIdAndState(accountId, "Unpublish");
 		return new Response(list);
 	}
 	/**
@@ -99,7 +103,6 @@ public class AccountController {
 			account.setCreateUserName(user.getName());
 		}else{
 			deleteFormula(account.getId());
-			System.out.println(account.isUpdatePayroll());
 			//TODO 更新工资条
 		}
 		
@@ -113,6 +116,17 @@ public class AccountController {
 		personAccountFileService.updateSalaryItems(account.getId());
 		return new Response(true);
 	}
+	
+	@RequestMapping(value="readFormulaByAccountId")
+	public @ResponseBody Response readFormulaByAccountId(@RequestParam String accountId) {
+//		String accountId = (String) map.get("accountId");
+		Account account = accountRepository.findOne(accountId);
+		Set<String> formulaIds = account.getFormulaIds();
+		List ids = new ArrayList(formulaIds);
+		List<Formula> list = formulaRepository.findByIdIn(ids);
+		return new Response("操作成功", list, true);
+	}
+	
 	//校验方案名称是否重复
 	@RequestMapping(value = "validateName")
 	public @ResponseBody Response validateName(HttpSession session, @RequestParam Map<String, String> map) {
@@ -160,9 +174,51 @@ public class AccountController {
 		User user = adminService.getUser(session);
 		copy.setCreateUserId(user.getId());
 		copy.setCreateUserName(user.getName());
+		
+		copy.setAccountItems(copyFormula(id));
+		
 		accountRepository.save(copy);
 		return new Response(true);
 	}
+	
+	//拷贝方案中的公式
+	private List<AccountItem> copyFormula(String accountId){
+		Account account = accountRepository.findOne(accountId);
+		Set<String> formulaIds = new HashSet<String>();
+		List<Formula> saveFormulas = new ArrayList<Formula>();
+		
+		for(AccountItem accountItem : account.getAccountItems()){
+			if(accountItem.getType() == SalaryItemType.Calculate){
+				formulaIds.add(accountItem.getFormulaId());
+			}
+		}
+		
+		Iterable<Formula> formulas = formulaRepository.findAll(formulaIds);
+		Map<String,Formula> formulaMap = new HashMap<String,Formula>();
+		for (Formula formula : formulas) {
+			formulaMap.put(formula.getId(), formula);
+		}
+		
+		for(AccountItem accountItem : account.getAccountItems()){
+			if(accountItem.getType() == SalaryItemType.Calculate){
+				Formula formula = formulaMap.get(accountItem.getFormulaId());
+				if (formula!=null) {
+					Formula clone = (Formula)formula.clone();
+					clone.setId(new ObjectId().toString());
+					saveFormulas.add(clone);
+					accountItem.setFormulaId(clone.getId());
+				}
+						
+			}
+		}
+		
+		formulaRepository.save(saveFormulas);
+		
+		return account.getAccountItems();
+		
+	}
+	
+	
 	//删除方案中的公式
 	private void deleteFormula(String accountId){
 		Account account = accountRepository.findOne(accountId);
@@ -183,6 +239,7 @@ public class AccountController {
 	public @ResponseBody Response remove(@RequestParam String id) {
 		deleteFormula(id);
 		accountRepository.delete(id);
+		personAccountFileService.deleteSalaryItems(id);
 		return new Response(true);
 	}
 
@@ -329,9 +386,21 @@ public class AccountController {
 	}
 	
 	@RequestMapping(value = "findAccountItem")
-	public Response findAccountItem(@RequestParam String id) {
+	public @ResponseBody Response findAccountItem(@RequestParam String id, @RequestParam SalaryItemType type) {
+		Account account = accountRepository.findOne(id);
+		List<AccountItem> accountItems = new ArrayList<AccountItem>();
+		if (account!=null) {
+			accountItems = account.getAccountItems();
+			Iterator<AccountItem> it = accountItems.iterator();
+			while (it.hasNext()) {
+				AccountItem item = it.next();
+				if (item.getType()!=type) {
+					it.remove();
+				}
+			}
+		}
 		// TODO 保存套帐关联的人员ID
-		return new Response(true);
+		return new Response(accountItems);
 	}
 
 	/**

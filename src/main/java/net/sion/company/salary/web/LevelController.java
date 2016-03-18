@@ -7,6 +7,7 @@ import java.util.List;
 
 import net.sion.company.salary.domain.Level;
 import net.sion.company.salary.domain.SalaryItem;
+import net.sion.company.salary.service.PersonAccountFileService;
 import net.sion.company.salary.sessionrepository.LevelRepository;
 import net.sion.company.salary.sessionrepository.SalaryItemRepository;
 import net.sion.util.mvc.Response;
@@ -28,10 +29,13 @@ public class LevelController {
 	private LevelRepository levelRepository;
 	@Autowired
 	private SalaryItemRepository salaryItemRepository;
+	@Autowired
+	private PersonAccountFileService pafService;
 	
 	@RequestMapping(value="create")
 	public Response create(@RequestBody Level level) {
 		levelRepository.save(level);
+		pafService.updateLevel(level.getId());
 		return new Response("操作成功",	true);
 	}
 	
@@ -48,6 +52,7 @@ public class LevelController {
 	@RequestMapping(value="remove")
 	public Response remove(@RequestParam String id) {
 		levelRepository.delete(id);
+		pafService.deleteLevel(id);
 		return new Response("操作成功",	true);
 	}
 	

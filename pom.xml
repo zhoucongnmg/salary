@@ -18,13 +18,12 @@
 			<version>${sion-core.version}</version>
 			<type>war</type> 
 		</dependency>
-		<dependency>
+		<dependency> 
 			<groupId>net.sion</groupId>
 			<artifactId>sion-core-desktop</artifactId>
 			<version>${sion-core.version}</version>
 			<classifier>classes</classifier>  
 		</dependency>
-		
 		<!-- 依赖人力资源 -->
 		<dependency> 
 			<groupId>net.sion</groupId>

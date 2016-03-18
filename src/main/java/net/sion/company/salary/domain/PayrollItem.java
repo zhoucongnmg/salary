@@ -11,6 +11,7 @@ import java.util.Map;
 
 
 
+
 import net.sion.boot.config.jackson.CustomJackson;
 
 import org.apache.commons.lang3.StringUtils;
@@ -38,6 +39,8 @@ public class PayrollItem {
 	
 	String payrollId;
 	
+	String payrollSubId;
+	
 	String personId;	//人事档案id
 	
 	String name;	//姓名
@@ -52,7 +55,9 @@ public class PayrollItem {
 	
 	String bankAccount;	//银行账号
 	
-
+	String bank;//银行
+	
+	String bankOfDeposit;//开户网点
 	
 	Map<String,Double> values = new HashMap<String,Double>();	//薪资明细项
 	
@@ -101,6 +106,8 @@ public class PayrollItem {
 					values.put(key,(Double)value);
 				}else if (value instanceof Integer) {
 					values.put(key,Double.valueOf(((Integer) value).intValue()));
+				}else if (value instanceof String) {
+					values.put(key, Double.valueOf((String)value));
 				}
 				
 			} catch (SecurityException e) {
@@ -212,6 +219,24 @@ public class PayrollItem {
 	public void setBankAccount(String bankAccount) {
 		this.bankAccount = bankAccount;
 	}
+
+	public String getBank() {
+		return bank;
+	}
+
+	public void setBank(String bank) {
+		this.bank = bank;
+	}
+
+	public String getBankOfDeposit() {
+		return bankOfDeposit;
+	}
+
+	public void setBankOfDeposit(String bankOfDeposit) {
+		this.bankOfDeposit = bankOfDeposit;
+	}
+	
+	
 	
 	
 	

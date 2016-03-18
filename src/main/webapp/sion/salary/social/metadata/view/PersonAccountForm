@@ -66,7 +66,7 @@
                                     "    insuredPerson,",
                                     "    model;",
                                     "",
-                                    "if(!salaryForm.isValid()){",
+                                    "if(!salaryForm.isValid()||!socialForm.isValid()){",
                                     "    Ext.Msg.alert(\"提示\",\"请填写必填项目\");",
                                     "    return;",
                                     "}",
@@ -288,6 +288,7 @@
                             },
                             "codeClass": null,
                             "userConfig": {
+                                "allowBlank": false,
                                 "fieldLabel": "部门",
                                 "itemId": "deptId",
                                 "labelWidth": 80,
@@ -499,6 +500,7 @@
                             },
                             "codeClass": null,
                             "userConfig": {
+                                "allowBlank": false,
                                 "displayField": "name",
                                 "editable": false,
                                 "fieldLabel": "薪资方案",
@@ -1021,21 +1023,48 @@
                                             "userConfig": {
                                                 "fn": "onRowEditingEdit",
                                                 "implHandler": [
-                                                    "if(context.newValues.personValue!=null &&context.newValues.personValue>=0){",
-                                                    "    context.record.set('choose','Person');",
-                                                    "}else if(context.record.get('rankValue')!=null && context.record.get('rankValue')>=0){",
-                                                    "    context.record.set('choose','Level');",
-                                                    "}",
-                                                    "else{",
-                                                    "    context.record.set('choose','Solution');",
-                                                    "}",
-                                                    "context.record.commit();"
+                                                    "if(context.field=='personValue'){",
+                                                    "",
+                                                    "    if(context.newValues.personValue!=null &&context.newValues.personValue>=0){",
+                                                    "        context.record.set('choose','Person');",
+                                                    "    }else if(context.record.get('rankValue')!=null && context.record.get('rankValue')>=0){",
+                                                    "        context.record.set('choose','Level');",
+                                                    "    }",
+                                                    "    else{",
+                                                    "        context.record.set('choose','Solution');",
+                                                    "    }",
+                                                    "    context.record.commit();",
+                                                    "}"
                                                 ],
                                                 "name": "edit",
                                                 "scope": "me"
                                             },
                                             "name": "onRowEditingEdit",
                                             "designerId": "d1531052-8ac2-4b9c-b700-cb10dbafb9f0"
+                                        },
+                                        {
+                                            "type": "basiceventbinding",
+                                            "reference": {
+                                                "name": "listeners",
+                                                "type": "array"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "fn": "onRowEditingValidateedit",
+                                                "implHandler": [
+                                                    "if(context.field=='choose'){",
+                                                    "    if(context.newValues.choose==='Level' &&",
+                                                    "      context.record.get('rankValue')==null){",
+                                                    "        Ext.Msg.alert(\"提示\",\"此项目的层级值数量未设置\");",
+                                                    "        return false;",
+                                                    "    }",
+                                                    "}"
+                                                ],
+                                                "name": "validateedit",
+                                                "scope": "me"
+                                            },
+                                            "name": "onRowEditingValidateedit",
+                                            "designerId": "1535c91e-4a9b-439f-9ab8-28e9a5dd67c9"
                                         }
                                     ]
                                 }
@@ -1255,6 +1284,7 @@
                             },
                             "codeClass": null,
                             "userConfig": {
+                                "allowBlank": false,
                                 "displayField": "name",
                                 "editable": false,
                                 "fieldLabel": "社保方案",
@@ -1387,9 +1417,9 @@
                                     },
                                     "codeClass": null,
                                     "userConfig": {
-                                        "dataIndex": "cardinality",
-                                        "flex": 0.6,
-                                        "text": "基数"
+                                        "dataIndex": "companyCardinality",
+                                        "flex": 1,
+                                        "text": "单位缴费基数"
                                     },
                                     "name": "MyColumn13",
                                     "designerId": "5a5f74cc-092a-42c4-80e4-fbc71e4f6302",
@@ -1414,7 +1444,7 @@
                                     },
                                     "codeClass": null,
                                     "userConfig": {
-                                        "dataIndex": "companyPaymentValue",
+                                        "dataIndex": "displayCompanyPaymentValue",
                                         "flex": 1.25,
                                         "text": "单位缴费"
                                     },
@@ -1430,36 +1460,6 @@
                                             "codeClass": null,
                                             "name": "MyNumberField5",
                                             "designerId": "a66f07f0-2e90-48d0-8663-7921822bd4a0"
-                                        },
-                                        {
-                                            "type": "fixedfunction",
-                                            "reference": {
-                                                "name": "items",
-                                                "type": "array"
-                                            },
-                                            "codeClass": null,
-                                            "userConfig": {
-                                                "designer|params": [
-                                                    "value",
-                                                    "metaData",
-                                                    "record",
-                                                    "rowIndex",
-                                                    "colIndex",
-                                                    "store",
-                                                    "view"
-                                                ],
-                                                "fn": "renderer",
-                                                "implHandler": [
-                                                    "if(record.get('companyPaymentType')==='Percent'){",
-                                                    "    return value*100 +'%';",
-                                                    "}",
-                                                    "else{",
-                                                    "    return value;",
-                                                    "}"
-                                                ]
-                                            },
-                                            "name": "renderer",
-                                            "designerId": "2c318002-94a5-449e-afdb-36ec10d0e55e"
                                         }
                                     ]
                                 },
@@ -1536,7 +1536,34 @@
                                     },
                                     "codeClass": null,
                                     "userConfig": {
-                                        "dataIndex": "personalPaymentValue",
+                                        "dataIndex": "personalCardinality",
+                                        "flex": 1,
+                                        "text": "个人缴费基数"
+                                    },
+                                    "name": "MyColumn34",
+                                    "designerId": "ec8214a9-7d8d-4835-bdff-3661591e38ff",
+                                    "cn": [
+                                        {
+                                            "type": "Ext.form.field.Number",
+                                            "reference": {
+                                                "name": "editor",
+                                                "type": "object"
+                                            },
+                                            "codeClass": null,
+                                            "name": "MyNumberField7",
+                                            "designerId": "7738d350-167f-4be0-871c-57c367683b4c"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "Ext.grid.column.Column",
+                                    "reference": {
+                                        "name": "columns",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "dataIndex": "displayPersonalPaymentValue",
                                         "flex": 1.25,
                                         "text": "个人缴费"
                                     },
@@ -1552,36 +1579,6 @@
                                             "codeClass": null,
                                             "name": "MyNumberField6",
                                             "designerId": "15ab58d3-9ba6-49de-bf65-44b1fc6adc65"
-                                        },
-                                        {
-                                            "type": "fixedfunction",
-                                            "reference": {
-                                                "name": "items",
-                                                "type": "array"
-                                            },
-                                            "codeClass": null,
-                                            "userConfig": {
-                                                "designer|params": [
-                                                    "value",
-                                                    "metaData",
-                                                    "record",
-                                                    "rowIndex",
-                                                    "colIndex",
-                                                    "store",
-                                                    "view"
-                                                ],
-                                                "fn": "renderer",
-                                                "implHandler": [
-                                                    "if(record.get('personalPaymentType')==='Percent'){",
-                                                    "    return value*100 +'%';",
-                                                    "}",
-                                                    "else{",
-                                                    "    return value;",
-                                                    "}"
-                                                ]
-                                            },
-                                            "name": "renderer",
-                                            "designerId": "73b93d5c-088a-4130-b65e-68ffc128375a"
                                         }
                                     ]
                                 },
@@ -1683,6 +1680,39 @@
                                             "group": "(Custom Properties)",
                                             "name": "cancelBtnText",
                                             "type": "string"
+                                        }
+                                    ],
+                                    "cn": [
+                                        {
+                                            "type": "basiceventbinding",
+                                            "reference": {
+                                                "name": "listeners",
+                                                "type": "array"
+                                            },
+                                            "codeClass": null,
+                                            "userConfig": {
+                                                "fn": "onRowEditingEdit1",
+                                                "implHandler": [
+                                                    "var grid = editor.grid,",
+                                                    "    store = grid.getStore(),",
+                                                    "    record = store.findRecord('id',context.record.get('id'));",
+                                                    "if(context.record.get('companyPaymentType') == 'Percent'){",
+                                                    "    record.set('companyPaymentValue', parseFloat(context.record.get('displayCompanyPaymentValue')) * 0.01);",
+                                                    "}else if(context.record.get('companyPaymentType') == 'Quota'){",
+                                                    "    record.set('companyPaymentValue', parseFloat(context.record.get('displayCompanyPaymentValue')));",
+                                                    "}",
+                                                    "",
+                                                    "if(context.record.get('personalPaymentType') == 'Percent'){",
+                                                    "    record.set('personalPaymentValue', parseFloat(context.record.get('displayPersonalPaymentValue')) * 0.01);",
+                                                    "}else if(context.record.get('personalPaymentType') == 'Quota'){",
+                                                    "    record.set('personalPaymentValue', parseFloat(context.record.get('displayPersonalPaymentValue')));",
+                                                    "}"
+                                                ],
+                                                "name": "edit",
+                                                "scope": "me"
+                                            },
+                                            "name": "onRowEditingEdit1",
+                                            "designerId": "88ffcd21-66e2-43cd-9e92-e0ef24de8267"
                                         }
                                     ]
                                 }

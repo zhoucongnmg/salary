@@ -21,8 +21,8 @@ Ext.define('sion.salary.payroll.view.DynamicGrid', {
         'Ext.button.Button',
         'Ext.form.Panel',
         'Ext.form.field.Display',
+        'Ext.form.field.Text',
         'Ext.form.field.Checkbox',
-        'Ext.form.field.ComboBox',
         'Ext.grid.Panel',
         'Ext.grid.column.Column',
         'Ext.grid.View',
@@ -173,13 +173,13 @@ Ext.define('sion.salary.payroll.view.DynamicGrid', {
                             xtype: 'checkboxfield',
                             padding: '0 0 0 20',
                             name: 'showCompanySocial',
-                            boxLabel: '显示单位社保'
+                            boxLabel: '显示单位社保/公积金'
                         },
                         {
                             xtype: 'checkboxfield',
                             padding: '0 0 0 10',
                             name: 'showPersonalSocial',
-                            boxLabel: '显示个人社保'
+                            boxLabel: '显示个人社保/公积金'
                         },
                         {
                             xtype: 'checkboxfield',
@@ -200,29 +200,8 @@ Ext.define('sion.salary.payroll.view.DynamicGrid', {
                             boxLabel: '显示开户行/工资卡号'
                         },
                         {
-                            xtype: 'combobox',
-                            padding: '0 0 0 10',
-                            width: 150,
-                            fieldLabel: '排序方式',
-                            labelWidth: 60,
-                            name: 'sortBy',
-                            store: [
-                                [
-                                    'bydept',
-                                    '按组织机构'
-                                ],
-                                [
-                                    'byusercode',
-                                    '按员工编号'
-                                ],
-                                [
-                                    'byusername',
-                                    '按员工姓名'
-                                ]
-                            ]
-                        },
-                        {
                             xtype: 'button',
+                            margin: '0 0 0 20',
                             text: '查询',
                             listeners: {
                                 click: {
@@ -234,41 +213,72 @@ Ext.define('sion.salary.payroll.view.DynamicGrid', {
                     ]
                 },
                 {
-                    xtype: 'gridpanel',
+                    xtype: 'panel',
                     flex: 1,
-                    autoScroll: true,
-                    emptyText: '无工资条数据',
-                    columns: [
+                    itemId: 'gridPanel',
+                    overflowX: 'auto',
+                    layout: {
+                        type: 'hbox',
+                        align: 'stretch'
+                    },
+                    items: [
                         {
-                            xtype: 'gridcolumn',
-                            dataIndex: 'string',
+                            xtype: 'gridpanel',
+                            itemId: 'simpleGrid',
+                            width: 200,
+                            autoScroll: true,
+                            emptyText: '无工资条数据',
                             columns: [
                                 {
                                     xtype: 'gridcolumn',
-                                    text: 'MyColumn3'
-                                },
-                                {
-                                    xtype: 'gridcolumn',
-                                    text: 'MyColumn16'
+                                    dataIndex: 'string'
                                 }
                             ]
-                        }
-                    ],
-                    plugins: [
-                        Ext.create('Ext.grid.plugin.RowEditing', {
-                            saveBtnText: '保存',
-                            cancelBtnText: '取消',
-                            listeners: {
-                                edit: {
-                                    fn: me.onRowEditingEdit,
-                                    scope: me
-                                },
-                                beforeedit: {
-                                    fn: me.onRowEditingBeforeEdit,
-                                    scope: me
+                        },
+                        {
+                            xtype: 'gridpanel',
+                            itemId: 'mainGrid',
+                            width: 1050,
+                            emptyText: '无工资条数据',
+                            columns: [
+                                {
+                                    xtype: 'gridcolumn',
+                                    dataIndex: 'string',
+                                    columns: [
+                                        {
+                                            xtype: 'gridcolumn',
+                                            dataIndex: 'name',
+                                            text: 'MyColumn3',
+                                            editor: {
+                                                xtype: 'textfield'
+                                            }
+                                        },
+                                        {
+                                            xtype: 'gridcolumn',
+                                            dataIndex: 'age',
+                                            text: 'MyColumn13'
+                                        }
+                                    ]
                                 }
-                            }
-                        })
+                            ],
+                            plugins: [
+                                Ext.create('Ext.grid.plugin.RowEditing', {
+                                    saveBtnText: '保存',
+                                    cancelBtnText: '取消',
+                                    pluginId: 'mainRowEditor',
+                                    listeners: {
+                                        edit: {
+                                            fn: me.onRowEditingEdit1,
+                                            scope: me
+                                        },
+                                        beforeedit: {
+                                            fn: me.onRowEditingBeforeEdit,
+                                            scope: me
+                                        }
+                                    }
+                                })
+                            ]
+                        }
                     ]
                 }
             ],
@@ -289,10 +299,15 @@ Ext.define('sion.salary.payroll.view.DynamicGrid', {
             accountId = me._accountId,
             namespace = me.getNamespace(),
             mainModel = Ext.create(namespace + '.model.Main'),
-            grid = me.down('grid'),
+            subGrids = me.query('grid[_subGrid=true]')||[],
+            grid = me.down('#mainGrid'),
             store = grid.getStore(),
             data = [];
 
+        Ext.Array.each(subGrids,function(subGrid,index){
+            var subStore = subGrid.getStore();
+            subStore.sync();
+        });
 
         store.sync({
             success: function(response, options){
@@ -358,16 +373,29 @@ Ext.define('sion.salary.payroll.view.DynamicGrid', {
             id = me._id,
             record = me._record,
             ns = me.getNamespace(),
-            grid = me.down('grid'),
+            simpleGrid = me.down('#simpleGrid'),
+            simpleStore = simpleGrid.getStore(),
+            mainGrid = me.down('#mainGrid'),
+            mainStore = mainGrid.getStore(),
             form = me.down('form'),
-            store = grid.getStore(),
-            opts = searchForm.getForm().getValues();
+            values = searchForm.getForm().getValues(),
+            subGrids = me.query('grid[_subGrid=true]')||[];
 
-        console.log(opts);
-        me.loadData(id,grid,store,opts);
+        values.type = 'Payroll';
+        me.loadData(id,mainGrid,values,null,'MainPayrollItem');
+        values.query = 'Simple';
+        var levelCount = me.loadData(id,simpleGrid,values,null,'SimplePayrollItem');
+        mainGrid.headerCt.setHeight(levelCount*30-5);
+        Ext.Array.each(subGrids,function(subGrid,index){
+            var subStore = subGrid.getStore();
+            me.loadData(id,subGrid,{
+                type : 'PayrollSub'
+            },store,null);
+            subGrid.headerCt.setHeight(levelCount*30-2);
+        });
     },
 
-    onRowEditingEdit: function(editor, context, eOpts) {
+    onRowEditingEdit1: function(editor, context, eOpts) {
 
 
         var me = this,
@@ -385,33 +413,66 @@ Ext.define('sion.salary.payroll.view.DynamicGrid', {
     onRowEditingBeforeEdit: function(editor, context, eOpts) {
         var me = this;
         return me._canEdit;
-
     },
 
     onWindowBeforeRender: function(component, eOpts) {
         var me = this,
             id = me._id,
             record = me._record,
+            type = me._type,
             ns = me.getNamespace(),
-            grid = me.down('grid'),
+            searchForm = me.down('#searchForm'),
+            simpleGrid = me.down('#simpleGrid'),
+            mainGrid = me.down('#mainGrid'),
             form = me.down('form'),
             saveBtn = me.down('#saveBtn'),
-            store = Ext.create(ns+'.store.PayrollItem');
+            opts = me._opts;
+
 
         saveBtn.setVisible(me._canEdit);
         me.setTitle(record.get('subject'));
         form.loadRecord(record);
-        me.loadData(id,grid,store);
+        if (type == 'Payroll') {
+            var subStore = Ext.create(ns+'.store.PayrollSubStore',{
+                storeId : 'dynamicPayrollSubStore'
+            });
+
+            subStore.load({
+                params : {
+                    payrollId : id,
+                },
+                callback: function(records, operation, success) {
+                    Ext.Array.each(records,function(r,index){
+                        var subGrid = me.insertGrid(r);
+                        me.loadData(id,subGrid,{
+                            payrollSubId : r.getId(),
+                            type : 'PayrollSub'
+                        },null,'PayrollItem-' + r.get('id'));
+                    });
+
+                }
+
+            });
+        }else {
+            searchForm.hide();
+        }
+
+        me.loadData(id,mainGrid,opts,null,'MainPayrollItem');
+        opts.query = 'Simple';
+        me.loadData(id,simpleGrid,opts,null,'SimplePayrollItem');
+
     },
 
     calculate: function(record, cb) {
         var me = this,
             grid = me.down('grid'),
             id = me._id,
+            type = me._opts.type,
+            url = type=='Payroll'?'salary/payroll/calculate':'salary/payroll/calculateSub',
             accountId = me._accountId;
 
         Ext.Ajax.request({
-            url:'salary/payroll/calculate',
+            url:url,
             async : false,
             jsonData : {
                 accountId : accountId,
@@ -426,25 +487,77 @@ Ext.define('sion.salary.payroll.view.DynamicGrid', {
         });
     },
 
-    loadData: function(id, grid, store, opts) {
-        var me = this;
+    loadData: function(id, grid, opts, store, storeId) {
+        var me = this,
+            gridWidth = 0,
+            levelCount = 1;
         Ext.Ajax.request({
             url:'salary/payroll/findItemList',
+            async : false,
             jsonData : {
                 id : id,
                 opts : opts
             },
             success: function(response){
-                store.removeAll();
+
                 var json = Ext.JSON.decode(response.responseText);
-                store.model.setFields(json.data.fields);
+                if (store==null) {
+                    store = Ext.create(me.getNs()+'.store.PayrollItem',{
+                        storeId : storeId,
+                        fields : json.data.fields
+                    });
+                }else {
+                    store.removeAll();
+                }
                 store.add(json.data.data);
                 grid.reconfigure(store, json.data.columns);
                 me._columns = json.data.columns;
+                Ext.Array.each(me._columns,function(column,index){
+                    if (column.columns) {
+                        var columnWidth = 0;
+                          if (levelCount<2) levelCount=2;
+                          Ext.Array.each(column.columns,function(c_column,index){
+                              if (c_column.columns) {
+                                  if (levelCount<3) levelCount=3;
+                                  columnWidth+=c_column.columns.length*66;
+                              }else {
+                                  columnWidth+=100;
+                              }
+                          });
+                        gridWidth+=columnWidth;
+                    }else {
+                        gridWidth+=100;
+                    }
+                });
+                grid.setWidth(gridWidth);
             },failure: function(){
                 Ext.Msg.alert("提示", "加载失败");
             }
         });
+
+        return levelCount;
+
+    },
+
+    insertGrid: function(payrollSub) {
+        var me = this,
+            canEdit = me._canEdit,
+            mainGrid = me.down('#mainGrid'),
+            panel = me.down('#gridPanel'),
+            grid = Ext.create(me.getNs()+'.view.PayrollSubGrid',{
+                itemId : payrollSub.getId(),
+                autoScroll : false,
+                overflowX: 'hidden',
+                overflowY: 'hidden',
+                _mainGrid : mainGrid,
+                _canEdit : canEdit,
+                _dynamicGrid : me,
+                _subGrid : true
+            });
+
+        panel.insert(1,grid);
+
+        return grid;
     }
 
 });

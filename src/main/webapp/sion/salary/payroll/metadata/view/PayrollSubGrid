@@ -1,0 +1,169 @@
+{
+    "type": "Ext.grid.Panel",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "autoScroll": true,
+        "designer|userClassName": "PayrollSubGrid",
+        "emptyText": "无工资条数据",
+        "itemId": "mainGrid1",
+        "store": null,
+        "title": null
+    },
+    "name": "MyGridPanel2",
+    "designerId": "a3ed5d90-31ff-4a93-ab1e-95b40d356bba",
+    "cn": [
+        {
+            "type": "Ext.grid.column.Column",
+            "reference": {
+                "name": "columns",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "dataIndex": "string",
+                "text": null
+            },
+            "name": "MyColumn12",
+            "designerId": "e096c15c-1131-415d-b7dd-8e832efaebe7"
+        },
+        {
+            "type": "Ext.grid.View",
+            "reference": {
+                "name": "viewConfig",
+                "type": "object"
+            },
+            "codeClass": null,
+            "name": "MyGridView3",
+            "designerId": "876eb108-62f9-4e84-b1dc-b5906944691c"
+        },
+        {
+            "type": "Ext.grid.plugin.RowEditing",
+            "reference": {
+                "name": "plugins",
+                "type": "array"
+            },
+            "codeClass": "Ext.grid.plugin.RowEditing",
+            "userConfig": {
+                "cancelBtnText": "取消",
+                "saveBtnText": "保存"
+            },
+            "name": "MyRowEditingPlugin",
+            "designerId": "6671b2cd-fba3-4ed4-ab61-3c86b4b5f769",
+            "customConfigs": [
+                {
+                    "group": "(Custom Properties)",
+                    "name": "saveBtnText",
+                    "type": "string"
+                },
+                {
+                    "group": "(Custom Properties)",
+                    "name": "cancelBtnText",
+                    "type": "string"
+                }
+            ],
+            "cn": [
+                {
+                    "type": "basiceventbinding",
+                    "reference": {
+                        "name": "listeners",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fn": "onRowEditingEdit11",
+                        "implHandler": [
+                            "",
+                            "",
+                            "var me = this,",
+                            "    mainGrid = me._mainGrid,",
+                            "    store = mainGrid.getStore(),",
+                            "    record = context.record,",
+                            "    mainRecord = store.findRecord('personId',record.get('personId'));;",
+                            "",
+                            "",
+                            "me.calculate(record,function(values){",
+                            "    for (var key in values) {",
+                            "        mainRecord.set(key,values[key]);",
+                            "    }",
+                            "});",
+                            ""
+                        ],
+                        "name": "edit",
+                        "scope": "me"
+                    },
+                    "name": "onRowEditingEdit11",
+                    "designerId": "1724dd85-370a-455d-bbfe-b45e3667b80b"
+                },
+                {
+                    "type": "basiceventbinding",
+                    "reference": {
+                        "name": "listeners",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "fn": "onRowEditingBeforeEdit11",
+                        "implHandler": [
+                            "var me = this;",
+                            "return me._canEdit;",
+                            ""
+                        ],
+                        "name": "beforeedit",
+                        "scope": "me"
+                    },
+                    "name": "onRowEditingBeforeEdit11",
+                    "designerId": "ffde90c8-f0eb-474f-91e5-b7f77239d1d8"
+                }
+            ]
+        },
+        {
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|params": [
+                    "record",
+                    "cb"
+                ],
+                "fn": "calculate",
+                "implHandler": [
+                    "var me = this,",
+                    "    dynamicGrid = me._dynamicGrid,",
+                    "    subRecords = [],",
+                    "    subGrids = dynamicGrid.query('grid[_subGrid=true]')||[];",
+                    "",
+                    "Ext.Array.each(subGrids,function(subGrid,index){",
+                    "    if (subGrid.itemId!=me.itemId) {",
+                    "        var subRecord = subGrid.getStore().findRecord('personId',record.get('personId'));",
+                    "        subRecords.push(subRecord.data);",
+                    "    }",
+                    "});",
+                    "",
+                    "",
+                    "Ext.Ajax.request({",
+                    "    url:'salary/payroll/calculateSub',",
+                    "    jsonData : {",
+                    "        record : record.data,",
+                    "        subRecords : subRecords",
+                    "    },",
+                    "    success: function(response){",
+                    "        var json = Ext.JSON.decode(response.responseText);",
+                    "        Ext.callback(cb,me,[json.data]);",
+                    "    },failure: function(){",
+                    "        Ext.Msg.alert(\"提示\", \"加载失败\");",
+                    "    }",
+                    "});"
+                ]
+            },
+            "name": "calculate",
+            "designerId": "a657ce83-2546-4ee3-ab16-bfd11da160ed"
+        }
+    ]
+}

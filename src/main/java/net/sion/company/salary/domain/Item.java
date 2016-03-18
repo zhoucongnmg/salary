@@ -2,6 +2,7 @@ package net.sion.company.salary.domain;
 
 
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -15,8 +16,8 @@ public class Item {
 	ItemType item;
 	public enum DecimalCarryType {
 		Round, //四舍五入
-		Isopsephy,	//数值进位
-		Truncation	//数值舍位
+		Isopsephy,	//直接进位
+		Truncation	//直接舍去
 	}
 	public enum ItemType {
 		SalaryItem, //薪资项目
@@ -40,6 +41,19 @@ public class Item {
 		}
 		return value;
 	}	
+	
+	public static void main(String[] args) {
+		String formatStr = "0";
+		
+		int scale = 2;
+		for (int i=0;i<scale;i++) {
+			if (i==0) formatStr = formatStr+".";
+			formatStr = formatStr+"0";
+		}
+		DecimalFormat    df   = new DecimalFormat(formatStr);
+		
+		System.out.println(df.format(1374.0));
+	}
 	
 	public ItemType getItem() {
 		return item;

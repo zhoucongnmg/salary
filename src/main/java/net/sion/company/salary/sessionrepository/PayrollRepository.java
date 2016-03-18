@@ -19,4 +19,5 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 public interface PayrollRepository extends MongoRepository<Payroll, String>,
 		PagingAndSortingRepository<Payroll, String> {
 	List<Payroll> findByAccountId(String accountId);
+	List<Payroll> findByAccountIdAndState(String accountId, String state);
 }

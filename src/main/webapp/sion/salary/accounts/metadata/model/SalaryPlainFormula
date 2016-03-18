@@ -1,0 +1,67 @@
+{
+    "type": "Ext.data.Model",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userClassName": "SalaryPlainFormula"
+    },
+    "name": "MyModel",
+    "designerId": "db458ad1-604d-4c08-862d-c9630a8b031b",
+    "cn": [
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "id"
+            },
+            "name": "MyField70",
+            "designerId": "1dd37631-ff7a-46f2-9cf7-45d7afffafbf"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "items"
+            },
+            "name": "MyField71",
+            "designerId": "0488a127-57b8-4013-835a-949908b16276"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "resultFieldId"
+            },
+            "name": "MyField72",
+            "designerId": "c147b0e7-ffc5-4dcb-96a3-28fd9545b7b3"
+        },
+        {
+            "type": "Ext.data.Field",
+            "reference": {
+                "name": "fields",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "name": "formula"
+            },
+            "name": "MyField73",
+            "designerId": "42efe33e-0a45-4ad7-8737-2dc39e96c7ea"
+        }
+    ]
+}

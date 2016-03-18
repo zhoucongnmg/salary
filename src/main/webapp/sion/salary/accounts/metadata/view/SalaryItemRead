@@ -111,25 +111,6 @@
                     },
                     "name": "MyDisplayField5",
                     "designerId": "38f7b9af-c194-494d-8d5c-0f24a698e306"
-                },
-                {
-                    "type": "Ext.form.field.Display",
-                    "reference": {
-                        "name": "items",
-                        "type": "array"
-                    },
-                    "codeClass": null,
-                    "userConfig": {
-                        "fieldLabel": "备注",
-                        "itemId": "note",
-                        "layout|anchor": "100%",
-                        "name": "note",
-                        "style": [
-                            "border-bottom:1px #f2f2f2 solid;"
-                        ]
-                    },
-                    "name": "MyDisplayField4",
-                    "designerId": "0d6f15dd-3ee7-459c-b3ee-3b5c3c53597a"
                 }
             ]
         },
@@ -150,13 +131,15 @@
                     "    store = Ext.getStore(\"AccountItemType\"),",
                     "    rec = store.findRecord('id', salaryItem.get('type'));",
                     "",
-                    "    form.loadRecord(salaryItem);",
-                    "// if(salaryItem.get('taxItem')){",
-                    "//     me.down('#taxItem').setValue('是');",
-                    "// }else{",
-                    "//     me.down('#taxItem').setValue('否');",
-                    "// }",
-                    "me.down('#type').setValue(rec.get(\"name\"));"
+                    "form.loadRecord(salaryItem);",
+                    "me.down('#type').setValue(rec.get(\"name\"));",
+                    "if('Round' == salaryItem.get('carryType')){",
+                    "    me.down('#carryType').setValue('四舍五入');",
+                    "}else if('Isopsephy' == salaryItem.get('carryType')){",
+                    "    me.down('#carryType').setValue('直接进位');",
+                    "}else if('Truncation' == salaryItem.get('carryType')){",
+                    "    me.down('#carryType').setValue('直接舍去');",
+                    "}"
                 ],
                 "name": "beforerender",
                 "scope": "me"

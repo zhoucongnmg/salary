@@ -125,7 +125,14 @@ Ext.define('sion.salary.tax.view.Tax', {
                             flex: 2
                         },
                         {
-                            xtype: 'numbercolumn',
+                            xtype: 'gridcolumn',
+                            renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
+                                var str = value + '';
+                                if(str.split(".").length > 1){
+                                    return (Number(value)  * 100).toFixed(str.split(".")[1].length - 2 > 0 ? str.split(".")[1].length - 2 : 0);
+                                }
+                                return value;
+                            },
                             dataIndex: 'rate',
                             text: '税率(%)',
                             flex: 2
@@ -171,7 +178,7 @@ Ext.define('sion.salary.tax.view.Tax', {
                                                     for(var i = 1; i < store.getCount(); i++){
                                                         var prev = store.getAt(i - 1);
                                                         var current = store.getAt(i);
-                                                        var fastNumber = me.countFastNumber(prev.get('end'), prev.get('rate'), prev.get('fastNumber'), current.get('rate'));
+                                                        var fastNumber = me.countFastNumber(prev.get('end'), prev.get('rate'), prev.get('fastNumber'),parseFloat(current.get('rate'))  * 100);
                                                         current.set('fastNumber', fastNumber);
                                                     }
                                                 }
@@ -295,10 +302,16 @@ Ext.define('sion.salary.tax.view.Tax', {
     },
 
     countFastNumber: function(prevEnd, prevRate, prevFastNumber, rate) {
+        // var value = 0;
+
+        // value = prevEnd * (rate - prevRate) ;
+        // value = (value * 0.01).toFixed(2);
+        // value = parseFloat(value) + parseFloat(prevFastNumber);
+        // return value;
+
         var value = 0;
 
-        value = prevEnd * (rate - prevRate) ;
-        value = (value * 0.01).toFixed(2);
+        value = prevEnd * ((rate * 0.01).toFixed(2) - prevRate);
         value = parseFloat(value) + parseFloat(prevFastNumber);
         return value;
     }

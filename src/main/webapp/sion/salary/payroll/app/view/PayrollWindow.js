@@ -28,8 +28,9 @@ Ext.define('sion.salary.payroll.view.PayrollWindow', {
         'Ext.tree.Column'
     ],
 
-    height: 430,
+    height: 630,
     width: 642,
+    layout: 'fit',
     title: 'My Window',
 
     initComponent: function() {
@@ -40,9 +41,12 @@ Ext.define('sion.salary.payroll.view.PayrollWindow', {
                 {
                     xtype: 'form',
                     itemId: 'PayrollForm',
-                    layout: 'fit',
                     bodyPadding: 10,
                     title: '',
+                    layout: {
+                        type: 'vbox',
+                        align: 'stretch'
+                    },
                     dockedItems: [
                         {
                             xtype: 'toolbar',
@@ -65,6 +69,7 @@ Ext.define('sion.salary.payroll.view.PayrollWindow', {
                     items: [
                         {
                             xtype: 'fieldset',
+                            flex: 2,
                             height: 100,
                             width: 605,
                             layout: 'column',
@@ -83,20 +88,6 @@ Ext.define('sion.salary.payroll.view.PayrollWindow', {
                                 {
                                     xtype: 'tbspacer',
                                     columnWidth: 0.2,
-                                    height: 20
-                                },
-                                me.processMonth({
-                                    xtype: 'triggerfield',
-                                    columnWidth: 0.35,
-                                    fieldLabel: '薪资月份',
-                                    name: 'month',
-                                    allowBlank: false,
-                                    blankText: '薪资月份不能为空',
-                                    validateBlank: true
-                                }),
-                                {
-                                    xtype: 'tbspacer',
-                                    columnWidth: 1,
                                     height: 20
                                 },
                                 {
@@ -122,6 +113,21 @@ Ext.define('sion.salary.payroll.view.PayrollWindow', {
                                 },
                                 {
                                     xtype: 'tbspacer',
+                                    columnWidth: 1,
+                                    height: 20
+                                },
+                                me.processMonth({
+                                    xtype: 'triggerfield',
+                                    columnWidth: 0.35,
+                                    fieldLabel: '薪资月份',
+                                    labelWidth: 80,
+                                    name: 'month',
+                                    allowBlank: false,
+                                    blankText: '薪资月份不能为空',
+                                    validateBlank: true
+                                }),
+                                {
+                                    xtype: 'tbspacer',
                                     columnWidth: 0.2,
                                     height: 20
                                 },
@@ -129,6 +135,7 @@ Ext.define('sion.salary.payroll.view.PayrollWindow', {
                                     xtype: 'triggerfield',
                                     columnWidth: 0.35,
                                     fieldLabel: '社保扣费月',
+                                    labelWidth: 80,
                                     name: 'socialCostMonth',
                                     allowBlank: false,
                                     blankText: '社保月份不能为空',
@@ -168,7 +175,7 @@ Ext.define('sion.salary.payroll.view.PayrollWindow', {
                         },
                         {
                             xtype: 'treepanel',
-                            height: 300,
+                            flex: 8,
                             store: 'PersonStore',
                             rootVisible: false,
                             useArrows: true,
@@ -177,7 +184,7 @@ Ext.define('sion.salary.payroll.view.PayrollWindow', {
                                     xtype: 'treecolumn',
                                     dataIndex: 'name',
                                     text: '人员信息',
-                                    flex: 1
+                                    flex: 5
                                 }
                             ],
                             listeners: {
@@ -235,13 +242,12 @@ Ext.define('sion.salary.payroll.view.PayrollWindow', {
             itemStore = itemTree.getStore();
 
 
-        button.setDisabled(true);
         if(!form.isValid()){
             Ext.Msg.alert("提示", "信息不完整，请继续填写！");
             return false;
         }
 
-        if(!selectedRows[0]){
+        if(!this.hasLeaf(selectedRows)){
             Ext.Msg.alert("提示", "请选择人员！");
             return false;
         }
@@ -260,11 +266,11 @@ Ext.define('sion.salary.payroll.view.PayrollWindow', {
         record.save({
             success: function(response, opts){
                 record.commit();
-                if(state=='add'){
+        //         if(state=='add'){
                     payrollStore = me._link.payrollStore;
                     payrollStore.reload();
-                }
-        //         button.setDisabled(false);
+        //         }
+                //         button.setDisabled(false);
                 me.close();
                 Ext.Msg.alert("提示", "保存成功");
             },
@@ -311,9 +317,12 @@ Ext.define('sion.salary.payroll.view.PayrollWindow', {
     },
 
     onTreepanelCheckChange: function(node, checked, eOpts) {
+        var me = this;
         node.cascadeBy(function (n) { n.set('checked', checked); });
 
-        this.checkParent(node);
+        me.checkParent(node);
+        me.down('form').down('button').setDisabled(false);
+
     },
 
     onWindowBeforeClose: function(panel, eOpts) {
@@ -346,6 +355,16 @@ Ext.define('sion.salary.payroll.view.PayrollWindow', {
             this.removeTree(node.firstChild);
             node.removeChild(node.firstChild);
         }
+    },
+
+    hasLeaf: function(rows) {
+        var flag = false;
+        Ext.each(rows, function (item) {
+            if(item.isLeaf()){
+                flag = true;
+            }
+        });
+        return flag;
     }
 
 });

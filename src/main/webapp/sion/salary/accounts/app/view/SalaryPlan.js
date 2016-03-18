@@ -249,16 +249,10 @@ Ext.define('sion.salary.accounts.view.SalaryPlan', {
                             success: function(response, opts){
                                 Ext.Msg.confirm('提示', '保存成功，是否更新工资条？', function(text){
                                     if(text == 'yes'){
-                                        var payroll = Ext.create(namespace + ".view.payroll");
-                                        var payrollStore = payroll.down('gridpanel').getStore();
-                                        Ext.apply(payrollStore.proxy.extraParams, {
-                                            accountId : record.get('id')
-                                        });
-                                        payrollStore.load({
-                                            callback: function(records, operation, success) {
-                                                payroll.show();
-                                            }
-                                        });
+                                        Ext.create(namespace + ".view.Payroll",{
+                                            _accountId : record.get('id')
+                                        }).show();
+
                                     }
                                 });
                                 store.load();
@@ -345,8 +339,8 @@ Ext.define('sion.salary.accounts.view.SalaryPlan', {
                 },
                 success: function(response, opts){
                     var data = Ext.JSON.decode(response.responseText);
-                    alert(data);
-                    console.log(data);
+        //             alert(data);
+        //             console.log(data);
                     return data;
         //             record.set('formula', data);
                 },
@@ -373,7 +367,75 @@ Ext.define('sion.salary.accounts.view.SalaryPlan', {
         });
     },
 
-    loadData: function(store) {
+    loadData: function(store, accountId) {
+        var me = this,
+            namespace = me.getNamespace(),
+            grid = me.down('grid'),
+            itemStore = grid.getStore(),
+            form = me.down("form"),
+            formulaStore = Ext.getStore('SalaryPlainFormula'),
+            account = me._account;
+        //     ids = [];
+
+        formulaStore.removeAll();
+        itemStore.removeAll();
+        if(account){
+            Ext.Ajax.request({
+                url: 'salary/account/readFormulaByAccountId',
+                method: 'post',
+                async: false,    //不使用异步
+                params: {
+                    accountId: account.get('id')
+                },
+                success: function(response, opts){
+                    if(response.responseText !== ''){
+                        var responseText = Ext.JSON.decode(response.responseText);
+                        var formulas = responseText.data;
+                        Ext.Array.each(formulas,function(item){
+                            formulaStore.add(Ext.create(namespace+".model.SalaryPlainFormula", item));
+                        });
+                    }
+                },
+                failure: function(response, opts) {
+                    Ext.Msg.alert('提示信息','数据请求错误，请稍候重新尝试获取数据……');
+                }
+            });
+            Ext.Array.each(account.get('accountItems'), function(item){
+                if(item !== null && item.type == 'Calculate' && item.formulaId !== ''){
+                    var formula = formulaStore.findRecord('id', item.formulaId);
+                    item.formula = formula.data;
+                }else{
+                    item.formula = null;
+                }
+                var salaryItem = store.findRecord('id', item.salaryItemId);
+                item.name = salaryItem.get('name');
+                itemStore.add(item);
+            });
+            form.loadRecord(account);
+        }else{
+            form.loadRecord(Ext.create(namespace + '.model.Account', {
+                id: '',
+                name: ''
+            }));
+        }
+    },
+
+    payroll: function() {
+        taxStore = Ext.getStore('Tax');
+
+        taxStore.load({
+            callback: function(records, operation, success) {
+                Ext.create(namespace+".view.AddSalaryItem", {
+                    //     _account : me._account,
+                    _accountItem : record,
+                    _store : grid.getStore(),
+                    _taxStore : taxStore
+                }).show();
+            }
+        });
+    },
+
+    test: function(store) {
         var me = this,
             namespace = me.getNamespace(),
             grid = me.down('grid'),
@@ -416,21 +478,6 @@ Ext.define('sion.salary.accounts.view.SalaryPlan', {
                 name: ''
             }));
         }
-    },
-
-    payroll: function() {
-        taxStore = Ext.getStore('Tax');
-
-        taxStore.load({
-            callback: function(records, operation, success) {
-                Ext.create(namespace+".view.AddSalaryItem", {
-                    //     _account : me._account,
-                    _accountItem : record,
-                    _store : grid.getStore(),
-                    _taxStore : taxStore
-                }).show();
-            }
-        });
     }
 
 });

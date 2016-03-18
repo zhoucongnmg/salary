@@ -65,7 +65,8 @@
                                     "",
                                     "record = form.getRecord();",
                                     "form.updateRecord(record);",
-                                    "if(!me.down('#socialItemId').isValid() || !me.down('#cardinality').isValid() ||",
+                                    "if(!me.down('#socialItemId').isValid() || ",
+                                    "   !me.down('#companyCardinality').isValid() || !me.down('#personalCardinality').isValid() ||",
                                     "   !me.down('#companyPaymentType').isValid() || !me.down('#personalPaymentType').isValid() ||",
                                     "   !me.down('#companyPaymentValue').isValid()|| !me.down('#personalPaymentValue').isValid()){",
                                     "    Ext.Msg.alert(\"提示\", \"信息不完整，请继续填写！\");",
@@ -153,7 +154,7 @@
                                 "editable": false,
                                 "fieldLabel": "名称",
                                 "itemId": "socialItemId",
-                                "labelWidth": 60,
+                                "labelWidth": null,
                                 "layout|flex": 1,
                                 "name": "socialItemId",
                                 "store": "SocialItem",
@@ -162,6 +163,70 @@
                             },
                             "name": "MyComboBox6",
                             "designerId": "b1b7da2c-f0a9-4e48-aea5-1191ee45175d"
+                        },
+                        {
+                            "type": "Ext.toolbar.Spacer",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "layout|flex": 1
+                            },
+                            "name": "MySpacer11",
+                            "designerId": "422a2756-7f6b-4090-91d2-8824c2cf640a"
+                        }
+                    ]
+                },
+                {
+                    "type": "Ext.panel.Panel",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "container|align": "stretch",
+                        "height": null,
+                        "layout": "hbox",
+                        "layout|flex": null,
+                        "maxHeight": null,
+                        "style": [
+                            "margin-top:20px;"
+                        ],
+                        "title": null
+                    },
+                    "name": "MyPanel2",
+                    "designerId": "ddf517d4-4e7d-47b4-b023-6f5ea9ee2f80",
+                    "cn": [
+                        {
+                            "type": "Ext.form.field.Number",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "allowBlank": false,
+                                "decimalPrecision": null,
+                                "emptyText": null,
+                                "fieldLabel": "单位缴费基数",
+                                "itemId": "companyCardinality",
+                                "layout|flex": 1,
+                                "minLength": null,
+                                "minValue": null,
+                                "name": "companyCardinality",
+                                "renderData": null,
+                                "renderTo": null,
+                                "style": null,
+                                "value": [
+                                    "0.00",
+                                    ""
+                                ]
+                            },
+                            "name": "MyNumberField4",
+                            "designerId": "56689b8f-c112-420a-afba-3a862ab3b31a"
                         },
                         {
                             "type": "Ext.form.field.Number",
@@ -174,13 +239,12 @@
                                 "allowBlank": false,
                                 "decimalPrecision": null,
                                 "emptyText": null,
-                                "fieldLabel": "基数",
-                                "itemId": "cardinality",
-                                "labelWidth": 60,
+                                "fieldLabel": "个人缴费基数",
+                                "itemId": "personalCardinality",
                                 "layout|flex": 1,
                                 "minLength": null,
                                 "minValue": null,
-                                "name": "cardinality",
+                                "name": "personalCardinality",
                                 "renderData": null,
                                 "renderTo": null,
                                 "style": [
@@ -191,8 +255,8 @@
                                     ""
                                 ]
                             },
-                            "name": "MyNumberField4",
-                            "designerId": "56689b8f-c112-420a-afba-3a862ab3b31a"
+                            "name": "MyNumberField8",
+                            "designerId": "63b25f77-bda8-477f-8785-7ea32b019b73"
                         }
                     ]
                 },
@@ -225,7 +289,7 @@
                                 "allowBlank": false,
                                 "fieldLabel": "单位缴费",
                                 "itemId": "companyPaymentValue",
-                                "labelWidth": 60,
+                                "labelWidth": null,
                                 "layout|flex": 1,
                                 "minValue": null,
                                 "name": "companyPaymentValue",
@@ -269,7 +333,7 @@
                                 "allowBlank": false,
                                 "fieldLabel": "个人缴费",
                                 "itemId": "personalPaymentValue",
-                                "labelWidth": 60,
+                                "labelWidth": null,
                                 "layout|flex": 1,
                                 "minValue": 0,
                                 "name": "personalPaymentValue",
@@ -362,7 +426,8 @@
                     "        name: '',",
                     "        companyPaymentValue: 0.00,",
                     "        personalPaymentValue: 0.00,",
-                    "        cardinality: 0.00,",
+                    "        personalCardinality: 0.00,",
+                    "        companyCardinality: 0.00,",
                     "        companyPaymentType: '',",
                     "        personalPaymentType: ''",
                     "    }));",

@@ -1,6 +1,5 @@
 package net.sion.company.salary.domain;
 
-import java.util.List;
 import java.util.Map;
 
 import javax.persistence.Transient;
@@ -45,7 +44,11 @@ public class Payroll {
 	String createPersonId;  //创建人id
 
 	String state;//状态
+	
+	boolean sub;
 		
+	@Transient
+	Double sum;
 	
 	public enum PayrollStatus{
 		Unpublish,
@@ -162,6 +165,28 @@ public class Payroll {
 	public void setState(String state) {
 		this.state = state;
 	}
+
+
+	public Double getSum() {
+		return sum;
+	}
+
+
+	public void setSum(Double sum) {
+		this.sum = sum;
+	}
+
+
+	public boolean isSub() {
+		return sub;
+	}
+
+
+	public void setSub(boolean sub) {
+		this.sub = sub;
+	}
+
+	
 
 	
 }

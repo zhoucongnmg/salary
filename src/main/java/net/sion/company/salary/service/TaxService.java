@@ -1,5 +1,6 @@
 package net.sion.company.salary.service;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import net.sion.company.salary.domain.Tax;
@@ -23,14 +24,17 @@ public class TaxService {
 		Double d = 0d;
 		//工资个税的计算公式为：应纳税额=（工资薪金所得 －“五险一金”－个税起征点）×适用税率－速算扣除数
 		Tax tax = taxRepository.findOne(taxId);
-		value = value - tax.getThreshold();
+		BigDecimal b_value = new BigDecimal(value.toString());
+		BigDecimal threshold =  new BigDecimal(tax.getThreshold().toString());
+		Double subtractValue = b_value.subtract(threshold).doubleValue();
 		List<TaxItem> list = tax.getTaxItems();
 		for(TaxItem item : list){
-			if(item.getStart() <= value && item.getEnd() >= value){
-				d = (value * item.getRate() * 0.01) - item.getFastNumber();
+			if(item.getStart() <= subtractValue && item.getEnd() >= subtractValue){
+				d = new BigDecimal(subtractValue).multiply(new BigDecimal(item.getRate().toString())).subtract(new BigDecimal(item.getFastNumber())).doubleValue();
 				break;
 			}
 		}
 		return d;
 	}
+	
 }
