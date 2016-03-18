@@ -1,5 +1,6 @@
 package net.sion.company.salary.service;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -20,6 +21,7 @@ import net.sion.company.salary.domain.PersonAccountFile;
 import net.sion.company.salary.domain.PersonExtension;
 import net.sion.company.salary.domain.SalaryItem.SalaryItemType;
 import net.sion.company.salary.domain.SocialAccountItem;
+import net.sion.company.salary.domain.SocialAccountItem.PaymentType;
 import net.sion.company.salary.domain.SocialItem;
 import net.sion.company.salary.domain.SystemSalaryItem;
 import net.sion.company.salary.event.SystemSalaryItemPublisher;
@@ -29,7 +31,6 @@ import net.sion.company.salary.sessionrepository.PersonAccountFileRepository;
 import net.sion.company.salary.sessionrepository.SocialItemRepository;
 import net.sion.company.salary.sessionrepository.SystemSalaryItemRepository;
 
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -108,9 +109,11 @@ public class PayrollItemService {
 				simplePersonMap.put("bankAccount", person.getBankAccount());
 				
 				Map<String,AccountItem> personAccountItemMap = new LinkedHashMap<String,AccountItem>();
+				Map<String,AccountItem> personSalaryItemMap = new LinkedHashMap<String,AccountItem>();
 				Set<String> formulaIds = new HashSet<String>();
 				for (AccountItem item : items) {
 					personAccountItemMap.put(item.getId(), item);
+					personSalaryItemMap.put(item.getSalaryItemId(), item);
 				}
 				
 				
@@ -160,7 +163,18 @@ public class PayrollItemService {
 	}
 	
 	
-	private List<AccountItem> sortAccountItem(List<AccountItem> items) {
+	private String parsePrecision(double value, int precision) {
+		String formatStr = "0";
+		
+		for (int i=0;i<precision;i++) {
+			if (i==0) formatStr = formatStr+".";
+			formatStr = formatStr+"0";
+		}
+		DecimalFormat df = new DecimalFormat(formatStr);
+		return df.format(value);
+	}
+	
+	public List<AccountItem> sortAccountItem(List<AccountItem> items) {
 		Map<String,AccountItem> personAccountItemMap = new LinkedHashMap<String,AccountItem>();
 		Set<String> knownItemIds = new HashSet<String>();
 		Set<String> unknownItemIds = new HashSet<String>();
@@ -299,7 +313,7 @@ public class PayrollItemService {
 						fields.add(map);
 						map = new HashMap<String, Object>();
 						map.put("name", item.getId() + "-companyPaymentValue");
-						map.put("type", "float");
+						map.put("type", "String");
 						fields.add(map);
 						map = new HashMap<String, Object>();
 						map.put("name", item.getId() + "-companyPaymentFinalValue");
@@ -314,7 +328,7 @@ public class PayrollItemService {
 						fields.add(map);
 						map = new HashMap<String, Object>();
 						map.put("name", item.getId() + "-personalPaymentValue");
-						map.put("type", "float");
+						map.put("type", "String");
 						fields.add(map);
 						map = new HashMap<String, Object>();
 						map.put("name", item.getId() + "-personalPaymentFinalValue");
@@ -503,6 +517,12 @@ public class PayrollItemService {
 	public List<Map<String, Object>> fillData(Payroll payroll, List<PayrollItem> items, Account account) {
 		
 		List<Map<String, Object>> data = new ArrayList<Map<String, Object>>();
+		Map<String,AccountItem> accountItemsMap = new HashMap<String,AccountItem>();
+		List<AccountItem> accountItems = account.getAccountItems();
+		for (AccountItem item : accountItems) {
+			accountItemsMap.put(item.getSalaryItemId(), item);
+		}
+		
 		
 		Set<String> personIds = payroll.getPersons().keySet();
 		if (personIds.size()>0) {
@@ -515,14 +535,32 @@ public class PayrollItemService {
 					Map<String,SocialAccountItem> socialAccountItemMap = personExtension.getItems();
 					for (Map.Entry<String, SocialAccountItem> entry : socialAccountItemMap.entrySet()) {
 						SocialAccountItem socialItem = entry.getValue();
+						if(socialItem.getCompanyPaymentType().equals(PaymentType.Percent)){
+							itemMap.put(socialItem.getSocialItemId()+"-companyPaymentValue", socialItem.getCompanyPaymentValue() * 100 +"%");
+						}else{
+							itemMap.put(socialItem.getSocialItemId()+"-companyPaymentValue", socialItem.getCompanyPaymentValue());
+						}
 						itemMap.put(socialItem.getSocialItemId()+"-companyCardinality", socialItem.getCompanyCardinality());
-						itemMap.put(socialItem.getSocialItemId()+"-companyPaymentValue", socialItem.getCompanyPaymentValue());
 						itemMap.put(socialItem.getSocialItemId()+"-companyPaymentFinalValue", socialItem.getCompanyPaymentFinalValue());
+						
+						if(socialItem.getPersonalPaymentType().equals(PaymentType.Percent)){
+							itemMap.put(socialItem.getSocialItemId()+"-personalPaymentValue", socialItem.getPersonalPaymentValue() * 100 +"%");
+						}else{
+							itemMap.put(socialItem.getSocialItemId()+"-personalPaymentValue", socialItem.getPersonalPaymentValue());
+						}
 						itemMap.put(socialItem.getSocialItemId()+"-personalCardinality", socialItem.getPersonalCardinality());
-						itemMap.put(socialItem.getSocialItemId()+"-personalPaymentValue", socialItem.getPersonalPaymentValue());
 						itemMap.put(socialItem.getSocialItemId()+"-personalPaymentFinalValue", socialItem.getPersonalPaymentFinalValue());
 					}
 				}
+				
+				for (Map.Entry<String, Double> entry : item.getValues().entrySet()) {  
+					String itemId = entry.getKey();
+					AccountItem accountitem = accountItemsMap.get(itemId);
+					if (accountitem!=null) {
+						itemMap.put(itemId, parsePrecision(entry.getValue(),accountitem.getPrecision()));
+					}
+				}
+				
 				
 				data.add(itemMap);
 			}
@@ -594,7 +632,6 @@ public class PayrollItemService {
 	public Map<String, Object> getFields(AccountItem item) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("name", item.getSalaryItemId());
-		map.put("type", "float");
 		return map;
 	}
 	

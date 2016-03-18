@@ -48,6 +48,14 @@
                             ]
                         },
                         {
+                            "id": "347f26d5-6082-42da-9b54-603a2b2bf36f",
+                            "cn": [
+                                {
+                                    "id": "26ff64f7-4bb0-47f5-b4b3-f442a54ad172"
+                                }
+                            ]
+                        },
+                        {
                             "id": "a962bcdc-43ec-453c-a539-00e0c0c97ce8",
                             "cn": [
                                 {
@@ -1135,7 +1143,7 @@
     },
     "inspectorState": {
         "topInstance": "88cf984a-a976-4126-b677-6ef701d8331b",
-        "selectedInstance": "88cf984a-a976-4126-b677-6ef701d8331b"
+        "selectedInstance": "26ff64f7-4bb0-47f5-b4b3-f442a54ad172"
     },
     "editMode": "code",
     "userSettings": {

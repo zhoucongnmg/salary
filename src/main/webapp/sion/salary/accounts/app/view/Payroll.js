@@ -131,6 +131,7 @@ Ext.define('sion.salary.accounts.view.Payroll', {
         if(ids.length > 0 ){
             Ext.Ajax.request({
                 url :'salary/payroll/generatePayrollItem',//请求的服务器地址
+                timeout : 120000,
                 params : {
                     ids : ids
                 },//发送json对象

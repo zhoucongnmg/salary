@@ -2,6 +2,7 @@ package net.sion.company.salary.domain;
 
 
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -40,6 +41,19 @@ public class Item {
 		}
 		return value;
 	}	
+	
+	public static void main(String[] args) {
+		String formatStr = "0";
+		
+		int scale = 2;
+		for (int i=0;i<scale;i++) {
+			if (i==0) formatStr = formatStr+".";
+			formatStr = formatStr+"0";
+		}
+		DecimalFormat    df   = new DecimalFormat(formatStr);
+		
+		System.out.println(df.format(1374.0));
+	}
 	
 	public ItemType getItem() {
 		return item;

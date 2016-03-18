@@ -9,6 +9,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -24,6 +25,7 @@ import net.sion.company.salary.domain.AccountItem;
 //import net.sion.company.salary.domain.AccountItem.AccountItemType;
 import net.sion.company.salary.domain.Payroll;
 import net.sion.company.salary.domain.Payroll.PayrollStatus;
+import net.sion.company.salary.domain.SalaryItem.SalaryItemType;
 import net.sion.company.salary.domain.PayrollItem;
 import net.sion.company.salary.domain.PayrollSub;
 import net.sion.company.salary.domain.PersonAccountFile;
@@ -219,9 +221,9 @@ public class PayrollController {
 			payrollItemService.fillBaseFields(fields);
 			for (AccountItem item : items) {
 				if (item.isShow()) {
-					fields.add(payrollItemService.getFields(item));
 					columns.add(payrollItemService.getColumns(item));
 				}
+				fields.add(payrollItemService.getFields(item));
 			}
 		}	
 		String name = getRegexName(opts);
@@ -573,13 +575,14 @@ public class PayrollController {
 	 */
 	@RequestMapping("calculate")
 	public Response calculate(@RequestBody Map<String, Object> map) {
-
+		Map<String, Double> changeFields = new HashMap<String,Double>();
 		String accountId = (String) map.get("accountId");
 		Map<String, String> recordMap = (Map<String, String>) map.get("record");
 
 		Account account = accountRepository.findOne(accountId);
 		Set<String> formulaIds = account.getFormulaIds();
-
+		
+		
 		/**
 		 * 
 		 * formulaService.caculateFormulas(formulaIds, recordMap); Set
@@ -590,11 +593,33 @@ public class PayrollController {
 		 * id : fieldIds) { String value = recordMap.get(id); values.put(id,
 		 * value); }
 		 **/
-		Map<String, Double> changeFields = new HashMap<String, Double>();
+		
 		try {
 			PayrollItem payrollItem = new PayrollItem();
 			payrollItem.convertDomain(recordMap);
-			changeFields = formulaService.caculateFormulas(formulaIds, payrollItem.getValues());
+			changeFields.putAll(payrollItem.getValues());
+			Map<String,AccountItem> personAccountItemMap = new LinkedHashMap<String,AccountItem>();
+			for (AccountItem item : account.getAccountItems()) {
+				personAccountItemMap.put(item.getId(), item);
+			}
+			
+			
+			Iterable<AccountItem> sortItems = payrollItemService.sortAccountItem(account.getAccountItems());
+			for (AccountItem item : sortItems) {
+				if (item.getType() == SalaryItemType.Calculate) {
+					Map<String,Double> calculateMap = formulaService.caculateFormulas(formulaIds, changeFields);
+					changeFields.putAll(calculateMap);
+				}else if (item.getType() == SalaryItemType.Tax) {
+					String parentId = item.getParentId();
+					AccountItem parent = personAccountItemMap.get(parentId);
+					String parentSalaryItemId = parent.getSalaryItemId();
+					Double value = changeFields.get(parentSalaryItemId);
+					Double taxValue = taxService.getFastNumber(item.getTaxId(),value);
+					changeFields.put(item.getSalaryItemId(), item.decimal(item.getCarryType(), item.getPrecision(), taxValue));
+				}
+				
+			}
+			
 			//payrollItem.convertDomain(changeFields);
 			//payrollItemRepository.save(payrollItem);
 		} catch (Exception e) {
