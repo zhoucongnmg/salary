@@ -10,7 +10,7 @@
 		<groupId>net.sion</groupId>
 		<artifactId>sion-pom</artifactId>
 		<version>1.4.1-M1</version>
-	</parent>
+	</parent> 
 	<dependencies>
 		<dependency> 
 			<groupId>net.sion</groupId>
