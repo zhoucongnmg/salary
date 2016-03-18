@@ -79,6 +79,27 @@ Ext.define('sion.salary.accounts.view.SalaryItemGrid', {
                 },
                 {
                     xtype: 'gridcolumn',
+                    dataIndex: 'precision',
+                    text: '小数位数',
+                    flex: 1
+                },
+                {
+                    xtype: 'gridcolumn',
+                    renderer: function(value, metaData, record, rowIndex, colIndex, store, view) {
+                        if('Round' == value){
+                            return '四舍五入';
+                        }else if('Isopsephy' == value){
+                            return '直接进位';
+                        }else if('Truncation' == value){
+                            return '直接舍去';
+                        }
+                    },
+                    dataIndex: 'carryType',
+                    text: '小数保留方式',
+                    flex: 1
+                },
+                {
+                    xtype: 'gridcolumn',
                     dataIndex: 'note',
                     text: '备注',
                     flex: 3
@@ -131,7 +152,6 @@ Ext.define('sion.salary.accounts.view.SalaryItemGrid', {
                                                     store.load();
                                                 }
                                                 //                 me.resetGridSelect(record);
-
                                             },failure: function(){
                                                 store.load();
                                                 //                 me.resetGridSelect(record);

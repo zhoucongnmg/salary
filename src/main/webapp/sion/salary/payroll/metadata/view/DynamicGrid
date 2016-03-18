@@ -200,6 +200,57 @@
                     "codeClass": null,
                     "userConfig": {
                         "layout|flex": null,
+                        "text": "导出统计表"
+                    },
+                    "name": "MyButton18",
+                    "designerId": "347f26d5-6082-42da-9b54-603a2b2bf36f",
+                    "cn": [
+                        {
+                            "type": "basiceventbinding",
+                            "reference": {
+                                "name": "listeners",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fn": "onButtonClick12",
+                                "implHandler": [
+                                    "var me = this,",
+                                    "    id = me._id,",
+                                    "    searchForm = me.down('#searchForm'),",
+                                    "    opts = searchForm.getForm().getValues();",
+                                    "",
+                                    "Ext.Ajax.request({",
+                                    "    url:'salary/payroll/saveExcelTemp',",
+                                    "    method : 'POST',",
+                                    "    jsonData : {",
+                                    "        opts : opts",
+                                    "    },",
+                                    "    success: function(response){",
+                                    "        var json = Ext.JSON.decode(response.responseText);",
+                                    "        window.location.href = 'salary/payroll/exportSheets?id=' + id + '&optsId=' + json.message;",
+                                    "    },",
+                                    "    failure: function(){",
+                                    "    }",
+                                    "});"
+                                ],
+                                "name": "click",
+                                "scope": "me"
+                            },
+                            "name": "onButtonClick12",
+                            "designerId": "26ff64f7-4bb0-47f5-b4b3-f442a54ad172"
+                        }
+                    ]
+                },
+                {
+                    "type": "Ext.button.Button",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|flex": null,
                         "text": "关闭"
                     },
                     "name": "MyButton9",

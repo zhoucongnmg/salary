@@ -61,6 +61,7 @@ import net.sion.company.salary.domain.Level;
 import net.sion.company.salary.domain.PersonAccountFile;
 import net.sion.company.salary.domain.PersonAccountFile;
 import net.sion.company.salary.domain.SocialAccount;
+import net.sion.company.salary.domain.SocialAccountItem;
 import net.sion.company.salary.sessionrepository.AccountRepository;
 import net.sion.company.salary.sessionrepository.AccountRepository;
 import net.sion.company.salary.sessionrepository.PersonAccountRepository;
@@ -98,6 +99,9 @@ public class InsuredPersonController {
 	 */
 	@RequestMapping(value = "create")
 	public Response create(@RequestBody PersonAccountFile person) {
+		for(SocialAccountItem item : person.getInsuredItems()){
+			item.generateDecimalFinalValue(item.getCarryType(), item.getPrecision());
+		}
 		personAccountRepo.save(person);
 		return new Response("操作成功",	true);
 	}
@@ -110,6 +114,9 @@ public class InsuredPersonController {
 	@RequestMapping(value = "saveList")
 	public Response saveList(@RequestBody List<PersonAccountFile> persons) {
 		for (PersonAccountFile person : persons) {
+			for(SocialAccountItem item : person.getInsuredItems()){
+				item.generateDecimalFinalValue(item.getCarryType(), item.getPrecision());
+			}
 			personAccountRepo.save(person);
 		}
 		return new Response("操作成功",	true);

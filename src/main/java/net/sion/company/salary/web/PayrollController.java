@@ -328,6 +328,17 @@ public class PayrollController {
 		return new Response(true);
 	}
 	
+	/**
+	 * @author lil 导出统计
+	 * @throws IOException
+	 */
+	@RequestMapping(value = "exportSheets")
+	public Response exportSheets(HttpServletResponse response, @RequestParam String id, @RequestParam String optsId)
+			throws IOException {
+		createExcel("sheets", id, optsId, response);
+		return new Response(true);
+	}
+	
 
 	/**
 	 * 读取套帐列表 zhoucong
@@ -445,6 +456,8 @@ public class PayrollController {
 			payrollService.createExcel(payroll.getSubject(), columns, data, response);
 		} else if ("export".equals(method)) {
 			payrollService.exportExcel(payroll.getSubject(), columns, data, response);
+		}else if ("sheets".equals(method)) {
+			payrollService.exportSheets(payroll.getSubject(), columns, data, response);
 		}
 	}
 	

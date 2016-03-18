@@ -20,6 +20,7 @@ import net.sion.company.salary.domain.PersonAccountFile;
 import net.sion.company.salary.domain.PersonExtension;
 import net.sion.company.salary.domain.SalaryItem.SalaryItemType;
 import net.sion.company.salary.domain.SocialAccountItem;
+import net.sion.company.salary.domain.SocialAccountItem.PaymentType;
 import net.sion.company.salary.domain.SocialItem;
 import net.sion.company.salary.domain.SystemSalaryItem;
 import net.sion.company.salary.event.SystemSalaryItemPublisher;
@@ -299,7 +300,7 @@ public class PayrollItemService {
 						fields.add(map);
 						map = new HashMap<String, Object>();
 						map.put("name", item.getId() + "-companyPaymentValue");
-						map.put("type", "float");
+						map.put("type", "String");
 						fields.add(map);
 						map = new HashMap<String, Object>();
 						map.put("name", item.getId() + "-companyPaymentFinalValue");
@@ -314,7 +315,7 @@ public class PayrollItemService {
 						fields.add(map);
 						map = new HashMap<String, Object>();
 						map.put("name", item.getId() + "-personalPaymentValue");
-						map.put("type", "float");
+						map.put("type", "String");
 						fields.add(map);
 						map = new HashMap<String, Object>();
 						map.put("name", item.getId() + "-personalPaymentFinalValue");
@@ -461,7 +462,7 @@ public class PayrollItemService {
 				map.put("coltype", "readonly");
 				columns.add(map);
 				map = new HashMap<String, Object>();
-				map.put("name", "部门");
+				map.put("text", "部门");
 				map.put("dataIndex", "dept");
 				map.put("coltype", "readonly");
 				columns.add(map);
@@ -515,11 +516,20 @@ public class PayrollItemService {
 					Map<String,SocialAccountItem> socialAccountItemMap = personExtension.getItems();
 					for (Map.Entry<String, SocialAccountItem> entry : socialAccountItemMap.entrySet()) {
 						SocialAccountItem socialItem = entry.getValue();
+						if(socialItem.getCompanyPaymentType().equals(PaymentType.Percent)){
+							itemMap.put(socialItem.getSocialItemId()+"-companyPaymentValue", socialItem.getCompanyPaymentValue() * 100 +"%");
+						}else{
+							itemMap.put(socialItem.getSocialItemId()+"-companyPaymentValue", socialItem.getCompanyPaymentValue());
+						}
 						itemMap.put(socialItem.getSocialItemId()+"-companyCardinality", socialItem.getCompanyCardinality());
-						itemMap.put(socialItem.getSocialItemId()+"-companyPaymentValue", socialItem.getCompanyPaymentValue());
 						itemMap.put(socialItem.getSocialItemId()+"-companyPaymentFinalValue", socialItem.getCompanyPaymentFinalValue());
+						
+						if(socialItem.getPersonalPaymentType().equals(PaymentType.Percent)){
+							itemMap.put(socialItem.getSocialItemId()+"-personalPaymentValue", socialItem.getPersonalPaymentValue() * 100 +"%");
+						}else{
+							itemMap.put(socialItem.getSocialItemId()+"-personalPaymentValue", socialItem.getPersonalPaymentValue());
+						}
 						itemMap.put(socialItem.getSocialItemId()+"-personalCardinality", socialItem.getPersonalCardinality());
-						itemMap.put(socialItem.getSocialItemId()+"-personalPaymentValue", socialItem.getPersonalPaymentValue());
 						itemMap.put(socialItem.getSocialItemId()+"-personalPaymentFinalValue", socialItem.getPersonalPaymentFinalValue());
 					}
 				}
