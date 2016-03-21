@@ -51,5 +51,12 @@
 			<version>${sion-core.version}</version>
 			<classifier>classes</classifier>  
 		</dependency>
+		
+		<dependency>
+			<groupId>net.sion</groupId>
+			<artifactId>filedump</artifactId>
+			<version>${sion-core.version}</version>
+			<classifier>classes</classifier>
+		</dependency> 
 	</dependencies>
 </project>
