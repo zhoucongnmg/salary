@@ -12,12 +12,13 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 
-import net.sion.company.salary.domain.Payroll;
+import net.sion.company.salary.domain.SalaryItem;
 import net.sion.company.salary.sessionrepository.PayrollRepository;
+import net.sion.company.salary.sessionrepository.SalaryItemRepository;
 import net.sion.core.filedump.util.AsposeUtil;
-import net.sion.core.pdf.domain.HashMapDataTable;
 import net.sion.util.file.FileUtil;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
@@ -27,6 +28,7 @@ public class PayrollService {
 	@Autowired ApplicationContext ctx;
 	@Autowired AsposeUtil asposeUtil;
 	@Autowired PayrollRepository payrollRepository;
+	@Autowired SalaryItemRepository itemRepository;
 	
 	public  String exportSheets(String fileName, List<Map<String, Object>> columns, List<Map<String, Object>> datas, HttpServletResponse response) throws IOException{
 		String serverPath = ctx.getResource("/").getFile().getPath();
@@ -119,6 +121,26 @@ public class PayrollService {
 //		dataSourceMap.put("list", list);
 //		String filePath = AsposeUtil.createExcelByTemplateMap(templateFile, newFilePath, dataSourceMap);
 		
+		List<SalaryItem> items = itemRepository.findAll();
+		Map<String,String> itemsMap = new HashMap<String,String>();
+		for (SalaryItem item : items) {
+			itemsMap.put(item.getId(), item.getName());
+		}
+		List<Map<String, String>> dataValuesList = new ArrayList<Map<String, String>>();
+		for (Map<String,Object> data : datas) {
+			Map<String, String> dataValuesMap = new HashMap();
+			for (Map.Entry<String, Object> entry : data.entrySet()) {
+				String key = entry.getKey();
+				String itemName = itemsMap.get(key);
+				if (StringUtils.isNotBlank(itemName)) {
+					dataValuesMap.put(itemName, (String)entry.getValue());
+				}
+			}	
+			dataValuesList.add(dataValuesMap);
+		}
+		
+		
+		
 		Map<String, List<Map<String, String>>> map = new HashMap();
 		List<Map<String, String>> excelList = new ArrayList();
 		Map<String, String> excel = new HashMap();
@@ -157,7 +179,7 @@ public class PayrollService {
 		grid3.put("补发工资", "32222");
 		gridList.add(grid3);
 		
-		map.put("&=list", gridList);
+		map.put("&=list", dataValuesList);
 		String filePath = AsposeUtil.replaceExcel(templateFile, newFilePath, map);
 		
 //		String serverPath = ctx.getResource("/").getFile().getPath();
