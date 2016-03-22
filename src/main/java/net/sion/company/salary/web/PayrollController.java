@@ -2,6 +2,7 @@ package net.sion.company.salary.web;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URLDecoder;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -313,10 +314,11 @@ public class PayrollController {
 	 * @throws IOException
 	 */
 	@RequestMapping(value = "exportItemList")
-	public Response exportItemList(HttpSession session, HttpServletResponse response, @RequestParam String id, @RequestParam String optsId)
+	public Response exportItemList(HttpSession session, HttpServletResponse response, @RequestParam String id, @RequestParam String optsId, @RequestParam String note)
 			throws IOException {
 		User user = adminService.getUser(session);
-		createExcel("export", id, optsId, response, user);
+		note = URLDecoder.decode(URLDecoder.decode(note, "UTF-8"));
+		createExcel("export", id, optsId, response, user, note);
 		return new Response(true);
 	}
 
@@ -328,7 +330,7 @@ public class PayrollController {
 	public Response createPayrollExcel(HttpSession session, HttpServletResponse response, @RequestParam String id, @RequestParam String optsId)
 			throws IOException {
 		User user = adminService.getUser(session);
-		createExcel("create", id, optsId, response, user);
+		createExcel("create", id, optsId, response, user, "");
 		return new Response(true);
 	}
 	
@@ -415,7 +417,7 @@ public class PayrollController {
 		return new Response(fileName, true);
 	}
 
-	private void createExcel(String method, String id, String optsId, HttpServletResponse response, User user) throws IOException {
+	private void createExcel(String method, String id, String optsId, HttpServletResponse response, User user, String note) throws IOException {
 		String serverPath = ctx.getResource("/").getFile().getPath();
 		String folderPath = serverPath + "/temp/salary/export";
 		String filePath = folderPath + "/" + optsId + ".json";
@@ -448,7 +450,7 @@ public class PayrollController {
 		if ("create".equals(method)) {
 			exportService.createExcel(payroll.getSubject(), columns, data, response);
 		} else if ("export".equals(method)) {
-			exportService.exportExcel(payroll.getSubject(), columns, data, response, user);
+			exportService.exportExcel(payroll.getSubject(), columns, data, response, user, note);
 		}
 	}
 	

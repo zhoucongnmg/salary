@@ -44,7 +44,8 @@ Ext.application({
         'PayrollWindow',
         'PayrollSubForm',
         'PayrollSubWin',
-        'PayrollSubGrid'
+        'PayrollSubGrid',
+        'ExportWin'
     ],
     name: 'sion.salary.payroll'
 });

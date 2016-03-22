@@ -31,7 +31,8 @@
             "PayrollWindow",
             "PayrollSubForm",
             "PayrollSubWin",
-            "PayrollSubGrid"
+            "PayrollSubGrid",
+            "ExportWin"
         ]
     },
     "name": "Application",

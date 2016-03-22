@@ -322,23 +322,28 @@ Ext.define('sion.salary.payroll.view.DynamicGrid', {
 
     onButtonClick1: function(button, e, eOpts) {
         var me = this,
+            namespace = me.getNamespace(),
+            exportWin = Ext.create(namespace + '.view.ExportWin'),
             id = me._id,
             searchForm = me.down('#searchForm'),
             opts = searchForm.getForm().getValues();
 
-        Ext.Ajax.request({
-            url:'salary/payroll/saveExcelTemp',
-            method : 'POST',
-            jsonData : {
-                opts : opts
-            },
-            success: function(response){
-                var json = Ext.JSON.decode(response.responseText);
-                window.location.href = 'salary/payroll/exportItemList?id=' + id + '&optsId=' + json.message;
-            },
-            failure: function(){
-            }
-        });
+        exportWin._id = id;
+        exportWin._opts = opts;
+        exportWin.show();
+        // Ext.Ajax.request({
+        //     url:'salary/payroll/saveExcelTemp',
+        //     method : 'POST',
+        //     jsonData : {
+        //         opts : opts
+        //     },
+        //     success: function(response){
+        //         var json = Ext.JSON.decode(response.responseText);
+        //         window.location.href = 'salary/payroll/exportItemList?id=' + id + '&optsId=' + json.message;
+        //     },
+        //     failure: function(){
+        //     }
+        // });
     },
 
     onButtonClick11: function(button, e, eOpts) {
@@ -385,7 +390,7 @@ Ext.define('sion.salary.payroll.view.DynamicGrid', {
         me.loadData(id,mainGrid,values,null,'MainPayrollItem');
         values.query = 'Simple';
         var levelCount = me.loadData(id,simpleGrid,values,null,'SimplePayrollItem');
-        mainGrid.headerCt.setHeight(levelCount*30-5);
+        mainGrid.headerCt.setHeight(levelCount*30-2);
         Ext.Array.each(subGrids,function(subGrid,index){
             var subStore = subGrid.getStore();
             me.loadData(id,subGrid,{
@@ -546,9 +551,6 @@ Ext.define('sion.salary.payroll.view.DynamicGrid', {
             panel = me.down('#gridPanel'),
             grid = Ext.create(me.getNs()+'.view.PayrollSubGrid',{
                 itemId : payrollSub.getId(),
-                autoScroll : false,
-                overflowX: 'hidden',
-                overflowY: 'hidden',
                 _mainGrid : mainGrid,
                 _canEdit : canEdit,
                 _dynamicGrid : me,

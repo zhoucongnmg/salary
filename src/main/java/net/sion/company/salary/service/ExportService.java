@@ -31,7 +31,7 @@ public class ExportService {
 	@Autowired PayrollRepository payrollRepository;
 	@Autowired SalaryItemRepository itemRepository;
 	
-	public  String exportExcel(String fileName, List<Map<String, Object>> columns, List<Map<String, Object>> datas, HttpServletResponse response, User user) throws IOException{
+	public  String exportExcel(String fileName, List<Map<String, Object>> columns, List<Map<String, Object>> datas, HttpServletResponse response, User user, String note) throws IOException{
 		String serverPath = ctx.getResource("/").getFile().getPath();
 		String templateFile = serverPath + "/sion/template/salaryTemplate.xls";
 		String newFilePath = serverPath + "/temp/salary/export";
@@ -53,10 +53,10 @@ public class ExportService {
 		for (SalaryItem item : items) {
 			itemsMap.put(item.getId(), item.getName());
 		}
-		List<Map<String, String>> dataValuesList = new ArrayList<Map<String, String>>();
+		List<Map<String, Object>> dataValuesList = new ArrayList<Map<String, Object>>();
 		int i = 0;
 		for (Map<String,Object> data : datas) {
-			Map<String, String> dataValuesMap = new HashMap();
+			Map<String, Object> dataValuesMap = new HashMap();
 			dataValuesMap.put("工资表序号", ++i+"");
 			dataValuesMap.put("姓名", data.get("name").toString());
 			dataValuesMap.put("卡号", data.get("bankAccount").toString());
@@ -64,22 +64,23 @@ public class ExportService {
 				String key = entry.getKey();
 				String itemName = itemsMap.get(key);
 				if (StringUtils.isNotBlank(itemName)) {
-					dataValuesMap.put(itemName, entry.getValue().toString());
+					dataValuesMap.put(itemName, entry.getValue());
 				}
 			}	
 			dataValuesList.add(dataValuesMap);
 		}
-		Map<String, List<Map<String, String>>> map = new HashMap();
-		List<Map<String, String>> excelList = new ArrayList();
-		Map<String, String> excel = new HashMap();
+		Map<String, List<Map<String, Object>>> map = new HashMap();
+		List<Map<String, Object>> excelList = new ArrayList();
+		Map<String, Object> excel = new HashMap();
 		excel.put("title", fileName);
 		excel.put("制表", user.getName());
+		excel.put("备注", note);
 		excelList.add(excel);
 		map.put("&=excel", excelList);
 	
 		
 		map.put("&=list", dataValuesList);
-		String filePath = AsposeUtil.replaceExcel(templateFile, newFilePath, map);
+		String filePath = AsposeUtil.replaceExcelObject(templateFile, newFilePath, map);
 		
 		File file = new File(filePath);
 		FileUtil.download(fileName + ".xls", new FileInputStream(file), response);
