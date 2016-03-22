@@ -32,7 +32,7 @@ import net.sion.company.salary.domain.PersonAccountFile;
 import net.sion.company.salary.event.SystemSalaryItemPublisher;
 import net.sion.company.salary.service.FormulaService;
 import net.sion.company.salary.service.PayrollItemService;
-import net.sion.company.salary.service.PayrollService;
+import net.sion.company.salary.service.ExportService;
 import net.sion.company.salary.service.PersonAccountFileService;
 import net.sion.company.salary.service.SocialService;
 import net.sion.company.salary.service.TaxService;
@@ -106,7 +106,7 @@ public class PayrollController {
 	@Autowired
 	SystemSalaryItemPublisher publisher;
 	@Autowired
-	PayrollService payrollService;
+	ExportService exportService;
 
 	@Autowired
 	UserRepository userRepository;
@@ -313,9 +313,10 @@ public class PayrollController {
 	 * @throws IOException
 	 */
 	@RequestMapping(value = "exportItemList")
-	public Response exportItemList(HttpServletResponse response, @RequestParam String id, @RequestParam String optsId)
+	public Response exportItemList(HttpSession session, HttpServletResponse response, @RequestParam String id, @RequestParam String optsId)
 			throws IOException {
-		createExcel("export", id, optsId, response);
+		User user = adminService.getUser(session);
+		createExcel("export", id, optsId, response, user);
 		return new Response(true);
 	}
 
@@ -324,9 +325,10 @@ public class PayrollController {
 	 * @throws IOException
 	 */
 	@RequestMapping(value = "createPayrollExcel")
-	public Response createPayrollExcel(HttpServletResponse response, @RequestParam String id, @RequestParam String optsId)
+	public Response createPayrollExcel(HttpSession session, HttpServletResponse response, @RequestParam String id, @RequestParam String optsId)
 			throws IOException {
-		createExcel("create", id, optsId, response);
+		User user = adminService.getUser(session);
+		createExcel("create", id, optsId, response, user);
 		return new Response(true);
 	}
 	
@@ -413,7 +415,7 @@ public class PayrollController {
 		return new Response(fileName, true);
 	}
 
-	private void createExcel(String method, String id, String optsId, HttpServletResponse response) throws IOException {
+	private void createExcel(String method, String id, String optsId, HttpServletResponse response, User user) throws IOException {
 		String serverPath = ctx.getResource("/").getFile().getPath();
 		String folderPath = serverPath + "/temp/salary/export";
 		String filePath = folderPath + "/" + optsId + ".json";
@@ -444,9 +446,9 @@ public class PayrollController {
 		List<PayrollItem> payrollItemList = payrollItemRepository.findByPayrollId(id);
 		data = payrollItemService.fillData(payroll, payrollItemList, account,payrollSubs);
 		if ("create".equals(method)) {
-			payrollService.createExcel(payroll.getSubject(), columns, data, response);
+			exportService.createExcel(payroll.getSubject(), columns, data, response);
 		} else if ("export".equals(method)) {
-			payrollService.exportExcel(payroll.getSubject(), columns, data, response);
+			exportService.exportExcel(payroll.getSubject(), columns, data, response, user);
 		}
 	}
 	
