@@ -21,8 +21,10 @@ public class SystemSalaryItem extends SalaryItem {
 	
 	public enum SystemSalaryItemType {
 		Personal,
+		PersonalCardinality,
 		Dept,
 		Company,
+		CompanyCardinality,
 		Group
 	}
 	

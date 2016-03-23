@@ -412,6 +412,116 @@
                                     "designerId": "5f0987b0-9bd2-4ac1-a41b-341c8bbceadb"
                                 }
                             ]
+                        },
+                        {
+                            "type": "actioncolumnitem",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "designer|displayName": "up",
+                                "iconCls": "s_icon_action_up",
+                                "tooltip": "上移"
+                            },
+                            "name": "MyActionColumnItem6",
+                            "designerId": "6e59ea5f-624f-4988-924c-0e9c709d3bfe",
+                            "cn": [
+                                {
+                                    "type": "fixedfunction",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "designer|params": [
+                                            "view",
+                                            "rowIndex",
+                                            "colIndex",
+                                            "item",
+                                            "e",
+                                            "record",
+                                            "row"
+                                        ],
+                                        "fn": "handler",
+                                        "implHandler": [
+                                            "var store = view.getStore(),",
+                                            "    index = store.indexOf(record),",
+                                            "    prevRecord = store.getAt(index-1);",
+                                            "",
+                                            "",
+                                            "if (index-1<0) {",
+                                            "    Ext.Msg.alert('提示','当前记录已经是第一条');",
+                                            "}else {",
+                                            "    store.remove(record);",
+                                            "    store.remove(prevRecord);",
+                                            "    store.insert(index-1,record);",
+                                            "    store.insert(index,prevRecord);",
+                                            "}",
+                                            ""
+                                        ]
+                                    },
+                                    "name": "handler",
+                                    "designerId": "2311e37f-ac8e-486e-8de2-85799b2bafed"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "actioncolumnitem",
+                            "reference": {
+                                "name": "items",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "designer|displayName": "down",
+                                "iconCls": "s_icon_action_down",
+                                "tooltip": "下移"
+                            },
+                            "name": "MyActionColumnItem7",
+                            "designerId": "2fd4fe10-8bfe-4e00-8593-cd7afa9fe79f",
+                            "cn": [
+                                {
+                                    "type": "fixedfunction",
+                                    "reference": {
+                                        "name": "items",
+                                        "type": "array"
+                                    },
+                                    "codeClass": null,
+                                    "userConfig": {
+                                        "designer|params": [
+                                            "view",
+                                            "rowIndex",
+                                            "colIndex",
+                                            "item",
+                                            "e",
+                                            "record",
+                                            "row"
+                                        ],
+                                        "fn": "handler",
+                                        "implHandler": [
+                                            "var store = view.getStore(),",
+                                            "    index = store.indexOf(record),",
+                                            "    nextRecord = store.getAt(index+1),",
+                                            "    count = store.getCount();",
+                                            "",
+                                            "",
+                                            "if (index+1==count) {",
+                                            "    Ext.Msg.alert('提示','当前记录已经是最后一条');",
+                                            "}else {",
+                                            "    store.remove(nextRecord);",
+                                            "    store.remove(record);",
+                                            "    store.insert(index,nextRecord);",
+                                            "    store.insert(index+1,record);",
+                                            "}"
+                                        ]
+                                    },
+                                    "name": "handler",
+                                    "designerId": "1238e45c-4747-4a58-8c94-48c826d5bcc0"
+                                }
+                            ]
                         }
                     ]
                 },

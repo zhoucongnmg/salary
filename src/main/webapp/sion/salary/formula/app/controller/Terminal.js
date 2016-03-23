@@ -70,7 +70,7 @@ Ext.define('sion.salary.formula.controller.Terminal', {
         var me = this._controller,
             commandStr = term.get_command(),
             pos = term.export_view().position;
-
+        /**
         if (e.which == 8) {
             if (commandStr&&commandStr.length>0) {
                 if (commandStr.charAt(pos-1)==']'&&(commandStr.indexOf('[')>-1&&commandStr.indexOf('[')<pos)) {
@@ -82,15 +82,16 @@ Ext.define('sion.salary.formula.controller.Terminal', {
         }else if (e.which==219 || e.which==221) { //验证"["和"]"
             return false;
         }else if (e.which==13) {
-            /**
+
             message = validator.validate(commandStr,store);
             if (message=='') {
                 term.echo('验证成功');
             }else {
                 term.error(message);
             }
-            **/
+
         }
+         **/
     },
 
     setCommand: function(id, command) {

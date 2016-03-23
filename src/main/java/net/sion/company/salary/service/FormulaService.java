@@ -186,7 +186,6 @@ public class FormulaService {
 		DecimalFormat df = new DecimalFormat("0.000");
 		List<FormulaItem> items = formula.getItems();
 		String formulaString = formula.getFormula();
-
 		
 		for (FormulaItem item : items) {
 			if (FormulaType.Calculate.equals(item.getType())) {
@@ -208,7 +207,6 @@ public class FormulaService {
 				}
 			}
 		}
-
 		try {
 			result = (Double) jsEngine.eval(formulaString);
 		} catch (ScriptException e) {
