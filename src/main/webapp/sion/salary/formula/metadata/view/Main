@@ -27,7 +27,7 @@
             "codeClass": null,
             "userConfig": {
                 "html": null,
-                "layout|flex": 2,
+                "layout|flex": 7,
                 "minHeight": 92,
                 "title": null
             },
@@ -54,7 +54,7 @@
                             "    id: formulaId,",
                             "    greetings: '输入公式，按回车键校验公式，按SHIFT+回车键换行',",
                             "    name: 'js_demo',",
-                            "    height: 85,",
+                            "    height: 260,",
                             "    prompt: '>'",
                             "});",
                             "if (command) {",
@@ -449,6 +449,7 @@
             "userConfig": {
                 "bodyPadding": null,
                 "container|align": "stretch",
+                "hidden": true,
                 "layout": "vbox",
                 "layout|flex": 7,
                 "title": null

@@ -31,6 +31,8 @@ Ext.define('sion.salary.payroll.view.DynamicGrid', {
 
     height: 700,
     width: 1050,
+    maximizable: true,
+    minimizable: true,
 
     layout: {
         type: 'vbox',

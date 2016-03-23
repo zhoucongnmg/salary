@@ -10,6 +10,8 @@
         "designer|userClassName": "DynamicGrid",
         "height": 700,
         "layout": "vbox",
+        "maximizable": true,
+        "minimizable": true,
         "title": null,
         "width": 1050
     },

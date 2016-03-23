@@ -56,8 +56,12 @@ public class SocialItemController {
 			//将项目添加到系统提取项中
 			SystemSalaryItem itemp = new SystemSalaryItem(SystemSalaryItemEnum.AccountItem, item.getName() + "个人部分", item.getId(), SystemSalaryItemType.Personal, item.getCarryType(), item.getPrecision());
 			SystemSalaryItem itemc = new SystemSalaryItem(SystemSalaryItemEnum.AccountItem, item.getName() + "单位部分", item.getId(), SystemSalaryItemType.Company, item.getCarryType(), item.getPrecision());
+			SystemSalaryItem itempc = new SystemSalaryItem(SystemSalaryItemEnum.AccountItem, item.getName() + "个人基数", item.getId(), SystemSalaryItemType.PersonalCardinality, item.getCarryType(), item.getPrecision());
+			SystemSalaryItem itemcc = new SystemSalaryItem(SystemSalaryItemEnum.AccountItem, item.getName() + "单位基数", item.getId(), SystemSalaryItemType.CompanyCardinality, item.getCarryType(), item.getPrecision());
 			systemSalaryItemRepository.save(itemp);
 			systemSalaryItemRepository.save(itemc);
+			systemSalaryItemRepository.save(itempc);
+			systemSalaryItemRepository.save(itemcc);
 		}else{
 			//修改社保项目时，修改系统提取项的名字
 			List<SystemSalaryItem> list = systemSalaryItemRepository.findByItemId(item.getId());
@@ -66,6 +70,10 @@ public class SocialItemController {
 					systemSalaryItem.setName(item.getName() + "个人部分");
 				}else if(SystemSalaryItemType.Company == systemSalaryItem.getSystemType()){
 					systemSalaryItem.setName(item.getName() + "单位部分");
+				}else if(SystemSalaryItemType.PersonalCardinality == systemSalaryItem.getSystemType()){
+					systemSalaryItem.setName(item.getName() + "个人基数");
+				}else if(SystemSalaryItemType.CompanyCardinality == systemSalaryItem.getSystemType()){
+					systemSalaryItem.setName(item.getName() + "单位基数");
 				}
 				systemSalaryItem.setCarryType(item.getCarryType());
 				systemSalaryItem.setPrecision(item.getPrecision());
