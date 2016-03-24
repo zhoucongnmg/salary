@@ -60,8 +60,8 @@ public class SalaryExportService {
 			dataValuesMap.put("工资表序号", ++i+"");
 			dataValuesMap.put("姓名", data.get("name").toString());
 			dataValuesMap.put("卡号", data.get("bankAccount").toString());
-			if (data.get("level")!=null) {
-				dataValuesMap.put("档位", data.get("level").toString());
+			if (data.get("rank")!=null) {
+				dataValuesMap.put("档位", data.get("rank").toString());
 			}
 			for (Map.Entry<String, Object> entry : data.entrySet()) {
 				String key = entry.getKey();
@@ -72,9 +72,9 @@ public class SalaryExportService {
 			}	
 			dataValuesList.add(dataValuesMap);
 		}
-		Map<String, List<Map<String, Object>>> map = new HashMap();
-		List<Map<String, Object>> excelList = new ArrayList();
-		Map<String, Object> excel = new HashMap();
+		Map<String, List<Map<String, Object>>> map = new HashMap<String, List<Map<String, Object>>>();
+		List<Map<String, Object>> excelList = new ArrayList<Map<String, Object>>();
+		Map<String, Object> excel = new HashMap<String,Object>();
 		excel.put("title", fileName);
 		excel.put("制表", user.getName());
 		excel.put("备注", note);

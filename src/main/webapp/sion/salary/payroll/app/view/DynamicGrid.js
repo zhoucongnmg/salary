@@ -384,7 +384,7 @@ Ext.define('sion.salary.payroll.view.DynamicGrid', {
             var subStore = subGrid.getStore();
             me.loadData(id,subGrid,{
                 type : 'PayrollSub'
-            },store,null);
+            },subStore,null);
             subGrid.headerCt.setHeight(levelCount*30-2);
         });
     },
