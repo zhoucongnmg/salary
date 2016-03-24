@@ -60,6 +60,9 @@ public class SalaryExportService {
 			dataValuesMap.put("工资表序号", ++i+"");
 			dataValuesMap.put("姓名", data.get("name").toString());
 			dataValuesMap.put("卡号", data.get("bankAccount").toString());
+			if (data.get("level")!=null) {
+				dataValuesMap.put("档位", data.get("level").toString());
+			}
 			for (Map.Entry<String, Object> entry : data.entrySet()) {
 				String key = entry.getKey();
 				String itemName = itemsMap.get(key);
