@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 /*
  * File: app.js
  *
