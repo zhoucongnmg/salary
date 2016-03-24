@@ -107,6 +107,7 @@ public class PayrollItemService {
 				simplePersonMap.put("bank", person.getBank());
 				simplePersonMap.put("bankOfDeposit", person.getBankOfDeposit());
 				simplePersonMap.put("bankAccount", person.getBankAccount());
+				simplePersonMap.put("level", person.getLevel());
 				
 				Map<String,AccountItem> personAccountItemMap = new LinkedHashMap<String,AccountItem>();
 				Map<String,AccountItem> personSalaryItemMap = new LinkedHashMap<String,AccountItem>();
