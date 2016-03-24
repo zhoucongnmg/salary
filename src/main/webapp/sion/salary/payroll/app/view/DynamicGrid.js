@@ -333,19 +333,6 @@ Ext.define('sion.salary.payroll.view.DynamicGrid', {
         exportWin._id = id;
         exportWin._opts = opts;
         exportWin.show();
-        // Ext.Ajax.request({
-        //     url:'salary/payroll/saveExcelTemp',
-        //     method : 'POST',
-        //     jsonData : {
-        //         opts : opts
-        //     },
-        //     success: function(response){
-        //         var json = Ext.JSON.decode(response.responseText);
-        //         window.location.href = 'salary/payroll/exportItemList?id=' + id + '&optsId=' + json.message;
-        //     },
-        //     failure: function(){
-        //     }
-        // });
     },
 
     onButtonClick11: function(button, e, eOpts) {

@@ -18,14 +18,15 @@ Ext.define('sion.salary.payroll.view.ExportWin', {
 
     requires: [
         'Ext.toolbar.Toolbar',
-        'Ext.button.Button',
         'Ext.toolbar.Fill',
+        'Ext.button.Button',
         'Ext.form.field.TextArea'
     ],
 
     height: 350,
     width: 500,
     layout: 'fit',
+    title: '请填写导出备注',
 
     initComponent: function() {
         var me = this;
@@ -35,9 +36,14 @@ Ext.define('sion.salary.payroll.view.ExportWin', {
                 {
                     xtype: 'toolbar',
                     dock: 'top',
+                    ui: 'footer',
                     items: [
                         {
+                            xtype: 'tbfill'
+                        },
+                        {
                             xtype: 'button',
+                            scale: 'medium',
                             text: '导出',
                             listeners: {
                                 click: {
@@ -47,10 +53,8 @@ Ext.define('sion.salary.payroll.view.ExportWin', {
                             }
                         },
                         {
-                            xtype: 'tbfill'
-                        },
-                        {
                             xtype: 'button',
+                            scale: 'medium',
                             text: '取消',
                             listeners: {
                                 click: {
@@ -66,6 +70,7 @@ Ext.define('sion.salary.payroll.view.ExportWin', {
                 {
                     xtype: 'textareafield',
                     itemId: 'note',
+                    margin: '5 5 5 5',
                     style: 'margin-right:10px;\nmargin-bottom:10px;\nmargin-left:10px;',
                     labelWidth: 30,
                     emptyText: '请输入备注信息',
