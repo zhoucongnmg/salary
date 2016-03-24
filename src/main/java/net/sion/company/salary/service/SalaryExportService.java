@@ -25,7 +25,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ExportService {
+public class SalaryExportService {
 	@Autowired ApplicationContext ctx;
 	@Autowired AsposeUtil asposeUtil;
 	@Autowired PayrollRepository payrollRepository;
