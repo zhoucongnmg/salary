@@ -33,7 +33,7 @@ import net.sion.company.salary.domain.PersonAccountFile;
 import net.sion.company.salary.event.SystemSalaryItemPublisher;
 import net.sion.company.salary.service.FormulaService;
 import net.sion.company.salary.service.PayrollItemService;
-import net.sion.company.salary.service.ExportService;
+import net.sion.company.salary.service.SalaryExportService;
 import net.sion.company.salary.service.PersonAccountFileService;
 import net.sion.company.salary.service.SocialService;
 import net.sion.company.salary.service.TaxService;
@@ -107,7 +107,7 @@ public class PayrollController {
 	@Autowired
 	SystemSalaryItemPublisher publisher;
 	@Autowired
-	ExportService exportService;
+	SalaryExportService exportService;
 
 	@Autowired
 	UserRepository userRepository;
