@@ -59,6 +59,8 @@ public class PayrollItem {
 	
 	String bankOfDeposit;//开户网点
 	
+	String level;
+	
 	String rank;	//等级
 	
 	Map<String,Double> values = new HashMap<String,Double>();	//薪资明细项
@@ -244,6 +246,14 @@ public class PayrollItem {
 
 	public void setRank(String rank) {
 		this.rank = rank;
+	}
+
+	public String getLevel() {
+		return level;
+	}
+
+	public void setLevel(String level) {
+		this.level = level;
 	}
 	
 	
