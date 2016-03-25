@@ -23,6 +23,8 @@ import net.sion.company.salary.sessionrepository.SalaryItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.itextpdf.text.log.SysoCounter;
+
 @Service
 public class FormulaService {
 
@@ -245,6 +247,7 @@ public class FormulaService {
 		}
 
 		try {
+			System.out.println(formulaString);
 			result = (Double) jsEngine.eval(formulaString);
 		} catch (ScriptException e) {
 			e.printStackTrace();
