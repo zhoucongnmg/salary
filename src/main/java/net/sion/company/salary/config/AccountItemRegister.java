@@ -54,6 +54,10 @@ public class AccountItemRegister extends AbstractSystemSalaryItemListener{
 					}
 					value = decimal(socialItem.getCarryType(), socialItem.getPrecision(), itemValue);
 					break;
+				}else if (event.getItem().getSystemType() == SystemSalaryItemType.PersonalCardinality) {
+					value = item.getPersonalCardinality();
+				}else if (event.getItem().getSystemType() == SystemSalaryItemType.CompanyCardinality) {
+					value = item.getCompanyCardinality();
 				}
 			}
 		}

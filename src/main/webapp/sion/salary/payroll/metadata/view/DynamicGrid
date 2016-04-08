@@ -10,6 +10,8 @@
         "designer|userClassName": "DynamicGrid",
         "height": 700,
         "layout": "vbox",
+        "maximizable": true,
+        "minimizable": true,
         "title": null,
         "width": 1050
     },
@@ -114,23 +116,15 @@
                                 "fn": "onButtonClick1",
                                 "implHandler": [
                                     "var me = this,",
+                                    "    namespace = me.getNamespace(),",
+                                    "    exportWin = Ext.create(namespace + '.view.ExportWin'),",
                                     "    id = me._id,",
                                     "    searchForm = me.down('#searchForm'),",
                                     "    opts = searchForm.getForm().getValues();",
                                     "",
-                                    "Ext.Ajax.request({",
-                                    "    url:'salary/payroll/saveExcelTemp',",
-                                    "    method : 'POST',",
-                                    "    jsonData : {",
-                                    "        opts : opts",
-                                    "    },",
-                                    "    success: function(response){",
-                                    "        var json = Ext.JSON.decode(response.responseText);",
-                                    "        window.location.href = 'salary/payroll/exportItemList?id=' + id + '&optsId=' + json.message;",
-                                    "    },",
-                                    "    failure: function(){",
-                                    "    }",
-                                    "});"
+                                    "exportWin._id = id;",
+                                    "exportWin._opts = opts;",
+                                    "exportWin.show();"
                                 ],
                                 "name": "click",
                                 "scope": "me"
@@ -188,57 +182,6 @@
                             },
                             "name": "onButtonClick11",
                             "designerId": "63189a81-81fa-42e0-937d-3d719b9e00c2"
-                        }
-                    ]
-                },
-                {
-                    "type": "Ext.button.Button",
-                    "reference": {
-                        "name": "items",
-                        "type": "array"
-                    },
-                    "codeClass": null,
-                    "userConfig": {
-                        "layout|flex": null,
-                        "text": "导出统计表"
-                    },
-                    "name": "MyButton18",
-                    "designerId": "347f26d5-6082-42da-9b54-603a2b2bf36f",
-                    "cn": [
-                        {
-                            "type": "basiceventbinding",
-                            "reference": {
-                                "name": "listeners",
-                                "type": "array"
-                            },
-                            "codeClass": null,
-                            "userConfig": {
-                                "fn": "onButtonClick12",
-                                "implHandler": [
-                                    "var me = this,",
-                                    "    id = me._id,",
-                                    "    searchForm = me.down('#searchForm'),",
-                                    "    opts = searchForm.getForm().getValues();",
-                                    "",
-                                    "Ext.Ajax.request({",
-                                    "    url:'salary/payroll/saveExcelTemp',",
-                                    "    method : 'POST',",
-                                    "    jsonData : {",
-                                    "        opts : opts",
-                                    "    },",
-                                    "    success: function(response){",
-                                    "        var json = Ext.JSON.decode(response.responseText);",
-                                    "        window.location.href = 'salary/payroll/exportSheets?id=' + id + '&optsId=' + json.message;",
-                                    "    },",
-                                    "    failure: function(){",
-                                    "    }",
-                                    "});"
-                                ],
-                                "name": "click",
-                                "scope": "me"
-                            },
-                            "name": "onButtonClick12",
-                            "designerId": "26ff64f7-4bb0-47f5-b4b3-f442a54ad172"
                         }
                     ]
                 },
@@ -610,7 +553,7 @@
                                     "    var subStore = subGrid.getStore();",
                                     "    me.loadData(id,subGrid,{",
                                     "        type : 'PayrollSub'",
-                                    "    },store,null);",
+                                    "    },subStore,null);",
                                     "    subGrid.headerCt.setHeight(levelCount*30-2);",
                                     "});"
                                 ],

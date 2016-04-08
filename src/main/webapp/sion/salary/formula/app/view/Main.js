@@ -37,7 +37,7 @@ Ext.define('sion.salary.formula.view.Main', {
             items: [
                 me.processMyPanel({
                     xtype: 'panel',
-                    flex: 2,
+                    flex: 7,
                     minHeight: 92,
                     listeners: {
                         afterrender: {
@@ -174,6 +174,7 @@ Ext.define('sion.salary.formula.view.Main', {
                 {
                     xtype: 'panel',
                     flex: 7,
+                    hidden: true,
                     layout: {
                         type: 'vbox',
                         align: 'stretch'
@@ -463,7 +464,7 @@ Ext.define('sion.salary.formula.view.Main', {
             id: formulaId,
             greetings: '输入公式，按回车键校验公式，按SHIFT+回车键换行',
             name: 'js_demo',
-            height: 85,
+            height: 260,
             prompt: '>'
         });
         if (command) {

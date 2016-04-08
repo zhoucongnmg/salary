@@ -160,6 +160,46 @@ Ext.define('sion.salary.accounts.view.SalaryPlan', {
                                     },
                                     iconCls: 's_icon_cross',
                                     tooltip: '删除'
+                                },
+                                {
+                                    handler: function(view, rowIndex, colIndex, item, e, record, row) {
+                                        var store = view.getStore(),
+                                            index = store.indexOf(record),
+                                            prevRecord = store.getAt(index-1);
+
+
+                                        if (index-1<0) {
+                                            Ext.Msg.alert('提示','当前记录已经是第一条');
+                                        }else {
+                                            store.remove(record);
+                                            store.remove(prevRecord);
+                                            store.insert(index-1,record);
+                                            store.insert(index,prevRecord);
+                                        }
+
+                                    },
+                                    iconCls: 's_icon_action_up',
+                                    tooltip: '上移'
+                                },
+                                {
+                                    handler: function(view, rowIndex, colIndex, item, e, record, row) {
+                                        var store = view.getStore(),
+                                            index = store.indexOf(record),
+                                            nextRecord = store.getAt(index+1),
+                                            count = store.getCount();
+
+
+                                        if (index+1==count) {
+                                            Ext.Msg.alert('提示','当前记录已经是最后一条');
+                                        }else {
+                                            store.remove(nextRecord);
+                                            store.remove(record);
+                                            store.insert(index,nextRecord);
+                                            store.insert(index+1,record);
+                                        }
+                                    },
+                                    iconCls: 's_icon_action_down',
+                                    tooltip: '下移'
                                 }
                             ]
                         }

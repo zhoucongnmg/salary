@@ -9,6 +9,9 @@
         "designer|userClassName": "AddSalaryItem",
         "height": 480,
         "itemId": "AddSalaryItem",
+        "resizable": [
+            "false"
+        ],
         "title": "新增方案项目",
         "width": 860
     },

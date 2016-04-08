@@ -1,0 +1,166 @@
+{
+    "type": "Ext.window.Window",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userClassName": "ExportWin",
+        "height": 350,
+        "layout": "fit",
+        "title": "请填写导出备注",
+        "width": 500
+    },
+    "name": "MyWindow",
+    "designerId": "31017e8b-3e0e-41b6-a0b7-1b2db9fa3ef6",
+    "cn": [
+        {
+            "type": "Ext.toolbar.Toolbar",
+            "reference": {
+                "name": "dockedItems",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "designer|uiInterfaceName": "footer",
+                "dock": "top",
+                "ui": "footer"
+            },
+            "name": "MyToolbar6",
+            "designerId": "d425b3b1-4834-40f1-8b83-989b6ee8a3db",
+            "cn": [
+                {
+                    "type": "Ext.toolbar.Fill",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|flex": null
+                    },
+                    "name": "MyFill",
+                    "designerId": "37ce5acd-7396-45e1-95d5-970aa75c6bee"
+                },
+                {
+                    "type": "Ext.button.Button",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|flex": null,
+                        "scale": "medium",
+                        "text": "导出"
+                    },
+                    "name": "MyButton19",
+                    "designerId": "e2d8aacf-d62a-42ea-9bd6-6fcc6251c897",
+                    "cn": [
+                        {
+                            "type": "basiceventbinding",
+                            "reference": {
+                                "name": "listeners",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fn": "onButtonClick",
+                                "implHandler": [
+                                    "var me = this,",
+                                    "    note = me.down('#note').getValue(),",
+                                    "    id = me._id,",
+                                    "    opts = me._opts;",
+                                    "",
+                                    "if(me.down('#note').validate()){",
+                                    "    note = encodeURI(encodeURI(note));",
+                                    "    Ext.Ajax.request({",
+                                    "        url:'salary/payroll/saveExcelTemp',",
+                                    "        method : 'POST',",
+                                    "        jsonData : {",
+                                    "            opts : opts",
+                                    "        },",
+                                    "        success: function(response){",
+                                    "            var json = Ext.JSON.decode(response.responseText);",
+                                    "            window.location.href = 'salary/payroll/exportItemList?id=' + id + '&optsId=' +",
+                                    "                json.message + '&note=' + note;",
+                                    "        },",
+                                    "        failure: function(){",
+                                    "        }",
+                                    "    });",
+                                    "}else{",
+                                    "    Ext.Msg.alert('提示', '您输入的备注信息过长，请重新输入！');",
+                                    "}"
+                                ],
+                                "name": "click",
+                                "scope": "me"
+                            },
+                            "name": "onButtonClick",
+                            "designerId": "3c524761-49c8-49fe-84c0-f034e931f716"
+                        }
+                    ]
+                },
+                {
+                    "type": "Ext.button.Button",
+                    "reference": {
+                        "name": "items",
+                        "type": "array"
+                    },
+                    "codeClass": null,
+                    "userConfig": {
+                        "layout|flex": null,
+                        "scale": "medium",
+                        "text": "取消"
+                    },
+                    "name": "MyButton18",
+                    "designerId": "0d8ccd20-e1d6-44ac-a463-30e497d8e394",
+                    "cn": [
+                        {
+                            "type": "basiceventbinding",
+                            "reference": {
+                                "name": "listeners",
+                                "type": "array"
+                            },
+                            "codeClass": null,
+                            "userConfig": {
+                                "fn": "onButtonClick1",
+                                "implHandler": [
+                                    "this.close();"
+                                ],
+                                "name": "click",
+                                "scope": "me"
+                            },
+                            "name": "onButtonClick1",
+                            "designerId": "668c425b-2516-40a1-a328-898fa4ebdadb"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "type": "Ext.form.field.TextArea",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "blankText": null,
+                "emptyText": "请输入备注信息",
+                "fieldLabel": null,
+                "itemId": "note",
+                "labelWidth": 30,
+                "margin": "5 5 5 5",
+                "maxLength": 100,
+                "style": [
+                    "margin-right:10px;",
+                    "margin-bottom:10px;",
+                    "margin-left:10px;"
+                ]
+            },
+            "name": "MyTextArea",
+            "designerId": "c35a6253-8e8d-4649-b3d3-0d5f877eb4fb"
+        }
+    ]
+}
